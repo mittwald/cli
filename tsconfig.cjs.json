@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist-cjs",
+    "outDir": "./dist/cjs",
     "target": "ES2016",
     "module": "CommonJS",
     "lib": ["ESNext"]

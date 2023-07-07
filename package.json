@@ -22,7 +22,7 @@
     "compile": "tsc --build",
     "compile:all": "yarn clean && yarn compile:cjs && yarn compile:esm",
     "compile:cjs": "tsc --build tsconfig.cjs.json",
-    "compile:esm": "tsc --build tsconfig.json",
+    "compile:esm": "tsc --build tsconfig.esm.json",
     "format": "prettier --write $@ '**/*.{ts,tsx,yaml,yml,json,md,mdx}'",
     "license-check": "yarn pnpify license-checker-rseidelsohn ",
     "lint": "eslint . --cache",
@@ -78,12 +78,16 @@
     "prettier-plugin-sort-json": "^1.0.0",
     "rimraf": "^5.0.1",
     "type-fest": "^3.12.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "oclif": "^3.9.1"
   },
   "oclif": {
     "bin": "mw",
     "dirname": "mw",
-    "commands": "./dist/commands",
+    "commands": "./dist/esm/commands",
+    "macos":{
+      "identifier": "de.mittwald.cli"
+    },
     "additionalHelpFlags": [
       "-h"
     ],
