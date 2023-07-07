@@ -1,0 +1,86 @@
+import { Command, Interfaces } from "@oclif/core";
+import { BaseCommand } from "./BaseCommand.js";
+import { ListColumns, ListFormatter } from "./Formatter.js";
+import { assertStatus, Response } from "@mittwald/api-client-commons";
+import { formatDate } from "./lib/viewhelpers/date.js";
+import { SuccessfulResponse } from "./types.js";
+
+export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
+  (typeof ListBaseCommand)["baseFlags"] & T["flags"]
+>;
+export type Args<T extends typeof Command> = Interfaces.InferredArgs<T["args"]>;
+
+export abstract class ListBaseCommand<
+  T extends typeof BaseCommand,
+  TItem extends Record<string, unknown>,
+  TAPIResponse extends Response,
+> extends BaseCommand<T> {
+  static baseFlags = {
+    ...ListFormatter.flags,
+  };
+
+  protected flags!: Flags<T>;
+  protected args!: Args<T>;
+
+  protected formatter: ListFormatter = new ListFormatter();
+
+  public async init(): Promise<void> {
+    await super.init();
+    const { args, flags } = await this.parse({
+      flags: this.ctor.flags,
+      baseFlags: (super.ctor as typeof ListBaseCommand).baseFlags,
+      args: this.ctor.args,
+      strict: this.ctor.strict,
+    });
+    this.args = args as Args<T>;
+    this.flags = flags as Flags<T>;
+  }
+
+  public async run(): Promise<void> {
+    const response = await this.getData();
+
+    assertStatus(response, 200);
+
+    const data = await this.mapData(response.data);
+
+    this.formatter.log(data, this.getColumns(data), { ...this.flags });
+  }
+
+  protected abstract getData(): Promise<TAPIResponse>;
+
+  protected abstract mapData(
+    data: SuccessfulResponse<TAPIResponse, 200>["data"],
+  ): TItem[] | Promise<TItem[]>;
+
+  protected getColumns(data: TItem[]): ListColumns<TItem> {
+    if (data.length === 0) {
+      return {};
+    }
+    // define some default columns, can be overwritten by child class
+    let columns: ListColumns<TItem> = {
+      id: {
+        header: "ID",
+        minWidth: 36,
+      },
+    };
+    if ("shortId" in data[0]) {
+      columns = {
+        ...columns,
+        shortId: {
+          header: "Short ID",
+          minWidth: 8,
+        },
+      };
+    }
+    if ("createdAt" in data[0]) {
+      columns = {
+        ...columns,
+        createdAt: {
+          header: "Created at",
+          get: (row) => formatDate(new Date(`${row.createdAt}`)),
+        },
+      };
+    }
+    return columns;
+  }
+}

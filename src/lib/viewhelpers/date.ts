@@ -1,0 +1,20 @@
+import { formatDistanceToNow } from "date-fns";
+
+export function formatDate(date: Date | string | undefined): string {
+  if (!date) {
+    return "unknown";
+  }
+
+  if (typeof date === "string") {
+    date = new Date(date);
+  }
+
+  if (date.getTime() < new Date().getTime()) {
+    return formatDistanceToNow(date) + " ago";
+  }
+  return formatDistanceToNow(date) + " from now";
+}
+
+export function formatCreatedAt(row: { createdAt: string }): string {
+  return formatDate(new Date(`${row.createdAt}`));
+}
