@@ -2,8 +2,6 @@ import React, { FC } from "react";
 import { useRenderContext } from "../context.js";
 import { usePromise } from "@mittwald/react-use-promise";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { Box, Text } from "ink";
-import { color } from "@mittwald/flow-styles/dist/tokens/ts/variables.js";
 import { Header } from "./Header.js";
 
 interface Props {
