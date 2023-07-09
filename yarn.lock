@@ -283,9 +283,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@file:./commons.tgz::locator=%40mittwald%2Fcli%40workspace%3A.":
+"@mittwald/api-client-commons@file:./.deps/commons.tgz::locator=%40mittwald%2Fcli%40workspace%3A.":
   version: 2.0.0
-  resolution: "@mittwald/api-client-commons@file:./commons.tgz::locator=%40mittwald%2Fcli%40workspace%3A."
+  resolution: "@mittwald/api-client-commons@file:./.deps/commons.tgz::locator=%40mittwald%2Fcli%40workspace%3A."
   dependencies:
     "@types/parse-path": ^7.0.0
     axios: ^1.4.0
@@ -296,22 +296,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^2.0.0":
-  version: 2.0.3
-  resolution: "@mittwald/api-client-commons@npm:2.0.3"
-  dependencies:
-    "@types/parse-path": ^7.0.0
-    axios: ^1.4.0
-    parse-path: ^7.0.0
-    path-to-regexp: ^6.2.1
-    type-fest: ^3.12.0
-  checksum: a50dde3afe40d79bdda1e71fdc3f6c2653ca5ed818f89c5e4cb7d1a018c02d8b9819722f3b426b1bd9235cc21bb3d481bc525eb8e2bb0c56138b17d939777b62
-  languageName: node
-  linkType: hard
-
-"@mittwald/api-client@file:./client.tgz::locator=%40mittwald%2Fcli%40workspace%3A.":
+"@mittwald/api-client@file:./.deps/client.tgz::locator=%40mittwald%2Fcli%40workspace%3A.":
   version: 1.0.4
-  resolution: "@mittwald/api-client@file:./client.tgz::locator=%40mittwald%2Fcli%40workspace%3A."
+  resolution: "@mittwald/api-client@file:./.deps/client.tgz::locator=%40mittwald%2Fcli%40workspace%3A."
   dependencies:
     "@mittwald/api-client-commons": ^2.0.0
   checksum: fb8bdb952340831155cca0c67eb137a4b07cf530633515e181f6cbb9ec03b420c6fc1f69bd557a711e6c6c1e4add1fb4dcb4fe7a1705b20462d1dc859124cfe3
@@ -322,8 +309,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mittwald/cli@workspace:."
   dependencies:
-    "@mittwald/api-client": ./client.tgz
-    "@mittwald/api-client-commons": ./commons.tgz
+    "@mittwald/api-client": ./.deps/client.tgz
+    "@mittwald/api-client-commons": ./.deps/commons.tgz
     "@mittwald/react-use-promise": ^1.2.2
     "@oclif/core": ^2.8.5
     "@oclif/plugin-help": ^5.2.9

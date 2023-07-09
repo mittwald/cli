@@ -3,11 +3,11 @@
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../types.js";
+import { SuccessfulResponse } from "../../../types.js";
 import {
   GeneratedIngressListAccessible,
   Response,
-} from "../../generated/domain/ingressListAccessible.js";
+} from "../../../generated/domain/ingressListAccessible.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Ingresses.Get.Responses.$200.Content.ApplicationJson[number]
