@@ -28,14 +28,20 @@
     "lint": "eslint . --cache",
     "test": "yarn lint && yarn format --check && yarn test:packages && yarn test:licenses",
     "test:licenses": "yarn license-check --summary --unknown && yarn license-check --unknown --failOn 'UNLICENSED;UNKNOWN'",
-    "test:packages": "yarn all run test"
+    "test:packages": "yarn all run test",
+    "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64 --no-xz --parallel",
+    "package:windows": "oclif pack win",
+    "package:macos": "oclif pack macos",
+    "package": "yarn package:tarballs && yarn package:windows && yarn package:macos"
   },
   "files": [
-    "{dist,dist-cjs}/**/*.{js,d.ts}"
+    "{dist,dist-cjs}/**/*.{js,d.ts}",
+    "bin",
+    ".deps"
   ],
   "dependencies": {
-    "@mittwald/api-client": "*",
-    "@mittwald/api-client-commons": "*",
+    "@mittwald/api-client": "./.deps/client.tgz",
+    "@mittwald/api-client-commons": "./.deps/commons.tgz",
     "@mittwald/react-use-promise": "^1.2.2",
     "@oclif/core": "^2.8.5",
     "@oclif/plugin-help": "^5.2.9",
@@ -71,6 +77,7 @@
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "license-checker-rseidelsohn": "^4.2.6",
+    "oclif": "^3.9.1",
     "pkg": "^5.8.1",
     "prettier": "^2.8.8",
     "prettier-plugin-jsdoc": "^0.4.2",
@@ -78,14 +85,13 @@
     "prettier-plugin-sort-json": "^1.0.0",
     "rimraf": "^5.0.1",
     "type-fest": "^3.12.0",
-    "typescript": "^5.1.6",
-    "oclif": "^3.9.1"
+    "typescript": "^5.1.6"
   },
   "oclif": {
     "bin": "mw",
     "dirname": "mw",
     "commands": "./dist/esm/commands",
-    "macos":{
+    "macos": {
       "identifier": "de.mittwald.cli"
     },
     "additionalHelpFlags": [
@@ -112,11 +118,5 @@
       "@oclif/plugin-help"
     ]
   },
-  "packageManager": "yarn@3.6.1",
-  "resolutions": {
-    "root": "portal:/Users/mhelmich/Git/coab0x7e7/tools/api-tools",
-    "@mittwald/api-client-commons": "portal:/Users/mhelmich/Git/coab0x7e7/tools/api-tools/packages/commons",
-    "@mittwald/api-code-generator": "portal:/Users/mhelmich/Git/coab0x7e7/tools/api-tools/packages/generator",
-    "@mittwald/api-client": "portal:/Users/mhelmich/Git/coab0x7e7/tools/api-tools/packages/mittwald"
-  }
+  "packageManager": "yarn@3.6.1"
 }

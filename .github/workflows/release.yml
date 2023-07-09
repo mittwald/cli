@@ -1,0 +1,29 @@
+name: Create release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Install dependencies for Windows builds
+        run: apt-get install -y p7zip-full nsis
+      - name: Install dependencies
+        run: yarn
+      - name: Build
+        run: yarn compile
+
+      - name: Build all possible packages
+        run: yarn package
+
+      - name: Create release
+        run: gh release create ${{ github.ref }} --title ${{ github.ref }} --generate-notes --verify-tag dist/*.tar.gz dist/win32/*.exe dist/macos/*.pkg
