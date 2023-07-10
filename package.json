@@ -130,7 +130,7 @@
         "description": "Manage your organizations, and also any kinds of user memberships concerning these organizations."
       },
       "project": {
-        "description": "The project API allows you to manage your projects, and also any kinds of user memberships concerning these projects."
+        "description": "Manage your projects, and also any kinds of user memberships concerning these projects."
       },
       "server": {
         "description": "Manage your servers"
