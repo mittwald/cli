@@ -1,7 +1,7 @@
 ARG ARCH=
 FROM ${ARCH}ubuntu:22.04 AS builder
 
-COPY dist/mw-*-linux-*.tar.gz /tmp/
+COPY pkg-tarballs/mw-*-linux-*.tar.gz /tmp/
 RUN mkdir /app
 RUN echo $ARCH
 
