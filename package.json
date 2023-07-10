@@ -19,7 +19,7 @@
     "generate:commands:v2": "curl --silent https://api.mittwald.de/openapi | ./transform-openapi.sh | yarn acg generate --name MittwaldAPIV2 --outputFormat=oclifCommands - src --optionalHeader x-access-token",
     "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
     "clean": "(rimraf --glob dist tsconfig.*.tsbuildinfo) | true",
-    "compile": "tsc --build",
+    "compile": "tsc --build tsconfig.esm.json",
     "compile:all": "yarn clean && yarn compile:cjs && yarn compile:esm",
     "compile:cjs": "tsc --build tsconfig.cjs.json",
     "compile:esm": "tsc --build tsconfig.esm.json",
