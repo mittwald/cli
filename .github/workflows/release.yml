@@ -6,7 +6,7 @@ on:
       - v*
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,6 +30,81 @@ jobs:
 
       - name: Build all possible packages
         run: yarn package
+
+      - name: Build all possible packages
+        run: yarn package:tarballs
+
+      - name: Save artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pkg-tarballs
+          path: dist/*.tar.gz
+
+  build-windows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies for Windows builds
+        run: sudo apt-get install -y p7zip-full nsis
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Set version in package json
+        run: npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version --no-workspaces-update
+
+      - name: Build
+        run: yarn compile
+
+      - name: Build all possible packages
+        run: yarn package:windows
+
+      - name: Save artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pkg-windows
+          path: dist/win32/*.exe
+
+  build-macos:
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Set version in package json
+        run: npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version --no-workspaces-update
+
+      - name: Build
+        run: yarn compile
+
+      - name: Build all possible packages
+        run: yarn package:macos
+
+      - name: Save artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pkg-macos
+          path: dist/macos/*.pkg
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
 
       - name: Create release
         run: gh release create ${{ github.ref }} --title ${{ github.ref }} --generate-notes --verify-tag dist/*.tar.gz dist/win32/*.exe dist/macos/*.pkg
