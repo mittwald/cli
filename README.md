@@ -91,13 +91,13 @@ USAGE
 * [`mw database redis get ID`](#mw-database-redis-get-id)
 * [`mw database redis list`](#mw-database-redis-list)
 * [`mw database redis versions`](#mw-database-redis-versions)
-* [`mw domain dnsZoneGetSpecific ZONEID`](#mw-domain-dnszonegetspecific-zoneid)
-* [`mw domain dnsZonesForProject`](#mw-domain-dnszonesforproject)
+* [`mw domain dnszone get ZONEID`](#mw-domain-dnszone-get-zoneid)
+* [`mw domain dnszone list`](#mw-domain-dnszone-list)
 * [`mw domain get DOMAINID`](#mw-domain-get-domainid)
-* [`mw domain getHandleFields DOMAINNAME`](#mw-domain-gethandlefields-domainname)
-* [`mw domain getSpecificDomainOwnership DOMAINOWNERSHIPID`](#mw-domain-getspecificdomainownership-domainownershipid)
+* [`mw domain get-handle DOMAINNAME`](#mw-domain-get-handle-domainname)
 * [`mw domain list`](#mw-domain-list)
-* [`mw domain listDomainOwnerships`](#mw-domain-listdomainownerships)
+* [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
+* [`mw domain ownership list`](#mw-domain-ownership-list)
 * [`mw domain tld get TLD`](#mw-domain-tld-get-tld)
 * [`mw domain tld list`](#mw-domain-tld-list)
 * [`mw domain virtualhost get INGRESSID`](#mw-domain-virtualhost-get-ingressid)
@@ -1279,13 +1279,13 @@ DESCRIPTION
   List available Redis versions.
 ```
 
-## `mw domain dnsZoneGetSpecific ZONEID`
+## `mw domain dnszone get ZONEID`
 
 gets a specific zone
 
 ```
 USAGE
-  $ mw domain dnsZoneGetSpecific ZONEID [--output json|yaml |  | ]
+  $ mw domain dnszone get ZONEID [--output json|yaml |  | ]
 
 ARGUMENTS
   ZONEID  id of the zone you want to get
@@ -1298,13 +1298,13 @@ DESCRIPTION
   gets a specific zone
 ```
 
-## `mw domain dnsZonesForProject`
+## `mw domain dnszone list`
 
 gets all dns zones by project id
 
 ```
 USAGE
-  $ mw domain dnsZonesForProject --project-id <value> [--output json|yaml |  | ]
+  $ mw domain dnszone list --project-id <value> [--output json|yaml |  | ]
 
 FLAGS
   --output=<option>     output in a more machine friendly format
@@ -1334,13 +1334,13 @@ DESCRIPTION
   Get a Domain.
 ```
 
-## `mw domain getHandleFields DOMAINNAME`
+## `mw domain get-handle DOMAINNAME`
 
 Get a HandleSchema.
 
 ```
 USAGE
-  $ mw domain getHandleFields DOMAINNAME [--output json|yaml |  | ]
+  $ mw domain get-handle DOMAINNAME [--output json|yaml |  | ]
 
 ARGUMENTS
   DOMAINNAME  The whole domain name
@@ -1351,25 +1351,6 @@ FLAGS
 
 DESCRIPTION
   Get a HandleSchema.
-```
-
-## `mw domain getSpecificDomainOwnership DOMAINOWNERSHIPID`
-
-Get a domain ownership.
-
-```
-USAGE
-  $ mw domain getSpecificDomainOwnership DOMAINOWNERSHIPID [--output json|yaml |  | ]
-
-ARGUMENTS
-  DOMAINOWNERSHIPID  undefined
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a domain ownership.
 ```
 
 ## `mw domain list`
@@ -1397,13 +1378,32 @@ DESCRIPTION
   List Domains belonging to a Project.
 ```
 
-## `mw domain listDomainOwnerships`
+## `mw domain ownership get DOMAINOWNERSHIPID`
+
+Get a domain ownership.
+
+```
+USAGE
+  $ mw domain ownership get DOMAINOWNERSHIPID [--output json|yaml |  | ]
+
+ARGUMENTS
+  DOMAINOWNERSHIPID  undefined
+
+FLAGS
+  --output=<option>  output in a more machine friendly format
+                     <options: json|yaml>
+
+DESCRIPTION
+  Get a domain ownership.
+```
+
+## `mw domain ownership list`
 
 List all domain ownerships of a project.
 
 ```
 USAGE
-  $ mw domain listDomainOwnerships --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+  $ mw domain ownership list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
     csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
 
 FLAGS
