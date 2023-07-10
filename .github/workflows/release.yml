@@ -124,7 +124,7 @@ jobs:
 
       - name: Publish
         run: |
-          yarn config set npmScopes.mittwald.npmAuthToken "${{ secrets.NPMJS_TOKEN }}
+          yarn config set npmScopes.mittwald.npmAuthToken "${{ secrets.NPMJS_TOKEN }}"
           yarn config set npmScopes.mittwald.npmPublishRegistry "https://registry.npmjs.org"
           yarn npm publish --access=public
 
