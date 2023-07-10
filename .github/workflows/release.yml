@@ -109,3 +109,5 @@ jobs:
 
       - name: Create release
         run: gh release create ${{ github.ref }} --title ${{ github.ref }} --generate-notes --verify-tag dist/*.tar.gz dist/win32/*.exe dist/macos/*.pkg
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
