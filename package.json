@@ -105,11 +105,35 @@
     ],
     "topicSeparator": " ",
     "topics": {
+      "app": {
+        "description": "Manage apps, and app installations in your projects"
+      },
+      "article": {
+        "description": "Query available hosting articles"
+      },
+      "contract": {
+        "description": "Manage your hosting contracts, and order new ones"
+      },
+      "database": {
+        "description": "Manage databases (like MySQL and Redis) in your projects"
+      },
+      "domain": {
+        "description": "Manage domains, virtual hosts and DNS settings in your projects"
+      },
       "login": {
         "description": "Manage your client authentication"
       },
+      "mail": {
+        "description": "Manage mailboxes and mail addresses in your projects"
+      },
+      "org": {
+        "description": "Manage your organizations, and also any kinds of user memberships concerning these organizations."
+      },
       "project": {
         "description": "The project API allows you to manage your projects, and also any kinds of user memberships concerning these projects."
+      },
+      "server": {
+        "description": "Manage your servers"
       },
       "user": {
         "description": "Manage your own user account",
