@@ -108,6 +108,6 @@ jobs:
         uses: actions/download-artifact@v3
 
       - name: Create release
-        run: gh release create ${{ github.ref }} --title ${{ github.ref }} --generate-notes --verify-tag pkg-tarballs/*.tar.gz pkg-windows/win32/*.exe pkg-macos/macos/*.pkg
+        run: gh release create ${{ github.ref }} --title ${{ github.ref }} --generate-notes --verify-tag pkg-tarballs/*.tar.gz pkg-windows/*.exe pkg-macos/*.pkg
         env:
           GITHUB_TOKEN: ${{ github.token }}
