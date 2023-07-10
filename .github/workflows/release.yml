@@ -145,3 +145,15 @@ jobs:
         run: gh release create ${GITHUB_REF#refs/tags/} --title ${GITHUB_REF#refs/tags/} --generate-notes --verify-tag pkg-tarballs/*.tar.gz pkg-windows/*.exe pkg-macos/*.pkg
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+  cleanup-artifacts:
+    runs-on: ubuntu-latest
+    needs:
+      - release-github
+    steps:
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: |
+            pkg-tarballs
+            pkg-windows
+            pkg-macos
