@@ -52,9 +52,7 @@ export default class Create extends BaseCommand<typeof Create> {
           headers: { "if-event-reached": eventId },
         });
 
-        assertStatus(projectResponse, 200);
-
-        if (projectResponse.data.readiness === "ready") {
+        if (projectResponse.status === 200 && projectResponse.data.readiness === "ready") {
           notify({
             title: "Project is ready",
             message: `The project "${description}" is ready`,
