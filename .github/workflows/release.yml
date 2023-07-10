@@ -19,6 +19,10 @@ jobs:
         run: apt-get install -y p7zip-full nsis
       - name: Install dependencies
         run: yarn
+
+      - name: Set version in package json
+        run: npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version --no-workspaces-update
+
       - name: Build
         run: yarn compile
 
