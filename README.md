@@ -46,8 +46,8 @@ USAGE
 * [`mw app install wordpress`](#mw-app-install-wordpress)
 * [`mw app list`](#mw-app-list)
 * [`mw app versions [APP]`](#mw-app-versions-app)
-* [`mw article getArticle ARTICLEID`](#mw-article-getarticle-articleid)
-* [`mw article listArticles`](#mw-article-listarticles)
+* [`mw article get ARTICLEID`](#mw-article-get-articleid)
+* [`mw article list`](#mw-article-list)
 * [`mw contract getBaseItemOfContract`](#mw-contract-getbaseitemofcontract)
 * [`mw contract getDetailOfContract CONTRACTID`](#mw-contract-getdetailofcontract-contractid)
 * [`mw contract getDetailOfContractByDomain`](#mw-contract-getdetailofcontractbydomain)
@@ -340,13 +340,13 @@ DESCRIPTION
   List supported Apps and Versions
 ```
 
-## `mw article getArticle ARTICLEID`
+## `mw article get ARTICLEID`
 
 Get an Article.
 
 ```
 USAGE
-  $ mw article getArticle ARTICLEID [--output json|yaml |  | ]
+  $ mw article get ARTICLEID [--output json|yaml |  | ]
 
 ARGUMENTS
   ARTICLEID  undefined
@@ -359,13 +359,13 @@ DESCRIPTION
   Get an Article.
 ```
 
-## `mw article listArticles`
+## `mw article list`
 
 List Articles.
 
 ```
 USAGE
-  $ mw article listArticles [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+  $ mw article list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
     [--csv | --no-truncate]] [--no-header | ]
 
 FLAGS
