@@ -29,7 +29,7 @@
     "test": "yarn lint && yarn format --check && yarn test:packages && yarn test:licenses",
     "test:licenses": "yarn license-check --summary --unknown && yarn license-check --unknown --failOn 'UNLICENSED;UNKNOWN'",
     "test:packages": "yarn all run test",
-    "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64 --no-xz --parallel",
+    "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64 --no-xz",
     "package:windows": "oclif pack win",
     "package:macos": "oclif pack macos",
     "package": "yarn package:tarballs && yarn package:windows && yarn package:macos"
