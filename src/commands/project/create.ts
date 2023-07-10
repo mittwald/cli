@@ -2,16 +2,13 @@ import { Flags, ux } from "@oclif/core";
 import { BaseCommand } from "../../BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { notify } from "../../lib/notify.js";
+import { serverFlags, withServerId } from "../../lib/server/flags.js";
 
 export default class Create extends BaseCommand<typeof Create> {
   static description = "Get the details of a project";
 
   static flags = {
-    "server-id": Flags.string({
-      char: "s",
-      required: true,
-      description: "ID of the Server, in which the project is to be created.",
-    }),
+    ...serverFlags,
     description: Flags.string({
       char: "d",
       required: true,
@@ -25,7 +22,9 @@ export default class Create extends BaseCommand<typeof Create> {
 
   public async run(): Promise<void> {
     const { flags } = await this.parse(Create);
-    const { description, "server-id": serverId } = flags;
+    const { description } = flags;
+
+    const serverId = await withServerId(this.apiClient, flags, {}, this.config);
 
     ux.action.start("creating project");
 

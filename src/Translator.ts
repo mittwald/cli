@@ -23,6 +23,23 @@ export async function getProjectUuidFromShortId(
   throw new Error("Access Denied.");
 }
 
+export async function getServerUuidFromShortId(
+  apiClient: MittwaldAPIV2Client,
+  shortId: string,
+): Promise<string> {
+  const servers = await apiClient.project.listServers();
+  assertStatus(servers, 200);
+
+  const foundServer = servers.data.find((item) => {
+    return item.shortId === shortId;
+  });
+
+  if (foundServer) {
+    return foundServer.id;
+  }
+  throw new Error("Access Denied.");
+}
+
 export async function getConversationUuidFromShortId(
   apiClient: MittwaldAPIV2Client,
   shortId: string,

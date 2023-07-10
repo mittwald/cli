@@ -111,6 +111,9 @@
       "article": {
         "description": "Query available hosting articles"
       },
+      "context": {
+        "description": "Save certain environment parameters for later use"
+      },
       "contract": {
         "description": "Manage your hosting contracts, and order new ones"
       },

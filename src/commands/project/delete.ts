@@ -1,25 +1,24 @@
-import { Args } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { normalizeProjectIdToUuid } from "../../Helpers.js";
 import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
+import { projectArgs, withProjectId } from "../../lib/project/flags.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete a project";
   static resourceName = "project";
 
-  static flags = {
-    ...DeleteBaseCommand.baseFlags,
-  };
-  static args = {
-    id: Args.string({
-      required: true,
-      description: "ID of the Project to be deleted.",
-    }),
-  };
+  static flags = { ...DeleteBaseCommand.baseFlags };
+  static args = { ...projectArgs };
 
   protected async deleteResource(): Promise<void> {
+    const projectId = await withProjectId(
+      this.apiClient,
+      {},
+      this.args,
+      this.config,
+    );
     const response = await this.apiClient.project.deleteProject({
-      pathParameters: { projectId: this.args.id },
+      pathParameters: { projectId },
     });
 
     assertStatus(response, 200);

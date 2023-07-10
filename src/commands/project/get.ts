@@ -1,12 +1,26 @@
 /* eslint-disable */
 /* prettier-ignore */
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedProjectGetProject, PathParams } from "../../generated/project/getProject.js";
-import { normalizeProjectIdToUuid } from "../../Helpers.js";
+import { GetBaseCommand } from "../../GetBaseCommand.js";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { projectArgs, withProjectId } from "../../lib/project/flags.js";
 
-export default class Get extends GeneratedProjectGetProject {
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    input.id = await normalizeProjectIdToUuid(this.apiClient, input.id);
-    return super.mapParams(input);
+export type PathParams = MittwaldAPIV2.Paths.V2ProjectsId.Get.Parameters.Path;
+type APIResponse = Awaited<
+  ReturnType<MittwaldAPIV2Client["project"]["getProject"]>
+>;
+
+export class Get extends GetBaseCommand<typeof Get, APIResponse> {
+  static description = "Get a Project.";
+
+  static flags = { ...GetBaseCommand.baseFlags };
+  static args = { ...projectArgs };
+
+  protected async getData(): Promise<APIResponse> {
+    const id = await withProjectId(this.apiClient, this.flags, this.args, this.config);
+    return await this.apiClient.project.getProject({
+      pathParameters: { id },
+    });
   }
+
 }

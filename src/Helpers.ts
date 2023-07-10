@@ -1,6 +1,6 @@
 import {
   getConversationUuidFromShortId,
-  getProjectUuidFromShortId,
+  getProjectUuidFromShortId, getServerUuidFromShortId
 } from "./Translator.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 
@@ -28,6 +28,17 @@ export async function normalizeProjectIdToUuid(
     return await getProjectUuidFromShortId(apiClient, uuidOrShortId);
   }
   throw new Error(`Given ID ${uuidOrShortId} does not seem to be valid`);
+}
+
+export async function normalizeServerIdToUuid(
+  apiClient: MittwaldAPIV2Client,
+  uuidOrShortId: string,
+): Promise<string> {
+  if (isUuid(uuidOrShortId)) {
+    return uuidOrShortId;
+  }
+
+  return await getServerUuidFromShortId(apiClient, uuidOrShortId);
 }
 
 export async function normalizeConversationIdToUuid(

@@ -2,20 +2,16 @@ import { Args } from "@oclif/core";
 import { BaseCommand } from "../../BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import * as child_process from "child_process";
+import { projectArgs, withProjectId } from "../../lib/project/flags.js";
 
 export default class Ssh extends BaseCommand<typeof Ssh> {
   static description = "Connect to a project via SSH";
 
-  static args = {
-    id: Args.string({
-      required: true,
-      description: "ID of the Project to be retrieved.",
-    }),
-  };
+  static args = { ...projectArgs };
 
   public async run(): Promise<void> {
     const { args } = await this.parse(Ssh);
-    const { id } = args;
+    const id = await withProjectId(this.apiClient, {}, args, this.config);
 
     const projectResponse = await this.apiClient.project.getProject({
       pathParameters: { id },
