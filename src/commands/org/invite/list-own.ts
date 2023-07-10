@@ -3,16 +3,16 @@
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../types.js";
+import { SuccessfulResponse } from "../../../types.js";
 import {
-  GeneratedCustomerListCustomerMemberships,
+  GeneratedCustomerListCustomerInvites,
   Response,
-} from "../../generated/customer/listCustomerMemberships.js";
+} from "../../../generated/customer/listCustomerInvites.js";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2CustomerMemberships.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2CustomerInvites.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedCustomerListCustomerMemberships<ResponseItem> {
+export default class List extends GeneratedCustomerListCustomerInvites<ResponseItem> {
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return data;
   }

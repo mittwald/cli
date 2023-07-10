@@ -69,18 +69,6 @@ USAGE
 * [`mw conversation reply ID`](#mw-conversation-reply-id)
 * [`mw conversation show ID`](#mw-conversation-show-id)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
-* [`mw customer getCustomer CUSTOMERID`](#mw-customer-getcustomer-customerid)
-* [`mw customer getCustomerCategory CATEGORYID`](#mw-customer-getcustomercategory-categoryid)
-* [`mw customer getCustomerInvite INVITEID`](#mw-customer-getcustomerinvite-inviteid)
-* [`mw customer getCustomerMembership MEMBERSHIPID`](#mw-customer-getcustomermembership-membershipid)
-* [`mw customer getCustomerTokenInvite`](#mw-customer-getcustomertokeninvite)
-* [`mw customer isCustomerLegallyCompetent`](#mw-customer-iscustomerlegallycompetent)
-* [`mw customer listCustomerInvites`](#mw-customer-listcustomerinvites)
-* [`mw customer listCustomerMemberships`](#mw-customer-listcustomermemberships)
-* [`mw customer listCustomers`](#mw-customer-listcustomers)
-* [`mw customer listInvitesForCustomer`](#mw-customer-listinvitesforcustomer)
-* [`mw customer listMembershipsForCustomer`](#mw-customer-listmembershipsforcustomer)
-* [`mw customer listOfCustomerCategories`](#mw-customer-listofcustomercategories)
 * [`mw database mysql charsets`](#mw-database-mysql-charsets)
 * [`mw database mysql get ID`](#mw-database-mysql-get-id)
 * [`mw database mysql list`](#mw-database-mysql-list)
@@ -111,6 +99,15 @@ USAGE
 * [`mw mail address list`](#mw-mail-address-list)
 * [`mw mail deliverybox get ID`](#mw-mail-deliverybox-get-id)
 * [`mw mail deliverybox list`](#mw-mail-deliverybox-list)
+* [`mw org can-order`](#mw-org-can-order)
+* [`mw org get CUSTOMERID`](#mw-org-get-customerid)
+* [`mw org invite get INVITEID`](#mw-org-invite-get-inviteid)
+* [`mw org invite list`](#mw-org-invite-list)
+* [`mw org invite list-own`](#mw-org-invite-list-own)
+* [`mw org list`](#mw-org-list)
+* [`mw org membership get MEMBERSHIPID`](#mw-org-membership-get-membershipid)
+* [`mw org membership list`](#mw-org-membership-list)
+* [`mw org membership list-own`](#mw-org-membership-list-own)
 * [`mw project backup get PROJECTBACKUPID`](#mw-project-backup-get-projectbackupid)
 * [`mw project backup list`](#mw-project-backup-list)
 * [`mw project backupschedule get PROJECTBACKUPSCHEDULEID`](#mw-project-backupschedule-get-projectbackupscheduleid)
@@ -803,261 +800,6 @@ FLAGS
   --wait
 ```
 
-## `mw customer getCustomer CUSTOMERID`
-
-Get a customer profile.
-
-```
-USAGE
-  $ mw customer getCustomer CUSTOMERID [--output json|yaml |  | ]
-
-ARGUMENTS
-  CUSTOMERID  undefined
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a customer profile.
-```
-
-## `mw customer getCustomerCategory CATEGORYID`
-
-Get a customer category.
-
-```
-USAGE
-  $ mw customer getCustomerCategory CATEGORYID [--output json|yaml |  | ]
-
-ARGUMENTS
-  CATEGORYID  undefined
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a customer category.
-```
-
-## `mw customer getCustomerInvite INVITEID`
-
-Get a CustomerInvite.
-
-```
-USAGE
-  $ mw customer getCustomerInvite INVITEID [--output json|yaml |  | ]
-
-ARGUMENTS
-  INVITEID  ID of the CustomerInvite to be retrieved.
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a CustomerInvite.
-```
-
-## `mw customer getCustomerMembership MEMBERSHIPID`
-
-Get a CustomerMembership.
-
-```
-USAGE
-  $ mw customer getCustomerMembership MEMBERSHIPID [--output json|yaml |  | ]
-
-ARGUMENTS
-  MEMBERSHIPID  ID of the CustomerMembership to retrieve.
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a CustomerMembership.
-```
-
-## `mw customer getCustomerTokenInvite`
-
-Get a CustomerInvite by token.
-
-```
-USAGE
-  $ mw customer getCustomerTokenInvite [--output json|yaml |  | ]
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a CustomerInvite by token.
-```
-
-## `mw customer isCustomerLegallyCompetent`
-
-Check if the customer profile has a valid contract partner configured.
-
-```
-USAGE
-  $ mw customer isCustomerLegallyCompetent --customer-id <value> [--output json|yaml |  | ]
-
-FLAGS
-  --customer-id=<value>  (required) undefined
-  --output=<option>      output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Check if the customer profile has a valid contract partner configured.
-```
-
-## `mw customer listCustomerInvites`
-
-List all CustomerInvites for the executing user.
-
-```
-USAGE
-  $ mw customer listCustomerInvites [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List all CustomerInvites for the executing user.
-```
-
-## `mw customer listCustomerMemberships`
-
-List all CustomerMemberships for the executing user.
-
-```
-USAGE
-  $ mw customer listCustomerMemberships [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List all CustomerMemberships for the executing user.
-```
-
-## `mw customer listCustomers`
-
-Get all customer profiles the authenticated user has access to.
-
-```
-USAGE
-  $ mw customer listCustomers [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  Get all customer profiles the authenticated user has access to.
-```
-
-## `mw customer listInvitesForCustomer`
-
-List all invites for a Customer.
-
-```
-USAGE
-  $ mw customer listInvitesForCustomer --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) ID of the Customer to list invites for.
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List all invites for a Customer.
-```
-
-## `mw customer listMembershipsForCustomer`
-
-List all memberships belonging to a Customer.
-
-```
-USAGE
-  $ mw customer listMembershipsForCustomer --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) Customer to list memberships for.
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List all memberships belonging to a Customer.
-```
-
-## `mw customer listOfCustomerCategories`
-
-Get all customer categories.
-
-```
-USAGE
-  $ mw customer listOfCustomerCategories [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  Get all customer categories.
-```
-
 ## `mw database mysql charsets`
 
 List available MySQL character sets and collations, optionally filtered by a MySQLVersion.
@@ -1680,6 +1422,202 @@ FLAGS
 
 DESCRIPTION
   Get all deliveryboxes by project ID
+```
+
+## `mw org can-order`
+
+Check if the customer profile has a valid contract partner configured.
+
+```
+USAGE
+  $ mw org can-order --customer-id <value> [--output json|yaml |  | ]
+
+FLAGS
+  --customer-id=<value>  (required) undefined
+  --output=<option>      output in a more machine friendly format
+                         <options: json|yaml>
+
+DESCRIPTION
+  Check if the customer profile has a valid contract partner configured.
+```
+
+## `mw org get CUSTOMERID`
+
+Get a customer profile.
+
+```
+USAGE
+  $ mw org get CUSTOMERID [--output json|yaml |  | ]
+
+ARGUMENTS
+  CUSTOMERID  undefined
+
+FLAGS
+  --output=<option>  output in a more machine friendly format
+                     <options: json|yaml>
+
+DESCRIPTION
+  Get a customer profile.
+```
+
+## `mw org invite get INVITEID`
+
+Get a CustomerInvite.
+
+```
+USAGE
+  $ mw org invite get INVITEID [--output json|yaml |  | ]
+
+ARGUMENTS
+  INVITEID  ID of the CustomerInvite to be retrieved.
+
+FLAGS
+  --output=<option>  output in a more machine friendly format
+                     <options: json|yaml>
+
+DESCRIPTION
+  Get a CustomerInvite.
+```
+
+## `mw org invite list`
+
+List all invites for a Customer.
+
+```
+USAGE
+  $ mw org invite list --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended         show extra columns
+  --columns=<value>      only show provided columns (comma-separated)
+  --csv                  output is csv format [alias: --output=csv]
+  --customer-id=<value>  (required) ID of the Customer to list invites for.
+  --filter=<value>       filter property by partial string matching, ex: name=foo
+  --no-header            hide table header from output
+  --no-truncate          do not truncate output to fit screen
+  --output=<option>      output in a more machine friendly format
+                         <options: csv|json|yaml>
+  --sort=<value>         property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List all invites for a Customer.
+```
+
+## `mw org invite list-own`
+
+List all CustomerInvites for the executing user.
+
+```
+USAGE
+  $ mw org invite list-own [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended     show extra columns
+  --columns=<value>  only show provided columns (comma-separated)
+  --csv              output is csv format [alias: --output=csv]
+  --filter=<value>   filter property by partial string matching, ex: name=foo
+  --no-header        hide table header from output
+  --no-truncate      do not truncate output to fit screen
+  --output=<option>  output in a more machine friendly format
+                     <options: csv|json|yaml>
+  --sort=<value>     property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List all CustomerInvites for the executing user.
+```
+
+## `mw org list`
+
+Get all customer profiles the authenticated user has access to.
+
+```
+USAGE
+  $ mw org list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended     show extra columns
+  --columns=<value>  only show provided columns (comma-separated)
+  --csv              output is csv format [alias: --output=csv]
+  --filter=<value>   filter property by partial string matching, ex: name=foo
+  --no-header        hide table header from output
+  --no-truncate      do not truncate output to fit screen
+  --output=<option>  output in a more machine friendly format
+                     <options: csv|json|yaml>
+  --sort=<value>     property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  Get all customer profiles the authenticated user has access to.
+```
+
+## `mw org membership get MEMBERSHIPID`
+
+Get a CustomerMembership.
+
+```
+USAGE
+  $ mw org membership get MEMBERSHIPID [--output json|yaml |  | ]
+
+ARGUMENTS
+  MEMBERSHIPID  ID of the CustomerMembership to retrieve.
+
+FLAGS
+  --output=<option>  output in a more machine friendly format
+                     <options: json|yaml>
+
+DESCRIPTION
+  Get a CustomerMembership.
+```
+
+## `mw org membership list`
+
+List all memberships belonging to a Customer.
+
+```
+USAGE
+  $ mw org membership list --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended         show extra columns
+  --columns=<value>      only show provided columns (comma-separated)
+  --csv                  output is csv format [alias: --output=csv]
+  --customer-id=<value>  (required) Customer to list memberships for.
+  --filter=<value>       filter property by partial string matching, ex: name=foo
+  --no-header            hide table header from output
+  --no-truncate          do not truncate output to fit screen
+  --output=<option>      output in a more machine friendly format
+                         <options: csv|json|yaml>
+  --sort=<value>         property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List all memberships belonging to a Customer.
+```
+
+## `mw org membership list-own`
+
+List all CustomerMemberships for the executing user.
+
+```
+USAGE
+  $ mw org membership list-own [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended     show extra columns
+  --columns=<value>  only show provided columns (comma-separated)
+  --csv              output is csv format [alias: --output=csv]
+  --filter=<value>   filter property by partial string matching, ex: name=foo
+  --no-header        hide table header from output
+  --no-truncate      do not truncate output to fit screen
+  --output=<option>  output in a more machine friendly format
+                     <options: csv|json|yaml>
+  --sort=<value>     property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List all CustomerMemberships for the executing user.
 ```
 
 ## `mw project backup get PROJECTBACKUPID`
