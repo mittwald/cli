@@ -100,7 +100,7 @@
     "macos": {
       "identifier": "de.mittwald.cli"
     },
-    "additionalHelpFlags": [
+    "additionalHelpFlags" : [
       "-h"
     ],
     "topicSeparator": " ",
