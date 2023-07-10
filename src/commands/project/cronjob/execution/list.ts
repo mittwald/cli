@@ -8,6 +8,8 @@ import {
   GeneratedCronjobListExecutions,
   Response,
 } from "../../../../generated/cronjob/listExecutions.js";
+import { ListColumns } from "../../../../Formatter.js";
+import { formatDate } from "../../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2CronjobsCronjobIdExecutions.Get.Responses.$200.Content.ApplicationJson[number]
@@ -15,5 +17,21 @@ type ResponseItem = Simplify<
 export default class List extends GeneratedCronjobListExecutions<ResponseItem> {
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return data;
+  }
+
+  protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+    return {
+      id: {},
+      status: {},
+      duration: {
+        get: r => r.durationInMilliseconds ? Math.round(r.durationInMilliseconds / 1000) + "s" : "",
+      },
+      started: {
+        get: r => formatDate(r.executionStart),
+      },
+      ended: {
+        get: r => formatDate(r.executionEnd),
+      },
+    }
   }
 }
