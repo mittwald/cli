@@ -3,9 +3,13 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 
 export interface RenderContext {
   apiClient: MittwaldAPIV2Client;
+  renderAsJson: boolean;
 }
 
-export const renderContext = createContext({} as any);
+export const renderContext = createContext<RenderContext>({
+  renderAsJson: true,
+  apiClient: null as unknown as MittwaldAPIV2Client,
+});
 
 export const RenderContextProvider = renderContext.Provider;
 

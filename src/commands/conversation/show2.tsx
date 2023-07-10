@@ -7,13 +7,14 @@ import { UsePromiseRenderSetup } from "../../rendering/setup/usePromiseSetup.js"
 import { Box } from "ink";
 import { ConversationMeta } from "../../rendering/react/components/ConversationMeta.js";
 import { Args } from "@oclif/core";
-import { ConversationMessage } from "../../rendering/react/components/ConversationMessage.js";
+import { ConversationMessages } from "../../rendering/react/components/ConversationMessages.js";
 
 const usePromiseSetup = new UsePromiseRenderSetup();
 
 export default class Show extends RenderBaseCommand<typeof Show> {
   public static flags = {
     ...usePromiseSetup.flags,
+    ...RenderBaseCommand.buildFlags(),
   };
 
   public static args = {
@@ -26,6 +27,8 @@ export default class Show extends RenderBaseCommand<typeof Show> {
     const { apiClient } = useRenderContext();
     const { conversationId } = this.args;
 
+    const usePromiseOptions = usePromiseSetup.getSetup(this.flags);
+
     const response = usePromise(
       apiClient.conversation.listMessagesByConversation,
       [
@@ -37,6 +40,7 @@ export default class Show extends RenderBaseCommand<typeof Show> {
       ],
       {
         loaderId: "listMessagesByConversation",
+        ...usePromiseOptions,
       },
     );
 
@@ -47,11 +51,7 @@ export default class Show extends RenderBaseCommand<typeof Show> {
         <Suspense fallback={null}>
           <ConversationMeta id={conversationId} />
         </Suspense>
-        <Box flexDirection="column">
-          {response.data.map((msg, index) => (
-            <ConversationMessage key={index} message={msg} />
-          ))}
-        </Box>
+        <ConversationMessages messages={response.data} />
       </Box>
     );
   }

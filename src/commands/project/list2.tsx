@@ -17,6 +17,7 @@ export default class List extends RenderBaseCommand<typeof List> {
   public static flags = {
     ...usePromiseSetup.flags,
     ...tableSetup.flags,
+    ...RenderBaseCommand.buildFlags(),
   };
 
   protected render(): React.ReactNode {
@@ -33,6 +34,6 @@ export default class List extends RenderBaseCommand<typeof List> {
 
     assertStatus(projects, 200);
 
-    return <Table rows={projects.data} {...tableProps} />;
+    return <Table data={projects.data} {...tableProps} />;
   }
 }
