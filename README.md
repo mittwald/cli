@@ -38,18 +38,14 @@ USAGE
 
 <!-- commands -->
 * [`mw app delete ID`](#mw-app-delete-id)
-* [`mw app getApp APPID`](#mw-app-getapp-appid)
-* [`mw app getAppinstallation APPINSTALLATIONID`](#mw-app-getappinstallation-appinstallationid)
-* [`mw app getAppversion APPVERSIONID`](#mw-app-getappversion-appversionid)
-* [`mw app getSystemsoftware SYSTEMSOFTWAREID`](#mw-app-getsystemsoftware-systemsoftwareid)
-* [`mw app getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`](#mw-app-getsystemsoftwareversion-systemsoftwareversionid)
+* [`mw app dependency getSystemsoftware SYSTEMSOFTWAREID`](#mw-app-dependency-getsystemsoftware-systemsoftwareid)
+* [`mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`](#mw-app-dependency-getsystemsoftwareversion-systemsoftwareversionid)
+* [`mw app dependency listSystemsoftwares`](#mw-app-dependency-listsystemsoftwares)
+* [`mw app dependency listSystemsoftwareversions`](#mw-app-dependency-listsystemsoftwareversions)
+* [`mw app get APPINSTALLATIONID`](#mw-app-get-appinstallationid)
+* [`mw app install wordpress`](#mw-app-install-wordpress)
 * [`mw app list`](#mw-app-list)
-* [`mw app listAppinstallations`](#mw-app-listappinstallations)
-* [`mw app listApps`](#mw-app-listapps)
-* [`mw app listAppversions`](#mw-app-listappversions)
-* [`mw app listSystemsoftwares`](#mw-app-listsystemsoftwares)
-* [`mw app listSystemsoftwareversions`](#mw-app-listsystemsoftwareversions)
-* [`mw app retrieveStatus`](#mw-app-retrievestatus)
+* [`mw app versions [APP]`](#mw-app-versions-app)
 * [`mw article getArticle ARTICLEID`](#mw-article-getarticle-articleid)
 * [`mw article listArticles`](#mw-article-listarticles)
 * [`mw contract getBaseItemOfContract`](#mw-contract-getbaseitemofcontract)
@@ -73,10 +69,6 @@ USAGE
 * [`mw conversation reply ID`](#mw-conversation-reply-id)
 * [`mw conversation show ID`](#mw-conversation-show-id)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
-* [`mw cronjob getCronjob CRONJOBID`](#mw-cronjob-getcronjob-cronjobid)
-* [`mw cronjob getExecution EXECUTIONID`](#mw-cronjob-getexecution-executionid)
-* [`mw cronjob listCronjobs`](#mw-cronjob-listcronjobs)
-* [`mw cronjob listExecutions`](#mw-cronjob-listexecutions)
 * [`mw customer getCustomer CUSTOMERID`](#mw-customer-getcustomer-customerid)
 * [`mw customer getCustomerCategory CATEGORYID`](#mw-customer-getcustomercategory-categoryid)
 * [`mw customer getCustomerInvite INVITEID`](#mw-customer-getcustomerinvite-inviteid)
@@ -101,20 +93,15 @@ USAGE
 * [`mw database redis versions`](#mw-database-redis-versions)
 * [`mw domain dnsZoneGetSpecific ZONEID`](#mw-domain-dnszonegetspecific-zoneid)
 * [`mw domain dnsZonesForProject`](#mw-domain-dnszonesforproject)
-* [`mw domain getDomain DOMAINID`](#mw-domain-getdomain-domainid)
+* [`mw domain get DOMAINID`](#mw-domain-get-domainid)
 * [`mw domain getHandleFields DOMAINNAME`](#mw-domain-gethandlefields-domainname)
 * [`mw domain getSpecificDomainOwnership DOMAINOWNERSHIPID`](#mw-domain-getspecificdomainownership-domainownershipid)
-* [`mw domain getToplevelDomain TLD`](#mw-domain-gettopleveldomain-tld)
-* [`mw domain ingressGetSpecific INGRESSID`](#mw-domain-ingressgetspecific-ingressid)
-* [`mw domain ingressListAccessible`](#mw-domain-ingresslistaccessible)
-* [`mw domain ingressListForProject`](#mw-domain-ingresslistforproject)
+* [`mw domain list`](#mw-domain-list)
 * [`mw domain listDomainOwnerships`](#mw-domain-listdomainownerships)
-* [`mw domain listDomains`](#mw-domain-listdomains)
-* [`mw domain listToplevelDomains`](#mw-domain-listtopleveldomains)
-* [`mw file getFile ID`](#mw-file-getfile-id)
-* [`mw file getFileMeta`](#mw-file-getfilemeta)
-* [`mw file getFileTokenRules TOKEN`](#mw-file-getfiletokenrules-token)
-* [`mw file getFileTypeRules NAME`](#mw-file-getfiletyperules-name)
+* [`mw domain tld get TLD`](#mw-domain-tld-get-tld)
+* [`mw domain tld list`](#mw-domain-tld-list)
+* [`mw domain virtualhost get INGRESSID`](#mw-domain-virtualhost-get-ingressid)
+* [`mw domain virtualhost list`](#mw-domain-virtualhost-list)
 * [`mw help [COMMANDS]`](#mw-help-commands)
 * [`mw login status`](#mw-login-status)
 * [`mw login token`](#mw-login-token)
@@ -129,6 +116,10 @@ USAGE
 * [`mw project backupschedule get PROJECTBACKUPSCHEDULEID`](#mw-project-backupschedule-get-projectbackupscheduleid)
 * [`mw project backupschedule list`](#mw-project-backupschedule-list)
 * [`mw project create`](#mw-project-create)
+* [`mw project cronjob execution get EXECUTIONID`](#mw-project-cronjob-execution-get-executionid)
+* [`mw project cronjob execution list`](#mw-project-cronjob-execution-list)
+* [`mw project cronjob get CRONJOBID`](#mw-project-cronjob-get-cronjobid)
+* [`mw project cronjob list`](#mw-project-cronjob-list)
 * [`mw project delete ID`](#mw-project-delete-id)
 * [`mw project filesystem directories`](#mw-project-filesystem-directories)
 * [`mw project filesystem file-content`](#mw-project-filesystem-file-content)
@@ -181,71 +172,13 @@ DESCRIPTION
   Delete an app
 ```
 
-## `mw app getApp APPID`
-
-get a specific `App`
-
-```
-USAGE
-  $ mw app getApp APPID [--output json|yaml |  | ]
-
-ARGUMENTS
-  APPID  undefined
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  get a specific `App`
-```
-
-## `mw app getAppinstallation APPINSTALLATIONID`
-
-get a specific `AppInstallation`
-
-```
-USAGE
-  $ mw app getAppinstallation APPINSTALLATIONID [--output json|yaml |  | ]
-
-ARGUMENTS
-  APPINSTALLATIONID  undefined
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  get a specific `AppInstallation`
-```
-
-## `mw app getAppversion APPVERSIONID`
-
-get a specific `AppVersion`
-
-```
-USAGE
-  $ mw app getAppversion APPVERSIONID --app-id <value> [--output json|yaml |  | ]
-
-ARGUMENTS
-  APPVERSIONID  undefined
-
-FLAGS
-  --app-id=<value>   (required) undefined
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  get a specific `AppVersion`
-```
-
-## `mw app getSystemsoftware SYSTEMSOFTWAREID`
+## `mw app dependency getSystemsoftware SYSTEMSOFTWAREID`
 
 get a specific `SystemSoftware`
 
 ```
 USAGE
-  $ mw app getSystemsoftware SYSTEMSOFTWAREID [--output json|yaml |  | ]
+  $ mw app dependency getSystemsoftware SYSTEMSOFTWAREID [--output json|yaml |  | ]
 
 ARGUMENTS
   SYSTEMSOFTWAREID  undefined
@@ -258,13 +191,14 @@ DESCRIPTION
   get a specific `SystemSoftware`
 ```
 
-## `mw app getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`
+## `mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`
 
 get a specific `SystemSoftwareVersion`
 
 ```
 USAGE
-  $ mw app getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID --system-software-id <value> [--output json|yaml |  | ]
+  $ mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID --system-software-id <value> [--output json|yaml
+  |  | ]
 
 ARGUMENTS
   SYSTEMSOFTWAREVERSIONID  undefined
@@ -276,6 +210,97 @@ FLAGS
 
 DESCRIPTION
   get a specific `SystemSoftwareVersion`
+```
+
+## `mw app dependency listSystemsoftwares`
+
+get all available `SystemSoftware`
+
+```
+USAGE
+  $ mw app dependency listSystemsoftwares [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended     show extra columns
+  --columns=<value>  only show provided columns (comma-separated)
+  --csv              output is csv format [alias: --output=csv]
+  --filter=<value>   filter property by partial string matching, ex: name=foo
+  --no-header        hide table header from output
+  --no-truncate      do not truncate output to fit screen
+  --output=<option>  output in a more machine friendly format
+                     <options: csv|json|yaml>
+  --sort=<value>     property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  get all available `SystemSoftware`
+```
+
+## `mw app dependency listSystemsoftwareversions`
+
+get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
+
+```
+USAGE
+  $ mw app dependency listSystemsoftwareversions --system-software-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>]
+    [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended                show extra columns
+  --columns=<value>             only show provided columns (comma-separated)
+  --csv                         output is csv format [alias: --output=csv]
+  --filter=<value>              filter property by partial string matching, ex: name=foo
+  --no-header                   hide table header from output
+  --no-truncate                 do not truncate output to fit screen
+  --output=<option>             output in a more machine friendly format
+                                <options: csv|json|yaml>
+  --sort=<value>                property to sort by (prepend '-' for descending)
+  --system-software-id=<value>  (required) undefined
+
+DESCRIPTION
+  get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
+```
+
+## `mw app get APPINSTALLATIONID`
+
+get a specific `AppInstallation`
+
+```
+USAGE
+  $ mw app get APPINSTALLATIONID [--output json|yaml |  | ]
+
+ARGUMENTS
+  APPINSTALLATIONID  undefined
+
+FLAGS
+  --output=<option>  output in a more machine friendly format
+                     <options: json|yaml>
+
+DESCRIPTION
+  get a specific `AppInstallation`
+```
+
+## `mw app install wordpress`
+
+Creates new WordPress Installation.
+
+```
+USAGE
+  $ mw app install wordpress -p <value> --host <value> --admin-user <value> --admin-email <value> --admin-pass <value>
+    --site-title <value> [--version <value>] [-w]
+
+FLAGS
+  -p, --project-id=<value>  (required) ID of the Project, in which the App will be created.
+  -w, --wait                Wait for the App to be ready.
+  --admin-email=<value>     (required) First Admin Users E-Mail.
+  --admin-pass=<value>      (required) First Admin Users Password.
+  --admin-user=<value>      (required) First Admin User for the app.
+  --host=<value>            (required) Host under which the App will be available (Needs to be created separately).
+  --site-title=<value>      (required) Site Title of the created appInstallation.
+  --version=<value>         Version of the App to be created - Defaults to latest
+
+DESCRIPTION
+  Creates new WordPress Installation.
 ```
 
 ## `mw app list`
@@ -303,144 +328,19 @@ DESCRIPTION
   List projects
 ```
 
-## `mw app listAppinstallations`
+## `mw app versions [APP]`
 
-get all `AppInstallations` inside a specific `Project`
-
-```
-USAGE
-  $ mw app listAppinstallations --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) undefined
-  --sort=<value>        property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  get all `AppInstallations` inside a specific `Project`
-```
-
-## `mw app listApps`
-
-get all available `Apps`
+List supported Apps and Versions
 
 ```
 USAGE
-  $ mw app listApps [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw app versions [APP]
 
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+ARGUMENTS
+  APP  name of specific app to get versions for
 
 DESCRIPTION
-  get all available `Apps`
-```
-
-## `mw app listAppversions`
-
-get all `AppVersions` of a specific `App`
-
-```
-USAGE
-  $ mw app listAppversions --app-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --app-id=<value>   (required) undefined
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  get all `AppVersions` of a specific `App`
-```
-
-## `mw app listSystemsoftwares`
-
-get all available `SystemSoftware`
-
-```
-USAGE
-  $ mw app listSystemsoftwares [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  get all available `SystemSoftware`
-```
-
-## `mw app listSystemsoftwareversions`
-
-get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
-
-```
-USAGE
-  $ mw app listSystemsoftwareversions --system-software-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>]
-    [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended                show extra columns
-  --columns=<value>             only show provided columns (comma-separated)
-  --csv                         output is csv format [alias: --output=csv]
-  --filter=<value>              filter property by partial string matching, ex: name=foo
-  --no-header                   hide table header from output
-  --no-truncate                 do not truncate output to fit screen
-  --output=<option>             output in a more machine friendly format
-                                <options: csv|json|yaml>
-  --sort=<value>                property to sort by (prepend '-' for descending)
-  --system-software-id=<value>  (required) undefined
-
-DESCRIPTION
-  get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
-```
-
-## `mw app retrieveStatus`
-
-get runtime status of a specific `AppInstallation`
-
-```
-USAGE
-  $ mw app retrieveStatus --app-installation-id <value> [--output json|yaml |  | ]
-
-FLAGS
-  --app-installation-id=<value>  (required) undefined
-  --output=<option>              output in a more machine friendly format
-                                 <options: json|yaml>
-
-DESCRIPTION
-  get runtime status of a specific `AppInstallation`
+  List supported Apps and Versions
 ```
 
 ## `mw article getArticle ARTICLEID`
@@ -901,95 +801,6 @@ USAGE
 
 FLAGS
   --wait
-```
-
-## `mw cronjob getCronjob CRONJOBID`
-
-Get a Cronjob.
-
-```
-USAGE
-  $ mw cronjob getCronjob CRONJOBID [--output json|yaml |  | ]
-
-ARGUMENTS
-  CRONJOBID  ID of the Cronjob to be retrieved.
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a Cronjob.
-```
-
-## `mw cronjob getExecution EXECUTIONID`
-
-Get a CronjobExecution.
-
-```
-USAGE
-  $ mw cronjob getExecution EXECUTIONID --cronjob-id <value> [--output json|yaml |  | ]
-
-ARGUMENTS
-  EXECUTIONID  ID of the CronjobExecution to be retrieved.
-
-FLAGS
-  --cronjob-id=<value>  (required) undefined
-  --output=<option>     output in a more machine friendly format
-                        <options: json|yaml>
-
-DESCRIPTION
-  Get a CronjobExecution.
-```
-
-## `mw cronjob listCronjobs`
-
-List Cronjobs belonging to a Project.
-
-```
-USAGE
-  $ mw cronjob listCronjobs --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project for which to list Cronjobs for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List Cronjobs belonging to a Project.
-```
-
-## `mw cronjob listExecutions`
-
-List CronjobExecutions belonging to a Cronjob.
-
-```
-USAGE
-  $ mw cronjob listExecutions --cronjob-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --sort=<value>        property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List CronjobExecutions belonging to a Cronjob.
 ```
 
 ## `mw customer getCustomer CUSTOMERID`
@@ -1504,13 +1315,13 @@ DESCRIPTION
   gets all dns zones by project id
 ```
 
-## `mw domain getDomain DOMAINID`
+## `mw domain get DOMAINID`
 
 Get a Domain.
 
 ```
 USAGE
-  $ mw domain getDomain DOMAINID [--output json|yaml |  | ]
+  $ mw domain get DOMAINID [--output json|yaml |  | ]
 
 ARGUMENTS
   DOMAINID  undefined
@@ -1561,75 +1372,13 @@ DESCRIPTION
   Get a domain ownership.
 ```
 
-## `mw domain getToplevelDomain TLD`
+## `mw domain list`
 
-Get a toplevel domain.
-
-```
-USAGE
-  $ mw domain getToplevelDomain TLD [--output json|yaml |  | ]
-
-ARGUMENTS
-  TLD  undefined
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a toplevel domain.
-```
-
-## `mw domain ingressGetSpecific INGRESSID`
-
-Get an Ingress.
+List Domains belonging to a Project.
 
 ```
 USAGE
-  $ mw domain ingressGetSpecific INGRESSID [--output json|yaml |  | ]
-
-ARGUMENTS
-  INGRESSID  ID of the Ingress to be retrieved.
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get an Ingress.
-```
-
-## `mw domain ingressListAccessible`
-
-List Ingresses the user has access to.
-
-```
-USAGE
-  $ mw domain ingressListAccessible [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List Ingresses the user has access to.
-```
-
-## `mw domain ingressListForProject`
-
-List Ingresses belonging to a project.
-
-```
-USAGE
-  $ mw domain ingressListForProject --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+  $ mw domain list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
     csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
 
 FLAGS
@@ -1641,11 +1390,11 @@ FLAGS
   --no-truncate         do not truncate output to fit screen
   --output=<option>     output in a more machine friendly format
                         <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project to list Ingresses for
+  --project-id=<value>  (required) undefined
   --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List Ingresses belonging to a project.
+  List Domains belonging to a Project.
 ```
 
 ## `mw domain listDomainOwnerships`
@@ -1673,38 +1422,32 @@ DESCRIPTION
   List all domain ownerships of a project.
 ```
 
-## `mw domain listDomains`
+## `mw domain tld get TLD`
 
-List Domains belonging to a Project.
+Get a toplevel domain.
 
 ```
 USAGE
-  $ mw domain listDomains --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw domain tld get TLD [--output json|yaml |  | ]
+
+ARGUMENTS
+  TLD  undefined
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) undefined
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  --output=<option>  output in a more machine friendly format
+                     <options: json|yaml>
 
 DESCRIPTION
-  List Domains belonging to a Project.
+  Get a toplevel domain.
 ```
 
-## `mw domain listToplevelDomains`
+## `mw domain tld list`
 
 List all supported toplevel domains.
 
 ```
 USAGE
-  $ mw domain listToplevelDomains [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+  $ mw domain tld list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
     [--csv | --no-truncate]] [--no-header | ]
 
 FLAGS
@@ -1722,78 +1465,49 @@ DESCRIPTION
   List all supported toplevel domains.
 ```
 
-## `mw file getFile ID`
+## `mw domain virtualhost get INGRESSID`
 
-Get a File.
+Get an Ingress.
 
 ```
 USAGE
-  $ mw file getFile ID [--output json|yaml |  | ]
+  $ mw domain virtualhost get INGRESSID [--output json|yaml |  | ]
 
 ARGUMENTS
-  ID  ID of the File to be retrieved.
+  INGRESSID  ID of the Ingress to be retrieved.
 
 FLAGS
   --output=<option>  output in a more machine friendly format
                      <options: json|yaml>
 
 DESCRIPTION
-  Get a File.
+  Get an Ingress.
 ```
 
-## `mw file getFileMeta`
+## `mw domain virtualhost list`
 
-Get a File's meta.
+List Ingresses the user has access to.
 
 ```
 USAGE
-  $ mw file getFileMeta --id <value> [--output json|yaml |  | ]
+  $ mw domain virtualhost list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [--project-id <value>]
 
 FLAGS
-  --id=<value>       (required) ID of the File to get the meta for.
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -x, --extended        show extra columns
+  --columns=<value>     only show provided columns (comma-separated)
+  --csv                 output is csv format [alias: --output=csv]
+  --filter=<value>      filter property by partial string matching, ex: name=foo
+  --no-header           hide table header from output
+  --no-truncate         do not truncate output to fit screen
+  --output=<option>     output in a more machine friendly format
+                        <options: csv|json|yaml>
+  --project-id=<value>  Project ID to filter by; if omitted this will list virtual hosts in all projects you have access
+                        to.
+  --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  Get a File's meta.
-```
-
-## `mw file getFileTokenRules TOKEN`
-
-Get a Token's upload rules.
-
-```
-USAGE
-  $ mw file getFileTokenRules TOKEN [--output json|yaml |  | ]
-
-ARGUMENTS
-  TOKEN  Token of the Token's upload rules to be retrieved.
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a Token's upload rules.
-```
-
-## `mw file getFileTypeRules NAME`
-
-Get a Type's upload rules.
-
-```
-USAGE
-  $ mw file getFileTypeRules NAME [--output json|yaml |  | ]
-
-ARGUMENTS
-  NAME  Name of the Type's upload rules to be retrieved.
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a Type's upload rules.
+  List Ingresses the user has access to.
 ```
 
 ## `mw help [COMMANDS]`
@@ -2071,6 +1785,95 @@ FLAGS
 
 DESCRIPTION
   Get the details of a project
+```
+
+## `mw project cronjob execution get EXECUTIONID`
+
+Get a CronjobExecution.
+
+```
+USAGE
+  $ mw project cronjob execution get EXECUTIONID --cronjob-id <value> [--output json|yaml |  | ]
+
+ARGUMENTS
+  EXECUTIONID  ID of the CronjobExecution to be retrieved.
+
+FLAGS
+  --cronjob-id=<value>  (required) undefined
+  --output=<option>     output in a more machine friendly format
+                        <options: json|yaml>
+
+DESCRIPTION
+  Get a CronjobExecution.
+```
+
+## `mw project cronjob execution list`
+
+List CronjobExecutions belonging to a Cronjob.
+
+```
+USAGE
+  $ mw project cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended        show extra columns
+  --columns=<value>     only show provided columns (comma-separated)
+  --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
+  --csv                 output is csv format [alias: --output=csv]
+  --filter=<value>      filter property by partial string matching, ex: name=foo
+  --no-header           hide table header from output
+  --no-truncate         do not truncate output to fit screen
+  --output=<option>     output in a more machine friendly format
+                        <options: csv|json|yaml>
+  --sort=<value>        property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List CronjobExecutions belonging to a Cronjob.
+```
+
+## `mw project cronjob get CRONJOBID`
+
+Get a Cronjob.
+
+```
+USAGE
+  $ mw project cronjob get CRONJOBID [--output json|yaml |  | ]
+
+ARGUMENTS
+  CRONJOBID  ID of the Cronjob to be retrieved.
+
+FLAGS
+  --output=<option>  output in a more machine friendly format
+                     <options: json|yaml>
+
+DESCRIPTION
+  Get a Cronjob.
+```
+
+## `mw project cronjob list`
+
+List Cronjobs belonging to a Project.
+
+```
+USAGE
+  $ mw project cronjob list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended        show extra columns
+  --columns=<value>     only show provided columns (comma-separated)
+  --csv                 output is csv format [alias: --output=csv]
+  --filter=<value>      filter property by partial string matching, ex: name=foo
+  --no-header           hide table header from output
+  --no-truncate         do not truncate output to fit screen
+  --output=<option>     output in a more machine friendly format
+                        <options: csv|json|yaml>
+  --project-id=<value>  (required) ID of the Project for which to list Cronjobs for.
+  --sort=<value>        property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List Cronjobs belonging to a Project.
 ```
 
 ## `mw project delete ID`
