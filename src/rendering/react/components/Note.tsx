@@ -4,17 +4,18 @@ import { Box, Text } from "ink";
 interface Props {
   title?: string;
   children?: React.ReactNode;
+  color?: string;
 }
 
 export const Note: FC<Props> = (props) => {
-  const { title = "Note" } = props;
+  const { title = "Note", color = "#407FF8" } = props;
 
   return (
-    <Box width={80} borderStyle={"round"} flexDirection="column" paddingX={2}>
-      <Text bold underline>
+    <Box width={80} borderStyle={"round"} borderColor={color} flexDirection="column" paddingX={2}>
+      <Text bold underline color={color}>
         {title.toUpperCase()}
       </Text>
-      <Text>{props.children}</Text>
+      <Text wrap="wrap" color={color}>{props.children}</Text>
     </Box>
   );
 };

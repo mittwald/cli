@@ -22,6 +22,7 @@ export abstract class ExecRenderBaseCommand<
       <RenderContextProvider
         value={{
           apiClient: this.apiClient,
+          renderAsJson: false,
         }}
       >
         <Suspense fallback={<Text>Loading...</Text>}>
