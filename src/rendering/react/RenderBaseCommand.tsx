@@ -6,7 +6,7 @@ import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
 import { JsonCollectionProvider } from "./json/JsonCollectionProvider.js";
 import { Flags, Interfaces } from "@oclif/core";
 import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
-import { RendererContainer } from "./components/RendererWrapper.js";
+import { Render } from "./components/Render.js";
 import { CommandArgs, CommandFlags } from "../../types.js";
 
 const renderFlags = {
@@ -55,7 +55,7 @@ export abstract class RenderBaseCommand<
       >
         <JsonCollectionProvider>
           <Suspense fallback={<Text>Loading...</Text>}>
-            <RendererContainer render={() => this.render()} />
+            <Render render={() => this.render()} />
           </Suspense>
         </JsonCollectionProvider>
       </RenderContextProvider>,
