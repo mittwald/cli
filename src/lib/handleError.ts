@@ -27,5 +27,7 @@ ${responseJson}`;
     });
   }
 
-  oclif.Errors.handle(error);
+  console.error(error);
+
+  // oclif.Errors.handle(error);
 };

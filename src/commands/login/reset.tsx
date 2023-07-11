@@ -1,8 +1,10 @@
 import * as fs from "fs/promises";
 import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
 import React from "react";
-import { Text } from "ink";
+import { Text, Box } from "ink";
 import { Note } from "../../rendering/react/components/Note.js";
+import { FancyProcessRenderer } from "../../rendering/react/process_fancy.js";
+import { Filename } from "../../rendering/react/components/Filename.js";
 
 type ResetResult = { deleted: boolean };
 
@@ -14,29 +16,40 @@ export default class Reset extends ExecRenderBaseCommand<
   protected authenticationRequired = false;
 
   protected async exec(): Promise<ResetResult> {
+    const process = new FancyProcessRenderer("Resetting authentication state");
+
+    process.start();
+
     if (await this.tokenFileExists()) {
+      const step = process.addStep(
+        <Text>
+          Deleting token file <Filename filename={this.getTokenFilename()} />
+        </Text>,
+      );
       await fs.rm(this.getTokenFilename(), { force: true });
-      return { deleted: true };
-    }
+      step.complete();
 
-    return { deleted: false };
-  }
-
-  protected render({ deleted }: ResetResult): React.ReactNode {
-    if (deleted) {
-      return (
-        <>
-          <Text>token deleted from {this.getTokenFilename()}</Text>
+      process.complete(
+        <Box flexDirection="column">
+          <Text>Authentication state successfully reset</Text>
           <Note>
             Please keep in mind that this does not invalidate the token on the
             server. Invalidate your API token using the mStudio web interface,
             or using the 'mw user api-token revoke' command.
           </Note>
-        </>
+        </Box>,
       );
+
+      return { deleted: true };
     }
 
-    return <Text>no token found at {this.getTokenFilename()}</Text>;
+    process.complete(<Text>No token file found, nothing to do</Text>);
+
+    return { deleted: false };
+  }
+
+  protected render({ deleted }: ResetResult): React.ReactNode {
+    return <></>;
   }
 
   private async tokenFileExists(): Promise<boolean> {
