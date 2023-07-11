@@ -40,8 +40,8 @@
     ".deps"
   ],
   "dependencies": {
-    "@mittwald/api-client": "./.deps/client.tgz",
-    "@mittwald/api-client-commons": "./.deps/commons.tgz",
+    "@mittwald/api-client": "^2.0.1",
+    "@mittwald/api-client-commons": "^3.0.0-alpha.1",
     "@mittwald/react-use-promise": "^1.2.2",
     "@oclif/core": "^2.8.5",
     "@oclif/plugin-help": "^5.2.9",
@@ -59,8 +59,7 @@
     "tempfile": "^5.0.0"
   },
   "resolutions": {
-    "@mittwald/api-client": "./.deps/client.tgz",
-    "@mittwald/api-client-commons": "./.deps/commons.tgz"
+    "@mittwald/api-client-commons": "^3.0.0-alpha.1"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",

@@ -283,25 +283,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@file:./.deps/commons.tgz::locator=%40mittwald%2Fcli%40workspace%3A.":
-  version: 2.0.0
-  resolution: "@mittwald/api-client-commons@file:./.deps/commons.tgz::locator=%40mittwald%2Fcli%40workspace%3A."
+"@mittwald/api-client-commons@npm:^3.0.0-alpha.1":
+  version: 3.0.0-alpha.1
+  resolution: "@mittwald/api-client-commons@npm:3.0.0-alpha.1"
   dependencies:
     "@types/parse-path": ^7.0.0
     axios: ^1.4.0
     parse-path: ^7.0.0
     path-to-regexp: ^6.2.1
     type-fest: ^3.12.0
-  checksum: b95accca06f5078d74763d42d14e0dd126349ed058fd73f8dc38f1ac870d9fddc80b0d326875a41224758a6f5a8145c6593547479d0b70e3a2fded8e4dbaac64
+  checksum: 3eae88c7e51e9f9234487f18ff559046e8fbbd070c32a9d05012cb56c576aed36518d64f04b65f0e3106397725d2089ea3e54dd64eab78c6ef5578e024983a16
   languageName: node
   linkType: hard
 
-"@mittwald/api-client@file:./.deps/client.tgz::locator=%40mittwald%2Fcli%40workspace%3A.":
-  version: 1.0.4
-  resolution: "@mittwald/api-client@file:./.deps/client.tgz::locator=%40mittwald%2Fcli%40workspace%3A."
+"@mittwald/api-client@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@mittwald/api-client@npm:2.0.1"
   dependencies:
-    "@mittwald/api-client-commons": ^2.0.0
-  checksum: fb8bdb952340831155cca0c67eb137a4b07cf530633515e181f6cbb9ec03b420c6fc1f69bd557a711e6c6c1e4add1fb4dcb4fe7a1705b20462d1dc859124cfe3
+    "@mittwald/api-client-commons": ^3.0.0
+  checksum: 26bc2e1b6814f59dff21860aaa3981349b22dbdcd5f35b4cca9d2e0dac74cd9a241c7a540f2edb54cbb12c8eb7c589b231ee4814445876bd5f2a6afbd06f8111
   languageName: node
   linkType: hard
 
@@ -309,8 +309,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mittwald/cli@workspace:."
   dependencies:
-    "@mittwald/api-client": ./.deps/client.tgz
-    "@mittwald/api-client-commons": ./.deps/commons.tgz
+    "@mittwald/api-client": ^2.0.1
+    "@mittwald/api-client-commons": ^3.0.0-alpha.1
     "@mittwald/react-use-promise": ^1.2.2
     "@oclif/core": ^2.8.5
     "@oclif/plugin-help": ^5.2.9

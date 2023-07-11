@@ -48,7 +48,7 @@ export default class Create extends BaseCommand<typeof Create> {
       while (waited < 120) {
         const projectResponse = await this.apiClient.project.getProject({
           pathParameters: { id: result.data.id },
-          headers: { "if-event-reached": eventId },
+          headers: { "if-event-reached": eventId } as any, // TODO: Remove once @mittwald/api-client supports this
         });
 
         if (projectResponse.status === 200 && projectResponse.data.readiness === "ready") {
