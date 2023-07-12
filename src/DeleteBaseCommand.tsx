@@ -41,10 +41,16 @@ export abstract class DeleteBaseCommand<
 
     const deletingStep = process.addStep(<Text>deleting {resourceName}</Text>);
 
-    await this.deleteResource();
+    try {
+      await this.deleteResource();
 
-    deletingStep.complete();
-    process.complete(<Success>The {resourceName} was successfully deleted. How sad. 🥺</Success>);
+      deletingStep.complete();
+      process.complete(<Success>The {resourceName} was successfully deleted. How sad. 🥺</Success>);
+    } catch (err) {
+      deletingStep.error(err);
+      process.complete(<Text>Failed to delete {resourceName}</Text>);
+      ux.exit(1);
+    }
   }
 
   protected render(executionResult: void): React.ReactNode {

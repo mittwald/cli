@@ -6,7 +6,7 @@ import {
   RunnableHandler,
 } from "./process.js";
 import { Header } from "./components/Header.js";
-import { Box, render, Text, useInput } from "ink";
+import { Box, render, Text, useInput, useStdin } from "ink";
 
 export class FancyProcessRenderer implements ProcessRenderer {
   private title: string;
@@ -117,7 +117,7 @@ const ProcessStateIcon: React.FC<{ step: ProcessStep }> = ({ step }) => {
   } else if (step.phase === "aborted") {
     return <Text>⏩️ </Text>;
   } else if (step.phase === "failed") {
-    return <Text>❌ </Text>;
+    return <Text>❌</Text>;
   } else {
     return <Text>🔁 </Text>;
   }
@@ -126,6 +126,17 @@ const ProcessStateIcon: React.FC<{ step: ProcessStep }> = ({ step }) => {
 const ProcessConfirmationStateSummary: React.FC<{
   step: ProcessStepConfirm;
 }> = ({ step }) => {
+  const { isRawModeSupported } = useStdin();
+  if (!isRawModeSupported) {
+    return (
+      <Text color="red">
+        {" "}
+        interactive input required; start this command with --force or --quiet
+        to disable interactive prompts
+      </Text>
+    );
+  }
+
   if (step.confirmed) {
     return <Text color="green"> confirmed</Text>;
   } else if (step.confirmed === false) {
@@ -169,7 +180,7 @@ const ProcessStateSummary: React.FC<{ step: ProcessStep }> = ({ step }) => {
     return (
       <>
         <Text>. </Text>
-        <Text color="error">ERROR</Text>
+        <Text color="red">error</Text>
       </>
     );
   } else {
@@ -177,13 +188,28 @@ const ProcessStateSummary: React.FC<{ step: ProcessStep }> = ({ step }) => {
   }
 };
 
+const ProcessError: React.FC<{ err: unknown }> = ({ err }) => {
+  return (
+    <Box marginY={1} marginX={5} flexDirection="column">
+      <Text color="red">An error occurred during this operation:</Text>
+      <Text color="red" bold>{err?.toString()}</Text>
+    </Box>
+  );
+};
+
 export const ProcessState: React.FC<{ step: ProcessStep }> = ({ step }) => {
   return (
-    <Box marginX={2}>
-      <ProcessStateIcon step={step} />
-      <Text>{step.title}</Text>
-      <ProcessStateSummary step={step} />
-    </Box>
+    <>
+      <Box marginX={2}>
+        <ProcessStateIcon step={step} />
+        <Text>{step.title}</Text>
+        <ProcessStateSummary step={step} />
+      </Box>
+
+      {step.type === "step" && step.error ? (
+        <ProcessError err={step.error} />
+      ) : null}
+    </>
   );
 };
 
@@ -191,9 +217,12 @@ export const ProcessConfirmation: React.FC<{
   step: ProcessStep;
   onConfirm: (confirmed: boolean) => any;
 }> = ({ step, onConfirm }) => {
-  useInput((input, key) => {
-    onConfirm(input === "y");
-  });
+  const { isRawModeSupported } = useStdin();
+  if (isRawModeSupported) {
+    useInput((input, key) => {
+      onConfirm(input === "y");
+    });
+  }
 
   return <ProcessState step={step} />;
 };

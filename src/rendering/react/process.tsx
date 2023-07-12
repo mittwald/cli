@@ -9,6 +9,7 @@ export type ProcessStepRunnable = {
   type: "step";
   title: ReactElement;
   phase: "running" | "completed" | "failed" | "aborted";
+  error?: unknown;
 };
 
 export type ProcessStepConfirm = {
@@ -39,6 +40,12 @@ export class RunnableHandler {
 
   public complete() {
     this.processStep.phase = "completed";
+    this.listener();
+  }
+
+  public error(err: unknown) {
+    this.processStep.phase = "failed";
+    this.processStep.error = err;
     this.listener();
   }
 }
