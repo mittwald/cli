@@ -4,7 +4,7 @@ import { serverFlags, withServerId } from "../../lib/server/flags.js";
 import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
 import { FancyProcessRenderer } from "../../rendering/react/process_fancy.js";
 import { Text } from "ink";
-import React from "react";
+import React, { ReactNode } from "react";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { makeProcessRenderer, processFlags } from "../../rendering/react/process_flags.js";
@@ -82,7 +82,9 @@ export default class Create extends ExecRenderBaseCommand<
     return { projectId: result.data.id };
   }
 
-  protected render({ projectId }: { projectId: string }): React.ReactNode {
-    return <Text>Project ID: {projectId}</Text>;
+  protected render({ projectId }: { projectId: string }): ReactNode {
+    if (this.flags.quiet) {
+      return projectId;
+    }
   }
 }
