@@ -1,17 +1,17 @@
 import React, { ReactElement } from "react";
 
-type ProcessStepInfo = {
+export type ProcessStepInfo = {
   type: "info";
   title: ReactElement;
 };
 
-type ProcessStepRunnable = {
+export type ProcessStepRunnable = {
   type: "step";
   title: ReactElement;
   phase: "running" | "completed" | "failed" | "aborted";
 };
 
-type ProcessStepConfirm = {
+export type ProcessStepConfirm = {
   type: "confirm";
   title: ReactElement;
   confirmed: boolean | undefined;

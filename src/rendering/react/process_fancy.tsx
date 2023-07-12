@@ -1,5 +1,10 @@
 import React, { ReactElement } from "react";
-import { ProcessRenderer, ProcessStep, RunnableHandler } from "./process.js";
+import {
+  ProcessRenderer,
+  ProcessStep,
+  ProcessStepConfirm,
+  RunnableHandler,
+} from "./process.js";
 import { Header } from "./components/Header.js";
 import { Box, render, Text, useInput } from "ink";
 
@@ -104,7 +109,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
 
 const ProcessStateIcon: React.FC<{ step: ProcessStep }> = ({ step }) => {
   if (step.type === "info") {
-    return <Text>ℹ️ </Text>;
+    return <Text>ℹ️{"  "}</Text>;
   } else if (step.type === "confirm") {
     return <Text>❓</Text>;
   } else if (step.phase === "completed") {
@@ -118,28 +123,34 @@ const ProcessStateIcon: React.FC<{ step: ProcessStep }> = ({ step }) => {
   }
 };
 
+const ProcessConfirmationStateSummary: React.FC<{
+  step: ProcessStepConfirm;
+}> = ({ step }) => {
+  if (step.confirmed) {
+    return <Text color="green"> confirmed</Text>;
+  } else if (step.confirmed === false) {
+    return <Text color="yellow"> not confirmed</Text>;
+  } else {
+    return (
+      <>
+        <Text>: press </Text>
+        <Text color="blue">y</Text>
+        <Text> or </Text>
+        <Text color="blue">n</Text>
+        <Text color="gray">
+          {" "}
+          (use the --force or --quiet flags to disable this prompt)
+        </Text>
+      </>
+    );
+  }
+};
+
 const ProcessStateSummary: React.FC<{ step: ProcessStep }> = ({ step }) => {
   if (step.type === "info") {
-    return <Text></Text>;
+    return <></>;
   } else if (step.type === "confirm") {
-    if (step.confirmed) {
-      return <Text color="green"> confirmed</Text>;
-    } else if (step.confirmed === false) {
-      return <Text color="yellow"> not confirmed</Text>;
-    } else {
-      return (
-        <>
-          <Text>: press </Text>
-          <Text color="blue">y</Text>
-          <Text> or </Text>
-          <Text color="blue">n</Text>
-          <Text color="gray">
-            {" "}
-            (use the --force or --quiet flags to disable this prompt)
-          </Text>
-        </>
-      );
-    }
+    return <ProcessConfirmationStateSummary step={step} />;
   } else if (step.phase === "completed") {
     return (
       <>
