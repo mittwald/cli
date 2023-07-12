@@ -8,6 +8,7 @@ import {
 } from "../../../rendering/react/process_flags.js";
 import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
+import { ReactNode } from "react";
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,
@@ -77,7 +78,9 @@ export default class Create extends ExecRenderBaseCommand<
     return { addressId: response.data.id };
   }
 
-  protected render(executionResult: { addressId: string }): React.ReactNode {
-    return undefined;
+  protected render(executionResult: { addressId: string }): ReactNode {
+    if (this.flags.quiet) {
+      return executionResult.addressId;
+    }
   }
 }

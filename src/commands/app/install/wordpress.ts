@@ -8,6 +8,7 @@ import {
 import { assertStatus } from "@mittwald/api-client-commons";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 export default class AppCreateWordpress extends BaseCommand<
   typeof AppCreateWordpress
@@ -15,11 +16,7 @@ export default class AppCreateWordpress extends BaseCommand<
   static description = "Creates new WordPress Installation.";
 
   static flags = {
-    "project-id": Flags.string({
-      char: "p",
-      required: true,
-      description: "ID of the Project, in which the App will be created.",
-    }),
+    ...projectFlags,
     version: Flags.string({
       required: false,
       description: "Version of the App to be created - Defaults to latest",
@@ -54,13 +51,11 @@ export default class AppCreateWordpress extends BaseCommand<
   public async run(): Promise<void> {
     ux.action.start("requesting installation for WordPress");
 
-    const { flags } = await this.parse(AppCreateWordpress);
+    const { flags, args } = await this.parse(AppCreateWordpress);
     const app = "WordPress";
     const appUuid: string = await getAppUuidFromAppName(this.apiClient, app);
-    const projectId = await normalizeProjectIdToUuid(
-      this.apiClient,
-      flags["project-id"],
-    );
+    const projectId = await withProjectId(this.apiClient, flags, args, this.config);
+
     let appVersion: MittwaldAPIV2.Components.Schemas.AppAppVersion | undefined;
 
     if (flags.version) {
