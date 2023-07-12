@@ -212,20 +212,29 @@ const ProcessInputStateSummary: React.FC<{
   } else {
     return <Text>: </Text>;
   }
-}
+};
+
+const InteractiveConfirmationDisabled = () => (
+  <Text color="red">
+    {" "}
+    interactive input required; start this command with --force or --quiet to
+    disable interactive prompts
+  </Text>
+);
+
+const InteractiveInputDisabled = () => (
+  <Text color="red">
+    interactive input required; inspect this command's --help page to learn how
+    to pass the required input non-interactively.
+  </Text>
+);
 
 const ProcessConfirmationStateSummary: React.FC<{
   step: ProcessStepConfirm;
 }> = ({ step }) => {
   const { isRawModeSupported } = useStdin();
   if (!isRawModeSupported) {
-    return (
-      <Text color="red">
-        {" "}
-        interactive input required; start this command with --force or --quiet
-        to disable interactive prompts
-      </Text>
-    );
+    return <InteractiveConfirmationDisabled />;
   }
 
   if (step.confirmed) {
@@ -328,12 +337,22 @@ export const ProcessInput: React.FC<{
 }> = ({ step, onSubmit }) => {
   const [value, setValue] = useState("");
   if (!step.value) {
+    const { isRawModeSupported } = useStdin();
     return (
       <>
         <Box marginX={2}>
           <ProcessStateIcon step={step} />
           <Text>{step.title}: </Text>
-          <TextInput mask={step.mask ? "*" : undefined} value={value} onChange={setValue} onSubmit={onSubmit} />
+          {isRawModeSupported ? (
+            <TextInput
+              mask={step.mask ? "*" : undefined}
+              value={value}
+              onChange={setValue}
+              onSubmit={onSubmit}
+            />
+          ) : (
+            <InteractiveInputDisabled />
+          )}
         </Box>
       </>
     );
