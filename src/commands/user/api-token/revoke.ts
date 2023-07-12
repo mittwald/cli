@@ -1,9 +1,10 @@
-import { Args, ux } from "@oclif/core";
-import { BaseCommand } from "../../../BaseCommand.js";
+import { Args } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
+import { DeleteBaseCommand } from "../../../DeleteBaseCommand.js";
 
-export default class Revoke extends BaseCommand<typeof Revoke> {
+export default class Revoke extends DeleteBaseCommand<typeof Revoke> {
   static description = "Revoke an API token";
+  static resource = "API token";
 
   static args = {
     id: Args.string({
@@ -11,17 +12,14 @@ export default class Revoke extends BaseCommand<typeof Revoke> {
       required: true,
     }),
   };
+  static flags = { ...DeleteBaseCommand.baseFlags };
 
-  async run() {
+  protected async deleteResource(): Promise<void> {
     const { args } = await this.parse(Revoke);
-
-    ux.action.start(`revoking API token ${args.id}`);
-
     const response = await this.apiClient.user.deleteApiToken({
       pathParameters: { apiTokenId: args.id },
     });
 
     assertStatus(response, 200);
-    ux.action.stop();
   }
 }
