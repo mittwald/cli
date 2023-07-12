@@ -47,6 +47,7 @@
     "@oclif/plugin-help": "^5.2.9",
     "chalk": "^5.3.0",
     "date-fns": "^2.30.0",
+    "humanize-string": "^3.0.0",
     "ink": "^4.2.0",
     "js-yaml": "^4.1.0",
     "marked": "^5.1.0",

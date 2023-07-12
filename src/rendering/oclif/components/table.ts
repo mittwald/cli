@@ -1,16 +1,17 @@
 import { formatDate } from "../../../lib/viewhelpers/date.js";
 import { ux } from "@oclif/core";
+import { TableRenderSetupOutput } from "../../setup/TableRenderSetup.js";
 
 export class Table {
   private readonly rows: any[];
   private readonly columns?: string[];
 
-  constructor(rows: any[], setup: { columns: string[] }) {
+  constructor(rows: any[], setup: TableRenderSetupOutput) {
     this.rows = rows;
-    this.columns = setup.columns;
+    this.columns = setup.visibleColumns;
   }
 
-  public static build(rows: any[], setup: { columns: string[] }): Table {
+  public static build(rows: any[], setup: TableRenderSetupOutput): Table {
     return new Table(rows, setup);
   }
 

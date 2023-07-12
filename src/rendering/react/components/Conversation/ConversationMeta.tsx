@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import { useRenderContext } from "../context.js";
+import { useRenderContext } from "../../context.js";
 import { usePromise } from "@mittwald/react-use-promise";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { RenderJson } from "../json/RenderJson.js";
-import { Header } from "./Header.js";
+import { RenderJson } from "../../json/RenderJson.js";
+import { Header } from "../Header.js";
 
 interface Props {
   id: string;

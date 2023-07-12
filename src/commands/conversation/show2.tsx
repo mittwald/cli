@@ -5,9 +5,9 @@ import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
 import { useRenderContext } from "../../rendering/react/context.js";
 import { UsePromiseRenderSetup } from "../../rendering/setup/usePromiseSetup.js";
 import { Box } from "ink";
-import { ConversationMeta } from "../../rendering/react/components/ConversationMeta.js";
+import { ConversationMeta } from "../../rendering/react/components/Conversation/ConversationMeta.js";
 import { Args } from "@oclif/core";
-import { ConversationMessages } from "../../rendering/react/components/ConversationMessages.js";
+import { ConversationMessages } from "../../rendering/react/components/Conversation/ConversationMessages.js";
 
 const usePromiseSetup = new UsePromiseRenderSetup();
 

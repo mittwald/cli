@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import { Box } from "ink";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ConversationMessage } from "./ConversationMessage.js";
-import { useRenderContext } from "../context.js";
-import { RenderJson } from "../json/RenderJson.js";
+import { useRenderContext } from "../../context.js";
+import { RenderJson } from "../../json/RenderJson.js";
 
 type Message =
   | MittwaldAPIV2.Components.Schemas.ConversationMessage

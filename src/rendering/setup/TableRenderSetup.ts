@@ -1,20 +1,29 @@
 import { Flags } from "@oclif/core";
-import { ComponentProps } from "react";
-import { Table } from "../react/components/Table.js";
-import { FlagSupportedSetup } from "./FlagSupportedSetup.js";
+import { FlagSupportedSetup, InferredOutput } from "./FlagSupportedSetup.js";
 
-export type Output = Partial<ComponentProps<typeof Table>>;
+interface Settings {}
 
 export const TableRenderSetup = FlagSupportedSetup.build(
   {
     columns: Flags.string({
-      multiple: true,
+      exclusive: ["additional"],
+      description: "only show provided columns (comma-seperated)",
+    }),
+    extended: Flags.boolean<boolean>({
+      description: "show extra columns",
     }),
   },
-  {
-    columns: ["id", "description"],
+  {} as Settings,
+  (flags) => {
+    const visibleColumns = flags.columns
+      ?.split(",")
+      .map((colName) => colName.trim());
+
+    return {
+      visibleColumns,
+      extended: flags.extended,
+    };
   },
-  (flags) => ({
-    columns: flags.columns,
-  }),
 );
+
+export type TableRenderSetupOutput = InferredOutput<typeof TableRenderSetup>;

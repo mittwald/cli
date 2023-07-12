@@ -335,6 +335,7 @@ __metadata:
     eslint-config-prettier: ^8.8.0
     eslint-plugin-json: ^3.1.0
     eslint-plugin-prettier: ^4.2.1
+    humanize-string: ^3.0.0
     ink: ^4.2.0
     js-yaml: ^4.1.0
     license-checker-rseidelsohn: ^4.2.6
@@ -2606,6 +2607,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"decamelize@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "decamelize@npm:6.0.0"
+  checksum: 0066bc30798ec11e01adf0c19ad975caef86545d4bb6f70cfb90b7eb8e3cbf7974cf774ac2e6ea2586e4e07b1f654bfecc4e772c42128a79a89f8584fc546753
+  languageName: node
+  linkType: hard
+
 "decode-named-character-reference@npm:^1.0.0":
   version: 1.0.2
   resolution: "decode-named-character-reference@npm:1.0.2"
@@ -3788,6 +3796,15 @@ __metadata:
   dependencies:
     ms: ^2.0.0
   checksum: 9c7a74a2827f9294c009266c82031030eae811ca87b0da3dceb8d6071b9bde22c9f3daef0469c3c533cc67a97d8a167cd9fc0389350e5f415f61a79b171ded16
+  languageName: node
+  linkType: hard
+
+"humanize-string@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "humanize-string@npm:3.0.0"
+  dependencies:
+    decamelize: ^6.0.0
+  checksum: af88f94d6d5642a9d516a59f7c35f9bcdd6993710b7ff41be4e1564d413137afc1d084bb24741fe8a32584c7892f3ab28abbcbe606d0c060a77d6bb9a33469f6
   languageName: node
   linkType: hard
 

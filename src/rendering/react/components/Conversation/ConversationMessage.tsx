@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Box, Text } from "ink";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import { useMyUserProfile } from "../hooks/useMyUserProfile.js";
+import { useMyUserProfile } from "../../hooks/useMyUserProfile.js";
 
 type Message =
   | MittwaldAPIV2.Components.Schemas.ConversationMessage

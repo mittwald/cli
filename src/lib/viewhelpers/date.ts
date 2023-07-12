@@ -18,3 +18,11 @@ export function formatDate(date: Date | string | undefined): string {
 export function formatCreatedAt(row: { createdAt: string }): string {
   return formatDate(new Date(`${row.createdAt}`));
 }
+
+export const parseDate = (text: string): Date | undefined => {
+  const time = Date.parse(text);
+  if (isNaN(time)) {
+    return undefined;
+  }
+  return new Date(time);
+};
