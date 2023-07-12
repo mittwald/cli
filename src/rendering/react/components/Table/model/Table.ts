@@ -6,7 +6,10 @@ import { TableRenderSetupOutput } from "../../../../setup/TableRenderSetup.js";
 import { ColumnName } from "./ColumnName.js";
 
 export type TableOptions = TableRenderSetupOutput;
-export type ColumnOptionsInputMap = Record<string, ColumnOptionsInput>;
+export type ColumnOptionsInputMap<TData = never> = Record<
+  string,
+  ColumnOptionsInput<TData>
+>;
 
 export class Table<T> {
   public readonly rows: Row<T>[];
@@ -36,8 +39,8 @@ export class Table<T> {
     this.overallWidth.updateValue(overallWidth);
   }
 
-  private buildColumns<T>(
-    rows: Row<T>[],
+  private buildColumns(
+    rows: Row[],
     columnOptions?: ColumnOptionsInputMap,
   ): Column[] {
     const columnsMap = new Map<string, Column>();

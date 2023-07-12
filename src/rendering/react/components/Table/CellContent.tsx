@@ -1,4 +1,4 @@
-import { Text } from "ink";
+import { Text, Box } from "ink";
 import React, { FC, ReactNode } from "react";
 import { FormatDate } from "../FormatDate.js";
 import { JSONView } from "../JSONView.js";

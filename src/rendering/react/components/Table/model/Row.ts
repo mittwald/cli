@@ -3,7 +3,7 @@ import { Table } from "./Table.js";
 
 import { ColumnName } from "./ColumnName.js";
 
-export class Row<T> {
+export class Row<T = never> {
   public readonly table: Table<T>;
   public readonly cells: Cell<unknown>[];
 
