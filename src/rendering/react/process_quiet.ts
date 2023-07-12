@@ -16,4 +16,9 @@ export class SilentProcessRenderer implements ProcessRenderer {
   public addInfo(title: ReactElement) {}
 
   public complete(summary: ReactElement) {}
+
+  public addConfirmation(question: ReactElement): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+
 }

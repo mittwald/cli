@@ -26,19 +26,19 @@ export abstract class DeleteBaseCommand<
 
   protected async exec(): Promise<void> {
     const resourceName = (this.ctor as typeof DeleteBaseCommand).resourceName;
+    const process = makeProcessRenderer(this.flags as any, `Deleting ${resourceName}`);
 
     if (!this.flags.force) {
-      const confirmed = await ux.confirm(
-        `Do you really want to delete this ${resourceName}?`,
-      );
+      const confirmed = await process.addConfirmation(<Text>confirm deletion of {resourceName}</Text>);
       if (!confirmed) {
-        this.log("aborting");
+        process.addInfo(<Text>deletion of {resourceName} was cancelled</Text>);
+        process.complete(<></>);
+
         ux.exit(1);
         return;
       }
     }
 
-    const process = makeProcessRenderer(this.flags as any, `Deleting ${resourceName}`);
     const deletingStep = process.addStep(<Text>deleting {resourceName}</Text>);
 
     await this.deleteResource();

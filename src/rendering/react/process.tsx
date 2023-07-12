@@ -11,7 +11,13 @@ type ProcessStepRunnable = {
   phase: "running" | "completed" | "failed" | "aborted";
 };
 
-export type ProcessStep = ProcessStepInfo | ProcessStepRunnable;
+type ProcessStepConfirm = {
+  type: "confirm";
+  title: ReactElement;
+  confirmed: boolean | undefined;
+}
+
+export type ProcessStep = ProcessStepInfo | ProcessStepRunnable | ProcessStepConfirm;
 
 export class RunnableHandler {
   private listener: () => any;
@@ -41,5 +47,6 @@ export interface ProcessRenderer {
   start(): void;
   addStep(title: ReactElement): RunnableHandler;
   addInfo(title: ReactElement): void;
+  addConfirmation(question: ReactElement): Promise<boolean>;
   complete(summary: ReactElement): void;
 }
