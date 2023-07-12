@@ -20,6 +20,7 @@ export abstract class DeleteBaseCommand<
   static baseFlags = {
     ...processFlags,
     force: Flags.boolean({
+      char: "f",
       description: "Do not ask for confirmation",
     }),
   };

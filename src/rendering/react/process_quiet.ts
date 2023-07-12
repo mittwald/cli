@@ -13,12 +13,24 @@ export class SilentProcessRenderer implements ProcessRenderer {
     );
   }
 
+  public runStep<TRes>(title: React.ReactNode, fn: () => Promise<TRes>): Promise<TRes> {
+    return fn();
+  }
+
   public addInfo(title: ReactElement) {}
 
   public complete(summary: ReactElement) {}
 
+  public error(err: unknown): void {
+    console.error(err);
+  }
+
   public addConfirmation(question: ReactElement): Promise<boolean> {
     return Promise.resolve(true);
+  }
+
+  public addInput(question: React.ReactElement, mask?: boolean): Promise<string> {
+    throw new Error("no interactive input available in quiet mode");
   }
 
 }

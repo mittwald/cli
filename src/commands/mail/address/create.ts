@@ -2,15 +2,12 @@ import { BaseCommand } from "../../../BaseCommand.js";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { Flags, ux } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 export default class Create extends BaseCommand<typeof Create> {
   static description = "Create a new mail address";
   static flags = {
-    projectId: Flags.string({
-      char: "p",
-      description: "Project ID or short ID",
-      required: true,
-    }),
+    ...projectFlags,
     address: Flags.string({
       char: "a",
       description: "Mail address",
@@ -32,11 +29,7 @@ export default class Create extends BaseCommand<typeof Create> {
 
   public async run(): Promise<void> {
     const { flags } = await this.parse(Create);
-
-    const projectId = await normalizeProjectIdToUuid(
-      this.apiClient,
-      flags.projectId,
-    );
+    const projectId = await withProjectId(this.apiClient, flags, {}, this.config);
 
     const password = await ux.prompt("Mailbox password", { type: "hide" });
 

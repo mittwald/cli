@@ -48,6 +48,7 @@
     "chalk": "^5.3.0",
     "date-fns": "^2.30.0",
     "ink": "^4.2.0",
+    "ink-text-input": "^5.0.1",
     "js-yaml": "^4.1.0",
     "marked": "^5.1.0",
     "marked-terminal": "^5.2.0",

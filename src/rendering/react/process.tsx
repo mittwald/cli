@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, ReactNode } from "react";
 
 export type ProcessStepInfo = {
   type: "info";
@@ -18,7 +18,14 @@ export type ProcessStepConfirm = {
   confirmed: boolean | undefined;
 }
 
-export type ProcessStep = ProcessStepInfo | ProcessStepRunnable | ProcessStepConfirm;
+export type ProcessStepInput = {
+  type: "input";
+  title: ReactElement;
+  mask?: boolean;
+  value?: string;
+}
+
+export type ProcessStep = ProcessStepInfo | ProcessStepRunnable | ProcessStepConfirm | ProcessStepInput;
 
 export class RunnableHandler {
   private listener: () => any;
@@ -52,8 +59,12 @@ export class RunnableHandler {
 
 export interface ProcessRenderer {
   start(): void;
-  addStep(title: ReactElement): RunnableHandler;
+  addStep(title: ReactNode): RunnableHandler;
+  runStep<TRes>(title: ReactNode, fn: () => Promise<TRes>): Promise<TRes>;
   addInfo(title: ReactElement): void;
   addConfirmation(question: ReactElement): Promise<boolean>;
+  addInput(question: ReactElement, mask?: boolean): Promise<string>;
+
   complete(summary: ReactElement): void;
+  error(err: unknown): void;
 }
