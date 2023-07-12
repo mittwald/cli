@@ -10,6 +10,7 @@ export default class Token extends BaseCommand<typeof Token> {
       description: "overwrite existing token file",
     }),
   };
+  authenticationRequired = false;
 
   public async run(): Promise<void> {
     const { flags } = await this.parse(Token);
