@@ -1,13 +1,18 @@
 import { Column } from "./Column.js";
 import { ReactNode } from "react";
+import * as process from "process";
 
-export interface ColumnOptionsInput<TData = never> {
+type CellRenderer<TData = unknown> = (
+  data: TData extends Array<infer TItem> ? TItem : TData,
+) => ReactNode;
+
+export interface ColumnOptionsInput<TData = unknown> {
   isVisible?: boolean;
   isUuid?: boolean;
   minWidth?: number;
   header?: ReactNode;
   extended?: boolean;
-  render?: (data: TData) => ReactNode;
+  render?: CellRenderer<TData>;
 }
 
 export class ColumnOptions {
@@ -17,6 +22,7 @@ export class ColumnOptions {
   public readonly header?: ReactNode;
   public readonly isVisible: boolean;
   public readonly isExtended: boolean;
+  public readonly cellRenderer?: CellRenderer;
 
   public constructor(column: Column, input?: ColumnOptionsInput) {
     this.column = column;
@@ -25,6 +31,7 @@ export class ColumnOptions {
     this.header = input?.header;
     this.isExtended = input?.extended ?? false;
     this.isVisible = this.getIsVisible();
+    this.cellRenderer = input?.render;
   }
 
   private getIsVisible(): boolean {

@@ -1,5 +1,5 @@
 import * as Model from "./model/index.js";
-import { ColumnOptionsInputMap } from "./model/index.js";
+import { TableColumnsInput } from "./model/index.js";
 import React, { ReactNode, useRef } from "react";
 import { Box } from "ink";
 import { useRenderContext } from "../../context.js";
@@ -13,7 +13,7 @@ import { TableRenderSetup } from "../../../setup/TableRenderSetup.js";
 interface Props<TData> {
   data: TData[];
   setup: InferredOutput<typeof TableRenderSetup>;
-  columns?: ColumnOptionsInputMap<TData>;
+  columns?: TableColumnsInput<TData>;
 }
 
 export function Table<TData>(props: Props<TData>): ReactNode {

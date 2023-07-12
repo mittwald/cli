@@ -15,7 +15,7 @@ export class Column {
   public constructor(
     table: Table<unknown>,
     name: string,
-    optionsInput?: ColumnOptionsInput,
+    optionsInput?: ColumnOptionsInput<any>,
   ) {
     this.table = table;
     this.name = new ColumnName(name);

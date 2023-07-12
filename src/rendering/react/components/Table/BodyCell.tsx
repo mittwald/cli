@@ -12,7 +12,7 @@ export const BodyCell: FC<Props> = (props) => {
 
   return (
     <CellContainer col={cell.column}>
-      <CellContent data={cell.data} />
+      <CellContent data={cell.getData()} />
     </CellContainer>
   );
 };

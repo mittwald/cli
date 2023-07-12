@@ -3,13 +3,15 @@ import { Table } from "./Table.js";
 
 import { ColumnName } from "./ColumnName.js";
 
-export class Row<T = never> {
+export class Row<T = unknown> {
   public readonly table: Table<T>;
   public readonly cells: Cell<unknown>[];
+  public readonly data: T;
 
-  private constructor(table: Table<T>, object: T) {
+  private constructor(table: Table<T>, dataItem: T) {
     this.table = table;
-    this.cells = this.buildCells(object);
+    this.cells = this.buildCells(dataItem);
+    this.data = dataItem;
   }
 
   public static fromObject<T>(table: Table<T>, object: T): Row<T> {
