@@ -4,7 +4,9 @@ import { BaseCommand } from "../../BaseCommand.js";
 import { normalizeProjectIdToUuid, normalizeServerIdToUuid } from "../../Helpers.js";
 
 export class Set extends BaseCommand<typeof Set> {
-  static description = "Set context values for the current project, org or server";
+  static summary = "Set context values for the current project, org or server";
+  static description =
+    "The context allows you to persistently set values for common parameters, like --project-id or --server-id, so you don't have to specify them on every command."
   static flags = {
     "project-id": Flags.string({
       description: "ID or short ID of a project",

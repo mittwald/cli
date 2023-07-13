@@ -1,6 +1,11 @@
 import { Text } from "ink";
-import React, { ReactNode } from "react";
+import React, { PropsWithChildren, ReactNode } from "react";
 
-export const Value: React.FC<{ children: ReactNode }> = ({ children }) => {
+export type ValueProps = PropsWithChildren<{ notSet?: boolean }>;
+
+export const Value: React.FC<ValueProps> = ({ children, notSet }) => {
+  if (notSet) {
+    return <Text color="gray">not set</Text>;
+  }
   return <Text color="blue">{children}</Text>;
 };

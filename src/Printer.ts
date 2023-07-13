@@ -1,12 +1,12 @@
 import * as yaml from "js-yaml";
-import { ux, stdout } from "@oclif/core";
+import { stdout, ux } from "@oclif/core";
 
-interface Printer {
-  log(content: unknown): void;
+export interface Printer<T> {
+  log(content: T): void;
 }
 
 export class PrinterFactory {
-  public static build(outputFormat: string | undefined): Printer {
+  public static build<T = unknown>(outputFormat: string | undefined, defaultPrinter: Printer<T> = new DefaultPrinter()): Printer<T> {
     switch (outputFormat) {
       case "yaml":
         return new YamlPrinter();
@@ -15,27 +15,27 @@ export class PrinterFactory {
         return new JsonPrinter();
 
       default:
-        return new DefaultPrinter();
+        return defaultPrinter;
     }
   }
 }
 
-export class YamlPrinter implements Printer {
-  public log(content: unknown): void {
+export class YamlPrinter implements Printer<any> {
+  public log(content: any): void {
     stdout.write(yaml.dump(content));
   }
 }
 
-export class JsonPrinter implements Printer {
-  public log(content: unknown): void {
+export class JsonPrinter implements Printer<any> {
+  public log(content: any): void {
     ux.styledJSON(content);
   }
 }
 
 // csvn't
 
-export class DefaultPrinter implements Printer {
-  public log(content: unknown): void {
+export class DefaultPrinter implements Printer<any> {
+  public log(content: any): void {
     ux.styledObject(content);
   }
 }
