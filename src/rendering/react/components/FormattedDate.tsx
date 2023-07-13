@@ -26,7 +26,7 @@ export const FormattedDate: FC<Props> = (props) => {
   if (relativeEl && absoluteEl) {
     return (
       <Text>
-        {relative} ({absolute})
+        {relativeEl} ({absoluteEl})
       </Text>
     );
   }
