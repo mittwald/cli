@@ -6,9 +6,12 @@ import { TableRenderSetupOutput } from "../../../../setup/TableRenderSetup.js";
 import { ColumnName } from "./ColumnName.js";
 
 export type TableOptions = TableRenderSetupOutput;
-export type ColumnOptionsInputMap = Record<string, ColumnOptionsInput>;
+export type TableColumnsInput<TData = unknown> = Record<
+  string,
+  ColumnOptionsInput<TData>
+>;
 
-export class Table<T> {
+export class Table<T = unknown> {
   public readonly rows: Row<T>[];
   public readonly columns: Column[];
   public readonly overallWidth = new ObservableValue(0);
@@ -17,15 +20,15 @@ export class Table<T> {
   public constructor(
     data: T[],
     tableOptions?: TableOptions,
-    columnOptionsInput?: ColumnOptionsInputMap,
+    columnOptionsInput?: TableColumnsInput<T>,
   ) {
     this.tableOptions = Object.freeze(tableOptions);
     this.rows = this.buildRows(data);
     this.columns = this.buildColumns(this.rows, columnOptionsInput);
   }
 
-  private buildRows<T>(data: T[]): Row<T>[] {
-    return data.map((d) => Row.fromObject<T>(this, d));
+  private buildRows(data: T[]): Row<T>[] {
+    return data.map((item, index) => Row.fromObject(this, index, item));
   }
 
   private handleColumnWidthChanged(): void {
@@ -36,27 +39,27 @@ export class Table<T> {
     this.overallWidth.updateValue(overallWidth);
   }
 
-  private buildColumns<T>(
-    rows: Row<T>[],
-    columnOptions?: ColumnOptionsInputMap,
+  private buildColumns(
+    rows: Row[],
+    columnOptions?: TableColumnsInput<T>,
   ): Column[] {
     const columnsMap = new Map<string, Column>();
 
     const addColumn = (columnName: string): void => {
-      const options = columnOptions?.[columnName];
+      const options = columnOptions ? columnOptions[columnName] : {};
       const column = new Column(this, columnName, options);
       columnsMap.set(columnName, column);
       column.maxCellWidth.observe(() => this.handleColumnWidthChanged());
     };
 
     for (const row of rows) {
-      const names = columnOptions
+      const columns = columnOptions
         ? Object.entries(columnOptions).map(([name]) => name)
         : row.collectColumnNamesFromCells().map((n) => n.value);
 
-      for (const name of names) {
-        if (!columnsMap.has(name)) {
-          addColumn(name);
+      for (const column of columns) {
+        if (!columnsMap.has(column)) {
+          addColumn(column);
         }
       }
     }

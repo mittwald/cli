@@ -6,7 +6,7 @@ import { useRenderContext } from "../../rendering/react/context.js";
 import { Table } from "../../rendering/react/components/Table/index.js";
 import { UsePromiseRenderSetup } from "../../rendering/setup/usePromiseSetup.js";
 import { TableRenderSetup } from "../../rendering/setup/TableRenderSetup.js";
-import { Column } from "../../rendering/react/components/Table/Column.js";
+import { TableColumnsInput } from "../../rendering/react/components/Table/model/index.js";
 
 const usePromiseSetup = new UsePromiseRenderSetup();
 
@@ -34,10 +34,28 @@ export default class List extends RenderBaseCommand<typeof List> {
     assertStatus(projects, 200);
 
     return (
-      <Table data={projects.data} setup={tableSetup}>
-        <Column name="isReady" extended />
-        <Column name="id" />
-      </Table>
+      <Table
+        data={projects.data}
+        setup={tableSetup}
+        columns={{
+          id: {
+            isUuid: true,
+          },
+          shortId: {
+            minWidth: 8,
+          },
+          customerId: {
+            isUuid: true,
+            extended: true,
+          },
+          description: {},
+          status: {
+            render: (project) =>
+              !project.enabled ? "disabled" : project.readiness,
+          },
+          createdAt: {},
+        }}
+      />
     );
   }
 }

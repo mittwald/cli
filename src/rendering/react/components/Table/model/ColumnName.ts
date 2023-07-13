@@ -14,7 +14,7 @@ export class ColumnName {
     );
   }
 
-  public getHumanizedName(): string {
+  public get humanizedName(): string {
     return humanizeString(this.value);
   }
 

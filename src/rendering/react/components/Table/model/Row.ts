@@ -3,20 +3,28 @@ import { Table } from "./Table.js";
 
 import { ColumnName } from "./ColumnName.js";
 
-export class Row<T> {
+export class Row<T = unknown> {
   public readonly table: Table<T>;
-  public readonly cells: Cell<unknown>[];
+  public readonly cells: Cell[];
+  public readonly data: T;
+  public readonly index: number;
 
-  private constructor(table: Table<T>, object: T) {
+  private constructor(table: Table<T>, index: number, dataItem: T) {
     this.table = table;
-    this.cells = this.buildCells(object);
+    this.index = index;
+    this.cells = this.buildCells(dataItem);
+    this.data = dataItem;
   }
 
-  public static fromObject<T>(table: Table<T>, object: T): Row<T> {
-    return new Row<T>(table, object);
+  public static fromObject<T>(
+    table: Table<T>,
+    index: number,
+    dataItem: T,
+  ): Row<T> {
+    return new Row<T>(table, index, dataItem);
   }
 
-  private buildCells<T>(object: T): Cell<T>[] {
+  private buildCells<T>(object: T): Cell[] {
     if (typeof object === "object" && object !== null) {
       const entries = Object.entries(object);
       return entries.map(([name, data]) =>
@@ -30,7 +38,7 @@ export class Row<T> {
     return [];
   }
 
-  public getCell(name: string | ColumnName): Cell<unknown> {
+  public getCell(name: string | ColumnName): Cell {
     const cell = this.cells.find((c) => c.name.matches(name));
 
     if (!cell) {

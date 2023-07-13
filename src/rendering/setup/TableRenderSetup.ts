@@ -12,6 +12,10 @@ export const TableRenderSetup = FlagSupportedSetup.build(
     extended: Flags.boolean<boolean>({
       description: "show extra columns",
     }),
+    noTruncate: Flags.boolean<boolean>({
+      default: false,
+      description: "do not truncate output to fit screen",
+    }),
   },
   {} as Settings,
   (flags) => {
@@ -22,6 +26,7 @@ export const TableRenderSetup = FlagSupportedSetup.build(
     return {
       visibleColumns,
       extended: flags.extended,
+      noTruncate: flags.noTruncate,
     };
   },
 );
