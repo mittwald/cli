@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { Box, Text } from "ink";
 
-export type ListItemProps = PropsWithChildren<{}>;
+export type ListItemProps = PropsWithChildren;
 
 export function ListItem({ children }: ListItemProps) {
   return (
