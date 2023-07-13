@@ -10,9 +10,12 @@ import { Render } from "./components/Render.js";
 import { CommandArgs, CommandFlags } from "../../types.js";
 
 const renderFlags = {
-  asJson: Flags.boolean({
-    required: false,
-    default: false,
+  output: Flags.string({
+    description: "The output format to use; use 'txt' for a human readable text representation, and 'json' for a machine-readable JSON representation.",
+    char: "o",
+    required: true,
+    default: "txt",
+    options: ["txt", "json"],
   }),
 };
 
@@ -50,7 +53,7 @@ export abstract class RenderBaseCommand<
       <RenderContextProvider
         value={{
           apiClient: this.apiClient,
-          renderAsJson: this.renderFlags.asJson,
+          renderAsJson: this.renderFlags.output === "json",
         }}
       >
         <JsonCollectionProvider>
