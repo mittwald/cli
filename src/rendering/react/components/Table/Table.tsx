@@ -7,12 +7,12 @@ import { RenderJson } from "../../json/RenderJson.js";
 import { MeasureContextProvider } from "../../measure/MeasureContextProvider.js";
 import { HeaderRow } from "./HeaderRow.js";
 import { BodyRows } from "./BodyRows.js";
-import { InferredOutput } from "../../../setup/FlagSupportedSetup.js";
-import { TableRenderSetup } from "../../../setup/TableRenderSetup.js";
+import { TableRenderSetupOutput } from "../../../setup/TableRenderSetup.js";
+import { buildTableContext, TableContextProvider } from "./context.js";
 
 interface Props<TData> {
   data: TData[];
-  setup: InferredOutput<typeof TableRenderSetup>;
+  setup: TableRenderSetupOutput;
   columns?: TableColumnsInput<TData>;
 }
 
@@ -28,11 +28,17 @@ export function Table<TData>(props: Props<TData>): ReactNode {
   const table = useRef(new Model.Table(data, setup, columns)).current;
 
   return (
-    <MeasureContextProvider>
-      <Box flexDirection="column">
-        <HeaderRow marginBottom={1} table={table} />
-        <BodyRows table={table} />
-      </Box>
-    </MeasureContextProvider>
+    <TableContextProvider
+      value={buildTableContext({
+        setup,
+      })}
+    >
+      <MeasureContextProvider>
+        <Box flexDirection="column">
+          <HeaderRow marginBottom={1} table={table} />
+          <BodyRows table={table} />
+        </Box>
+      </MeasureContextProvider>
+    </TableContextProvider>
   );
 }

@@ -1,6 +1,6 @@
 import * as Model from "./model/index.js";
 import { Text } from "ink";
-import React, { FC, isValidElement } from "react";
+import React, { FC } from "react";
 import { CellLayout } from "./CellLayout.js";
 
 interface Props {
