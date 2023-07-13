@@ -11,7 +11,7 @@ import {
 } from "../../../generated/mail/deliveryboxList.js";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { ListColumns } from "../../../Formatter.js";
-import { formatDate } from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdDeliveryboxes.Get.Responses.$200.Content.ApplicationJson[number]
@@ -37,7 +37,7 @@ export default class List extends GeneratedMailDeliveryboxList<ResponseItem> {
       description: {},
       updatedAt: {
         header: "Updated at",
-        get: (r) => formatDate(r.updatedAt),
+        get: (r) => formatRelativeDate(r.updatedAt),
       },
     };
   }

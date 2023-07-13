@@ -2,7 +2,7 @@ import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
-import { formatDate } from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
@@ -62,7 +62,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
             ", " +
             // API specs are broken
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            formatDate((r.latestExecution as any).start)
+            formatRelativeDate((r.latestExecution as any).start)
           );
         },
       },

@@ -19,42 +19,11 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { ByteFormat } from "../../rendering/react/components/ByteFormat.js";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import Link from "ink-link";
+import { ProjectStatus } from "../../rendering/react/components/ProjectStatus.js";
 import ProjectHardwareSpec = MittwaldAPIV2.Components.Schemas.ProjectHardwareSpec;
 import ProjectVisitorSpec = MittwaldAPIV2.Components.Schemas.ProjectVisitorSpec;
 import ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
 import CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
-
-const ProjectReadiness: FC<{
-  readiness: MittwaldAPIV2.Components.Schemas.ProjectProjectReadinessStatus;
-}> = ({ readiness }) => {
-  switch (readiness) {
-    case "ready":
-      return <Text color="green">ready 🚀</Text>;
-    case "creating":
-      return <Text color="blue">creating 🏗</Text>;
-    case "unready":
-      return <Text color="red">unready 💀</Text>;
-    default:
-      return <Value notSet />;
-  }
-};
-
-const ProjectEnabled: FC<{ object: { enabled: boolean } }> = ({ object }) => {
-  if (object.enabled) {
-    return <Text color="green">enabled</Text>;
-  }
-  return <Text color="red">disabled</Text>;
-};
-
-const ProjectStatus: FC<{ object: ProjectProject }> = ({ object }) => {
-  return (
-    <Box>
-      <ProjectEnabled object={object} />
-      <Text> / </Text>
-      <ProjectReadiness readiness={object.readiness} />
-    </Box>
-  );
-};
 
 const ProjectSpecs: FC<{
   projectId: string;
@@ -126,7 +95,7 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
   const rows = {
     "Project ID": <IDAndShortID object={response} />,
     "Created At": <CreatedAt object={response} />,
-    Status: <ProjectStatus object={response} />,
+    Status: <ProjectStatus project={response} />,
     Customer: <ProjectCustomer customer={customer.data} />,
   };
 

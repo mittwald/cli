@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
 
-export function formatDate(date: Date | string | undefined): string {
+export function formatRelativeDate(date: Date | string | undefined): string {
   if (!date) {
     return "unknown";
   }
@@ -16,7 +16,7 @@ export function formatDate(date: Date | string | undefined): string {
 }
 
 export function formatCreatedAt(row: { createdAt: string }): string {
-  return formatDate(new Date(`${row.createdAt}`));
+  return formatRelativeDate(new Date(`${row.createdAt}`));
 }
 
 export const parseDate = (text: string): Date | undefined => {

@@ -1,8 +1,8 @@
-import { Text } from "ink";
-import React, { FC } from "react";
-import { FormatDate } from "../FormatDate.js";
+import React, { FC, isValidElement } from "react";
+import { FormattedDate } from "../FormattedDate.js";
 import { JSONView } from "../JSONView.js";
 import { parseDate } from "../../../../lib/viewhelpers/date.js";
+import { Value } from "../Value.js";
 
 interface Props {
   data: unknown;
@@ -12,17 +12,21 @@ export const CellData: FC<Props> = (props) => {
   const { data } = props;
 
   if (data === null || data === undefined) {
-    return <Text dimColor>n/a</Text>;
+    return <Value notSet />;
+  }
+
+  if (isValidElement(data)) {
+    return data;
   }
 
   if (data instanceof Date) {
-    return <FormatDate date={data} />;
+    return <FormattedDate date={data} display="relative" />;
   }
 
   if (typeof data === "string") {
     const date = parseDate(data);
     if (date) {
-      return <FormatDate date={date} />;
+      return <FormattedDate display="relative" date={data} />;
     }
     return data;
   }
