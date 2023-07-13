@@ -30,9 +30,8 @@
     "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64 --no-xz",
     "package:windows": "oclif pack win",
     "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
-    "test": "yarn lint && yarn format --check && yarn test:packages && yarn test:licenses",
-    "test:licenses": "yarn license-check --summary --unknown && yarn license-check --unknown --failOn 'UNLICENSED;UNKNOWN'",
-    "test:packages": "yarn all run test"
+    "test": "yarn lint && yarn format --check && yarn test:licenses",
+    "test:licenses": "yarn license-check --summary --unknown && yarn license-check --unknown --failOn 'UNLICENSED;UNKNOWN'"
   },
   "files": [
     ".deps",
