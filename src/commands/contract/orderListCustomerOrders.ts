@@ -4,7 +4,10 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
-import { GeneratedOrderListCustomerOrders, Response } from "../../generated/contract/orderListCustomerOrders.js";
+import {
+  GeneratedOrderListCustomerOrders,
+  Response,
+} from "../../generated/contract/orderListCustomerOrders.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2CustomersCustomerIdOrders.Get.Responses.$200.Content.ApplicationJson[number]

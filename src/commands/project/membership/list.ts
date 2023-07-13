@@ -7,7 +7,7 @@ import { SuccessfulResponse } from "../../../types.js";
 import {
   GeneratedProjectListMembershipsForProject,
   PathParams,
-  Response
+  Response,
 } from "../../../generated/project/listMembershipsForProject.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatDate } from "../../../lib/viewhelpers/date.js";

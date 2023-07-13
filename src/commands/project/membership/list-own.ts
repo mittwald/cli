@@ -4,7 +4,10 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import { GeneratedProjectListProjectMemberships, Response } from "../../../generated/project/listProjectMemberships.js";
+import {
+  GeneratedProjectListProjectMemberships,
+  Response,
+} from "../../../generated/project/listProjectMemberships.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatDate } from "../../../lib/viewhelpers/date.js";
 

@@ -4,7 +4,11 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import { GeneratedMailDeliveryboxList, PathParams, Response } from "../../../generated/mail/deliveryboxList.js";
+import {
+  GeneratedMailDeliveryboxList,
+  PathParams,
+  Response,
+} from "../../../generated/mail/deliveryboxList.js";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatDate } from "../../../lib/viewhelpers/date.js";

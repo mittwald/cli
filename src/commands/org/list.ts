@@ -4,7 +4,10 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
-import { GeneratedCustomerListCustomers, Response } from "../../generated/customer/listCustomers.js";
+import {
+  GeneratedCustomerListCustomers,
+  Response,
+} from "../../generated/customer/listCustomers.js";
 import { ListColumns } from "../../Formatter.js";
 
 type ResponseItem = Simplify<

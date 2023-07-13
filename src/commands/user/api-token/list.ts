@@ -4,7 +4,10 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import { GeneratedUserListApiTokens, Response } from "../../../generated/user/listApiTokens.js";
+import {
+  GeneratedUserListApiTokens,
+  Response,
+} from "../../../generated/user/listApiTokens.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatCreatedAt, formatDate } from "../../../lib/viewhelpers/date.js";
 

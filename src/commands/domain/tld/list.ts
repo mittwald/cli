@@ -4,7 +4,10 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import { GeneratedDomainListToplevelDomains, Response } from "../../../generated/domain/listToplevelDomains.js";
+import {
+  GeneratedDomainListToplevelDomains,
+  Response,
+} from "../../../generated/domain/listToplevelDomains.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ToplevelDomains.Get.Responses.$200.Content.ApplicationJson[number]

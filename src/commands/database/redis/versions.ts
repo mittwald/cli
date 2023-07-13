@@ -4,7 +4,10 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import { GeneratedDatabaseListRedisVersions, Response } from "../../../generated/database/listRedisVersions.js";
+import {
+  GeneratedDatabaseListRedisVersions,
+  Response,
+} from "../../../generated/database/listRedisVersions.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2RedisVersions.Get.Responses.$200.Content.ApplicationJson[number]

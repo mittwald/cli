@@ -7,7 +7,7 @@ import { SuccessfulResponse } from "../../../types.js";
 import {
   GeneratedProjectListInvitesForProject,
   PathParams,
-  Response
+  Response,
 } from "../../../generated/project/listInvitesForProject.js";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { ListColumns } from "../../../Formatter.js";

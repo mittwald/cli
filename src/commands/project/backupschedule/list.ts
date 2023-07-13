@@ -6,7 +6,7 @@ import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import {
   GeneratedBackupListProjectBackupSchedules,
-  Response
+  Response,
 } from "../../../generated/backup/listProjectBackupSchedules.js";
 import { PathParams } from "../../../generated/backup/listProjectBackups.js";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
