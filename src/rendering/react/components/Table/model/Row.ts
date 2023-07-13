@@ -18,7 +18,7 @@ export class Row<T = unknown> {
     return new Row<T>(table, object);
   }
 
-  private buildCells<T>(object: T): Cell<T>[] {
+  private buildCells<T>(object: T): Cell<unknown>[] {
     if (typeof object === "object" && object !== null) {
       const entries = Object.entries(object);
       return entries.map(([name, data]) =>

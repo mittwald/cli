@@ -1,10 +1,7 @@
 import { Column } from "./Column.js";
 import { ReactNode } from "react";
-import * as process from "process";
 
-type CellRenderer<TData = unknown> = (
-  data: TData extends Array<infer TItem> ? TItem : TData,
-) => ReactNode;
+type CellRenderer<TData = unknown> = (data: TData) => ReactNode;
 
 export interface ColumnOptionsInput<TData = unknown> {
   isVisible?: boolean;

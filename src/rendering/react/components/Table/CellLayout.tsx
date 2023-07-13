@@ -9,7 +9,7 @@ interface Props extends ComponentProps<typeof Box> {
   col: Model.Column;
 }
 
-export const CellContainer: FC<PropsWithChildren<Props>> = (props) => {
+export const CellLayout: FC<PropsWithChildren<Props>> = (props) => {
   const { col, children, ...boxProps } = props;
   const proportionalWidth = useWatchObservableValue(col.proportionalWidth);
 
