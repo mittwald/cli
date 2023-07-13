@@ -60,8 +60,8 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
           return (
             r.latestExecution.status +
             ", " +
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             // API specs are broken
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatRelativeDate((r.latestExecution as any).start)
           );
         },
