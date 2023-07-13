@@ -1,5 +1,5 @@
 export function parseBytes(input: string): number {
-  const numeric = parseInt(input.replace(/[^0-9]/g, ''), 10);
+  const numeric = parseInt(input.replace(/[^0-9]/g, ""), 10);
 
   if (`${numeric}` == input) {
     return numeric;

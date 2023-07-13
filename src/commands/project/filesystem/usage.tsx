@@ -16,9 +16,6 @@ import { ListItem } from "../../../rendering/react/components/ListItem.js";
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2ProjectsProjectIdFilesystemUsagesDisk.Get.Parameters.Path;
-type APIResponse = Awaited<
-  ReturnType<MittwaldAPIV2Client["projectFileSystem"]["getDiskUsage"]>
->;
 
 export class Usage extends RenderBaseCommand<typeof Usage> {
   static description = "Get a Project directory filesystem usage.";
@@ -44,7 +41,7 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
     const projectDiskUsage = usePromise(
       (id: string) =>
         this.apiClient.projectFileSystem.getDiskUsage({
-          pathParameters: { projectId },
+          pathParameters: { projectId: id },
         }),
       [projectId],
     );
