@@ -6,7 +6,7 @@ import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import {
   GeneratedCustomerListCustomerMemberships,
-  Response,
+  Response
 } from "../../../generated/customer/listCustomerMemberships.js";
 
 type ResponseItem = Simplify<

@@ -73,7 +73,9 @@ export default class Create extends ExecRenderBaseCommand<
       },
     );
 
-    process.complete(<Success>Your mail address was successfully created.</Success>)
+    process.complete(
+      <Success>Your mail address was successfully created.</Success>,
+    );
 
     return { addressId: response.data.id };
   }

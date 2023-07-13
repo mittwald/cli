@@ -1,6 +1,6 @@
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { isUuid, isProjectShortId } from "./Helpers.js";
+import { isProjectShortId, isUuid } from "./Helpers.js";
 
 export async function getProjectUuidFromShortId(
   apiClient: MittwaldAPIV2Client,

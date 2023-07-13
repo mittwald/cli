@@ -1,4 +1,4 @@
-import React, { ComponentType, createElement, FC } from "react";
+import { ComponentType, createElement, FC } from "react";
 
 interface Props {
   render: ComponentType;

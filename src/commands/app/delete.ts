@@ -1,9 +1,9 @@
-import { Flags, Args, ux } from "@oclif/core";
+import { Args, Flags, ux } from "@oclif/core";
 import { BaseCommand } from "../../BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { isUuid } from "../../Helpers.js";
 
-export default class Delete extends BaseCommand<typeof Delete> {
+export default class Delete extends BaseCommand {
   static description = "Delete an app";
 
   static args = {

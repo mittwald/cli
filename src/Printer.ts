@@ -6,7 +6,10 @@ export interface Printer<T> {
 }
 
 export class PrinterFactory {
-  public static build<T = unknown>(outputFormat: string | undefined, defaultPrinter: Printer<T> = new DefaultPrinter()): Printer<T> {
+  public static build<T = unknown>(
+    outputFormat: string | undefined,
+    defaultPrinter: Printer<T> = new DefaultPrinter(),
+  ): Printer<T> {
     switch (outputFormat) {
       case "yaml":
         return new YamlPrinter();
@@ -20,22 +23,22 @@ export class PrinterFactory {
   }
 }
 
-export class YamlPrinter implements Printer<any> {
-  public log(content: any): void {
+export class YamlPrinter implements Printer<unknown> {
+  public log(content: unknown): void {
     stdout.write(yaml.dump(content));
   }
 }
 
-export class JsonPrinter implements Printer<any> {
-  public log(content: any): void {
+export class JsonPrinter implements Printer<unknown> {
+  public log(content: unknown): void {
     ux.styledJSON(content);
   }
 }
 
 // csvn't
 
-export class DefaultPrinter implements Printer<any> {
-  public log(content: any): void {
+export class DefaultPrinter implements Printer<unknown> {
+  public log(content: unknown): void {
     ux.styledObject(content);
   }
 }

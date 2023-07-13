@@ -2,12 +2,14 @@ import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { serverFlags, withServerId } from "../../lib/server/flags.js";
 import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
-import { FancyProcessRenderer } from "../../rendering/react/process_fancy.js";
 import { Text } from "ink";
 import React, { ReactNode } from "react";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-import { makeProcessRenderer, processFlags } from "../../rendering/react/process_flags.js";
+import {
+  makeProcessRenderer,
+  processFlags,
+} from "../../rendering/react/process_flags.js";
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,
@@ -60,7 +62,8 @@ export default class Create extends ExecRenderBaseCommand<
       while (waited < 120) {
         const projectResponse = await this.apiClient.project.getProject({
           pathParameters: { id: result.data.id },
-          headers: { "if-event-reached": eventId } as any, // TODO: Remove once @mittwald/api-client supports this
+          // TODO: Remove once @mittwald/api-client supports this
+          headers: { "if-event-reached": eventId } as any, // eslint-disable-line
         });
 
         if (

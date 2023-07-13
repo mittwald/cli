@@ -1,7 +1,7 @@
 import * as fs from "fs/promises";
 import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
 import React from "react";
-import { Text, Box } from "ink";
+import { Box, Text } from "ink";
 import { Note } from "../../rendering/react/components/Note.js";
 import { FancyProcessRenderer } from "../../rendering/react/process_fancy.js";
 import { Filename } from "../../rendering/react/components/Filename.js";
@@ -48,8 +48,8 @@ export default class Reset extends ExecRenderBaseCommand<
     return { deleted: false };
   }
 
-  protected render({ deleted }: ResetResult): React.ReactNode {
-    return <></>;
+  protected render() {
+    return null;
   }
 
   private async tokenFileExists(): Promise<boolean> {

@@ -1,10 +1,9 @@
-import { Flags, ux } from "@oclif/core";
+import { ux } from "@oclif/core";
 import { BaseCommand } from "../../BaseCommand.js";
-import * as fs from "fs/promises";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { formatDistanceToNow } from "date-fns";
 
-export default class Status extends BaseCommand<typeof Status> {
+export default class Status extends BaseCommand {
   static description = "Checks your current authentication status";
 
   public async run(): Promise<void> {

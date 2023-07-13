@@ -1,8 +1,6 @@
 import { Flags } from "@oclif/core";
 import { FlagSupportedSetup, InferredOutput } from "./FlagSupportedSetup.js";
 
-interface Settings {}
-
 export const TableRenderSetup = FlagSupportedSetup.build(
   {
     columns: Flags.string({
@@ -17,7 +15,7 @@ export const TableRenderSetup = FlagSupportedSetup.build(
       description: "do not truncate output to fit screen",
     }),
   },
-  {} as Settings,
+  {},
   (flags) => {
     const visibleColumns = flags.columns
       ?.split(",")

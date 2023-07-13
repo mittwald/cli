@@ -13,8 +13,10 @@ export class Context {
 
   private async initializeContextData(): Promise<Record<string, string>> {
     try {
-      const contents = await fs
-        .readFile(path.join(this.config.configDir, "context.json"), "utf-8");
+      const contents = await fs.readFile(
+        path.join(this.config.configDir, "context.json"),
+        "utf-8",
+      );
       return JSON.parse(contents);
     } catch (e) {
       if (e instanceof Error && "code" in e && e.code === "ENOENT") {
@@ -34,7 +36,7 @@ export class Context {
 
   private async setContextValue(key: string, value: string): Promise<void> {
     const data = await this.contextData;
-    return await this.persist({...await this.contextData, [key]: value });
+    return await this.persist({ ...data, [key]: value });
   }
 
   public async getContextValue(key: string): Promise<string | undefined> {
@@ -53,5 +55,4 @@ export class Context {
   public projectId = () => this.getContextValue("project-id");
   public serverId = () => this.getContextValue("server-id");
   public orgId = () => this.getContextValue("org-id");
-
 }

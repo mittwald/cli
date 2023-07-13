@@ -4,10 +4,7 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import {
-  GeneratedAppListSystemsoftwares,
-  Response,
-} from "../../../generated/app/listSystemsoftwares.js";
+import { GeneratedAppListSystemsoftwares, Response } from "../../../generated/app/listSystemsoftwares.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Systemsoftwares.Get.Responses.$200.Content.ApplicationJson[number]

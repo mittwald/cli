@@ -12,8 +12,8 @@ import { useRenderContext } from "../../rendering/react/context.js";
 
 const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
   const rows: Record<string, ReactNode> = {};
-  const {renderAsJson} = useRenderContext();
-  const values: Record<string, string|undefined> = {};
+  const { renderAsJson } = useRenderContext();
+  const values: Record<string, string | undefined> = {};
 
   for (const key of ["project-id", "server-id", "org-id"]) {
     const value = usePromise(ctx.getContextValue.bind(ctx), [key]);
@@ -26,7 +26,7 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
   }
 
   if (renderAsJson) {
-    return <RenderJson name={"context"} data={values} />
+    return <RenderJson name={"context"} data={values} />;
   }
 
   return (

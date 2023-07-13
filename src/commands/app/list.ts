@@ -4,7 +4,7 @@ import { BaseCommand } from "../../BaseCommand.js";
 import { normalizeProjectIdToUuid } from "../../Helpers.js";
 import { getAppNameFromUuid, getAppVersionFromUuid } from "../../Translator.js";
 
-export default class List extends BaseCommand<typeof List> {
+export default class List extends BaseCommand {
   static description = "List projects";
   static flags = {
     ...ux.table.flags(),

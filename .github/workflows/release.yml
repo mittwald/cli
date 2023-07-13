@@ -6,7 +6,6 @@ on:
       - v*
 
 jobs:
-
   build-linux:
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +23,9 @@ jobs:
         run: yarn
 
       - name: Set version in package json
-        run: npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version --no-workspaces-update
+        run:
+          npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version
+          --no-workspaces-update
 
       - name: Build
         run: yarn compile
@@ -55,7 +56,9 @@ jobs:
         run: yarn
 
       - name: Set version in package json
-        run: npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version --no-workspaces-update
+        run:
+          npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version
+          --no-workspaces-update
 
       - name: Build
         run: yarn compile
@@ -84,7 +87,9 @@ jobs:
         run: yarn
 
       - name: Set version in package json
-        run: npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version --no-workspaces-update
+        run:
+          npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version
+          --no-workspaces-update
 
       - name: Build
         run: yarn compile
@@ -117,7 +122,9 @@ jobs:
         run: yarn
 
       - name: Set version in package json
-        run: npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version --no-workspaces-update
+        run:
+          npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version
+          --no-workspaces-update
 
       - name: Build
         run: yarn compile
@@ -142,7 +149,10 @@ jobs:
         uses: actions/download-artifact@v3
 
       - name: Create release
-        run: gh release create ${GITHUB_REF#refs/tags/} --title ${GITHUB_REF#refs/tags/} --generate-notes --verify-tag pkg-tarballs/*.tar.gz pkg-windows/*.exe pkg-macos/*.pkg
+        run:
+          gh release create ${GITHUB_REF#refs/tags/} --title
+          ${GITHUB_REF#refs/tags/} --generate-notes --verify-tag
+          pkg-tarballs/*.tar.gz pkg-windows/*.exe pkg-macos/*.pkg
         env:
           GITHUB_TOKEN: ${{ github.token }}
 

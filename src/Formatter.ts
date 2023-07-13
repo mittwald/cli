@@ -23,7 +23,7 @@ export class GetFormatter<T = unknown> {
 
   private defaultPrinter: Printer<T> = new DefaultPrinter();
 
-  public constructor(defaultPrinter: Printer<T> = new DefaultPrinter) {
+  public constructor(defaultPrinter: Printer<T> = new DefaultPrinter()) {
     this.defaultPrinter = defaultPrinter;
   }
 

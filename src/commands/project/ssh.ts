@@ -1,10 +1,9 @@
-import { Args } from "@oclif/core";
 import { BaseCommand } from "../../BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import * as child_process from "child_process";
 import { projectArgs, withProjectId } from "../../lib/project/flags.js";
 
-export default class Ssh extends BaseCommand<typeof Ssh> {
+export default class Ssh extends BaseCommand {
   static description = "Connect to a project via SSH";
 
   static args = { ...projectArgs };

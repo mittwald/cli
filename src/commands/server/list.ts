@@ -4,10 +4,7 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
-import {
-  GeneratedProjectListServers,
-  Response,
-} from "../../generated/project/listServers.js";
+import { GeneratedProjectListServers, Response } from "../../generated/project/listServers.js";
 import { ListColumns } from "../../Formatter.js";
 
 type ResponseItem = Simplify<

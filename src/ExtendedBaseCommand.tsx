@@ -3,7 +3,7 @@ import { CommandArgs, CommandFlags } from "./types.js";
 
 export abstract class ExtendedBaseCommand<
   T extends typeof BaseCommand,
-> extends BaseCommand<T> {
+> extends BaseCommand {
   protected flags!: CommandFlags<T>;
   protected args!: CommandArgs<T>;
 

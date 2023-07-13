@@ -2,9 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
@@ -17,11 +15,6 @@
     "skipLibCheck": true,
     "composite": true
   },
-  "exclude": [
-    "test-d/**/*",
-    "*.test.ts"
-  ],
-  "include": [
-    "src/**/*"
-  ]
+  "exclude": ["test-d/**/*", "*.test.ts"],
+  "include": ["src/**/*"]
 }

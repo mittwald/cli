@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* prettier-ignore */
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { Args, Flags } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../GetBaseCommand.js";
 

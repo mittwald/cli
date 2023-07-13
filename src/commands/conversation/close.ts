@@ -3,7 +3,7 @@ import { Args, ux } from "@oclif/core";
 import { normalizeConversationIdToUuid } from "../../Helpers.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 
-export default class Close extends BaseCommand<typeof Close> {
+export default class Close extends BaseCommand {
   static description = "Close a conversation";
   static args = {
     id: Args.string({

@@ -10,9 +10,8 @@ const RenderComponent: FC<{ render: () => ReactNode }> = (p) => (
 
 export abstract class ExecRenderBaseCommand<
   T extends typeof BaseCommand,
-  TRes
+  TRes,
 > extends ExtendedBaseCommand<T> {
-
   protected abstract exec(): Promise<TRes>;
 
   public async run(): Promise<void> {

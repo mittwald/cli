@@ -6,7 +6,6 @@ import { useRenderContext } from "../../rendering/react/context.js";
 import { Table } from "../../rendering/react/components/Table/index.js";
 import { UsePromiseRenderSetup } from "../../rendering/setup/usePromiseSetup.js";
 import { TableRenderSetup } from "../../rendering/setup/TableRenderSetup.js";
-import { TableColumnsInput } from "../../rendering/react/components/Table/model/index.js";
 
 const usePromiseSetup = new UsePromiseRenderSetup();
 

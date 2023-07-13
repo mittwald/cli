@@ -4,10 +4,7 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
-import {
-  GeneratedCustomerListCustomers,
-  Response,
-} from "../../generated/customer/listCustomers.js";
+import { GeneratedCustomerListCustomers, Response } from "../../generated/customer/listCustomers.js";
 import { ListColumns } from "../../Formatter.js";
 
 type ResponseItem = Simplify<
@@ -36,10 +33,10 @@ export default class List extends GeneratedCustomerListCustomers<ResponseItem> {
           }
 
           return `${r.owner.firstName} ${r.owner.lastName}`;
-        }
+        },
       },
       memberCount: { header: "Members" },
-      projectCount: { header: "Projects"},
+      projectCount: { header: "Projects" },
     };
   }
 }

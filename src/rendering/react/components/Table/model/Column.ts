@@ -15,7 +15,7 @@ export class Column {
   public constructor(
     table: Table,
     name: string,
-    optionsInput?: ColumnOptionsInput<any>,
+    optionsInput?: ColumnOptionsInput<any>, // eslint-disable-line
   ) {
     this.table = table;
     this.name = new ColumnName(name);

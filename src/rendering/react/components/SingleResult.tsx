@@ -26,11 +26,7 @@ export function SingleResultTable({ rows }: SingleResultTableProps) {
     );
   });
 
-  return (
-    <Box flexDirection="column">
-      {renderedRows}
-    </Box>
-  );
+  return <Box flexDirection="column">{renderedRows}</Box>;
 }
 
 export function SingleResult({ title, rows }: SingleResultProps) {

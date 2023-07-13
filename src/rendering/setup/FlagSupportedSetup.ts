@@ -4,8 +4,8 @@ import { Class } from "type-fest";
 import { mergeObjects } from "../../lib/mergeObjects.js";
 
 export type InferredOutput<T> = T extends Class<
-  FlagSupportedSetup<any, any, infer TOut>,
-  any
+  FlagSupportedSetup<FlagInput, any, infer TOut>, // eslint-disable-line
+  any // eslint-disable-line
 >
   ? TOut
   : never;

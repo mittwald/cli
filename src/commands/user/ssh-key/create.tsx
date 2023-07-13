@@ -1,4 +1,4 @@
-import { Flags, ux } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import * as cp from "child_process";
 import * as path from "path";
@@ -6,7 +6,6 @@ import * as os from "os";
 import * as fs from "fs/promises";
 import parseDuration from "parse-duration";
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
-import { ReactNode } from "react";
 import {
   makeProcessRenderer,
   processFlags,
@@ -15,13 +14,17 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import { Filename } from "../../../rendering/react/components/Filename.js";
 import { Text } from "ink";
 
-export default class Create extends ExecRenderBaseCommand<typeof Create, {}> {
+export default class Create extends ExecRenderBaseCommand<
+  typeof Create,
+  undefined
+> {
   static description = "Create and import a new SSH key";
 
   static flags = {
     ...processFlags,
     output: Flags.string({
-      description: "A filename in your ~/.ssh directory to write the SSH key to.",
+      description:
+        "A filename in your ~/.ssh directory to write the SSH key to.",
       default: "mstudio-cli",
     }),
     "no-passphrase": Flags.boolean({
@@ -36,7 +39,7 @@ export default class Create extends ExecRenderBaseCommand<typeof Create, {}> {
     }),
   };
 
-  protected async exec(): Promise<{}> {
+  protected async exec(): Promise<undefined> {
     const { flags } = await this.parse(Create);
     const cmd = "ssh-keygen";
     const outputFile = path.join(os.homedir(), ".ssh", flags.output);
@@ -59,7 +62,10 @@ export default class Create extends ExecRenderBaseCommand<typeof Create, {}> {
     if (flags["no-passphrase"]) {
       args.push("-N", "");
     } else {
-      const passphrase = await process.addInput(<Text>enter passphrase for SSH key</Text>, true);
+      const passphrase = await process.addInput(
+        <Text>enter passphrase for SSH key</Text>,
+        true,
+      );
       args.push("-N", passphrase);
     }
 
@@ -75,7 +81,11 @@ export default class Create extends ExecRenderBaseCommand<typeof Create, {}> {
       },
     );
 
-    process.addInfo(<Text>ssh key saved to <Filename filename={outputFile} />.</Text>)
+    process.addInfo(
+      <Text>
+        ssh key saved to <Filename filename={outputFile} />.
+      </Text>,
+    );
 
     await process.runStep("importing SSH key", async () => {
       const response = await this.apiClient.user.createSshKey({
@@ -94,11 +104,9 @@ export default class Create extends ExecRenderBaseCommand<typeof Create, {}> {
         Your SSH key was successfully created and imported to your user profile.
       </Success>,
     );
-
-    return {};
   }
 
-  protected render(executionResult: {}): ReactNode {
-    return undefined;
+  protected render() {
+    return null;
   }
 }

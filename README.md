@@ -8,7 +8,11 @@
 
 > ⚠️ **EXPERIMENTAL -- STABILITY NOTICE**
 >
-> This project is **experimental**, and we do not offer any stability guarantees of any kind for the command structure, input flags and arguments and output formats. We welcome you to give this project a try and we're looking forward for any feedback on this project in this stage of development. However, please do not rely on any inputs or outputs of this project to remain stable.
+> This project is **experimental**, and we do not offer any stability guarantees
+> of any kind for the command structure, input flags and arguments and output
+> formats. We welcome you to give this project a try and we're looking forward
+> for any feedback on this project in this stage of development. However, please
+> do not rely on any inputs or outputs of this project to remain stable.
 
 ## Synposis
 
@@ -16,11 +20,14 @@
 
 ## Installation and first steps
 
-Have a look at the [documentation](https://developer.mittwald.de/docs/v2/api/sdks/cli/) for installation instructions.
+Have a look at the
+[documentation](https://developer.mittwald.de/docs/v2/api/sdks/cli/) for
+installation instructions.
 
 ## Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @mittwald/cli
 $ mw COMMAND
@@ -32,124 +39,126 @@ USAGE
   $ mw COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 ## Commands
 
 <!-- commands -->
-* [`mw app delete ID`](#mw-app-delete-id)
-* [`mw app dependency getSystemsoftware SYSTEMSOFTWAREID`](#mw-app-dependency-getsystemsoftware-systemsoftwareid)
-* [`mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`](#mw-app-dependency-getsystemsoftwareversion-systemsoftwareversionid)
-* [`mw app dependency listSystemsoftwares`](#mw-app-dependency-listsystemsoftwares)
-* [`mw app dependency listSystemsoftwareversions`](#mw-app-dependency-listsystemsoftwareversions)
-* [`mw app get APPINSTALLATIONID`](#mw-app-get-appinstallationid)
-* [`mw app install wordpress`](#mw-app-install-wordpress)
-* [`mw app list`](#mw-app-list)
-* [`mw app versions [APP]`](#mw-app-versions-app)
-* [`mw article get ARTICLEID`](#mw-article-get-articleid)
-* [`mw article list`](#mw-article-list)
-* [`mw contract getBaseItemOfContract`](#mw-contract-getbaseitemofcontract)
-* [`mw contract getDetailOfContract CONTRACTID`](#mw-contract-getdetailofcontract-contractid)
-* [`mw contract getDetailOfContractByDomain`](#mw-contract-getdetailofcontractbydomain)
-* [`mw contract getDetailOfContractByProject`](#mw-contract-getdetailofcontractbyproject)
-* [`mw contract getDetailOfContractByServer`](#mw-contract-getdetailofcontractbyserver)
-* [`mw contract getDetailOfContractItem CONTRACTITEMID`](#mw-contract-getdetailofcontractitem-contractitemid)
-* [`mw contract getNextTerminationDateForItem`](#mw-contract-getnextterminationdateforitem)
-* [`mw contract invoiceDetailOfInvoice INVOICEID`](#mw-contract-invoicedetailofinvoice-invoiceid)
-* [`mw contract invoiceGetDetailOfInvoiceSettings`](#mw-contract-invoicegetdetailofinvoicesettings)
-* [`mw contract invoiceListCustomerInvoices`](#mw-contract-invoicelistcustomerinvoices)
-* [`mw contract listContracts`](#mw-contract-listcontracts)
-* [`mw contract orderGetOrder ORDERID`](#mw-contract-ordergetorder-orderid)
-* [`mw contract orderListCustomerOrders`](#mw-contract-orderlistcustomerorders)
-* [`mw contract orderListProjectOrders`](#mw-contract-orderlistprojectorders)
-* [`mw conversation categories`](#mw-conversation-categories)
-* [`mw conversation close ID`](#mw-conversation-close-id)
-* [`mw conversation create`](#mw-conversation-create)
-* [`mw conversation list`](#mw-conversation-list)
-* [`mw conversation reply ID`](#mw-conversation-reply-id)
-* [`mw conversation show ID`](#mw-conversation-show-id)
-* [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
-* [`mw database mysql charsets`](#mw-database-mysql-charsets)
-* [`mw database mysql get ID`](#mw-database-mysql-get-id)
-* [`mw database mysql list`](#mw-database-mysql-list)
-* [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
-* [`mw database mysql user getMysqlUserPhpMyAdminUrl`](#mw-database-mysql-user-getmysqluserphpmyadminurl)
-* [`mw database mysql user list`](#mw-database-mysql-user-list)
-* [`mw database mysql versions`](#mw-database-mysql-versions)
-* [`mw database redis get ID`](#mw-database-redis-get-id)
-* [`mw database redis list`](#mw-database-redis-list)
-* [`mw database redis versions`](#mw-database-redis-versions)
-* [`mw domain dnszone get ZONEID`](#mw-domain-dnszone-get-zoneid)
-* [`mw domain dnszone list`](#mw-domain-dnszone-list)
-* [`mw domain get DOMAINID`](#mw-domain-get-domainid)
-* [`mw domain get-handle DOMAINNAME`](#mw-domain-get-handle-domainname)
-* [`mw domain list`](#mw-domain-list)
-* [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
-* [`mw domain ownership list`](#mw-domain-ownership-list)
-* [`mw domain tld get TLD`](#mw-domain-tld-get-tld)
-* [`mw domain tld list`](#mw-domain-tld-list)
-* [`mw domain virtualhost get INGRESSID`](#mw-domain-virtualhost-get-ingressid)
-* [`mw domain virtualhost list`](#mw-domain-virtualhost-list)
-* [`mw help [COMMANDS]`](#mw-help-commands)
-* [`mw login status`](#mw-login-status)
-* [`mw login token`](#mw-login-token)
-* [`mw mail address create`](#mw-mail-address-create)
-* [`mw mail address delete ID`](#mw-mail-address-delete-id)
-* [`mw mail address get ID`](#mw-mail-address-get-id)
-* [`mw mail address list`](#mw-mail-address-list)
-* [`mw mail deliverybox get ID`](#mw-mail-deliverybox-get-id)
-* [`mw mail deliverybox list`](#mw-mail-deliverybox-list)
-* [`mw org can-order`](#mw-org-can-order)
-* [`mw org get CUSTOMERID`](#mw-org-get-customerid)
-* [`mw org invite get INVITEID`](#mw-org-invite-get-inviteid)
-* [`mw org invite list`](#mw-org-invite-list)
-* [`mw org invite list-own`](#mw-org-invite-list-own)
-* [`mw org list`](#mw-org-list)
-* [`mw org membership get MEMBERSHIPID`](#mw-org-membership-get-membershipid)
-* [`mw org membership list`](#mw-org-membership-list)
-* [`mw org membership list-own`](#mw-org-membership-list-own)
-* [`mw project backup get PROJECTBACKUPID`](#mw-project-backup-get-projectbackupid)
-* [`mw project backup list`](#mw-project-backup-list)
-* [`mw project backupschedule get PROJECTBACKUPSCHEDULEID`](#mw-project-backupschedule-get-projectbackupscheduleid)
-* [`mw project backupschedule list`](#mw-project-backupschedule-list)
-* [`mw project create`](#mw-project-create)
-* [`mw project cronjob execution get EXECUTIONID`](#mw-project-cronjob-execution-get-executionid)
-* [`mw project cronjob execution list`](#mw-project-cronjob-execution-list)
-* [`mw project cronjob get CRONJOBID`](#mw-project-cronjob-get-cronjobid)
-* [`mw project cronjob list`](#mw-project-cronjob-list)
-* [`mw project delete ID`](#mw-project-delete-id)
-* [`mw project filesystem directories`](#mw-project-filesystem-directories)
-* [`mw project filesystem file-content`](#mw-project-filesystem-file-content)
-* [`mw project filesystem files PROJECTID`](#mw-project-filesystem-files-projectid)
-* [`mw project filesystem usage`](#mw-project-filesystem-usage)
-* [`mw project get ID`](#mw-project-get-id)
-* [`mw project invite get INVITEID`](#mw-project-invite-get-inviteid)
-* [`mw project invite list`](#mw-project-invite-list)
-* [`mw project invite list-own`](#mw-project-invite-list-own)
-* [`mw project list`](#mw-project-list)
-* [`mw project list1`](#mw-project-list1)
-* [`mw project list2`](#mw-project-list2)
-* [`mw project membership get MEMBERSHIPID`](#mw-project-membership-get-membershipid)
-* [`mw project membership get-own`](#mw-project-membership-get-own)
-* [`mw project membership list`](#mw-project-membership-list)
-* [`mw project membership list-own`](#mw-project-membership-list-own)
-* [`mw project sftp-user list`](#mw-project-sftp-user-list)
-* [`mw project ssh ID`](#mw-project-ssh-id)
-* [`mw project ssh-user list`](#mw-project-ssh-user-list)
-* [`mw project update ID`](#mw-project-update-id)
-* [`mw server get SERVERID`](#mw-server-get-serverid)
-* [`mw server list`](#mw-server-list)
-* [`mw user api-token create`](#mw-user-api-token-create)
-* [`mw user api-token get APITOKENID`](#mw-user-api-token-get-apitokenid)
-* [`mw user api-token list`](#mw-user-api-token-list)
-* [`mw user api-token revoke ID`](#mw-user-api-token-revoke-id)
-* [`mw user get`](#mw-user-get)
-* [`mw user session get TOKENID`](#mw-user-session-get-tokenid)
-* [`mw user session list`](#mw-user-session-list)
-* [`mw user ssh-key create`](#mw-user-ssh-key-create)
-* [`mw user ssh-key delete ID`](#mw-user-ssh-key-delete-id)
-* [`mw user ssh-key get SSHKEYID`](#mw-user-ssh-key-get-sshkeyid)
-* [`mw user ssh-key list`](#mw-user-ssh-key-list)
+
+- [`mw app delete ID`](#mw-app-delete-id)
+- [`mw app dependency getSystemsoftware SYSTEMSOFTWAREID`](#mw-app-dependency-getsystemsoftware-systemsoftwareid)
+- [`mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`](#mw-app-dependency-getsystemsoftwareversion-systemsoftwareversionid)
+- [`mw app dependency listSystemsoftwares`](#mw-app-dependency-listsystemsoftwares)
+- [`mw app dependency listSystemsoftwareversions`](#mw-app-dependency-listsystemsoftwareversions)
+- [`mw app get APPINSTALLATIONID`](#mw-app-get-appinstallationid)
+- [`mw app install wordpress`](#mw-app-install-wordpress)
+- [`mw app list`](#mw-app-list)
+- [`mw app versions [APP]`](#mw-app-versions-app)
+- [`mw article get ARTICLEID`](#mw-article-get-articleid)
+- [`mw article list`](#mw-article-list)
+- [`mw contract getBaseItemOfContract`](#mw-contract-getbaseitemofcontract)
+- [`mw contract getDetailOfContract CONTRACTID`](#mw-contract-getdetailofcontract-contractid)
+- [`mw contract getDetailOfContractByDomain`](#mw-contract-getdetailofcontractbydomain)
+- [`mw contract getDetailOfContractByProject`](#mw-contract-getdetailofcontractbyproject)
+- [`mw contract getDetailOfContractByServer`](#mw-contract-getdetailofcontractbyserver)
+- [`mw contract getDetailOfContractItem CONTRACTITEMID`](#mw-contract-getdetailofcontractitem-contractitemid)
+- [`mw contract getNextTerminationDateForItem`](#mw-contract-getnextterminationdateforitem)
+- [`mw contract invoiceDetailOfInvoice INVOICEID`](#mw-contract-invoicedetailofinvoice-invoiceid)
+- [`mw contract invoiceGetDetailOfInvoiceSettings`](#mw-contract-invoicegetdetailofinvoicesettings)
+- [`mw contract invoiceListCustomerInvoices`](#mw-contract-invoicelistcustomerinvoices)
+- [`mw contract listContracts`](#mw-contract-listcontracts)
+- [`mw contract orderGetOrder ORDERID`](#mw-contract-ordergetorder-orderid)
+- [`mw contract orderListCustomerOrders`](#mw-contract-orderlistcustomerorders)
+- [`mw contract orderListProjectOrders`](#mw-contract-orderlistprojectorders)
+- [`mw conversation categories`](#mw-conversation-categories)
+- [`mw conversation close ID`](#mw-conversation-close-id)
+- [`mw conversation create`](#mw-conversation-create)
+- [`mw conversation list`](#mw-conversation-list)
+- [`mw conversation reply ID`](#mw-conversation-reply-id)
+- [`mw conversation show ID`](#mw-conversation-show-id)
+- [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
+- [`mw database mysql charsets`](#mw-database-mysql-charsets)
+- [`mw database mysql get ID`](#mw-database-mysql-get-id)
+- [`mw database mysql list`](#mw-database-mysql-list)
+- [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
+- [`mw database mysql user getMysqlUserPhpMyAdminUrl`](#mw-database-mysql-user-getmysqluserphpmyadminurl)
+- [`mw database mysql user list`](#mw-database-mysql-user-list)
+- [`mw database mysql versions`](#mw-database-mysql-versions)
+- [`mw database redis get ID`](#mw-database-redis-get-id)
+- [`mw database redis list`](#mw-database-redis-list)
+- [`mw database redis versions`](#mw-database-redis-versions)
+- [`mw domain dnszone get ZONEID`](#mw-domain-dnszone-get-zoneid)
+- [`mw domain dnszone list`](#mw-domain-dnszone-list)
+- [`mw domain get DOMAINID`](#mw-domain-get-domainid)
+- [`mw domain get-handle DOMAINNAME`](#mw-domain-get-handle-domainname)
+- [`mw domain list`](#mw-domain-list)
+- [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
+- [`mw domain ownership list`](#mw-domain-ownership-list)
+- [`mw domain tld get TLD`](#mw-domain-tld-get-tld)
+- [`mw domain tld list`](#mw-domain-tld-list)
+- [`mw domain virtualhost get INGRESSID`](#mw-domain-virtualhost-get-ingressid)
+- [`mw domain virtualhost list`](#mw-domain-virtualhost-list)
+- [`mw help [COMMANDS]`](#mw-help-commands)
+- [`mw login status`](#mw-login-status)
+- [`mw login token`](#mw-login-token)
+- [`mw mail address create`](#mw-mail-address-create)
+- [`mw mail address delete ID`](#mw-mail-address-delete-id)
+- [`mw mail address get ID`](#mw-mail-address-get-id)
+- [`mw mail address list`](#mw-mail-address-list)
+- [`mw mail deliverybox get ID`](#mw-mail-deliverybox-get-id)
+- [`mw mail deliverybox list`](#mw-mail-deliverybox-list)
+- [`mw org can-order`](#mw-org-can-order)
+- [`mw org get CUSTOMERID`](#mw-org-get-customerid)
+- [`mw org invite get INVITEID`](#mw-org-invite-get-inviteid)
+- [`mw org invite list`](#mw-org-invite-list)
+- [`mw org invite list-own`](#mw-org-invite-list-own)
+- [`mw org list`](#mw-org-list)
+- [`mw org membership get MEMBERSHIPID`](#mw-org-membership-get-membershipid)
+- [`mw org membership list`](#mw-org-membership-list)
+- [`mw org membership list-own`](#mw-org-membership-list-own)
+- [`mw project backup get PROJECTBACKUPID`](#mw-project-backup-get-projectbackupid)
+- [`mw project backup list`](#mw-project-backup-list)
+- [`mw project backupschedule get PROJECTBACKUPSCHEDULEID`](#mw-project-backupschedule-get-projectbackupscheduleid)
+- [`mw project backupschedule list`](#mw-project-backupschedule-list)
+- [`mw project create`](#mw-project-create)
+- [`mw project cronjob execution get EXECUTIONID`](#mw-project-cronjob-execution-get-executionid)
+- [`mw project cronjob execution list`](#mw-project-cronjob-execution-list)
+- [`mw project cronjob get CRONJOBID`](#mw-project-cronjob-get-cronjobid)
+- [`mw project cronjob list`](#mw-project-cronjob-list)
+- [`mw project delete ID`](#mw-project-delete-id)
+- [`mw project filesystem directories`](#mw-project-filesystem-directories)
+- [`mw project filesystem file-content`](#mw-project-filesystem-file-content)
+- [`mw project filesystem files PROJECTID`](#mw-project-filesystem-files-projectid)
+- [`mw project filesystem usage`](#mw-project-filesystem-usage)
+- [`mw project get ID`](#mw-project-get-id)
+- [`mw project invite get INVITEID`](#mw-project-invite-get-inviteid)
+- [`mw project invite list`](#mw-project-invite-list)
+- [`mw project invite list-own`](#mw-project-invite-list-own)
+- [`mw project list`](#mw-project-list)
+- [`mw project list1`](#mw-project-list1)
+- [`mw project list2`](#mw-project-list2)
+- [`mw project membership get MEMBERSHIPID`](#mw-project-membership-get-membershipid)
+- [`mw project membership get-own`](#mw-project-membership-get-own)
+- [`mw project membership list`](#mw-project-membership-list)
+- [`mw project membership list-own`](#mw-project-membership-list-own)
+- [`mw project sftp-user list`](#mw-project-sftp-user-list)
+- [`mw project ssh ID`](#mw-project-ssh-id)
+- [`mw project ssh-user list`](#mw-project-ssh-user-list)
+- [`mw project update ID`](#mw-project-update-id)
+- [`mw server get SERVERID`](#mw-server-get-serverid)
+- [`mw server list`](#mw-server-list)
+- [`mw user api-token create`](#mw-user-api-token-create)
+- [`mw user api-token get APITOKENID`](#mw-user-api-token-get-apitokenid)
+- [`mw user api-token list`](#mw-user-api-token-list)
+- [`mw user api-token revoke ID`](#mw-user-api-token-revoke-id)
+- [`mw user get`](#mw-user-get)
+- [`mw user session get TOKENID`](#mw-user-session-get-tokenid)
+- [`mw user session list`](#mw-user-session-list)
+- [`mw user ssh-key create`](#mw-user-ssh-key-create)
+- [`mw user ssh-key delete ID`](#mw-user-ssh-key-delete-id)
+- [`mw user ssh-key get SSHKEYID`](#mw-user-ssh-key-get-sshkeyid)
+- [`mw user ssh-key list`](#mw-user-ssh-key-list)
 
 ## `mw app delete ID`
 
@@ -802,7 +811,8 @@ FLAGS
 
 ## `mw database mysql charsets`
 
-List available MySQL character sets and collations, optionally filtered by a MySQLVersion.
+List available MySQL character sets and collations, optionally filtered by a
+MySQLVersion.
 
 ```
 USAGE
@@ -1270,7 +1280,8 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.11/src/commands/help.ts)_
+_See code:
+[@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.11/src/commands/help.ts)_
 
 ## `mw login status`
 
@@ -2454,4 +2465,5 @@ FLAGS
 DESCRIPTION
   Get your stored ssh keys
 ```
+
 <!-- commandsstop -->

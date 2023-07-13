@@ -1,36 +1,44 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { ProcessRenderer, RunnableHandler } from "./process.js";
 
 export class SilentProcessRenderer implements ProcessRenderer {
-  public constructor(title: string) {}
-
-  public start() {}
+  public start() {
+    // 🤐
+  }
 
   public addStep(title: ReactElement): RunnableHandler {
     return new RunnableHandler(
       { type: "step", title, phase: "aborted" },
-      () => {},
+      () => {
+        // empty
+      },
     );
   }
 
-  public runStep<TRes>(title: React.ReactNode, fn: () => Promise<TRes>): Promise<TRes> {
+  public runStep<TRes>(
+    unusedTitle: ReactNode,
+    fn: () => Promise<TRes>,
+  ): Promise<TRes> {
     return fn();
   }
 
-  public addInfo(title: ReactElement) {}
+  public addInfo() {
+    // 🤐
+  }
 
-  public complete(summary: ReactElement) {}
+  public complete() {
+    // 🤐
+  }
 
   public error(err: unknown): void {
     console.error(err);
   }
 
-  public addConfirmation(question: ReactElement): Promise<boolean> {
+  public addConfirmation(): Promise<boolean> {
     return Promise.resolve(true);
   }
 
-  public addInput(question: React.ReactElement, mask?: boolean): Promise<string> {
+  public addInput(): Promise<string> {
     throw new Error("no interactive input available in quiet mode");
   }
-
 }

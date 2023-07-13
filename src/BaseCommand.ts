@@ -3,7 +3,7 @@ import * as fs from "fs/promises";
 import * as path from "path";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 
-export abstract class BaseCommand<T extends typeof Command> extends Command {
+export abstract class BaseCommand extends Command {
   protected authenticationRequired = true;
   protected apiClient: MittwaldAPIV2Client =
     MittwaldAPIV2Client.newUnauthenticated();

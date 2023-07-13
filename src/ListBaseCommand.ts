@@ -14,7 +14,7 @@ export abstract class ListBaseCommand<
   T extends typeof BaseCommand,
   TItem extends Record<string, unknown>,
   TAPIResponse extends Response,
-> extends BaseCommand<T> {
+> extends BaseCommand {
   static baseFlags = {
     ...ListFormatter.flags,
   };

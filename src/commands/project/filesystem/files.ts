@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* prettier-ignore */
 import { Args } from "@oclif/core";
-import { MittwaldAPIV2Client, MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../GetBaseCommand.js";
 
 export type PathParams =

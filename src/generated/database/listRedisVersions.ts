@@ -2,7 +2,6 @@
 /* prettier-ignore */
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { Args, Flags } from "@oclif/core";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
 
 export type PathParams =
@@ -12,7 +11,7 @@ export type Response = Awaited<
 >;
 
 export abstract class GeneratedDatabaseListRedisVersions<
-  TItem extends Record<string, unknown>
+  TItem extends Record<string, unknown>,
 > extends ListBaseCommand<
   typeof GeneratedDatabaseListRedisVersions,
   TItem,

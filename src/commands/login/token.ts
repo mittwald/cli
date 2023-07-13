@@ -2,7 +2,7 @@ import { Flags, ux } from "@oclif/core";
 import { BaseCommand } from "../../BaseCommand.js";
 import * as fs from "fs/promises";
 
-export default class Token extends BaseCommand<typeof Token> {
+export default class Token extends BaseCommand {
   static description = "Authenticate using an API token";
   static flags = {
     overwrite: Flags.boolean({

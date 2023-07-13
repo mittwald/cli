@@ -1,13 +1,13 @@
 /* eslint-disable */
 /* prettier-ignore */
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import {Simplify} from "@mittwald/api-client-commons";
+import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import {
   GeneratedProjectListInvitesForProject,
-  Response,
   PathParams,
+  Response
 } from "../../../generated/project/listInvitesForProject.js";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { ListColumns } from "../../../Formatter.js";
