@@ -57,7 +57,7 @@ export abstract class RenderBaseCommand<
         }}
       >
         <JsonCollectionProvider>
-          <Suspense fallback={<Text>Loading...</Text>}>
+          <Suspense>
             <Render render={() => this.render()} />
           </Suspense>
         </JsonCollectionProvider>
