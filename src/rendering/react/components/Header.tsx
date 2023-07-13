@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import { Box, Text } from "ink";
 
 interface Props {
-  title: string;
+  title: ReactNode;
 }
 
 export const Header: FC<Props> = (props) => {

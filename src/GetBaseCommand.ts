@@ -2,6 +2,7 @@ import { Command, Interfaces } from "@oclif/core";
 import { BaseCommand } from "./BaseCommand.js";
 import { GetFormatter } from "./Formatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
+import { Printer, DefaultPrinter } from "./Printer.js";
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof GetBaseCommand)["baseFlags"] & T["flags"]
@@ -38,6 +39,7 @@ export abstract class GetBaseCommand<
     const response = await this.getData();
 
     assertStatus(response, 200);
+
     this.formatter.log(response.data, { outputFormat: this.flags.output });
   }
 

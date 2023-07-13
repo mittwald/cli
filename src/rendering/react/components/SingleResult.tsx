@@ -3,11 +3,15 @@ import { Header } from "./Header.js";
 import { Box, Text } from "ink";
 
 export interface SingleResultProps {
-  title: string;
+  title: ReactNode;
   rows: Record<string, ReactNode>;
 }
 
-export function SingleResult<T>({ title, rows }: SingleResultProps) {
+export interface SingleResultTableProps {
+  rows: Record<string, ReactNode>;
+}
+
+export function SingleResultTable({ rows }: SingleResultTableProps) {
   const maxColumnWidth = Object.keys(rows)
     .map((r) => r.length)
     .reduce((a, b) => Math.max(a, b), 0);
@@ -24,10 +28,18 @@ export function SingleResult<T>({ title, rows }: SingleResultProps) {
 
   return (
     <Box flexDirection="column">
+      {renderedRows}
+    </Box>
+  );
+}
+
+export function SingleResult({ title, rows }: SingleResultProps) {
+  return (
+    <Box flexDirection="column">
       <Box marginY={1}>
         <Header title={title} />
       </Box>
-      {renderedRows}
+      <SingleResultTable rows={rows} />
     </Box>
   );
 }
