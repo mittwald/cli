@@ -6,8 +6,8 @@ import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import {
   GeneratedMailDeliveryboxList,
-  Response,
   PathParams,
+  Response,
 } from "../../../generated/mail/deliveryboxList.js";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { ListColumns } from "../../../Formatter.js";

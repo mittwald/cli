@@ -2,7 +2,6 @@ import { Command, Interfaces } from "@oclif/core";
 import { BaseCommand } from "./BaseCommand.js";
 import { GetFormatter } from "./Formatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
-import { Printer, DefaultPrinter } from "./Printer.js";
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof GetBaseCommand)["baseFlags"] & T["flags"]
@@ -12,7 +11,7 @@ export type Args<T extends typeof Command> = Interfaces.InferredArgs<T["args"]>;
 export abstract class GetBaseCommand<
   T extends typeof BaseCommand,
   TAPIResponse extends Response,
-> extends BaseCommand<T> {
+> extends BaseCommand {
   static baseFlags = {
     ...GetFormatter.flags,
   };

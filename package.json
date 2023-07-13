@@ -13,31 +13,30 @@
   },
   "type": "module",
   "scripts": {
-    "generate:commands": "yarn generate:commands:v2",
-    "generate:commands-dev": "yarn generate:commands-dev:v2",
-    "generate:commands-dev:v2": "curl --silent https://api-public.dev.mittwald.systems/openapi | ./transform-openapi.sh | yarn acg generate --name MittwaldAPIV2 --outputFormat=oclifCommands - src --optionalHeader x-access-token",
-    "generate:commands:v2": "curl --silent https://api.mittwald.de/openapi | ./transform-openapi.sh | yarn acg generate --name MittwaldAPIV2 --outputFormat=oclifCommands - src --optionalHeader x-access-token",
-    "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
     "clean": "(rimraf --glob dist tsconfig.*.tsbuildinfo) | true",
     "compile": "tsc --build tsconfig.esm.json",
     "compile:all": "yarn clean && yarn compile:cjs && yarn compile:esm",
     "compile:cjs": "tsc --build tsconfig.cjs.json",
     "compile:esm": "tsc --build tsconfig.esm.json",
     "format": "prettier --write $@ '**/*.{ts,tsx,yaml,yml,json,md,mdx}'",
+    "generate:commands": "yarn generate:commands:v2",
+    "generate:commands-dev": "yarn generate:commands-dev:v2",
+    "generate:commands-dev:v2": "curl --silent https://api-public.dev.mittwald.systems/openapi | ./transform-openapi.sh | yarn acg generate --name MittwaldAPIV2 --outputFormat=oclifCommands - src --optionalHeader x-access-token",
+    "generate:commands:v2": "curl --silent https://api.mittwald.de/openapi | ./transform-openapi.sh | yarn acg generate --name MittwaldAPIV2 --outputFormat=oclifCommands - src --optionalHeader x-access-token",
     "license-check": "yarn pnpify license-checker-rseidelsohn ",
     "lint": "eslint . --cache",
-    "test": "yarn lint && yarn format --check && yarn test:packages && yarn test:licenses",
-    "test:licenses": "yarn license-check --summary --unknown && yarn license-check --unknown --failOn 'UNLICENSED;UNKNOWN'",
-    "test:packages": "yarn all run test",
+    "package": "yarn package:tarballs && yarn package:windows && yarn package:macos",
+    "package:macos": "oclif pack macos",
     "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64 --no-xz",
     "package:windows": "oclif pack win",
-    "package:macos": "oclif pack macos",
-    "package": "yarn package:tarballs && yarn package:windows && yarn package:macos"
+    "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
+    "test": "yarn lint && yarn format --check && yarn test:licenses",
+    "test:licenses": "yarn license-check --summary --unknown && yarn license-check --unknown --failOn 'UNLICENSED;UNKNOWN'"
   },
   "files": [
+    ".deps",
     "{dist,dist-cjs}/**/*.{js,d.ts}",
-    "bin",
-    ".deps"
+    "bin"
   ],
   "dependencies": {
     "@mittwald/api-client": "^2.0.1",
@@ -60,9 +59,6 @@
     "react": "^18.2.0",
     "semver": "^7.5.4",
     "tempfile": "^5.0.0"
-  },
-  "resolutions": {
-    "@mittwald/api-client-commons": "^3.0.0-alpha.1"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
@@ -94,6 +90,9 @@
     "rimraf": "^5.0.1",
     "type-fest": "^3.12.0",
     "typescript": "^5.1.6"
+  },
+  "resolutions": {
+    "@mittwald/api-client-commons": "^3.0.0-alpha.1"
   },
   "oclif": {
     "bin": "mw",

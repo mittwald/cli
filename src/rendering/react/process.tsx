@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export type ProcessStepInfo = {
   type: "info";
@@ -16,22 +16,26 @@ export type ProcessStepConfirm = {
   type: "confirm";
   title: ReactElement;
   confirmed: boolean | undefined;
-}
+};
 
 export type ProcessStepInput = {
   type: "input";
   title: ReactElement;
   mask?: boolean;
   value?: string;
-}
+};
 
-export type ProcessStep = ProcessStepInfo | ProcessStepRunnable | ProcessStepConfirm | ProcessStepInput;
+export type ProcessStep =
+  | ProcessStepInfo
+  | ProcessStepRunnable
+  | ProcessStepConfirm
+  | ProcessStepInput;
 
 export class RunnableHandler {
-  private listener: () => any;
-  private processStep: ProcessStepRunnable;
+  private readonly listener: () => void;
+  private readonly processStep: ProcessStepRunnable;
 
-  public constructor(state: ProcessStepRunnable, l: () => any) {
+  public constructor(state: ProcessStepRunnable, l: () => void) {
     this.processStep = state;
     this.listener = l;
   }

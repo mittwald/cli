@@ -18,11 +18,7 @@ export type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["backup"]["listProjectBackups"]>
 >;
 
-export class List extends ListBaseCommand<
-  typeof List,
-  ResponseItem,
-  Response
-> {
+export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   static description = "List Backups for a given Project.";
 
   static args = {};
@@ -31,17 +27,23 @@ export class List extends ListBaseCommand<
     ...projectFlags,
   };
 
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]): ResponseItem[] | Promise<ResponseItem[]> {
+  protected mapData(
+    data: SuccessfulResponse<Response, 200>["data"],
+  ): ResponseItem[] | Promise<ResponseItem[]> {
     return data;
   }
 
   public async getData(): Promise<Response> {
-    const projectId = await withProjectId(this.apiClient, this.flags, {}, this.config);
+    const projectId = await withProjectId(
+      this.apiClient,
+      this.flags,
+      {},
+      this.config,
+    );
     return await this.apiClient.backup.listProjectBackups({
       pathParameters: { projectId },
     } as Parameters<typeof this.apiClient.backup.listProjectBackups>[0]);
   }
-
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
     const baseColumns = super.getColumns(data);
@@ -51,8 +53,8 @@ export class List extends ListBaseCommand<
       createdAt: baseColumns.createdAt,
       expiresIn: {
         header: "Expires in",
-        get: r => formatDate(r.expiresAt)
-      }
-    }
+        get: (r) => formatDate(r.expiresAt),
+      },
+    };
   }
 }

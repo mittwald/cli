@@ -36,10 +36,10 @@ export default class List extends GeneratedCustomerListCustomers<ResponseItem> {
           }
 
           return `${r.owner.firstName} ${r.owner.lastName}`;
-        }
+        },
       },
       memberCount: { header: "Members" },
-      projectCount: { header: "Projects"},
+      projectCount: { header: "Projects" },
     };
   }
 }

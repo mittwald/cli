@@ -1,14 +1,14 @@
 import { BaseCommand } from "../../BaseCommand.js";
-import { Args, ux } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { normalizeConversationIdToUuid } from "../../Helpers.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { formatDate } from "../../lib/viewhelpers/date.js";
-import { marked } from "marked";
+import { marked, Renderer } from "marked";
 import TerminalRenderer from "marked-terminal";
 import chalk from "chalk";
 import { printHeader, printKeyValues } from "../../lib/viewhelpers/tui.js";
 
-export default class Show extends BaseCommand<typeof Show> {
+export default class Show extends BaseCommand {
   static description = "Show a conversation and message history";
   static args = {
     id: Args.string({
@@ -54,7 +54,7 @@ export default class Show extends BaseCommand<typeof Show> {
     printHeader("Messages");
 
     marked.setOptions({
-      renderer: new TerminalRenderer() as any,
+      renderer: new TerminalRenderer() as Renderer,
       mangle: false,
       headerIds: false,
       headerPrefix: "",

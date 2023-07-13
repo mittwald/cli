@@ -20,7 +20,13 @@ export const MeasureChildren: FC<PropsWithChildren<Props>> = (props) => {
   }, [context, children]);
 
   useEffect(
-    () => context.getDimension(id).observe(onDimensionChange ?? (() => {})),
+    () =>
+      context.getDimension(id).observe(
+        onDimensionChange ??
+          (() => {
+            // not handling
+          }),
+      ),
     [id, context, onDimensionChange],
   );
 

@@ -1,4 +1,4 @@
-import { Flags, ux } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import parseDuration from "parse-duration";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
@@ -15,7 +15,10 @@ import { Value } from "../../../rendering/react/components/Value.js";
 type Roles =
   MittwaldAPIV2.Paths.V2SignupTokenApi.Post.Parameters.RequestBody["roles"];
 
-export default class Create extends ExecRenderBaseCommand<typeof Create, { token: string }> {
+export default class Create extends ExecRenderBaseCommand<
+  typeof Create,
+  { token: string }
+> {
   static description = "Create a new API token";
 
   static flags = {
@@ -48,9 +51,8 @@ export default class Create extends ExecRenderBaseCommand<typeof Create, { token
     return new Date(Date.now() + duration);
   }
 
-
   protected async exec(): Promise<{ token: string }> {
-    const { flags, args } = await this.parse(Create);
+    const { flags } = await this.parse(Create);
     const process = makeProcessRenderer(flags, "Creating an API token");
     const expiresAt = this.determineExpiration(flags["expires-in"]);
 
@@ -67,24 +69,24 @@ export default class Create extends ExecRenderBaseCommand<typeof Create, { token
       step.complete();
 
       assertStatus(response, 201);
-      process.complete(<Success width={100}>
-        <Text>
-          API token successfully created. Have fun. 🥳
-          <Newline count={2} />
-          This is your API token; make sure to store it somewhere safe:
-          <Newline count={1} />
-          <Value>{response.data.token}</Value>
-        </Text>
-      </Success>);
+      process.complete(
+        <Success width={100}>
+          <Text>
+            API token successfully created. Have fun. 🥳
+            <Newline count={2} />
+            This is your API token; make sure to store it somewhere safe:
+            <Newline count={1} />
+            <Value>{response.data.token}</Value>
+          </Text>
+        </Success>,
+      );
       return { token: response.data.token };
     } catch (e) {
       process.error(e);
       throw e;
     }
   }
-
-  protected render(executionResult: { token: string }): React.ReactNode {
-    return undefined;
+  protected render() {
+    return null;
   }
-
 }

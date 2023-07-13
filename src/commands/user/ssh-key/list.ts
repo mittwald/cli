@@ -7,7 +7,7 @@ import {
   GeneratedUserListSshKeys,
   Response,
 } from "../../../generated/user/listSshKeys.js";
-import { formatCreatedAt, formatDate } from "../../../lib/viewhelpers/date.js";
+import { formatCreatedAt } from "../../../lib/viewhelpers/date.js";
 import { ListColumns } from "../../../Formatter.js";
 
 type ResponseItem = Simplify<

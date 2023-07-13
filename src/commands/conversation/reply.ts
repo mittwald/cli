@@ -7,7 +7,7 @@ import {
   retrieveMessage,
 } from "../../lib/conversation/message_input.js";
 
-export default class Reply extends BaseCommand<typeof Reply> {
+export default class Reply extends BaseCommand {
   static description = "Reply to a conversation";
   static args = {
     id: Args.string({

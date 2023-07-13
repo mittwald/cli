@@ -6,7 +6,7 @@ import {
   retrieveMessage,
 } from "../../lib/conversation/message_input.js";
 
-export default class Create extends BaseCommand<typeof Create> {
+export default class Create extends BaseCommand {
   static description = "Create a new conversation";
 
   static flags = {

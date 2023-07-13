@@ -1,5 +1,5 @@
 import { Text } from "ink";
-import React, { PropsWithChildren, ReactNode } from "react";
+import React, { PropsWithChildren } from "react";
 
 export type ValueProps = PropsWithChildren<{ notSet?: boolean }>;
 

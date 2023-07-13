@@ -24,14 +24,17 @@ export default class List extends GeneratedCronjobListExecutions<ResponseItem> {
       id: {},
       status: {},
       duration: {
-        get: r => r.durationInMilliseconds ? Math.round(r.durationInMilliseconds / 1000) + "s" : "",
+        get: (r) =>
+          r.durationInMilliseconds
+            ? Math.round(r.durationInMilliseconds / 1000) + "s"
+            : "",
       },
       started: {
-        get: r => formatDate(r.executionStart),
+        get: (r) => formatDate(r.executionStart),
       },
       ended: {
-        get: r => formatDate(r.executionEnd),
+        get: (r) => formatDate(r.executionEnd),
       },
-    }
+    };
   }
 }

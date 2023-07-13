@@ -1,6 +1,7 @@
 import {
   getConversationUuidFromShortId,
-  getProjectUuidFromShortId, getServerUuidFromShortId
+  getProjectUuidFromShortId,
+  getServerUuidFromShortId,
 } from "./Translator.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 

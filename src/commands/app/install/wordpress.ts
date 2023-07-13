@@ -2,17 +2,14 @@ import { Flags, ux } from "@oclif/core";
 import { BaseCommand } from "../../../BaseCommand.js";
 import { getAppUuidFromAppName } from "../../../lib/app/appHelpers.js";
 import {
-  getLatestAvailableAppVersionForApp,
   getAppVersionUuidFromAppVersion,
+  getLatestAvailableAppVersionForApp,
 } from "../../../lib/app/appVersionHelpers.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
-export default class AppCreateWordpress extends BaseCommand<
-  typeof AppCreateWordpress
-> {
+export default class AppCreateWordpress extends BaseCommand {
   static description = "Creates new WordPress Installation.";
 
   static flags = {
@@ -54,7 +51,12 @@ export default class AppCreateWordpress extends BaseCommand<
     const { flags, args } = await this.parse(AppCreateWordpress);
     const app = "WordPress";
     const appUuid: string = await getAppUuidFromAppName(this.apiClient, app);
-    const projectId = await withProjectId(this.apiClient, flags, args, this.config);
+    const projectId = await withProjectId(
+      this.apiClient,
+      flags,
+      args,
+      this.config,
+    );
 
     let appVersion: MittwaldAPIV2.Components.Schemas.AppAppVersion | undefined;
 

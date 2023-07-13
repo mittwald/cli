@@ -8,7 +8,7 @@ import {
   getAppUuidFromAppName,
 } from "../../lib/app/appHelpers.js";
 
-export default class AppVersions extends BaseCommand<typeof AppVersions> {
+export default class AppVersions extends BaseCommand {
   static description = "List supported Apps and Versions";
   static args = {
     app: Args.string({

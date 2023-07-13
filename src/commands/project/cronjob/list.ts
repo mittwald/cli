@@ -30,12 +30,16 @@ export default class List extends GeneratedCronjobListCronjobs<ResponseItem> {
         header: "Last execution",
         get: (r) => {
           if (!r.latestExecution) {
-            return "-"
+            return "-";
           }
-          return r.latestExecution.status +", " + formatDate((r.latestExecution as any).start) // API specs are broken
-        }
+          return (
+            r.latestExecution.status +
+            ", " +
+            formatDate((r.latestExecution as any).start)
+          ); // API specs are broken
+        },
       },
       createdAt: baseColumns.createdAt,
-    }
+    };
   }
 }

@@ -11,8 +11,8 @@ import { Box, render, Text, useInput, useStdin } from "ink";
 import TextInput from "ink-text-input";
 
 export class FancyProcessRenderer implements ProcessRenderer {
-  private title: string;
-  private started: boolean = false;
+  private readonly title: string;
+  private started = false;
   private currentHandler: RunnableHandler | null = null;
 
   public constructor(title: string) {
@@ -92,8 +92,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
       mask,
     };
 
-    return new Promise<string>((res, rej) => {
-      let renderHandle: ReturnType<typeof render>;
+    return new Promise<string>((res) => {
       const onInput = (value: string) => {
         res(value);
         state.value = value;
@@ -105,7 +104,9 @@ export class FancyProcessRenderer implements ProcessRenderer {
         }
       };
 
-      renderHandle = render(<ProcessInput step={state} onSubmit={onInput} />);
+      const renderHandle = render(
+        <ProcessInput step={state} onSubmit={onInput} />,
+      );
     });
   }
 
@@ -122,8 +123,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
       confirmed: undefined,
     };
 
-    return new Promise<boolean>((res, rej) => {
-      let renderHandle: ReturnType<typeof render>;
+    return new Promise<boolean>((res) => {
       const onConfirm = (confirmed: boolean) => {
         res(confirmed);
         state.confirmed = confirmed;
@@ -135,7 +135,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
         }
       };
 
-      renderHandle = render(
+      const renderHandle = render(
         <ProcessConfirmation step={state} onConfirm={onConfirm} />,
       );
     });
@@ -319,11 +319,11 @@ export const ProcessState: React.FC<{ step: ProcessStep }> = ({ step }) => {
 
 export const ProcessConfirmation: React.FC<{
   step: ProcessStep;
-  onConfirm: (confirmed: boolean) => any;
+  onConfirm: (confirmed: boolean) => void;
 }> = ({ step, onConfirm }) => {
   const { isRawModeSupported } = useStdin();
   if (isRawModeSupported) {
-    useInput((input, key) => {
+    useInput((input) => {
       onConfirm(input === "y");
     });
   }
@@ -333,7 +333,7 @@ export const ProcessConfirmation: React.FC<{
 
 export const ProcessInput: React.FC<{
   step: ProcessStepInput;
-  onSubmit: (value: string) => any;
+  onSubmit: (value: string) => void;
 }> = ({ step, onSubmit }) => {
   const [value, setValue] = useState("");
   if (!step.value) {

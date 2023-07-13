@@ -6,8 +6,8 @@ import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import {
   GeneratedProjectListMembershipsForProject,
-  Response,
   PathParams,
+  Response,
 } from "../../../generated/project/listMembershipsForProject.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatDate } from "../../../lib/viewhelpers/date.js";

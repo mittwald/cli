@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* prettier-ignore */
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import {GeneratedSshUserListSshUsers, PathParams} from "../../../generated/sshsftpUser/sshUserListSshUsers.js";
+import { GeneratedSshUserListSshUsers, PathParams } from "../../../generated/sshsftpUser/sshUserListSshUsers.js";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Simplify } from "@mittwald/api-client-commons";
