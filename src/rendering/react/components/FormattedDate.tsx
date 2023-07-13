@@ -31,5 +31,5 @@ export const FormattedDate: FC<Props> = (props) => {
     );
   }
 
-  return <Text>{absolute || relative}</Text>;
+  return <Text>{absoluteEl || relativeEl}</Text>;
 };
