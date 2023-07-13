@@ -9,7 +9,7 @@ import {
   Response,
 } from "../../../generated/project/listProjectInvites.js";
 import { ListColumns } from "../../../Formatter.js";
-import { formatDate } from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectInvites.Get.Responses.$200.Content.ApplicationJson[number]
@@ -33,7 +33,7 @@ export default class List extends GeneratedProjectListProjectInvites<ResponseIte
             return "never";
           }
 
-          return formatDate(new Date(row.membershipExpiresAt));
+          return formatRelativeDate(new Date(row.membershipExpiresAt));
         },
       },
       projectId: {

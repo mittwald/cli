@@ -9,7 +9,7 @@ import {
   Response,
 } from "../../../generated/user/listSessions.js";
 import { ListColumns } from "../../../Formatter.js";
-import { formatDate } from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2SignupSessions.Get.Responses.$200.Content.ApplicationJson[number]
@@ -33,7 +33,9 @@ export default class List extends GeneratedUserListSessions<ResponseItem> {
       lastAccess: {
         header: "Last Access",
         get: (row) =>
-          row.lastAccess ? formatDate(new Date(`${row.lastAccess}`)) : "never",
+          row.lastAccess
+            ? formatRelativeDate(new Date(`${row.lastAccess}`))
+            : "never",
       },
     };
   }

@@ -10,7 +10,7 @@ import {
   Response,
 } from "../../../generated/project/listMembershipsForProject.js";
 import { ListColumns } from "../../../Formatter.js";
-import { formatDate } from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 
 type ResponseItem = Simplify<
@@ -55,7 +55,7 @@ export default class List extends GeneratedProjectListMembershipsForProject<Resp
             return "never";
           }
 
-          return formatDate(new Date(row.expiresAt));
+          return formatRelativeDate(new Date(row.expiresAt));
         },
       },
       userId: {

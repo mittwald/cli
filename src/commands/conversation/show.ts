@@ -2,7 +2,7 @@ import { BaseCommand } from "../../BaseCommand.js";
 import { Args } from "@oclif/core";
 import { normalizeConversationIdToUuid } from "../../Helpers.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { formatDate } from "../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
 import { marked, Renderer } from "marked";
 import TerminalRenderer from "marked-terminal";
 import chalk from "chalk";
@@ -43,7 +43,7 @@ export default class Show extends BaseCommand {
     printKeyValues({
       Title: conv.title,
       ID: conv.shortId,
-      Opened: `${formatDate(conv.createdAt)} by ${
+      Opened: `${formatRelativeDate(conv.createdAt)} by ${
         conv.createdBy ? conv.createdBy.clearName : "Unknown User"
       }`,
       Status: conv.status,
@@ -66,7 +66,7 @@ export default class Show extends BaseCommand {
       if (msg.type === "MESSAGE") {
         console.log(
           chalk.whiteBright.underline(
-            `${msg.createdBy?.clearName}, ${formatDate(msg.createdAt)}`,
+            `${msg.createdBy?.clearName}, ${formatRelativeDate(msg.createdAt)}`,
           ),
         );
 
@@ -81,17 +81,25 @@ export default class Show extends BaseCommand {
       } else {
         switch (msg.messageContent) {
           case "CONVERSATION_CREATED":
-            console.log(metaColor(`CREATED, ${formatDate(msg.createdAt)}`));
+            console.log(
+              metaColor(`CREATED, ${formatRelativeDate(msg.createdAt)}`),
+            );
             break;
           case "STATUS_OPEN":
-            console.log(metaColor(`REOPENED, ${formatDate(msg.createdAt)}`));
+            console.log(
+              metaColor(`REOPENED, ${formatRelativeDate(msg.createdAt)}`),
+            );
             break;
           case "STATUS_CLOSED":
-            console.log(metaColor(`CLOSED, ${formatDate(msg.createdAt)}`));
+            console.log(
+              metaColor(`CLOSED, ${formatRelativeDate(msg.createdAt)}`),
+            );
             break;
           default:
             console.log(
-              metaColor(`${msg.messageContent}, ${formatDate(msg.createdAt)}`),
+              metaColor(
+                `${msg.messageContent}, ${formatRelativeDate(msg.createdAt)}`,
+              ),
             );
             break;
         }

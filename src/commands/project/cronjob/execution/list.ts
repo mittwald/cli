@@ -9,7 +9,7 @@ import {
   Response,
 } from "../../../../generated/cronjob/listExecutions.js";
 import { ListColumns } from "../../../../Formatter.js";
-import { formatDate } from "../../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2CronjobsCronjobIdExecutions.Get.Responses.$200.Content.ApplicationJson[number]
@@ -30,10 +30,10 @@ export default class List extends GeneratedCronjobListExecutions<ResponseItem> {
             : "",
       },
       started: {
-        get: (r) => formatDate(r.executionStart),
+        get: (r) => formatRelativeDate(r.executionStart),
       },
       ended: {
-        get: (r) => formatDate(r.executionEnd),
+        get: (r) => formatRelativeDate(r.executionEnd),
       },
     };
   }

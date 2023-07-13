@@ -2,7 +2,7 @@ import { Command, Interfaces } from "@oclif/core";
 import { BaseCommand } from "./BaseCommand.js";
 import { ListColumns, ListFormatter } from "./Formatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
-import { formatDate } from "./lib/viewhelpers/date.js";
+import { formatRelativeDate } from "./lib/viewhelpers/date.js";
 import { SuccessfulResponse } from "./types.js";
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
@@ -77,7 +77,7 @@ export abstract class ListBaseCommand<
         ...columns,
         createdAt: {
           header: "Created at",
-          get: (row) => formatDate(new Date(`${row.createdAt}`)),
+          get: (row) => formatRelativeDate(new Date(`${row.createdAt}`)),
         },
       };
     }

@@ -7,7 +7,7 @@ import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 import { ListColumns } from "../../../Formatter.js";
-import { formatDate } from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdBackups.Get.Responses.$200.Content.ApplicationJson[number]
@@ -53,7 +53,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       createdAt: baseColumns.createdAt,
       expiresIn: {
         header: "Expires in",
-        get: (r) => formatDate(r.expiresAt),
+        get: (r) => formatRelativeDate(r.expiresAt),
       },
     };
   }

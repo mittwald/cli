@@ -9,7 +9,10 @@ import {
   Response,
 } from "../../../generated/user/listApiTokens.js";
 import { ListColumns } from "../../../Formatter.js";
-import { formatCreatedAt, formatDate } from "../../../lib/viewhelpers/date.js";
+import {
+  formatCreatedAt,
+  formatRelativeDate,
+} from "../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2SignupTokenApi.Get.Responses.$200.Content.ApplicationJson[number]
@@ -29,7 +32,9 @@ export default class List extends GeneratedUserListApiTokens<ResponseItem> {
       expiresAt: {
         header: "Expires at",
         get: (r) =>
-          r.expiresAt ? formatDate(new Date(`${r.expiresAt}`)) : "never",
+          r.expiresAt
+            ? formatRelativeDate(new Date(`${r.expiresAt}`))
+            : "never",
       },
     };
   }

@@ -1,5 +1,5 @@
 import React, { FC, isValidElement } from "react";
-import { FormatDate } from "../FormatDate.js";
+import { FormattedDate } from "../FormattedDate.js";
 import { JSONView } from "../JSONView.js";
 import { parseDate } from "../../../../lib/viewhelpers/date.js";
 import { Value } from "../Value.js";
@@ -20,13 +20,13 @@ export const CellData: FC<Props> = (props) => {
   }
 
   if (data instanceof Date) {
-    return <FormatDate date={data} />;
+    return <FormattedDate date={data} display="relative" />;
   }
 
   if (typeof data === "string") {
     const date = parseDate(data);
     if (date) {
-      return <FormatDate date={date} />;
+      return <FormattedDate display="relative" date={data} />;
     }
     return data;
   }

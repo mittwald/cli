@@ -9,7 +9,7 @@ import {
   Response,
 } from "../../generated/conversation/listConversations.js";
 import { ListColumns } from "../../Formatter.js";
-import { formatDate } from "../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Conversations.Get.Responses.$200.Content.ApplicationJson[number]
@@ -35,7 +35,7 @@ export default class List extends GeneratedConversationListConversations<Respons
       created: {
         header: "Created",
         get: (row) =>
-          formatDate(new Date(`${row.createdAt}`)) +
+          formatRelativeDate(new Date(`${row.createdAt}`)) +
           " by " +
           (row.createdBy ? row.createdBy.clearName : "unknown"),
       },
