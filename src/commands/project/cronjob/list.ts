@@ -1,21 +1,46 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import {
-  GeneratedCronjobListCronjobs,
-  Response,
-} from "../../../generated/cronjob/listCronjobs.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatDate } from "../../../lib/viewhelpers/date.js";
+import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdCronjobs.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedCronjobListCronjobs<ResponseItem> {
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
+export type PathParams =
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdCronjobs.Get.Parameters.Path;
+export type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["cronjob"]["listCronjobs"]>
+>;
+
+export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
+  static description = "List Cronjobs belonging to a Project.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+    ...projectFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    const pathParams: PathParams = {
+      projectId: await withProjectId(
+        this.apiClient,
+        this.flags,
+        this.args,
+        this.config,
+      ),
+    };
+    return await this.apiClient.cronjob.listCronjobs({
+      pathParameters: pathParams,
+    } as Parameters<typeof this.apiClient.cronjob.listCronjobs>[0]);
+  }
+
+  protected mapData(
+    data: SuccessfulResponse<Response, 200>["data"],
+  ): ResponseItem[] | Promise<ResponseItem[]> {
     return data;
   }
 
