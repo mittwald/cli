@@ -6,8 +6,6 @@ on:
       - v*
 
 jobs:
-  tests:
-    uses: ./.github/workflows/test.yml
   build-linux:
     runs-on: ubuntu-latest
     steps:
