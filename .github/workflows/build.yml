@@ -7,6 +7,8 @@ on:
   pull_request: {}
 
 jobs:
+  tests:
+    uses: ./.github/workflows/test.yml
   build:
     runs-on: ubuntu-latest
     steps:
