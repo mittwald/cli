@@ -1,15 +1,26 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedProjectFileSystemGetDiskUsage, PathParams } from "../../../generated/projectFileSystem/getDiskUsage.js";
-import { normalizeProjectIdToUuid } from "../../../Helpers.js";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { GetBaseCommand } from "../../../GetBaseCommand.js";
+import { projectArgs, withProjectId } from "../../../lib/project/flags.js";
 
-export default class Get extends GeneratedProjectFileSystemGetDiskUsage {
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    input.projectId = await normalizeProjectIdToUuid(
-      this.apiClient,
-      input.projectId,
-    );
-    return super.mapParams(input);
+export type PathParams =
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdFilesystemUsagesDisk.Get.Parameters.Path;
+type APIResponse = Awaited<
+  ReturnType<MittwaldAPIV2Client["projectFileSystem"]["getDiskUsage"]>
+>;
+
+export class Usage extends GetBaseCommand<
+  typeof Usage,
+  APIResponse
+> {
+  static description = "Get a Project directory filesystem usage.";
+
+  static flags = { ...GetBaseCommand.baseFlags };
+  static args = { ...projectArgs };
+
+  protected async getData(): Promise<APIResponse> {
+    const projectId = await withProjectId(this.apiClient, this.flags, this.args, this.config);
+    return await this.apiClient.projectFileSystem.getDiskUsage({
+      pathParameters: {projectId},
+    } as Parameters<typeof this.apiClient.projectFileSystem.getDiskUsage>[0]);
   }
 }
