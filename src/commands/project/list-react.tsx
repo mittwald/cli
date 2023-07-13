@@ -6,6 +6,7 @@ import { useRenderContext } from "../../rendering/react/context.js";
 import { Table } from "../../rendering/react/components/Table/index.js";
 import { UsePromiseRenderSetup } from "../../rendering/setup/usePromiseSetup.js";
 import { TableRenderSetup } from "../../rendering/setup/TableRenderSetup.js";
+import { ProjectStatus } from "../../rendering/react/components/ProjectStatus.js";
 
 const usePromiseSetup = new UsePromiseRenderSetup();
 
@@ -49,8 +50,7 @@ export default class List extends RenderBaseCommand<typeof List> {
           },
           description: {},
           status: {
-            render: (project) =>
-              !project.enabled ? "disabled" : project.readiness,
+            render: (project) => <ProjectStatus project={project} />,
           },
           createdAt: {},
         }}
