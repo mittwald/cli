@@ -3,6 +3,8 @@ import { Table } from "./Table.js";
 import { Dimension } from "../../../measure/context.js";
 import { ColumnOptions, ColumnOptionsInput } from "./ColumnOptions.js";
 import { ColumnName } from "./ColumnName.js";
+import { useWatchObservableValue } from "../../../lib/observable-value/useWatchObservableValue.js";
+import { getTerminalWidth } from "../../../../lib/getTerminalWidth.js";
 
 export class Column {
   public readonly table: Table;
@@ -10,7 +12,7 @@ export class Column {
   public readonly options: ColumnOptions;
 
   public readonly maxCellWidth = new ObservableValue(0);
-  public readonly proportionalWidth = new ObservableValue("0%");
+  private readonly proportionalWidth = new ObservableValue("0%");
 
   public constructor(
     table: Table,
@@ -28,13 +30,22 @@ export class Column {
   private updateProportionalWidth(overallWidth: number): void {
     const thisWidth = this.maxCellWidth.value;
     const quotient = thisWidth / overallWidth;
-    const percentage = Math.floor(quotient * 100);
+    const percentage = Math.round(quotient * 100);
     this.proportionalWidth.updateValue(`${percentage}%`);
   }
 
-  public notifyCellMeasured(dimension: Dimension): void {
-    if (this.maxCellWidth.value < dimension.width) {
-      this.maxCellWidth.updateValue(dimension.width);
+  public onCellMeasured(dimension: Dimension): void {
+    const termWidth = getTerminalWidth();
+
+    const boundary = Math.round(termWidth / 2);
+    const boundedWidth = Math.min(dimension.width, boundary);
+
+    if (this.maxCellWidth.value < boundedWidth) {
+      this.maxCellWidth.updateValue(boundedWidth);
     }
+  }
+
+  public useWidth(): string {
+    return useWatchObservableValue(this.proportionalWidth);
   }
 }
