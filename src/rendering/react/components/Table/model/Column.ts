@@ -5,7 +5,7 @@ import { ColumnOptions, ColumnOptionsInput } from "./ColumnOptions.js";
 import { ColumnName } from "./ColumnName.js";
 
 export class Column {
-  public readonly table: Table<unknown>;
+  public readonly table: Table;
   public readonly name: ColumnName;
   public readonly options: ColumnOptions;
 
@@ -13,7 +13,7 @@ export class Column {
   public readonly proportionalWidth = new ObservableValue("0%");
 
   public constructor(
-    table: Table<unknown>,
+    table: Table,
     name: string,
     optionsInput?: ColumnOptionsInput<any>,
   ) {

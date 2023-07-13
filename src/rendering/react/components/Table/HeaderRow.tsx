@@ -5,7 +5,7 @@ import { RowLayout } from "./RowLayout.js";
 import { HeaderCell } from "./HeaderCell.js";
 
 interface Props extends ComponentProps<typeof Box> {
-  table: Model.Table<unknown>;
+  table: Model.Table;
 }
 
 export const HeaderRow: FC<Props> = (props: Props) => {

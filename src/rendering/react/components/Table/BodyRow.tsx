@@ -1,13 +1,13 @@
-import React, { ReactElement } from "react";
+import React, { FC } from "react";
 import * as Model from "./model/index.js";
 import { BodyCell } from "./BodyCell.js";
 import { RowLayout } from "./RowLayout.js";
 
-interface Props<TData> {
-  row: Model.Row<TData>;
+interface Props {
+  row: Model.Row;
 }
 
-export function BodyRow<TData>(props: Props<TData>): ReactElement {
+export const BodyRow: FC<Props> = (props) => {
   const { row } = props;
 
   return (
@@ -17,4 +17,4 @@ export function BodyRow<TData>(props: Props<TData>): ReactElement {
       ))}
     </RowLayout>
   );
-}
+};

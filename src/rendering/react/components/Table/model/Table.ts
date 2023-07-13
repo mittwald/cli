@@ -11,7 +11,7 @@ export type TableColumnsInput<TData = unknown> = Record<
   ColumnOptionsInput<TData>
 >;
 
-export class Table<T> {
+export class Table<T = unknown> {
   public readonly rows: Row<T>[];
   public readonly columns: Column[];
   public readonly overallWidth = new ObservableValue(0);
@@ -28,7 +28,7 @@ export class Table<T> {
   }
 
   private buildRows(data: T[]): Row<T>[] {
-    return data.map((d) => Row.fromObject(this, d));
+    return data.map((item, index) => Row.fromObject(this, index, item));
   }
 
   private handleColumnWidthChanged(): void {

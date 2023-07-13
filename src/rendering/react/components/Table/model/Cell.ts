@@ -10,7 +10,7 @@ export interface CellDataObject<T> {
   mapper?: TableCellMapper<T>;
 }
 
-export class Cell<T> {
+export class Cell<T = unknown> {
   public readonly name: ColumnName;
   private readonly data: unknown;
   public readonly row: Row;

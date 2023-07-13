@@ -4,7 +4,7 @@ import { CellLayout } from "./CellLayout.js";
 import { CellData } from "./CellData.js";
 
 interface Props {
-  cell: Model.Cell<unknown>;
+  cell: Model.Cell;
 }
 
 export const BodyCell: FC<Props> = (props) => {

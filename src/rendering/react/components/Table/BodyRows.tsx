@@ -3,7 +3,7 @@ import { BodyRow } from "./BodyRow.js";
 import * as Model from "./model/index.js";
 
 interface Props {
-  table: Model.Table<unknown>;
+  table: Model.Table;
 }
 
 export const BodyRows: FC<Props> = (props) => {
@@ -11,8 +11,8 @@ export const BodyRows: FC<Props> = (props) => {
 
   return (
     <>
-      {table.rows.map((row, index) => (
-        <BodyRow row={row} key={index} />
+      {table.rows.map((row) => (
+        <BodyRow row={row} key={row.index} />
       ))}
     </>
   );
