@@ -1,20 +1,40 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../../types.js";
-import {
-  GeneratedCronjobListExecutions,
-  Response,
-} from "../../../../generated/cronjob/listExecutions.js";
 import { ListColumns } from "../../../../Formatter.js";
 import { formatDate } from "../../../../lib/viewhelpers/date.js";
+import { ListBaseCommand } from "../../../../ListBaseCommand.js";
+import { Flags } from "@oclif/core";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2CronjobsCronjobIdExecutions.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedCronjobListExecutions<ResponseItem> {
+export type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["cronjob"]["listExecutions"]>
+>;
+
+export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
+  static description = "List CronjobExecutions belonging to a Cronjob.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+    "cronjob-id": Flags.string({
+      description: "ID of the Cronjob for which to list CronjobExecutions for.",
+      required: true,
+    }),
+  };
+
+  public async getData(): Promise<Response> {
+    const pathParams = {
+      cronjobId: this.flags["cronjob-id"],
+    };
+
+    return await this.apiClient.cronjob.listExecutions({
+      pathParameters: pathParams,
+    } as Parameters<typeof this.apiClient.cronjob.listExecutions>[0]);
+  }
+
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return data;
   }
