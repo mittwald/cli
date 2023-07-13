@@ -60,8 +60,10 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
           return (
             r.latestExecution.status +
             ", " +
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // API specs are broken
             formatDate((r.latestExecution as any).start)
-          ); // API specs are broken
+          );
         },
       },
       createdAt: baseColumns.createdAt,
