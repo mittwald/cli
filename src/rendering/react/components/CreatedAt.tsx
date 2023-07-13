@@ -13,7 +13,7 @@ export const CreatedAt: FC<Props> = (props) => {
   }
   return (
     <Value>
-      <FormattedDate date={date} display="both" />
+      <FormattedDate date={date} relative absolute />
     </Value>
   );
 };

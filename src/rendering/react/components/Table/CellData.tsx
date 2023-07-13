@@ -20,13 +20,13 @@ export const CellData: FC<Props> = (props) => {
   }
 
   if (data instanceof Date) {
-    return <FormattedDate date={data} display="relative" />;
+    return <FormattedDate date={data} relative />;
   }
 
   if (typeof data === "string") {
     const date = parseDate(data);
     if (date) {
-      return <FormattedDate display="relative" date={data} />;
+      return <FormattedDate relative date={data} />;
     }
     return data;
   }

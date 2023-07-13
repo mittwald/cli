@@ -7,26 +7,23 @@ import {
 
 interface Props {
   date: Date | string;
-  display?: "absolute" | "relative" | "both";
+  absolute?: boolean;
+  relative?: boolean;
 }
 
 export const FormattedDate: FC<Props> = (props) => {
-  const { date: rawDate, display = "absolute" } = props;
+  const { date: rawDate, absolute, relative } = props;
   const date = typeof rawDate === "string" ? parseDate(rawDate) : rawDate;
 
   if (date === undefined) {
     return "invalid date";
   }
 
-  const relative =
-    display === "relative" || display === "both"
-      ? formatRelativeDate(date)
-      : null;
+  const relativeEl = relative ? formatRelativeDate(date) : null;
+  const absoluteEl =
+    absolute || (!relative && !absolute) ? date.toLocaleString() : null;
 
-  const absolute =
-    display === "absolute" || display === "both" ? date.toLocaleString() : null;
-
-  if (absolute && relative) {
+  if (relativeEl && absoluteEl) {
     return (
       <Text>
         {relative} ({absolute})
