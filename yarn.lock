@@ -296,12 +296,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@mittwald/api-client@npm:2.0.1"
+"@mittwald/api-client@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@mittwald/api-client@npm:2.0.4"
   dependencies:
     "@mittwald/api-client-commons": ^3.0.0
-  checksum: 26bc2e1b6814f59dff21860aaa3981349b22dbdcd5f35b4cca9d2e0dac74cd9a241c7a540f2edb54cbb12c8eb7c589b231ee4814445876bd5f2a6afbd06f8111
+  checksum: 0c347b83f0115401d13553d1d463080f61f9aa1391359e617e6f1090db0edd55845ec349a4168cb1c14147db19ddfbc340522d428534e3d3b87a7d6df6de2345
   languageName: node
   linkType: hard
 
@@ -309,8 +309,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mittwald/cli@workspace:."
   dependencies:
-    "@mittwald/api-client": ^2.0.1
-    "@mittwald/api-client-commons": ^3.0.0-alpha.1
+    "@mittwald/api-client": ^2.0.4
+    "@mittwald/api-client-commons": ^3.0.2
     "@mittwald/react-use-promise": ^1.2.2
     "@oclif/core": ^2.8.5
     "@oclif/plugin-help": ^5.2.9
