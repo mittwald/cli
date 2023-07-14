@@ -21,7 +21,7 @@ import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 export default class AppCreateWordpress extends ExecRenderBaseCommand<
   typeof AppCreateWordpress,
-  {}
+  { appInstallationId: string }
 > {
   static description = "Creates new WordPress Installation.";
 
@@ -60,7 +60,7 @@ export default class AppCreateWordpress extends ExecRenderBaseCommand<
     }),
   };
 
-  protected async exec(): Promise<{}> {
+  protected async exec(): Promise<{ appInstallationId: string }> {
     const process = makeProcessRenderer(this.flags, "Installing WordPress");
 
     const { flags, args } = await this.parse(AppCreateWordpress);
@@ -157,10 +157,17 @@ export default class AppCreateWordpress extends ExecRenderBaseCommand<
       </Success>,
     );
 
-    return {};
+    return { appInstallationId };
   }
 
-  protected render(executionResult: {}): React.ReactNode {
+  protected render({
+    appInstallationId,
+  }: {
+    appInstallationId: string;
+  }): React.ReactNode {
+    if (this.flags.quiet) {
+      this.log(appInstallationId);
+    }
     return undefined;
   }
 }

@@ -9,10 +9,9 @@ import {
 import { Header } from "./components/Header.js";
 import { Box, render, Text, useInput, useStdin } from "ink";
 import TextInput from "ink-text-input";
-import { ApiClientError, AxiosResponse } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import CommonsValidationErrors = MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
 import { isValidationError } from "../../lib/handleError.js";
+import CommonsValidationErrors = MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
 
 export class FancyProcessRenderer implements ProcessRenderer {
   private readonly title: string;

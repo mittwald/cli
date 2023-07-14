@@ -1,6 +1,6 @@
 export async function waitUntil<T>(
   tester: () => Promise<T | null>,
-  timeoutSeconds: number = 120,
+  timeoutSeconds = 120,
 ): Promise<T> {
   let waited = 0;
   while (waited < 120) {
