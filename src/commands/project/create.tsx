@@ -10,6 +10,8 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/react/process_flags.js";
+import { waitUntil } from "../../lib/wait.js";
+import { Context } from "../../lib/context.js";
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,
@@ -28,6 +30,9 @@ export default class Create extends ExecRenderBaseCommand<
     wait: Flags.boolean({
       char: "w",
       description: "Wait for the project to be ready.",
+    }),
+    "update-context": Flags.boolean({
+      description: "Update the CLI context to use the newly created project",
     }),
   };
 
@@ -58,8 +63,8 @@ export default class Create extends ExecRenderBaseCommand<
       const stepWaiting = process.addStep(
         <Text>waiting for project to be ready</Text>,
       );
-      let waited = 0;
-      while (waited < 120) {
+
+      await waitUntil(async () => {
         const projectResponse = await this.apiClient.project.getProject({
           pathParameters: { id: result.data.id },
           // TODO: Remove once @mittwald/api-client supports this
@@ -70,13 +75,17 @@ export default class Create extends ExecRenderBaseCommand<
           projectResponse.status === 200 &&
           projectResponse.data.readiness === "ready"
         ) {
-          stepWaiting.complete();
-          break;
+          return true;
         }
+      });
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        waited++;
-      }
+      stepWaiting.complete();
+    }
+
+    if (flags["update-context"]) {
+      await process.runStep("updating CLI context", async () => {
+        await new Context(this.config).setProjectId(result.data.id);
+      });
     }
 
     process.complete(

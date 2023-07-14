@@ -9,6 +9,10 @@ import {
 import { Header } from "./components/Header.js";
 import { Box, render, Text, useInput, useStdin } from "ink";
 import TextInput from "ink-text-input";
+import { ApiClientError, AxiosResponse } from "@mittwald/api-client-commons";
+import { MittwaldAPIV2 } from "@mittwald/api-client";
+import CommonsValidationErrors = MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
+import { isValidationError } from "../../lib/handleError.js";
 
 export class FancyProcessRenderer implements ProcessRenderer {
   private readonly title: string;
@@ -290,7 +294,48 @@ const ProcessStateSummary: React.FC<{ step: ProcessStep }> = ({ step }) => {
   }
 };
 
+const ProcessValidationErrors: React.FC<{
+  err: CommonsValidationErrors;
+  color?: string;
+}> = ({ err, color = "red" }) => {
+  const errorItems = err.validationErrors.map((e, idx) => (
+    <Box flexDirection="row" key={idx}>
+      <Box minWidth={e.path.length + 2}>
+        <Text color={color} bold>
+          {e.path}:{" "}
+        </Text>
+      </Box>
+      <Text color={color}>{e.message}</Text>
+    </Box>
+  ));
+
+  return (
+    <Box
+      marginY={1}
+      marginX={5}
+      paddingX={1}
+      borderColor={color}
+      borderStyle="round"
+      flexDirection="column"
+      width={80}
+    >
+      <Text color={color}>Your input contained invalid data:</Text>
+      <Box flexDirection="column" marginY={1}>
+        {errorItems}
+      </Box>
+      <Text color={color}>
+        Please correct the errors and try again. Consult this command's help
+        page (by invoking it with the --help flag) for more information.
+      </Text>
+    </Box>
+  );
+};
+
 const ProcessError: React.FC<{ err: unknown }> = ({ err }) => {
+  if (isValidationError(err)) {
+    return <ProcessValidationErrors err={err.response.data} />;
+  }
+
   return (
     <Box marginY={1} marginX={5} flexDirection="column">
       <Text color="red">An error occurred during this operation:</Text>
