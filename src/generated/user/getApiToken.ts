@@ -6,7 +6,7 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../GetBaseCommand.js";
 
 export type PathParams =
-  MittwaldAPIV2.Paths.V2SignupTokenApiApiTokenId.Get.Parameters.Path;
+  MittwaldAPIV2.Paths.V2UsersSelfApiTokens.Get.Parameters.Path;
 type APIResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["user"]["getApiToken"]>
 >;

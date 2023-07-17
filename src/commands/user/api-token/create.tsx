@@ -13,7 +13,7 @@ import { Newline, Text } from "ink";
 import { Value } from "../../../rendering/react/components/Value.js";
 
 type Roles =
-  MittwaldAPIV2.Paths.V2SignupTokenApi.Post.Parameters.RequestBody["roles"];
+  MittwaldAPIV2.Paths.V2UsersSelfApiTokens.Post.Parameters.RequestBody["roles"];
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,

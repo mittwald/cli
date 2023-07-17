@@ -6,9 +6,19 @@ import { assertStatus } from "@mittwald/api-client-commons";
 export const useMyUserProfile =
   (): MittwaldAPIV2.Components.Schemas.SignupProfile => {
     const { apiClient } = useRenderContext();
-    const myUserId = usePromise(apiClient.user.getOwnProfile, [], {
-      loaderId: "getOwnProfile",
-    });
+    const myUserId = usePromise(
+      apiClient.user.getUser,
+      [
+        {
+          pathParameters: {
+            userId: "self",
+          },
+        },
+      ],
+      {
+        loaderId: "getOwnProfile",
+      },
+    );
     assertStatus(myUserId, 200);
     return myUserId.data;
   };
