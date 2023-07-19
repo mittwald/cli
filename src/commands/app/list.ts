@@ -1,7 +1,6 @@
-import { Flags, ux } from "@oclif/core";
+import { ux } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { BaseCommand } from "../../BaseCommand.js";
-import { normalizeProjectIdToUuid } from "../../Helpers.js";
 import { getAppNameFromUuid, getAppVersionFromUuid } from "../../Translator.js";
 import { projectFlags, withProjectId } from "../../lib/project/flags.js";
 
