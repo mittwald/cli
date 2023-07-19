@@ -358,6 +358,8 @@ __metadata:
     tempfile: ^5.0.0
     type-fest: ^3.12.0
     typescript: ^5.1.6
+  bin:
+    mw: bin/run.js
   languageName: unknown
   linkType: soft
 
