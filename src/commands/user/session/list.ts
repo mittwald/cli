@@ -12,7 +12,7 @@ import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2SignupSessions.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2UsersSelfSessions.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 export default class List extends GeneratedUserListSessions<ResponseItem> {
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

@@ -23,6 +23,6 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
       pathParameters: { sshKeyId: id },
     });
 
-    assertStatus(response, 200);
+    assertStatus(response, 204);
   }
 }

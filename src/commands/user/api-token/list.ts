@@ -15,7 +15,7 @@ import {
 } from "../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2SignupTokenApi.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2UsersSelfApiTokens.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 export default class List extends GeneratedUserListApiTokens<ResponseItem> {
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

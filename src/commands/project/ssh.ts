@@ -16,9 +16,7 @@ export default class Ssh extends BaseCommand {
       pathParameters: { id },
     });
 
-    const userResponse = await this.apiClient.user.getOwnProfile({
-      data: {},
-    });
+    const userResponse = await this.apiClient.user.getOwnAccount();
 
     assertStatus(projectResponse, 200);
     assertStatus(userResponse, 200);

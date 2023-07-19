@@ -20,6 +20,6 @@ export default class Revoke extends DeleteBaseCommand<typeof Revoke> {
       pathParameters: { apiTokenId: args.id },
     });
 
-    assertStatus(response, 200);
+    assertStatus(response, 204);
   }
 }

@@ -6,7 +6,7 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../GetBaseCommand.js";
 
 export type PathParams =
-  MittwaldAPIV2.Paths.V2SignupSshSshKeyId.Get.Parameters.Path;
+  MittwaldAPIV2.Paths.V2UsersSelfSshKeys.Get.Parameters.Path;
 type APIResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["user"]["getSshKey"]>
 >;

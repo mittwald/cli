@@ -11,7 +11,7 @@ import { formatCreatedAt } from "../../../lib/viewhelpers/date.js";
 import { ListColumns } from "../../../Formatter.js";
 
 type ResponseItem = Simplify<
-  Required<MittwaldAPIV2.Paths.V2SignupSsh.Get.Responses.$200.Content.ApplicationJson>["sshKeys"][number]
+  Required<MittwaldAPIV2.Paths.V2UsersSelfSshKeys.Get.Responses.$200.Content.ApplicationJson>["sshKeys"][number]
 >;
 export default class List extends GeneratedUserListSshKeys<ResponseItem> {
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

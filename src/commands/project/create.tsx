@@ -67,8 +67,7 @@ export default class Create extends ExecRenderBaseCommand<
       await waitUntil(async () => {
         const projectResponse = await this.apiClient.project.getProject({
           pathParameters: { id: result.data.id },
-          // TODO: Remove once @mittwald/api-client supports this
-          headers: { "if-event-reached": eventId } as any, // eslint-disable-line
+          headers: { "if-event-reached": eventId },
         });
 
         if (

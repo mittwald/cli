@@ -39,8 +39,8 @@
     "bin"
   ],
   "dependencies": {
-    "@mittwald/api-client": "^2.0.1",
-    "@mittwald/api-client-commons": "^3.0.0-alpha.1",
+    "@mittwald/api-client": "^2.0.5",
+    "@mittwald/api-client-commons": "^3.0.3",
     "@mittwald/react-use-promise": "^1.2.2",
     "@oclif/core": "^2.8.5",
     "@oclif/plugin-help": "^5.2.9",
@@ -90,9 +90,6 @@
     "rimraf": "^5.0.1",
     "type-fest": "^3.12.0",
     "typescript": "^5.1.6"
-  },
-  "resolutions": {
-    "@mittwald/api-client-commons": "^3.0.0-alpha.1"
   },
   "oclif": {
     "bin": "mw",

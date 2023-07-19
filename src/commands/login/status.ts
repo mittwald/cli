@@ -7,7 +7,7 @@ export default class Status extends BaseCommand {
   static description = "Checks your current authentication status";
 
   public async run(): Promise<void> {
-    const response = await this.apiClient.user.getOwnProfile();
+    const response = await this.apiClient.user.getOwnAccount();
     assertStatus(response, 200);
 
     const output: Record<string, unknown> = {
