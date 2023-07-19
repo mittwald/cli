@@ -3,29 +3,26 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { BaseCommand } from "../../BaseCommand.js";
 import { normalizeProjectIdToUuid } from "../../Helpers.js";
 import { getAppNameFromUuid, getAppVersionFromUuid } from "../../Translator.js";
+import { projectFlags, withProjectId } from "../../lib/project/flags.js";
 
 export default class List extends BaseCommand {
   static description = "List projects";
   static flags = {
     ...ux.table.flags(),
-    project: Flags.string({
-      char: "p",
-      description: "project to run the command for",
-      required: true,
-    }),
+    ...projectFlags,
   };
 
   public async run(): Promise<void> {
-    ux.action.start("Gathering Appinstallations");
     const { flags } = await this.parse(List);
-
-    const uuid: string = await normalizeProjectIdToUuid(
+    const projectId = await withProjectId(
       this.apiClient,
-      flags.project,
+      flags,
+      {},
+      this.config,
     );
 
     const apps = await this.apiClient.app.listAppinstallations({
-      pathParameters: { projectId: uuid },
+      pathParameters: { projectId },
     });
     assertStatus(apps, 200);
 
@@ -49,7 +46,7 @@ export default class List extends BaseCommand {
         };
       }),
     );
-    ux.action.stop();
+
     ux.table(
       relevantAppInfo,
       {
