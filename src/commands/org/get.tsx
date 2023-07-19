@@ -9,12 +9,12 @@ import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { SingleResult } from "../../rendering/react/components/SingleResult.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { CreatedAt } from "../../rendering/react/components/CreatedAt.js";
-import { Box, Text } from "ink";
+import { Box } from "ink";
 import { useRenderContext } from "../../rendering/react/context.js";
 import { OrganizationOwner } from "../../rendering/react/components/Organization/OrganizationOwner.js";
 import { CustomerIDAndNumber } from "../../rendering/react/components/Organization/CustomerIDAndNumber.js";
-import CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 import { OrganizationOrderEligibility } from "../../rendering/react/components/Organization/OrganizationOrderEligibility.js";
+import CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2CustomersCustomerId.Get.Parameters.Path;
@@ -78,7 +78,9 @@ export class Get extends RenderBaseCommand<typeof Get> {
     );
     const customerResponse = usePromise(
       (id: string) =>
-        this.apiClient.customer.getCustomer({ pathParameters: { customerId } }),
+        this.apiClient.customer.getCustomer({
+          pathParameters: { customerId: id },
+        }),
       [customerId],
     );
 
