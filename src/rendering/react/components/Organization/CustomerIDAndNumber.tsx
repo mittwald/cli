@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Value } from "./Value.js";
+import { Value } from "../Value.js";
 import { Box, Text } from "ink";
 
 export const CustomerIDAndNumber: FC<{
