@@ -26,12 +26,12 @@ export type FlagSet = {
 export type NormalizeFn = (
   apiClient: MittwaldAPIV2Client,
   id: string,
-) => Promise<string>;
+) => string | Promise<string>;
 
 export function makeFlagSet(
   name: string,
   char: AlphabetLowercase,
-  normalize: NormalizeFn,
+  normalize: NormalizeFn = (_, id) => id,
 ): FlagSet {
   const flagName = `${name}-id`;
   const flags = {
