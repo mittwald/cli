@@ -38,6 +38,9 @@
     "{dist,dist-cjs}/**/*.{js,d.ts}",
     "bin"
   ],
+  "bin": {
+    "mw": "bin/run.js"
+  },
   "dependencies": {
     "@mittwald/api-client": "^2.0.5",
     "@mittwald/api-client-commons": "^3.0.3",
