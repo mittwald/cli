@@ -11,6 +11,9 @@
   "bugs": {
     "url": "https://github.com/mittwald/api-client-js/issues"
   },
+  "bin": {
+    "mw": "bin/run.js"
+  },
   "type": "module",
   "scripts": {
     "clean": "(rimraf --glob dist tsconfig.*.tsbuildinfo) | true",
@@ -38,9 +41,6 @@
     "{dist,dist-cjs}/**/*.{js,d.ts}",
     "bin"
   ],
-  "bin": {
-    "mw": "bin/run.js"
-  },
   "dependencies": {
     "@mittwald/api-client": "^2.0.5",
     "@mittwald/api-client-commons": "^3.0.3",

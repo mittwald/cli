@@ -44,6 +44,10 @@ export class ListFormatter {
     columns: ListColumns<T>,
     opts?: ListOptions,
   ): void {
+    if (output.length === 0) {
+      return;
+    }
+
     ux.table(output, columns, {
       printLine: console.log,
       ...opts,
