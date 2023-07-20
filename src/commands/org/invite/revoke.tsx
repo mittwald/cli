@@ -3,7 +3,6 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../../rendering/react/process_flags.js";
-import { orgFlags, withOrgId } from "../../../lib/org/flags.js";
 import { ReactNode } from "react";
 import { Args } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
@@ -53,7 +52,7 @@ export class Revoke extends ExecRenderBaseCommand<
     return { deleted: true };
   }
 
-  protected render(executionResult: { deleted: boolean }): ReactNode {
+  protected render(): ReactNode {
     return undefined;
   }
 }

@@ -1,7 +1,6 @@
 import { assertStatus } from "@mittwald/api-client-commons";
-import { normalizeProjectIdToUuid } from "../../Helpers.js";
 import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
-import { projectArgs, withProjectId } from "../../lib/project/flags.js";
+import { projectArgs } from "../../lib/project/flags.js";
 import { withOrgId } from "../../lib/org/flags.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {

@@ -36,7 +36,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     return data;
   }
 
-  protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+  protected getColumns(): ListColumns<ResponseItem> {
     return {
       id: {
         get: (r) => r.customerId,
