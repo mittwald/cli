@@ -54,7 +54,12 @@ export abstract class ListBaseCommand<
 
   protected getColumns(data: TItem[]): ListColumns<TItem> {
     if (data.length === 0) {
-      return {};
+      return {
+        id: {
+          header: "ID",
+          minWidth: 36,
+        },
+      };
     }
     // define some default columns, can be overwritten by child class
     let columns: ListColumns<TItem> = {
