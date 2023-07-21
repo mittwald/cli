@@ -9,35 +9,95 @@ import {
 import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
+import { ProcessRenderer } from "../../../rendering/react/process.js";
+import * as crypto from "crypto";
+import { Value } from "../../../rendering/react/components/Value.js";
+
+type CreateResult = {
+  addressId: string;
+  generatedPassword: string | null;
+};
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,
-  { addressId: string }
+  CreateResult
 > {
-  static description = "Create a new mail address";
+  static summary = "Create a new mail address";
+  static description = `\
+    When running this command with the --quiet flag, the output will contain the ID of the newly created address.
+    In addition, when run with --generated-password the output will be the ID of the newly created address, followed by a tab character and the generated password.`;
   static flags = {
     ...projectFlags,
     ...processFlags,
     address: Flags.string({
       char: "a",
-      description: "Mail address",
+      summary: "mail address",
       required: true,
     }),
     "catch-all": Flags.boolean({
-      description: "Make this a catch-all mail address",
+      description: "make this a catch-all mail address",
     }),
     "enable-spam-protection": Flags.boolean({
-      description: "Enable spam protection for this mailbox",
+      description: "enable spam protection for this mailbox",
       default: true,
       allowNo: true,
     }),
     quota: Flags.integer({
-      description: "Mailbox quota in mebibytes",
+      description: "mailbox quota in mebibytes",
       default: 1024,
+    }),
+    password: Flags.string({
+      summary: "mailbox password",
+      description:
+        "This is the password that should be used for the mailbox; if omitted, the command will prompt interactively for a password.\n\nCAUTION: providing this flag may log your password in your shell history!",
+    }),
+    "random-password": Flags.boolean({
+      summary: "generate a random password",
+      description:
+        "This flag will cause the command to generate a random 32-character password for the mailbox; when running with --quiet, the address ID and the password will be printed to stdout, separated by a tab character.",
     }),
   };
 
-  protected async exec(): Promise<{ addressId: string }> {
+  static examples = [
+    {
+      description: "Create non-interactively with password",
+      command:
+        "$ read -s PASSWORD &&\n <%= config.bin %> <%= command.id %> --password $PASSWORD --address foo@bar.example",
+    },
+    {
+      description: "Create non-interactively with random password",
+      command:
+        "<%= config.bin %> <%= command.id %> --random-password --address foo@bar.example",
+    },
+  ];
+
+  protected async getPassword(
+    process: ProcessRenderer,
+  ): Promise<[string, boolean]> {
+    if (this.flags.password) {
+      return [this.flags.password, false];
+    }
+
+    if (this.flags["random-password"]) {
+      const generated = await process.runStep(
+        "generating random password",
+        async () => {
+          return crypto.randomBytes(32).toString("base64").substring(0, 32);
+        },
+      );
+
+      process.addInfo(
+        <Text>
+          generated password: <Value>{generated}</Value>
+        </Text>,
+      );
+      return [generated, true];
+    }
+
+    return [await process.addInput(<Text>Mailbox password</Text>, true), false];
+  }
+
+  protected async exec(): Promise<CreateResult> {
     const { flags } = await this.parse(Create);
     const projectId = await withProjectId(
       this.apiClient,
@@ -47,10 +107,7 @@ export default class Create extends ExecRenderBaseCommand<
     );
 
     const process = makeProcessRenderer(flags, "Creating a new mail address");
-    const password = await process.addInput(
-      <Text>Mailbox password</Text>,
-      true,
-    );
+    const [password, passwordGenerated] = await this.getPassword(process);
 
     const response = await process.runStep(
       "creating mail address",
@@ -77,12 +134,24 @@ export default class Create extends ExecRenderBaseCommand<
       <Success>Your mail address was successfully created.</Success>,
     );
 
-    return { addressId: response.data.id };
+    return {
+      addressId: response.data.id,
+      generatedPassword: passwordGenerated ? password : null,
+    };
   }
 
-  protected render(executionResult: { addressId: string }): ReactNode {
+  protected render(executionResult: CreateResult): ReactNode {
     if (this.flags.quiet) {
-      return executionResult.addressId;
+      if (executionResult.generatedPassword) {
+        return (
+          <Text>
+            {executionResult.addressId}
+            {"\t"}
+            {executionResult.generatedPassword}
+          </Text>
+        );
+      }
+      return <Text>{executionResult.addressId}</Text>;
     }
   }
 }
