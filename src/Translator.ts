@@ -40,6 +40,24 @@ export async function getServerUuidFromShortId(
   throw new Error("Access Denied.");
 }
 
+export async function getCustomerUuidFromCustomerNumber(
+  apiClient: MittwaldAPIV2Client,
+  shortId: string,
+): Promise<string> {
+  const customers = await apiClient.customer.listCustomers();
+  assertStatus(customers, 200);
+
+  const foundCustomer = customers.data.find((item) => {
+    return item.customerNumber === shortId;
+  });
+
+  if (foundCustomer) {
+    return foundCustomer.customerId;
+  }
+
+  throw new Error("Access Denied.");
+}
+
 export async function getConversationUuidFromShortId(
   apiClient: MittwaldAPIV2Client,
   shortId: string,

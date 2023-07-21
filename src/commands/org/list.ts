@@ -39,8 +39,12 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   protected getColumns(): ListColumns<ResponseItem> {
     return {
       id: {
+        header: "ID",
         get: (r) => r.customerId,
         minWidth: 36,
+      },
+      customerNumber: {
+        header: "Customer No.",
       },
       name: {},
       owner: {
