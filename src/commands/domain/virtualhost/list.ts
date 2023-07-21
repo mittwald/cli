@@ -7,6 +7,7 @@ import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { Flags } from "@oclif/core";
 import { ListColumns } from "../../../Formatter.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Ingresses.Get.Responses.$200.Content.ApplicationJson[number]
@@ -18,26 +19,34 @@ export type Response = Awaited<
 >;
 
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
-  static description = "List Ingresses the user has access to.";
+  static description = "List virtualhosts for a project.";
 
   static args = {};
   static flags = {
     ...ListBaseCommand.baseFlags,
-    "project-id": Flags.string({
+    ...projectFlags,
+    all: Flags.boolean({
+      char: "a",
       description:
-        "Project ID to filter by; if omitted this will list virtual hosts in all projects you have access to.",
-      required: false,
+        "List all virtual hosts that you have access to, regardless of project",
     }),
   };
 
   public async getData(): Promise<Response> {
-    if (this.flags["project-id"]) {
-      return await this.apiClient.domain.ingressListForProject({
-        pathParameters: { projectId: this.flags["project-id"] },
-      });
+    if (this.flags.all) {
+      return await this.apiClient.domain.ingressListAccessible({});
     }
 
-    return await this.apiClient.domain.ingressListAccessible({});
+    const projectId = await withProjectId(
+      this.apiClient,
+      this.flags,
+      this.args,
+      this.config,
+    );
+
+    return await this.apiClient.domain.ingressListForProject({
+      pathParameters: { projectId },
+    });
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {
@@ -52,7 +61,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
     const baseColumns = super.getColumns(data);
-    return {
+    const columns: ListColumns<ResponseItem> = {
       id: baseColumns.id,
       projectId: { header: "Project ID" },
       hostname: {},
@@ -61,19 +70,35 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
           r.paths
             .map((p) => {
               if ("directory" in p.target) {
-                return `${p.path} -> directory (${p.target.directory})`;
+                return `${p.path} → directory (${p.target.directory})`;
               }
               if ("url" in p.target) {
-                return `${p.path} -> url (${p.target.url})`;
+                return `${p.path} → url (${p.target.url})`;
               }
-              return `${p.path} -> app (${p.target.installationId})`;
+              return `${p.path} → app (${p.target.installationId})`;
             })
             .join("\n"),
+      },
+      status: {
+        header: "Status",
+        get: (r) => {
+          if (r.dnsValidationErrors.length === 0) {
+            return "ready";
+          }
+
+          return `${r.dnsValidationErrors.length} issues`;
+        },
       },
       ips: {
         header: "IP addresses",
         get: (r) => r.ips.v4.join(", "),
       },
     };
+
+    if (!this.flags.all) {
+      delete columns.projectId;
+    }
+
+    return columns;
   }
 }
