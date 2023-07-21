@@ -6,6 +6,8 @@ import {
 import { ApiClientError, AxiosResponse } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import CommonsValidationErrors = MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
+import { CLIError, ExitError } from "@oclif/core/lib/errors/index.js";
+import { renderError } from "../rendering/react/error.js";
 
 export const handleError = (
   error: Error &
@@ -15,6 +17,17 @@ export const handleError = (
     },
 ): void => {
   if (!isUnexpectedError(error)) {
+    process.exit(1);
+    return;
+  }
+
+  if (error instanceof ExitError) {
+    process.exit(error.oclif.exit);
+    return;
+  }
+
+  if (error instanceof CLIError) {
+    renderError(error);
     process.exit(1);
     return;
   }
