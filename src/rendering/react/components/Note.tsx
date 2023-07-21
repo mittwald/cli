@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren } from "react";
 import { Box, Text } from "ink";
 
-type NoteProps = PropsWithChildren<{
+export type NoteProps = PropsWithChildren<{
   title?: string;
   color?: string;
   marginY?: number;

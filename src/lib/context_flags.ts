@@ -38,7 +38,8 @@ export function makeFlagSet(
     [flagName]: Flags.string({
       char,
       required: false,
-      description: `ID or short ID of a ${name}; this flag is optional if a default ${name} is set in the context`,
+      summary: `ID or short ID of a ${name}; this flag is optional if a default ${name} is set in the context`,
+      description: `May contain a short ID or a full ID of a ${name}; you can also use the "<%= config.bin %> context set --${name}-id=<VALUE>" command to persistently set a default ${name} for all commands that accept this flag.`,
     }),
   } as ContextFlags;
 

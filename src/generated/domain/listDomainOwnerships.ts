@@ -4,6 +4,7 @@
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Flags } from "@oclif/core";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../lib/project/flags.js";
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2ProjectsProjectIdDomainOwnerships.Get.Parameters.Path;
@@ -23,15 +24,17 @@ export abstract class GeneratedDomainListDomainOwnerships<
   static args = {};
   static flags = {
     ...ListBaseCommand.baseFlags,
-    "project-id": Flags.string({
-      description: "undefined",
-      required: true,
-    }),
+    ...projectFlags,
   };
 
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {
-      projectId: this.flags["project-id"],
+      projectId: await withProjectId(
+        this.apiClient,
+        this.flags,
+        this.args,
+        this.config,
+      ),
     };
     return await this.apiClient.domain.listDomainOwnerships({
       pathParameters: await this.mapParams(pathParams),

@@ -79,6 +79,16 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
             })
             .join("\n"),
       },
+      status: {
+        header: "Status",
+        get: (r) => {
+          if (r.dnsValidationErrors.length === 0) {
+            return "ready";
+          }
+
+          return `${r.dnsValidationErrors.length} issues`;
+        },
+      },
       ips: {
         header: "IP addresses",
         get: (r) => r.ips.v4.join(", "),

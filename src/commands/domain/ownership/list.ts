@@ -14,6 +14,7 @@ type ResponseItem = Simplify<
 >;
 export default class List extends GeneratedDomainListDomainOwnerships<ResponseItem> {
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
+    console.log(data);
     return data;
   }
 }
