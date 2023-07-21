@@ -2,6 +2,7 @@ import { Flags } from "@oclif/core";
 import { Context } from "../../lib/context.js";
 import { BaseCommand } from "../../BaseCommand.js";
 import {
+  normalizeCustomerIdToUuid,
   normalizeProjectIdToUuid,
   normalizeServerIdToUuid,
 } from "../../Helpers.js";
@@ -45,8 +46,12 @@ export class Set extends BaseCommand {
     }
 
     if (flags["org-id"]) {
-      await ctx.setOrgId(flags["org-id"]);
-      this.log(`Set organization ID to ${flags["org-id"]}`);
+      const orgId = await normalizeCustomerIdToUuid(
+        this.apiClient,
+        flags["org-id"],
+      );
+      await ctx.setOrgId(orgId);
+      this.log(`Set organization ID to ${orgId}`);
     }
   }
 }

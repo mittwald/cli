@@ -1,5 +1,6 @@
 import {
   getConversationUuidFromShortId,
+  getCustomerUuidFromCustomerNumber,
   getProjectUuidFromShortId,
   getServerUuidFromShortId,
 } from "./Translator.js";
@@ -40,6 +41,17 @@ export async function normalizeServerIdToUuid(
   }
 
   return await getServerUuidFromShortId(apiClient, uuidOrShortId);
+}
+
+export async function normalizeCustomerIdToUuid(
+  apiClient: MittwaldAPIV2Client,
+  uuidOrShortId: string,
+): Promise<string> {
+  if (isUuid(uuidOrShortId)) {
+    return uuidOrShortId;
+  }
+
+  return await getCustomerUuidFromCustomerNumber(apiClient, uuidOrShortId);
 }
 
 export async function normalizeConversationIdToUuid(
