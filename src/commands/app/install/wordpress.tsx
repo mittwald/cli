@@ -19,6 +19,8 @@ import { waitUntil } from "../../../lib/wait.js";
 import React from "react";
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 import { getProjectShortIdFromUuid } from "../../../lib/project/shortId.js";
+import { getDefaultIngressForProject } from "../../../lib/project/ingress.js";
+import * as crypto from "crypto";
 
 export default class AppCreateWordpress extends ExecRenderBaseCommand<
   typeof AppCreateWordpress,
@@ -73,67 +75,65 @@ export default class AppCreateWordpress extends ExecRenderBaseCommand<
       this.config,
     );
 
-    if (
-      flags.host &&
-      flags["site-title"] &&
-      flags["admin-user"] &&
-      flags["admin-email"] &&
-      flags["admin-pass"]
-    ) {
-      // all optional flags given, no autofill necessary
-    } else {
-      const ownUser = await this.apiClient.user.getOwnAccount();
-      assertStatus(ownUser, 200);
+    const ownUser = await this.apiClient.user.getOwnAccount();
+    assertStatus(ownUser, 200);
 
-      if (!flags.host) {
-        flags.host = "https://" + projectId + ".project.space";
-      }
+    if (!flags.host) {
+      flags.host =
+        "https://" +
+        (await getDefaultIngressForProject(this.apiClient, projectId));
+      process.addInfo(
+        <Text>
+          Using Host <Value>{flags.host}</Value>
+        </Text>,
+      );
+    }
 
-      if (!flags["site-title"] && projectId) {
-        flags["site-title"] =
-          "Wordpress " +
-          (await getProjectShortIdFromUuid(this.apiClient, projectId));
-      }
+    if (!flags["site-title"]) {
+      flags["site-title"] =
+        "Wordpress " +
+        (await getProjectShortIdFromUuid(this.apiClient, projectId));
+    }
 
-      if (!flags["admin-user"]) {
-        if (ownUser.data.person) {
-          flags["admin-user"] =
-            ownUser.data.person.firstName.charAt(0).toLowerCase() +
-            ownUser.data.person.lastName.toLowerCase();
-        } else {
-          flags["admin-user"] = require("os")
-            .userInfo()
-            .username.replace(/[ ]/g, "-")
-            .toLowerCase();
-        }
-        process.addInfo(
-          <Text>
-            Generated Admin User: <Value>{flags["admin-user"]}</Value>
-          </Text>,
+    if (!flags["admin-user"]) {
+      if (ownUser.data.person) {
+        flags["admin-user"] =
+          ownUser.data.person.firstName.charAt(0).toLowerCase() +
+          ownUser.data.person.lastName.toLowerCase();
+      } else {
+        flags["admin-user"] = await getProjectShortIdFromUuid(
+          this.apiClient,
+          projectId,
         );
       }
+      process.addInfo(
+        <Text>
+          Generated Admin User: <Value>{flags["admin-user"]}</Value>
+        </Text>,
+      );
+    }
 
-      if (!flags["admin-pass"]) {
-        flags["admin-pass"] = Math.random().toString(36).slice(-16);
-        process.addInfo(
-          <Text>
-            Generated Admin Pass: <Value>{flags["admin-pass"]}</Value>
-          </Text>,
-        );
-      }
+    if (!flags["admin-pass"]) {
+      flags["admin-pass"] = await process.runStep(
+        "generating random password",
+        async () => {
+          return crypto.randomBytes(32).toString("base64").substring(0, 32);
+        },
+      );
+      process.addInfo(
+        <Text>
+          Generated Admin Pass: <Value>{flags["admin-pass"]}</Value>
+        </Text>,
+      );
+    }
 
-      if (!flags["admin-email"]) {
-        if (ownUser.data.email) {
-          flags["admin-email"] = ownUser.data.email;
-        } else {
-          flags["admin-email"] = projectId + "@project.space";
-        }
-        process.addInfo(
-          <Text>
-            Used Admin Email: <Value>{flags["admin-email"]}</Value>
-          </Text>,
-        );
-      }
+    if (!flags["admin-email"]) {
+      flags["admin-email"] = ownUser.data.email;
+      process.addInfo(
+        <Text>
+          Used Admin Email: <Value>{flags["admin-email"]}</Value>
+        </Text>,
+      );
     }
 
     const appVersion = await process.runStep(
