@@ -1,20 +1,41 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import {
-  GeneratedDatabaseListMysqlDatabases,
-  Response,
-} from "../../../generated/database/listMysqlDatabases.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatBytes } from "../../../lib/viewhelpers/size.js";
+import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdMysqlDatabases.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedDatabaseListMysqlDatabases<ResponseItem> {
+export type PathParams =
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdMysqlDatabases.Get.Parameters.Path;
+export type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["database"]["listMysqlDatabases"]>
+>;
+
+export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
+  static description = "List MySQLDatabases belonging to a Project.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+    ...projectFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    const projectId = await withProjectId(
+      this.apiClient,
+      this.flags,
+      this.args,
+      this.config,
+    );
+    return await this.apiClient.database.listMysqlDatabases({
+      pathParameters: { projectId },
+    } as Parameters<typeof this.apiClient.database.listMysqlDatabases>[0]);
+  }
+
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return data;
   }
@@ -22,19 +43,19 @@ export default class List extends GeneratedDatabaseListMysqlDatabases<ResponseIt
   protected getColumns(ignoredData: ResponseItem[]): ListColumns<ResponseItem> {
     const commonColumns = super.getColumns(ignoredData);
     return {
-      ...commonColumns,
+      id: commonColumns.id,
       name: {
-        header: "name",
+        header: "Name",
         minWidth: 12,
       },
       version: {
-        header: "version",
+        header: "Version",
       },
       description: {
-        header: "description",
+        header: "Description",
       },
       hostname: {
-        header: "hostname",
+        header: "Hostname",
       },
       status: {
         header: "Status",
@@ -45,12 +66,8 @@ export default class List extends GeneratedDatabaseListMysqlDatabases<ResponseIt
           return "ready";
         },
       },
-      isShared: {
-        header: "isShared",
-        extended: true,
-      },
       characterSet: {
-        header: "Charset",
+        header: "Character Set",
         get: (row) => row.characterSettings?.characterSet,
         extended: true,
       },
@@ -60,10 +77,11 @@ export default class List extends GeneratedDatabaseListMysqlDatabases<ResponseIt
         extended: true,
       },
       size: {
-        header: "size",
+        header: "Size",
         // there is an error in the API mapping
         get: (row) => formatBytes((row.size as unknown as { low: number }).low),
       },
+      createdAt: commonColumns.createdAt,
     };
   }
 }
