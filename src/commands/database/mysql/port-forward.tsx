@@ -6,7 +6,7 @@ import {
 } from "../../../rendering/react/process_flags.js";
 import * as cp from "child_process";
 import { Text } from "ink";
-import { mysqlArgs } from "../../../lib/database/mysql/flags.js";
+import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetails } from "../../../lib/database/mysql/connect.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { Flags } from "@oclif/core";
@@ -26,7 +26,12 @@ export class PortForward extends ExecRenderBaseCommand<
   static args = { ...mysqlArgs };
 
   protected async exec(): Promise<Record<string, never>> {
-    const databaseId = this.args["database-id"];
+    const databaseId = await withMySQLId(
+      this.apiClient,
+      this.flags,
+      this.args,
+      this.config,
+    );
     const p = makeProcessRenderer(
       this.flags,
       "Port-forwarding a MySQL database",

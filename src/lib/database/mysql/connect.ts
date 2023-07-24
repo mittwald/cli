@@ -1,10 +1,9 @@
 import { ProcessRenderer } from "../../../rendering/react/process.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { getProject, getUser } from "../common.js";
 import DatabaseMySqlDatabase = MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
 import DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
-import SignupAccount = MittwaldAPIV2.Components.Schemas.SignupAccount;
-import ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
 
 export async function getConnectionDetailsWithPassword(
   apiClient: MittwaldAPIV2Client,
@@ -81,32 +80,5 @@ async function getDatabaseUser(
     }
 
     return mainUser;
-  });
-}
-
-async function getUser(
-  apiClient: MittwaldAPIV2Client,
-  p: ProcessRenderer,
-): Promise<SignupAccount> {
-  return await p.runStep("fetching user", async () => {
-    const r = await apiClient.user.getOwnAccount();
-    assertStatus(r, 200);
-
-    return r.data;
-  });
-}
-
-async function getProject(
-  apiClient: MittwaldAPIV2Client,
-  p: ProcessRenderer,
-  database: DatabaseMySqlDatabase,
-): Promise<ProjectProject> {
-  return await p.runStep("fetching project", async () => {
-    const r = await apiClient.project.getProject({
-      pathParameters: { id: database.projectId },
-    });
-    assertStatus(r, 200);
-
-    return r.data;
   });
 }

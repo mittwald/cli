@@ -9,6 +9,7 @@ import { Text } from "ink";
 import {
   mysqlArgs,
   mysqlConnectionFlags,
+  withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
 
@@ -24,7 +25,12 @@ export class Shell extends ExecRenderBaseCommand<
   static args = { ...mysqlArgs };
 
   protected async exec(): Promise<Record<string, never>> {
-    const databaseId = this.args["database-id"];
+    const databaseId = await withMySQLId(
+      this.apiClient,
+      this.flags,
+      this.args,
+      this.config,
+    );
     const p = makeProcessRenderer(this.flags, "Starting a MySQL shell");
 
     const { sshUser, sshHost, user, hostname, database, password } =

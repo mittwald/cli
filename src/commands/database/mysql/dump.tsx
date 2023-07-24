@@ -13,6 +13,7 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import {
   mysqlArgs,
   mysqlConnectionFlags,
+  withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
 
@@ -35,7 +36,12 @@ export class Dump extends ExecRenderBaseCommand<
   static args = { ...mysqlArgs };
 
   protected async exec(): Promise<Record<string, never>> {
-    const databaseId = this.args["database-id"];
+    const databaseId = await withMySQLId(
+      this.apiClient,
+      this.flags,
+      this.args,
+      this.config,
+    );
     const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
 
     const { sshUser, sshHost, user, hostname, database, password } =

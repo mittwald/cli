@@ -1,22 +1,23 @@
 import { BaseCommand } from "../../../BaseCommand.js";
-import { Args } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import open from "open";
+import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
 
 export class PhpMyAdmin extends BaseCommand {
   static summary = "Open phpMyAdmin for a MySQL database.";
 
-  static args = {
-    "database-id": Args.string({
-      description: "ID of the MySQL database to open phpMyAdmin for.",
-      required: true,
-    }),
-  };
+  static args = { ...mysqlArgs };
 
   public async run(): Promise<void> {
-    const { args } = await this.parse(PhpMyAdmin);
+    const { flags, args } = await this.parse(PhpMyAdmin);
+    const databaseId = await withMySQLId(
+      this.apiClient,
+      flags,
+      args,
+      this.config,
+    );
     const users = await this.apiClient.database.listMysqlUsers({
-      pathParameters: { databaseId: args["database-id"] },
+      pathParameters: { databaseId },
     });
 
     assertStatus(users, 200);
