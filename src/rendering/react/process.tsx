@@ -67,7 +67,7 @@ export interface ProcessRenderer {
   runStep<TRes>(title: ReactNode, fn: () => Promise<TRes>): Promise<TRes>;
   addInfo(title: ReactElement): void;
   addConfirmation(question: ReactElement): Promise<boolean>;
-  addInput(question: ReactElement, mask?: boolean): Promise<string>;
+  addInput(question: ReactNode, mask?: boolean): Promise<string>;
 
   complete(summary: ReactElement): void;
   error(err: unknown): void;
