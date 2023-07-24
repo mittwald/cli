@@ -1,6 +1,26 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedDatabaseGetMysqlDatabase } from "../../../generated/database/getMysqlDatabase.js";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { GetBaseCommand } from "../../../GetBaseCommand.js";
+import { mysqlArgs } from "../../../lib/database/mysql/flags.js";
 
-export default class Get extends GeneratedDatabaseGetMysqlDatabase {}
+export type PathParams =
+  MittwaldAPIV2.Paths.V2MysqlDatabasesId.Get.Parameters.Path;
+type APIResponse = Awaited<
+  ReturnType<MittwaldAPIV2Client["database"]["getMysqlDatabase"]>
+>;
+
+export abstract class Get extends GetBaseCommand<typeof Get, APIResponse> {
+  static description = "Get a MySQLDatabase.";
+
+  static flags = {
+    ...GetBaseCommand.baseFlags,
+  };
+  static args = {
+    ...mysqlArgs,
+  };
+
+  protected async getData(): Promise<APIResponse> {
+    return await this.apiClient.database.getMysqlDatabase({
+      pathParameters: { id: this.args["database-id"] },
+    } as Parameters<typeof this.apiClient.database.getMysqlDatabase>[0]);
+  }
+}

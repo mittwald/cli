@@ -1,18 +1,39 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import {
-  GeneratedDatabaseListRedisDatabases,
-  Response,
-} from "../../../generated/database/listRedisDatabases.js";
+import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdRedisDatabases.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedDatabaseListRedisDatabases<ResponseItem> {
+export type PathParams =
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdRedisDatabases.Get.Parameters.Path;
+export type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["database"]["listRedisDatabases"]>
+>;
+
+export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
+  static description = "List Redis databases belonging to a project.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+    ...projectFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    const projectId = await withProjectId(
+      this.apiClient,
+      this.flags,
+      this.args,
+      this.config,
+    );
+    return await this.apiClient.database.listRedisDatabases({
+      pathParameters: { projectId },
+    } as Parameters<typeof this.apiClient.database.listRedisDatabases>[0]);
+  }
+
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return data;
   }
