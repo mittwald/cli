@@ -11,6 +11,12 @@ import { Text } from "ink";
 import { Value } from "../../../rendering/react/components/Value.js";
 import * as fs from "fs";
 import { Success } from "../../../rendering/react/components/Success.js";
+import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { ProcessRenderer } from "../../../rendering/react/process.js";
+import DatabaseMySqlDatabase = MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
+import DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
+import SignupAccount = MittwaldAPIV2.Components.Schemas.SignupAccount;
+import ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
 
 export class Dump extends ExecRenderBaseCommand<typeof Dump, any> {
   static summary = "Create a dump of a MySQL database";
@@ -46,44 +52,10 @@ NOTE: This is a security risk, as the password will be visible in the process li
     const databaseId = this.args["database-id"];
     const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
 
-    const database = await p.runStep("fetching database", async () => {
-      const r = await this.apiClient.database.getMysqlDatabase({
-        pathParameters: { id: databaseId },
-      });
-      assertStatus(r, 200);
-
-      return r.data;
-    });
-
-    const databaseUser = await p.runStep("fetching main user", async () => {
-      const r = await this.apiClient.database.listMysqlUsers({
-        pathParameters: { databaseId },
-      });
-      assertStatus(r, 200);
-
-      const mainUser = r.data.find((u) => u.mainUser);
-      if (!mainUser) {
-        throw new Error("No main user found");
-      }
-
-      return mainUser;
-    });
-
-    const project = await p.runStep("fetching project", async () => {
-      const r = await this.apiClient.project.getProject({
-        pathParameters: { id: database.projectId },
-      });
-      assertStatus(r, 200);
-
-      return r.data;
-    });
-
-    const user = await p.runStep("fetching user", async () => {
-      const r = await this.apiClient.user.getOwnAccount();
-      assertStatus(r, 200);
-
-      return r.data;
-    });
+    const database = await this.getDatabase(p, databaseId);
+    const databaseUser = await this.getDatabaseUser(p, databaseId);
+    const project = await this.getProject(p, database);
+    const user = await this.getUser(p);
 
     const sshHost = `ssh.${project.clusterID}.${project.clusterDomain}`;
     const sshUser = `${user.email}@${project.shortId}`;
@@ -138,6 +110,62 @@ NOTE: This is a security risk, as the password will be visible in the process li
         <Value>{this.flags.output}</Value>
       </Success>,
     );
+  }
+
+  private async getDatabase(
+    p: ProcessRenderer,
+    id: string,
+  ): Promise<DatabaseMySqlDatabase> {
+    return await p.runStep("fetching database", async () => {
+      const r = await this.apiClient.database.getMysqlDatabase({
+        pathParameters: { id },
+      });
+      assertStatus(r, 200);
+
+      return r.data;
+    });
+  }
+
+  private async getDatabaseUser(
+    p: ProcessRenderer,
+    databaseId: string,
+  ): Promise<DatabaseMySqlUser> {
+    return await p.runStep("fetching main user", async () => {
+      const r = await this.apiClient.database.listMysqlUsers({
+        pathParameters: { databaseId },
+      });
+      assertStatus(r, 200);
+
+      const mainUser = r.data.find((u) => u.mainUser);
+      if (!mainUser) {
+        throw new Error("No main user found");
+      }
+
+      return mainUser;
+    });
+  }
+
+  private async getUser(p: ProcessRenderer): Promise<SignupAccount> {
+    return await p.runStep("fetching user", async () => {
+      const r = await this.apiClient.user.getOwnAccount();
+      assertStatus(r, 200);
+
+      return r.data;
+    });
+  }
+
+  private async getProject(
+    p: ProcessRenderer,
+    database: DatabaseMySqlDatabase,
+  ): Promise<ProjectProject> {
+    return await p.runStep("fetching project", async () => {
+      const r = await this.apiClient.project.getProject({
+        pathParameters: { id: database.projectId },
+      });
+      assertStatus(r, 200);
+
+      return r.data;
+    });
   }
 
   protected render(executionResult: any): ReactNode {
