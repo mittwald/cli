@@ -18,7 +18,10 @@ import DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
 import SignupAccount = MittwaldAPIV2.Components.Schemas.SignupAccount;
 import ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
 
-export class Dump extends ExecRenderBaseCommand<typeof Dump, any> {
+export class Dump extends ExecRenderBaseCommand<
+  typeof Dump,
+  Record<string, never>
+> {
   static summary = "Create a dump of a MySQL database";
   static flags = {
     ...processFlags,
@@ -36,8 +39,8 @@ NOTE: This is a security risk, as the password will be visible in the process li
     output: Flags.string({
       char: "o",
       summary: 'the output file to write the dump to ("-" for stdout)',
-      description: `\
-        The output file to write the dump to. You can specify "-" or "/dev/stdout" to write the dump directly to STDOUT; in this case, you might want to use the --quiet/-q flag to supress all other output, so that you can pipe the mysqldump for further processing.`,
+      description:
+        'The output file to write the dump to. You can specify "-" or "/dev/stdout" to write the dump directly to STDOUT; in this case, you might want to use the --quiet/-q flag to supress all other output, so that you can pipe the mysqldump for further processing.',
       required: true,
     }),
   };
@@ -48,7 +51,7 @@ NOTE: This is a security risk, as the password will be visible in the process li
     }),
   };
 
-  protected async exec(): Promise<void> {
+  protected async exec(): Promise<Record<string, never>> {
     const databaseId = this.args["database-id"];
     const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
 
@@ -110,6 +113,8 @@ NOTE: This is a security risk, as the password will be visible in the process li
         <Value>{this.flags.output}</Value>
       </Success>,
     );
+
+    return {};
   }
 
   private async getDatabase(
@@ -168,7 +173,7 @@ NOTE: This is a security risk, as the password will be visible in the process li
     });
   }
 
-  protected render(executionResult: any): ReactNode {
+  protected render(): ReactNode {
     return undefined;
   }
 }

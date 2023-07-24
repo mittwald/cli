@@ -35,7 +35,7 @@ export class Versions extends ListBaseCommand<
     return data;
   }
 
-  protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+  protected getColumns(): ListColumns<ResponseItem> {
     return {
       id: { header: "ID" },
       name: {},
