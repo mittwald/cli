@@ -315,6 +315,7 @@ __metadata:
     "@oclif/core": ^2.8.5
     "@oclif/plugin-help": ^5.2.9
     "@oclif/plugin-update": ^3.1.28
+    "@oclif/plugin-warn-if-update-available": ^2.0.45
     "@types/chalk": ^2.2.0
     "@types/copyfiles": ^2.4.1
     "@types/js-yaml": ^4.0.5
@@ -713,7 +714,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^2.9.3":
+"@oclif/core@npm:^2.9.3, @oclif/core@npm:^2.9.4":
   version: 2.9.4
   resolution: "@oclif/core@npm:2.9.4"
   dependencies:
@@ -803,6 +804,21 @@ __metadata:
     lodash: ^4.17.21
     semver: ^7.5.3
   checksum: 822f1ab5643b43004d78d0a032cd600631340c8064555a95e1498e1061ea85135c2e908d56495249f37cd8ed8f462a0bd5053b303d4bd07b4fc04f09c8722919
+  languageName: node
+  linkType: hard
+
+"@oclif/plugin-warn-if-update-available@npm:^2.0.45":
+  version: 2.0.45
+  resolution: "@oclif/plugin-warn-if-update-available@npm:2.0.45"
+  dependencies:
+    "@oclif/core": ^2.9.4
+    chalk: ^4.1.0
+    debug: ^4.1.0
+    fs-extra: ^9.0.1
+    http-call: ^5.2.2
+    lodash: ^4.17.21
+    semver: ^7.5.4
+  checksum: 7a3b0f30e02a810d8df1bd6fee233c2987a7ea13fd5ac0ad3e565e1e97ed5015f1c0f67fc6ce496650e9aca9f9f2550dc5935d5a206650e307127f1dc5ce248b
   languageName: node
   linkType: hard
 
