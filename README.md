@@ -26,7 +26,6 @@ installation instructions.
 
 ## Usage
 
-<!-- usage -->
 ```sh-session
 $ npm install -g @mittwald/cli
 $ mw COMMAND
@@ -38,7 +37,6 @@ USAGE
   $ mw COMMAND
 ...
 ```
-<!-- usagestop -->
 
 ## Commands
 
