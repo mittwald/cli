@@ -5,6 +5,35 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { useRenderContext } from "../../rendering/react/context.js";
 import AppSystemSoftwareVersion = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
+import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
+
+export function useApp(appId: string): AppApp {
+  const { apiClient } = useRenderContext();
+  const app = usePromise(
+    (id) => apiClient.app.getApp({ pathParameters: { appId: id } }),
+    [appId],
+  );
+  assertStatus(app, 200);
+
+  return app.data;
+}
+
+export function useAppInstallation(
+  appInstallationId: string,
+): AppAppInstallation {
+  const { apiClient } = useRenderContext();
+  const appInstallation = usePromise(
+    (id) =>
+      apiClient.app.getAppinstallation({
+        pathParameters: { appInstallationId: id },
+      }),
+    [appInstallationId],
+  );
+  assertStatus(appInstallation, 200);
+
+  return appInstallation.data;
+}
 
 export function useAppVersion(
   appId: string,
