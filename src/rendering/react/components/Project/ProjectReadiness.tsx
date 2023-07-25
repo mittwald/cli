@@ -1,7 +1,7 @@
 import { Text } from "ink";
 import { FC } from "react";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import { Value } from "./Value.js";
+import { Value } from "../Value.js";
 
 interface Props {
   readiness: MittwaldAPIV2.Components.Schemas.ProjectProjectReadinessStatus;

@@ -9,7 +9,7 @@ import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCo
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../../rendering/react/process_flags.js";
+} from "../../../rendering/process/process_flags.js";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Filename } from "../../../rendering/react/components/Filename.js";
 import { Text } from "ink";

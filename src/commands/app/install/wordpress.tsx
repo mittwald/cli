@@ -11,7 +11,7 @@ import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCo
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../../rendering/react/process_flags.js";
+} from "../../../rendering/process/process_flags.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";

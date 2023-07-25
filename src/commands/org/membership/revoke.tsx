@@ -2,7 +2,7 @@ import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCo
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../../rendering/react/process_flags.js";
+} from "../../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
 import { Args } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";

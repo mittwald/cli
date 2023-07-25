@@ -3,10 +3,10 @@ import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../../rendering/react/process_flags.js";
+} from "../../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
 import { Flags } from "@oclif/core";
-import { ProcessRenderer } from "../../../rendering/react/process.js";
+import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { Text } from "ink";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../rendering/react/components/Success.js";

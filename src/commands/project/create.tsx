@@ -9,7 +9,7 @@ import { Value } from "../../rendering/react/components/Value.js";
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../rendering/react/process_flags.js";
+} from "../../rendering/process/process_flags.js";
 import { waitUntil } from "../../lib/wait.js";
 import { Context } from "../../lib/context.js";
 

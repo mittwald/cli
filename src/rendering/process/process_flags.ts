@@ -16,8 +16,21 @@ export const processFlags = {
 
 export type ProcessFlags = InferredFlags<typeof processFlags>;
 
+/**
+ * Create a ProcessRenderer based on the given flags. Currently, only two
+ * renderers are available:
+ *
+ * - `FancyProcessRenderer` for interactive output
+ * - `SilentProcessRenderer` for non-interactive output when the `quiet` flag is
+ *   set
+ *
+ * More renderers may be added in the future.
+ *
+ * @param flags
+ * @param title
+ */
 export const makeProcessRenderer = (
-  flags: { quiet: boolean },
+  flags: ProcessFlags,
   title: string,
 ): ProcessRenderer => {
   if (flags.quiet) {

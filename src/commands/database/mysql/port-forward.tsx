@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../../rendering/react/process_flags.js";
+} from "../../../rendering/process/process_flags.js";
 import * as cp from "child_process";
 import { Text } from "ink";
 import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";

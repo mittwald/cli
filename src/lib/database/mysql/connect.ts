@@ -1,4 +1,4 @@
-import { ProcessRenderer } from "../../../rendering/react/process.js";
+import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { getProject, getUser } from "../common.js";

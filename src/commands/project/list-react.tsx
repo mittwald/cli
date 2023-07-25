@@ -6,7 +6,7 @@ import { useRenderContext } from "../../rendering/react/context.js";
 import { Table } from "../../rendering/react/components/Table/index.js";
 import { UsePromiseRenderSetup } from "../../rendering/setup/usePromiseSetup.js";
 import { TableRenderSetup } from "../../rendering/setup/TableRenderSetup.js";
-import { ProjectStatus } from "../../rendering/react/components/ProjectStatus.js";
+import { ProjectStatus } from "../../rendering/react/components/Project/ProjectStatus.js";
 
 const usePromiseSetup = new UsePromiseRenderSetup();
 

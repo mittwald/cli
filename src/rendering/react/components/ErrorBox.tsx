@@ -85,6 +85,13 @@ const InvalidArgsError: FC<{ err: RequiredArgsError }> = ({ err }) => {
   );
 };
 
+/**
+ * Render an error to the terminal.
+ *
+ * @class
+ * @param err The error to render. May be anything, although different errors
+ *   will be rendered differently.
+ */
 export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
   if (err instanceof FailedFlagValidationError) {
     return <InvalidFlagsError err={err} />;
