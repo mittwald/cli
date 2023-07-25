@@ -1,8 +1,50 @@
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { gt } from "semver";
+import { Value } from "../../rendering/react/components/Value.js";
+import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+import { ProcessRenderer } from "../../rendering/react/process.js";
+import { Text } from "ink";
+import React from "react";
+import { getAppNameFromUuid } from "./uuid.js";
 
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+
+export async function normalizeToAppVersionUuid(
+  apiClient: MittwaldAPIV2Client,
+  version: string,
+  process: ProcessRenderer,
+  appUuid: string,
+) {
+  let appVersion: AppAppVersion | undefined;
+
+  if (version && version !== "latest") {
+    appVersion = await getAppVersionUuidFromAppVersion(
+      apiClient,
+      appUuid,
+      version,
+    );
+  } else {
+    appVersion = await getLatestAvailableAppVersionForApp(apiClient, appUuid);
+  }
+
+  if (!appVersion) {
+    throw new Error(
+      `${await getAppNameFromUuid(
+        apiClient,
+        appUuid,
+      )} version ${version} does not seem to exist for the mStudio.`,
+    );
+  }
+
+  process.addInfo(
+    <Text>
+      installing version: <Value>{appVersion.externalVersion}</Value>
+    </Text>,
+  );
+
+  return appVersion;
+}
 
 // Get latest available Internal App Version for App UUID
 export async function getLatestAvailableAppVersionForApp(

@@ -1,0 +1,50 @@
+import { assertStatus } from "@mittwald/api-client-commons";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { ProcessRenderer } from "../../rendering/react/process.js";
+import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+export async function triggerAppInstallation(
+  apiClient: MittwaldAPIV2Client,
+  process: ProcessRenderer,
+  projectId: string,
+  flags: any,
+  appVersion: AppAppVersion,
+) {
+  const [appInstallationId, eventId] = await process.runStep(
+    "starting installation",
+    async (): Promise<[string, string]> => {
+      const result = await apiClient.app.requestAppinstallation({
+        pathParameters: { projectId },
+        data: {
+          appVersionId: appVersion.id,
+          description: flags["site-title"] as string,
+          updatePolicy: "none",
+          userInputs: [
+            { name: "host", value: flags.host as string },
+            { name: "site_title", value: flags["site-title"] as string },
+            { name: "admin_user", value: flags["admin-user"] as string },
+            { name: "admin_email", value: flags["admin-email"] as string },
+            { name: "admin_pass", value: flags["admin-pass"] as string },
+            {
+              name: "admin_firstname",
+              value: flags["admin-firstname"] as string,
+            },
+            {
+              name: "admin_lastname",
+              value: flags["admin-lastname"] as string,
+            },
+            { name: "shop_email", value: flags["shop-email"] as string },
+            { name: "shop_lang", value: flags["shop-language"] as string },
+            {
+              name: "shop_currency",
+              value: flags["shop-currency"] as string,
+            },
+          ],
+        },
+      });
+
+      assertStatus(result, 201);
+      return [result.data.id, result.headers["etag"]];
+    },
+  );
+  return [appInstallationId, eventId];
+}

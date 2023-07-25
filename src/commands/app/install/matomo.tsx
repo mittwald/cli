@@ -14,12 +14,12 @@ import React from "react";
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 import { triggerAppInstallation } from "../../../lib/app/create.js";
 
-export default class AppCreateWordPress extends ExecRenderBaseCommand<
-  typeof AppCreateWordPress,
+export default class AppCreateMatomo extends ExecRenderBaseCommand<
+  typeof AppCreateMatomo,
   { appInstallationId: string }
 > {
-  static appName: string = "WordPress";
-  static appUuid: string = "da3aa3ae-4b6b-4398-a4a8-ee8def827876";
+  static appName: string = "Matomo";
+  static appUuid: string = "91fa05e7-34f7-42e8-a8d3-a9c42abd5f8c";
   static appNecessaryFlags: string[] = [
     "version",
     "host",
@@ -29,22 +29,22 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
     "site-title",
   ];
 
-  static description: string = `Creates new ${AppCreateWordPress.appName} Installation.`;
+  static description: string = `Creates new ${AppCreateMatomo.appName} Installation.`;
   static flags = {
     ...projectFlags,
     ...processFlags,
     version: Flags.string({
       required: true,
-      description: `Version of the ${AppCreateWordPress.appName} to be created - Defaults to latest`,
+      description: `Version of the ${AppCreateMatomo.appName} to be created - Defaults to latest`,
       default: "latest",
     }),
     host: Flags.string({
       required: false,
-      description: `Host under which your ${AppCreateWordPress.appName} will be available (Needs to be created separately).`,
+      description: `Host under which your ${AppCreateMatomo.appName} will be available (Needs to be created separately).`,
     }),
     "admin-user": Flags.string({
       required: false,
-      description: `First Admin User for your ${AppCreateWordPress.appName}.`,
+      description: `First Admin User for your ${AppCreateMatomo.appName}.`,
     }),
     "admin-email": Flags.string({
       required: false,
@@ -56,20 +56,20 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
     }),
     "site-title": Flags.string({
       required: false,
-      description: `Site Title of the created ${AppCreateWordPress.appName}.`,
+      description: `Site Title of the created ${AppCreateMatomo.appName}.`,
     }),
     wait: Flags.boolean({
       char: "w",
-      description: `Wait for your ${AppCreateWordPress.appName} to be ready.`,
+      description: `Wait for your ${AppCreateMatomo.appName} to be ready.`,
     }),
   };
 
   protected async exec(): Promise<{ appInstallationId: string }> {
     const process = makeProcessRenderer(
       this.flags,
-      `Installing ${AppCreateWordPress.appName}`,
+      `Installing ${AppCreateMatomo.appName}`,
     );
-    let { flags, args } = await this.parse(AppCreateWordPress);
+    let { flags, args } = await this.parse(AppCreateMatomo);
     const projectId = await withProjectId(
       this.apiClient,
       flags,
@@ -80,17 +80,17 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
     flags = await autofillFlags(
       this.apiClient,
       process,
-      AppCreateWordPress.appNecessaryFlags,
+      AppCreateMatomo.appNecessaryFlags,
       flags,
       projectId,
-      AppCreateWordPress.appName,
+      AppCreateMatomo.appName,
     );
 
     const appVersion: AppAppVersion = await normalizeToAppVersionUuid(
       this.apiClient,
       flags.version,
       process,
-      AppCreateWordPress.appUuid,
+      AppCreateMatomo.appUuid,
     );
 
     const [appInstallationId, eventId] = await triggerAppInstallation(
@@ -109,9 +109,9 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
         appInstallationId,
         eventId,
       );
-      successText = `Your ${AppCreateWordPress.appName} installation is now complete. Have fun! 🎉`;
+      successText = `Your ${AppCreateMatomo.appName} installation is now complete. Have fun! 🎉`;
     } else {
-      successText = `Your ${AppCreateWordPress.appName} installation has started. Have fun when it's ready! 🎉`;
+      successText = `Your ${AppCreateMatomo.appName} installation has started. Have fun when it's ready! 🎉`;
     }
 
     process.complete(<Success>{successText}</Success>);

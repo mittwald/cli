@@ -14,37 +14,42 @@ import React from "react";
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 import { triggerAppInstallation } from "../../../lib/app/create.js";
 
-export default class AppCreateWordPress extends ExecRenderBaseCommand<
-  typeof AppCreateWordPress,
+export default class AppCreateShopware5 extends ExecRenderBaseCommand<
+  typeof AppCreateShopware5,
   { appInstallationId: string }
 > {
-  static appName: string = "WordPress";
-  static appUuid: string = "da3aa3ae-4b6b-4398-a4a8-ee8def827876";
+  static appName: string = "Shopware5";
+  static appUuid: string = "a23acf9c-9298-4082-9e7d-25356f9976dc";
   static appNecessaryFlags: string[] = [
     "version",
     "host",
     "admin-user",
     "admin-email",
     "admin-pass",
+    "admin-firstname",
+    "admin-lastname",
     "site-title",
+    "shop-email",
+    "shop-language",
+    "shop-currency",
   ];
 
-  static description: string = `Creates new ${AppCreateWordPress.appName} Installation.`;
+  static description: string = `Creates new ${AppCreateShopware5.appName} Installation.`;
   static flags = {
     ...projectFlags,
     ...processFlags,
     version: Flags.string({
       required: true,
-      description: `Version of the ${AppCreateWordPress.appName} to be created - Defaults to latest`,
+      description: `Version of the ${AppCreateShopware5.appName} to be created - Defaults to latest`,
       default: "latest",
     }),
     host: Flags.string({
       required: false,
-      description: `Host under which your ${AppCreateWordPress.appName} will be available (Needs to be created separately).`,
+      description: `Host under which your ${AppCreateShopware5.appName} will be available (Needs to be created separately).`,
     }),
     "admin-user": Flags.string({
       required: false,
-      description: `First Admin User for your ${AppCreateWordPress.appName}.`,
+      description: `First Admin User for your ${AppCreateShopware5.appName}.`,
     }),
     "admin-email": Flags.string({
       required: false,
@@ -54,22 +59,42 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
       required: false,
       description: "First Admin Users Password.",
     }),
+    "admin-firstname": Flags.string({
+      required: false,
+      description: "First Admin Users Lastname.",
+    }),
+    "admin-lastname": Flags.string({
+      required: false,
+      description: `Site Title of the created ${AppCreateShopware5.appName}.`,
+    }),
     "site-title": Flags.string({
       required: false,
-      description: `Site Title of the created ${AppCreateWordPress.appName}.`,
+      description: `Site Title of the created ${AppCreateShopware5.appName}.`,
+    }),
+    "shop-email": Flags.string({
+      required: false,
+      description: `E-Mail with which your ${AppCreateShopware5.appName} communicates initially.`,
+    }),
+    "shop-language": Flags.string({
+      required: false,
+      description: `Language with which your ${AppCreateShopware5.appName} works initially`,
+    }),
+    "shop-currency": Flags.string({
+      required: false,
+      description: `The initial currency your ${AppCreateShopware5.appName} works with.`,
     }),
     wait: Flags.boolean({
       char: "w",
-      description: `Wait for your ${AppCreateWordPress.appName} to be ready.`,
+      description: `Wait for your ${AppCreateShopware5.appName} to be ready.`,
     }),
   };
 
   protected async exec(): Promise<{ appInstallationId: string }> {
     const process = makeProcessRenderer(
       this.flags,
-      `Installing ${AppCreateWordPress.appName}`,
+      `Installing ${AppCreateShopware5.appName}`,
     );
-    let { flags, args } = await this.parse(AppCreateWordPress);
+    let { flags, args } = await this.parse(AppCreateShopware5);
     const projectId = await withProjectId(
       this.apiClient,
       flags,
@@ -80,17 +105,17 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
     flags = await autofillFlags(
       this.apiClient,
       process,
-      AppCreateWordPress.appNecessaryFlags,
+      AppCreateShopware5.appNecessaryFlags,
       flags,
       projectId,
-      AppCreateWordPress.appName,
+      AppCreateShopware5.appName,
     );
 
     const appVersion: AppAppVersion = await normalizeToAppVersionUuid(
       this.apiClient,
       flags.version,
       process,
-      AppCreateWordPress.appUuid,
+      AppCreateShopware5.appUuid,
     );
 
     const [appInstallationId, eventId] = await triggerAppInstallation(
@@ -109,9 +134,9 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
         appInstallationId,
         eventId,
       );
-      successText = `Your ${AppCreateWordPress.appName} installation is now complete. Have fun! 🎉`;
+      successText = `Your ${AppCreateShopware5.appName} installation is now complete. Have fun! 🎉`;
     } else {
-      successText = `Your ${AppCreateWordPress.appName} installation has started. Have fun when it's ready! 🎉`;
+      successText = `Your ${AppCreateShopware5.appName} installation has started. Have fun when it's ready! 🎉`;
     }
 
     process.complete(<Success>{successText}</Success>);

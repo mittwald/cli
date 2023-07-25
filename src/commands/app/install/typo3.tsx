@@ -14,12 +14,12 @@ import React from "react";
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 import { triggerAppInstallation } from "../../../lib/app/create.js";
 
-export default class AppCreateWordPress extends ExecRenderBaseCommand<
-  typeof AppCreateWordPress,
+export default class AppCreateTypo3 extends ExecRenderBaseCommand<
+  typeof AppCreateTypo3,
   { appInstallationId: string }
 > {
-  static appName: string = "WordPress";
-  static appUuid: string = "da3aa3ae-4b6b-4398-a4a8-ee8def827876";
+  static appName: string = "Typo3";
+  static appUuid: string = "352971cc-b96a-4a26-8651-b08d7c8a7357";
   static appNecessaryFlags: string[] = [
     "version",
     "host",
@@ -29,22 +29,22 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
     "site-title",
   ];
 
-  static description: string = `Creates new ${AppCreateWordPress.appName} Installation.`;
+  static description: string = `Creates new ${AppCreateTypo3.appName} Installation.`;
   static flags = {
     ...projectFlags,
     ...processFlags,
     version: Flags.string({
       required: true,
-      description: `Version of the ${AppCreateWordPress.appName} to be created - Defaults to latest`,
+      description: `Version of the ${AppCreateTypo3.appName} to be created - Defaults to latest`,
       default: "latest",
     }),
     host: Flags.string({
       required: false,
-      description: `Host under which your ${AppCreateWordPress.appName} will be available (Needs to be created separately).`,
+      description: `Host under which your ${AppCreateTypo3.appName} will be available (Needs to be created separately).`,
     }),
     "admin-user": Flags.string({
       required: false,
-      description: `First Admin User for your ${AppCreateWordPress.appName}.`,
+      description: `First Admin User for your ${AppCreateTypo3.appName}.`,
     }),
     "admin-email": Flags.string({
       required: false,
@@ -56,20 +56,20 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
     }),
     "site-title": Flags.string({
       required: false,
-      description: `Site Title of the created ${AppCreateWordPress.appName}.`,
+      description: `Site Title of the created ${AppCreateTypo3.appName}.`,
     }),
     wait: Flags.boolean({
       char: "w",
-      description: `Wait for your ${AppCreateWordPress.appName} to be ready.`,
+      description: `Wait for your ${AppCreateTypo3.appName} to be ready.`,
     }),
   };
 
   protected async exec(): Promise<{ appInstallationId: string }> {
     const process = makeProcessRenderer(
       this.flags,
-      `Installing ${AppCreateWordPress.appName}`,
+      `Installing ${AppCreateTypo3.appName}`,
     );
-    let { flags, args } = await this.parse(AppCreateWordPress);
+    let { flags, args } = await this.parse(AppCreateTypo3);
     const projectId = await withProjectId(
       this.apiClient,
       flags,
@@ -80,17 +80,17 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
     flags = await autofillFlags(
       this.apiClient,
       process,
-      AppCreateWordPress.appNecessaryFlags,
+      AppCreateTypo3.appNecessaryFlags,
       flags,
       projectId,
-      AppCreateWordPress.appName,
+      AppCreateTypo3.appName,
     );
 
     const appVersion: AppAppVersion = await normalizeToAppVersionUuid(
       this.apiClient,
       flags.version,
       process,
-      AppCreateWordPress.appUuid,
+      AppCreateTypo3.appUuid,
     );
 
     const [appInstallationId, eventId] = await triggerAppInstallation(
@@ -109,9 +109,9 @@ export default class AppCreateWordPress extends ExecRenderBaseCommand<
         appInstallationId,
         eventId,
       );
-      successText = `Your ${AppCreateWordPress.appName} installation is now complete. Have fun! 🎉`;
+      successText = `Your ${AppCreateTypo3.appName} installation is now complete. Have fun! 🎉`;
     } else {
-      successText = `Your ${AppCreateWordPress.appName} installation has started. Have fun when it's ready! 🎉`;
+      successText = `Your ${AppCreateTypo3.appName} installation has started. Have fun when it's ready! 🎉`;
     }
 
     process.complete(<Success>{successText}</Success>);
