@@ -5,8 +5,20 @@ on:
       - master
   pull_request:
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Compile TypeScript
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - run: yarn
+      - run: yarn compile
+
   test:
     runs-on: ubuntu-latest
+    name: Run linters
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
