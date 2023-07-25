@@ -26,6 +26,7 @@
     "generate:commands-dev": "yarn generate:commands-dev:v2",
     "generate:commands-dev:v2": "curl --silent https://api-public.dev.mittwald.systems/openapi | ./transform-openapi.sh | yarn acg generate --name MittwaldAPIV2 --outputFormat=oclifCommands - src --optionalHeader x-access-token",
     "generate:commands:v2": "curl --silent https://api.mittwald.de/openapi | ./transform-openapi.sh | yarn acg generate --name MittwaldAPIV2 --outputFormat=oclifCommands - src --optionalHeader x-access-token",
+    "generate:readme": "oclif readme",
     "license-check": "yarn pnpify license-checker-rseidelsohn ",
     "lint": "eslint . --cache",
     "package": "yarn package:tarballs && yarn package:windows && yarn package:macos",
@@ -34,7 +35,8 @@
     "package:windows": "oclif pack win",
     "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
     "test": "yarn lint && yarn format --check && yarn test:licenses",
-    "test:licenses": "yarn license-check --summary --unknown && yarn license-check --unknown --failOn 'UNLICENSED;UNKNOWN'"
+    "test:licenses": "yarn license-check --summary --unknown --failOn 'UNLICENSED;UNKNOWN'",
+    "test:readme": "yarn generate:readme && git diff --exit-code README.md"
   },
   "files": [
     ".deps",

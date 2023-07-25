@@ -1,12 +1,12 @@
 name: Compilation & Unit Tests
 on:
   push:
-    branches: ["*"]
+    branches:
+      - master
   pull_request:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -14,3 +14,15 @@ jobs:
           node-version: 18
       - run: yarn
       - run: yarn test
+
+  readme:
+    name: Assert README.md is up-to-date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: yarn
+      - run: yarn generate:readme
+      - run: git diff --exit-code README.md
