@@ -24,5 +24,6 @@ jobs:
         with:
           node-version: 18
       - run: yarn
+      - run: yarn compile
       - run: yarn generate:readme
       - run: git diff --exit-code README.md
