@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import { ProcessRenderer, RunnableHandler } from "./process.js";
 
 export class SilentProcessRenderer implements ProcessRenderer {
@@ -6,7 +6,7 @@ export class SilentProcessRenderer implements ProcessRenderer {
     // 🤐
   }
 
-  public addStep(title: ReactElement): RunnableHandler {
+  public addStep(title: ReactNode): RunnableHandler {
     return new RunnableHandler(
       { type: "step", title, phase: "aborted" },
       () => {

@@ -38,7 +38,6 @@ export class FancyProcessRenderer implements ProcessRenderer {
       this.currentHandler.abort();
     }
 
-    title = <>{title}</>;
     const state: ProcessStep = { type: "step", title, phase: "running" };
     const renderHandle = render(<ProcessState step={state} />);
 

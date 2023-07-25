@@ -2,25 +2,25 @@ import { ReactElement, ReactNode } from "react";
 
 export type ProcessStepInfo = {
   type: "info";
-  title: ReactElement;
+  title: ReactNode;
 };
 
 export type ProcessStepRunnable = {
   type: "step";
-  title: ReactElement;
+  title: ReactNode;
   phase: "running" | "completed" | "failed" | "aborted";
   error?: unknown;
 };
 
 export type ProcessStepConfirm = {
   type: "confirm";
-  title: ReactElement;
+  title: ReactNode;
   confirmed: boolean | undefined;
 };
 
 export type ProcessStepInput = {
   type: "input";
-  title: ReactElement;
+  title: ReactNode;
   mask?: boolean;
   value?: string;
 };
