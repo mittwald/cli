@@ -152,6 +152,7 @@ USAGE
 * [`mw project update [PROJECT-ID]`](#mw-project-update-project-id)
 * [`mw server get SERVERID`](#mw-server-get-serverid)
 * [`mw server list`](#mw-server-list)
+* [`mw update [CHANNEL]`](#mw-update-channel)
 * [`mw user api-token create`](#mw-user-api-token-create)
 * [`mw user api-token get APITOKENID`](#mw-user-api-token-get-apitokenid)
 * [`mw user api-token list`](#mw-user-api-token-list)
@@ -2740,6 +2741,43 @@ FLAGS
 DESCRIPTION
   List Servers for an Organization or User.
 ```
+
+## `mw update [CHANNEL]`
+
+update the mw CLI
+
+```
+USAGE
+  $ mw update [CHANNEL] [-a] [-v <value> | -i] [--force]
+
+FLAGS
+  -a, --available        Install a specific version.
+  -i, --interactive      Interactively select version to install. This is ignored if a channel is provided.
+  -v, --version=<value>  Install a specific version.
+  --force                Force a re-download of the requested version.
+
+DESCRIPTION
+  update the mw CLI
+
+EXAMPLES
+  Update to the stable channel:
+
+    $ mw update stable
+
+  Update to a specific version:
+
+    $ mw update --version 1.0.0
+
+  Interactively select version:
+
+    $ mw update --interactive
+
+  See available versions:
+
+    $ mw update --available
+```
+
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.1.28/src/commands/update.ts)_
 
 ## `mw user api-token create`
 
