@@ -33,6 +33,12 @@ jobs:
       - name: Build all possible packages
         run: yarn package:tarballs
 
+      - name: Upload to S3
+        run: yarn oclif upload tarballs --targets=linux-x64,linux-arm,linux-arm64,darwin-x64,darwin-arm64
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
       - name: Save artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -66,6 +72,12 @@ jobs:
       - name: Build all possible packages
         run: yarn package:windows
 
+      - name: Upload to S3
+        run: yarn oclif upload win
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
       - name: Save artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -96,6 +108,12 @@ jobs:
 
       - name: Build all possible packages
         run: yarn package:macos
+
+      - name: Upload to S3
+        run: yarn oclif upload macos
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Save artifacts
         uses: actions/upload-artifact@v3
@@ -155,6 +173,25 @@ jobs:
           pkg-tarballs/*.tar.gz pkg-windows/*.exe pkg-macos/*.pkg
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+  release-s3:
+    runs-on: ubuntu-latest
+    needs:
+      - build-linux
+      - build-windows
+      - build-macos
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Upload to S3
+        run: yarn oclif promote --version=${GITHUB_REF_NAME#v} --sha=$(git rev-parse --short ${{ github.sha }}) --win --macos --targets=linux-x64,linux-arm,linux-arm64,darwin-x64,darwin-arm64
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   release-docker:
     runs-on: ubuntu-latest

@@ -31,7 +31,7 @@
     "lint": "eslint . --cache",
     "package": "yarn package:tarballs && yarn package:windows && yarn package:macos",
     "package:macos": "oclif pack macos",
-    "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64 --no-xz",
+    "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64",
     "package:windows": "oclif pack win",
     "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
     "test": "yarn lint && yarn format --check && yarn test:licenses",
@@ -49,6 +49,7 @@
     "@mittwald/react-use-promise": "^1.2.2",
     "@oclif/core": "^2.8.5",
     "@oclif/plugin-help": "^5.2.9",
+    "@oclif/plugin-update": "^3.1.28",
     "chalk": "^5.3.0",
     "date-fns": "^2.30.0",
     "humanize-string": "^3.0.0",
@@ -96,6 +97,9 @@
     "rimraf": "^5.0.1",
     "type-fest": "^3.12.0",
     "typescript": "^5.1.6"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "oclif": {
     "bin": "mw",
@@ -155,8 +159,19 @@
       }
     },
     "plugins": [
-      "@oclif/plugin-help"
-    ]
+      "@oclif/plugin-help",
+      "@oclif/plugin-update"
+    ],
+    "update": {
+      "node": {
+        "version": "18.11.0"
+      },
+      "s3": {
+        "xz": false,
+        "host": "https://s3.eu-central-1.amazonaws.com/mittwald-cli",
+        "bucket": "mittwald-cli"
+      }
+    }
   },
   "packageManager": "yarn@3.6.1"
 }
