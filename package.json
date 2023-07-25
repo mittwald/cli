@@ -169,7 +169,7 @@
         "version": "18.11.0"
       },
       "s3": {
-        "xz": false,
+        "xz": true,
         "host": "https://s3.eu-central-1.amazonaws.com/mittwald-cli",
         "bucket": "mittwald-cli"
       }
