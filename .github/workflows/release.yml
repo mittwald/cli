@@ -196,7 +196,7 @@ jobs:
           --no-workspaces-update
 
       - name: Upload to S3
-        run: yarn oclif promote --version=${GITHUB_REF_NAME#v} --sha=$(git rev-parse --short ${{ github.sha }}) --win --macos --targets=linux-x64,linux-arm,linux-arm64,darwin-x64,darwin-arm64
+        run: yarn oclif promote --version=${GITHUB_REF_NAME#v} --sha=$(git rev-parse --short ${{ github.sha }}) --win --macos --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
