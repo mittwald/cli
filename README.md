@@ -87,7 +87,6 @@ USAGE
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
 * [`mw database mysql shell DATABASE-ID`](#mw-database-mysql-shell-database-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
-* [`mw database mysql user getMysqlUserPhpMyAdminUrl`](#mw-database-mysql-user-getmysqluserphpmyadminurl)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
 * [`mw database redis get ID`](#mw-database-redis-get-id)
@@ -120,12 +119,10 @@ USAGE
 * [`mw org delete [ORG-ID]`](#mw-org-delete-org-id)
 * [`mw org get [ORG-ID]`](#mw-org-get-org-id)
 * [`mw org invite`](#mw-org-invite)
-* [`mw org invite get INVITEID`](#mw-org-invite-get-inviteid)
 * [`mw org invite list`](#mw-org-invite-list)
 * [`mw org invite list-own`](#mw-org-invite-list-own)
 * [`mw org invite revoke INVITE-ID`](#mw-org-invite-revoke-invite-id)
 * [`mw org list`](#mw-org-list)
-* [`mw org membership get MEMBERSHIPID`](#mw-org-membership-get-membershipid)
 * [`mw org membership list`](#mw-org-membership-list)
 * [`mw org membership list-own`](#mw-org-membership-list-own)
 * [`mw org membership revoke MEMBERSHIP-ID`](#mw-org-membership-revoke-membership-id)
@@ -1145,23 +1142,6 @@ DESCRIPTION
   Get a MySQL user.
 ```
 
-## `mw database mysql user getMysqlUserPhpMyAdminUrl`
-
-Get a MySQLUser's PhpMyAdmin-URL.
-
-```
-USAGE
-  $ mw database mysql user getMysqlUserPhpMyAdminUrl --id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --id=<value>           (required) ID of the MySQLUser for which to get the URL for.
-
-DESCRIPTION
-  Get a MySQLUser's PhpMyAdmin-URL.
-```
-
 ## `mw database mysql user list`
 
 List MySQL users belonging to a database.
@@ -1977,25 +1957,6 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw org invite get INVITEID`
-
-Get a CustomerInvite.
-
-```
-USAGE
-  $ mw org invite get INVITEID [-o json|yaml |  | ]
-
-ARGUMENTS
-  INVITEID  ID of the CustomerInvite to be retrieved.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get a CustomerInvite.
-```
-
 ## `mw org invite list`
 
 List all invites for an organization.
@@ -2097,25 +2058,6 @@ FLAGS
 
 DESCRIPTION
   Get all organizations the authenticated user has access to.
-```
-
-## `mw org membership get MEMBERSHIPID`
-
-Get a CustomerMembership.
-
-```
-USAGE
-  $ mw org membership get MEMBERSHIPID [-o json|yaml |  | ]
-
-ARGUMENTS
-  MEMBERSHIPID  ID of the CustomerMembership to retrieve.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get a CustomerMembership.
 ```
 
 ## `mw org membership list`
