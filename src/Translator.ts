@@ -1,6 +1,8 @@
-import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { isProjectShortId, isUuid } from "./Helpers.js";
+import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 
 export async function getProjectUuidFromShortId(
   apiClient: MittwaldAPIV2Client,
@@ -75,10 +77,10 @@ export async function getConversationUuidFromShortId(
   throw new Error("Access Denied.");
 }
 
-export async function getAppNameFromUuid(
+export async function getAppFromUuid(
   apiClient: MittwaldAPIV2Client,
   uuid: string,
-): Promise<string> {
+): Promise<AppApp> {
   if (!isUuid(uuid)) {
     throw new Error("Given UUID not valid.");
   }
@@ -91,8 +93,9 @@ export async function getAppNameFromUuid(
   });
 
   if (foundApp) {
-    return foundApp.name as string;
+    return foundApp;
   }
+
   throw new Error("App not found.");
 }
 
@@ -100,7 +103,7 @@ export async function getAppVersionFromUuid(
   apiClient: MittwaldAPIV2Client,
   appId: string,
   appVersionId: string,
-): Promise<string> {
+): Promise<AppAppVersion> {
   if (!isUuid(appId) && !isUuid(appVersionId)) {
     throw new Error("Given UUID not valid.");
   }
@@ -109,8 +112,7 @@ export async function getAppVersionFromUuid(
     pathParameters: { appId: appId, appVersionId: appVersionId },
   });
 
-  if (appVersion.data.externalVersion) {
-    return appVersion.data.externalVersion as string;
-  }
-  throw new Error("AppVersion not found.");
+  assertStatus(appVersion, 200);
+
+  return appVersion.data;
 }

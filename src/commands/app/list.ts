@@ -1,79 +1,123 @@
-import { ux } from "@oclif/core";
-import { assertStatus } from "@mittwald/api-client-commons";
-import { BaseCommand } from "../../BaseCommand.js";
-import { getAppNameFromUuid, getAppVersionFromUuid } from "../../Translator.js";
+import { assertStatus, Simplify } from "@mittwald/api-client-commons";
+import { getAppFromUuid, getAppVersionFromUuid } from "../../Translator.js";
 import { projectFlags, withProjectId } from "../../lib/project/flags.js";
+import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { SuccessfulResponse } from "../../types.js";
+import { ListColumns } from "../../Formatter.js";
+import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
+import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
-export default class List extends BaseCommand {
-  static description = "List projects";
+type ResponseItem = Simplify<
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdAppinstallations.Get.Responses.$200.Content.ApplicationJson[number]
+>;
+
+type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["app"]["listAppinstallations"]>
+>;
+
+type ExtendedResponseItem = ResponseItem & {
+  app: AppApp;
+  appVersionCurrent: AppAppVersion | undefined;
+  appVersionDesired: AppAppVersion;
+};
+
+export default class List extends ListBaseCommand<
+  typeof List,
+  ResponseItem,
+  Response
+> {
+  static description = "List installed apps in a project.";
   static flags = {
-    ...ux.table.flags(),
+    ...ListBaseCommand.baseFlags,
     ...projectFlags,
   };
 
-  public async run(): Promise<void> {
-    const { flags } = await this.parse(List);
+  protected async getData(): Promise<Response> {
     const projectId = await withProjectId(
       this.apiClient,
-      flags,
-      {},
+      this.flags,
+      this.args,
       this.config,
     );
-
     const apps = await this.apiClient.app.listAppinstallations({
       pathParameters: { projectId },
     });
     assertStatus(apps, 200);
 
-    if (flags.json) {
-      this.logJson(apps.data);
-      return;
-    }
+    return apps;
+  }
 
-    const relevantAppInfo = await Promise.all(
-      apps.data.map(async (app) => {
+  protected mapData(
+    data: SuccessfulResponse<Response, 200>["data"],
+  ): Promise<ExtendedResponseItem[]> {
+    return Promise.all(
+      data.map(async (item) => {
         return {
-          id: app.id,
-          description: app.description,
-          app: await getAppNameFromUuid(this.apiClient, app.appId),
-          appVersion: await getAppVersionFromUuid(
+          ...item,
+          app: await getAppFromUuid(this.apiClient, item.appId),
+          appVersionCurrent: item.appVersion.current
+            ? await getAppVersionFromUuid(
+                this.apiClient,
+                item.appId,
+                item.appVersion.current,
+              )
+            : undefined,
+          appVersionDesired: await getAppVersionFromUuid(
             this.apiClient,
-            app.appId,
-            app.appVersion.current as string,
+            item.appId,
+            item.appVersion.desired,
           ),
-          installPath: app.installationPath,
         };
       }),
     );
+  }
 
-    ux.table(
-      relevantAppInfo,
-      {
-        id: {
-          header: "ID",
-          minWidth: 36,
-        },
-        description: {
-          header: "Description",
-          minWidth: 36,
-        },
-        app: {
-          header: "Application",
-          minWidth: 8,
-        },
-        appVersion: {
-          header: "Version",
-          minWidth: 8,
-        },
-        installPath: {
-          header: "InstallDir",
-          minWidth: 12,
+  protected getColumns(
+    data: ExtendedResponseItem[],
+  ): ListColumns<ExtendedResponseItem> {
+    return {
+      id: {
+        header: "ID",
+        minWidth: 36,
+      },
+      description: {},
+      app: {
+        header: "Application",
+        minWidth: 8,
+        get: (i) => i.app.name,
+      },
+      appVersion: {
+        header: "Version",
+        get: (i) => {
+          if (i.appVersionCurrent?.id === i.appVersionDesired.id) {
+            return i.appVersionDesired.externalVersion;
+          }
+
+          if (!i.appVersionCurrent) {
+            return i.appVersionDesired.externalVersion;
+          }
+
+          return `${i.appVersionCurrent.externalVersion} => ${i.appVersionDesired.externalVersion}`;
         },
       },
-      {
-        printLine: this.log.bind(this),
-        ...flags,
+      status: {
+        header: "Status",
+        get: (i) => {
+          if (i.appVersionCurrent?.id === i.appVersionDesired.id) {
+            return "up-to-date";
+          }
+
+          if (!i.appVersionCurrent) {
+            return "installing";
+          }
+
+          return `updating`;
+        },
       },
-    );
+      installationPath: {
+        header: "Installed in",
+      },
+    };
   }
 }
