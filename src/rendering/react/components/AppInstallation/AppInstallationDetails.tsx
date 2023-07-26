@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useAppVersion } from "../../../../lib/app/hooks.js";
 import { Value } from "../Value.js";
 import { AppInstallationStatus } from "./AppInstallationStatus.js";
-import { SingleResult } from "../SingleResult.js";
+import { SingleResult, SingleResultTable } from "../SingleResult.js";
 import { AppSystemSoftware } from "./AppSystemSoftware.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Box } from "ink";
@@ -22,7 +22,15 @@ export const AppInstallationDetails: FC<{
     : undefined;
 
   const rows = {
-    "App ID": <Value>{appInstallation.appId}</Value>,
+    "Installation ID": <Value>{appInstallation.id}</Value>,
+    App: (
+      <SingleResultTable
+        rows={{
+          ID: <Value>{app.id}</Value>,
+          Name: <Value>{app.name}</Value>,
+        }}
+      />
+    ),
     "Installation Path": <Value>{appInstallation.installationPath}</Value>,
     Description: <Value>{appInstallation.description}</Value>,
     Status: (
