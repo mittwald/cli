@@ -6,7 +6,7 @@ export async function triggerAppInstallation(
   apiClient: MittwaldAPIV2Client,
   process: ProcessRenderer,
   projectId: string,
-  flags: any,
+  flags: Record<string, string>,
   appVersion: AppAppVersion,
 ) {
   const [appInstallationId, eventId] = await process.runStep(
@@ -18,27 +18,10 @@ export async function triggerAppInstallation(
           appVersionId: appVersion.id,
           description: flags["site-title"],
           updatePolicy: "none",
-          userInputs: [
-            { name: "host", value: flags.host },
-            { name: "site_title", value: flags["site-title"] },
-            { name: "admin_user", value: flags["admin-user"] },
-            { name: "admin_email", value: flags["admin-email"] },
-            { name: "admin_pass", value: flags["admin-pass"] },
-            {
-              name: "admin_firstname",
-              value: flags["admin-firstname"],
-            },
-            {
-              name: "admin_lastname",
-              value: flags["admin-lastname"],
-            },
-            { name: "shop_email", value: flags["shop-email"] },
-            { name: "shop_lang", value: flags["shop-language"] },
-            {
-              name: "shop_currency",
-              value: flags["shop-currency"],
-            },
-          ],
+          userInputs: Object.keys(flags).map((k) => ({
+            name: k.replace("-", "_"),
+            value: flags[k],
+          })),
         },
       });
 

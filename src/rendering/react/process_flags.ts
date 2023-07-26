@@ -15,7 +15,6 @@ export const processFlags = {
 };
 
 export type ProcessFlags = InferredFlags<typeof processFlags>;
-
 export const makeProcessRenderer = (
   flags: { quiet: boolean },
   title: string,

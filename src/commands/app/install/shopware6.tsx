@@ -1,28 +1,30 @@
-import { Flags } from "@oclif/core";
 import { normalizeToAppVersionUuid } from "../../../lib/app/versions.js";
-import { autofillFlags } from "../../../lib/app/flags.js";
+import {
+  autofillFlags,
+  provideSupportedFlags,
+  RelevantFlagInput,
+} from "../../../lib/app/flags.js";
 import { waitUntilAppIsInstalled } from "../../../lib/app/wait.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { withProjectId } from "../../../lib/project/flags.js";
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
-import {
-  makeProcessRenderer,
-  processFlags,
-} from "../../../rendering/react/process_flags.js";
+import { makeProcessRenderer } from "../../../rendering/react/process_flags.js";
 import { Success } from "../../../rendering/react/components/Success.js";
 import React from "react";
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
-import { triggerAppInstallation } from "../../../lib/app/create.js";
+import { triggerAppInstallation } from "../../../lib/app/install.js";
+import { OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
 
-export default class AppCreateShopware6 extends ExecRenderBaseCommand<
-  typeof AppCreateShopware6,
+export default class AppInstallation extends ExecRenderBaseCommand<
+  typeof AppInstallation,
   { appInstallationId: string }
 > {
-  static appName: string = "Shopware6";
-  static appUuid: string = "12d54d05-7e55-4cf3-90c4-093516e0eaf8";
-  static appNecessaryFlags: string[] = [
+  static appName = "Shopware6";
+  static appUuid = "12d54d05-7e55-4cf3-90c4-093516e0eaf8";
+  static appSupportedFlags = [
     "version",
     "host",
+    "admin-firstname",
     "admin-user",
     "admin-email",
     "admin-pass",
@@ -30,71 +32,27 @@ export default class AppCreateShopware6 extends ExecRenderBaseCommand<
     "admin-lastname",
     "site-title",
     "shop-email",
-    "shop-language",
+    "shop-lang",
     "shop-currency",
-  ];
+    "wait",
+  ] as const;
 
-  static description: string = `Creates new ${AppCreateShopware6.appName} Installation.`;
-  static flags = {
-    ...projectFlags,
-    ...processFlags,
-    version: Flags.string({
-      required: true,
-      description: `Version of the ${AppCreateShopware6.appName} to be created - Defaults to latest`,
-      default: "latest",
-    }),
-    host: Flags.string({
-      required: false,
-      description: `Host under which your ${AppCreateShopware6.appName} will be available (Needs to be created separately).`,
-    }),
-    "admin-user": Flags.string({
-      required: false,
-      description: `First Admin User for your ${AppCreateShopware6.appName}.`,
-    }),
-    "admin-email": Flags.string({
-      required: false,
-      description: "First Admin Users E-Mail.",
-    }),
-    "admin-pass": Flags.string({
-      required: false,
-      description: "First Admin Users Password.",
-    }),
-    "admin-firstname": Flags.string({
-      required: false,
-      description: "First Admin Users Lastname.",
-    }),
-    "admin-lastname": Flags.string({
-      required: false,
-      description: `Site Title of the created ${AppCreateShopware6.appName}.`,
-    }),
-    "site-title": Flags.string({
-      required: false,
-      description: `Site Title of the created ${AppCreateShopware6.appName}.`,
-    }),
-    "shop-email": Flags.string({
-      required: false,
-      description: `E-Mail with which your ${AppCreateShopware6.appName} communicates initially.`,
-    }),
-    "shop-language": Flags.string({
-      required: false,
-      description: `Language with which your ${AppCreateShopware6.appName} works initially`,
-    }),
-    "shop-currency": Flags.string({
-      required: false,
-      description: `The initial currency your ${AppCreateShopware6.appName} works with.`,
-    }),
-    wait: Flags.boolean({
-      char: "w",
-      description: `Wait for your ${AppCreateShopware6.appName} to be ready.`,
-    }),
-  };
+  static description = `Creates new ${AppInstallation.appName} Installation.`;
+  static flags: RelevantFlagInput<typeof AppInstallation.appSupportedFlags> =
+    provideSupportedFlags(
+      AppInstallation.appSupportedFlags,
+      AppInstallation.appName,
+    );
 
   protected async exec(): Promise<{ appInstallationId: string }> {
     const process = makeProcessRenderer(
       this.flags,
-      `Installing ${AppCreateShopware6.appName}`,
+      `Installing ${AppInstallation.appName}`,
     );
-    let { flags, args } = await this.parse(AppCreateShopware6);
+    const parsed = await this.parse(AppInstallation);
+    const args = parsed.args;
+    const flags: OutputFlags<typeof AppInstallation.flags> = parsed.flags;
+
     const projectId = await withProjectId(
       this.apiClient,
       flags,
@@ -102,20 +60,20 @@ export default class AppCreateShopware6 extends ExecRenderBaseCommand<
       this.config,
     );
 
-    flags = await autofillFlags(
+    await autofillFlags(
       this.apiClient,
       process,
-      AppCreateShopware6.appNecessaryFlags,
+      AppInstallation.appSupportedFlags,
       flags,
       projectId,
-      AppCreateShopware6.appName,
+      AppInstallation.appName,
     );
 
     const appVersion: AppAppVersion = await normalizeToAppVersionUuid(
       this.apiClient,
-      flags.version,
+      flags.version as unknown as string,
       process,
-      AppCreateShopware6.appUuid,
+      AppInstallation.appUuid,
     );
 
     const [appInstallationId, eventId] = await triggerAppInstallation(
@@ -134,9 +92,9 @@ export default class AppCreateShopware6 extends ExecRenderBaseCommand<
         appInstallationId,
         eventId,
       );
-      successText = `Your ${AppCreateShopware6.appName} installation is now complete. Have fun! 🎉`;
+      successText = `Your ${AppInstallation.appName} installation is now complete. Have fun! 🎉`;
     } else {
-      successText = `Your ${AppCreateShopware6.appName} installation has started. Have fun when it's ready! 🎉`;
+      successText = `Your ${AppInstallation.appName} installation has started. Have fun when it's ready! 🎉`;
     }
 
     process.complete(<Success>{successText}</Success>);
