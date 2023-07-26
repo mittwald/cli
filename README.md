@@ -41,11 +41,9 @@ USAGE
 ## Commands
 
 <!-- commands -->
-* [`mw app dependency getSystemsoftware SYSTEMSOFTWAREID`](#mw-app-dependency-getsystemsoftware-systemsoftwareid)
-* [`mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`](#mw-app-dependency-getsystemsoftwareversion-systemsoftwareversionid)
-* [`mw app dependency listSystemsoftwares`](#mw-app-dependency-listsystemsoftwares)
-* [`mw app dependency listSystemsoftwareversions`](#mw-app-dependency-listsystemsoftwareversions)
+* [`mw app dependency list`](#mw-app-dependency-list)
 * [`mw app dependency update INSTALLATION-ID`](#mw-app-dependency-update-installation-id)
+* [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
 * [`mw app get INSTALLATION-ID`](#mw-app-get-installation-id)
 * [`mw app install wordpress`](#mw-app-install-wordpress)
 * [`mw app list`](#mw-app-list)
@@ -165,52 +163,13 @@ USAGE
 * [`mw user ssh-key get SSHKEYID`](#mw-user-ssh-key-get-sshkeyid)
 * [`mw user ssh-key list`](#mw-user-ssh-key-list)
 
-## `mw app dependency getSystemsoftware SYSTEMSOFTWAREID`
+## `mw app dependency list`
 
-get a specific `SystemSoftware`
-
-```
-USAGE
-  $ mw app dependency getSystemsoftware SYSTEMSOFTWAREID [-o json|yaml |  | ]
-
-ARGUMENTS
-  SYSTEMSOFTWAREID  undefined
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  get a specific `SystemSoftware`
-```
-
-## `mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`
-
-get a specific `SystemSoftwareVersion`
+get all available dependencies
 
 ```
 USAGE
-  $ mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID --system-software-id <value> [-o json|yaml |  | ]
-
-ARGUMENTS
-  SYSTEMSOFTWAREVERSIONID  undefined
-
-FLAGS
-  -o, --output=<option>         output in a more machine friendly format
-                                <options: json|yaml>
-  --system-software-id=<value>  (required) undefined
-
-DESCRIPTION
-  get a specific `SystemSoftwareVersion`
-```
-
-## `mw app dependency listSystemsoftwares`
-
-get all available `SystemSoftware`
-
-```
-USAGE
-  $ mw app dependency listSystemsoftwares [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+  $ mw app dependency list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
     [--csv | --no-truncate]] [--no-header | ]
 
 FLAGS
@@ -225,32 +184,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  get all available `SystemSoftware`
-```
-
-## `mw app dependency listSystemsoftwareversions`
-
-get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
-
-```
-USAGE
-  $ mw app dependency listSystemsoftwareversions --system-software-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>]
-    [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended                show extra columns
-  --columns=<value>             only show provided columns (comma-separated)
-  --csv                         output is csv format [alias: --output=csv]
-  --filter=<value>              filter property by partial string matching, ex: name=foo
-  --no-header                   hide table header from output
-  --no-truncate                 do not truncate output to fit screen
-  --output=<option>             output in a more machine friendly format
-                                <options: csv|json|yaml>
-  --sort=<value>                property to sort by (prepend '-' for descending)
-  --system-software-id=<value>  (required) undefined
-
-DESCRIPTION
-  get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
+  get all available dependencies
 ```
 
 ## `mw app dependency update INSTALLATION-ID`
@@ -287,6 +221,33 @@ FLAG DESCRIPTIONS
     list" command to get a list of available dependencies) and <version> is a semver constraint.
 
     This flag may be specified multiple times to update multiple dependencies.
+```
+
+## `mw app dependency versions SYSTEMSOFTWARE`
+
+get all available versions of a particular dependency
+
+```
+USAGE
+  $ mw app dependency versions SYSTEMSOFTWARE [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+ARGUMENTS
+  SYSTEMSOFTWARE  name of the systemsoftware for which to list versions
+
+FLAGS
+  -x, --extended     show extra columns
+  --columns=<value>  only show provided columns (comma-separated)
+  --csv              output is csv format [alias: --output=csv]
+  --filter=<value>   filter property by partial string matching, ex: name=foo
+  --no-header        hide table header from output
+  --no-truncate      do not truncate output to fit screen
+  --output=<option>  output in a more machine friendly format
+                     <options: csv|json|yaml>
+  --sort=<value>     property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  get all available versions of a particular dependency
 ```
 
 ## `mw app get INSTALLATION-ID`
