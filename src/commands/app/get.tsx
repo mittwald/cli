@@ -1,5 +1,4 @@
 import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
-import { Args } from "@oclif/core";
 import { ReactNode } from "react";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { GetBaseCommand } from "../../GetBaseCommand.js";

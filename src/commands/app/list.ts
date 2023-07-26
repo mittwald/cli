@@ -73,9 +73,7 @@ export default class List extends ListBaseCommand<
     );
   }
 
-  protected getColumns(
-    data: ExtendedResponseItem[],
-  ): ListColumns<ExtendedResponseItem> {
+  protected getColumns(): ListColumns<ExtendedResponseItem> {
     return {
       id: {
         header: "ID",
@@ -112,7 +110,7 @@ export default class List extends ListBaseCommand<
             return "installing";
           }
 
-          return `updating`;
+          return "updating";
         },
       },
       installationPath: {
