@@ -10,14 +10,31 @@ import { ReactNode } from "react";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import AppSystemSoftwareUpdatePolicy = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareUpdatePolicy;
 import { Success } from "../../../rendering/react/components/Success.js";
+import { Range, SemVer } from "semver";
+import { ProcessRenderer } from "../../../rendering/process/process.js";
+import AppSystemSoftwareVersion = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
+import AppSystemSoftware = MittwaldAPIV2.Components.Schemas.AppSystemSoftware;
+import { Value } from "../../../rendering/react/components/Value.js";
+import { Text } from "ink";
 
 export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
   static summary = "Update the dependencies of an app";
   static args = { ...appInstallationFlags };
+  static examples = [
+    {
+      description:
+        "Update Node.js version to newest available from the 18.x branch",
+      command: "<%= config.bin %> <%= command.id %> $APP_ID --set node=~18",
+    },
+  ];
   static flags = {
     ...processFlags,
     set: Flags.string({
       summary: "set a dependency to a specific version",
+      description: `\
+        The format is <dependency>=<version>, where <dependency> is the name of the dependency (use the "<%= config.bin %> app dependency list" command to get a list of available dependencies) and <version> is a semver constraint.
+
+        This flag may be specified multiple times to update multiple dependencies.`,
       multiple: true,
       required: true,
     }),
@@ -47,18 +64,6 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
       },
     );
 
-    const appInstallation = await process.runStep(
-      "fetching app installation",
-      async () => {
-        const r = await this.apiClient.app.getAppinstallation({
-          pathParameters: { appInstallationId },
-        });
-        assertStatus(r, 200);
-
-        return r.data;
-      },
-    );
-
     const versionsToUpdate: {
       [x: string]: {
         systemSoftwareVersion: string;
@@ -68,6 +73,14 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
 
     for (const s of this.flags.set) {
       const [software, versionSpec] = s.split("=");
+      const parsedVersionSpec = new Range(versionSpec);
+
+      if (!parsedVersionSpec) {
+        throw new Error(
+          `version spec ${versionSpec} is not a valid semver constraint`,
+        );
+      }
+
       const systemSoftware = systemSoftwares.find(
         (s) => s.name.toLowerCase() === software.toLowerCase(),
       );
@@ -75,23 +88,19 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
         throw new Error(`unknown system software ${software}`);
       }
 
-      const versions = await process.runStep(
-        `fetching versions for ${software}`,
-        async () => {
-          const r = await this.apiClient.app.listSystemsoftwareversions({
-            pathParameters: { systemSoftwareId: systemSoftware.id },
-          });
-          assertStatus(r, 200);
-
-          return r.data;
-        },
-      );
-
+      const versions = await this.getVersions(process, systemSoftware);
       const version = await process.runStep(
         `determining version for ${software}`,
         async () => {
-          const version = versions.find(
+          const exactMatch = versions.find(
             (v) => v.externalVersion === versionSpec,
+          );
+          if (exactMatch) {
+            return exactMatch;
+          }
+
+          const version = versions.find((v) =>
+            parsedVersionSpec.test(v.externalVersion),
           );
           if (!version) {
             const available = versions.map((v) => v.externalVersion).join(", ");
@@ -102,6 +111,13 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
 
           return version;
         },
+      );
+
+      process.addInfo(
+        <Text>
+          selected <Value>{systemSoftware.name}</Value> version:{" "}
+          <Value>{version.externalVersion}</Value>
+        </Text>,
       );
 
       versionsToUpdate[systemSoftware.id] = {
@@ -126,6 +142,32 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
         The dependencies of this app were successfully updated!
       </Success>,
     );
+  }
+
+  private async getVersions(
+    p: ProcessRenderer,
+    systemSoftware: AppSystemSoftware,
+  ): Promise<AppSystemSoftwareVersion[]> {
+    const versions = await p.runStep(
+      `fetching versions for ${systemSoftware.name}`,
+      async () => {
+        const r = await this.apiClient.app.listSystemsoftwareversions({
+          pathParameters: { systemSoftwareId: systemSoftware.id },
+        });
+        assertStatus(r, 200);
+
+        return r.data;
+      },
+    );
+
+    versions.sort((a, b) => {
+      return (
+        new SemVer(a.externalVersion).compare(new SemVer(b.externalVersion)) *
+        -1
+      );
+    });
+
+    return versions;
   }
 
   protected render(): ReactNode {
