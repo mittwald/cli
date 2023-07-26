@@ -67,10 +67,20 @@ export async function autofillFlags(
 
   // Admin Pass
   if (necessaryFlags.includes("admin-pass") && !flags["admin-pass"]) {
-    flags["admin-pass"] = crypto
+    const specialCharsArray: string[] = ["%", "_", "-", "+", "&"];
+    const passArray: string[] = crypto
       .randomBytes(32)
-      .toString("ascii")
-      .substring(0, 32);
+      .toString("base64")
+      .substring(0, 32)
+      .split("");
+
+    // replace random char in crypto-generated password with a random special char
+    passArray[Math.floor(Math.random() * (passArray.length - 1) + 1)] =
+      specialCharsArray[
+        Math.floor(Math.random() * (specialCharsArray.length - 1))
+      ];
+
+    flags["admin-pass"] = passArray.join("");
 
     process.addInfo(
       <Text>
