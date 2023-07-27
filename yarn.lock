@@ -283,25 +283,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^3.0.0, @mittwald/api-client-commons@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "@mittwald/api-client-commons@npm:3.0.3"
+"@mittwald/api-client-commons@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@mittwald/api-client-commons@npm:3.1.0"
   dependencies:
     "@types/parse-path": ^7.0.0
     axios: ^1.4.0
     parse-path: ^7.0.0
     path-to-regexp: ^6.2.1
     type-fest: ^3.12.0
-  checksum: 8f693f2652b356acd2b6100f795210a5df7613fbe2e706f661f1c97ced577d6c552fb36091c31e9abe8e03bd32015e90ca659993e894fe6f18db7b5a7fccd30f
+  checksum: e8970ceca68bdf9c8ed3acacfc2500ddba02dac075a7ecf7c94885fcec145a98efff29190b8b4eea4c56be6cd41937296ffea232eb1d2bd0cb789c09c5a7ef9b
   languageName: node
   linkType: hard
 
-"@mittwald/api-client@npm:^2.0.7":
-  version: 2.0.7
-  resolution: "@mittwald/api-client@npm:2.0.7"
+"@mittwald/api-client@npm:^2.0.8":
+  version: 2.0.8
+  resolution: "@mittwald/api-client@npm:2.0.8"
   dependencies:
     "@mittwald/api-client-commons": ^3.0.0
-  checksum: 13ab6e9f21f9dbfbbef95a7ae74a3235e194928845fe458f48fd44c4e980816d7135cd0087ab7ea02a11e18d0e5e17d9a23f35b392abc9286285976c6e8433de
+  checksum: 433fc3d9cf1619dbb59aebc34a00df14c5bea3a2eb0ae28ca5dc9a1dd4073fe1d74b1818e2934fb47f92dee1297b8a167f4adba387dd1e57e0ad8a891d727933
   languageName: node
   linkType: hard
 
@@ -309,8 +309,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mittwald/cli@workspace:."
   dependencies:
-    "@mittwald/api-client": ^2.0.7
-    "@mittwald/api-client-commons": ^3.0.3
+    "@mittwald/api-client": ^2.0.8
+    "@mittwald/api-client-commons": ^3.1.0
     "@mittwald/react-use-promise": ^1.2.2
     "@oclif/core": ^2.8.5
     "@oclif/plugin-help": ^5.2.9
