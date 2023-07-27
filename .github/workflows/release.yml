@@ -239,11 +239,54 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+  release-homebrew:
+    runs-on: ubuntu-latest
+    needs:
+      - build-linux
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Checkout Homebrew repo
+        uses: actions/checkout@v3
+        with:
+          repository: mittwald/homebrew-cli
+          path: homebrew
+          token: ${{ secrets.MACHINE_USER_TOKEN }}
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Generate Homebrew formula
+        run: |
+          sed \
+            's/__VERSION_/${GITHUB_REF_NAME#v}/' \
+            's/__VERSIONHASH__/$(git rev-parse --short ${{ github.sha }})/' \
+            's/__SHA_X64/$(sha256sum pkg-tarballs/mw-*-x64.tar.xz | awk '{print $1}')/' \
+            's/__SHA_ARM64/$(sha256sum pkg-tarballs/mw-*-arm64.tar.xz | awk '{print $1}')/' < scripts/release/homebrew.rb > homebrew/mw.rb
+
+      - name: Generate .netrc
+        run: |
+          echo -e "machine github.com\nlogin ${MACHINE_USER_NAME}\npassword ${MACHINE_USER_TOKEN}" > ~/.netrc
+        env:
+          MACHINE_USER_NAME: ${{ secrets.MACHINE_USER_NAME }}
+          MACHINE_USER_TOKEN: ${{ secrets.MACHINE_USER_TOKEN }}
+
+      - name: Commit and push
+        run: |
+          cd homebrew
+          git config --global user.email "opensource@mittwald.de"
+          git config --global user.name "mittwald machine"
+          git add mw.rb
+          git commit -m "Release ${GITHUB_REF_NAME}"
+          git push 
+
   cleanup-artifacts:
     runs-on: ubuntu-latest
     needs:
       - release-github
       - release-docker
+      - release-homebrew
     steps:
       - uses: geekyeggo/delete-artifact@v1
         with:
