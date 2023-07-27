@@ -44,8 +44,8 @@
     "bin"
   ],
   "dependencies": {
-    "@mittwald/api-client": "^2.0.7",
-    "@mittwald/api-client-commons": "^3.0.3",
+    "@mittwald/api-client": "^2.0.8",
+    "@mittwald/api-client-commons": "^3.1.0",
     "@mittwald/react-use-promise": "^1.2.2",
     "@oclif/core": "^2.8.5",
     "@oclif/plugin-help": "^5.2.9",
@@ -67,6 +67,9 @@
     "react": "^18.2.0",
     "semver": "^7.5.4",
     "tempfile": "^5.0.0"
+  },
+  "resolutions": {
+    "@mittwald/api-client-commons": "^3.1.0"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",

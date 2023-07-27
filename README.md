@@ -71,6 +71,7 @@ USAGE
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
+* [`mw database redis create`](#mw-database-redis-create)
 * [`mw database redis get ID`](#mw-database-redis-get-id)
 * [`mw database redis list`](#mw-database-redis-list)
 * [`mw database redis shell DATABASE-ID`](#mw-database-redis-shell-database-id)
@@ -858,6 +859,55 @@ DESCRIPTION
   List available MySQL versions.
 ```
 
+## `mw database redis create`
+
+Create a new Redis database
+
+```
+USAGE
+  $ mw database redis create -d <value> --version <value> [-p <value>] [-q] [--persistent] [--max-memory <value>]
+    [--max-memory-policy
+    noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-random|volatile-random|volatile-ttl]
+
+FLAGS
+  -d, --description=<value>     (required) a description for the database
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  --max-memory=<value>          the maximum memory for the Redis database
+  --max-memory-policy=<option>  the Redis eviction policy
+                                <options: noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-random|vo
+                                latile-random|volatile-ttl>
+  --[no-]persistent             enable persistent storage for the Redis database
+  --version=<value>             (required) the Redis version to use
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --max-memory=<value>  the maximum memory for the Redis database
+
+    This specifies the maximum memory; you should provide a number, followed by one of the IEC suffixes, like "Ki", "Mi"
+    or "Gi"
+
+  --max-memory-policy=noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-random|volatile-random|volatile-ttl
+
+    the Redis eviction policy
+
+    See https://redis.io/docs/reference/eviction/#eviction-policies for details
+
+  --version=<value>  the Redis version to use
+
+    Use the "database redis versions" command to list available versions
+```
+
 ## `mw database redis get ID`
 
 Get a Redis database.
@@ -937,21 +987,29 @@ List available Redis versions.
 ```
 USAGE
   $ mw database redis versions [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List available Redis versions.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw domain dnszone get ZONEID`
