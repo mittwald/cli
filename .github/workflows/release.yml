@@ -43,7 +43,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: pkg-tarballs
-          path: dist/*.tar.gz
+          path: |
+            dist/*.tar.gz
+            dist/*.tar.xz
 
   build-windows:
     runs-on: ubuntu-latest
