@@ -8,7 +8,7 @@ class Mw < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-  url "https://mittwald-cli.s3.eu-central-1.amazonaws.com/versions/__VERSION__/__VERSIONHASH__/mw-v__VERSION__-__VERSIONHASH__-darwin-arm64.tar.xz"
+      url "https://mittwald-cli.s3.eu-central-1.amazonaws.com/versions/__VERSION__/__VERSIONHASH__/mw-v__VERSION__-__VERSIONHASH__-darwin-arm64.tar.xz"
       sha256 "__SHA_ARM64__"
     end
   end
