@@ -6,8 +6,6 @@ import {
 } from "../../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
 import { Flags } from "@oclif/core";
-import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { Text } from "ink";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
