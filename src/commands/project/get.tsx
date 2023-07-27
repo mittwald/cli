@@ -88,10 +88,19 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
     [response.customerId],
   );
 
-  assertStatus(customer, 200);
+  const vhosts = usePromise(
+    (id) =>
+      apiClient.domain.ingressListForProject({
+        pathParameters: { projectId: id },
+      }),
+    [response.id],
+  );
 
-  const host = `${response.shortId}.project.space`;
-  const url = `https://${host}`;
+  assertStatus(customer, 200);
+  assertStatus(vhosts, 200);
+
+  const host = vhosts.data.find((h) => h.isDefault)?.hostname;
+  const url = host ? `https://${host}` : undefined;
   const rows = {
     "Project ID": <IDAndShortID object={response} />,
     "Created At": <CreatedAt object={response} />,
@@ -113,11 +122,14 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
       key="access"
       title="Access"
       rows={{
-        "HTTP(S)": (
-          <Link url={url}>
-            <Value>{host}</Value>
-          </Link>
-        ),
+        "HTTP(S)":
+          host && url ? (
+            <Link url={url}>
+              <Value>{host}</Value>
+            </Link>
+          ) : (
+            <Value notSet />
+          ),
         "SSH/SFTP": (
           <Text>
             <Value>
