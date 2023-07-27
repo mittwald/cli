@@ -7,6 +7,7 @@ import {
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
+import { ReactNode } from "react";
 
 type Result = {
   appInstallationId: string;
@@ -46,7 +47,9 @@ export class Copy extends ExecRenderBaseCommand<typeof Copy, Result> {
     return { appInstallationId: result.id };
   }
 
-  protected render(executionResult: Result): React.ReactNode {
-    return undefined;
+  protected render(executionResult: Result): ReactNode {
+    if (this.flags.quiet) {
+      return executionResult.appInstallationId;
+    }
   }
 }
