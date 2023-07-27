@@ -259,6 +259,7 @@ jobs:
 
       - name: Generate Homebrew formula
         run: |
+          ls -al pkg-tarballs
           sed \
             -e 's/__VERSION__/'${GITHUB_REF_NAME#v}'/g' \
             -e 's/__VERSIONHASH__/'$(git rev-parse --short ${{ github.sha }})'/g' \
