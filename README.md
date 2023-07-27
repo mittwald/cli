@@ -41,6 +41,7 @@ USAGE
 ## Commands
 
 <!-- commands -->
+* [`mw app copy INSTALLATION-ID`](#mw-app-copy-installation-id)
 * [`mw app dependency list`](#mw-app-dependency-list)
 * [`mw app dependency update INSTALLATION-ID`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
@@ -162,6 +163,26 @@ USAGE
 * [`mw user ssh-key delete ID`](#mw-user-ssh-key-delete-id)
 * [`mw user ssh-key get SSHKEYID`](#mw-user-ssh-key-get-sshkeyid)
 * [`mw user ssh-key list`](#mw-user-ssh-key-list)
+
+## `mw app copy INSTALLATION-ID`
+
+```
+USAGE
+  $ mw app copy INSTALLATION-ID --description <value> [-q]
+
+ARGUMENTS
+  INSTALLATION-ID  ID of the app installation to get
+
+FLAGS
+  -q, --quiet            suppress process output and only display a machine-readable summary.
+  --description=<value>  (required) set a description for the new app installation
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
 
 ## `mw app dependency list`
 

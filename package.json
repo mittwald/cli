@@ -44,7 +44,7 @@
     "bin"
   ],
   "dependencies": {
-    "@mittwald/api-client": "^2.0.5",
+    "@mittwald/api-client": "^2.0.7",
     "@mittwald/api-client-commons": "^3.0.3",
     "@mittwald/react-use-promise": "^1.2.2",
     "@oclif/core": "^2.8.5",
