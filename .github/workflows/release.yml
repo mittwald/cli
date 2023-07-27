@@ -260,10 +260,10 @@ jobs:
       - name: Generate Homebrew formula
         run: |
           sed \
-            's/__VERSION_/${GITHUB_REF_NAME#v}/' \
-            's/__VERSIONHASH__/$(git rev-parse --short ${{ github.sha }})/' \
-            's/__SHA_X64/$(sha256sum pkg-tarballs/mw-*-x64.tar.xz | awk '{print $1}')/' \
-            's/__SHA_ARM64/$(sha256sum pkg-tarballs/mw-*-arm64.tar.xz | awk '{print $1}')/' < scripts/release/homebrew.rb > homebrew/mw.rb
+            -e 's/__VERSION__/'${GITHUB_REF_NAME#v}'/g' \
+            -e 's/__VERSIONHASH__/'$(git rev-parse --short ${{ github.sha }})'/g' \
+            -e 's/__SHA_X64__/'$(sha256sum pkg-tarballs/mw-*-darwin-x64.tar.xz | cut -d" " -f1)'/' \
+            -e 's/__SHA_ARM64__/'$(sha256sum pkg-tarballs/mw-*-darwin-arm64.tar.xz | cut -d" " -f1)'/' < scripts/release/homebrew.rb > homebrew/mw.rb
 
       - name: Generate .netrc
         run: |
