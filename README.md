@@ -18,11 +18,49 @@
 
 `mw` is the command-line tool for interacting with the mittwald mStudio v2 API.
 
-## Installation and first steps
+## Getting started
 
-Have a look at the
-[documentation](https://developer.mittwald.de/docs/v2/api/sdks/cli/) for
-installation instructions.
+### Installation
+
+#### macOS, using Homebrew
+
+Installation using [Homebrew](https://brew.sh/) is the recommended way of installation on macOS.
+
+```shell
+$ brew tap mittwald/cli
+$ brew install mw
+```
+
+#### Windows, using the Installer
+
+Find the appropriate Windows installer from the [releases page](https://github.com/mittwald/cli/releases) and run the installer. After running the installer, you should be able to use the `mw` command on either the CMD prompt or PowerShell.
+
+#### Any OS, using Node.js+NPM
+
+Installing the CLI via NPM will work on any OS; however we cannot guarantee stability, because functionality of the CLI may depend in the Node.js runtime already installed on your system. Also, the automatic upgrade will not work when using NPM; remember to run `npm upgrade -g @mittwald/cli` occasionally.
+
+```shell
+$ npm install -g @mittwald/cli
+```
+
+#### Any OS, using Docker
+
+There is also the [`mittwald/cli` Docker image](https://hub.docker.com/r/mittwald/cli) that you can use instead of installing the CLI on your system. In case of the Docker container, authentication works a bit differently than described below: Make sure that there is an environment variable `MITTWALD_API_TOKEN` present on your system; you can then pass that environment variable into your container:
+
+```shell
+$ export MITTWALD_API_TOKEN=<enter token here>
+$ docker run --rm -it -e MITTWALD_API_TOKEN mittwald/cli help
+```
+
+### Authentication
+
+To use the CLI, you will need an [mStudio API token](https://studio.mittwald.de/app/profile/api-tokens). With your token in your clipboard, run the `mw login token` command:
+
+```shell
+$ mw login token
+Enter your mStudio API token: ****************
+token saved to '/Users/mhelmich/.config/mw/token'
+```
 
 ## Usage
 
