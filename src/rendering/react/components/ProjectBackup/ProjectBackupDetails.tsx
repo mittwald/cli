@@ -1,0 +1,55 @@
+import React, { FC } from "react";
+import { MittwaldAPIV2 } from "@mittwald/api-client";
+import BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
+import { SingleResult, SingleResultTable } from "../SingleResult.js";
+import { Text } from "ink";
+import { Value } from "../Value.js";
+import { useProjectBackupSchedule } from "../../../../lib/projectbackup/hooks.js";
+import { FormattedDate } from "../FormattedDate.js";
+import { ProjectBackupStatus } from "./ProjectBackupStatus.js";
+
+export const ProjectBackupDetails: FC<{
+  projectBackup: BackupProjectBackup;
+}> = ({ projectBackup }) => {
+  const schedule = projectBackup.parentId
+    ? useProjectBackupSchedule(projectBackup.parentId)
+    : undefined;
+
+  return (
+    <SingleResult
+      title={
+        <Text>
+          PROJECT BACKUP: <Value>{projectBackup.id}</Value>
+        </Text>
+      }
+      rows={{
+        ID: <Value>{projectBackup.id}</Value>,
+        "Created at": projectBackup.createdAt ? (
+          <Value>
+            <FormattedDate date={projectBackup.createdAt} relative absolute />
+          </Value>
+        ) : (
+          <Value notSet />
+        ),
+        "Expires in": projectBackup.expiresAt ? (
+          <Value>
+            <FormattedDate date={projectBackup.expiresAt} relative absolute />
+          </Value>
+        ) : (
+          <Value notSet />
+        ),
+        Status: <ProjectBackupStatus projectBackup={projectBackup} />,
+        Schedule: schedule ? (
+          <SingleResultTable
+            rows={{
+              ID: <Value>{schedule.id}</Value>,
+              Schedule: <Value>{schedule.schedule}</Value>,
+            }}
+          />
+        ) : (
+          <Value notSet />
+        ),
+      }}
+    />
+  );
+};
