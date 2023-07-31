@@ -18,11 +18,49 @@
 
 `mw` is the command-line tool for interacting with the mittwald mStudio v2 API.
 
-## Installation and first steps
+## Getting started
 
-Have a look at the
-[documentation](https://developer.mittwald.de/docs/v2/api/sdks/cli/) for
-installation instructions.
+### Installation
+
+#### macOS, using Homebrew
+
+Installation using [Homebrew](https://brew.sh/) is the recommended way of installation on macOS.
+
+```shell
+$ brew tap mittwald/cli
+$ brew install mw
+```
+
+#### Windows, using the Installer
+
+Find the appropriate Windows installer from the [releases page](https://github.com/mittwald/cli/releases) and run the installer. After running the installer, you should be able to use the `mw` command on either the CMD prompt or PowerShell.
+
+#### Any OS, using Node.js+NPM
+
+Installing the CLI via NPM will work on any OS; however we cannot guarantee stability, because functionality of the CLI may depend in the Node.js runtime already installed on your system. Also, the automatic upgrade will not work when using NPM; remember to run `npm upgrade -g @mittwald/cli` occasionally.
+
+```shell
+$ npm install -g @mittwald/cli
+```
+
+#### Any OS, using Docker
+
+There is also the [`mittwald/cli` Docker image](https://hub.docker.com/r/mittwald/cli) that you can use instead of installing the CLI on your system. In case of the Docker container, authentication works a bit differently than described below: Make sure that there is an environment variable `MITTWALD_API_TOKEN` present on your system; you can then pass that environment variable into your container:
+
+```shell
+$ export MITTWALD_API_TOKEN=<enter token here>
+$ docker run --rm -it -e MITTWALD_API_TOKEN mittwald/cli help
+```
+
+### Authentication
+
+To use the CLI, you will need an [mStudio API token](https://studio.mittwald.de/app/profile/api-tokens). With your token in your clipboard, run the `mw login token` command:
+
+```shell
+$ mw login token
+Enter your mStudio API token: ****************
+token saved to '/Users/mhelmich/.config/mw/token'
+```
 
 ## Usage
 
@@ -50,24 +88,8 @@ USAGE
 * [`mw app list`](#mw-app-list)
 * [`mw app uninstall INSTALLATION-ID`](#mw-app-uninstall-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
-* [`mw article get ARTICLEID`](#mw-article-get-articleid)
-* [`mw article list`](#mw-article-list)
 * [`mw context get`](#mw-context-get)
 * [`mw context set`](#mw-context-set)
-* [`mw contract getBaseItemOfContract`](#mw-contract-getbaseitemofcontract)
-* [`mw contract getDetailOfContract CONTRACTID`](#mw-contract-getdetailofcontract-contractid)
-* [`mw contract getDetailOfContractByDomain`](#mw-contract-getdetailofcontractbydomain)
-* [`mw contract getDetailOfContractByProject`](#mw-contract-getdetailofcontractbyproject)
-* [`mw contract getDetailOfContractByServer`](#mw-contract-getdetailofcontractbyserver)
-* [`mw contract getDetailOfContractItem CONTRACTITEMID`](#mw-contract-getdetailofcontractitem-contractitemid)
-* [`mw contract getNextTerminationDateForItem`](#mw-contract-getnextterminationdateforitem)
-* [`mw contract invoiceDetailOfInvoice INVOICEID`](#mw-contract-invoicedetailofinvoice-invoiceid)
-* [`mw contract invoiceGetDetailOfInvoiceSettings`](#mw-contract-invoicegetdetailofinvoicesettings)
-* [`mw contract invoiceListCustomerInvoices`](#mw-contract-invoicelistcustomerinvoices)
-* [`mw contract listContracts`](#mw-contract-listcontracts)
-* [`mw contract orderGetOrder ORDERID`](#mw-contract-ordergetorder-orderid)
-* [`mw contract orderListCustomerOrders`](#mw-contract-orderlistcustomerorders)
-* [`mw contract orderListProjectOrders`](#mw-contract-orderlistprojectorders)
 * [`mw conversation categories`](#mw-conversation-categories)
 * [`mw conversation close ID`](#mw-conversation-close-id)
 * [`mw conversation create`](#mw-conversation-create)
@@ -87,6 +109,7 @@ USAGE
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
+* [`mw database redis create`](#mw-database-redis-create)
 * [`mw database redis get ID`](#mw-database-redis-get-id)
 * [`mw database redis list`](#mw-database-redis-list)
 * [`mw database redis shell DATABASE-ID`](#mw-database-redis-shell-database-id)
@@ -389,49 +412,6 @@ DESCRIPTION
   List supported Apps and Versions
 ```
 
-## `mw article get ARTICLEID`
-
-Get an Article.
-
-```
-USAGE
-  $ mw article get ARTICLEID [-o json|yaml |  | ]
-
-ARGUMENTS
-  ARTICLEID  undefined
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get an Article.
-```
-
-## `mw article list`
-
-List Articles.
-
-```
-USAGE
-  $ mw article list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List Articles.
-```
-
 ## `mw context get`
 
 Print an overview of currently set context parameters
@@ -470,287 +450,6 @@ DESCRIPTION
 
   The context allows you to persistently set values for common parameters, like --project-id or --server-id, so you
   don't have to specify them on every command.
-```
-
-## `mw contract getBaseItemOfContract`
-
-Return the BaseItem of the Contract with the given ID.
-
-```
-USAGE
-  $ mw contract getBaseItemOfContract --contract-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --contract-id=<value>  (required) The uuid of the Contract from which the BaseItem is to be issued.
-
-DESCRIPTION
-  Return the BaseItem of the Contract with the given ID.
-```
-
-## `mw contract getDetailOfContract CONTRACTID`
-
-Returns the Contract with the given ID.
-
-```
-USAGE
-  $ mw contract getDetailOfContract CONTRACTID [-o json|yaml |  | ]
-
-ARGUMENTS
-  CONTRACTID  The uuid of the Contract to be returned.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Returns the Contract with the given ID.
-```
-
-## `mw contract getDetailOfContractByDomain`
-
-Return the Contract for the given Domain.
-
-```
-USAGE
-  $ mw contract getDetailOfContractByDomain --domain-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --domain-id=<value>    (required) undefined
-
-DESCRIPTION
-  Return the Contract for the given Domain.
-```
-
-## `mw contract getDetailOfContractByProject`
-
-Return the Contract for the given Project.
-
-```
-USAGE
-  $ mw contract getDetailOfContractByProject --project-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --project-id=<value>   (required) undefined
-
-DESCRIPTION
-  Return the Contract for the given Project.
-```
-
-## `mw contract getDetailOfContractByServer`
-
-Return the Contract for the given Server.
-
-```
-USAGE
-  $ mw contract getDetailOfContractByServer --server-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --server-id=<value>    (required) undefined
-
-DESCRIPTION
-  Return the Contract for the given Server.
-```
-
-## `mw contract getDetailOfContractItem CONTRACTITEMID`
-
-Get the ContractItem with the given ID.
-
-```
-USAGE
-  $ mw contract getDetailOfContractItem CONTRACTITEMID --contract-id <value> [-o json|yaml |  | ]
-
-ARGUMENTS
-  CONTRACTITEMID  The uuid of the ContractItem to be returned.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --contract-id=<value>  (required) The uuid of the Contract where the desired ContractItem belongs to.
-
-DESCRIPTION
-  Get the ContractItem with the given ID.
-```
-
-## `mw contract getNextTerminationDateForItem`
-
-Return the next TerminationDate for the ContractItem with the given ID.
-
-```
-USAGE
-  $ mw contract getNextTerminationDateForItem --contract-id <value> --contract-item-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>       output in a more machine friendly format
-                              <options: json|yaml>
-  --contract-id=<value>       (required) The uuid of the Contract where the desired ContractItem belongs to.
-  --contract-item-id=<value>  (required) The uuid of the ContractItem whose next TerminationDate is to be displayed.
-
-DESCRIPTION
-  Return the next TerminationDate for the ContractItem with the given ID.
-```
-
-## `mw contract invoiceDetailOfInvoice INVOICEID`
-
-Get details of an Invoice.
-
-```
-USAGE
-  $ mw contract invoiceDetailOfInvoice INVOICEID --customer-id <value> [-o json|yaml |  | ]
-
-ARGUMENTS
-  INVOICEID  undefined
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --customer-id=<value>  (required) undefined
-
-DESCRIPTION
-  Get details of an Invoice.
-```
-
-## `mw contract invoiceGetDetailOfInvoiceSettings`
-
-Get InvoiceSettings of a Customer.
-
-```
-USAGE
-  $ mw contract invoiceGetDetailOfInvoiceSettings --customer-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --customer-id=<value>  (required) undefined
-
-DESCRIPTION
-  Get InvoiceSettings of a Customer.
-```
-
-## `mw contract invoiceListCustomerInvoices`
-
-List Invoices of a Customer.
-
-```
-USAGE
-  $ mw contract invoiceListCustomerInvoices --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) undefined
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List Invoices of a Customer.
-```
-
-## `mw contract listContracts`
-
-Return a list of Contracts for the given Customer.
-
-```
-USAGE
-  $ mw contract listContracts --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) The uuid of the Customer from whom all Contracts are to be returned.
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  Return a list of Contracts for the given Customer.
-```
-
-## `mw contract orderGetOrder ORDERID`
-
-Get Order for Customer.
-
-```
-USAGE
-  $ mw contract orderGetOrder ORDERID [-o json|yaml |  | ]
-
-ARGUMENTS
-  ORDERID  undefined
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get Order for Customer.
-```
-
-## `mw contract orderListCustomerOrders`
-
-Get list of Orders of a Customer.
-
-```
-USAGE
-  $ mw contract orderListCustomerOrders --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) undefined
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  Get list of Orders of a Customer.
-```
-
-## `mw contract orderListProjectOrders`
-
-Get list of Orders of a Project.
-
-```
-USAGE
-  $ mw contract orderListProjectOrders --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) undefined
-  --sort=<value>        property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  Get list of Orders of a Project.
 ```
 
 ## `mw conversation categories`
@@ -1198,6 +897,55 @@ DESCRIPTION
   List available MySQL versions.
 ```
 
+## `mw database redis create`
+
+Create a new Redis database
+
+```
+USAGE
+  $ mw database redis create -d <value> --version <value> [-p <value>] [-q] [--persistent] [--max-memory <value>]
+    [--max-memory-policy
+    noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-random|volatile-random|volatile-ttl]
+
+FLAGS
+  -d, --description=<value>     (required) a description for the database
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  --max-memory=<value>          the maximum memory for the Redis database
+  --max-memory-policy=<option>  the Redis eviction policy
+                                <options: noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-random|vo
+                                latile-random|volatile-ttl>
+  --[no-]persistent             enable persistent storage for the Redis database
+  --version=<value>             (required) the Redis version to use
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --max-memory=<value>  the maximum memory for the Redis database
+
+    This specifies the maximum memory; you should provide a number, followed by one of the IEC suffixes, like "Ki", "Mi"
+    or "Gi"
+
+  --max-memory-policy=noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-random|volatile-random|volatile-ttl
+
+    the Redis eviction policy
+
+    See https://redis.io/docs/reference/eviction/#eviction-policies for details
+
+  --version=<value>  the Redis version to use
+
+    Use the "database redis versions" command to list available versions
+```
+
 ## `mw database redis get ID`
 
 Get a Redis database.
@@ -1277,21 +1025,29 @@ List available Redis versions.
 ```
 USAGE
   $ mw database redis versions [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List available Redis versions.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw domain dnszone get ZONEID`
