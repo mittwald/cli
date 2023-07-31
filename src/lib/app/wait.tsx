@@ -2,7 +2,7 @@ import { waitUntil } from "../wait.js";
 import React from "react";
 import { Text } from "ink";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { ProcessRenderer } from "../../rendering/react/process.js";
+import { ProcessRenderer } from "../../rendering/process/process.js";
 
 export async function waitUntilAppIsInstalled(
   apiClient: MittwaldAPIV2Client,

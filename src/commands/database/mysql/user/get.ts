@@ -1,6 +1,27 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedDatabaseGetMysqlUser } from "../../../../generated/database/getMysqlUser.js";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { GetBaseCommand } from "../../../../GetBaseCommand.js";
+import { Args } from "@oclif/core";
 
-export default class Get extends GeneratedDatabaseGetMysqlUser {}
+type APIResponse = Awaited<
+  ReturnType<MittwaldAPIV2Client["database"]["getMysqlUser"]>
+>;
+
+export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
+  static description = "Get a MySQL user.";
+
+  static flags = {
+    ...GetBaseCommand.baseFlags,
+  };
+  static args = {
+    id: Args.string({
+      description: "ID of the MySQL user to be retrieved.",
+      required: true,
+    }),
+  };
+
+  protected async getData(): Promise<APIResponse> {
+    return await this.apiClient.database.getMysqlUser({
+      pathParameters: { id: this.args.id },
+    } as Parameters<typeof this.apiClient.database.getMysqlUser>[0]);
+  }
+}

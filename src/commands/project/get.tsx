@@ -19,7 +19,7 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { ByteFormat } from "../../rendering/react/components/ByteFormat.js";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import Link from "ink-link";
-import { ProjectStatus } from "../../rendering/react/components/ProjectStatus.js";
+import { ProjectStatus } from "../../rendering/react/components/Project/ProjectStatus.js";
 import ProjectHardwareSpec = MittwaldAPIV2.Components.Schemas.ProjectHardwareSpec;
 import ProjectVisitorSpec = MittwaldAPIV2.Components.Schemas.ProjectVisitorSpec;
 import ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;

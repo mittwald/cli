@@ -5,13 +5,13 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import React from "react";
 import { Text } from "ink";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { ProcessRenderer } from "../../rendering/react/process.js";
+import { ProcessRenderer } from "../../rendering/process/process.js";
 import { projectFlags } from "../project/flags.js";
 import {
   ProcessFlags,
   processFlags,
-} from "../../rendering/react/process_flags.js";
-import { Flags } from "@oclif/core";
+} from "../../rendering/process/process_flags.js";
+import { Flags, Args } from "@oclif/core";
 import {
   BooleanFlag,
   FlagInput,
@@ -19,6 +19,13 @@ import {
   OutputFlags,
 } from "@oclif/core/lib/interfaces/parser.js";
 import { generatePasswordWithSpecialChars } from "../password.js";
+
+export const appInstallationFlags = {
+  "installation-id": Args.string({
+    description: "ID of the app installation to get",
+    required: true,
+  }),
+};
 
 export type AvailableFlagName = keyof AvailableFlags;
 

@@ -3,7 +3,7 @@ import { orgFlags, withOrgId } from "../../lib/org/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../rendering/react/process_flags.js";
+} from "../../rendering/process/process_flags.js";
 import { Flags } from "@oclif/core";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import MembershipCustomerRoles = MittwaldAPIV2.Components.Schemas.MembershipCustomerRoles;

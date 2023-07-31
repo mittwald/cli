@@ -26,15 +26,17 @@
     "generate:commands-dev": "yarn generate:commands-dev:v2",
     "generate:commands-dev:v2": "curl --silent https://api-public.dev.mittwald.systems/openapi | ./transform-openapi.sh | yarn acg generate --name MittwaldAPIV2 --outputFormat=oclifCommands - src --optionalHeader x-access-token",
     "generate:commands:v2": "curl --silent https://api.mittwald.de/openapi | ./transform-openapi.sh | yarn acg generate --name MittwaldAPIV2 --outputFormat=oclifCommands - src --optionalHeader x-access-token",
+    "generate:readme": "oclif readme < /dev/null > /dev/null",
     "license-check": "yarn pnpify license-checker-rseidelsohn ",
     "lint": "eslint . --cache",
     "package": "yarn package:tarballs && yarn package:windows && yarn package:macos",
     "package:macos": "oclif pack macos",
-    "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64 --no-xz",
+    "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64",
     "package:windows": "oclif pack win",
     "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
     "test": "yarn lint && yarn format --check && yarn test:licenses",
-    "test:licenses": "yarn license-check --summary --unknown && yarn license-check --unknown --failOn 'UNLICENSED;UNKNOWN'"
+    "test:licenses": "yarn license-check --summary --unknown --failOn 'UNLICENSED;UNKNOWN'",
+    "test:readme": "yarn generate:readme && git diff --exit-code README.md"
   },
   "files": [
     ".deps",
@@ -42,11 +44,13 @@
     "bin"
   ],
   "dependencies": {
-    "@mittwald/api-client": "^2.0.5",
+    "@mittwald/api-client": "^2.0.7",
     "@mittwald/api-client-commons": "^3.0.3",
     "@mittwald/react-use-promise": "^1.2.2",
     "@oclif/core": "^2.8.5",
     "@oclif/plugin-help": "^5.2.9",
+    "@oclif/plugin-update": "^3.1.28",
+    "@oclif/plugin-warn-if-update-available": "^2.0.45",
     "chalk": "^5.3.0",
     "date-fns": "^2.30.0",
     "humanize-string": "^3.0.0",
@@ -57,6 +61,7 @@
     "marked": "^5.1.0",
     "marked-terminal": "^5.2.0",
     "node-notifier": "^8.0.2",
+    "open": "^9.1.0",
     "parse-duration": "^1.1.0",
     "pretty-bytes": "^6.1.0",
     "react": "^18.2.0",
@@ -93,6 +98,9 @@
     "rimraf": "^5.0.1",
     "type-fest": "^3.12.0",
     "typescript": "^5.1.6"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "oclif": {
     "bin": "mw",
@@ -152,8 +160,20 @@
       }
     },
     "plugins": [
-      "@oclif/plugin-help"
-    ]
+      "@oclif/plugin-help",
+      "@oclif/plugin-update",
+      "@oclif/plugin-warn-if-update-available"
+    ],
+    "update": {
+      "node": {
+        "version": "18.11.0"
+      },
+      "s3": {
+        "xz": true,
+        "host": "https://s3.eu-central-1.amazonaws.com/mittwald-cli",
+        "bucket": "mittwald-cli"
+      }
+    }
   },
   "packageManager": "yarn@3.6.1"
 }

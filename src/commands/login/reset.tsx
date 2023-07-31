@@ -3,7 +3,7 @@ import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseComma
 import React from "react";
 import { Box, Text } from "ink";
 import { Note } from "../../rendering/react/components/Note.js";
-import { FancyProcessRenderer } from "../../rendering/react/process_fancy.js";
+import { FancyProcessRenderer } from "../../rendering/process/process_fancy.js";
 import { Filename } from "../../rendering/react/components/Filename.js";
 
 type ResetResult = { deleted: boolean };

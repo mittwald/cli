@@ -5,11 +5,11 @@ import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCo
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../../rendering/react/process_flags.js";
+} from "../../../rendering/process/process_flags.js";
 import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
-import { ProcessRenderer } from "../../../rendering/react/process.js";
+import { ProcessRenderer } from "../../../rendering/process/process.js";
 import * as crypto from "crypto";
 import { Value } from "../../../rendering/react/components/Value.js";
 

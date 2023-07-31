@@ -26,8 +26,6 @@ installation instructions.
 
 ## Usage
 
-<!-- usage -->
-
 ```sh-session
 $ npm install -g @mittwald/cli
 $ mw COMMAND
@@ -40,191 +38,160 @@ USAGE
 ...
 ```
 
-<!-- usagestop -->
-
 ## Commands
 
 <!-- commands -->
+* [`mw app copy INSTALLATION-ID`](#mw-app-copy-installation-id)
+* [`mw app dependency list`](#mw-app-dependency-list)
+* [`mw app dependency update INSTALLATION-ID`](#mw-app-dependency-update-installation-id)
+* [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
+* [`mw app get INSTALLATION-ID`](#mw-app-get-installation-id)
+* [`mw app install wordpress`](#mw-app-install-wordpress)
+* [`mw app list`](#mw-app-list)
+* [`mw app uninstall INSTALLATION-ID`](#mw-app-uninstall-installation-id)
+* [`mw app versions [APP]`](#mw-app-versions-app)
+* [`mw article get ARTICLEID`](#mw-article-get-articleid)
+* [`mw article list`](#mw-article-list)
+* [`mw context get`](#mw-context-get)
+* [`mw context set`](#mw-context-set)
+* [`mw contract getBaseItemOfContract`](#mw-contract-getbaseitemofcontract)
+* [`mw contract getDetailOfContract CONTRACTID`](#mw-contract-getdetailofcontract-contractid)
+* [`mw contract getDetailOfContractByDomain`](#mw-contract-getdetailofcontractbydomain)
+* [`mw contract getDetailOfContractByProject`](#mw-contract-getdetailofcontractbyproject)
+* [`mw contract getDetailOfContractByServer`](#mw-contract-getdetailofcontractbyserver)
+* [`mw contract getDetailOfContractItem CONTRACTITEMID`](#mw-contract-getdetailofcontractitem-contractitemid)
+* [`mw contract getNextTerminationDateForItem`](#mw-contract-getnextterminationdateforitem)
+* [`mw contract invoiceDetailOfInvoice INVOICEID`](#mw-contract-invoicedetailofinvoice-invoiceid)
+* [`mw contract invoiceGetDetailOfInvoiceSettings`](#mw-contract-invoicegetdetailofinvoicesettings)
+* [`mw contract invoiceListCustomerInvoices`](#mw-contract-invoicelistcustomerinvoices)
+* [`mw contract listContracts`](#mw-contract-listcontracts)
+* [`mw contract orderGetOrder ORDERID`](#mw-contract-ordergetorder-orderid)
+* [`mw contract orderListCustomerOrders`](#mw-contract-orderlistcustomerorders)
+* [`mw contract orderListProjectOrders`](#mw-contract-orderlistprojectorders)
+* [`mw conversation categories`](#mw-conversation-categories)
+* [`mw conversation close ID`](#mw-conversation-close-id)
+* [`mw conversation create`](#mw-conversation-create)
+* [`mw conversation list`](#mw-conversation-list)
+* [`mw conversation reply ID`](#mw-conversation-reply-id)
+* [`mw conversation show ID`](#mw-conversation-show-id)
+* [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
+* [`mw database mysql charsets`](#mw-database-mysql-charsets)
+* [`mw database mysql create`](#mw-database-mysql-create)
+* [`mw database mysql delete DATABASE-ID`](#mw-database-mysql-delete-database-id)
+* [`mw database mysql dump DATABASE-ID`](#mw-database-mysql-dump-database-id)
+* [`mw database mysql get DATABASE-ID`](#mw-database-mysql-get-database-id)
+* [`mw database mysql list`](#mw-database-mysql-list)
+* [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
+* [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
+* [`mw database mysql shell DATABASE-ID`](#mw-database-mysql-shell-database-id)
+* [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
+* [`mw database mysql user list`](#mw-database-mysql-user-list)
+* [`mw database mysql versions`](#mw-database-mysql-versions)
+* [`mw database redis get ID`](#mw-database-redis-get-id)
+* [`mw database redis list`](#mw-database-redis-list)
+* [`mw database redis shell DATABASE-ID`](#mw-database-redis-shell-database-id)
+* [`mw database redis versions`](#mw-database-redis-versions)
+* [`mw domain dnszone get ZONEID`](#mw-domain-dnszone-get-zoneid)
+* [`mw domain dnszone list`](#mw-domain-dnszone-list)
+* [`mw domain get DOMAINID`](#mw-domain-get-domainid)
+* [`mw domain get-handle DOMAINNAME`](#mw-domain-get-handle-domainname)
+* [`mw domain list`](#mw-domain-list)
+* [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
+* [`mw domain ownership list`](#mw-domain-ownership-list)
+* [`mw domain tld get TLD`](#mw-domain-tld-get-tld)
+* [`mw domain tld list`](#mw-domain-tld-list)
+* [`mw domain virtualhost create`](#mw-domain-virtualhost-create)
+* [`mw domain virtualhost delete VIRTUAL-HOST-ID`](#mw-domain-virtualhost-delete-virtual-host-id)
+* [`mw domain virtualhost get INGRESS-ID`](#mw-domain-virtualhost-get-ingress-id)
+* [`mw domain virtualhost list`](#mw-domain-virtualhost-list)
+* [`mw help [COMMANDS]`](#mw-help-commands)
+* [`mw login reset`](#mw-login-reset)
+* [`mw login status`](#mw-login-status)
+* [`mw login token`](#mw-login-token)
+* [`mw mail address create`](#mw-mail-address-create)
+* [`mw mail address delete ID`](#mw-mail-address-delete-id)
+* [`mw mail address get ID`](#mw-mail-address-get-id)
+* [`mw mail address list`](#mw-mail-address-list)
+* [`mw mail deliverybox get ID`](#mw-mail-deliverybox-get-id)
+* [`mw mail deliverybox list`](#mw-mail-deliverybox-list)
+* [`mw org delete [ORG-ID]`](#mw-org-delete-org-id)
+* [`mw org get [ORG-ID]`](#mw-org-get-org-id)
+* [`mw org invite`](#mw-org-invite)
+* [`mw org invite list`](#mw-org-invite-list)
+* [`mw org invite list-own`](#mw-org-invite-list-own)
+* [`mw org invite revoke INVITE-ID`](#mw-org-invite-revoke-invite-id)
+* [`mw org list`](#mw-org-list)
+* [`mw org membership list`](#mw-org-membership-list)
+* [`mw org membership list-own`](#mw-org-membership-list-own)
+* [`mw org membership revoke MEMBERSHIP-ID`](#mw-org-membership-revoke-membership-id)
+* [`mw project backup get PROJECTBACKUPID`](#mw-project-backup-get-projectbackupid)
+* [`mw project backup list`](#mw-project-backup-list)
+* [`mw project backupschedule get PROJECTBACKUPSCHEDULEID`](#mw-project-backupschedule-get-projectbackupscheduleid)
+* [`mw project backupschedule list`](#mw-project-backupschedule-list)
+* [`mw project create`](#mw-project-create)
+* [`mw project cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-project-cronjob-execution-get-cronjob-id-execution-id)
+* [`mw project cronjob execution list`](#mw-project-cronjob-execution-list)
+* [`mw project cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-project-cronjob-execution-logs-cronjob-id-execution-id)
+* [`mw project cronjob get CRONJOBID`](#mw-project-cronjob-get-cronjobid)
+* [`mw project cronjob list`](#mw-project-cronjob-list)
+* [`mw project delete [PROJECT-ID]`](#mw-project-delete-project-id)
+* [`mw project filesystem usage [PROJECT-ID]`](#mw-project-filesystem-usage-project-id)
+* [`mw project get [PROJECT-ID]`](#mw-project-get-project-id)
+* [`mw project invite get INVITEID`](#mw-project-invite-get-inviteid)
+* [`mw project invite list`](#mw-project-invite-list)
+* [`mw project invite list-own`](#mw-project-invite-list-own)
+* [`mw project list`](#mw-project-list)
+* [`mw project list-react`](#mw-project-list-react)
+* [`mw project membership get MEMBERSHIPID`](#mw-project-membership-get-membershipid)
+* [`mw project membership get-own`](#mw-project-membership-get-own)
+* [`mw project membership list`](#mw-project-membership-list)
+* [`mw project membership list-own`](#mw-project-membership-list-own)
+* [`mw project sftp-user list`](#mw-project-sftp-user-list)
+* [`mw project ssh [PROJECT-ID]`](#mw-project-ssh-project-id)
+* [`mw project ssh-user list`](#mw-project-ssh-user-list)
+* [`mw project update [PROJECT-ID]`](#mw-project-update-project-id)
+* [`mw server get SERVERID`](#mw-server-get-serverid)
+* [`mw server list`](#mw-server-list)
+* [`mw update [CHANNEL]`](#mw-update-channel)
+* [`mw user api-token create`](#mw-user-api-token-create)
+* [`mw user api-token get APITOKENID`](#mw-user-api-token-get-apitokenid)
+* [`mw user api-token list`](#mw-user-api-token-list)
+* [`mw user api-token revoke ID`](#mw-user-api-token-revoke-id)
+* [`mw user get`](#mw-user-get)
+* [`mw user session get TOKENID`](#mw-user-session-get-tokenid)
+* [`mw user session list`](#mw-user-session-list)
+* [`mw user ssh-key create`](#mw-user-ssh-key-create)
+* [`mw user ssh-key delete ID`](#mw-user-ssh-key-delete-id)
+* [`mw user ssh-key get SSHKEYID`](#mw-user-ssh-key-get-sshkeyid)
+* [`mw user ssh-key list`](#mw-user-ssh-key-list)
 
-- [`mw app delete ID`](#mw-app-delete-id)
-- [`mw app dependency getSystemsoftware SYSTEMSOFTWAREID`](#mw-app-dependency-getsystemsoftware-systemsoftwareid)
-- [`mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`](#mw-app-dependency-getsystemsoftwareversion-systemsoftwareversionid)
-- [`mw app dependency listSystemsoftwares`](#mw-app-dependency-listsystemsoftwares)
-- [`mw app dependency listSystemsoftwareversions`](#mw-app-dependency-listsystemsoftwareversions)
-- [`mw app get APPINSTALLATIONID`](#mw-app-get-appinstallationid)
-- [`mw app install wordpress`](#mw-app-install-wordpress)
-- [`mw app list`](#mw-app-list)
-- [`mw app versions [APP]`](#mw-app-versions-app)
-- [`mw article get ARTICLEID`](#mw-article-get-articleid)
-- [`mw article list`](#mw-article-list)
-- [`mw contract getBaseItemOfContract`](#mw-contract-getbaseitemofcontract)
-- [`mw contract getDetailOfContract CONTRACTID`](#mw-contract-getdetailofcontract-contractid)
-- [`mw contract getDetailOfContractByDomain`](#mw-contract-getdetailofcontractbydomain)
-- [`mw contract getDetailOfContractByProject`](#mw-contract-getdetailofcontractbyproject)
-- [`mw contract getDetailOfContractByServer`](#mw-contract-getdetailofcontractbyserver)
-- [`mw contract getDetailOfContractItem CONTRACTITEMID`](#mw-contract-getdetailofcontractitem-contractitemid)
-- [`mw contract getNextTerminationDateForItem`](#mw-contract-getnextterminationdateforitem)
-- [`mw contract invoiceDetailOfInvoice INVOICEID`](#mw-contract-invoicedetailofinvoice-invoiceid)
-- [`mw contract invoiceGetDetailOfInvoiceSettings`](#mw-contract-invoicegetdetailofinvoicesettings)
-- [`mw contract invoiceListCustomerInvoices`](#mw-contract-invoicelistcustomerinvoices)
-- [`mw contract listContracts`](#mw-contract-listcontracts)
-- [`mw contract orderGetOrder ORDERID`](#mw-contract-ordergetorder-orderid)
-- [`mw contract orderListCustomerOrders`](#mw-contract-orderlistcustomerorders)
-- [`mw contract orderListProjectOrders`](#mw-contract-orderlistprojectorders)
-- [`mw conversation categories`](#mw-conversation-categories)
-- [`mw conversation close ID`](#mw-conversation-close-id)
-- [`mw conversation create`](#mw-conversation-create)
-- [`mw conversation list`](#mw-conversation-list)
-- [`mw conversation reply ID`](#mw-conversation-reply-id)
-- [`mw conversation show ID`](#mw-conversation-show-id)
-- [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
-- [`mw database mysql charsets`](#mw-database-mysql-charsets)
-- [`mw database mysql get ID`](#mw-database-mysql-get-id)
-- [`mw database mysql list`](#mw-database-mysql-list)
-- [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
-- [`mw database mysql user getMysqlUserPhpMyAdminUrl`](#mw-database-mysql-user-getmysqluserphpmyadminurl)
-- [`mw database mysql user list`](#mw-database-mysql-user-list)
-- [`mw database mysql versions`](#mw-database-mysql-versions)
-- [`mw database redis get ID`](#mw-database-redis-get-id)
-- [`mw database redis list`](#mw-database-redis-list)
-- [`mw database redis versions`](#mw-database-redis-versions)
-- [`mw domain dnszone get ZONEID`](#mw-domain-dnszone-get-zoneid)
-- [`mw domain dnszone list`](#mw-domain-dnszone-list)
-- [`mw domain get DOMAINID`](#mw-domain-get-domainid)
-- [`mw domain get-handle DOMAINNAME`](#mw-domain-get-handle-domainname)
-- [`mw domain list`](#mw-domain-list)
-- [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
-- [`mw domain ownership list`](#mw-domain-ownership-list)
-- [`mw domain tld get TLD`](#mw-domain-tld-get-tld)
-- [`mw domain tld list`](#mw-domain-tld-list)
-- [`mw domain virtualhost get INGRESSID`](#mw-domain-virtualhost-get-ingressid)
-- [`mw domain virtualhost list`](#mw-domain-virtualhost-list)
-- [`mw help [COMMANDS]`](#mw-help-commands)
-- [`mw login status`](#mw-login-status)
-- [`mw login token`](#mw-login-token)
-- [`mw mail address create`](#mw-mail-address-create)
-- [`mw mail address delete ID`](#mw-mail-address-delete-id)
-- [`mw mail address get ID`](#mw-mail-address-get-id)
-- [`mw mail address list`](#mw-mail-address-list)
-- [`mw mail deliverybox get ID`](#mw-mail-deliverybox-get-id)
-- [`mw mail deliverybox list`](#mw-mail-deliverybox-list)
-- [`mw org can-order`](#mw-org-can-order)
-- [`mw org get CUSTOMERID`](#mw-org-get-customerid)
-- [`mw org invite get INVITEID`](#mw-org-invite-get-inviteid)
-- [`mw org invite list`](#mw-org-invite-list)
-- [`mw org invite list-own`](#mw-org-invite-list-own)
-- [`mw org list`](#mw-org-list)
-- [`mw org membership get MEMBERSHIPID`](#mw-org-membership-get-membershipid)
-- [`mw org membership list`](#mw-org-membership-list)
-- [`mw org membership list-own`](#mw-org-membership-list-own)
-- [`mw project backup get PROJECTBACKUPID`](#mw-project-backup-get-projectbackupid)
-- [`mw project backup list`](#mw-project-backup-list)
-- [`mw project backupschedule get PROJECTBACKUPSCHEDULEID`](#mw-project-backupschedule-get-projectbackupscheduleid)
-- [`mw project backupschedule list`](#mw-project-backupschedule-list)
-- [`mw project create`](#mw-project-create)
-- [`mw project cronjob execution get EXECUTIONID`](#mw-project-cronjob-execution-get-executionid)
-- [`mw project cronjob execution list`](#mw-project-cronjob-execution-list)
-- [`mw project cronjob get CRONJOBID`](#mw-project-cronjob-get-cronjobid)
-- [`mw project cronjob list`](#mw-project-cronjob-list)
-- [`mw project delete ID`](#mw-project-delete-id)
-- [`mw project filesystem directories`](#mw-project-filesystem-directories)
-- [`mw project filesystem file-content`](#mw-project-filesystem-file-content)
-- [`mw project filesystem files PROJECTID`](#mw-project-filesystem-files-projectid)
-- [`mw project filesystem usage`](#mw-project-filesystem-usage)
-- [`mw project get ID`](#mw-project-get-id)
-- [`mw project invite get INVITEID`](#mw-project-invite-get-inviteid)
-- [`mw project invite list`](#mw-project-invite-list)
-- [`mw project invite list-own`](#mw-project-invite-list-own)
-- [`mw project list`](#mw-project-list)
-- [`mw project list1`](#mw-project-list1)
-- [`mw project list2`](#mw-project-list2)
-- [`mw project membership get MEMBERSHIPID`](#mw-project-membership-get-membershipid)
-- [`mw project membership get-own`](#mw-project-membership-get-own)
-- [`mw project membership list`](#mw-project-membership-list)
-- [`mw project membership list-own`](#mw-project-membership-list-own)
-- [`mw project sftp-user list`](#mw-project-sftp-user-list)
-- [`mw project ssh ID`](#mw-project-ssh-id)
-- [`mw project ssh-user list`](#mw-project-ssh-user-list)
-- [`mw project update ID`](#mw-project-update-id)
-- [`mw server get SERVERID`](#mw-server-get-serverid)
-- [`mw server list`](#mw-server-list)
-- [`mw user api-token create`](#mw-user-api-token-create)
-- [`mw user api-token get APITOKENID`](#mw-user-api-token-get-apitokenid)
-- [`mw user api-token list`](#mw-user-api-token-list)
-- [`mw user api-token revoke ID`](#mw-user-api-token-revoke-id)
-- [`mw user get`](#mw-user-get)
-- [`mw user session get TOKENID`](#mw-user-session-get-tokenid)
-- [`mw user session list`](#mw-user-session-list)
-- [`mw user ssh-key create`](#mw-user-ssh-key-create)
-- [`mw user ssh-key delete ID`](#mw-user-ssh-key-delete-id)
-- [`mw user ssh-key get SSHKEYID`](#mw-user-ssh-key-get-sshkeyid)
-- [`mw user ssh-key list`](#mw-user-ssh-key-list)
-
-## `mw app delete ID`
-
-Delete an app
+## `mw app copy INSTALLATION-ID`
 
 ```
 USAGE
-  $ mw app delete ID [-f]
+  $ mw app copy INSTALLATION-ID --description <value> [-q]
 
 ARGUMENTS
-  ID  ID of the app to be deleted.
+  INSTALLATION-ID  ID of the app installation to get
 
 FLAGS
-  -f, --force  delete without prompting for confirmation
+  -q, --quiet            suppress process output and only display a machine-readable summary.
+  --description=<value>  (required) set a description for the new app installation
 
-DESCRIPTION
-  Delete an app
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw app dependency getSystemsoftware SYSTEMSOFTWAREID`
+## `mw app dependency list`
 
-get a specific `SystemSoftware`
+get all available dependencies
 
 ```
 USAGE
-  $ mw app dependency getSystemsoftware SYSTEMSOFTWAREID [--output json|yaml |  | ]
-
-ARGUMENTS
-  SYSTEMSOFTWAREID  undefined
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  get a specific `SystemSoftware`
-```
-
-## `mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`
-
-get a specific `SystemSoftwareVersion`
-
-```
-USAGE
-  $ mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID --system-software-id <value> [--output json|yaml
-  |  | ]
-
-ARGUMENTS
-  SYSTEMSOFTWAREVERSIONID  undefined
-
-FLAGS
-  --output=<option>             output in a more machine friendly format
-                                <options: json|yaml>
-  --system-software-id=<value>  (required) undefined
-
-DESCRIPTION
-  get a specific `SystemSoftwareVersion`
-```
-
-## `mw app dependency listSystemsoftwares`
-
-get all available `SystemSoftware`
-
-```
-USAGE
-  $ mw app dependency listSystemsoftwares [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+  $ mw app dependency list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
     [--csv | --no-truncate]] [--no-header | ]
 
 FLAGS
@@ -239,51 +206,89 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  get all available `SystemSoftware`
+  get all available dependencies
 ```
 
-## `mw app dependency listSystemsoftwareversions`
+## `mw app dependency update INSTALLATION-ID`
 
-get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
-
-```
-USAGE
-  $ mw app dependency listSystemsoftwareversions --system-software-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>]
-    [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended                show extra columns
-  --columns=<value>             only show provided columns (comma-separated)
-  --csv                         output is csv format [alias: --output=csv]
-  --filter=<value>              filter property by partial string matching, ex: name=foo
-  --no-header                   hide table header from output
-  --no-truncate                 do not truncate output to fit screen
-  --output=<option>             output in a more machine friendly format
-                                <options: csv|json|yaml>
-  --sort=<value>                property to sort by (prepend '-' for descending)
-  --system-software-id=<value>  (required) undefined
-
-DESCRIPTION
-  get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
-```
-
-## `mw app get APPINSTALLATIONID`
-
-get a specific `AppInstallation`
+Update the dependencies of an app
 
 ```
 USAGE
-  $ mw app get APPINSTALLATIONID [--output json|yaml |  | ]
+  $ mw app dependency update INSTALLATION-ID --set <value> [-q] [--update-policy none|inheritedFromApp|patchLevel|all]
 
 ARGUMENTS
-  APPINSTALLATIONID  undefined
+  INSTALLATION-ID  ID of the app installation to get
 
 FLAGS
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  --set=<value>...          (required) set a dependency to a specific version
+  --update-policy=<option>  [default: patchLevel] set the update policy for the configured dependencies
+                            <options: none|inheritedFromApp|patchLevel|all>
+
+EXAMPLES
+  Update Node.js version to newest available from the 18.x branch
+
+    $ mw app dependency update $APP_ID --set node=~18
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --set=<value>...  set a dependency to a specific version
+
+    The format is <dependency>=<version>, where <dependency> is the name of the dependency (use the "mw app dependency
+    list" command to get a list of available dependencies) and <version> is a semver constraint.
+
+    This flag may be specified multiple times to update multiple dependencies.
+```
+
+## `mw app dependency versions SYSTEMSOFTWARE`
+
+get all available versions of a particular dependency
+
+```
+USAGE
+  $ mw app dependency versions SYSTEMSOFTWARE [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+ARGUMENTS
+  SYSTEMSOFTWARE  name of the systemsoftware for which to list versions
+
+FLAGS
+  -x, --extended     show extra columns
+  --columns=<value>  only show provided columns (comma-separated)
+  --csv              output is csv format [alias: --output=csv]
+  --filter=<value>   filter property by partial string matching, ex: name=foo
+  --no-header        hide table header from output
+  --no-truncate      do not truncate output to fit screen
   --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+                     <options: csv|json|yaml>
+  --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  get a specific `AppInstallation`
+  get all available versions of a particular dependency
+```
+
+## `mw app get INSTALLATION-ID`
+
+Get details about an app installation
+
+```
+USAGE
+  $ mw app get INSTALLATION-ID [-o json|yaml |  | ]
+
+ARGUMENTS
+  INSTALLATION-ID  ID of the app installation to get
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+
+DESCRIPTION
+  Get details about an app installation
 ```
 
 ## `mw app install wordpress`
@@ -292,46 +297,81 @@ Creates new WordPress Installation.
 
 ```
 USAGE
-  $ mw app install wordpress -p <value> --host <value> --admin-user <value> --admin-email <value> --admin-pass <value>
-    --site-title <value> [--version <value>] [-w]
+  $ mw app install wordpress --version <value> --host <value> --admin-user <value> --admin-email <value> --admin-pass
+    <value> --site-title <value> [-p <value>] [-q] [-w]
 
 FLAGS
-  -p, --project-id=<value>  (required) ID of the Project, in which the App will be created.
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
   -w, --wait                Wait for the App to be ready.
   --admin-email=<value>     (required) First Admin Users E-Mail.
   --admin-pass=<value>      (required) First Admin Users Password.
   --admin-user=<value>      (required) First Admin User for the app.
   --host=<value>            (required) Host under which the App will be available (Needs to be created separately).
   --site-title=<value>      (required) Site Title of the created appInstallation.
-  --version=<value>         Version of the App to be created - Defaults to latest
+  --version=<value>         (required) [default: latest] Version of the App to be created - Defaults to latest
 
 DESCRIPTION
   Creates new WordPress Installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw app list`
 
-List projects
+List installed apps in a project.
 
 ```
 USAGE
-  $ mw app list -p <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw app list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -p, --project=<value>  (required) project to run the command for
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List projects
+  List installed apps in a project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw app uninstall INSTALLATION-ID`
+
+Uninstall an app
+
+```
+USAGE
+  $ mw app uninstall INSTALLATION-ID
+
+ARGUMENTS
+  INSTALLATION-ID  ID of the app installation to delete
+
+DESCRIPTION
+  Uninstall an app
 ```
 
 ## `mw app versions [APP]`
@@ -355,14 +395,14 @@ Get an Article.
 
 ```
 USAGE
-  $ mw article get ARTICLEID [--output json|yaml |  | ]
+  $ mw article get ARTICLEID [-o json|yaml |  | ]
 
 ARGUMENTS
   ARTICLEID  undefined
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get an Article.
@@ -392,18 +432,58 @@ DESCRIPTION
   List Articles.
 ```
 
+## `mw context get`
+
+Print an overview of currently set context parameters
+
+```
+USAGE
+  $ mw context get -o txt|json
+
+FLAGS
+  -o, --output=<option>  (required) [default: txt] The output format to use; use 'txt' for a human readable text
+                         representation, and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+
+DESCRIPTION
+  Print an overview of currently set context parameters
+
+  The context allows you to persistently set values for common parameters, like --project-id or --server-id, so you
+  don't have to specify them on every command.
+```
+
+## `mw context set`
+
+Set context values for the current project, org or server
+
+```
+USAGE
+  $ mw context set [--project-id <value>] [--server-id <value>] [--org-id <value>]
+
+FLAGS
+  --org-id=<value>      ID or short ID of an organization
+  --project-id=<value>  ID or short ID of a project
+  --server-id=<value>   ID or short ID of a server
+
+DESCRIPTION
+  Set context values for the current project, org or server
+
+  The context allows you to persistently set values for common parameters, like --project-id or --server-id, so you
+  don't have to specify them on every command.
+```
+
 ## `mw contract getBaseItemOfContract`
 
 Return the BaseItem of the Contract with the given ID.
 
 ```
 USAGE
-  $ mw contract getBaseItemOfContract --contract-id <value> [--output json|yaml |  | ]
+  $ mw contract getBaseItemOfContract --contract-id <value> [-o json|yaml |  | ]
 
 FLAGS
-  --contract-id=<value>  (required) The uuid of the Contract from which the BaseItem is to be issued.
-  --output=<option>      output in a more machine friendly format
+  -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
+  --contract-id=<value>  (required) The uuid of the Contract from which the BaseItem is to be issued.
 
 DESCRIPTION
   Return the BaseItem of the Contract with the given ID.
@@ -415,14 +495,14 @@ Returns the Contract with the given ID.
 
 ```
 USAGE
-  $ mw contract getDetailOfContract CONTRACTID [--output json|yaml |  | ]
+  $ mw contract getDetailOfContract CONTRACTID [-o json|yaml |  | ]
 
 ARGUMENTS
   CONTRACTID  The uuid of the Contract to be returned.
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Returns the Contract with the given ID.
@@ -434,12 +514,12 @@ Return the Contract for the given Domain.
 
 ```
 USAGE
-  $ mw contract getDetailOfContractByDomain --domain-id <value> [--output json|yaml |  | ]
+  $ mw contract getDetailOfContractByDomain --domain-id <value> [-o json|yaml |  | ]
 
 FLAGS
-  --domain-id=<value>  (required) undefined
-  --output=<option>    output in a more machine friendly format
-                       <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+  --domain-id=<value>    (required) undefined
 
 DESCRIPTION
   Return the Contract for the given Domain.
@@ -451,12 +531,12 @@ Return the Contract for the given Project.
 
 ```
 USAGE
-  $ mw contract getDetailOfContractByProject --project-id <value> [--output json|yaml |  | ]
+  $ mw contract getDetailOfContractByProject --project-id <value> [-o json|yaml |  | ]
 
 FLAGS
-  --output=<option>     output in a more machine friendly format
-                        <options: json|yaml>
-  --project-id=<value>  (required) undefined
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+  --project-id=<value>   (required) undefined
 
 DESCRIPTION
   Return the Contract for the given Project.
@@ -468,12 +548,12 @@ Return the Contract for the given Server.
 
 ```
 USAGE
-  $ mw contract getDetailOfContractByServer --server-id <value> [--output json|yaml |  | ]
+  $ mw contract getDetailOfContractByServer --server-id <value> [-o json|yaml |  | ]
 
 FLAGS
-  --output=<option>    output in a more machine friendly format
-                       <options: json|yaml>
-  --server-id=<value>  (required) undefined
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+  --server-id=<value>    (required) undefined
 
 DESCRIPTION
   Return the Contract for the given Server.
@@ -485,15 +565,15 @@ Get the ContractItem with the given ID.
 
 ```
 USAGE
-  $ mw contract getDetailOfContractItem CONTRACTITEMID --contract-id <value> [--output json|yaml |  | ]
+  $ mw contract getDetailOfContractItem CONTRACTITEMID --contract-id <value> [-o json|yaml |  | ]
 
 ARGUMENTS
   CONTRACTITEMID  The uuid of the ContractItem to be returned.
 
 FLAGS
-  --contract-id=<value>  (required) The uuid of the Contract where the desired ContractItem belongs to.
-  --output=<option>      output in a more machine friendly format
+  -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
+  --contract-id=<value>  (required) The uuid of the Contract where the desired ContractItem belongs to.
 
 DESCRIPTION
   Get the ContractItem with the given ID.
@@ -505,14 +585,13 @@ Return the next TerminationDate for the ContractItem with the given ID.
 
 ```
 USAGE
-  $ mw contract getNextTerminationDateForItem --contract-id <value> --contract-item-id <value> [--output json|yaml |  |
-  ]
+  $ mw contract getNextTerminationDateForItem --contract-id <value> --contract-item-id <value> [-o json|yaml |  | ]
 
 FLAGS
+  -o, --output=<option>       output in a more machine friendly format
+                              <options: json|yaml>
   --contract-id=<value>       (required) The uuid of the Contract where the desired ContractItem belongs to.
   --contract-item-id=<value>  (required) The uuid of the ContractItem whose next TerminationDate is to be displayed.
-  --output=<option>           output in a more machine friendly format
-                              <options: json|yaml>
 
 DESCRIPTION
   Return the next TerminationDate for the ContractItem with the given ID.
@@ -524,15 +603,15 @@ Get details of an Invoice.
 
 ```
 USAGE
-  $ mw contract invoiceDetailOfInvoice INVOICEID --customer-id <value> [--output json|yaml |  | ]
+  $ mw contract invoiceDetailOfInvoice INVOICEID --customer-id <value> [-o json|yaml |  | ]
 
 ARGUMENTS
   INVOICEID  undefined
 
 FLAGS
-  --customer-id=<value>  (required) undefined
-  --output=<option>      output in a more machine friendly format
+  -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
+  --customer-id=<value>  (required) undefined
 
 DESCRIPTION
   Get details of an Invoice.
@@ -544,12 +623,12 @@ Get InvoiceSettings of a Customer.
 
 ```
 USAGE
-  $ mw contract invoiceGetDetailOfInvoiceSettings --customer-id <value> [--output json|yaml |  | ]
+  $ mw contract invoiceGetDetailOfInvoiceSettings --customer-id <value> [-o json|yaml |  | ]
 
 FLAGS
-  --customer-id=<value>  (required) undefined
-  --output=<option>      output in a more machine friendly format
+  -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
+  --customer-id=<value>  (required) undefined
 
 DESCRIPTION
   Get InvoiceSettings of a Customer.
@@ -611,14 +690,14 @@ Get Order for Customer.
 
 ```
 USAGE
-  $ mw contract orderGetOrder ORDERID [--output json|yaml |  | ]
+  $ mw contract orderGetOrder ORDERID [-o json|yaml |  | ]
 
 ARGUMENTS
   ORDERID  undefined
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get Order for Customer.
@@ -803,16 +882,18 @@ DESCRIPTION
 
 ```
 USAGE
-  $ mw conversation show2 CONVERSATIONID [--wait]
+  $ mw conversation show2 CONVERSATIONID -o txt|json [--wait]
 
 FLAGS
+  -o, --output=<option>  (required) [default: txt] The output format to use; use 'txt' for a human readable text
+                         representation, and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
   --wait
 ```
 
 ## `mw database mysql charsets`
 
-List available MySQL character sets and collations, optionally filtered by a
-MySQLVersion.
+List available MySQL character sets and collations, optionally filtered by a MySQLVersion.
 
 ```
 USAGE
@@ -834,20 +915,120 @@ DESCRIPTION
   List available MySQL character sets and collations, optionally filtered by a MySQLVersion.
 ```
 
-## `mw database mysql get ID`
+## `mw database mysql create`
+
+Create a new MySQL database
+
+```
+USAGE
+  $ mw database mysql create -d <value> --version <value> [-p <value>] [-q] [--collation <value>] [--character-set <value>]
+    [--user-password <value>] [--user-external] [--user-access-level full|readonly]
+
+FLAGS
+  -d, --description=<value>     (required) a description for the database
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  --character-set=<value>       [default: utf8mb4] the character set to use
+  --collation=<value>           [default: utf8mb4_unicode_ci] the collation to use
+  --user-access-level=<option>  [default: full] the access level preset for the default user
+                                <options: full|readonly>
+  --user-external               enable external access for default user
+  --user-password=<value>       the password to use for the default user (env: MYSQL_PWD)
+  --version=<value>             (required) the MySQL version to use
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --version=<value>  the MySQL version to use
+
+    Use the "database mysql versions" command to list available versions
+```
+
+## `mw database mysql delete DATABASE-ID`
+
+Delete a MySQL database
+
+```
+USAGE
+  $ mw database mysql delete DATABASE-ID [-q] [-f]
+
+ARGUMENTS
+  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a MySQL database
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw database mysql dump DATABASE-ID`
+
+Create a dump of a MySQL database
+
+```
+USAGE
+  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>]
+
+ARGUMENTS
+  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+
+FLAGS
+  -o, --output=<value>          (required) the output file to write the dump to ("-" for stdout)
+  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+
+FLAG DESCRIPTIONS
+  -o, --output=<value>  the output file to write the dump to ("-" for stdout)
+
+    The output file to write the dump to. You can specify "-" or "/dev/stdout" to write the dump directly to STDOUT; in
+    this case, you might want to use the --quiet/-q flag to supress all other output, so that you can pipe the mysqldump
+    for further processing.
+
+  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+
+    The password to use for the MySQL user. If not provided, the environment variable MYSQL_PWD will be used. If that is
+    not set either, the command will interactively ask for the password.
+
+    NOTE: This is a security risk, as the password will be visible in the process list of your system, and will be
+    visible in your Shell history. It is recommended to use the environment variable instead.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw database mysql get DATABASE-ID`
 
 Get a MySQLDatabase.
 
 ```
 USAGE
-  $ mw database mysql get ID [--output json|yaml |  | ]
+  $ mw database mysql get DATABASE-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  ID  ID of the MySQLDatabase to be retrieved.
+  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a MySQLDatabase.
@@ -859,64 +1040,118 @@ List MySQLDatabases belonging to a Project.
 
 ```
 USAGE
-  $ mw database mysql list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw database mysql list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project to list MySQLDatabases for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List MySQLDatabases belonging to a Project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw database mysql phpmyadmin DATABASE-ID`
+
+Open phpMyAdmin for a MySQL database.
+
+```
+USAGE
+  $ mw database mysql phpmyadmin DATABASE-ID
+
+ARGUMENTS
+  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+```
+
+## `mw database mysql port-forward DATABASE-ID`
+
+Forward the TCP port of a MySQL database to a local port
+
+```
+USAGE
+  $ mw database mysql port-forward DATABASE-ID [-q] [--port <value>]
+
+ARGUMENTS
+  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+
+FLAGS
+  -q, --quiet     suppress process output and only display a machine-readable summary.
+  --port=<value>  [default: 3306] The local TCP port to forward to
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw database mysql shell DATABASE-ID`
+
+Connect to a MySQL database via the MySQL shell
+
+```
+USAGE
+  $ mw database mysql shell DATABASE-ID [-q] [-p <value>]
+
+ARGUMENTS
+  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+
+FLAGS
+  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+
+FLAG DESCRIPTIONS
+  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+
+    The password to use for the MySQL user. If not provided, the environment variable MYSQL_PWD will be used. If that is
+    not set either, the command will interactively ask for the password.
+
+    NOTE: This is a security risk, as the password will be visible in the process list of your system, and will be
+    visible in your Shell history. It is recommended to use the environment variable instead.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw database mysql user get ID`
 
-Get a MySQLUser.
+Get a MySQL user.
 
 ```
 USAGE
-  $ mw database mysql user get ID [--output json|yaml |  | ]
+  $ mw database mysql user get ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  ID  ID of the MySQLUser to be retrieved.
+  ID  ID of the MySQL user to be retrieved.
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
-  Get a MySQLUser.
-```
-
-## `mw database mysql user getMysqlUserPhpMyAdminUrl`
-
-Get a MySQLUser's PhpMyAdmin-URL.
-
-```
-USAGE
-  $ mw database mysql user getMysqlUserPhpMyAdminUrl --id <value> [--output json|yaml |  | ]
-
-FLAGS
-  --id=<value>       (required) ID of the MySQLUser for which to get the URL for.
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a MySQLUser's PhpMyAdmin-URL.
+  Get a MySQL user.
 ```
 
 ## `mw database mysql user list`
 
-List MySQLUsers belonging to a database.
+List MySQL users belonging to a database.
 
 ```
 USAGE
@@ -927,7 +1162,7 @@ FLAGS
   -x, --extended         show extra columns
   --columns=<value>      only show provided columns (comma-separated)
   --csv                  output is csv format [alias: --output=csv]
-  --database-id=<value>  (required) ID of the MySQLDatabase to list Users for.
+  --database-id=<value>  (required) ID of the MySQL database to list users for.
   --filter=<value>       filter property by partial string matching, ex: name=foo
   --no-header            hide table header from output
   --no-truncate          do not truncate output to fit screen
@@ -936,12 +1171,12 @@ FLAGS
   --sort=<value>         property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List MySQLUsers belonging to a database.
+  List MySQL users belonging to a database.
 ```
 
 ## `mw database mysql versions`
 
-List available MySQLVersions.
+List available MySQL versions.
 
 ```
 USAGE
@@ -960,51 +1195,79 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List available MySQLVersions.
+  List available MySQL versions.
 ```
 
 ## `mw database redis get ID`
 
-Get a RedisDatabase.
+Get a Redis database.
 
 ```
 USAGE
-  $ mw database redis get ID [--output json|yaml |  | ]
+  $ mw database redis get ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  ID  ID of the RedisDatabase to retrieve.
+  ID  ID of the Redis database to retrieve.
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
-  Get a RedisDatabase.
+  Get a Redis database.
 ```
 
 ## `mw database redis list`
 
-List RedisDatabases belonging to a project.
+List Redis databases belonging to a project.
 
 ```
 USAGE
-  $ mw database redis list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw database redis list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project to list RedisDatabases for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List RedisDatabases belonging to a project.
+  List Redis databases belonging to a project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw database redis shell DATABASE-ID`
+
+Connect to a Redis database via the redis-cli
+
+```
+USAGE
+  $ mw database redis shell DATABASE-ID [-q]
+
+ARGUMENTS
+  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw database redis versions`
@@ -1037,14 +1300,14 @@ gets a specific zone
 
 ```
 USAGE
-  $ mw domain dnszone get ZONEID [--output json|yaml |  | ]
+  $ mw domain dnszone get ZONEID [-o json|yaml |  | ]
 
 ARGUMENTS
   ZONEID  id of the zone you want to get
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   gets a specific zone
@@ -1056,12 +1319,12 @@ gets all dns zones by project id
 
 ```
 USAGE
-  $ mw domain dnszone list --project-id <value> [--output json|yaml |  | ]
+  $ mw domain dnszone list --project-id <value> [-o json|yaml |  | ]
 
 FLAGS
-  --output=<option>     output in a more machine friendly format
-                        <options: json|yaml>
-  --project-id=<value>  (required) project you want to get the zones for
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+  --project-id=<value>   (required) project you want to get the zones for
 
 DESCRIPTION
   gets all dns zones by project id
@@ -1073,14 +1336,14 @@ Get a Domain.
 
 ```
 USAGE
-  $ mw domain get DOMAINID [--output json|yaml |  | ]
+  $ mw domain get DOMAINID [-o json|yaml |  | ]
 
 ARGUMENTS
   DOMAINID  undefined
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a Domain.
@@ -1092,14 +1355,14 @@ Get a HandleSchema.
 
 ```
 USAGE
-  $ mw domain get-handle DOMAINNAME [--output json|yaml |  | ]
+  $ mw domain get-handle DOMAINNAME [-o json|yaml |  | ]
 
 ARGUMENTS
   DOMAINNAME  The whole domain name
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a HandleSchema.
@@ -1111,23 +1374,30 @@ List Domains belonging to a Project.
 
 ```
 USAGE
-  $ mw domain list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw domain list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) undefined
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Domains belonging to a Project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw domain ownership get DOMAINOWNERSHIPID`
@@ -1136,14 +1406,14 @@ Get a domain ownership.
 
 ```
 USAGE
-  $ mw domain ownership get DOMAINOWNERSHIPID [--output json|yaml |  | ]
+  $ mw domain ownership get DOMAINOWNERSHIPID [-o json|yaml |  | ]
 
 ARGUMENTS
   DOMAINOWNERSHIPID  undefined
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a domain ownership.
@@ -1155,23 +1425,30 @@ List all domain ownerships of a project.
 
 ```
 USAGE
-  $ mw domain ownership list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw domain ownership list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) undefined
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all domain ownerships of a project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw domain tld get TLD`
@@ -1180,14 +1457,14 @@ Get a toplevel domain.
 
 ```
 USAGE
-  $ mw domain tld get TLD [--output json|yaml |  | ]
+  $ mw domain tld get TLD [-o json|yaml |  | ]
 
 ARGUMENTS
   TLD  undefined
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a toplevel domain.
@@ -1217,49 +1494,143 @@ DESCRIPTION
   List all supported toplevel domains.
 ```
 
-## `mw domain virtualhost get INGRESSID`
+## `mw domain virtualhost create`
 
-Get an Ingress.
+Create a new ingress
 
 ```
 USAGE
-  $ mw domain virtualhost get INGRESSID [--output json|yaml |  | ]
-
-ARGUMENTS
-  INGRESSID  ID of the Ingress to be retrieved.
+  $ mw domain virtualhost create --hostname <value> [-q] [-p <value>] [--path-to-dir <value>] [--path-to-app <value>]
+    [--path-to-url <value>]
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  --hostname=<value>        (required) the hostname of the ingress
+  --path-to-app=<value>...  add a path mapping to an app
+  --path-to-dir=<value>...  add a path mapping to a directory
+  --path-to-url=<value>...  add a path mapping to an external url
 
 DESCRIPTION
-  Get an Ingress.
+  Create a new ingress
+
+EXAMPLES
+  Create a new ingress, with the root path mapping to your project's root directory
+
+    $ mw domain virtualhost create --hostname mw.example --path-to-dir /:/
+
+  Create a new ingress, with the root path mapping to an app
+
+    $ mw domain virtualhost create --hostname mw.example --path-to-app /:3ecaf1a9-6eb4-4869-b811-8a13c3a2e745
+
+  Create a new ingress, with the root path mapping to a URL
+
+    $ mw domain virtualhost create --hostname mw.example --path-to-url /:https://redirect.example
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --path-to-app=<value>...  add a path mapping to an app
+
+    This flag can be used to map a specific URL path to an app; the value for this flag should be the URL path and the
+    app ID, separated by a colon, e.g. /:3ecaf1a9-6eb4-4869-b811-8a13c3a2e745. You can specify this flag multiple times
+    to map multiple paths to different apps, and also combine it with the other --path-to-* flags.
+
+  --path-to-dir=<value>...  add a path mapping to a directory
+
+    This flag can be used to map a specific URL path to a directory in your project's file system; the value for this
+    flag should be the URL path and the filesystem path, separated by a colon, e.g. /:/ or /:/some/sub/path. You can
+    specify this flag multiple times to map multiple paths to different directories, and also combine it with the other
+    --path-to-* flags.
+
+  --path-to-url=<value>...  add a path mapping to an external url
+
+    This flag can be used to map a specific URL path to an external URL; the value for this flag should be the URL path
+    and the external URL, separated by a colon, e.g. /:https://redirect.example. You can specify this flag multiple
+    times to map multiple paths to different external URLs, and also combine it with the other --path-to-* flags.
+```
+
+## `mw domain virtualhost delete VIRTUAL-HOST-ID`
+
+Delete a virtual host
+
+```
+USAGE
+  $ mw domain virtualhost delete VIRTUAL-HOST-ID [-q] [-f]
+
+ARGUMENTS
+  VIRTUAL-HOST-ID  ID of the virtual host to delete
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a virtual host
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw domain virtualhost get INGRESS-ID`
+
+Get a virtual host.
+
+```
+USAGE
+  $ mw domain virtualhost get INGRESS-ID [-o json|yaml |  | ]
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+
+DESCRIPTION
+  Get a virtual host.
 ```
 
 ## `mw domain virtualhost list`
 
-List Ingresses the user has access to.
+List virtualhosts for a project.
 
 ```
 USAGE
   $ mw domain virtualhost list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [--project-id <value>]
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>] [-a]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  Project ID to filter by; if omitted this will list virtual hosts in all projects you have access
-                        to.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -a, --all                 List all virtual hosts that you have access to, regardless of project
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List Ingresses the user has access to.
+  List virtualhosts for a project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw help [COMMANDS]`
@@ -1280,8 +1651,19 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code:
-[@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.11/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.11/src/commands/help.ts)_
+
+## `mw login reset`
+
+Reset your local authentication state
+
+```
+USAGE
+  $ mw login reset
+
+DESCRIPTION
+  Reset your local authentication state
+```
 
 ## `mw login status`
 
@@ -1316,17 +1698,59 @@ Create a new mail address
 
 ```
 USAGE
-  $ mw mail address create -p <value> -a <value> [--catch-all] [--enable-spam-protection] [--quota <value>]
+  $ mw mail address create -a <value> [-p <value>] [-q] [--catch-all] [--enable-spam-protection] [--quota <value>]
+    [--password <value>] [--random-password]
 
 FLAGS
-  -a, --address=<value>          (required) Mail address
-  -p, --projectId=<value>        (required) Project ID or short ID
-  --catch-all                    Make this a catch-all mail address
-  --[no-]enable-spam-protection  Enable spam protection for this mailbox
-  --quota=<value>                [default: 1024] Mailbox quota in mebibytes
+  -a, --address=<value>          (required) mail address
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  --catch-all                    make this a catch-all mail address
+  --[no-]enable-spam-protection  enable spam protection for this mailbox
+  --password=<value>             mailbox password
+  --quota=<value>                [default: 1024] mailbox quota in mebibytes
+  --random-password              generate a random password
 
 DESCRIPTION
   Create a new mail address
+
+  When running this command with the --quiet flag, the output will contain the ID of the newly created address.
+  In addition, when run with --generated-password the output will be the ID of the newly created address, followed by a
+  tab character and the generated password.
+
+EXAMPLES
+  Create non-interactively with password
+
+    $ read -s PASSWORD && \
+      mw mail address create --password $PASSWORD --address foo@bar.example
+
+  Create non-interactively with random password
+
+    $ mw mail address create --random-password --address foo@bar.example
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --password=<value>  mailbox password
+
+    This is the password that should be used for the mailbox; if omitted, the command will prompt interactively for a
+    password.
+
+    CAUTION: providing this flag may log your password in your shell history!
+
+  --random-password  generate a random password
+
+    This flag will cause the command to generate a random 32-character password for the mailbox; when running with
+    --quiet, the address ID and the password will be printed to stdout, separated by a tab character.
 ```
 
 ## `mw mail address delete ID`
@@ -1335,16 +1759,23 @@ Delete a mail address
 
 ```
 USAGE
-  $ mw mail address delete ID [--force]
+  $ mw mail address delete ID [-q] [-f]
 
 ARGUMENTS
   ID  Mail address ID
 
 FLAGS
-  --force  Do not ask for confirmation
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
 
 DESCRIPTION
   Delete a mail address
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw mail address get ID`
@@ -1353,14 +1784,14 @@ Get a specific mail address
 
 ```
 USAGE
-  $ mw mail address get ID [--output json|yaml |  | ]
+  $ mw mail address get ID [-o json|yaml |  | ]
 
 ARGUMENTS
   ID  id of the address you want to get
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a specific mail address
@@ -1372,23 +1803,30 @@ Get all mail addresses for a project ID
 
 ```
 USAGE
-  $ mw mail address list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw mail address list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) Project ID the mailAddresses are related to
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all mail addresses for a project ID
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw mail deliverybox get ID`
@@ -1397,14 +1835,14 @@ Get a specific deliverybox
 
 ```
 USAGE
-  $ mw mail deliverybox get ID [--output json|yaml |  | ]
+  $ mw mail deliverybox get ID [-o json|yaml |  | ]
 
 ARGUMENTS
   ID  ID of the deliverybox you want to retrieve
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a specific deliverybox
@@ -1435,89 +1873,117 @@ DESCRIPTION
   Get all deliveryboxes by project ID
 ```
 
-## `mw org can-order`
+## `mw org delete [ORG-ID]`
 
-Check if the customer profile has a valid contract partner configured.
+Delete an organization
 
 ```
 USAGE
-  $ mw org can-order --customer-id <value> [--output json|yaml |  | ]
+  $ mw org delete [ORG-ID] [-q] [-f]
+
+ARGUMENTS
+  ORG-ID  ID or short ID of a org; this argument is optional if a default org is set in the context
 
 FLAGS
-  --customer-id=<value>  (required) undefined
-  --output=<option>      output in a more machine friendly format
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete an organization
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw org get [ORG-ID]`
+
+Get an organization profile.
+
+```
+USAGE
+  $ mw org get [ORG-ID] [-o json|yaml |  | ]
+
+ARGUMENTS
+  ORG-ID  ID or short ID of a org; this argument is optional if a default org is set in the context
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Check if the customer profile has a valid contract partner configured.
+  Get an organization profile.
 ```
 
-## `mw org get CUSTOMERID`
+## `mw org invite`
 
-Get a customer profile.
-
-```
-USAGE
-  $ mw org get CUSTOMERID [--output json|yaml |  | ]
-
-ARGUMENTS
-  CUSTOMERID  undefined
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a customer profile.
-```
-
-## `mw org invite get INVITEID`
-
-Get a CustomerInvite.
+Invite a user to an organization.
 
 ```
 USAGE
-  $ mw org invite get INVITEID [--output json|yaml |  | ]
-
-ARGUMENTS
-  INVITEID  ID of the CustomerInvite to be retrieved.
+  $ mw org invite --email <value> [-o <value>] [-q] [--role owner|member|accountant] [--message <value>]
+    [--expires <value>]
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+  -q, --quiet           suppress process output and only display a machine-readable summary.
+  --email=<value>       (required) The email address of the user to invite.
+  --expires=<value>     An interval after which the invitation expires (examples: 30m, 30d, 1y).
+  --message=<value>     A message to include in the invitation email.
+  --role=<option>       [default: member] The role of the user to invite.
+                        <options: owner|member|accountant>
 
 DESCRIPTION
-  Get a CustomerInvite.
+  Invite a user to an organization.
+
+FLAG DESCRIPTIONS
+  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+
+    May contain a short ID or a full ID of a org; you can also use the "mw context set --org-id=<VALUE>" command to
+    persistently set a default org for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw org invite list`
 
-List all invites for a Customer.
+List all invites for an organization.
 
 ```
 USAGE
-  $ mw org invite list --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw org invite list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-o <value>]
 
 FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) ID of the Customer to list invites for.
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
+  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+  -x, --extended        show extra columns
+  --columns=<value>     only show provided columns (comma-separated)
+  --csv                 output is csv format [alias: --output=csv]
+  --filter=<value>      filter property by partial string matching, ex: name=foo
+  --no-header           hide table header from output
+  --no-truncate         do not truncate output to fit screen
+  --output=<option>     output in a more machine friendly format
+                        <options: csv|json|yaml>
+  --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all invites for a Customer.
+  List all invites for an organization.
+
+FLAG DESCRIPTIONS
+  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+
+    May contain a short ID or a full ID of a org; you can also use the "mw context set --org-id=<VALUE>" command to
+    persistently set a default org for all commands that accept this flag.
 ```
 
 ## `mw org invite list-own`
 
-List all CustomerInvites for the executing user.
+List all organization invites for the executing user.
 
 ```
 USAGE
@@ -1536,12 +2002,36 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all CustomerInvites for the executing user.
+  List all organization invites for the executing user.
+```
+
+## `mw org invite revoke INVITE-ID`
+
+Revoke an invite to an organization
+
+```
+USAGE
+  $ mw org invite revoke INVITE-ID [-q]
+
+ARGUMENTS
+  INVITE-ID  The ID of the invite to revoke
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Revoke an invite to an organization
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw org list`
 
-Get all customer profiles the authenticated user has access to.
+Get all organizations the authenticated user has access to.
 
 ```
 USAGE
@@ -1560,56 +2050,43 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  Get all customer profiles the authenticated user has access to.
-```
-
-## `mw org membership get MEMBERSHIPID`
-
-Get a CustomerMembership.
-
-```
-USAGE
-  $ mw org membership get MEMBERSHIPID [--output json|yaml |  | ]
-
-ARGUMENTS
-  MEMBERSHIPID  ID of the CustomerMembership to retrieve.
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a CustomerMembership.
+  Get all organizations the authenticated user has access to.
 ```
 
 ## `mw org membership list`
 
-List all memberships belonging to a Customer.
+List all memberships belonging to an organization.
 
 ```
 USAGE
-  $ mw org membership list --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw org membership list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-o <value>]
 
 FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) Customer to list memberships for.
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
+  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+  -x, --extended        show extra columns
+  --columns=<value>     only show provided columns (comma-separated)
+  --csv                 output is csv format [alias: --output=csv]
+  --filter=<value>      filter property by partial string matching, ex: name=foo
+  --no-header           hide table header from output
+  --no-truncate         do not truncate output to fit screen
+  --output=<option>     output in a more machine friendly format
+                        <options: csv|json|yaml>
+  --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all memberships belonging to a Customer.
+  List all memberships belonging to an organization.
+
+FLAG DESCRIPTIONS
+  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+
+    May contain a short ID or a full ID of a org; you can also use the "mw context set --org-id=<VALUE>" command to
+    persistently set a default org for all commands that accept this flag.
 ```
 
 ## `mw org membership list-own`
 
-List all CustomerMemberships for the executing user.
+List all organization memberships for the executing user.
 
 ```
 USAGE
@@ -1628,7 +2105,31 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all CustomerMemberships for the executing user.
+  List all organization memberships for the executing user.
+```
+
+## `mw org membership revoke MEMBERSHIP-ID`
+
+Revoke a user's membership to an organization
+
+```
+USAGE
+  $ mw org membership revoke MEMBERSHIP-ID [-q]
+
+ARGUMENTS
+  MEMBERSHIP-ID  The ID of the membership to revoke
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Revoke a user's membership to an organization
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw project backup get PROJECTBACKUPID`
@@ -1637,14 +2138,14 @@ Get a ProjectBackup.
 
 ```
 USAGE
-  $ mw project backup get PROJECTBACKUPID [--output json|yaml |  | ]
+  $ mw project backup get PROJECTBACKUPID [-o json|yaml |  | ]
 
 ARGUMENTS
   PROJECTBACKUPID  ID of the ProjectBackup to retrieve.
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a ProjectBackup.
@@ -1656,23 +2157,30 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw project backup list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw project backup list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project to get Backups for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Backups for a given Project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw project backupschedule get PROJECTBACKUPSCHEDULEID`
@@ -1681,14 +2189,14 @@ Get a ProjectBackupSchedule.
 
 ```
 USAGE
-  $ mw project backupschedule get PROJECTBACKUPSCHEDULEID [--output json|yaml |  | ]
+  $ mw project backupschedule get PROJECTBACKUPSCHEDULEID [-o json|yaml |  | ]
 
 ARGUMENTS
   PROJECTBACKUPSCHEDULEID  ID of the ProjectBackupSchedule to retrieve.
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a ProjectBackupSchedule.
@@ -1725,32 +2233,45 @@ Get the details of a project
 
 ```
 USAGE
-  $ mw project create -s <value> -d <value> [-w]
+  $ mw project create -d <value> [-s <value>] [-q] [-w] [--update-context]
 
 FLAGS
   -d, --description=<value>  (required) A description for the project.
-  -s, --server-id=<value>    (required) ID of the Server, in which the project is to be created.
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -s, --server-id=<value>    ID or short ID of a server; this flag is optional if a default server is set in the context
   -w, --wait                 Wait for the project to be ready.
+  --update-context           Update the CLI context to use the newly created project
 
 DESCRIPTION
   Get the details of a project
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  -s, --server-id=<value>  ID or short ID of a server; this flag is optional if a default server is set in the context
+
+    May contain a short ID or a full ID of a server; you can also use the "mw context set --server-id=<VALUE>" command
+    to persistently set a default server for all commands that accept this flag.
 ```
 
-## `mw project cronjob execution get EXECUTIONID`
+## `mw project cronjob execution get CRONJOB-ID EXECUTION-ID`
 
 Get a CronjobExecution.
 
 ```
 USAGE
-  $ mw project cronjob execution get EXECUTIONID --cronjob-id <value> [--output json|yaml |  | ]
+  $ mw project cronjob execution get CRONJOB-ID EXECUTION-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  EXECUTIONID  ID of the CronjobExecution to be retrieved.
+  CRONJOB-ID    ID of the cronjob the execution belongs to
+  EXECUTION-ID  ID of the cronjob execution to be retrieved.
 
 FLAGS
-  --cronjob-id=<value>  (required) undefined
-  --output=<option>     output in a more machine friendly format
-                        <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a CronjobExecution.
@@ -1781,20 +2302,45 @@ DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
 ```
 
+## `mw project cronjob execution logs CRONJOB-ID EXECUTION-ID`
+
+Get the log output of a cronjob execution.
+
+```
+USAGE
+  $ mw project cronjob execution logs CRONJOB-ID EXECUTION-ID [-o json|yaml |  | ] [--no-pager]
+
+ARGUMENTS
+  CRONJOB-ID    ID of the cronjob the execution belongs to
+  EXECUTION-ID  ID of the cronjob execution to be retrieved.
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+  --no-pager             Disable pager for output.
+
+DESCRIPTION
+  Get the log output of a cronjob execution.
+
+  This command prints the log output of a cronjob execution. When this command is run in a terminal, the output is piped
+  through a pager. The pager is determined by your PAGER environment variable, with defaulting to "less". You can
+  disable this behavior with the --no-pager flag.
+```
+
 ## `mw project cronjob get CRONJOBID`
 
 Get a Cronjob.
 
 ```
 USAGE
-  $ mw project cronjob get CRONJOBID [--output json|yaml |  | ]
+  $ mw project cronjob get CRONJOBID [-o json|yaml |  | ]
 
 ARGUMENTS
   CRONJOBID  ID of the Cronjob to be retrieved.
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a Cronjob.
@@ -1806,127 +2352,91 @@ List Cronjobs belonging to a Project.
 
 ```
 USAGE
-  $ mw project cronjob list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw project cronjob list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project for which to list Cronjobs for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Cronjobs belonging to a Project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
-## `mw project delete ID`
+## `mw project delete [PROJECT-ID]`
 
 Delete a project
 
 ```
 USAGE
-  $ mw project delete ID [--force]
+  $ mw project delete [PROJECT-ID] [-q] [-f]
 
 ARGUMENTS
-  ID  ID of the Project to be deleted.
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
 
 FLAGS
-  --force  Do not ask for confirmation
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
 
 DESCRIPTION
   Delete a project
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw project filesystem directories`
-
-List the directories of a Project.
-
-```
-USAGE
-  $ mw project filesystem directories --project-id <value> [--output json|yaml |  | ]
-
-FLAGS
-  --output=<option>     output in a more machine friendly format
-                        <options: json|yaml>
-  --project-id=<value>  (required) ID of the Project to list the directories for.
-
-DESCRIPTION
-  List the directories of a Project.
-```
-
-## `mw project filesystem file-content`
-
-Get a Project file's content.
-
-```
-USAGE
-  $ mw project filesystem file-content --project-id <value> [--output json|yaml |  | ]
-
-FLAGS
-  --output=<option>     output in a more machine friendly format
-                        <options: json|yaml>
-  --project-id=<value>  (required) ID of the Project.
-
-DESCRIPTION
-  Get a Project file's content.
-```
-
-## `mw project filesystem files PROJECTID`
-
-Get a foooooooo.
-
-```
-USAGE
-  $ mw project filesystem files PROJECTID [--output json|yaml |  | ]
-
-ARGUMENTS
-  PROJECTID  ID of the Project.
-
-FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
-
-DESCRIPTION
-  Get a foooooooo.
-```
-
-## `mw project filesystem usage`
+## `mw project filesystem usage [PROJECT-ID]`
 
 Get a Project directory filesystem usage.
 
 ```
 USAGE
-  $ mw project filesystem usage --project-id <value> [--output json|yaml |  | ]
+  $ mw project filesystem usage [PROJECT-ID] [-o json|yaml |  | ] [--human]
+
+ARGUMENTS
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
 
 FLAGS
-  --output=<option>     output in a more machine friendly format
-                        <options: json|yaml>
-  --project-id=<value>  (required) ID of the Project.
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+  --human                Display human readable sizes.
 
 DESCRIPTION
   Get a Project directory filesystem usage.
 ```
 
-## `mw project get ID`
+## `mw project get [PROJECT-ID]`
 
 Get a Project.
 
 ```
 USAGE
-  $ mw project get ID [--output json|yaml |  | ]
+  $ mw project get [PROJECT-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  ID  ID of the Project to be retrieved.
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a Project.
@@ -1938,14 +2448,14 @@ Get a ProjectInvite.
 
 ```
 USAGE
-  $ mw project invite get INVITEID [--output json|yaml |  | ]
+  $ mw project invite get INVITEID [-o json|yaml |  | ]
 
 ARGUMENTS
   INVITEID  ID of the ProjectInvite to be retrieved.
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a ProjectInvite.
@@ -2024,24 +2534,19 @@ DESCRIPTION
   List Project's for an Organization or Server.
 ```
 
-## `mw project list1`
+## `mw project list-react`
 
 ```
 USAGE
-  $ mw project list1 [--columns <value>]
+  $ mw project list-react -o txt|json [--wait] [--columns <value> | ] [--extended] [--noTruncate]
 
 FLAGS
-  --columns=<value>...
-```
-
-## `mw project list2`
-
-```
-USAGE
-  $ mw project list2 [--wait] [--columns <value>]
-
-FLAGS
-  --columns=<value>...
+  -o, --output=<option>  (required) [default: txt] The output format to use; use 'txt' for a human readable text
+                         representation, and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+  --columns=<value>      only show provided columns (comma-seperated)
+  --extended             show extra columns
+  --noTruncate           do not truncate output to fit screen
   --wait
 ```
 
@@ -2051,14 +2556,14 @@ Get a ProjectMembership
 
 ```
 USAGE
-  $ mw project membership get MEMBERSHIPID [--output json|yaml |  | ]
+  $ mw project membership get MEMBERSHIPID [-o json|yaml |  | ]
 
 ARGUMENTS
   MEMBERSHIPID  ID of the ProjectMembership to be retrieved.
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a ProjectMembership
@@ -2070,12 +2575,12 @@ Get the executing user's membership in a Project.
 
 ```
 USAGE
-  $ mw project membership get-own --project-id <value> [--output json|yaml |  | ]
+  $ mw project membership get-own --project-id <value> [-o json|yaml |  | ]
 
 FLAGS
-  --output=<option>     output in a more machine friendly format
-                        <options: json|yaml>
-  --project-id=<value>  (required) ID of the Project to get the membership for.
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+  --project-id=<value>   (required) ID of the Project to get the membership for.
 
 DESCRIPTION
   Get the executing user's membership in a Project.
@@ -2155,16 +2660,16 @@ DESCRIPTION
   Get all SFTPUsers for a Project.
 ```
 
-## `mw project ssh ID`
+## `mw project ssh [PROJECT-ID]`
 
 Connect to a project via SSH
 
 ```
 USAGE
-  $ mw project ssh ID
+  $ mw project ssh [PROJECT-ID]
 
 ARGUMENTS
-  ID  ID of the Project to be retrieved.
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
 
 DESCRIPTION
   Connect to a project via SSH
@@ -2195,16 +2700,16 @@ DESCRIPTION
   Get all SSHUsers for a Project.
 ```
 
-## `mw project update ID`
+## `mw project update [PROJECT-ID]`
 
 Updates a project
 
 ```
 USAGE
-  $ mw project update ID
+  $ mw project update [PROJECT-ID]
 
 ARGUMENTS
-  ID  ID of the Project to be retrieved.
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
 
 DESCRIPTION
   Updates a project
@@ -2216,14 +2721,14 @@ Get a Server.
 
 ```
 USAGE
-  $ mw server get SERVERID [--output json|yaml |  | ]
+  $ mw server get SERVERID [-o json|yaml |  | ]
 
 ARGUMENTS
   SERVERID  ID of the Server to be retrieved.
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a Server.
@@ -2253,15 +2758,53 @@ DESCRIPTION
   List Servers for an Organization or User.
 ```
 
+## `mw update [CHANNEL]`
+
+update the mw CLI
+
+```
+USAGE
+  $ mw update [CHANNEL] [-a] [-v <value> | -i] [--force]
+
+FLAGS
+  -a, --available        Install a specific version.
+  -i, --interactive      Interactively select version to install. This is ignored if a channel is provided.
+  -v, --version=<value>  Install a specific version.
+  --force                Force a re-download of the requested version.
+
+DESCRIPTION
+  update the mw CLI
+
+EXAMPLES
+  Update to the stable channel:
+
+    $ mw update stable
+
+  Update to a specific version:
+
+    $ mw update --version 1.0.0
+
+  Interactively select version:
+
+    $ mw update --interactive
+
+  See available versions:
+
+    $ mw update --available
+```
+
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.1.28/src/commands/update.ts)_
+
 ## `mw user api-token create`
 
 Create a new API token
 
 ```
 USAGE
-  $ mw user api-token create --description <value> --roles api_read|api_write [--expires-in <value>]
+  $ mw user api-token create --description <value> --roles api_read|api_write [-q] [--expires-in <value>]
 
 FLAGS
+  -q, --quiet            suppress process output and only display a machine-readable summary.
   --description=<value>  (required) Description of the API token
   --expires-in=<value>   Expiration interval of the API token (example: 30d)
   --roles=<option>...    (required) Roles of the API token
@@ -2269,6 +2812,12 @@ FLAGS
 
 DESCRIPTION
   Create a new API token
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw user api-token get APITOKENID`
@@ -2277,14 +2826,14 @@ Get a specific ApiToken
 
 ```
 USAGE
-  $ mw user api-token get APITOKENID [--output json|yaml |  | ]
+  $ mw user api-token get APITOKENID [-o json|yaml |  | ]
 
 ARGUMENTS
   APITOKENID  The uuid of an ApiToken
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a specific ApiToken
@@ -2320,13 +2869,23 @@ Revoke an API token
 
 ```
 USAGE
-  $ mw user api-token revoke ID
+  $ mw user api-token revoke ID [-q] [-f]
 
 ARGUMENTS
   ID  ID of the API token to revoke
 
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
 DESCRIPTION
   Revoke an API token
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw user get`
@@ -2335,11 +2894,11 @@ Get profile information for a user.
 
 ```
 USAGE
-  $ mw user get [--output json|yaml |  | ]
+  $ mw user get [-o json|yaml |  | ]
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get profile information for a user.
@@ -2351,14 +2910,14 @@ Get a specific Session
 
 ```
 USAGE
-  $ mw user session get TOKENID [--output json|yaml |  | ]
+  $ mw user session get TOKENID [-o json|yaml |  | ]
 
 ARGUMENTS
   TOKENID  tokenId to identify the concrete Session
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a specific Session
@@ -2394,15 +2953,23 @@ Create and import a new SSH key
 
 ```
 USAGE
-  $ mw user ssh-key create [--no-passphrase] [--comment <value>] [--expiresAt <value>]
+  $ mw user ssh-key create [-q] [--output <value>] [--no-passphrase] [--comment <value>] [--expiresAt <value>]
 
 FLAGS
+  -q, --quiet          suppress process output and only display a machine-readable summary.
   --comment=<value>    A comment for the SSH key.
   --expiresAt=<value>  Duration after which the SSH key should expire (example: '1y').
   --no-passphrase      Use this flag to not set a passphrase for the SSH key.
+  --output=<value>     [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
 
 DESCRIPTION
   Create and import a new SSH key
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw user ssh-key delete ID`
@@ -2411,16 +2978,23 @@ Delete an SSH key
 
 ```
 USAGE
-  $ mw user ssh-key delete ID [-f]
+  $ mw user ssh-key delete ID [-q] [-f]
 
 ARGUMENTS
   ID  ID of the SSH key to be deleted.
 
 FLAGS
-  -f, --force  delete without prompting for confirmation
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
 
 DESCRIPTION
   Delete an SSH key
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw user ssh-key get SSHKEYID`
@@ -2429,14 +3003,14 @@ Get a specific stored SshKey
 
 ```
 USAGE
-  $ mw user ssh-key get SSHKEYID [--output json|yaml |  | ]
+  $ mw user ssh-key get SSHKEYID [-o json|yaml |  | ]
 
 ARGUMENTS
   SSHKEYID  undefined
 
 FLAGS
-  --output=<option>  output in a more machine friendly format
-                     <options: json|yaml>
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
 
 DESCRIPTION
   Get a specific stored SshKey
@@ -2465,5 +3039,4 @@ FLAGS
 DESCRIPTION
   Get your stored ssh keys
 ```
-
 <!-- commandsstop -->

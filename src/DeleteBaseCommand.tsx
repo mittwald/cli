@@ -5,7 +5,7 @@ import {
   makeProcessRenderer,
   ProcessFlags,
   processFlags,
-} from "./rendering/react/process_flags.js";
+} from "./rendering/process/process_flags.js";
 import { Success } from "./rendering/react/components/Success.js";
 import { Text } from "ink";
 import React from "react";

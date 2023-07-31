@@ -8,7 +8,7 @@ import { waitUntilAppIsInstalled } from "../../../lib/app/wait.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { withProjectId } from "../../../lib/project/flags.js";
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
-import { makeProcessRenderer } from "../../../rendering/react/process_flags.js";
+import { makeProcessRenderer } from "../../../rendering/process/process_flags.js";
 import { Success } from "../../../rendering/react/components/Success.js";
 import React from "react";
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
@@ -19,7 +19,7 @@ export default class AppInstallation extends ExecRenderBaseCommand<
   typeof AppInstallation,
   { appInstallationId: string }
 > {
-  static appName = "PHP App";
+  static appName = "PHP Project";
   static appUuid = "34220303-cb87-4592-8a95-2eb20a97b2ac";
   static appSupportedFlags = ["site-title", "wait", "version"] as const;
 
@@ -38,8 +38,6 @@ export default class AppInstallation extends ExecRenderBaseCommand<
     const parsed = await this.parse(AppInstallation);
     const args = parsed.args;
     const flags: OutputFlags<typeof AppInstallation.flags> = parsed.flags;
-
-    flags.version = "1.0.0";
 
     const projectId = await withProjectId(
       this.apiClient,

@@ -8,7 +8,7 @@ import { waitUntilAppIsInstalled } from "../../../lib/app/wait.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { withProjectId } from "../../../lib/project/flags.js";
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
-import { makeProcessRenderer } from "../../../rendering/react/process_flags.js";
+import { makeProcessRenderer } from "../../../rendering/process/process_flags.js";
 import { Success } from "../../../rendering/react/components/Success.js";
 import React from "react";
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
