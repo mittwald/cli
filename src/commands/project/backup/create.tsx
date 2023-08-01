@@ -20,6 +20,7 @@ type CreateResult = {
 };
 
 export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
+  static summary = "Create a new backup of a project";
   static flags = {
     ...processFlags,
     ...projectFlags,
