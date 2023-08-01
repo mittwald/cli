@@ -6,21 +6,24 @@ import {
 } from "../../../lib/app/Installer.js";
 
 const installer = new AppInstaller(
-  "da3aa3ae-4b6b-4398-a4a8-ee8def827876",
-  "WordPress",
+  "4916ce3e-cba4-4d2e-9798-a8764aa14cf3",
+  "Contao",
   [
     "version",
     "host",
+    "admin-firstname",
     "admin-user",
     "admin-email",
     "admin-pass",
+    "admin-firstname",
+    "admin-lastname",
     "site-title",
     "wait",
   ] as const,
 );
 
-export default class InstallWordPress extends ExecRenderBaseCommand<
-  typeof InstallWordPress,
+export default class InstallContao extends ExecRenderBaseCommand<
+  typeof InstallContao,
   AppInstallationResult
 > {
   static description = installer.description;

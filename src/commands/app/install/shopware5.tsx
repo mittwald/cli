@@ -6,21 +6,26 @@ import {
 } from "../../../lib/app/Installer.js";
 
 const installer = new AppInstaller(
-  "da3aa3ae-4b6b-4398-a4a8-ee8def827876",
-  "WordPress",
+  "a23acf9c-9298-4082-9e7d-25356f9976dc",
+  "Shopware 5",
   [
     "version",
     "host",
     "admin-user",
     "admin-email",
     "admin-pass",
+    "admin-firstname",
+    "admin-lastname",
     "site-title",
+    "shop-email",
+    "shop-lang",
+    "shop-currency",
     "wait",
   ] as const,
 );
 
-export default class InstallWordPress extends ExecRenderBaseCommand<
-  typeof InstallWordPress,
+export default class InstallShopware5 extends ExecRenderBaseCommand<
+  typeof InstallShopware5,
   AppInstallationResult
 > {
   static description = installer.description;

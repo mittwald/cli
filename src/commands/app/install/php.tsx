@@ -6,21 +6,13 @@ import {
 } from "../../../lib/app/Installer.js";
 
 const installer = new AppInstaller(
-  "da3aa3ae-4b6b-4398-a4a8-ee8def827876",
-  "WordPress",
-  [
-    "version",
-    "host",
-    "admin-user",
-    "admin-email",
-    "admin-pass",
-    "site-title",
-    "wait",
-  ] as const,
+  "3e7f920b-a711-4d2f-9871-661e1b41a2f0",
+  "PHP Project",
+  ["version", "site-title", "wait"] as const,
 );
 
-export default class InstallWordPress extends ExecRenderBaseCommand<
-  typeof InstallWordPress,
+export default class InstallPhp extends ExecRenderBaseCommand<
+  typeof InstallPhp,
   AppInstallationResult
 > {
   static description = installer.description;

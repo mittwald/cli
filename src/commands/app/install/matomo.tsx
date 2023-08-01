@@ -6,8 +6,8 @@ import {
 } from "../../../lib/app/Installer.js";
 
 const installer = new AppInstaller(
-  "da3aa3ae-4b6b-4398-a4a8-ee8def827876",
-  "WordPress",
+  "91fa05e7-34f7-42e8-a8d3-a9c42abd5f8c",
+  "Matomo",
   [
     "version",
     "host",
@@ -19,8 +19,8 @@ const installer = new AppInstaller(
   ] as const,
 );
 
-export default class InstallWordPress extends ExecRenderBaseCommand<
-  typeof InstallWordPress,
+export default class InstallMatomo extends ExecRenderBaseCommand<
+  typeof InstallMatomo,
   AppInstallationResult
 > {
   static description = installer.description;

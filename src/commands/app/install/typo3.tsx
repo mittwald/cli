@@ -6,8 +6,8 @@ import {
 } from "../../../lib/app/Installer.js";
 
 const installer = new AppInstaller(
-  "da3aa3ae-4b6b-4398-a4a8-ee8def827876",
-  "WordPress",
+  "352971cc-b96a-4a26-8651-b08d7c8a7357",
+  "TYPO3",
   [
     "version",
     "host",
@@ -15,12 +15,13 @@ const installer = new AppInstaller(
     "admin-email",
     "admin-pass",
     "site-title",
+    "install-mode",
     "wait",
   ] as const,
 );
 
-export default class InstallWordPress extends ExecRenderBaseCommand<
-  typeof InstallWordPress,
+export default class InstallTYPO3 extends ExecRenderBaseCommand<
+  typeof InstallTYPO3,
   AppInstallationResult
 > {
   static description = installer.description;
