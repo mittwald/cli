@@ -1,12 +1,12 @@
 <center>
 
-# `mw` -- the mittwald command-line tool
+# `mw` &mdash; the mittwald command-line tool
 
 ![](docs/demo.png)
 
 </center>
 
-> ⚠️ **EXPERIMENTAL -- STABILITY NOTICE**
+> ⚠️ **EXPERIMENTAL &mdash; STABILITY NOTICE**
 >
 > This project is **experimental**, and we do not offer any stability guarantees
 > of any kind for the command structure, input flags and arguments and output
