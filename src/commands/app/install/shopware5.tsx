@@ -19,15 +19,21 @@ export default class AppInstallation extends ExecRenderBaseCommand<
   typeof AppInstallation,
   { appInstallationId: string }
 > {
-  static appName = "WordPress";
-  static appUuid = "da3aa3ae-4b6b-4398-a4a8-ee8def827876";
+  static appName = "Shopware5";
+  static appUuid = "a23acf9c-9298-4082-9e7d-25356f9976dc";
   static appSupportedFlags = [
     "version",
     "host",
+    "admin-firstname",
     "admin-user",
     "admin-email",
     "admin-pass",
+    "admin-firstname",
+    "admin-lastname",
     "site-title",
+    "shop-email",
+    "shop-lang",
+    "shop-currency",
     "wait",
   ] as const;
 

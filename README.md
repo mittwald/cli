@@ -84,6 +84,14 @@ USAGE
 * [`mw app dependency update INSTALLATION-ID`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
 * [`mw app get INSTALLATION-ID`](#mw-app-get-installation-id)
+* [`mw app install contao`](#mw-app-install-contao)
+* [`mw app install joomla`](#mw-app-install-joomla)
+* [`mw app install matomo`](#mw-app-install-matomo)
+* [`mw app install node`](#mw-app-install-node)
+* [`mw app install php`](#mw-app-install-php)
+* [`mw app install shopware5`](#mw-app-install-shopware5)
+* [`mw app install shopware6`](#mw-app-install-shopware6)
+* [`mw app install typo3`](#mw-app-install-typo3)
 * [`mw app install wordpress`](#mw-app-install-wordpress)
 * [`mw app list`](#mw-app-list)
 * [`mw app uninstall INSTALLATION-ID`](#mw-app-uninstall-installation-id)
@@ -314,26 +322,699 @@ DESCRIPTION
   Get details about an app installation
 ```
 
+## `mw app install contao`
+
+Creates new Contao Installation.
+
+```
+USAGE
+  $ mw app install contao --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
+    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+    [--json]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Contao to be ready.
+  --admin-email=<value>      E-Mail-Address of your administrator-user.
+  --admin-firstname=<value>  Firstname of your administrator-user.
+  --admin-lastname=<value>   Lastname of your administrator-user.
+  --admin-pass=<value>       Password of your administrator-user.
+  --admin-user=<value>       Username for your administrator-user.
+  --host=<value>             Host to initially configure your Contao installation with; needs to be created separately.
+  --json
+  --site-title=<value>       Site Title for your Contao installation.
+  --version=<value>          (required) [default: latest] Version of the Contao to be installed.
+
+DESCRIPTION
+  Creates new Contao Installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Contao
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  Firstname of your administrator-user.
+
+    Firstname that will correlate to the first administrator-user which will be created during the Contao installation.
+    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
+    is finished
+
+  --admin-lastname=<value>  Lastname of your administrator-user.
+
+    Lastname that will correlate to the first administrator-user which will be created during the Contao installation.
+    If none is given your mStudio Account-Firstname will be used. This Lastname can be changed after the installation is
+    finished
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Contao installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Contao installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your Contao installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Contao configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Contao
+    installation.
+
+  --site-title=<value>  Site Title for your Contao installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Contao installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of the Contao to be installed.
+
+    Specify the Version in wich your Contao will be installed.
+    If none is given the Contao will be installed in the latest available Version.
+```
+
+## `mw app install joomla`
+
+Creates new Joomla! Installation.
+
+```
+USAGE
+  $ mw app install joomla --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
+    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+    [--json]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Joomla! to be ready.
+  --admin-email=<value>      E-Mail-Address of your administrator-user.
+  --admin-firstname=<value>  Firstname of your administrator-user.
+  --admin-lastname=<value>   Lastname of your administrator-user.
+  --admin-pass=<value>       Password of your administrator-user.
+  --admin-user=<value>       Username for your administrator-user.
+  --host=<value>             Host to initially configure your Joomla! installation with; needs to be created separately.
+  --json
+  --site-title=<value>       Site Title for your Joomla! installation.
+  --version=<value>          (required) [default: latest] Version of the Joomla! to be installed.
+
+DESCRIPTION
+  Creates new Joomla! Installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Joomla!
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  Firstname of your administrator-user.
+
+    Firstname that will correlate to the first administrator-user which will be created during the Joomla! installation.
+    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
+    is finished
+
+  --admin-lastname=<value>  Lastname of your administrator-user.
+
+    Lastname that will correlate to the first administrator-user which will be created during the Joomla! installation.
+    If none is given your mStudio Account-Firstname will be used. This Lastname can be changed after the installation is
+    finished
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Joomla! installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Joomla! installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your Joomla! installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Joomla! configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Joomla!
+    installation.
+
+  --site-title=<value>  Site Title for your Joomla! installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Joomla! installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of the Joomla! to be installed.
+
+    Specify the Version in wich your Joomla! will be installed.
+    If none is given the Joomla! will be installed in the latest available Version.
+```
+
+## `mw app install matomo`
+
+Creates new Matomo Installation.
+
+```
+USAGE
+  $ mw app install matomo --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
+    <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Matomo to be ready.
+  --admin-email=<value>      E-Mail-Address of your administrator-user.
+  --admin-firstname=<value>  Firstname of your administrator-user.
+  --admin-pass=<value>       Password of your administrator-user.
+  --admin-user=<value>       Username for your administrator-user.
+  --host=<value>             Host to initially configure your Matomo installation with; needs to be created separately.
+  --json
+  --site-title=<value>       Site Title for your Matomo installation.
+  --version=<value>          (required) [default: latest] Version of the Matomo to be installed.
+
+DESCRIPTION
+  Creates new Matomo Installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Matomo
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  Firstname of your administrator-user.
+
+    Firstname that will correlate to the first administrator-user which will be created during the Matomo installation.
+    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
+    is finished
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Matomo installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Matomo installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your Matomo installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Matomo configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Matomo
+    installation.
+
+  --site-title=<value>  Site Title for your Matomo installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Matomo installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of the Matomo to be installed.
+
+    Specify the Version in wich your Matomo will be installed.
+    If none is given the Matomo will be installed in the latest available Version.
+```
+
+## `mw app install node`
+
+Creates new Node.js Project Installation.
+
+```
+USAGE
+  $ mw app install node --version <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your Node.js Project to be ready.
+  --json
+  --site-title=<value>      Site Title for your Node.js Project installation.
+  --version=<value>         (required) [default: latest] Version of the Node.js Project to be installed.
+
+DESCRIPTION
+  Creates new Node.js Project Installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --site-title=<value>  Site Title for your Node.js Project installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Node.js Project installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of the Node.js Project to be installed.
+
+    Specify the Version in wich your Node.js Project will be installed.
+    If none is given the Node.js Project will be installed in the latest available Version.
+```
+
+## `mw app install php`
+
+Creates new PHP Project Installation.
+
+```
+USAGE
+  $ mw app install php --version <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your PHP Project to be ready.
+  --json
+  --site-title=<value>      Site Title for your PHP Project installation.
+  --version=<value>         (required) [default: latest] Version of the PHP Project to be installed.
+
+DESCRIPTION
+  Creates new PHP Project Installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --site-title=<value>  Site Title for your PHP Project installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your PHP Project installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of the PHP Project to be installed.
+
+    Specify the Version in wich your PHP Project will be installed.
+    If none is given the PHP Project will be installed in the latest available Version.
+```
+
+## `mw app install shopware5`
+
+Creates new Shopware5 Installation.
+
+```
+USAGE
+  $ mw app install shopware5 --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
+    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>]
+    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Shopware5 to be ready.
+  --admin-email=<value>      E-Mail-Address of your administrator-user.
+  --admin-firstname=<value>  Firstname of your administrator-user.
+  --admin-lastname=<value>   Lastname of your administrator-user.
+  --admin-pass=<value>       Password of your administrator-user.
+  --admin-user=<value>       Username for your administrator-user.
+  --host=<value>             Host to initially configure your Shopware5 installation with; needs to be created
+                             separately.
+  --json
+  --shop-currency=<value>    Currency your Shopware5 will be working with.
+  --shop-email=<value>       E-Mail-Address your Shopware5 will be working with.
+  --shop-lang=<value>        Language your Shopware5 will be working with.
+  --site-title=<value>       Site Title for your Shopware5 installation.
+  --version=<value>          (required) [default: latest] Version of the Shopware5 to be installed.
+
+DESCRIPTION
+  Creates new Shopware5 Installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Shopware5
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  Firstname of your administrator-user.
+
+    Firstname that will correlate to the first administrator-user which will be created during the Shopware5
+    installation.
+    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
+    is finished
+
+  --admin-lastname=<value>  Lastname of your administrator-user.
+
+    Lastname that will correlate to the first administrator-user which will be created during the Shopware5
+    installation.
+    If none is given your mStudio Account-Firstname will be used. This Lastname can be changed after the installation is
+    finished
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Shopware5
+    installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Shopware5 installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your Shopware5 installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Shopware5 configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Shopware5
+    installation.
+
+  --shop-currency=<value>  Currency your Shopware5 will be working with.
+
+    The default Currency your Shopware5 shop communicates prices and calculates transactions with.
+    If not given will default to EUR(€). The currency can be changed after the installation is finished.
+
+  --shop-email=<value>  E-Mail-Address your Shopware5 will be working with.
+
+    The E-Mail-Address your Shopware5 shop will be using for correspondence..
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --shop-lang=<value>  Language your Shopware5 will be working with.
+
+    The default Language your Shopware5 shop will be using.
+    The Front- and Backend will be displayed using the given language.
+    If not given will default to German(de_DE). The language can be changed after the installation is finished.
+
+  --site-title=<value>  Site Title for your Shopware5 installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Shopware5 installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of the Shopware5 to be installed.
+
+    Specify the Version in wich your Shopware5 will be installed.
+    If none is given the Shopware5 will be installed in the latest available Version.
+```
+
+## `mw app install shopware6`
+
+Creates new Shopware6 Installation.
+
+```
+USAGE
+  $ mw app install shopware6 --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
+    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>]
+    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Shopware6 to be ready.
+  --admin-email=<value>      E-Mail-Address of your administrator-user.
+  --admin-firstname=<value>  Firstname of your administrator-user.
+  --admin-lastname=<value>   Lastname of your administrator-user.
+  --admin-pass=<value>       Password of your administrator-user.
+  --admin-user=<value>       Username for your administrator-user.
+  --host=<value>             Host to initially configure your Shopware6 installation with; needs to be created
+                             separately.
+  --json
+  --shop-currency=<value>    Currency your Shopware6 will be working with.
+  --shop-email=<value>       E-Mail-Address your Shopware6 will be working with.
+  --shop-lang=<value>        Language your Shopware6 will be working with.
+  --site-title=<value>       Site Title for your Shopware6 installation.
+  --version=<value>          (required) [default: latest] Version of the Shopware6 to be installed.
+
+DESCRIPTION
+  Creates new Shopware6 Installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Shopware6
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  Firstname of your administrator-user.
+
+    Firstname that will correlate to the first administrator-user which will be created during the Shopware6
+    installation.
+    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
+    is finished
+
+  --admin-lastname=<value>  Lastname of your administrator-user.
+
+    Lastname that will correlate to the first administrator-user which will be created during the Shopware6
+    installation.
+    If none is given your mStudio Account-Firstname will be used. This Lastname can be changed after the installation is
+    finished
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Shopware6
+    installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Shopware6 installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your Shopware6 installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Shopware6 configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Shopware6
+    installation.
+
+  --shop-currency=<value>  Currency your Shopware6 will be working with.
+
+    The default Currency your Shopware6 shop communicates prices and calculates transactions with.
+    If not given will default to EUR(€). The currency can be changed after the installation is finished.
+
+  --shop-email=<value>  E-Mail-Address your Shopware6 will be working with.
+
+    The E-Mail-Address your Shopware6 shop will be using for correspondence..
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --shop-lang=<value>  Language your Shopware6 will be working with.
+
+    The default Language your Shopware6 shop will be using.
+    The Front- and Backend will be displayed using the given language.
+    If not given will default to German(de_DE). The language can be changed after the installation is finished.
+
+  --site-title=<value>  Site Title for your Shopware6 installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Shopware6 installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of the Shopware6 to be installed.
+
+    Specify the Version in wich your Shopware6 will be installed.
+    If none is given the Shopware6 will be installed in the latest available Version.
+```
+
+## `mw app install typo3`
+
+Creates new TYPO3 Installation.
+
+```
+USAGE
+  $ mw app install typo3 --version <value> --install-mode composer|symlink [-p <value>] [-q] [--host <value>]
+    [--admin-firstname <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title
+    <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your TYPO3 to be ready.
+  --admin-email=<value>      E-Mail-Address of your administrator-user.
+  --admin-firstname=<value>  Firstname of your administrator-user.
+  --admin-pass=<value>       Password of your administrator-user.
+  --admin-user=<value>       Username for your administrator-user.
+  --host=<value>             Host to initially configure your TYPO3 installation with; needs to be created separately.
+  --install-mode=<option>    (required) [default: composer] The installation variant your TYPO3 will be installed with.
+                             <options: composer|symlink>
+  --json
+  --site-title=<value>       Site Title for your TYPO3 installation.
+  --version=<value>          (required) [default: latest] Version of the TYPO3 to be installed.
+
+DESCRIPTION
+  Creates new TYPO3 Installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the TYPO3
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  Firstname of your administrator-user.
+
+    Firstname that will correlate to the first administrator-user which will be created during the TYPO3 installation.
+    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
+    is finished
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the TYPO3 installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the TYPO3 installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your TYPO3 installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the TYPO3 configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your TYPO3
+    installation.
+
+  --install-mode=composer|symlink  The installation variant your TYPO3 will be installed with.
+
+    TYPO3 can be installed in one of two different ways.  your TYPO3 shop communicates prices and calculates
+    transactions with.
+    Either as a composer project or in a more manual fashion using the source directory and the TYPO3 console install
+    wizard.
+    If not given will default to composer installation. This can not be changed later.
+
+  --site-title=<value>  Site Title for your TYPO3 installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your TYPO3 installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of the TYPO3 to be installed.
+
+    Specify the Version in wich your TYPO3 will be installed.
+    If none is given the TYPO3 will be installed in the latest available Version.
+```
+
 ## `mw app install wordpress`
 
 Creates new WordPress Installation.
 
 ```
 USAGE
-  $ mw app install wordpress --version <value> --host <value> --admin-user <value> --admin-email <value> --admin-pass
-    <value> --site-title <value> [-p <value>] [-q] [-w]
+  $ mw app install wordpress --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for the App to be ready.
-  --admin-email=<value>     (required) First Admin Users E-Mail.
-  --admin-pass=<value>      (required) First Admin Users Password.
-  --admin-user=<value>      (required) First Admin User for the app.
-  --host=<value>            (required) Host under which the App will be available (Needs to be created separately).
-  --site-title=<value>      (required) Site Title of the created appInstallation.
-  --version=<value>         (required) [default: latest] Version of the App to be created - Defaults to latest
+  -w, --wait                Wait for your WordPress to be ready.
+  --admin-email=<value>     E-Mail-Address of your administrator-user.
+  --admin-pass=<value>      Password of your administrator-user.
+  --admin-user=<value>      Username for your administrator-user.
+  --host=<value>            Host to initially configure your WordPress installation with; needs to be created
+                            separately.
+  --json
+  --site-title=<value>      Site Title for your WordPress installation.
+  --version=<value>         (required) [default: latest] Version of the WordPress to be installed.
 
 DESCRIPTION
   Creates new WordPress Installation.
@@ -348,6 +1029,45 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the WordPress
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the WordPress
+    installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the WordPress installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your WordPress installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the WordPress configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your WordPress
+    installation.
+
+  --site-title=<value>  Site Title for your WordPress installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your WordPress installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of the WordPress to be installed.
+
+    Specify the Version in wich your WordPress will be installed.
+    If none is given the WordPress will be installed in the latest available Version.
 ```
 
 ## `mw app list`

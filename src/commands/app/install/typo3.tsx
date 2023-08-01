@@ -19,15 +19,17 @@ export default class AppInstallation extends ExecRenderBaseCommand<
   typeof AppInstallation,
   { appInstallationId: string }
 > {
-  static appName = "WordPress";
-  static appUuid = "da3aa3ae-4b6b-4398-a4a8-ee8def827876";
+  static appName = "TYPO3";
+  static appUuid = "352971cc-b96a-4a26-8651-b08d7c8a7357";
   static appSupportedFlags = [
     "version",
     "host",
+    "admin-firstname",
     "admin-user",
     "admin-email",
     "admin-pass",
     "site-title",
+    "install-mode",
     "wait",
   ] as const;
 

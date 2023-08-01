@@ -19,17 +19,9 @@ export default class AppInstallation extends ExecRenderBaseCommand<
   typeof AppInstallation,
   { appInstallationId: string }
 > {
-  static appName = "WordPress";
-  static appUuid = "da3aa3ae-4b6b-4398-a4a8-ee8def827876";
-  static appSupportedFlags = [
-    "version",
-    "host",
-    "admin-user",
-    "admin-email",
-    "admin-pass",
-    "site-title",
-    "wait",
-  ] as const;
+  static appName = "Node.js Project";
+  static appUuid = "3e7f920b-a711-4d2f-9871-661e1b41a2f0";
+  static appSupportedFlags = ["site-title", "wait", "version"] as const;
 
   static description = `Creates new ${AppInstallation.appName} Installation.`;
   static flags: RelevantFlagInput<typeof AppInstallation.appSupportedFlags> =
