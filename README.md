@@ -345,7 +345,7 @@ FLAGS
   --host=<value>             Host to initially configure your Contao installation with; needs to be created separately.
   --json
   --site-title=<value>       Site Title for your Contao installation.
-  --version=<value>          (required) [default: latest] Version of the Contao to be installed.
+  --version=<value>          (required) [default: latest] Version of Contao to be installed.
 
 DESCRIPTION
   Creates new Contao Installation.
@@ -406,10 +406,10 @@ FLAG DESCRIPTIONS
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of the Contao to be installed.
+  --version=<value>  Version of Contao to be installed.
 
-    Specify the Version in wich your Contao will be installed.
-    If none is given the Contao will be installed in the latest available Version.
+    Specify the Version in which your Contao will be installed.
+    If none is given the Contao will be installed in the latest available version.
 ```
 
 ## `mw app install joomla`
@@ -435,7 +435,7 @@ FLAGS
   --host=<value>             Host to initially configure your Joomla! installation with; needs to be created separately.
   --json
   --site-title=<value>       Site Title for your Joomla! installation.
-  --version=<value>          (required) [default: latest] Version of the Joomla! to be installed.
+  --version=<value>          (required) [default: latest] Version of Joomla! to be installed.
 
 DESCRIPTION
   Creates new Joomla! Installation.
@@ -496,10 +496,10 @@ FLAG DESCRIPTIONS
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of the Joomla! to be installed.
+  --version=<value>  Version of Joomla! to be installed.
 
-    Specify the Version in wich your Joomla! will be installed.
-    If none is given the Joomla! will be installed in the latest available Version.
+    Specify the Version in which your Joomla! will be installed.
+    If none is given the Joomla! will be installed in the latest available version.
 ```
 
 ## `mw app install matomo`
@@ -523,7 +523,7 @@ FLAGS
   --host=<value>             Host to initially configure your Matomo installation with; needs to be created separately.
   --json
   --site-title=<value>       Site Title for your Matomo installation.
-  --version=<value>          (required) [default: latest] Version of the Matomo to be installed.
+  --version=<value>          (required) [default: latest] Version of Matomo to be installed.
 
 DESCRIPTION
   Creates new Matomo Installation.
@@ -578,10 +578,10 @@ FLAG DESCRIPTIONS
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of the Matomo to be installed.
+  --version=<value>  Version of Matomo to be installed.
 
-    Specify the Version in wich your Matomo will be installed.
-    If none is given the Matomo will be installed in the latest available Version.
+    Specify the Version in which your Matomo will be installed.
+    If none is given the Matomo will be installed in the latest available version.
 ```
 
 ## `mw app install node`
@@ -599,7 +599,7 @@ FLAGS
   -w, --wait                Wait for your Node.js Project to be ready.
   --json
   --site-title=<value>      Site Title for your Node.js Project installation.
-  --version=<value>         (required) [default: latest] Version of the Node.js Project to be installed.
+  --version=<value>         (required) [default: latest] Version of Node.js Project to be installed.
 
 DESCRIPTION
   Creates new Node.js Project Installation.
@@ -622,10 +622,10 @@ FLAG DESCRIPTIONS
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of the Node.js Project to be installed.
+  --version=<value>  Version of Node.js Project to be installed.
 
-    Specify the Version in wich your Node.js Project will be installed.
-    If none is given the Node.js Project will be installed in the latest available Version.
+    Specify the Version in which your Node.js Project will be installed.
+    If none is given the Node.js Project will be installed in the latest available version.
 ```
 
 ## `mw app install php`
@@ -643,7 +643,7 @@ FLAGS
   -w, --wait                Wait for your PHP Project to be ready.
   --json
   --site-title=<value>      Site Title for your PHP Project installation.
-  --version=<value>         (required) [default: latest] Version of the PHP Project to be installed.
+  --version=<value>         (required) [default: latest] Version of PHP Project to be installed.
 
 DESCRIPTION
   Creates new PHP Project Installation.
@@ -666,10 +666,10 @@ FLAG DESCRIPTIONS
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of the PHP Project to be installed.
+  --version=<value>  Version of PHP Project to be installed.
 
-    Specify the Version in wich your PHP Project will be installed.
-    If none is given the PHP Project will be installed in the latest available Version.
+    Specify the Version in which your PHP Project will be installed.
+    If none is given the PHP Project will be installed in the latest available version.
 ```
 
 ## `mw app install shopware5`
@@ -699,7 +699,7 @@ FLAGS
   --shop-email=<value>       E-Mail-Address your Shopware5 will be working with.
   --shop-lang=<value>        Language your Shopware5 will be working with.
   --site-title=<value>       Site Title for your Shopware5 installation.
-  --version=<value>          (required) [default: latest] Version of the Shopware5 to be installed.
+  --version=<value>          (required) [default: latest] Version of Shopware5 to be installed.
 
 DESCRIPTION
   Creates new Shopware5 Installation.
@@ -780,10 +780,10 @@ FLAG DESCRIPTIONS
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of the Shopware5 to be installed.
+  --version=<value>  Version of Shopware5 to be installed.
 
-    Specify the Version in wich your Shopware5 will be installed.
-    If none is given the Shopware5 will be installed in the latest available Version.
+    Specify the Version in which your Shopware5 will be installed.
+    If none is given the Shopware5 will be installed in the latest available version.
 ```
 
 ## `mw app install shopware6`
@@ -813,7 +813,7 @@ FLAGS
   --shop-email=<value>       E-Mail-Address your Shopware6 will be working with.
   --shop-lang=<value>        Language your Shopware6 will be working with.
   --site-title=<value>       Site Title for your Shopware6 installation.
-  --version=<value>          (required) [default: latest] Version of the Shopware6 to be installed.
+  --version=<value>          (required) [default: latest] Version of Shopware6 to be installed.
 
 DESCRIPTION
   Creates new Shopware6 Installation.
@@ -894,10 +894,10 @@ FLAG DESCRIPTIONS
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of the Shopware6 to be installed.
+  --version=<value>  Version of Shopware6 to be installed.
 
-    Specify the Version in wich your Shopware6 will be installed.
-    If none is given the Shopware6 will be installed in the latest available Version.
+    Specify the Version in which your Shopware6 will be installed.
+    If none is given the Shopware6 will be installed in the latest available version.
 ```
 
 ## `mw app install typo3`
@@ -924,7 +924,7 @@ FLAGS
                              <options: composer|symlink>
   --json
   --site-title=<value>       Site Title for your TYPO3 installation.
-  --version=<value>          (required) [default: latest] Version of the TYPO3 to be installed.
+  --version=<value>          (required) [default: latest] Version of TYPO3 to be installed.
 
 DESCRIPTION
   Creates new TYPO3 Installation.
@@ -987,10 +987,10 @@ FLAG DESCRIPTIONS
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of the TYPO3 to be installed.
+  --version=<value>  Version of TYPO3 to be installed.
 
-    Specify the Version in wich your TYPO3 will be installed.
-    If none is given the TYPO3 will be installed in the latest available Version.
+    Specify the Version in which your TYPO3 will be installed.
+    If none is given the TYPO3 will be installed in the latest available version.
 ```
 
 ## `mw app install wordpress`
@@ -1014,7 +1014,7 @@ FLAGS
                             separately.
   --json
   --site-title=<value>      Site Title for your WordPress installation.
-  --version=<value>         (required) [default: latest] Version of the WordPress to be installed.
+  --version=<value>         (required) [default: latest] Version of WordPress to be installed.
 
 DESCRIPTION
   Creates new WordPress Installation.
@@ -1064,10 +1064,10 @@ FLAG DESCRIPTIONS
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of the WordPress to be installed.
+  --version=<value>  Version of WordPress to be installed.
 
-    Specify the Version in wich your WordPress will be installed.
-    If none is given the WordPress will be installed in the latest available Version.
+    Specify the Version in which your WordPress will be installed.
+    If none is given the WordPress will be installed in the latest available version.
 ```
 
 ## `mw app list`
