@@ -24,7 +24,6 @@ export default class AppInstallation extends ExecRenderBaseCommand<
   static appSupportedFlags = [
     "version",
     "host",
-    "admin-firstname",
     "admin-user",
     "admin-email",
     "admin-pass",

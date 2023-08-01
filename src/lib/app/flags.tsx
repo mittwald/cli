@@ -231,7 +231,11 @@ export async function autofillFlags(
 
   // Admin Firstname
   if (necessaryFlags.includes("admin-firstname") && !flags["admin-firstname"]) {
-    flags["admin-firstname"] = ownUser.data.person!.firstName;
+    if (ownUser.data.person) {
+      flags["admin-firstname"] = ownUser.data.person.firstName;
+    } else {
+      flags["admin-firstname"] = "Max";
+    }
     process.addInfo(
       <Text>
         Using mStudio firstname as Admin firstname (
@@ -242,10 +246,14 @@ export async function autofillFlags(
 
   // Admin Lastname
   if (necessaryFlags.includes("admin-lastname") && !flags["admin-lastname"]) {
-    flags["admin-lastname"] = ownUser.data.person!.lastName;
+    if (ownUser.data.person) {
+      flags["admin-lastname"] = ownUser.data.person.lastName;
+    } else {
+      flags["admin-lastname"] = "Mustermann";
+    }
     process.addInfo(
       <Text>
-        Using mStudio firstname as Admin lastname (
+        Using mStudio lastname as Admin lastname (
         <Value>{flags["admin-lastname"]}</Value>)
       </Text>,
     );
