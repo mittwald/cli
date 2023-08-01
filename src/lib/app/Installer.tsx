@@ -22,7 +22,7 @@ export interface AppInstallationResult {
 export class AppInstaller<TFlagName extends AvailableFlagName> {
   private readonly apiClient: MittwaldAPIV2Client;
   private readonly appId: string;
-  private readonly appName: string; // TODO: Determine from appId by querying API
+  private readonly appName: string;
   private readonly appSupportedFlags: readonly TFlagName[];
 
   static makeDescription(appName: string): string {
