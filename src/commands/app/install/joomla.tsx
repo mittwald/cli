@@ -21,8 +21,8 @@ const installer = new AppInstaller(
   ] as const,
 );
 
-export default class InstallContao extends ExecRenderBaseCommand<
-  typeof InstallContao,
+export default class InstallJoomla extends ExecRenderBaseCommand<
+  typeof InstallJoomla,
   AppInstallationResult
 > {
   static description = installer.description;

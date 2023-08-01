@@ -20,8 +20,8 @@ const installer = new AppInstaller(
   ] as const,
 );
 
-export default class InstallContao extends ExecRenderBaseCommand<
-  typeof InstallContao,
+export default class InstallTYPO3 extends ExecRenderBaseCommand<
+  typeof InstallTYPO3,
   AppInstallationResult
 > {
   static description = installer.description;

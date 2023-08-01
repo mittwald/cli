@@ -19,8 +19,8 @@ const installer = new AppInstaller(
   ] as const,
 );
 
-export default class InstallContao extends ExecRenderBaseCommand<
-  typeof InstallContao,
+export default class InstallWordPress extends ExecRenderBaseCommand<
+  typeof InstallWordPress,
   AppInstallationResult
 > {
   static description = installer.description;

@@ -328,8 +328,8 @@ Creates new Contao Installation.
 
 ```
 USAGE
-  $ mw app install contao --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+  $ mw app install contao --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
+    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
     [--json]
 
 FLAGS

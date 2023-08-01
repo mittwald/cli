@@ -11,6 +11,7 @@ const installer = new AppInstaller(
   [
     "version",
     "host",
+    "admin-firstname",
     "admin-user",
     "admin-email",
     "admin-pass",

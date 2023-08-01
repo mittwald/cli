@@ -24,8 +24,8 @@ const installer = new AppInstaller(
   ] as const,
 );
 
-export default class InstallContao extends ExecRenderBaseCommand<
-  typeof InstallContao,
+export default class InstallShopware5 extends ExecRenderBaseCommand<
+  typeof InstallShopware5,
   AppInstallationResult
 > {
   static description = installer.description;

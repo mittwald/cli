@@ -11,8 +11,8 @@ const installer = new AppInstaller(
   ["version", "site-title", "wait"] as const,
 );
 
-export default class InstallContao extends ExecRenderBaseCommand<
-  typeof InstallContao,
+export default class InstallPhp extends ExecRenderBaseCommand<
+  typeof InstallPhp,
   AppInstallationResult
 > {
   static description = installer.description;
