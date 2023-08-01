@@ -119,7 +119,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
       });
     }
 
-    const exp = await p.runStep(
+    const backupExport = await p.runStep(
       "waiting for backup download to be ready",
       () => {
         return waitUntil(async () => {
@@ -137,7 +137,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
       },
     );
 
-    if (!exp.downloadURL) {
+    if (!backupExport.downloadURL) {
       throw new Error("backup download is not ready");
     }
 
@@ -160,7 +160,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
     }
 
     const downloadStep = p.addStep("downloading backup");
-    const resp = await axios(exp.downloadURL, reqConfig);
+    const resp = await axios(backupExport.downloadURL, reqConfig);
     const size = parseInt(resp.headers["content-length"] || "0", 10);
     let downloaded = 0;
 
