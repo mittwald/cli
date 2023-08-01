@@ -10,7 +10,7 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/process/process_flags.js";
-import { waitUntil } from "../../lib/wait.js";
+import { waitFlags, waitUntil } from "../../lib/wait.js";
 import { Context } from "../../lib/context.js";
 
 export default class Create extends ExecRenderBaseCommand<
@@ -22,14 +22,11 @@ export default class Create extends ExecRenderBaseCommand<
   static flags = {
     ...serverFlags,
     ...processFlags,
+    ...waitFlags,
     description: Flags.string({
       char: "d",
       required: true,
       description: "A description for the project.",
-    }),
-    wait: Flags.boolean({
-      char: "w",
-      description: "Wait for the project to be ready.",
     }),
     "update-context": Flags.boolean({
       description: "Update the CLI context to use the newly created project",
@@ -76,7 +73,7 @@ export default class Create extends ExecRenderBaseCommand<
         ) {
           return true;
         }
-      });
+      }, this.flags["wait-timeout"]);
 
       stepWaiting.complete();
     }

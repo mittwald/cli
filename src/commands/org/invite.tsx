@@ -6,12 +6,15 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { Flags } from "@oclif/core";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import MembershipCustomerRoles = MittwaldAPIV2.Components.Schemas.MembershipCustomerRoles;
 import { ReactNode } from "react";
-import parseDuration from "parse-duration";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
+import {
+  expirationDateFromFlagsOptional,
+  expireFlags,
+} from "../../lib/expires.js";
+import MembershipCustomerRoles = MittwaldAPIV2.Components.Schemas.MembershipCustomerRoles;
 
 const inviteFlags = {
   email: Flags.string({
@@ -26,10 +29,7 @@ const inviteFlags = {
   message: Flags.string({
     description: "A message to include in the invitation email.",
   }),
-  expires: Flags.string({
-    description:
-      "An interval after which the invitation expires (examples: 30m, 30d, 1y).",
-  }),
+  ...expireFlags("invitation"),
 };
 
 export class Invite extends ExecRenderBaseCommand<
@@ -38,21 +38,6 @@ export class Invite extends ExecRenderBaseCommand<
 > {
   static description = "Invite a user to an organization.";
   static flags = { ...orgFlags, ...processFlags, ...inviteFlags };
-
-  protected getExpirationDate(): Date | undefined {
-    if (!this.flags.expires) {
-      return undefined;
-    }
-
-    const d = new Date();
-    const i = parseDuration(this.flags.expires);
-
-    if (!i) {
-      throw new Error("could not parse duration: " + this.flags.expires);
-    }
-
-    return new Date(d.getTime() + i);
-  }
 
   protected async exec(): Promise<{ inviteId: string }> {
     const process = makeProcessRenderer(
@@ -73,7 +58,9 @@ export class Invite extends ExecRenderBaseCommand<
           mailAddress: this.flags.email,
           role: this.flags.role as MembershipCustomerRoles,
           message: this.flags.message,
-          membershipExpiresAt: this.getExpirationDate()?.toJSON(),
+          membershipExpiresAt: expirationDateFromFlagsOptional(
+            this.flags,
+          )?.toJSON(),
         },
       });
 

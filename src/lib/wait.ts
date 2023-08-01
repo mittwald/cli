@@ -1,3 +1,16 @@
+import { Flags } from "@oclif/core";
+
+export const waitFlags = {
+  wait: Flags.boolean({
+    char: "w",
+    description: "Wait for the resource to be ready.",
+  }),
+  "wait-timeout": Flags.integer({
+    description: "The number of seconds to wait for the resource to be ready.",
+    default: 600,
+  }),
+};
+
 export async function waitUntil<T>(
   tester: () => Promise<T | null>,
   timeoutSeconds = 600,
