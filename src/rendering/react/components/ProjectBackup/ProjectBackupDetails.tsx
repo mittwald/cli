@@ -7,10 +7,13 @@ import { Value } from "../Value.js";
 import { useProjectBackupSchedule } from "../../../../lib/projectbackup/hooks.js";
 import { FormattedDate } from "../FormattedDate.js";
 import { ProjectBackupStatus } from "./ProjectBackupStatus.js";
+import { useProject } from "../../../../lib/project/hooks.js";
+import { IDAndShortID } from "../IDAndShortID.js";
 
 export const ProjectBackupDetails: FC<{
   projectBackup: BackupProjectBackup;
 }> = ({ projectBackup }) => {
+  const project = useProject(projectBackup.projectId);
   const schedule = projectBackup.parentId
     ? useProjectBackupSchedule(projectBackup.parentId)
     : undefined;
@@ -39,6 +42,14 @@ export const ProjectBackupDetails: FC<{
           <Value notSet />
         ),
         Status: <ProjectBackupStatus projectBackup={projectBackup} />,
+        Project: (
+          <SingleResultTable
+            rows={{
+              ID: <IDAndShortID object={project} />,
+              Description: <Value>{project.description}</Value>,
+            }}
+          />
+        ),
         Schedule: schedule ? (
           <SingleResultTable
             rows={{
