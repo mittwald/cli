@@ -4,6 +4,7 @@ import { withProjectId } from "../project/flags.js";
 import {
   autofillFlags,
   AvailableFlagName,
+  provideSupportedFlags,
   RelevantFlagInput,
 } from "./flags.js";
 import { normalizeToAppVersionUuid } from "./versions.js";
@@ -20,37 +21,41 @@ export interface AppInstallationResult {
 }
 
 export class AppInstaller<TFlagName extends AvailableFlagName> {
-  private readonly apiClient: MittwaldAPIV2Client;
-  private readonly appId: string;
-  private readonly appName: string;
-  private readonly appSupportedFlags: readonly TFlagName[];
+  public readonly appId: string;
+  public readonly appName: string;
+  public readonly appSupportedFlags: readonly TFlagName[];
+  public readonly description: string;
 
-  static makeDescription(appName: string): string {
+  private static makeDescription(appName: string): string {
     return `Creates new ${appName} Installation.`;
   }
 
   constructor(
-    apiClient: MittwaldAPIV2Client,
     appId: string,
     appName: string,
     appSupportedFlags: readonly TFlagName[],
   ) {
-    this.apiClient = apiClient;
     this.appId = appId;
     this.appName = appName;
     this.appSupportedFlags = appSupportedFlags;
+    this.description = AppInstaller.makeDescription(appName);
+  }
+
+  public get flags(): RelevantFlagInput<readonly TFlagName[]> {
+    return provideSupportedFlags(this.appSupportedFlags, this.appName);
   }
 
   public async exec(
+    apiClient: MittwaldAPIV2Client,
     args: ArgOutput,
     flags: OutputFlags<RelevantFlagInput<(TFlagName | "version" | "wait")[]>>,
     config: Config,
   ): Promise<AppInstallationResult> {
     const process = makeProcessRenderer(flags, `Installing ${this.appName}`);
-    const projectId = await withProjectId(this.apiClient, flags, args, config);
+    const projectId = await withProjectId(apiClient, flags, args, config);
 
     await autofillFlags(
-      this.apiClient,
+      apiClient,
       process,
       this.appSupportedFlags,
       flags,
@@ -59,14 +64,14 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
     );
 
     const appVersion: AppAppVersion = await normalizeToAppVersionUuid(
-      this.apiClient,
+      apiClient,
       flags.version as unknown as string,
       process,
       this.appId,
     );
 
     const [appInstallationId, eventId] = await triggerAppInstallation(
-      this.apiClient,
+      apiClient,
       process,
       projectId,
       flags,
@@ -76,7 +81,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
     let successText: string;
     if (flags.wait) {
       await waitUntilAppIsInstalled(
-        this.apiClient,
+        apiClient,
         process,
         appInstallationId,
         eventId,

@@ -1,22 +1,14 @@
-import {
-  provideSupportedFlags,
-  RelevantFlagInput,
-} from "../../../lib/app/flags.js";
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
 import React from "react";
 import {
   AppInstallationResult,
   AppInstaller,
 } from "../../../lib/app/Installer.js";
-import { ArrayElement } from "../../../lib/array_types.js";
 
-export default class InstallContao extends ExecRenderBaseCommand<
-  typeof InstallContao,
-  AppInstallationResult
-> {
-  static appName = "Contao";
-  static appUuid = "4916ce3e-cba4-4d2e-9798-a8764aa14cf3";
-  static appSupportedFlags = [
+const installer = new AppInstaller(
+  "4916ce3e-cba4-4d2e-9798-a8764aa14cf3",
+  "Contao",
+  [
     "version",
     "host",
     "admin-firstname",
@@ -27,35 +19,21 @@ export default class InstallContao extends ExecRenderBaseCommand<
     "admin-lastname",
     "site-title",
     "wait",
-  ] as const;
+  ] as const,
+);
 
-  static description = AppInstaller.makeDescription(InstallContao.appName);
-  static flags: RelevantFlagInput<typeof InstallContao.appSupportedFlags> =
-    provideSupportedFlags(
-      InstallContao.appSupportedFlags,
-      InstallContao.appName,
-    );
-
-  private installer!: AppInstaller<
-    ArrayElement<typeof InstallContao.appSupportedFlags>
-  >;
-
-  public async init(): Promise<void> {
-    await super.init();
-
-    this.installer = new AppInstaller(
-      this.apiClient,
-      InstallContao.appUuid,
-      InstallContao.appName,
-      InstallContao.appSupportedFlags,
-    );
-  }
+export default class InstallContao extends ExecRenderBaseCommand<
+  typeof InstallContao,
+  AppInstallationResult
+> {
+  static description = installer.description;
+  static flags = installer.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return this.installer.exec(this.args, this.flags, this.config);
+    return installer.exec(this.apiClient, this.args, this.flags, this.config);
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return this.installer.render(result, this.flags);
+    return installer.render(result, this.flags);
   }
 }
