@@ -328,8 +328,8 @@ Creates new Contao Installation.
 
 ```
 USAGE
-  $ mw app install contao --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
-    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+  $ mw app install contao --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
     [--json]
 
 FLAGS
@@ -418,8 +418,8 @@ Creates new Joomla! Installation.
 
 ```
 USAGE
-  $ mw app install joomla --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
-    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+  $ mw app install joomla --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
     [--json]
 
 FLAGS
@@ -508,22 +508,21 @@ Creates new Matomo Installation.
 
 ```
 USAGE
-  $ mw app install matomo --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
-    <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
+  $ mw app install matomo --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 Wait for your Matomo to be ready.
-  --admin-email=<value>      E-Mail-Address of your administrator-user.
-  --admin-firstname=<value>  Firstname of your administrator-user.
-  --admin-pass=<value>       Password of your administrator-user.
-  --admin-user=<value>       Username for your administrator-user.
-  --host=<value>             Host to initially configure your Matomo installation with; needs to be created separately.
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your Matomo to be ready.
+  --admin-email=<value>     E-Mail-Address of your administrator-user.
+  --admin-pass=<value>      Password of your administrator-user.
+  --admin-user=<value>      Username for your administrator-user.
+  --host=<value>            Host to initially configure your Matomo installation with; needs to be created separately.
   --json
-  --site-title=<value>       Site Title for your Matomo installation.
-  --version=<value>          (required) [default: latest] Version of Matomo to be installed.
+  --site-title=<value>      Site Title for your Matomo installation.
+  --version=<value>         (required) [default: latest] Version of Matomo to be installed.
 
 DESCRIPTION
   Creates new Matomo Installation.
@@ -545,12 +544,6 @@ FLAG DESCRIPTIONS
     installation.
     If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
     installation is finished.
-
-  --admin-firstname=<value>  Firstname of your administrator-user.
-
-    Firstname that will correlate to the first administrator-user which will be created during the Matomo installation.
-    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
-    is finished
 
   --admin-pass=<value>  Password of your administrator-user.
 
@@ -674,35 +667,35 @@ FLAG DESCRIPTIONS
 
 ## `mw app install shopware5`
 
-Creates new Shopware5 Installation.
+Creates new Shopware 5 Installation.
 
 ```
 USAGE
-  $ mw app install shopware5 --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
-    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>]
+  $ mw app install shopware5 --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>]
     [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--json]
 
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 Wait for your Shopware5 to be ready.
+  -w, --wait                 Wait for your Shopware 5 to be ready.
   --admin-email=<value>      E-Mail-Address of your administrator-user.
   --admin-firstname=<value>  Firstname of your administrator-user.
   --admin-lastname=<value>   Lastname of your administrator-user.
   --admin-pass=<value>       Password of your administrator-user.
   --admin-user=<value>       Username for your administrator-user.
-  --host=<value>             Host to initially configure your Shopware5 installation with; needs to be created
+  --host=<value>             Host to initially configure your Shopware 5 installation with; needs to be created
                              separately.
   --json
-  --shop-currency=<value>    Currency your Shopware5 will be working with.
-  --shop-email=<value>       E-Mail-Address your Shopware5 will be working with.
-  --shop-lang=<value>        Language your Shopware5 will be working with.
-  --site-title=<value>       Site Title for your Shopware5 installation.
-  --version=<value>          (required) [default: latest] Version of Shopware5 to be installed.
+  --shop-currency=<value>    Currency your Shopware 5 will be working with.
+  --shop-email=<value>       E-Mail-Address your Shopware 5 will be working with.
+  --shop-lang=<value>        Language your Shopware 5 will be working with.
+  --site-title=<value>       Site Title for your Shopware 5 installation.
+  --version=<value>          (required) [default: latest] Version of Shopware 5 to be installed.
 
 DESCRIPTION
-  Creates new Shopware5 Installation.
+  Creates new Shopware 5 Installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -717,106 +710,106 @@ FLAG DESCRIPTIONS
 
   --admin-email=<value>  E-Mail-Address of your administrator-user.
 
-    E-Mail-Address that will correlate to the first administrator-user which will be created during the Shopware5
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Shopware 5
     installation.
     If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
     installation is finished.
 
   --admin-firstname=<value>  Firstname of your administrator-user.
 
-    Firstname that will correlate to the first administrator-user which will be created during the Shopware5
+    Firstname that will correlate to the first administrator-user which will be created during the Shopware 5
     installation.
     If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
     is finished
 
   --admin-lastname=<value>  Lastname of your administrator-user.
 
-    Lastname that will correlate to the first administrator-user which will be created during the Shopware5
+    Lastname that will correlate to the first administrator-user which will be created during the Shopware 5
     installation.
     If none is given your mStudio Account-Firstname will be used. This Lastname can be changed after the installation is
     finished
 
   --admin-pass=<value>  Password of your administrator-user.
 
-    Password that will correlate to the first administrator-user which will be created during the Shopware5
+    Password that will correlate to the first administrator-user which will be created during the Shopware 5
     installation.
     If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
     installation is finished
 
   --admin-user=<value>  Username for your administrator-user.
 
-    Username of the first administrator-user which will be created during the Shopware5 installation.
+    Username of the first administrator-user which will be created during the Shopware 5 installation.
     If not given an adequate username will be created from your mStudio Account Data.
     After the installation is finished the Username can be changed and additional administrator-users can be created.
 
-  --host=<value>  Host to initially configure your Shopware5 installation with; needs to be created separately.
+  --host=<value>  Host to initially configure your Shopware 5 installation with; needs to be created separately.
 
-    Specify a host which will be used during the installation and as an initial host for the Shopware5 configuration.
+    Specify a host which will be used during the installation and as an initial host for the Shopware 5 configuration.
     If not given the default host for the given Project will be used.
-    This does not change the target of the used Host and can be changed later by configuring the Host and your Shopware5
-    installation.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Shopware
+    5 installation.
 
-  --shop-currency=<value>  Currency your Shopware5 will be working with.
+  --shop-currency=<value>  Currency your Shopware 5 will be working with.
 
-    The default Currency your Shopware5 shop communicates prices and calculates transactions with.
+    The default Currency your Shopware 5 shop communicates prices and calculates transactions with.
     If not given will default to EUR(€). The currency can be changed after the installation is finished.
 
-  --shop-email=<value>  E-Mail-Address your Shopware5 will be working with.
+  --shop-email=<value>  E-Mail-Address your Shopware 5 will be working with.
 
-    The E-Mail-Address your Shopware5 shop will be using for correspondence..
+    The E-Mail-Address your Shopware 5 shop will be using for correspondence..
     If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
     installation is finished.
 
-  --shop-lang=<value>  Language your Shopware5 will be working with.
+  --shop-lang=<value>  Language your Shopware 5 will be working with.
 
-    The default Language your Shopware5 shop will be using.
+    The default Language your Shopware 5 shop will be using.
     The Front- and Backend will be displayed using the given language.
     If not given will default to German(de_DE). The language can be changed after the installation is finished.
 
-  --site-title=<value>  Site Title for your Shopware5 installation.
+  --site-title=<value>  Site Title for your Shopware 5 installation.
 
-    Site Title which will be displayed in the Tab and at the top of the Frontend of your Shopware5 installation.
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Shopware 5 installation.
     It is also the Title shown in the App-Overview in the mStudio.
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of Shopware5 to be installed.
+  --version=<value>  Version of Shopware 5 to be installed.
 
-    Specify the Version in which your Shopware5 will be installed.
-    If none is given the Shopware5 will be installed in the latest available version.
+    Specify the Version in which your Shopware 5 will be installed.
+    If none is given the Shopware 5 will be installed in the latest available version.
 ```
 
 ## `mw app install shopware6`
 
-Creates new Shopware6 Installation.
+Creates new Shopware 6 Installation.
 
 ```
 USAGE
-  $ mw app install shopware6 --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
-    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>]
+  $ mw app install shopware6 --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>]
     [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--json]
 
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 Wait for your Shopware6 to be ready.
+  -w, --wait                 Wait for your Shopware 6 to be ready.
   --admin-email=<value>      E-Mail-Address of your administrator-user.
   --admin-firstname=<value>  Firstname of your administrator-user.
   --admin-lastname=<value>   Lastname of your administrator-user.
   --admin-pass=<value>       Password of your administrator-user.
   --admin-user=<value>       Username for your administrator-user.
-  --host=<value>             Host to initially configure your Shopware6 installation with; needs to be created
+  --host=<value>             Host to initially configure your Shopware 6 installation with; needs to be created
                              separately.
   --json
-  --shop-currency=<value>    Currency your Shopware6 will be working with.
-  --shop-email=<value>       E-Mail-Address your Shopware6 will be working with.
-  --shop-lang=<value>        Language your Shopware6 will be working with.
-  --site-title=<value>       Site Title for your Shopware6 installation.
-  --version=<value>          (required) [default: latest] Version of Shopware6 to be installed.
+  --shop-currency=<value>    Currency your Shopware 6 will be working with.
+  --shop-email=<value>       E-Mail-Address your Shopware 6 will be working with.
+  --shop-lang=<value>        Language your Shopware 6 will be working with.
+  --site-title=<value>       Site Title for your Shopware 6 installation.
+  --version=<value>          (required) [default: latest] Version of Shopware 6 to be installed.
 
 DESCRIPTION
-  Creates new Shopware6 Installation.
+  Creates new Shopware 6 Installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -831,73 +824,73 @@ FLAG DESCRIPTIONS
 
   --admin-email=<value>  E-Mail-Address of your administrator-user.
 
-    E-Mail-Address that will correlate to the first administrator-user which will be created during the Shopware6
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Shopware 6
     installation.
     If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
     installation is finished.
 
   --admin-firstname=<value>  Firstname of your administrator-user.
 
-    Firstname that will correlate to the first administrator-user which will be created during the Shopware6
+    Firstname that will correlate to the first administrator-user which will be created during the Shopware 6
     installation.
     If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
     is finished
 
   --admin-lastname=<value>  Lastname of your administrator-user.
 
-    Lastname that will correlate to the first administrator-user which will be created during the Shopware6
+    Lastname that will correlate to the first administrator-user which will be created during the Shopware 6
     installation.
     If none is given your mStudio Account-Firstname will be used. This Lastname can be changed after the installation is
     finished
 
   --admin-pass=<value>  Password of your administrator-user.
 
-    Password that will correlate to the first administrator-user which will be created during the Shopware6
+    Password that will correlate to the first administrator-user which will be created during the Shopware 6
     installation.
     If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
     installation is finished
 
   --admin-user=<value>  Username for your administrator-user.
 
-    Username of the first administrator-user which will be created during the Shopware6 installation.
+    Username of the first administrator-user which will be created during the Shopware 6 installation.
     If not given an adequate username will be created from your mStudio Account Data.
     After the installation is finished the Username can be changed and additional administrator-users can be created.
 
-  --host=<value>  Host to initially configure your Shopware6 installation with; needs to be created separately.
+  --host=<value>  Host to initially configure your Shopware 6 installation with; needs to be created separately.
 
-    Specify a host which will be used during the installation and as an initial host for the Shopware6 configuration.
+    Specify a host which will be used during the installation and as an initial host for the Shopware 6 configuration.
     If not given the default host for the given Project will be used.
-    This does not change the target of the used Host and can be changed later by configuring the Host and your Shopware6
-    installation.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Shopware
+    6 installation.
 
-  --shop-currency=<value>  Currency your Shopware6 will be working with.
+  --shop-currency=<value>  Currency your Shopware 6 will be working with.
 
-    The default Currency your Shopware6 shop communicates prices and calculates transactions with.
+    The default Currency your Shopware 6 shop communicates prices and calculates transactions with.
     If not given will default to EUR(€). The currency can be changed after the installation is finished.
 
-  --shop-email=<value>  E-Mail-Address your Shopware6 will be working with.
+  --shop-email=<value>  E-Mail-Address your Shopware 6 will be working with.
 
-    The E-Mail-Address your Shopware6 shop will be using for correspondence..
+    The E-Mail-Address your Shopware 6 shop will be using for correspondence..
     If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
     installation is finished.
 
-  --shop-lang=<value>  Language your Shopware6 will be working with.
+  --shop-lang=<value>  Language your Shopware 6 will be working with.
 
-    The default Language your Shopware6 shop will be using.
+    The default Language your Shopware 6 shop will be using.
     The Front- and Backend will be displayed using the given language.
     If not given will default to German(de_DE). The language can be changed after the installation is finished.
 
-  --site-title=<value>  Site Title for your Shopware6 installation.
+  --site-title=<value>  Site Title for your Shopware 6 installation.
 
-    Site Title which will be displayed in the Tab and at the top of the Frontend of your Shopware6 installation.
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Shopware 6 installation.
     It is also the Title shown in the App-Overview in the mStudio.
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
 
-  --version=<value>  Version of Shopware6 to be installed.
+  --version=<value>  Version of Shopware 6 to be installed.
 
-    Specify the Version in which your Shopware6 will be installed.
-    If none is given the Shopware6 will be installed in the latest available version.
+    Specify the Version in which your Shopware 6 will be installed.
+    If none is given the Shopware 6 will be installed in the latest available version.
 ```
 
 ## `mw app install typo3`
@@ -907,24 +900,22 @@ Creates new TYPO3 Installation.
 ```
 USAGE
   $ mw app install typo3 --version <value> --install-mode composer|symlink [-p <value>] [-q] [--host <value>]
-    [--admin-firstname <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title
-    <value>] [-w] [--json]
+    [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 Wait for your TYPO3 to be ready.
-  --admin-email=<value>      E-Mail-Address of your administrator-user.
-  --admin-firstname=<value>  Firstname of your administrator-user.
-  --admin-pass=<value>       Password of your administrator-user.
-  --admin-user=<value>       Username for your administrator-user.
-  --host=<value>             Host to initially configure your TYPO3 installation with; needs to be created separately.
-  --install-mode=<option>    (required) [default: composer] The installation variant your TYPO3 will be installed with.
-                             <options: composer|symlink>
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your TYPO3 to be ready.
+  --admin-email=<value>     E-Mail-Address of your administrator-user.
+  --admin-pass=<value>      Password of your administrator-user.
+  --admin-user=<value>      Username for your administrator-user.
+  --host=<value>            Host to initially configure your TYPO3 installation with; needs to be created separately.
+  --install-mode=<option>   (required) [default: composer] The installation variant your TYPO3 will be installed with.
+                            <options: composer|symlink>
   --json
-  --site-title=<value>       Site Title for your TYPO3 installation.
-  --version=<value>          (required) [default: latest] Version of TYPO3 to be installed.
+  --site-title=<value>      Site Title for your TYPO3 installation.
+  --version=<value>         (required) [default: latest] Version of TYPO3 to be installed.
 
 DESCRIPTION
   Creates new TYPO3 Installation.
@@ -946,12 +937,6 @@ FLAG DESCRIPTIONS
     installation.
     If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
     installation is finished.
-
-  --admin-firstname=<value>  Firstname of your administrator-user.
-
-    Firstname that will correlate to the first administrator-user which will be created during the TYPO3 installation.
-    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
-    is finished
 
   --admin-pass=<value>  Password of your administrator-user.
 
