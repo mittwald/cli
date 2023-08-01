@@ -49,9 +49,9 @@ function buildFlagsWithDescription(appName: string): AvailableFlags {
   return {
     version: Flags.string({
       required: true,
-      summary: `Version of the ${appName} to be installed.`,
-      description: `Specify the Version in wich your ${appName} will be installed. 
-      If none is given the ${appName} will be installed in the latest available Version.`,
+      summary: `Version of ${appName} to be installed.`,
+      description: `Specify the Version in which your ${appName} will be installed. 
+      If none is given the ${appName} will be installed in the latest available version.`,
       default: "latest",
     }),
     host: Flags.string({
