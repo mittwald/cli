@@ -80,12 +80,7 @@ USAGE
 
 <!-- commands -->
 * [`mw app copy INSTALLATION-ID`](#mw-app-copy-installation-id)
-* [`mw app delete ID`](#mw-app-delete-id)
-* [`mw app dependency getSystemsoftware SYSTEMSOFTWAREID`](#mw-app-dependency-getsystemsoftware-systemsoftwareid)
-* [`mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`](#mw-app-dependency-getsystemsoftwareversion-systemsoftwareversionid)
 * [`mw app dependency list`](#mw-app-dependency-list)
-* [`mw app dependency listSystemsoftwares`](#mw-app-dependency-listsystemsoftwares)
-* [`mw app dependency listSystemsoftwareversions`](#mw-app-dependency-listsystemsoftwareversions)
 * [`mw app dependency update INSTALLATION-ID`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
 * [`mw app get INSTALLATION-ID`](#mw-app-get-installation-id)
@@ -101,24 +96,8 @@ USAGE
 * [`mw app list`](#mw-app-list)
 * [`mw app uninstall INSTALLATION-ID`](#mw-app-uninstall-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
-* [`mw article get ARTICLEID`](#mw-article-get-articleid)
-* [`mw article list`](#mw-article-list)
 * [`mw context get`](#mw-context-get)
 * [`mw context set`](#mw-context-set)
-* [`mw contract getBaseItemOfContract`](#mw-contract-getbaseitemofcontract)
-* [`mw contract getDetailOfContract CONTRACTID`](#mw-contract-getdetailofcontract-contractid)
-* [`mw contract getDetailOfContractByDomain`](#mw-contract-getdetailofcontractbydomain)
-* [`mw contract getDetailOfContractByProject`](#mw-contract-getdetailofcontractbyproject)
-* [`mw contract getDetailOfContractByServer`](#mw-contract-getdetailofcontractbyserver)
-* [`mw contract getDetailOfContractItem CONTRACTITEMID`](#mw-contract-getdetailofcontractitem-contractitemid)
-* [`mw contract getNextTerminationDateForItem`](#mw-contract-getnextterminationdateforitem)
-* [`mw contract invoiceDetailOfInvoice INVOICEID`](#mw-contract-invoicedetailofinvoice-invoiceid)
-* [`mw contract invoiceGetDetailOfInvoiceSettings`](#mw-contract-invoicegetdetailofinvoicesettings)
-* [`mw contract invoiceListCustomerInvoices`](#mw-contract-invoicelistcustomerinvoices)
-* [`mw contract listContracts`](#mw-contract-listcontracts)
-* [`mw contract orderGetOrder ORDERID`](#mw-contract-ordergetorder-orderid)
-* [`mw contract orderListCustomerOrders`](#mw-contract-orderlistcustomerorders)
-* [`mw contract orderListProjectOrders`](#mw-contract-orderlistprojectorders)
 * [`mw conversation categories`](#mw-conversation-categories)
 * [`mw conversation close ID`](#mw-conversation-close-id)
 * [`mw conversation create`](#mw-conversation-create)
@@ -136,7 +115,6 @@ USAGE
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
 * [`mw database mysql shell DATABASE-ID`](#mw-database-mysql-shell-database-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
-* [`mw database mysql user getMysqlUserPhpMyAdminUrl`](#mw-database-mysql-user-getmysqluserphpmyadminurl)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
 * [`mw database redis create`](#mw-database-redis-create)
@@ -238,63 +216,6 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw app delete ID`
-
-Delete an app
-
-```
-USAGE
-  $ mw app delete ID [-f]
-
-ARGUMENTS
-  ID  ID of the app to be deleted.
-
-FLAGS
-  -f, --force  delete without prompting for confirmation
-
-DESCRIPTION
-  Delete an app
-```
-
-## `mw app dependency getSystemsoftware SYSTEMSOFTWAREID`
-
-get a specific `SystemSoftware`
-
-```
-USAGE
-  $ mw app dependency getSystemsoftware SYSTEMSOFTWAREID [-o json|yaml |  | ]
-
-ARGUMENTS
-  SYSTEMSOFTWAREID  undefined
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  get a specific `SystemSoftware`
-```
-
-## `mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID`
-
-get a specific `SystemSoftwareVersion`
-
-```
-USAGE
-  $ mw app dependency getSystemsoftwareversion SYSTEMSOFTWAREVERSIONID --system-software-id <value> [-o json|yaml |  | ]
-
-ARGUMENTS
-  SYSTEMSOFTWAREVERSIONID  undefined
-
-FLAGS
-  -o, --output=<option>         output in a more machine friendly format
-                                <options: json|yaml>
-  --system-software-id=<value>  (required) undefined
-
-DESCRIPTION
-  get a specific `SystemSoftwareVersion`
-```
-
 ## `mw app dependency list`
 
 get all available dependencies
@@ -317,55 +238,6 @@ FLAGS
 
 DESCRIPTION
   get all available dependencies
-```
-
-## `mw app dependency listSystemsoftwares`
-
-get all available `SystemSoftware`
-
-```
-USAGE
-  $ mw app dependency listSystemsoftwares [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  get all available `SystemSoftware`
-```
-
-## `mw app dependency listSystemsoftwareversions`
-
-get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
-
-```
-USAGE
-  $ mw app dependency listSystemsoftwareversions --system-software-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>]
-    [--output csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended                show extra columns
-  --columns=<value>             only show provided columns (comma-separated)
-  --csv                         output is csv format [alias: --output=csv]
-  --filter=<value>              filter property by partial string matching, ex: name=foo
-  --no-header                   hide table header from output
-  --no-truncate                 do not truncate output to fit screen
-  --output=<option>             output in a more machine friendly format
-                                <options: csv|json|yaml>
-  --sort=<value>                property to sort by (prepend '-' for descending)
-  --system-software-id=<value>  (required) undefined
-
-DESCRIPTION
-  get all available `SystemSoftwareVersions` of a specific `SystemSoftware`
 ```
 
 ## `mw app dependency update INSTALLATION-ID`
@@ -1260,49 +1132,6 @@ DESCRIPTION
   List supported Apps and Versions
 ```
 
-## `mw article get ARTICLEID`
-
-Get an Article.
-
-```
-USAGE
-  $ mw article get ARTICLEID [-o json|yaml |  | ]
-
-ARGUMENTS
-  ARTICLEID  undefined
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get an Article.
-```
-
-## `mw article list`
-
-List Articles.
-
-```
-USAGE
-  $ mw article list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List Articles.
-```
-
 ## `mw context get`
 
 Print an overview of currently set context parameters
@@ -1341,287 +1170,6 @@ DESCRIPTION
 
   The context allows you to persistently set values for common parameters, like --project-id or --server-id, so you
   don't have to specify them on every command.
-```
-
-## `mw contract getBaseItemOfContract`
-
-Return the BaseItem of the Contract with the given ID.
-
-```
-USAGE
-  $ mw contract getBaseItemOfContract --contract-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --contract-id=<value>  (required) The uuid of the Contract from which the BaseItem is to be issued.
-
-DESCRIPTION
-  Return the BaseItem of the Contract with the given ID.
-```
-
-## `mw contract getDetailOfContract CONTRACTID`
-
-Returns the Contract with the given ID.
-
-```
-USAGE
-  $ mw contract getDetailOfContract CONTRACTID [-o json|yaml |  | ]
-
-ARGUMENTS
-  CONTRACTID  The uuid of the Contract to be returned.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Returns the Contract with the given ID.
-```
-
-## `mw contract getDetailOfContractByDomain`
-
-Return the Contract for the given Domain.
-
-```
-USAGE
-  $ mw contract getDetailOfContractByDomain --domain-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --domain-id=<value>    (required) undefined
-
-DESCRIPTION
-  Return the Contract for the given Domain.
-```
-
-## `mw contract getDetailOfContractByProject`
-
-Return the Contract for the given Project.
-
-```
-USAGE
-  $ mw contract getDetailOfContractByProject --project-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --project-id=<value>   (required) undefined
-
-DESCRIPTION
-  Return the Contract for the given Project.
-```
-
-## `mw contract getDetailOfContractByServer`
-
-Return the Contract for the given Server.
-
-```
-USAGE
-  $ mw contract getDetailOfContractByServer --server-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --server-id=<value>    (required) undefined
-
-DESCRIPTION
-  Return the Contract for the given Server.
-```
-
-## `mw contract getDetailOfContractItem CONTRACTITEMID`
-
-Get the ContractItem with the given ID.
-
-```
-USAGE
-  $ mw contract getDetailOfContractItem CONTRACTITEMID --contract-id <value> [-o json|yaml |  | ]
-
-ARGUMENTS
-  CONTRACTITEMID  The uuid of the ContractItem to be returned.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --contract-id=<value>  (required) The uuid of the Contract where the desired ContractItem belongs to.
-
-DESCRIPTION
-  Get the ContractItem with the given ID.
-```
-
-## `mw contract getNextTerminationDateForItem`
-
-Return the next TerminationDate for the ContractItem with the given ID.
-
-```
-USAGE
-  $ mw contract getNextTerminationDateForItem --contract-id <value> --contract-item-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>       output in a more machine friendly format
-                              <options: json|yaml>
-  --contract-id=<value>       (required) The uuid of the Contract where the desired ContractItem belongs to.
-  --contract-item-id=<value>  (required) The uuid of the ContractItem whose next TerminationDate is to be displayed.
-
-DESCRIPTION
-  Return the next TerminationDate for the ContractItem with the given ID.
-```
-
-## `mw contract invoiceDetailOfInvoice INVOICEID`
-
-Get details of an Invoice.
-
-```
-USAGE
-  $ mw contract invoiceDetailOfInvoice INVOICEID --customer-id <value> [-o json|yaml |  | ]
-
-ARGUMENTS
-  INVOICEID  undefined
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --customer-id=<value>  (required) undefined
-
-DESCRIPTION
-  Get details of an Invoice.
-```
-
-## `mw contract invoiceGetDetailOfInvoiceSettings`
-
-Get InvoiceSettings of a Customer.
-
-```
-USAGE
-  $ mw contract invoiceGetDetailOfInvoiceSettings --customer-id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --customer-id=<value>  (required) undefined
-
-DESCRIPTION
-  Get InvoiceSettings of a Customer.
-```
-
-## `mw contract invoiceListCustomerInvoices`
-
-List Invoices of a Customer.
-
-```
-USAGE
-  $ mw contract invoiceListCustomerInvoices --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) undefined
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List Invoices of a Customer.
-```
-
-## `mw contract listContracts`
-
-Return a list of Contracts for the given Customer.
-
-```
-USAGE
-  $ mw contract listContracts --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) The uuid of the Customer from whom all Contracts are to be returned.
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  Return a list of Contracts for the given Customer.
-```
-
-## `mw contract orderGetOrder ORDERID`
-
-Get Order for Customer.
-
-```
-USAGE
-  $ mw contract orderGetOrder ORDERID [-o json|yaml |  | ]
-
-ARGUMENTS
-  ORDERID  undefined
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get Order for Customer.
-```
-
-## `mw contract orderListCustomerOrders`
-
-Get list of Orders of a Customer.
-
-```
-USAGE
-  $ mw contract orderListCustomerOrders --customer-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --customer-id=<value>  (required) undefined
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  Get list of Orders of a Customer.
-```
-
-## `mw contract orderListProjectOrders`
-
-Get list of Orders of a Project.
-
-```
-USAGE
-  $ mw contract orderListProjectOrders --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) undefined
-  --sort=<value>        property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  Get list of Orders of a Project.
 ```
 
 ## `mw conversation categories`
@@ -2018,23 +1566,6 @@ FLAGS
 
 DESCRIPTION
   Get a MySQL user.
-```
-
-## `mw database mysql user getMysqlUserPhpMyAdminUrl`
-
-Get a MySQLUser's PhpMyAdmin-URL.
-
-```
-USAGE
-  $ mw database mysql user getMysqlUserPhpMyAdminUrl --id <value> [-o json|yaml |  | ]
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --id=<value>           (required) ID of the MySQLUser for which to get the URL for.
-
-DESCRIPTION
-  Get a MySQLUser's PhpMyAdmin-URL.
 ```
 
 ## `mw database mysql user list`
