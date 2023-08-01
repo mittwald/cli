@@ -11,6 +11,7 @@ import { Text } from "ink";
 import { Value } from "../../../rendering/react/components/Value.js";
 import {
   assertStatus,
+  AxiosRequestConfig,
   AxiosResponseHeaders,
   RawAxiosResponseHeaders,
 } from "@mittwald/api-client-commons";
@@ -57,6 +58,10 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
       summary: "prompt for a password to encrypt the backup with.",
       description: "CAUTION: this is not stored anywhere.",
       exclusive: ["password", "generate-password"],
+    }),
+    resume: Flags.boolean({
+      summary: "resume a previously interrupted download.",
+      dependsOn: ["output"],
     }),
   };
 
@@ -136,14 +141,33 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
       throw new Error("backup download is not ready");
     }
 
-    const downloadStep = p.addStep("downloading backup");
+    const reqConfig: AxiosRequestConfig = { responseType: "stream" };
+    if (
+      this.flags.resume &&
+      this.flags.output &&
+      fs.existsSync(this.flags.output)
+    ) {
+      const stat = fs.statSync(this.flags.output);
+      const range = `bytes=${stat.size}-`;
 
-    const resp = await axios(exp.downloadURL, { responseType: "stream" });
+      reqConfig.headers = { Range: range };
+
+      p.addInfo(
+        <Text>
+          resuming download starting at <Value>{stat.size}</Value> bytes
+        </Text>,
+      );
+    }
+
+    const downloadStep = p.addStep("downloading backup");
+    const resp = await axios(exp.downloadURL, reqConfig);
     const size = parseInt(resp.headers["content-length"] || "0", 10);
     let downloaded = 0;
 
     const outputFilename = this.getFilename(resp.headers);
-    const outputStream = fs.createWriteStream(outputFilename);
+    const outputStream = fs.createWriteStream(outputFilename, {
+      flags: this.flags.resume ? "a" : undefined,
+    });
 
     resp.data.on("data", (chunk: any) => {
       downloaded += chunk.length;
