@@ -155,9 +155,11 @@ USAGE
 * [`mw org membership list`](#mw-org-membership-list)
 * [`mw org membership list-own`](#mw-org-membership-list-own)
 * [`mw org membership revoke MEMBERSHIP-ID`](#mw-org-membership-revoke-membership-id)
-* [`mw project backup get PROJECTBACKUPID`](#mw-project-backup-get-projectbackupid)
+* [`mw project backup create`](#mw-project-backup-create)
+* [`mw project backup delete BACKUP-ID`](#mw-project-backup-delete-backup-id)
+* [`mw project backup download BACKUP-ID`](#mw-project-backup-download-backup-id)
+* [`mw project backup get BACKUP-ID`](#mw-project-backup-get-backup-id)
 * [`mw project backup list`](#mw-project-backup-list)
-* [`mw project backupschedule get PROJECTBACKUPSCHEDULEID`](#mw-project-backupschedule-get-projectbackupscheduleid)
 * [`mw project backupschedule list`](#mw-project-backupschedule-list)
 * [`mw project create`](#mw-project-create)
 * [`mw project cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-project-cronjob-execution-get-cronjob-id-execution-id)
@@ -2593,23 +2595,122 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw project backup get PROJECTBACKUPID`
+## `mw project backup create`
 
-Get a ProjectBackup.
+Create a new backup of a project
 
 ```
 USAGE
-  $ mw project backup get PROJECTBACKUPID [-o json|yaml |  | ]
+  $ mw project backup create --expires <value> [-q] [-p <value>] [--description <value>] [-w] [--wait-timeout <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for the resource to be ready.
+  --description=<value>     a description for the backup.
+  --expires=<value>         (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
+  --wait-timeout=<value>    [default: 600] The number of seconds to wait for the resource to be ready.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw project backup delete BACKUP-ID`
+
+Delete a backup
+
+```
+USAGE
+  $ mw project backup delete BACKUP-ID [-q] [-f]
 
 ARGUMENTS
-  PROJECTBACKUPID  ID of the ProjectBackup to retrieve.
+  BACKUP-ID  The ID of the Backup to show.
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a backup
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw project backup download BACKUP-ID`
+
+Download a backup to your local disk
+
+```
+USAGE
+  $ mw project backup download BACKUP-ID [-q] [--format tar|zip] [--password <value> | --generate-password |
+    --prompt-password] [--resume --output <value>]
+
+ARGUMENTS
+  BACKUP-ID  the ID of the Backup to download.
+
+FLAGS
+  -q, --quiet          suppress process output and only display a machine-readable summary.
+  --format=<option>    [default: tar] the file format to download the backup in.
+                       <options: tar|zip>
+  --generate-password  generate a random password to encrypt the backup with.
+  --output=<value>     the file to write the backup to; if omitted, the filename will be determined by the server.
+  --password=<value>   the password to encrypt the backup with.
+  --prompt-password    prompt for a password to encrypt the backup with.
+  --resume             resume a previously interrupted download.
+
+DESCRIPTION
+  Download a backup to your local disk
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --generate-password  generate a random password to encrypt the backup with.
+
+    CAUTION: this is not stored anywhere.
+
+  --password=<value>  the password to encrypt the backup with.
+
+    CAUTION #1: this is not stored anywhere.
+    CAUTION #2: it is dangerous to use this option, as the password might be stored in your shell history.
+
+  --prompt-password  prompt for a password to encrypt the backup with.
+
+    CAUTION: this is not stored anywhere.
+```
+
+## `mw project backup get BACKUP-ID`
+
+show details of a backup.
+
+```
+USAGE
+  $ mw project backup get BACKUP-ID [-o json|yaml |  | ]
+
+ARGUMENTS
+  BACKUP-ID  The ID of the Backup to show.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a ProjectBackup.
+  show details of a backup.
 ```
 
 ## `mw project backup list`
@@ -2644,48 +2745,36 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-## `mw project backupschedule get PROJECTBACKUPSCHEDULEID`
-
-Get a ProjectBackupSchedule.
-
-```
-USAGE
-  $ mw project backupschedule get PROJECTBACKUPSCHEDULEID [-o json|yaml |  | ]
-
-ARGUMENTS
-  PROJECTBACKUPSCHEDULEID  ID of the ProjectBackupSchedule to retrieve.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get a ProjectBackupSchedule.
-```
-
 ## `mw project backupschedule list`
 
-List BackupSchedules belonging to a given Project.
+List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw project backupschedule list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw project backupschedule list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project to list BackupSchedules for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List BackupSchedules belonging to a given Project.
+  List backup schedules belonging to a given project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw project create`
@@ -2694,14 +2783,15 @@ Get the details of a project
 
 ```
 USAGE
-  $ mw project create -d <value> [-s <value>] [-q] [-w] [--update-context]
+  $ mw project create -d <value> [-s <value>] [-q] [-w] [--wait-timeout <value>] [--update-context]
 
 FLAGS
   -d, --description=<value>  (required) A description for the project.
   -q, --quiet                suppress process output and only display a machine-readable summary.
   -s, --server-id=<value>    ID or short ID of a server; this flag is optional if a default server is set in the context
-  -w, --wait                 Wait for the project to be ready.
+  -w, --wait                 Wait for the resource to be ready.
   --update-context           Update the CLI context to use the newly created project
+  --wait-timeout=<value>     [default: 600] The number of seconds to wait for the resource to be ready.
 
 DESCRIPTION
   Get the details of a project

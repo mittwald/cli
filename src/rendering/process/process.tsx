@@ -10,6 +10,7 @@ export type ProcessStepRunnable = {
   title: ReactNode;
   phase: "running" | "completed" | "failed" | "aborted";
   error?: unknown;
+  progress?: string;
 };
 
 export type ProcessStepConfirm = {
@@ -51,6 +52,11 @@ export class RunnableHandler {
 
   public complete() {
     this.processStep.phase = "completed";
+    this.listener();
+  }
+
+  public progress(p: string) {
+    this.processStep.progress = p;
     this.listener();
   }
 

@@ -1,21 +1,16 @@
-import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { Response, Simplify } from "@mittwald/api-client-commons";
+import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
+import BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
 
-type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdBackups.Get.Responses.$200.Content.ApplicationJson[number]
->;
-export type PathParams =
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdBackups.Get.Parameters.Path;
-export type Response = Awaited<
-  ReturnType<MittwaldAPIV2Client["backup"]["listProjectBackups"]>
->;
+type ListResponse = Response<BackupProjectBackup[]>;
+type ListItem = Simplify<BackupProjectBackup>;
 
-export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
+export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
   static description = "List Backups for a given Project.";
 
   static args = {};
@@ -25,12 +20,12 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   };
 
   protected mapData(
-    data: SuccessfulResponse<Response, 200>["data"],
-  ): ResponseItem[] | Promise<ResponseItem[]> {
+    data: SuccessfulResponse<ListResponse, 200>["data"],
+  ): ListItem[] | Promise<ListItem[]> {
     return data;
   }
 
-  public async getData(): Promise<Response> {
+  public async getData(): Promise<ListResponse> {
     const projectId = await withProjectId(
       this.apiClient,
       this.flags,
@@ -42,7 +37,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     } as Parameters<typeof this.apiClient.backup.listProjectBackups>[0]);
   }
 
-  protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+  protected getColumns(data: ListItem[]): ListColumns<ListItem> {
     const baseColumns = super.getColumns(data);
     return {
       id: baseColumns.id,

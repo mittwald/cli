@@ -35,6 +35,14 @@ export const ProcessStateSummary: React.FC<{ step: ProcessStep }> = ({
       </>
     );
   } else {
+    if (step.progress) {
+      return (
+        <>
+          <Text>... </Text>
+          <Text color="blue">{step.progress}</Text>
+        </>
+      );
+    }
     return <Text>...</Text>;
   }
 };
