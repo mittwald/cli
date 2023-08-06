@@ -6,7 +6,7 @@ import {
 } from "../../../lib/app/Installer.js";
 
 const installer = new AppInstaller(
-  "3e7f920b-a711-4d2f-9871-661e1b41a2f0",
+  "34220303-cb87-4592-8a95-2eb20a97b2ac",
   "PHP Project",
   ["version", "site-title", "wait"] as const,
 );
