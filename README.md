@@ -174,7 +174,6 @@ USAGE
 * [`mw project invite list`](#mw-project-invite-list)
 * [`mw project invite list-own`](#mw-project-invite-list-own)
 * [`mw project list`](#mw-project-list)
-* [`mw project list-react`](#mw-project-list-react)
 * [`mw project membership get MEMBERSHIPID`](#mw-project-membership-get-membershipid)
 * [`mw project membership get-own`](#mw-project-membership-get-own)
 * [`mw project membership list`](#mw-project-membership-list)
@@ -200,6 +199,8 @@ USAGE
 
 ## `mw app copy INSTALLATION-ID`
 
+Copy an app within a project
+
 ```
 USAGE
   $ mw app copy INSTALLATION-ID --description <value> [-q]
@@ -211,6 +212,9 @@ FLAGS
   -q, --quiet            suppress process output and only display a machine-readable summary.
   --description=<value>  (required) set a description for the new app installation
 
+DESCRIPTION
+  Copy an app within a project
+
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
@@ -220,7 +224,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app dependency list`
 
-get all available dependencies
+Get all available dependencies
 
 ```
 USAGE
@@ -239,7 +243,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  get all available dependencies
+  Get all available dependencies
 ```
 
 ## `mw app dependency update INSTALLATION-ID`
@@ -280,7 +284,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app dependency versions SYSTEMSOFTWARE`
 
-get all available versions of a particular dependency
+Get all available versions of a particular dependency
 
 ```
 USAGE
@@ -302,7 +306,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  get all available versions of a particular dependency
+  Get all available versions of a particular dependency
 ```
 
 ## `mw app get INSTALLATION-ID`
@@ -2779,7 +2783,7 @@ FLAG DESCRIPTIONS
 
 ## `mw project create`
 
-Get the details of a project
+Create a new project
 
 ```
 USAGE
@@ -2794,7 +2798,7 @@ FLAGS
   --wait-timeout=<value>     [default: 600] The number of seconds to wait for the resource to be ready.
 
 DESCRIPTION
-  Get the details of a project
+  Create a new project
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -2976,7 +2980,7 @@ DESCRIPTION
 
 ## `mw project get [PROJECT-ID]`
 
-Get a Project.
+Get details of a project
 
 ```
 USAGE
@@ -2990,7 +2994,7 @@ FLAGS
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a Project.
+  Get details of a project
 ```
 
 ## `mw project invite get INVITEID`
@@ -3063,7 +3067,7 @@ DESCRIPTION
 
 ## `mw project list`
 
-List Project's for an Organization or Server.
+List all projects that you have access to
 
 ```
 USAGE
@@ -3082,23 +3086,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List Project's for an Organization or Server.
-```
-
-## `mw project list-react`
-
-```
-USAGE
-  $ mw project list-react -o txt|json [--wait] [--columns <value> | ] [--extended] [--noTruncate]
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] The output format to use; use 'txt' for a human readable text
-                         representation, and 'json' for a machine-readable JSON representation.
-                         <options: txt|json>
-  --columns=<value>      only show provided columns (comma-seperated)
-  --extended             show extra columns
-  --noTruncate           do not truncate output to fit screen
-  --wait
+  List all projects that you have access to
 ```
 
 ## `mw project membership get MEMBERSHIPID`
