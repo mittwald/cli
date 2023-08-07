@@ -14,6 +14,7 @@ type Result = {
 };
 
 export class Copy extends ExecRenderBaseCommand<typeof Copy, Result> {
+  static description = "Copy an app within a project";
   static args = { ...appInstallationFlags };
   static flags = {
     ...processFlags,

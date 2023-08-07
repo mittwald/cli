@@ -12,7 +12,7 @@ type Response = Awaited<
 >;
 
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
-  static description = "get all available dependencies";
+  static description = "Get all available dependencies";
 
   static args = {};
   static flags = {

@@ -158,7 +158,7 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
 };
 
 export class Get extends RenderBaseCommand<typeof Get> {
-  static description = "Get a Project.";
+  static description = "Get details of a project";
 
   static flags = { ...GetBaseCommand.baseFlags };
   static args = { ...projectArgs };

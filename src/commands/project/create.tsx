@@ -17,7 +17,7 @@ export default class Create extends ExecRenderBaseCommand<
   typeof Create,
   { projectId: string }
 > {
-  static description = "Get the details of a project";
+  static description = "Create a new project";
 
   static flags = {
     ...serverFlags,
