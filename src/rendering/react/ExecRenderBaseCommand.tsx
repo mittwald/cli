@@ -8,6 +8,19 @@ const RenderComponent: FC<{ render: () => ReactNode }> = (p) => (
   <>{p.render()}</>
 );
 
+function wrapRender<TRes>(
+  fn: (result: TRes) => ReactNode,
+): (result: TRes) => ReactNode {
+  return (result) => {
+    const innerResult = fn(result);
+    if (typeof innerResult === "string") {
+      return <Text>{innerResult}</Text>;
+    }
+
+    return innerResult;
+  };
+}
+
 export abstract class ExecRenderBaseCommand<
   T extends typeof BaseCommand,
   TRes,
@@ -16,6 +29,7 @@ export abstract class ExecRenderBaseCommand<
 
   public async run(): Promise<void> {
     const result = await this.exec();
+    const wrappedRender = wrapRender(this.render.bind(this));
 
     render(
       <RenderContextProvider
@@ -25,7 +39,7 @@ export abstract class ExecRenderBaseCommand<
         }}
       >
         <Suspense fallback={<Text>Loading...</Text>}>
-          <RenderComponent render={() => this.render(result)} />
+          <RenderComponent render={() => wrappedRender(result)} />
         </Suspense>
       </RenderContextProvider>,
     );
