@@ -101,6 +101,7 @@ export default class Create extends ExecRenderBaseCommand<
     const { flags } = await this.parse(Create);
     const projectId = await withProjectId(
       this.apiClient,
+      Create,
       flags,
       {},
       this.config,

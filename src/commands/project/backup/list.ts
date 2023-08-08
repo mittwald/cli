@@ -28,6 +28,7 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
   public async getData(): Promise<ListResponse> {
     const projectId = await withProjectId(
       this.apiClient,
+      List,
       this.flags,
       {},
       this.config,

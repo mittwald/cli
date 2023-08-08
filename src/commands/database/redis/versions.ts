@@ -14,8 +14,8 @@ export type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["database"]["listRedisVersions"]>
 >;
 
-export default class List extends ListBaseCommand<
-  typeof List,
+export default class Versions extends ListBaseCommand<
+  typeof Versions,
   ResponseItem,
   Response
 > {
@@ -30,6 +30,7 @@ export default class List extends ListBaseCommand<
   public async getData(): Promise<Response> {
     const projectId = await withProjectId(
       this.apiClient,
+      Versions,
       this.flags,
       this.args,
       this.config,

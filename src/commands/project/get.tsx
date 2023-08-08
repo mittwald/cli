@@ -169,7 +169,8 @@ export class Get extends RenderBaseCommand<typeof Get> {
 
   protected render(): ReactNode {
     const projectId = usePromise(
-      () => withProjectId(this.apiClient, this.flags, this.args, this.config),
+      () =>
+        withProjectId(this.apiClient, Get, this.flags, this.args, this.config),
       [],
     );
     const projectResponse = usePromise(

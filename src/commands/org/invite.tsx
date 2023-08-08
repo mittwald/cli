@@ -46,6 +46,7 @@ export class Invite extends ExecRenderBaseCommand<
     );
     const customerId = await withOrgId(
       this.apiClient,
+      Invite,
       this.flags,
       this.args,
       this.config,

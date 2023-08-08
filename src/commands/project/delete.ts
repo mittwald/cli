@@ -13,6 +13,7 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
   protected async deleteResource(): Promise<void> {
     const projectId = await withProjectId(
       this.apiClient,
+      Delete,
       {},
       this.args,
       this.config,

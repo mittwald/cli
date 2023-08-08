@@ -35,6 +35,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
     const p = makeProcessRenderer(this.flags, "Creating backup");
     const projectId = await withProjectId(
       this.apiClient,
+      Create,
       this.flags,
       this.args,
       this.config,

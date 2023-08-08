@@ -36,7 +36,7 @@ export async function withRedisId(
     return candidate;
   }
 
-  const projectId = await withProjectId(apiClient, flags, args, cfg);
+  const projectId = await withProjectId(apiClient, "flag", flags, args, cfg);
   const databases = await apiClient.database.listRedisDatabases({
     pathParameters: { projectId },
   });

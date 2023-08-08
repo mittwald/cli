@@ -50,7 +50,7 @@ export async function withMySQLId(
     return candidate;
   }
 
-  const projectId = await withProjectId(apiClient, flags, args, cfg);
+  const projectId = await withProjectId(apiClient, "flag", flags, args, cfg);
   const databases = await apiClient.database.listMysqlDatabases({
     pathParameters: { projectId },
   });

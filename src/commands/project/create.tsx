@@ -37,7 +37,13 @@ export default class Create extends ExecRenderBaseCommand<
     const { flags } = await this.parse(Create);
     const { description } = flags;
     const process = makeProcessRenderer(flags, "Creating project");
-    const serverId = await withServerId(this.apiClient, flags, {}, this.config);
+    const serverId = await withServerId(
+      this.apiClient,
+      Create,
+      flags,
+      {},
+      this.config,
+    );
 
     const stepCreating = process.addStep(<Text>creating a new project</Text>);
 

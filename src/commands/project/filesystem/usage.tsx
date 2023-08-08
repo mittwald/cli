@@ -30,7 +30,14 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
 
   protected render(): ReactNode {
     const projectId = usePromise(
-      () => withProjectId(this.apiClient, this.flags, this.args, this.config),
+      () =>
+        withProjectId(
+          this.apiClient,
+          Usage,
+          this.flags,
+          this.args,
+          this.config,
+        ),
       [],
     );
     const project = usePromise(

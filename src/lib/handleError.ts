@@ -6,7 +6,7 @@ import {
 import { ApiClientError, AxiosResponse } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import CommonsValidationErrors = MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
-import { CLIError, ExitError } from "@oclif/core/lib/errors/index.js";
+import { ExitError } from "@oclif/core/lib/errors/index.js";
 import { renderError } from "../rendering/react/error.js";
 
 export const handleError = (
@@ -26,28 +26,8 @@ export const handleError = (
     return;
   }
 
-  if (error instanceof CLIError) {
-    renderError(error);
-    process.exit(1);
-    return;
-  }
-
-  if (error instanceof ApiClientError) {
-    const responseJson = JSON.stringify(error.response?.data, undefined, 2);
-
-    const errorMessage = `\
-${error.message}
-
-Response:
-─────────
-${responseJson}`;
-
-    error = new Error(errorMessage, {
-      cause: error,
-    });
-  }
-
-  oclif.Errors.handle(error);
+  renderError(error);
+  process.exit(1);
 };
 
 export function isUnexpectedError(err: unknown): boolean {

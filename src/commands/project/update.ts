@@ -7,7 +7,13 @@ export default class Update extends BaseCommand {
 
   public async run(): Promise<void> {
     const { args } = await this.parse(Update);
-    const id = await withProjectId(this.apiClient, {}, args, this.config);
+    const id = await withProjectId(
+      this.apiClient,
+      Update,
+      {},
+      args,
+      this.config,
+    );
 
     console.log("updating project ", id);
     console.log("TODO: Implement me");

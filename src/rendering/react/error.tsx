@@ -8,5 +8,6 @@ import { ErrorBox } from "./components/ErrorBox.js";
  *   handle it.
  */
 export function renderError(err: unknown) {
+  // render(<Text>{(err as any).message}</Text>);
   render(<ErrorBox err={err} />);
 }

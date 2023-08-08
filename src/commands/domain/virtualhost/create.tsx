@@ -76,6 +76,7 @@ export default class Create extends ExecRenderBaseCommand<
   protected async exec(): Promise<CreateResult> {
     const projectId = await withProjectId(
       this.apiClient,
+      Create,
       this.flags,
       this.args,
       this.config,
