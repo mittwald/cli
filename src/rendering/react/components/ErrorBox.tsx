@@ -1,4 +1,4 @@
-import { Box, BoxProps, Text, Newline } from "ink";
+import { Box, BoxProps, Text } from "ink";
 import Link from "ink-link";
 import { FC } from "react";
 import {
@@ -7,7 +7,6 @@ import {
 } from "@oclif/core/lib/parser/errors.js";
 import {
   ApiClientError,
-  AxiosHeaders,
   AxiosResponseHeaders,
 } from "@mittwald/api-client-commons";
 import { RawAxiosResponseHeaders } from "axios";
