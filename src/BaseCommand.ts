@@ -18,6 +18,9 @@ export abstract class BaseCommand extends Command {
         );
       }
       this.apiClient = MittwaldAPIV2Client.newWithToken(token);
+      this.apiClient.axios.defaults.headers[
+        "User-Agent"
+      ] = `mittwald-cli/${this.config.version}`;
     }
   }
 
