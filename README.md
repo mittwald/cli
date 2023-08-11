@@ -94,6 +94,7 @@ USAGE
 * [`mw app install typo3`](#mw-app-install-typo3)
 * [`mw app install wordpress`](#mw-app-install-wordpress)
 * [`mw app list`](#mw-app-list)
+* [`mw app ssh INSTALLATION-ID`](#mw-app-ssh-installation-id)
 * [`mw app uninstall INSTALLATION-ID`](#mw-app-uninstall-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
 * [`mw context get`](#mw-context-get)
@@ -1091,6 +1092,21 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw app ssh INSTALLATION-ID`
+
+Connect to an app via SSH
+
+```
+USAGE
+  $ mw app ssh INSTALLATION-ID
+
+ARGUMENTS
+  INSTALLATION-ID  ID of the app installation to get
+
+DESCRIPTION
+  Connect to an app via SSH
 ```
 
 ## `mw app uninstall INSTALLATION-ID`
