@@ -52,7 +52,13 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
     config: Config,
   ): Promise<AppInstallationResult> {
     const process = makeProcessRenderer(flags, `Installing ${this.appName}`);
-    const projectId = await withProjectId(apiClient, flags, args, config);
+    const projectId = await withProjectId(
+      apiClient,
+      "flag",
+      flags,
+      args,
+      config,
+    );
 
     await autofillFlags(
       apiClient,

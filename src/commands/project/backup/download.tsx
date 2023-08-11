@@ -169,7 +169,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
       flags: this.flags.resume ? "a" : undefined,
     });
 
-    resp.data.on("data", (chunk: any) => {
+    resp.data.on("data", (chunk: { length: number }) => {
       downloaded += chunk.length;
       downloadStep.progress(
         formatBytes(downloaded, {
@@ -190,7 +190,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
         downloadStep.complete();
         res();
       });
-      resp.data.on("error", (err: any) => {
+      resp.data.on("error", (err: unknown) => {
         downloadStep.error(err);
         res();
       });

@@ -1,20 +1,43 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import {
-  GeneratedDomainListDomainOwnerships,
-  Response,
-} from "../../../generated/domain/listDomainOwnerships.js";
+import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdDomainOwnerships.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedDomainListDomainOwnerships<ResponseItem> {
+type PathParams =
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdDomainOwnerships.Get.Parameters.Path;
+type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["domain"]["listDomainOwnerships"]>
+>;
+
+export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
+  static description = "List all domain ownerships of a project.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+    ...projectFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    const pathParameters: PathParams = {
+      projectId: await withProjectId(
+        this.apiClient,
+        List,
+        this.flags,
+        this.args,
+        this.config,
+      ),
+    };
+    return await this.apiClient.domain.listDomainOwnerships({
+      pathParameters,
+    });
+  }
+
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    console.log(data);
     return data;
   }
 }

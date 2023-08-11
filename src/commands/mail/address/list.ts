@@ -47,6 +47,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       ...input,
       projectId: await withProjectId(
         this.apiClient,
+        List,
         this.flags,
         this.args,
         this.config,

@@ -118,7 +118,15 @@
     "topicSeparator": " ",
     "topics": {
       "app": {
-        "description": "Manage apps, and app installations in your projects"
+        "description": "Manage apps, and app installations in your projects",
+        "subtopics": {
+          "install": {
+            "description": "Install apps in your projects"
+          },
+          "dependency": {
+            "description": "Manage the system dependencies of your apps"
+          }
+        }
       },
       "article": {
         "description": "Query available hosting articles"
@@ -148,7 +156,33 @@
         "description": "Manage your organizations, and also any kinds of user memberships concerning these organizations."
       },
       "project": {
-        "description": "Manage your projects, and also any kinds of user memberships concerning these projects."
+        "description": "Manage your projects, and also any kinds of user memberships concerning these projects.",
+        "subtopics": {
+          "backup": {
+            "description": "Manage backups of your projects"
+          },
+          "backupschedule": {
+            "description": "Manage backup schedules of your projects"
+          },
+          "cronjob": {
+            "description": "Manage cronjobs of your projects"
+          },
+          "filesystem": {
+            "description": "Interact with the filesystem of your project"
+          },
+          "invite": {
+            "description": "Invite users to your projects and manage their invitations"
+          },
+          "membership": {
+            "description": "Control who gets to work on your projects, and who doesn't"
+          },
+          "sftp-user": {
+            "description": "Manage SFTP users of your projects"
+          },
+          "ssh-user": {
+            "description": "Manage SSH users of your projects"
+          }
+        }
       },
       "server": {
         "description": "Manage your servers"

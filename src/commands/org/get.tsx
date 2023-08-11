@@ -73,7 +73,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
 
   protected render(): ReactNode {
     const customerId = usePromise(
-      () => withOrgId(this.apiClient, this.flags, this.args, this.config),
+      () => withOrgId(this.apiClient, Get, this.flags, this.args, this.config),
       [],
     );
     const customerResponse = usePromise(

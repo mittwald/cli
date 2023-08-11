@@ -158,7 +158,7 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
 };
 
 export class Get extends RenderBaseCommand<typeof Get> {
-  static description = "Get a Project.";
+  static description = "Get details of a project";
 
   static flags = { ...GetBaseCommand.baseFlags };
   static args = { ...projectArgs };
@@ -169,7 +169,8 @@ export class Get extends RenderBaseCommand<typeof Get> {
 
   protected render(): ReactNode {
     const projectId = usePromise(
-      () => withProjectId(this.apiClient, this.flags, this.args, this.config),
+      () =>
+        withProjectId(this.apiClient, Get, this.flags, this.args, this.config),
       [],
     );
     const projectResponse = usePromise(

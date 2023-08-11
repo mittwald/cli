@@ -31,6 +31,7 @@ export abstract class List extends ListBaseCommand<
   public async getData(): Promise<Response> {
     const customerId = await withOrgId(
       this.apiClient,
+      List,
       this.flags,
       this.args,
       this.config,

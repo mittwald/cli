@@ -36,6 +36,7 @@ export default class List extends ListBaseCommand<
   protected async getData(): Promise<Response> {
     const projectId = await withProjectId(
       this.apiClient,
+      List,
       this.flags,
       this.args,
       this.config,

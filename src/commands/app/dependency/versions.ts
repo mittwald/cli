@@ -18,7 +18,7 @@ export class Versions extends ListBaseCommand<
   ResponseItem,
   Response
 > {
-  static description = "get all available versions of a particular dependency";
+  static description = "Get all available versions of a particular dependency";
 
   static args = {
     systemsoftware: Args.string({
