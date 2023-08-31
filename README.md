@@ -80,6 +80,8 @@ USAGE
 
 <!-- commands -->
 * [`mw app copy INSTALLATION-ID`](#mw-app-copy-installation-id)
+* [`mw app create node`](#mw-app-create-node)
+* [`mw app create php`](#mw-app-create-php)
 * [`mw app dependency list`](#mw-app-dependency-list)
 * [`mw app dependency update INSTALLATION-ID`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
@@ -87,8 +89,6 @@ USAGE
 * [`mw app install contao`](#mw-app-install-contao)
 * [`mw app install joomla`](#mw-app-install-joomla)
 * [`mw app install matomo`](#mw-app-install-matomo)
-* [`mw app install node`](#mw-app-install-node)
-* [`mw app install php`](#mw-app-install-php)
 * [`mw app install shopware5`](#mw-app-install-shopware5)
 * [`mw app install shopware6`](#mw-app-install-shopware6)
 * [`mw app install typo3`](#mw-app-install-typo3)
@@ -222,6 +222,82 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+## `mw app create node`
+
+Creates new custom Node.js installation.
+
+```
+USAGE
+  $ mw app create node [-p <value>] [-q] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your custom Node.js to be ready.
+  --json
+  --site-title=<value>      Site Title for your custom Node.js installation.
+
+DESCRIPTION
+  Creates new custom Node.js installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --site-title=<value>  Site Title for your custom Node.js installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your custom Node.js installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+```
+
+## `mw app create php`
+
+Creates new custom PHP installation.
+
+```
+USAGE
+  $ mw app create php [-p <value>] [-q] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your custom PHP to be ready.
+  --json
+  --site-title=<value>      Site Title for your custom PHP installation.
+
+DESCRIPTION
+  Creates new custom PHP installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --site-title=<value>  Site Title for your custom PHP installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your custom PHP installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+```
+
 ## `mw app dependency list`
 
 Get all available dependencies
@@ -330,7 +406,7 @@ DESCRIPTION
 
 ## `mw app install contao`
 
-Creates new Contao Installation.
+Creates new Contao installation.
 
 ```
 USAGE
@@ -354,7 +430,7 @@ FLAGS
   --version=<value>          (required) [default: latest] Version of Contao to be installed.
 
 DESCRIPTION
-  Creates new Contao Installation.
+  Creates new Contao installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -420,7 +496,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app install joomla`
 
-Creates new Joomla! Installation.
+Creates new Joomla! installation.
 
 ```
 USAGE
@@ -444,7 +520,7 @@ FLAGS
   --version=<value>          (required) [default: latest] Version of Joomla! to be installed.
 
 DESCRIPTION
-  Creates new Joomla! Installation.
+  Creates new Joomla! installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -510,7 +586,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app install matomo`
 
-Creates new Matomo Installation.
+Creates new Matomo installation.
 
 ```
 USAGE
@@ -531,7 +607,7 @@ FLAGS
   --version=<value>         (required) [default: latest] Version of Matomo to be installed.
 
 DESCRIPTION
-  Creates new Matomo Installation.
+  Creates new Matomo installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -583,97 +659,9 @@ FLAG DESCRIPTIONS
     If none is given the Matomo will be installed in the latest available version.
 ```
 
-## `mw app install node`
-
-Creates new Node.js Project Installation.
-
-```
-USAGE
-  $ mw app install node --version <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
-
-FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your Node.js Project to be ready.
-  --json
-  --site-title=<value>      Site Title for your Node.js Project installation.
-  --version=<value>         (required) [default: latest] Version of Node.js Project to be installed.
-
-DESCRIPTION
-  Creates new Node.js Project Installation.
-
-FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
-
-    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
-    to persistently set a default project for all commands that accept this flag.
-
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
-
-  --site-title=<value>  Site Title for your Node.js Project installation.
-
-    Site Title which will be displayed in the Tab and at the top of the Frontend of your Node.js Project installation.
-    It is also the Title shown in the App-Overview in the mStudio.
-    If none is given the Software Name and the given Project will be used. The Title can be changed after the
-    installation is finished
-
-  --version=<value>  Version of Node.js Project to be installed.
-
-    Specify the Version in which your Node.js Project will be installed.
-    If none is given the Node.js Project will be installed in the latest available version.
-```
-
-## `mw app install php`
-
-Creates new PHP Project Installation.
-
-```
-USAGE
-  $ mw app install php --version <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
-
-FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your PHP Project to be ready.
-  --json
-  --site-title=<value>      Site Title for your PHP Project installation.
-  --version=<value>         (required) [default: latest] Version of PHP Project to be installed.
-
-DESCRIPTION
-  Creates new PHP Project Installation.
-
-FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
-
-    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
-    to persistently set a default project for all commands that accept this flag.
-
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
-
-  --site-title=<value>  Site Title for your PHP Project installation.
-
-    Site Title which will be displayed in the Tab and at the top of the Frontend of your PHP Project installation.
-    It is also the Title shown in the App-Overview in the mStudio.
-    If none is given the Software Name and the given Project will be used. The Title can be changed after the
-    installation is finished
-
-  --version=<value>  Version of PHP Project to be installed.
-
-    Specify the Version in which your PHP Project will be installed.
-    If none is given the PHP Project will be installed in the latest available version.
-```
-
 ## `mw app install shopware5`
 
-Creates new Shopware 5 Installation.
+Creates new Shopware 5 installation.
 
 ```
 USAGE
@@ -701,7 +689,7 @@ FLAGS
   --version=<value>          (required) [default: latest] Version of Shopware 5 to be installed.
 
 DESCRIPTION
-  Creates new Shopware 5 Installation.
+  Creates new Shopware 5 installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -787,7 +775,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app install shopware6`
 
-Creates new Shopware 6 Installation.
+Creates new Shopware 6 installation.
 
 ```
 USAGE
@@ -815,7 +803,7 @@ FLAGS
   --version=<value>          (required) [default: latest] Version of Shopware 6 to be installed.
 
 DESCRIPTION
-  Creates new Shopware 6 Installation.
+  Creates new Shopware 6 installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -901,7 +889,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app install typo3`
 
-Creates new TYPO3 Installation.
+Creates new TYPO3 installation.
 
 ```
 USAGE
@@ -924,7 +912,7 @@ FLAGS
   --version=<value>         (required) [default: latest] Version of TYPO3 to be installed.
 
 DESCRIPTION
-  Creates new TYPO3 Installation.
+  Creates new TYPO3 installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -986,7 +974,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app install wordpress`
 
-Creates new WordPress Installation.
+Creates new WordPress installation.
 
 ```
 USAGE
@@ -1008,7 +996,7 @@ FLAGS
   --version=<value>         (required) [default: latest] Version of WordPress to be installed.
 
 DESCRIPTION
-  Creates new WordPress Installation.
+  Creates new WordPress installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
