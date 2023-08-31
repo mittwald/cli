@@ -5,24 +5,29 @@ import {
   AppInstaller,
 } from "../../../lib/app/Installer.js";
 
-const installer = new AppInstaller(
+export const nodeInstaller = new AppInstaller(
   "3e7f920b-a711-4d2f-9871-661e1b41a2f0",
-  "Node.js Project",
-  ["version", "site-title", "wait"] as const,
+  "custom Node.js",
+  ["site-title", "wait"] as const,
 );
 
 export default class InstallNode extends ExecRenderBaseCommand<
   typeof InstallNode,
   AppInstallationResult
 > {
-  static description = installer.description;
-  static flags = installer.flags;
+  static description = nodeInstaller.description;
+  static flags = nodeInstaller.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return installer.exec(this.apiClient, this.args, this.flags, this.config);
+    return nodeInstaller.exec(
+      this.apiClient,
+      this.args,
+      this.flags,
+      this.config,
+    );
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return installer.render(result, this.flags);
+    return nodeInstaller.render(result, this.flags);
   }
 }

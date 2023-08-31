@@ -27,7 +27,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
   public readonly description: string;
 
   private static makeDescription(appName: string): string {
-    return `Creates new ${appName} Installation.`;
+    return `Creates new ${appName} installation.`;
   }
 
   constructor(
@@ -48,7 +48,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
   public async exec(
     apiClient: MittwaldAPIV2Client,
     args: ArgOutput,
-    flags: OutputFlags<RelevantFlagInput<(TFlagName | "version" | "wait")[]>>,
+    flags: OutputFlags<RelevantFlagInput<(TFlagName | "wait")[]>>,
     config: Config,
   ): Promise<AppInstallationResult> {
     const process = makeProcessRenderer(flags, `Installing ${this.appName}`);
@@ -71,7 +71,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
 
     const appVersion: AppAppVersion = await normalizeToAppVersionUuid(
       apiClient,
-      flags.version as unknown as string,
+      "version" in flags ? (flags.version as string) : "latest",
       process,
       this.appId,
     );
