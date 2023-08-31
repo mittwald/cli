@@ -5,24 +5,29 @@ import {
   AppInstaller,
 } from "../../../lib/app/Installer.js";
 
-const installer = new AppInstaller(
+export const phpInstaller = new AppInstaller(
   "34220303-cb87-4592-8a95-2eb20a97b2ac",
-  "PHP Project",
-  ["version", "site-title", "wait"] as const,
+  "custom PHP",
+  ["site-title", "wait"] as const,
 );
 
 export default class InstallPhp extends ExecRenderBaseCommand<
   typeof InstallPhp,
   AppInstallationResult
 > {
-  static description = installer.description;
-  static flags = installer.flags;
+  static description = phpInstaller.description;
+  static flags = phpInstaller.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return installer.exec(this.apiClient, this.args, this.flags, this.config);
+    return phpInstaller.exec(
+      this.apiClient,
+      this.args,
+      this.flags,
+      this.config,
+    );
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return installer.render(result, this.flags);
+    return phpInstaller.render(result, this.flags);
   }
 }

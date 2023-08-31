@@ -7,6 +7,8 @@ import { SuccessfulResponse } from "../../types.js";
 import { ListColumns } from "../../Formatter.js";
 import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+import { phpInstaller } from "./create/php.js";
+import { nodeInstaller } from "./create/node.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdAppinstallations.Get.Responses.$200.Content.ApplicationJson[number]
@@ -89,6 +91,10 @@ export default class List extends ListBaseCommand<
       appVersion: {
         header: "Version",
         get: (i) => {
+          if ([phpInstaller.appId, nodeInstaller.appId].includes(i.appId)) {
+            return "n/a";
+          }
+
           if (i.appVersionCurrent?.id === i.appVersionDesired.id) {
             return i.appVersionDesired.externalVersion;
           }

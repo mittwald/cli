@@ -5,14 +5,19 @@ import { AppInstallationStatus } from "./AppInstallationStatus.js";
 import { SingleResult, SingleResultTable } from "../SingleResult.js";
 import { AppSystemSoftware } from "./AppSystemSoftware.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import { Box } from "ink";
+import { Box, Text } from "ink";
 import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
+import { phpInstaller } from "../../../../commands/app/create/php.js";
+import { nodeInstaller } from "../../../../commands/app/create/node.js";
 
 export const AppInstallationDetails: FC<{
   appInstallation: AppAppInstallation;
   app: AppApp;
 }> = ({ app, appInstallation }) => {
+  const customInstallation = [phpInstaller.appId, nodeInstaller.appId].includes(
+    app.id,
+  );
   const desiredAppVersion = useAppVersion(
     app.id,
     appInstallation.appVersion.desired,
@@ -33,7 +38,9 @@ export const AppInstallationDetails: FC<{
     ),
     "Installation Path": <Value>{appInstallation.installationPath}</Value>,
     Description: <Value>{appInstallation.description}</Value>,
-    Status: (
+    Status: customInstallation ? (
+      <Text>custom application</Text>
+    ) : (
       <AppInstallationStatus
         appInstallation={appInstallation}
         desired={desiredAppVersion}
