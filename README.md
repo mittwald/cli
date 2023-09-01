@@ -1088,10 +1088,13 @@ Connect to an app via SSH
 
 ```
 USAGE
-  $ mw app ssh INSTALLATION-ID
+  $ mw app ssh INSTALLATION-ID [--cd]
 
 ARGUMENTS
   INSTALLATION-ID  ID of the app installation to get
+
+FLAGS
+  --[no-]cd  change to installation path after connecting
 
 DESCRIPTION
   Connect to an app via SSH
