@@ -8,7 +8,7 @@ import {
 export const phpInstaller = new AppInstaller(
   "34220303-cb87-4592-8a95-2eb20a97b2ac",
   "custom PHP",
-  ["site-title", "wait"] as const,
+  ["document-root", "site-title", "wait"] as const,
 );
 
 export default class InstallPhp extends ExecRenderBaseCommand<
