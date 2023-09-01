@@ -2,14 +2,23 @@ import { BaseCommand } from "../../BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import * as child_process from "child_process";
 import { appInstallationFlags } from "../../lib/app/flags.js";
+import { Flags } from "@oclif/core";
+import * as path from "path";
 
 export default class Ssh extends BaseCommand {
   static description = "Connect to an app via SSH";
 
   static args = { ...appInstallationFlags };
+  static flags = {
+    cd: Flags.boolean({
+      summary: "change to installation path after connecting",
+      default: true,
+      allowNo: true,
+    }),
+  };
 
   public async run(): Promise<void> {
-    const { args } = await this.parse(Ssh);
+    const { args, flags } = await this.parse(Ssh);
     const id = args["installation-id"];
 
     const appInstallationResponse = await this.apiClient.app.getAppinstallation(
@@ -38,9 +47,27 @@ export default class Ssh extends BaseCommand {
     const sshUser = `${userResponse.data.email}@app-${appInstallationResponse.data.id}`;
 
     this.log("connecting to %o as %o", sshHost, sshUser);
+    let cmd = "exec bash -l";
 
-    child_process.spawnSync("/usr/bin/ssh", ["-l", sshUser, sshHost], {
-      stdio: "inherit",
-    });
+    if (flags.cd) {
+      const absoluteInstallPath = path.join(
+        projectResponse.data.directories["Web"],
+        appInstallationResponse.data.installationPath,
+      );
+      cmd = flags.cd ? `cd ${absoluteInstallPath} && exec bash -l` : "bash -l";
+
+      this.log(
+        "changing to %o; use --no-cd to disable this behaviour",
+        absoluteInstallPath,
+      );
+    }
+
+    child_process.spawnSync(
+      "/usr/bin/ssh",
+      ["-t", "-l", sshUser, sshHost, cmd],
+      {
+        stdio: "inherit",
+      },
+    );
   }
 }
