@@ -34,9 +34,9 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
         this.config,
       ),
     };
-    return await this.apiClient.cronjob.listCronjobs({
-      ...pathParams,
-    } as Parameters<typeof this.apiClient.cronjob.listCronjobs>[0]);
+    return await this.apiClient.cronjob.listCronjobs(
+      pathParams as Parameters<typeof this.apiClient.cronjob.listCronjobs>[0],
+    );
   }
 
   protected mapData(
