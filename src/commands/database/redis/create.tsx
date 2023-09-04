@@ -77,7 +77,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const db = await p.runStep("creating Redis database", async () => {
       const r = await this.apiClient.database.createRedisDatabase({
-        pathParameters: { projectId },
+        projectId,
         data: {
           description,
           version,
@@ -95,7 +95,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const database = await p.runStep("fetching database", async () => {
       const r = await this.apiClient.database.getRedisDatabase({
-        pathParameters: { id: db.id },
+        id: db.id,
       });
       assertStatus(r, 200);
 

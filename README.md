@@ -130,8 +130,6 @@ USAGE
 * [`mw domain list`](#mw-domain-list)
 * [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
 * [`mw domain ownership list`](#mw-domain-ownership-list)
-* [`mw domain tld get TLD`](#mw-domain-tld-get-tld)
-* [`mw domain tld list`](#mw-domain-tld-list)
 * [`mw domain virtualhost create`](#mw-domain-virtualhost-create)
 * [`mw domain virtualhost delete VIRTUAL-HOST-ID`](#mw-domain-virtualhost-delete-virtual-host-id)
 * [`mw domain virtualhost get INGRESS-ID`](#mw-domain-virtualhost-get-ingress-id)
@@ -1923,49 +1921,6 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-```
-
-## `mw domain tld get TLD`
-
-Get a toplevel domain.
-
-```
-USAGE
-  $ mw domain tld get TLD [-o json|yaml |  | ]
-
-ARGUMENTS
-  TLD  undefined
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get a toplevel domain.
-```
-
-## `mw domain tld list`
-
-List all supported toplevel domains.
-
-```
-USAGE
-  $ mw domain tld list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
-
-FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
-
-DESCRIPTION
-  List all supported toplevel domains.
 ```
 
 ## `mw domain virtualhost create`

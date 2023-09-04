@@ -27,7 +27,7 @@ export abstract class GeneratedNotificationsListNotifications<
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
     return await this.apiClient.notification.slistNotifications({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.notification.slistNotifications>[0]);
   }
 

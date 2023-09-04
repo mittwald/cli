@@ -54,7 +54,7 @@ export class Invite extends ExecRenderBaseCommand<
 
     const invite = await process.runStep("Creating invite", async () => {
       const result = await this.apiClient.customer.createCustomerInvite({
-        pathParameters: { customerId },
+        customerId,
         data: {
           mailAddress: this.flags.email,
           role: this.flags.role as MembershipCustomerRoles,

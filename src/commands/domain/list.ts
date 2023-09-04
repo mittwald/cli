@@ -35,7 +35,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     );
     const pathParams: PathParams = { projectId };
     return await this.apiClient.domain.listDomains({
-      pathParameters: pathParams,
+      ...pathParams,
     } as Parameters<typeof this.apiClient.domain.listDomains>[0]);
   }
 

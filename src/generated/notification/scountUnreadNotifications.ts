@@ -23,7 +23,7 @@ export abstract class GeneratedNotificationsCountUnreadNotifications extends Get
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.notification.scountUnreadNotifications({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.notification.scountUnreadNotifications>[0]);
   }
 

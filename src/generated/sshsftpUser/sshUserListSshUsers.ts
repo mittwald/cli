@@ -34,7 +34,7 @@ export abstract class GeneratedSshUserListSshUsers<
       projectId: this.flags["project-id"],
     };
     return await this.apiClient.sshsftpUser.sshUserListSshUsers({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.sshsftpUser.sshUserListSshUsers>[0]);
   }
 

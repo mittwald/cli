@@ -10,10 +10,7 @@ import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
 export function useApp(appId: string): AppApp {
   const { apiClient } = useRenderContext();
-  const app = usePromise(
-    (id) => apiClient.app.getApp({ pathParameters: { appId: id } }),
-    [appId],
-  );
+  const app = usePromise((id) => apiClient.app.getApp({ appId: id }), [appId]);
   assertStatus(app, 200);
 
   return app.data;
@@ -26,7 +23,7 @@ export function useAppInstallation(
   const appInstallation = usePromise(
     (id) =>
       apiClient.app.getAppinstallation({
-        pathParameters: { appInstallationId: id },
+        appInstallationId: id,
       }),
     [appInstallationId],
   );
@@ -43,7 +40,8 @@ export function useAppVersion(
   const appVersion = usePromise(
     (appId, appVersionId) =>
       apiClient.app.getAppversion({
-        pathParameters: { appId, appVersionId },
+        appId,
+        appVersionId,
       }),
     [appId, appVersionId],
   );
@@ -57,7 +55,7 @@ export function useSystemSoftware(systemSoftwareId: string): AppSystemSoftware {
   const systemSoftware = usePromise(
     (id) =>
       apiClient.app.getSystemsoftware({
-        pathParameters: { systemSoftwareId: id },
+        systemSoftwareId: id,
       }),
     [systemSoftwareId],
   );
@@ -74,10 +72,8 @@ export function useSystemSoftwareVersion(
   const systemSoftwareVersion = usePromise(
     (systemSoftwareId, systemSoftwareVersionId) =>
       apiClient.app.getSystemsoftwareversion({
-        pathParameters: {
-          systemSoftwareId,
-          systemSoftwareVersionId,
-        },
+        systemSoftwareId,
+        systemSoftwareVersionId,
       }),
     [systemSoftwareId, systemSoftwareVersionId],
   );

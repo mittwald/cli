@@ -33,7 +33,7 @@ export default class Reply extends BaseCommand {
     ux.action.start(`replying to ${conversationId}`);
 
     const response = await this.apiClient.conversation.createMessage({
-      pathParameters: { conversationId },
+      conversationId,
       data: { messageContent },
     });
 

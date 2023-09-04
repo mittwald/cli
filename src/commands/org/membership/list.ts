@@ -38,7 +38,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     );
 
     return await this.apiClient.customer.listMembershipsForCustomer({
-      pathParameters: { customerId },
+      customerId,
     } as Parameters<typeof this.apiClient.customer.listMembershipsForCustomer>[0]);
   }
 
@@ -47,7 +47,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       data.map(async (item) => {
         const { userId } = item;
         const user = await this.apiClient.user.getUser({
-          pathParameters: { userId },
+          userId,
         });
 
         if (user.status === 200) {

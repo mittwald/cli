@@ -45,7 +45,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
 
     const backup = await p.runStep("creating backup", async () => {
       const r = await this.apiClient.backup.createProjectBackup({
-        pathParameters: { projectId },
+        projectId,
         data: {
           description,
           expirationTime: expirationTime.toJSON(),
@@ -64,7 +64,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
 
       await waitUntil(async () => {
         const backupResponse = await this.apiClient.backup.getProjectBackup({
-          pathParameters: { projectBackupId: backup.id },
+          projectBackupId: backup.id,
         });
 
         if (

@@ -35,7 +35,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       ),
     };
     return await this.apiClient.cronjob.listCronjobs({
-      pathParameters: pathParams,
+      ...pathParams,
     } as Parameters<typeof this.apiClient.cronjob.listCronjobs>[0]);
   }
 

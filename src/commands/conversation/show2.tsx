@@ -33,9 +33,7 @@ export default class Show extends RenderBaseCommand<typeof Show> {
       apiClient.conversation.listMessagesByConversation,
       [
         {
-          pathParameters: {
-            conversationId,
-          },
+          conversationId,
         },
       ],
       {

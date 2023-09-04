@@ -23,7 +23,7 @@ export abstract class GeneratedUserListSessions<
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
     return await this.apiClient.user.listSessions({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.user.listSessions>[0]);
   }
 

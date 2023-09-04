@@ -296,12 +296,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client@npm:^2.0.8":
-  version: 2.0.8
-  resolution: "@mittwald/api-client@npm:2.0.8"
+"@mittwald/api-client@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@mittwald/api-client@npm:3.0.1"
   dependencies:
-    "@mittwald/api-client-commons": ^3.0.0
-  checksum: 433fc3d9cf1619dbb59aebc34a00df14c5bea3a2eb0ae28ca5dc9a1dd4073fe1d74b1818e2934fb47f92dee1297b8a167f4adba387dd1e57e0ad8a891d727933
+    "@mittwald/api-client-commons": ^4.0.0
+  checksum: 3560abec690db6912f6d0c8a97e91811c04bf5a9d4772a8b226f37a5559baf7a1149a4215a480a254e4e81c474831255b1932fd18261a6e29aecd4c842a0ea51
   languageName: node
   linkType: hard
 
@@ -309,9 +309,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mittwald/cli@workspace:."
   dependencies:
-    "@mittwald/api-client": ^2.0.8
-    "@mittwald/api-client-commons": ^3.1.0
-    "@mittwald/react-use-promise": ^1.2.2
+    "@mittwald/api-client": ^3.0.1
+    "@mittwald/api-client-commons": ^4.0.1
+    "@mittwald/react-use-promise": ^1.3.2
     "@oclif/core": ^2.8.5
     "@oclif/plugin-help": ^5.2.9
     "@oclif/plugin-update": ^3.1.28
@@ -330,6 +330,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.61.0
     "@typescript-eslint/parser": ^5.61.0
     "@yarnpkg/pnpify": ^4.0.0-rc.48
+    axios: ^1.5.0
     chalk: ^5.3.0
     copyfiles: ^2.4.1
     date-fns: ^2.30.0
@@ -366,9 +367,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mittwald/react-use-promise@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "@mittwald/react-use-promise@npm:1.2.2"
+"@mittwald/react-use-promise@npm:^1.3.2":
+  version: 1.3.2
+  resolution: "@mittwald/react-use-promise@npm:1.3.2"
   dependencies:
     "@types/luxon": ^3.3.0
     luxon: ^3.3.0
@@ -376,7 +377,7 @@ __metadata:
     object-code: ^1.2.4
   peerDependencies:
     react: ">=17.0"
-  checksum: 64d64ccc728e3b8de2b805d619048c67bd26e4ea446dc56b0289d45739630717032e4b60e97b51d9e0ea7a08b0a85cadb0a94291b5faee7c05692764bffb279e
+  checksum: e0b1edd78bc7076a0505f1caa9341a2970e3a22fdf23dc9389cfb31a2d9bf87efe1015984dfea5ab2d0620de2e1f071314b1f19bca6bbf5f2f87c650db0ee205
   languageName: node
   linkType: hard
 
@@ -1915,6 +1916,17 @@ __metadata:
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
   checksum: 7fb6a4313bae7f45e89d62c70a800913c303df653f19eafec88e56cea2e3821066b8409bc68be1930ecca80e861c52aa787659df0ffec6ad4d451c7816b9386b
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "axios@npm:1.5.0"
+  dependencies:
+    follow-redirects: ^1.15.0
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: e7405a5dbbea97760d0e6cd58fecba311b0401ddb4a8efbc4108f5537da9b3f278bde566deb777935a960beec4fa18e7b8353881f2f465e4f2c0e949fead35be
   languageName: node
   linkType: hard
 

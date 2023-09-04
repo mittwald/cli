@@ -17,7 +17,7 @@ export class Delete extends DeleteBaseCommand<typeof Delete> {
   protected async deleteResource(): Promise<void> {
     const projectBackupId = this.args["backup-id"];
     const response = await this.apiClient.backup.deleteProjectBackup({
-      pathParameters: { projectBackupId },
+      projectBackupId,
     });
 
     assertStatus(response, 204);

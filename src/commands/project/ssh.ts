@@ -13,7 +13,7 @@ export default class Ssh extends BaseCommand {
     const id = await withProjectId(this.apiClient, Ssh, {}, args, this.config);
 
     const projectResponse = await this.apiClient.project.getProject({
-      pathParameters: { id },
+      id,
     });
 
     const userResponse = await this.apiClient.user.getOwnAccount();

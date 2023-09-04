@@ -29,7 +29,7 @@ const GetOrganization: FC<{ response: CustomerCustomer }> = ({ response }) => {
   const competency = usePromise(
     (id) =>
       apiClient.customer.isCustomerLegallyCompetent({
-        pathParameters: { customerId: id },
+        customerId: id,
       }),
     [response.customerId],
   );
@@ -79,7 +79,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
     const customerResponse = usePromise(
       (id: string) =>
         this.apiClient.customer.getCustomer({
-          pathParameters: { customerId: id },
+          customerId: id,
         }),
       [customerId],
     );

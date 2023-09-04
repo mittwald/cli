@@ -48,7 +48,7 @@ export default class Create extends ExecRenderBaseCommand<
     const stepCreating = process.addStep(<Text>creating a new project</Text>);
 
     const result = await this.apiClient.project.createProject({
-      pathParameters: { serverId },
+      serverId,
       data: { description },
     });
 
@@ -69,7 +69,7 @@ export default class Create extends ExecRenderBaseCommand<
 
       await waitUntil(async () => {
         const projectResponse = await this.apiClient.project.getProject({
-          pathParameters: { id: result.data.id },
+          id: result.data.id,
           headers: { "if-event-reached": eventId },
         });
 

@@ -34,7 +34,7 @@ export abstract class GeneratedProjectListInvitesForProject<
       projectId: this.flags["project-id"],
     };
     return await this.apiClient.project.listInvitesForProject({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.project.listInvitesForProject>[0]);
   }
 

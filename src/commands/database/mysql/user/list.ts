@@ -31,7 +31,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       databaseId: this.flags["database-id"],
     };
     return await this.apiClient.database.listMysqlUsers({
-      pathParameters: pathParams,
+      ...pathParams,
     } as Parameters<typeof this.apiClient.database.listMysqlUsers>[0]);
   }
 

@@ -32,7 +32,7 @@ export class Charsets extends ListBaseCommand<
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
     return await this.apiClient.database.listMysqlCharsets({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.database.listMysqlCharsets>[0]);
   }
 

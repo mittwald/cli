@@ -56,7 +56,8 @@ export async function getAppVersionFromUuid(
   }
 
   const appVersion = await apiClient.app.getAppversion({
-    pathParameters: { appId: appId, appVersionId: appVersionId },
+    appId: appId,
+    appVersionId: appVersionId,
   });
 
   if (appVersion.data.externalVersion) {

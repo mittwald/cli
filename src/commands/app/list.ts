@@ -44,7 +44,7 @@ export default class List extends ListBaseCommand<
       this.config,
     );
     const apps = await this.apiClient.app.listAppinstallations({
-      pathParameters: { projectId },
+      projectId,
     });
     assertStatus(apps, 200);
 

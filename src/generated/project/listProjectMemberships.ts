@@ -28,7 +28,7 @@ export abstract class GeneratedProjectListProjectMemberships<
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
     return await this.apiClient.project.listProjectMemberships({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.project.listProjectMemberships>[0]);
   }
 

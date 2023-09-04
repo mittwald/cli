@@ -13,7 +13,7 @@ export async function triggerAppInstallation(
     "starting installation",
     async (): Promise<[string, string]> => {
       const result = await apiClient.app.requestAppinstallation({
-        pathParameters: { projectId },
+        projectId,
         data: {
           appVersionId: appVersion.id,
           description: flags["site-title"],

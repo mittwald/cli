@@ -79,7 +79,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const db = await p.runStep("creating MySQL database", async () => {
       const r = await this.apiClient.database.createMysqlDatabase({
-        pathParameters: { projectId },
+        projectId,
         data: {
           database: {
             projectId,
@@ -104,7 +104,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const database = await p.runStep("fetching database", async () => {
       const r = await this.apiClient.database.getMysqlDatabase({
-        pathParameters: { id: db.id },
+        id: db.id,
       });
       assertStatus(r, 200);
 
@@ -113,7 +113,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const user = await p.runStep("fetching user", async () => {
       const r = await this.apiClient.database.getMysqlUser({
-        pathParameters: { id: db.userId },
+        id: db.userId,
       });
       assertStatus(r, 200);
 

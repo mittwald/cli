@@ -23,7 +23,7 @@ export abstract class GeneratedUserListSshKeys<
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
     return await this.apiClient.user.listSshKeys({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.user.listSshKeys>[0]);
   }
 

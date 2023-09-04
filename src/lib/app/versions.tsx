@@ -52,9 +52,7 @@ export async function getLatestAvailableAppVersionForApp(
   appId: string,
 ): Promise<AppVersion | undefined> {
   const versions = await apiClient.app.listAppversions({
-    pathParameters: {
-      appId,
-    },
+    appId,
   });
   assertStatus(versions, 200);
   if (versions.data.length === 0) {
@@ -78,9 +76,7 @@ export async function getAppVersionUuidFromAppVersion(
   appVersion: string | undefined,
 ): Promise<AppVersion | undefined> {
   const versions = await apiClient.app.listAppversions({
-    pathParameters: {
-      appId,
-    },
+    appId,
   });
 
   if (!appVersion) {

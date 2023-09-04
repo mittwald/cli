@@ -34,7 +34,7 @@ export abstract class GeneratedMailDeliveryboxList<
       projectId: this.flags["project-id"],
     };
     return await this.apiClient.mail.deliveryboxList({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.mail.deliveryboxList>[0]);
   }
 

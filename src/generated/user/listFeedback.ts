@@ -30,7 +30,7 @@ export abstract class GeneratedUserListFeedback<
       userId: this.flags["user-id"],
     };
     return await this.apiClient.user.listFeedback({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.user.listFeedback>[0]);
   }
 

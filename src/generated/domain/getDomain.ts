@@ -29,7 +29,7 @@ export abstract class GeneratedDomainGetDomain extends GetBaseCommand<
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.domain.getDomain({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.domain.getDomain>[0]);
   }
 

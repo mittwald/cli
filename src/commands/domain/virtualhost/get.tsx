@@ -55,14 +55,14 @@ const IngressPath: FC<{ path: IngressPath }> = ({ path }) => {
     const installation = usePromise(
       (id) =>
         apiClient.app.getAppinstallation({
-          pathParameters: { appInstallationId: id },
+          appInstallationId: id,
         }),
       [path.target.installationId],
     );
     assertStatus(installation, 200);
 
     const app = usePromise(
-      (id) => apiClient.app.getApp({ pathParameters: { appId: id } }),
+      (id) => apiClient.app.getApp({ appId: id }),
       [installation.data.appId],
     );
     assertStatus(app, 200);
@@ -89,8 +89,7 @@ const IngressPaths: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
 const GetIngress: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
   const { apiClient } = useRenderContext();
   const ownerships = usePromise(
-    (projectId) =>
-      apiClient.domain.listDomainOwnerships({ pathParameters: { projectId } }),
+    (projectId) => apiClient.domain.listDomainOwnerships({ projectId }),
     [ingress.projectId],
   );
 
@@ -164,7 +163,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
     const ingressResponse = usePromise(
       (id: string) =>
         this.apiClient.domain.ingressGetSpecific({
-          pathParameters: { ingressId: id },
+          ingressId: id,
         }),
       [ingressId],
     );

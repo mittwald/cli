@@ -122,7 +122,7 @@ export default class Create extends ExecRenderBaseCommand<
       async (): Promise<[IngressIngress, DomainDomainOwnership | null]> => {
         return await waitUntil(async () => {
           const response = await this.apiClient.domain.ingressGetSpecific({
-            pathParameters: { ingressId },
+            ingressId,
           });
 
           if (response.status !== 200) {
@@ -131,7 +131,7 @@ export default class Create extends ExecRenderBaseCommand<
 
           const ownershipResponse =
             await this.apiClient.domain.listDomainOwnerships({
-              pathParameters: { projectId },
+              projectId,
             });
           if (ownershipResponse.status === 200) {
             const ownership = ownershipResponse.data.find(

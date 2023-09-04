@@ -34,7 +34,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       projectId: this.flags["project-id"],
     };
     return await this.apiClient.mail.mailaddressList({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.mail.mailaddressList>[0]);
   }
 

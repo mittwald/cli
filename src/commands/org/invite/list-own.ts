@@ -34,7 +34,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       data.map(async (item) => {
         const { customerId } = item;
         const org = await this.apiClient.customer.getCustomer({
-          pathParameters: { customerId },
+          customerId,
         });
 
         if (org.status === 200) {

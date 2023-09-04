@@ -28,7 +28,7 @@ export abstract class GeneratedUserGetPersonalizedSettings extends GetBaseComman
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.user.getPersonalizedSettings({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.user.getPersonalizedSettings>[0]);
   }
 

@@ -27,7 +27,7 @@ export abstract class GeneratedProjectListProjectInvites<
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
     return await this.apiClient.project.listProjectInvites({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.project.listProjectInvites>[0]);
   }
 

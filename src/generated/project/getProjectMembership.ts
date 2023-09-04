@@ -29,7 +29,7 @@ export abstract class GeneratedProjectGetProjectMembership extends GetBaseComman
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.project.getProjectMembership({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.project.getProjectMembership>[0]);
   }
 

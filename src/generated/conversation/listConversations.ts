@@ -28,7 +28,7 @@ export abstract class GeneratedConversationListConversations<
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
     return await this.apiClient.conversation.listConversations({
-      pathParameters: await this.mapParams(pathParams),
+      ...(await this.mapParams(pathParams)),
     } as Parameters<typeof this.apiClient.conversation.listConversations>[0]);
   }
 

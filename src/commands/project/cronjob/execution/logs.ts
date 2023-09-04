@@ -48,10 +48,11 @@ export class Logs extends BaseCommand {
     const usePager = process.stdin.isTTY && !flags["no-pager"];
 
     const cronJob = await this.apiClient.cronjob.getCronjob({
-      pathParameters: { cronjobId },
+      cronjobId,
     });
     const execution = await this.apiClient.cronjob.getExecution({
-      pathParameters: { cronjobId, executionId },
+      cronjobId,
+      executionId,
     });
 
     assertStatus(cronJob, 200);
@@ -75,7 +76,7 @@ export class Logs extends BaseCommand {
     );
 
     // await this.apiClient.projectFileSystem.getFileContent({
-    //   pathParameters: { projectId },
+    //    projectId ,
     //   queryParameters: { file: execution.data.logPath, inline: true },
     // });
 

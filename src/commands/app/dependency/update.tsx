@@ -128,7 +128,7 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
 
     await process.runStep("updating app dependencies", async () => {
       const r = await this.apiClient.app.patchAppinstallation({
-        pathParameters: { appInstallationId },
+        appInstallationId,
         data: {
           systemSoftware: versionsToUpdate,
         },
@@ -152,7 +152,7 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
       `fetching versions for ${systemSoftware.name}`,
       async () => {
         const r = await this.apiClient.app.listSystemsoftwareversions({
-          pathParameters: { systemSoftwareId: systemSoftware.id },
+          systemSoftwareId: systemSoftware.id,
         });
         assertStatus(r, 200);
 

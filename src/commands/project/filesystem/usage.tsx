@@ -41,14 +41,13 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
       [],
     );
     const project = usePromise(
-      (id: string) =>
-        this.apiClient.project.getProject({ pathParameters: { id } }),
+      (id: string) => this.apiClient.project.getProject({ id }),
       [projectId],
     );
     const projectDiskUsage = usePromise(
       (id: string) =>
         this.apiClient.projectFileSystem.getDiskUsage({
-          pathParameters: { projectId: id },
+          projectId: id,
         }),
       [projectId],
     );
