@@ -22,7 +22,7 @@ export default class Close extends BaseCommand {
     ux.action.start(`closing conversation ${conversationId}`);
 
     const response = await this.apiClient.conversation.setConversationStatus({
-      pathParameters: { conversationId },
+      conversationId,
       data: { status: "closed" },
     });
 

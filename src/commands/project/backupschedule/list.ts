@@ -30,7 +30,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       this.config,
     );
     return await this.apiClient.backup.listProjectBackupSchedules({
-      pathParameters: { projectId },
+      projectId,
     } as Parameters<typeof this.apiClient.backup.listProjectBackupSchedules>[0]);
   }
 

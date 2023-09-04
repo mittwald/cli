@@ -23,7 +23,7 @@ export default class Ssh extends BaseCommand {
 
     const appInstallationResponse = await this.apiClient.app.getAppinstallation(
       {
-        pathParameters: { appInstallationId: id },
+        appInstallationId: id,
       },
     );
 
@@ -34,7 +34,7 @@ export default class Ssh extends BaseCommand {
     }
 
     const projectResponse = await this.apiClient.project.getProject({
-      pathParameters: { id: appInstallationResponse.data.projectId },
+      id: appInstallationResponse.data.projectId,
     });
 
     assertStatus(projectResponse, 200);

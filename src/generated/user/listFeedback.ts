@@ -29,9 +29,11 @@ export abstract class GeneratedUserListFeedback<
     const pathParams: PathParams = {
       userId: this.flags["user-id"],
     };
-    return await this.apiClient.user.listFeedback({
-      pathParameters: await this.mapParams(pathParams),
-    } as Parameters<typeof this.apiClient.user.listFeedback>[0]);
+    return await this.apiClient.user.listFeedback(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.user.listFeedback
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

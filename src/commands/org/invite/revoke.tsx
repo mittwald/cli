@@ -28,7 +28,7 @@ export class Revoke extends ExecRenderBaseCommand<
 
     const invite = await process.runStep("Fetching invite", async () => {
       const response = await this.apiClient.customer.getCustomerInvite({
-        pathParameters: { inviteId },
+        inviteId,
       });
       assertStatus(response, 200);
       return response.data;
@@ -36,7 +36,7 @@ export class Revoke extends ExecRenderBaseCommand<
 
     await process.runStep("Revoking invite", async () => {
       const response = await this.apiClient.customer.deleteCustomerInvite({
-        pathParameters: { inviteId },
+        inviteId,
       });
 
       assertStatus(response, 204);

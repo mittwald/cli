@@ -10,9 +10,7 @@ export const useMyUserProfile =
       apiClient.user.getUser,
       [
         {
-          pathParameters: {
-            userId: "self",
-          },
+          userId: "self",
         },
       ],
       {

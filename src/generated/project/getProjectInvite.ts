@@ -29,7 +29,7 @@ export abstract class GeneratedProjectGetProjectInvite extends GetBaseCommand<
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.project.getProjectInvite({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.project.getProjectInvite>[0]);
   }
 

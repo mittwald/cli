@@ -10,7 +10,7 @@ export function useProjectBackup(projectBackupId: string): BackupProjectBackup {
   const projectBackup = usePromise(
     (id) =>
       apiClient.backup.getProjectBackup({
-        pathParameters: { projectBackupId: id },
+        projectBackupId: id,
       }),
     [projectBackupId],
   );
@@ -26,7 +26,7 @@ export function useProjectBackupSchedule(
   const projectBackupSchedule = usePromise(
     (id) =>
       apiClient.backup.getProjectBackupSchedule({
-        pathParameters: { projectBackupScheduleId: id },
+        projectBackupScheduleId: id,
       }),
     [projectBackupScheduleId],
   );

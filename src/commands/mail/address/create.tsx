@@ -114,7 +114,7 @@ export default class Create extends ExecRenderBaseCommand<
       "creating mail address",
       async () => {
         const response = await this.apiClient.mail.mailaddressCreate({
-          pathParameters: { projectId },
+          projectId,
           data: {
             address: flags.address,
             isCatchAll: flags["catch-all"],

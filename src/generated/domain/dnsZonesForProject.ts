@@ -28,7 +28,7 @@ export abstract class GeneratedDnsZonesForProject extends GetBaseCommand<
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.domain.dnsZonesForProject({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.domain.dnsZonesForProject>[0]);
   }
 

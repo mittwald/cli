@@ -36,7 +36,7 @@ export class Get extends GetBaseCommand<typeof Get, APIResponse> {
       cronjobId: this.args["cronjob-id"],
     };
     return await this.apiClient.cronjob.getExecution({
-      pathParameters,
+      ...pathParameters,
     } as Parameters<typeof this.apiClient.cronjob.getExecution>[0]);
   }
 }

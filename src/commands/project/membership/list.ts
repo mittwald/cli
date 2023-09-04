@@ -22,7 +22,7 @@ export default class List extends GeneratedProjectListMembershipsForProject<Resp
       data.map(async (item) => {
         const out = structuredClone(item) as ResponseItem;
         const userResponse = await this.apiClient.user.getUser({
-          pathParameters: { userId: item.userId },
+          userId: item.userId,
         });
         if (userResponse.status === 200) {
           out.user = userResponse.data;

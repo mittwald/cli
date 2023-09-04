@@ -17,7 +17,7 @@ export class PhpMyAdmin extends BaseCommand {
       this.config,
     );
     const users = await this.apiClient.database.listMysqlUsers({
-      pathParameters: { databaseId },
+      databaseId,
     });
 
     assertStatus(users, 200);
@@ -28,7 +28,7 @@ export class PhpMyAdmin extends BaseCommand {
     }
 
     const pma = await this.apiClient.database.getMysqlUserPhpMyAdminUrl({
-      pathParameters: { id: mainUser.id },
+      id: mainUser.id,
     });
 
     assertStatus(pma, 200);

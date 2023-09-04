@@ -32,7 +32,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       this.config,
     );
     return await this.apiClient.database.listRedisDatabases({
-      pathParameters: { projectId },
+      projectId,
     } as Parameters<typeof this.apiClient.database.listRedisDatabases>[0]);
   }
 

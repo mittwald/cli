@@ -23,7 +23,7 @@ export async function getProject(
 ): Promise<ProjectProject> {
   return await p.runStep("fetching project", async () => {
     const r = await apiClient.project.getProject({
-      pathParameters: { id: database.projectId },
+      id: database.projectId,
     });
     assertStatus(r, 200);
 

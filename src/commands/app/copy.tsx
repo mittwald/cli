@@ -32,7 +32,7 @@ export class Copy extends ExecRenderBaseCommand<typeof Copy, Result> {
 
     const result = await p.runStep("requesting app copy", async () => {
       const r = await this.apiClient.app.requestAppinstallationCopy({
-        pathParameters: { id },
+        id,
         data: {
           description,
         },

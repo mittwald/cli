@@ -18,7 +18,7 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
       this.config,
     );
     const response = await this.apiClient.customer.deleteCustomer({
-      pathParameters: { customerId },
+      customerId,
     });
 
     assertStatus(response, 200);

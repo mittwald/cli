@@ -33,7 +33,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       ),
     };
     return await this.apiClient.domain.listDomainOwnerships({
-      pathParameters,
+      ...pathParameters,
     });
   }
 

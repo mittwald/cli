@@ -29,7 +29,7 @@ export abstract class GeneratedDomainGetSpecificDomainOwnership extends GetBaseC
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.domain.getSpecificDomainOwnership({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.domain.getSpecificDomainOwnership>[0]);
   }
 

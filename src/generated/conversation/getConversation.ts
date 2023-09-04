@@ -29,7 +29,7 @@ export abstract class GeneratedConversationGetConversation extends GetBaseComman
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.conversation.getConversation({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.conversation.getConversation>[0]);
   }
 

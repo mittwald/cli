@@ -22,9 +22,11 @@ export abstract class GeneratedUserListApiTokens<
 
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
-    return await this.apiClient.user.listApiTokens({
-      pathParameters: await this.mapParams(pathParams),
-    } as Parameters<typeof this.apiClient.user.listApiTokens>[0]);
+    return await this.apiClient.user.listApiTokens(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.user.listApiTokens
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

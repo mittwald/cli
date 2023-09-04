@@ -38,7 +38,7 @@ export abstract class List extends ListBaseCommand<
     );
 
     return await this.apiClient.customer.listInvitesForCustomer({
-      pathParameters: { customerId },
+      customerId,
     } as Parameters<typeof this.apiClient.customer.listInvitesForCustomer>[0]);
   }
 

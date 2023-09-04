@@ -28,7 +28,7 @@ export abstract class GeneratedMailProjectsettingGetSpecific extends GetBaseComm
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.mail.projectsettingGetSpecific({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.mail.projectsettingGetSpecific>[0]);
   }
 

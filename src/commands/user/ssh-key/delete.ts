@@ -20,7 +20,7 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
     const { id } = args;
 
     const response = await this.apiClient.user.deleteSshKey({
-      pathParameters: { sshKeyId: id },
+      sshKeyId: id,
     });
 
     assertStatus(response, 204);

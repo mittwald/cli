@@ -18,9 +18,7 @@ export const ConversationMeta: FC<Props> = (props) => {
     apiClient.conversation.getConversation,
     [
       {
-        pathParameters: {
-          conversationId: id,
-        },
+        conversationId: id,
       },
     ],
     {

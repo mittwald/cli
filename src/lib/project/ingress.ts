@@ -8,7 +8,7 @@ export async function getDefaultIngressForProject(
 ): Promise<string> {
   const projectUuid = await normalizeProjectIdToUuid(apiClient, projectId);
   const projectIngresses = await apiClient.domain.ingressListForProject({
-    pathParameters: { projectId: projectUuid },
+    projectId: projectUuid,
   });
   assertStatus(projectIngresses, 200);
   const foundIngress = projectIngresses.data.find((item) => {

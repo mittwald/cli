@@ -97,7 +97,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
 
     const backup = await p.runStep("fetching backup", async () => {
       const r = await this.apiClient.backup.getProjectBackup({
-        pathParameters: { projectBackupId },
+        projectBackupId,
       });
       assertStatus(r, 200);
       return r.data;
@@ -108,7 +108,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
     } else {
       await p.runStep("preparing backup download", async () => {
         const r = await this.apiClient.backup.createProjectBackupExport({
-          pathParameters: { projectBackupId },
+          projectBackupId,
           data: {
             format: format as "tar" | "zip",
             password,
@@ -124,7 +124,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
       () => {
         return waitUntil(async () => {
           const r = await this.apiClient.backup.getProjectBackup({
-            pathParameters: { projectBackupId },
+            projectBackupId,
           });
           assertStatus(r, 200);
 

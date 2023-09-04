@@ -17,7 +17,7 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
   protected async deleteResource(): Promise<void> {
     const ingressId = this.args["virtual-host-id"];
     const response = await this.apiClient.domain.ingressDelete({
-      pathParameters: { ingressId },
+      ingressId,
     });
 
     assertStatus(response, 204);

@@ -34,7 +34,7 @@ const ProjectSpecs: FC<{
     const usage = usePromise(
       (id: string) =>
         apiClient.projectFileSystem.getDiskUsage({
-          pathParameters: { projectId: id },
+          projectId: id,
         }),
       [projectId],
     );
@@ -83,15 +83,14 @@ const ProjectCustomer: FC<{ customer: CustomerCustomer }> = ({ customer }) => {
 const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
   const { apiClient } = useRenderContext();
   const customer = usePromise(
-    (id) =>
-      apiClient.customer.getCustomer({ pathParameters: { customerId: id } }),
+    (id) => apiClient.customer.getCustomer({ customerId: id }),
     [response.customerId],
   );
 
   const vhosts = usePromise(
     (id) =>
       apiClient.domain.ingressListForProject({
-        pathParameters: { projectId: id },
+        projectId: id,
       }),
     [response.id],
   );
@@ -174,8 +173,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
       [],
     );
     const projectResponse = usePromise(
-      (id: string) =>
-        this.apiClient.project.getProject({ pathParameters: { id } }),
+      (id: string) => this.apiClient.project.getProject({ id }),
       [projectId],
     );
 

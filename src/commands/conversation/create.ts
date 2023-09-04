@@ -60,7 +60,7 @@ export default class Create extends BaseCommand {
     ux.action.start(`saving message for ${conversationId}`);
 
     const response = await this.apiClient.conversation.createMessage({
-      pathParameters: { conversationId },
+      conversationId,
       data: { messageContent },
     });
 

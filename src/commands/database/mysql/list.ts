@@ -33,7 +33,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       this.config,
     );
     return await this.apiClient.database.listMysqlDatabases({
-      pathParameters: { projectId },
+      projectId,
     } as Parameters<typeof this.apiClient.database.listMysqlDatabases>[0]);
   }
 

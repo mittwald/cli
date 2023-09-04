@@ -38,7 +38,7 @@ export async function withRedisId(
 
   const projectId = await withProjectId(apiClient, "flag", flags, args, cfg);
   const databases = await apiClient.database.listRedisDatabases({
-    pathParameters: { projectId },
+    projectId,
   });
 
   assertStatus(databases, 200);

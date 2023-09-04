@@ -16,7 +16,7 @@ export default class Uninstall extends DeleteBaseCommand<typeof Uninstall> {
   protected async deleteResource(): Promise<void> {
     const appInstallationId = this.args["installation-id"];
     const response = await this.apiClient.app.uninstallAppinstallation({
-      pathParameters: { appInstallationId },
+      appInstallationId,
     });
 
     assertStatus(response, 204);

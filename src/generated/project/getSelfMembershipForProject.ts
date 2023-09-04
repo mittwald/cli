@@ -28,7 +28,7 @@ export abstract class GeneratedProjectGetSelfMembershipForProject extends GetBas
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.project.getSelfMembershipForProject({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.project.getSelfMembershipForProject>[0]);
   }
 

@@ -28,7 +28,7 @@ async function getDatabase(
 ): Promise<DatabaseRedisDatabase> {
   return await p.runStep("fetching database", async () => {
     const r = await apiClient.database.getRedisDatabase({
-      pathParameters: { id },
+      id,
     });
     assertStatus(r, 200);
 

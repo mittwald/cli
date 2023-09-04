@@ -29,7 +29,7 @@ export abstract class GeneratedUserGetSshKey extends GetBaseCommand<
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.user.getSshKey({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.user.getSshKey>[0]);
   }
 

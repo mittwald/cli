@@ -30,9 +30,9 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       cronjobId: this.flags["cronjob-id"],
     };
 
-    return await this.apiClient.cronjob.listExecutions({
-      pathParameters: pathParams,
-    } as Parameters<typeof this.apiClient.cronjob.listExecutions>[0]);
+    return await this.apiClient.cronjob.listExecutions(
+      pathParams as Parameters<typeof this.apiClient.cronjob.listExecutions>[0],
+    );
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

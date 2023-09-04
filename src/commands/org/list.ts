@@ -23,9 +23,11 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
-    return await this.apiClient.customer.listCustomers({
-      pathParameters: await this.mapParams(pathParams),
-    } as Parameters<typeof this.apiClient.customer.listCustomers>[0]);
+    return await this.apiClient.customer.listCustomers(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.customer.listCustomers
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

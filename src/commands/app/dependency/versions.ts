@@ -45,7 +45,7 @@ export class Versions extends ListBaseCommand<
     }
 
     return await this.apiClient.app.listSystemsoftwareversions({
-      pathParameters: { systemSoftwareId: systemSoftware.id },
+      systemSoftwareId: systemSoftware.id,
     } as Parameters<typeof this.apiClient.app.listSystemsoftwareversions>[0]);
   }
 

@@ -6,7 +6,7 @@ export async function getProjectShortIdFromUuid(
   uuid: string,
 ): Promise<string> {
   const project = await apiClient.project.getProject({
-    pathParameters: { id: uuid },
+    id: uuid,
   });
   assertStatus(project, 200);
   if (project.data.shortId) {

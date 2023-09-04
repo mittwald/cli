@@ -33,9 +33,11 @@ export abstract class GeneratedSshUserListSshUsers<
     const pathParams: PathParams = {
       projectId: this.flags["project-id"],
     };
-    return await this.apiClient.sshsftpUser.sshUserListSshUsers({
-      pathParameters: await this.mapParams(pathParams),
-    } as Parameters<typeof this.apiClient.sshsftpUser.sshUserListSshUsers>[0]);
+    return await this.apiClient.sshsftpUser.sshUserListSshUsers(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.sshsftpUser.sshUserListSshUsers
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

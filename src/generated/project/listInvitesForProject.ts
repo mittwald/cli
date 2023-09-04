@@ -33,9 +33,11 @@ export abstract class GeneratedProjectListInvitesForProject<
     const pathParams: PathParams = {
       projectId: this.flags["project-id"],
     };
-    return await this.apiClient.project.listInvitesForProject({
-      pathParameters: await this.mapParams(pathParams),
-    } as Parameters<typeof this.apiClient.project.listInvitesForProject>[0]);
+    return await this.apiClient.project.listInvitesForProject(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.project.listInvitesForProject
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

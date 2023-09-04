@@ -29,7 +29,7 @@ export abstract class GeneratedMailMailaddressGetSpecific extends GetBaseCommand
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.mail.mailaddressGetSpecific({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.mail.mailaddressGetSpecific>[0]);
   }
 

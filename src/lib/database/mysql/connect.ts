@@ -55,7 +55,7 @@ async function getDatabase(
 ): Promise<DatabaseMySqlDatabase> {
   return await p.runStep("fetching database", async () => {
     const r = await apiClient.database.getMysqlDatabase({
-      pathParameters: { id },
+      id,
     });
     assertStatus(r, 200);
 
@@ -70,7 +70,7 @@ async function getDatabaseUser(
 ): Promise<DatabaseMySqlUser> {
   return await p.runStep("fetching main user", async () => {
     const r = await apiClient.database.listMysqlUsers({
-      pathParameters: { databaseId },
+      databaseId,
     });
     assertStatus(r, 200);
 

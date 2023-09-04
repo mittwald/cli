@@ -26,7 +26,7 @@ export abstract class GeneratedFileGetFile extends GetBaseCommand<
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.file.getFile({
-      pathParameters: await this.mapParams(this.args as PathParams),
+      ...(await this.mapParams(this.args as PathParams)),
     } as Parameters<typeof this.apiClient.file.getFile>[0]);
   }
 

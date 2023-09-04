@@ -17,7 +17,7 @@ export default class Revoke extends DeleteBaseCommand<typeof Revoke> {
   protected async deleteResource(): Promise<void> {
     const { args } = await this.parse(Revoke);
     const response = await this.apiClient.user.deleteApiToken({
-      pathParameters: { apiTokenId: args.id },
+      apiTokenId: args.id,
     });
 
     assertStatus(response, 204);

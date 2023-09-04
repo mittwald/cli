@@ -69,7 +69,7 @@ export default class AppVersions extends BaseCommand {
     appUuid: string,
   ): Promise<void> {
     const versions = await apiClient.app.listAppversions({
-      pathParameters: { appId: appUuid },
+      appId: appUuid,
     });
     assertStatus(versions, 200);
     for (const version of versions.data) {

@@ -26,10 +26,10 @@ export default class Show extends BaseCommand {
 
     const [conversationResponse, messagesResponse] = await Promise.all([
       this.apiClient.conversation.getConversation({
-        pathParameters: { conversationId },
+        conversationId,
       }),
       this.apiClient.conversation.listMessagesByConversation({
-        pathParameters: { conversationId },
+        conversationId,
       }),
     ]);
 

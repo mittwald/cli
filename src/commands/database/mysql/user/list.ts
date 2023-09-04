@@ -30,9 +30,11 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     const pathParams: PathParams = {
       databaseId: this.flags["database-id"],
     };
-    return await this.apiClient.database.listMysqlUsers({
-      pathParameters: pathParams,
-    } as Parameters<typeof this.apiClient.database.listMysqlUsers>[0]);
+    return await this.apiClient.database.listMysqlUsers(
+      pathParams as Parameters<
+        typeof this.apiClient.database.listMysqlUsers
+      >[0],
+    );
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

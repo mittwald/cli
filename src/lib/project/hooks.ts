@@ -9,7 +9,7 @@ export function useProject(projectId: string): ProjectProject {
   const project = usePromise(
     (id) =>
       apiClient.project.getProject({
-        pathParameters: { id },
+        id,
       }),
     [projectId],
   );

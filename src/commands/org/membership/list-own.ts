@@ -33,9 +33,11 @@ export class ListOwn extends ListBaseCommand<
 
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
-    return await this.apiClient.customer.listCustomerMemberships({
-      pathParameters: await this.mapParams(pathParams),
-    } as Parameters<typeof this.apiClient.customer.listCustomerMemberships>[0]);
+    return await this.apiClient.customer.listCustomerMemberships(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.customer.listCustomerMemberships
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {
@@ -47,7 +49,7 @@ export class ListOwn extends ListBaseCommand<
       data.map(async (item) => {
         const { customerId } = item;
         const org = await this.apiClient.customer.getCustomer({
-          pathParameters: { customerId },
+          customerId,
         });
 
         if (org.status === 200) {

@@ -16,7 +16,7 @@ export async function waitUntilAppIsInstalled(
 
   await waitUntil(async () => {
     const installationResponse = await apiClient.app.getAppinstallation({
-      pathParameters: { appInstallationId },
+      appInstallationId,
       // TODO: Remove once @mittwald/api-client supports this
       headers: { "if-event-reached": eventId } as any, // eslint-disable-line
     });
