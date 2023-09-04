@@ -33,9 +33,11 @@ export abstract class GeneratedMailDeliveryboxList<
     const pathParams: PathParams = {
       projectId: this.flags["project-id"],
     };
-    return await this.apiClient.mail.deliveryboxList({
-      ...(await this.mapParams(pathParams)),
-    } as Parameters<typeof this.apiClient.mail.deliveryboxList>[0]);
+    return await this.apiClient.mail.deliveryboxList(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.mail.deliveryboxList
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

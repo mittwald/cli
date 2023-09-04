@@ -33,9 +33,11 @@ export abstract class GeneratedMailMailaddressList<
     const pathParams: PathParams = {
       projectId: this.flags["project-id"],
     };
-    return await this.apiClient.mail.mailaddressList({
-      ...(await this.mapParams(pathParams)),
-    } as Parameters<typeof this.apiClient.mail.mailaddressList>[0]);
+    return await this.apiClient.mail.mailaddressList(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.mail.mailaddressList
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

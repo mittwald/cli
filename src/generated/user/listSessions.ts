@@ -22,9 +22,11 @@ export abstract class GeneratedUserListSessions<
 
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
-    return await this.apiClient.user.listSessions({
-      ...(await this.mapParams(pathParams)),
-    } as Parameters<typeof this.apiClient.user.listSessions>[0]);
+    return await this.apiClient.user.listSessions(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.user.listSessions
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

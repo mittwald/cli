@@ -33,9 +33,11 @@ export abstract class GeneratedProjectListMembershipsForProject<
     const pathParams: PathParams = {
       projectId: this.flags["project-id"],
     };
-    return await this.apiClient.project.listMembershipsForProject({
-      ...(await this.mapParams(pathParams)),
-    } as Parameters<typeof this.apiClient.project.listMembershipsForProject>[0]);
+    return await this.apiClient.project.listMembershipsForProject(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.project.listMembershipsForProject
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

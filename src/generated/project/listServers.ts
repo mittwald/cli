@@ -21,9 +21,11 @@ export abstract class GeneratedProjectListServers<
 
   public async getData(): Promise<Response> {
     const pathParams: PathParams = {};
-    return await this.apiClient.project.listServers({
-      ...(await this.mapParams(pathParams)),
-    } as Parameters<typeof this.apiClient.project.listServers>[0]);
+    return await this.apiClient.project.listServers(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.project.listServers
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {

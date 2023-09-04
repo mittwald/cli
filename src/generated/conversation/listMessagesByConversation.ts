@@ -33,9 +33,11 @@ export abstract class GeneratedConversationListMessagesByConversation<
     const pathParams: PathParams = {
       conversationId: this.flags["conversation-id"],
     };
-    return await this.apiClient.conversation.listMessagesByConversation({
-      ...(await this.mapParams(pathParams)),
-    } as Parameters<typeof this.apiClient.conversation.listMessagesByConversation>[0]);
+    return await this.apiClient.conversation.listMessagesByConversation(
+      (await this.mapParams(pathParams)) as Parameters<
+        typeof this.apiClient.conversation.listMessagesByConversation
+      >[0],
+    );
   }
 
   protected mapParams(input: PathParams): Promise<PathParams> | PathParams {
