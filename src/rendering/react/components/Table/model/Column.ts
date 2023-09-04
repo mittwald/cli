@@ -1,3 +1,4 @@
+import { stdout } from "@oclif/core";
 import { ObservableValue } from "../../../lib/observable-value/ObservableValue.js";
 import { Table } from "./Table.js";
 import { Dimension } from "../../../measure/context.js";
@@ -37,7 +38,10 @@ export class Column {
   public onCellMeasured(dimension: Dimension): void {
     const termWidth = getTerminalWidth();
 
-    const boundary = Math.round(termWidth / 2);
+    const boundary = termWidth
+      ? Math.round(termWidth / 2)
+      : Number.MAX_SAFE_INTEGER;
+
     const boundedWidth = Math.min(dimension.width, boundary);
 
     if (this.maxCellWidth.value < boundedWidth) {
@@ -45,7 +49,9 @@ export class Column {
     }
   }
 
-  public useWidth(): string {
-    return useWatchObservableValue(this.proportionalWidth);
+  public useWidth(): string | number {
+    return useWatchObservableValue<string | number>(
+      stdout.isTTY ? this.proportionalWidth : this.maxCellWidth,
+    );
   }
 }
