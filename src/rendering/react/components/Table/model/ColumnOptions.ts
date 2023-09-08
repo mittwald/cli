@@ -43,7 +43,7 @@ export class ColumnOptions {
     }
 
     const termWidth = getTerminalWidth();
-    const relativeMinWidth = Math.round(termWidth / 20);
+    const relativeMinWidth = termWidth ? Math.round(termWidth / 20) : 0;
     return Math.max(ColumnOptions.absoluteMinWidth, relativeMinWidth);
   }
 

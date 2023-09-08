@@ -8,6 +8,7 @@ import { Flags, Interfaces } from "@oclif/core";
 import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
 import { Render } from "./components/Render.js";
 import { CommandArgs, CommandFlags } from "../../types.js";
+import { useIncreaseInkStdoutColumns } from "./hooks/useIncreaseInkStdoutColumns.js";
 
 const renderFlags = {
   output: Flags.string({
@@ -59,7 +60,12 @@ export abstract class RenderBaseCommand<
       >
         <JsonCollectionProvider>
           <Suspense>
-            <Render render={() => this.render()} />
+            <Render
+              render={() => {
+                useIncreaseInkStdoutColumns();
+                return this.render();
+              }}
+            />
           </Suspense>
         </JsonCollectionProvider>
       </RenderContextProvider>,
