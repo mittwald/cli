@@ -36,7 +36,7 @@ export async function triggerAppInstallation(
     async () => {
       for (let attempts = 0; attempts < 10; attempts++) {
         const result = await apiClient.app.getAppinstallation({
-          pathParameters: { appInstallationId },
+          appInstallationId,
         });
         if (result.status === 200) {
           return result.data;
@@ -50,7 +50,7 @@ export async function triggerAppInstallation(
   if ("document-root" in flags && flags["document-root"] !== "/") {
     await process.runStep("setting document root", async () => {
       const result = await apiClient.app.patchAppinstallation({
-        pathParameters: { appInstallationId },
+        appInstallationId,
         headers: { "if-event-reached": eventId },
         data: {
           customDocumentRoot: flags["document-root"],
