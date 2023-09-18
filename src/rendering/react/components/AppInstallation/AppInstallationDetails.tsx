@@ -37,6 +37,9 @@ export const AppInstallationDetails: FC<{
       />
     ),
     "Installation Path": <Value>{appInstallation.installationPath}</Value>,
+    "Document root (in installation path)": (
+      <Value>{appInstallation.customDocumentRoot ?? "/"}</Value>
+    ),
     Description: <Value>{appInstallation.description}</Value>,
     Status: customInstallation ? (
       <Text>custom application</Text>

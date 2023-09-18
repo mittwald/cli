@@ -2,6 +2,7 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+
 export async function triggerAppInstallation(
   apiClient: MittwaldAPIV2Client,
   process: ProcessRenderer,
@@ -29,5 +30,36 @@ export async function triggerAppInstallation(
       return [result.data.id, result.headers["etag"]];
     },
   );
+
+  await process.runStep(
+    "waiting for installation to be retrievable",
+    async () => {
+      for (let attempts = 0; attempts < 10; attempts++) {
+        const result = await apiClient.app.getAppinstallation({
+          pathParameters: { appInstallationId },
+        });
+        if (result.status === 200) {
+          return result.data;
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+    },
+  );
+
+  if ("document-root" in flags && flags["document-root"] !== "/") {
+    await process.runStep("setting document root", async () => {
+      const result = await apiClient.app.patchAppinstallation({
+        pathParameters: { appInstallationId },
+        headers: { "if-event-reached": eventId },
+        data: {
+          customDocumentRoot: flags["document-root"],
+        },
+      });
+
+      assertStatus(result, 204);
+    });
+  }
+
   return [appInstallationId, eventId];
 }

@@ -265,13 +265,15 @@ Creates new custom PHP installation.
 
 ```
 USAGE
-  $ mw app create php [-p <value>] [-q] [--site-title <value>] [-w] [--json]
+  $ mw app create php --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary.
   -w, --wait                Wait for your custom PHP to be ready.
+  --document-root=<value>   (required) [default: /] The document root from which your custom PHP will be served
+                            (relative to the installation path)
   --json
   --site-title=<value>      Site Title for your custom PHP installation.
 
@@ -288,6 +290,13 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --document-root=<value>
+
+    The document root from which your custom PHP will be served (relative to the installation path)
+
+    This is the document root from which the files of your application will be served by the web server. This directory
+    is specified relative to the installation path.
 
   --site-title=<value>  Site Title for your custom PHP installation.
 

@@ -42,6 +42,7 @@ interface AvailableFlags {
   "shop-lang": OptionFlag<string | undefined>;
   "shop-currency": OptionFlag<string | undefined>;
   "install-mode": OptionFlag<string>;
+  "document-root": OptionFlag<string>;
   wait: BooleanFlag<boolean | undefined>;
 }
 
@@ -126,6 +127,13 @@ function buildFlagsWithDescription(appName: string): AvailableFlags {
       If not given will default to composer installation. This can not be changed later.`,
       options: ["composer", "symlink"],
       default: "composer",
+    }),
+    "document-root": Flags.string({
+      required: true,
+      summary: `The document root from which your ${appName} will be served (relative to the installation path)`,
+      description:
+        "This is the document root from which the files of your application will be served by the web server. This directory is specified relative to the installation path.",
+      default: "/",
     }),
     wait: Flags.boolean({
       char: "w",
