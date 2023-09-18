@@ -1,34 +1,44 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import {
-  GeneratedMailDeliveryboxList,
-  PathParams,
-  Response,
-} from "../../../generated/mail/deliveryboxList.js";
-import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
+import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdDeliveryboxes.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedMailDeliveryboxList<ResponseItem> {
+export type PathParams =
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdDeliveryboxes.Get.Parameters.Path;
+export type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["mail"]["deliveryboxList"]>
+>;
+
+export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
+  static description = "Get all deliveryboxes by project ID";
+
+  static args = {};
+  static flags = {
+    ...projectFlags,
+    ...ListBaseCommand.baseFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    const projectId = await withProjectId(
+      this.apiClient,
+      List,
+      this.flags,
+      this.args,
+      this.config,
+    );
+    return await this.apiClient.mail.deliveryboxList({ projectId });
+  }
+
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    console.log(data);
     return data;
   }
 
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    input.projectId = await normalizeProjectIdToUuid(
-      this.apiClient,
-      input.projectId,
-    );
-    return super.mapParams(input);
-  }
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
     const baseColumns = super.getColumns(data);
     return {

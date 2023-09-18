@@ -2292,23 +2292,30 @@ Get all deliveryboxes by project ID
 
 ```
 USAGE
-  $ mw mail deliverybox list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+  $ mw mail deliverybox list [-p <value>] [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
     csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) Project ID the deliveryboxes are related to
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all deliveryboxes by project ID
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw org delete [ORG-ID]`
