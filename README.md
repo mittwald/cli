@@ -188,7 +188,7 @@ USAGE
 * [`mw user api-token get APITOKENID`](#mw-user-api-token-get-apitokenid)
 * [`mw user api-token list`](#mw-user-api-token-list)
 * [`mw user api-token revoke ID`](#mw-user-api-token-revoke-id)
-* [`mw user get`](#mw-user-get)
+* [`mw user get USER-ID`](#mw-user-get-user-id)
 * [`mw user session get TOKENID`](#mw-user-session-get-tokenid)
 * [`mw user session list`](#mw-user-session-list)
 * [`mw user ssh-key create`](#mw-user-ssh-key-create)
@@ -3405,13 +3405,17 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw user get`
+## `mw user get USER-ID`
 
 Get profile information for a user.
 
 ```
 USAGE
-  $ mw user get [-o json|yaml |  | ]
+  $ mw user get USER-ID [-o json|yaml |  | ]
+
+ARGUMENTS
+  USER-ID  [default: self] The user ID to get information for; defaults to the special value 'self', which references to
+           the currently authenticated user.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
