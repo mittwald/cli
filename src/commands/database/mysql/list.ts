@@ -2,7 +2,6 @@ import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
-import { formatBytes } from "../../../lib/viewhelpers/size.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
@@ -76,11 +75,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
         header: "Collation",
         get: (row) => row.characterSettings?.collation,
         extended: true,
-      },
-      size: {
-        header: "Size",
-        // there is an error in the API mapping
-        get: (row) => formatBytes((row.size as unknown as { low: number }).low),
       },
       createdAt: commonColumns.createdAt,
     };
