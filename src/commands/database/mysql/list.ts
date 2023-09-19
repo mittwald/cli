@@ -77,11 +77,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
         get: (row) => row.characterSettings?.collation,
         extended: true,
       },
-      size: {
-        header: "Size",
-        // there is an error in the API mapping
-        get: (row) => formatBytes((row.size as unknown as { low: number }).low),
-      },
       createdAt: commonColumns.createdAt,
     };
   }
