@@ -1,12 +1,9 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedSftpUserListSftpUsers, PathParams } from "../../../generated/sshsftpUser/sftpUserListSftpUsers.js";
-import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Simplify } from "@mittwald/api-client-commons";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
+import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type SftpUserResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["sshsftpUser"]["sftpUserListSftpUsers"]>
@@ -14,21 +11,42 @@ type SftpUserResponse = Awaited<
 type SftpUserResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdSftpUsers.Get.Responses.$200.Content.ApplicationJson[number]
 >;
+type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["sshsftpUser"]["sftpUserListSftpUsers"]>
+>;
 
-export default class List extends GeneratedSftpUserListSftpUsers<SftpUserResponseItem> {
+export default class List extends ListBaseCommand<
+  typeof List,
+  SftpUserResponseItem,
+  Response
+> {
+  static description = "List all SFTP users for a project.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+    ...projectFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    const projectId = await withProjectId(
+      this.apiClient,
+      List,
+      this.flags,
+      this.args,
+      this.config,
+    );
+    return await this.apiClient.sshsftpUser.sftpUserListSftpUsers({
+      projectId,
+    });
+  }
+
   protected mapData(
     data: SuccessfulResponse<SftpUserResponse, 200>["data"],
   ): SftpUserResponseItem[] {
     return data;
   }
 
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    input.projectId = await normalizeProjectIdToUuid(
-      this.apiClient,
-      input.projectId,
-    );
-    return super.mapParams(input);
-  }
   protected getColumns(
     data: SftpUserResponseItem[],
   ): ListColumns<SftpUserResponseItem> {

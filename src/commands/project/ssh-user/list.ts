@@ -1,12 +1,9 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedSshUserListSshUsers, PathParams } from "../../../generated/sshsftpUser/sshUserListSshUsers.js";
-import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Simplify } from "@mittwald/api-client-commons";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
+import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type SshUserResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["sshsftpUser"]["sftpUserListSftpUsers"]>
@@ -14,19 +11,38 @@ type SshUserResponse = Awaited<
 type SshUserResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdSftpUsers.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class Get extends GeneratedSshUserListSshUsers<SshUserResponseItem> {
+type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["sshsftpUser"]["sshUserListSshUsers"]>
+>;
+
+export class List extends ListBaseCommand<
+  typeof List,
+  SshUserResponseItem,
+  Response
+> {
+  static description = "List all SSH users for a project.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+    ...projectFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    const projectId = await withProjectId(
+      this.apiClient,
+      List,
+      this.flags,
+      this.args,
+      this.config,
+    );
+    return await this.apiClient.sshsftpUser.sshUserListSshUsers({ projectId });
+  }
+
   protected mapData(
     data: SuccessfulResponse<SshUserResponse, 200>["data"],
   ): SshUserResponseItem[] {
     return data;
-  }
-
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    input.projectId = await normalizeProjectIdToUuid(
-      this.apiClient,
-      input.projectId,
-    );
-    return super.mapParams(input);
   }
 
   protected getColumns(
