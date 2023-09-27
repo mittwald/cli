@@ -11,9 +11,7 @@ type SftpUserResponse = Awaited<
 type SftpUserResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdSftpUsers.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export type PathParams =
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdSftpUsers.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["sshsftpUser"]["sftpUserListSftpUsers"]>
 >;
 
