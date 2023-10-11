@@ -82,6 +82,7 @@ USAGE
 * [`mw app copy INSTALLATION-ID`](#mw-app-copy-installation-id)
 * [`mw app create node`](#mw-app-create-node)
 * [`mw app create php`](#mw-app-create-php)
+* [`mw app create static`](#mw-app-create-static)
 * [`mw app dependency list`](#mw-app-dependency-list)
 * [`mw app dependency update INSTALLATION-ID`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
@@ -301,6 +302,54 @@ FLAG DESCRIPTIONS
   --site-title=<value>  Site Title for your custom PHP installation.
 
     Site Title which will be displayed in the Tab and at the top of the Frontend of your custom PHP installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+```
+
+## `mw app create static`
+
+Creates new custom static site installation.
+
+```
+USAGE
+  $ mw app create static --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your custom static site to be ready.
+  --document-root=<value>   (required) [default: /] The document root from which your custom static site will be served
+                            (relative to the installation path)
+  --json
+  --site-title=<value>      Site Title for your custom static site installation.
+
+DESCRIPTION
+  Creates new custom static site installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --document-root=<value>
+
+    The document root from which your custom static site will be served (relative to the installation path)
+
+    This is the document root from which the files of your application will be served by the web server. This directory
+    is specified relative to the installation path.
+
+  --site-title=<value>  Site Title for your custom static site installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your custom static site
+    installation.
     It is also the Title shown in the App-Overview in the mStudio.
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
