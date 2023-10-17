@@ -10,6 +10,8 @@ import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 import { phpInstaller } from "../../../../commands/app/create/php.js";
 import { nodeInstaller } from "../../../../commands/app/create/node.js";
+import { useProject } from "../../../../lib/project/hooks.js";
+import { IDAndShortID } from "../IDAndShortID.js";
 
 export const AppInstallationDetails: FC<{
   appInstallation: AppAppInstallation;
@@ -25,6 +27,9 @@ export const AppInstallationDetails: FC<{
   const currentAppVersion = appInstallation.appVersion.current
     ? useAppVersion(app.id, appInstallation.appVersion.current)
     : undefined;
+  const project = appInstallation.projectId
+    ? useProject(appInstallation.projectId)
+    : null;
 
   const rows = {
     "Installation ID": <Value>{appInstallation.id}</Value>,
@@ -35,6 +40,16 @@ export const AppInstallationDetails: FC<{
           Name: <Value>{app.name}</Value>,
         }}
       />
+    ),
+    Project: project ? (
+      <SingleResultTable
+        rows={{
+          ID: <IDAndShortID object={project} />,
+          Description: <Value>{project.description}</Value>,
+        }}
+      />
+    ) : (
+      <Value notSet />
     ),
     "Installation Path": <Value>{appInstallation.installationPath}</Value>,
     "Document root (in installation path)": (
