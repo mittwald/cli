@@ -130,7 +130,12 @@
         "description": "Query available hosting articles"
       },
       "backup": {
-        "description": "Manage backups of your projects"
+        "description": "Manage backups of your projects",
+        "subtopics": {
+          "schedule": {
+            "description": "Manage backup schedules of your projects"
+          }
+        }
       },
       "context": {
         "description": "Save certain environment parameters for later use"
