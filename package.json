@@ -138,6 +138,9 @@
       "conversation": {
         "description": "Manage your support cases"
       },
+      "cronjob": {
+        "description": "Manage cronjobs of your projects"
+      },
       "database": {
         "description": "Manage databases (like MySQL and Redis) in your projects"
       },
