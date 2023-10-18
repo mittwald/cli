@@ -1,9 +1,9 @@
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Simplify } from "@mittwald/api-client-commons";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListColumns } from "../../../Formatter.js";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { SuccessfulResponse } from "../../types.js";
+import { ListColumns } from "../../Formatter.js";
+import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../lib/project/flags.js";
 
 type SftpUserResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["sshsftpUser"]["sftpUserListSftpUsers"]>
@@ -27,6 +27,9 @@ export default class List extends ListBaseCommand<
     ...ListBaseCommand.baseFlags,
     ...projectFlags,
   };
+
+  static aliases = ["project:sftp-user:list"];
+  static deprecateAliases = true;
 
   public async getData(): Promise<Response> {
     const projectId = await withProjectId(
