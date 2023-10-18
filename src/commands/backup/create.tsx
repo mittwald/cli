@@ -1,18 +1,18 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../../rendering/process/process_flags.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+} from "../../rendering/process/process_flags.js";
+import { projectFlags, withProjectId } from "../../lib/project/flags.js";
 import React, { ReactNode } from "react";
 import { Flags } from "@oclif/core";
 import {
   expirationDateFromFlags,
   expireFlagsRequired,
-} from "../../../lib/expires.js";
+} from "../../lib/expires.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { Success } from "../../../rendering/react/components/Success.js";
-import { waitFlags, waitUntil } from "../../../lib/wait.js";
+import { Success } from "../../rendering/react/components/Success.js";
+import { waitFlags, waitUntil } from "../../lib/wait.js";
 import { Text } from "ink";
 
 type CreateResult = {
@@ -30,6 +30,9 @@ export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
     ...expireFlagsRequired("backup"),
     ...waitFlags,
   };
+
+  static aliases = ["project:backup:create"];
+  static deprecateAliases = true;
 
   protected async exec(): Promise<CreateResult> {
     const p = makeProcessRenderer(this.flags, "Creating backup");

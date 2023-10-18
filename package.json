@@ -129,6 +129,9 @@
       "article": {
         "description": "Query available hosting articles"
       },
+      "backup": {
+        "description": "Manage backups of your projects"
+      },
       "context": {
         "description": "Save certain environment parameters for later use"
       },
