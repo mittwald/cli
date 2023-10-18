@@ -98,6 +98,12 @@ USAGE
 * [`mw app ssh INSTALLATION-ID`](#mw-app-ssh-installation-id)
 * [`mw app uninstall INSTALLATION-ID`](#mw-app-uninstall-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
+* [`mw backup create`](#mw-backup-create)
+* [`mw backup delete BACKUP-ID`](#mw-backup-delete-backup-id)
+* [`mw backup download BACKUP-ID`](#mw-backup-download-backup-id)
+* [`mw backup get BACKUP-ID`](#mw-backup-get-backup-id)
+* [`mw backup list`](#mw-backup-list)
+* [`mw backup schedule list`](#mw-backup-schedule-list)
 * [`mw context get`](#mw-context-get)
 * [`mw context set`](#mw-context-set)
 * [`mw conversation categories`](#mw-conversation-categories)
@@ -107,6 +113,11 @@ USAGE
 * [`mw conversation reply ID`](#mw-conversation-reply-id)
 * [`mw conversation show ID`](#mw-conversation-show-id)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
+* [`mw cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-get-cronjob-id-execution-id)
+* [`mw cronjob execution list`](#mw-cronjob-execution-list)
+* [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
+* [`mw cronjob get CRONJOBID`](#mw-cronjob-get-cronjobid)
+* [`mw cronjob list`](#mw-cronjob-list)
 * [`mw database mysql charsets`](#mw-database-mysql-charsets)
 * [`mw database mysql create`](#mw-database-mysql-create)
 * [`mw database mysql delete DATABASE-ID`](#mw-database-mysql-delete-database-id)
@@ -184,6 +195,8 @@ USAGE
 * [`mw project update [PROJECT-ID]`](#mw-project-update-project-id)
 * [`mw server get SERVERID`](#mw-server-get-serverid)
 * [`mw server list`](#mw-server-list)
+* [`mw sftp-user list`](#mw-sftp-user-list)
+* [`mw ssh-user list`](#mw-ssh-user-list)
 * [`mw update [CHANNEL]`](#mw-update-channel)
 * [`mw user api-token create`](#mw-user-api-token-create)
 * [`mw user api-token get APITOKENID`](#mw-user-api-token-get-apitokenid)
@@ -1186,6 +1199,206 @@ DESCRIPTION
   List supported Apps and Versions
 ```
 
+## `mw backup create`
+
+Create a new backup of a project
+
+```
+USAGE
+  $ mw backup create --expires <value> [-q] [-p <value>] [--description <value>] [-w] [--wait-timeout <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for the resource to be ready.
+  --description=<value>     a description for the backup.
+  --expires=<value>         (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
+  --wait-timeout=<value>    [default: 600] The number of seconds to wait for the resource to be ready.
+
+ALIASES
+  $ mw project backup create
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw backup delete BACKUP-ID`
+
+Delete a backup
+
+```
+USAGE
+  $ mw backup delete BACKUP-ID [-q] [-f]
+
+ARGUMENTS
+  BACKUP-ID  The ID of the Backup to show.
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a backup
+
+ALIASES
+  $ mw project backup delete
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw backup download BACKUP-ID`
+
+Download a backup to your local disk
+
+```
+USAGE
+  $ mw backup download BACKUP-ID [-q] [--format tar|zip] [--password <value> | --generate-password |
+    --prompt-password] [--resume --output <value>]
+
+ARGUMENTS
+  BACKUP-ID  the ID of the Backup to download.
+
+FLAGS
+  -q, --quiet          suppress process output and only display a machine-readable summary.
+  --format=<option>    [default: tar] the file format to download the backup in.
+                       <options: tar|zip>
+  --generate-password  generate a random password to encrypt the backup with.
+  --output=<value>     the file to write the backup to; if omitted, the filename will be determined by the server.
+  --password=<value>   the password to encrypt the backup with.
+  --prompt-password    prompt for a password to encrypt the backup with.
+  --resume             resume a previously interrupted download.
+
+DESCRIPTION
+  Download a backup to your local disk
+
+ALIASES
+  $ mw project backup download
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --generate-password  generate a random password to encrypt the backup with.
+
+    CAUTION: this is not stored anywhere.
+
+  --password=<value>  the password to encrypt the backup with.
+
+    CAUTION #1: this is not stored anywhere.
+    CAUTION #2: it is dangerous to use this option, as the password might be stored in your shell history.
+
+  --prompt-password  prompt for a password to encrypt the backup with.
+
+    CAUTION: this is not stored anywhere.
+```
+
+## `mw backup get BACKUP-ID`
+
+show details of a backup.
+
+```
+USAGE
+  $ mw backup get BACKUP-ID [-o json|yaml |  | ]
+
+ARGUMENTS
+  BACKUP-ID  The ID of the Backup to show.
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+
+DESCRIPTION
+  show details of a backup.
+
+ALIASES
+  $ mw project backup get
+```
+
+## `mw backup list`
+
+List Backups for a given Project.
+
+```
+USAGE
+  $ mw backup list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List Backups for a given Project.
+
+ALIASES
+  $ mw project backup list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw backup schedule list`
+
+List backup schedules belonging to a given project.
+
+```
+USAGE
+  $ mw backup schedule list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List backup schedules belonging to a given project.
+
+ALIASES
+  $ mw project backupschedule list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+```
+
 ## `mw context get`
 
 Print an overview of currently set context parameters
@@ -1362,6 +1575,142 @@ FLAGS
                          representation, and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
   --wait
+```
+
+## `mw cronjob execution get CRONJOB-ID EXECUTION-ID`
+
+Get a cronjob execution.
+
+```
+USAGE
+  $ mw cronjob execution get CRONJOB-ID EXECUTION-ID [-o json|yaml |  | ]
+
+ARGUMENTS
+  CRONJOB-ID    ID of the cronjob the execution belongs to
+  EXECUTION-ID  ID of the cronjob execution to be retrieved.
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+
+DESCRIPTION
+  Get a cronjob execution.
+
+ALIASES
+  $ mw project cronjob execution get
+```
+
+## `mw cronjob execution list`
+
+List CronjobExecutions belonging to a Cronjob.
+
+```
+USAGE
+  $ mw cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -x, --extended        show extra columns
+  --columns=<value>     only show provided columns (comma-separated)
+  --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
+  --csv                 output is csv format [alias: --output=csv]
+  --filter=<value>      filter property by partial string matching, ex: name=foo
+  --no-header           hide table header from output
+  --no-truncate         do not truncate output to fit screen
+  --output=<option>     output in a more machine friendly format
+                        <options: csv|json|yaml>
+  --sort=<value>        property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List CronjobExecutions belonging to a Cronjob.
+
+ALIASES
+  $ mw project cronjob execution list
+```
+
+## `mw cronjob execution logs CRONJOB-ID EXECUTION-ID`
+
+Get the log output of a cronjob execution.
+
+```
+USAGE
+  $ mw cronjob execution logs CRONJOB-ID EXECUTION-ID [-o json|yaml |  | ] [--no-pager]
+
+ARGUMENTS
+  CRONJOB-ID    ID of the cronjob the execution belongs to
+  EXECUTION-ID  ID of the cronjob execution to be retrieved.
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+  --no-pager             Disable pager for output.
+
+DESCRIPTION
+  Get the log output of a cronjob execution.
+
+  This command prints the log output of a cronjob execution. When this command is run in a terminal, the output is piped
+  through a pager. The pager is determined by your PAGER environment variable, with defaulting to "less". You can
+  disable this behavior with the --no-pager flag.
+
+ALIASES
+  $ mw project cronjob execution logs
+```
+
+## `mw cronjob get CRONJOBID`
+
+Get a cronjob.
+
+```
+USAGE
+  $ mw cronjob get CRONJOBID [-o json|yaml |  | ]
+
+ARGUMENTS
+  CRONJOBID  ID of the cronjob to be retrieved.
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+
+DESCRIPTION
+  Get a cronjob.
+
+ALIASES
+  $ mw project cronjob get
+```
+
+## `mw cronjob list`
+
+List Cronjobs belonging to a Project.
+
+```
+USAGE
+  $ mw cronjob list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List Cronjobs belonging to a Project.
+
+ALIASES
+  $ mw project cronjob list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw database mysql charsets`
@@ -2643,6 +2992,9 @@ FLAGS
   --expires=<value>         (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
   --wait-timeout=<value>    [default: 600] The number of seconds to wait for the resource to be ready.
 
+ALIASES
+  $ mw project backup create
+
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
@@ -2672,6 +3024,9 @@ FLAGS
 
 DESCRIPTION
   Delete a backup
+
+ALIASES
+  $ mw project backup delete
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -2704,6 +3059,9 @@ FLAGS
 
 DESCRIPTION
   Download a backup to your local disk
+
+ALIASES
+  $ mw project backup download
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -2742,6 +3100,9 @@ FLAGS
 
 DESCRIPTION
   show details of a backup.
+
+ALIASES
+  $ mw project backup get
 ```
 
 ## `mw project backup list`
@@ -2768,6 +3129,9 @@ FLAGS
 
 DESCRIPTION
   List Backups for a given Project.
+
+ALIASES
+  $ mw project backup list
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -2800,6 +3164,9 @@ FLAGS
 
 DESCRIPTION
   List backup schedules belonging to a given project.
+
+ALIASES
+  $ mw project backupschedule list
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -2841,7 +3208,7 @@ FLAG DESCRIPTIONS
 
 ## `mw project cronjob execution get CRONJOB-ID EXECUTION-ID`
 
-Get a CronjobExecution.
+Get a cronjob execution.
 
 ```
 USAGE
@@ -2856,7 +3223,10 @@ FLAGS
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a CronjobExecution.
+  Get a cronjob execution.
+
+ALIASES
+  $ mw project cronjob execution get
 ```
 
 ## `mw project cronjob execution list`
@@ -2882,6 +3252,9 @@ FLAGS
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
+
+ALIASES
+  $ mw project cronjob execution list
 ```
 
 ## `mw project cronjob execution logs CRONJOB-ID EXECUTION-ID`
@@ -2907,25 +3280,31 @@ DESCRIPTION
   This command prints the log output of a cronjob execution. When this command is run in a terminal, the output is piped
   through a pager. The pager is determined by your PAGER environment variable, with defaulting to "less". You can
   disable this behavior with the --no-pager flag.
+
+ALIASES
+  $ mw project cronjob execution logs
 ```
 
 ## `mw project cronjob get CRONJOBID`
 
-Get a Cronjob.
+Get a cronjob.
 
 ```
 USAGE
   $ mw project cronjob get CRONJOBID [-o json|yaml |  | ]
 
 ARGUMENTS
-  CRONJOBID  ID of the Cronjob to be retrieved.
+  CRONJOBID  ID of the cronjob to be retrieved.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a Cronjob.
+  Get a cronjob.
+
+ALIASES
+  $ mw project cronjob get
 ```
 
 ## `mw project cronjob list`
@@ -2952,6 +3331,9 @@ FLAGS
 
 DESCRIPTION
   List Cronjobs belonging to a Project.
+
+ALIASES
+  $ mw project cronjob list
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -3226,6 +3608,9 @@ FLAGS
 DESCRIPTION
   List all SFTP users for a project.
 
+ALIASES
+  $ mw project sftp-user list
+
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
@@ -3272,6 +3657,9 @@ FLAGS
 
 DESCRIPTION
   List all SSH users for a project.
+
+ALIASES
+  $ mw project ssh-user list
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -3336,6 +3724,76 @@ FLAGS
 
 DESCRIPTION
   List Servers for an Organization or User.
+```
+
+## `mw sftp-user list`
+
+List all SFTP users for a project.
+
+```
+USAGE
+  $ mw sftp-user list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List all SFTP users for a project.
+
+ALIASES
+  $ mw project sftp-user list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw ssh-user list`
+
+List all SSH users for a project.
+
+```
+USAGE
+  $ mw ssh-user list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
+    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List all SSH users for a project.
+
+ALIASES
+  $ mw project ssh-user list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw update [CHANNEL]`
