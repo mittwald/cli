@@ -378,7 +378,7 @@ __metadata:
     rimraf: ^5.0.1
     semver: ^7.5.4
     tempfile: ^5.0.0
-    type-fest: ^3.12.0
+    type-fest: ^4.6.0
     typescript: ^5.1.6
   bin:
     mw: bin/run.js
@@ -8211,6 +8211,13 @@ __metadata:
   version: 3.13.0
   resolution: "type-fest@npm:3.13.0"
   checksum: f7be142ae1ad0582eafd52d085350799c8cd918c15455896a06c82c147b61f8cea58892bedf1348943478e37740562219375b3b59fd855db99cd2b2766510f98
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "type-fest@npm:4.6.0"
+  checksum: e38f2b4b35e912bf60dbe7d4350653fb76b241a456e849fab85002ba08e938a26a7c44a330dd5620dd48ce57566be7c97e997064dc0d5066d5b6949b8c444430
   languageName: node
   linkType: hard
 
