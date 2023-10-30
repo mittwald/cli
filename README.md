@@ -1162,13 +1162,23 @@ Uninstall an app
 
 ```
 USAGE
-  $ mw app uninstall INSTALLATION-ID
+  $ mw app uninstall INSTALLATION-ID [-q] [-f]
 
 ARGUMENTS
   INSTALLATION-ID  ID of the app installation to delete
 
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
 DESCRIPTION
   Uninstall an app
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw app versions [APP]`
@@ -2341,8 +2351,8 @@ Get all deliveryboxes by project ID
 
 ```
 USAGE
-  $ mw mail deliverybox list [-p <value>] [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
-    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+  $ mw mail deliverybox list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
