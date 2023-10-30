@@ -1,6 +1,3 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
@@ -76,7 +73,10 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
               if ("url" in p.target) {
                 return `${p.path} → url (${p.target.url})`;
               }
-              return `${p.path} → app (${p.target.installationId})`;
+              if ("installationId" in p.target) {
+                return `${p.path} → app (${p.target.installationId})`;
+              }
+              return `${p.path} → default`;
             })
             .join("\n"),
       },

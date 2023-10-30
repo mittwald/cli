@@ -7,9 +7,9 @@ import ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
 export function useProject(projectId: string): ProjectProject {
   const { apiClient } = useRenderContext();
   const project = usePromise(
-    (id) =>
+    (projectId) =>
       apiClient.project.getProject({
-        id,
+        projectId,
       }),
     [projectId],
   );

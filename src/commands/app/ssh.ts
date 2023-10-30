@@ -34,7 +34,7 @@ export default class Ssh extends BaseCommand {
     }
 
     const projectResponse = await this.apiClient.project.getProject({
-      id: appInstallationResponse.data.projectId,
+      projectId: appInstallationResponse.data.projectId,
     });
 
     assertStatus(projectResponse, 200);

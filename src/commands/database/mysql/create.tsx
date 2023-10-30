@@ -104,7 +104,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const database = await p.runStep("fetching database", async () => {
       const r = await this.apiClient.database.getMysqlDatabase({
-        id: db.id,
+        mysqlDatabaseId: db.id,
       });
       assertStatus(r, 200);
 
@@ -113,7 +113,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const user = await p.runStep("fetching user", async () => {
       const r = await this.apiClient.database.getMysqlUser({
-        id: db.userId,
+        mysqlUserId: db.userId,
       });
       assertStatus(r, 200);
 

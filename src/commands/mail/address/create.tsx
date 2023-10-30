@@ -113,7 +113,7 @@ export default class Create extends ExecRenderBaseCommand<
     const response = await process.runStep(
       "creating mail address",
       async () => {
-        const response = await this.apiClient.mail.mailaddressCreate({
+        const response = await this.apiClient.mail.createMailAddress({
           projectId,
           data: {
             address: flags.address,

@@ -28,7 +28,7 @@ export class PhpMyAdmin extends BaseCommand {
     }
 
     const pma = await this.apiClient.database.getMysqlUserPhpMyAdminUrl({
-      id: mainUser.id,
+      mysqlUserId: mainUser.id,
     });
 
     assertStatus(pma, 200);

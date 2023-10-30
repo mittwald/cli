@@ -11,14 +11,14 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static args = { ...mysqlArgs };
 
   protected async deleteResource(): Promise<void> {
-    const id = await withMySQLId(
+    const mysqlDatabaseId = await withMySQLId(
       this.apiClient,
       this.flags,
       this.args,
       this.config,
     );
     const response = await this.apiClient.database.deleteMysqlDatabase({
-      id,
+      mysqlDatabaseId,
     });
 
     assertStatus(response, 200);
