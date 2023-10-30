@@ -361,8 +361,8 @@ Get all available dependencies
 
 ```
 USAGE
-  $ mw app dependency list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw app dependency list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -421,8 +421,8 @@ Get all available versions of a particular dependency
 
 ```
 USAGE
-  $ mw app dependency versions SYSTEMSOFTWARE [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw app dependency versions SYSTEMSOFTWARE [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
+    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 ARGUMENTS
   SYSTEMSOFTWARE  name of the systemsoftware for which to list versions
@@ -1112,8 +1112,8 @@ List installed apps in a project.
 
 ```
 USAGE
-  $ mw app list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw app list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1232,8 +1232,8 @@ Get all conversation categories.
 
 ```
 USAGE
-  $ mw conversation categories [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw conversation categories [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -1295,8 +1295,8 @@ Get all conversation the authenticated user has created or has access to.
 
 ```
 USAGE
-  $ mw conversation list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw conversation list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -1370,8 +1370,8 @@ List available MySQL character sets and collations, optionally filtered by a MyS
 
 ```
 USAGE
-  $ mw database mysql charsets [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw database mysql charsets [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -1513,8 +1513,8 @@ List MySQLDatabases belonging to a Project.
 
 ```
 USAGE
-  $ mw database mysql list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw database mysql list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1628,8 +1628,8 @@ List MySQL users belonging to a database.
 
 ```
 USAGE
-  $ mw database mysql user list --database-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw database mysql user list --database-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
+    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended         show extra columns
@@ -1653,8 +1653,8 @@ List available MySQL versions.
 
 ```
 USAGE
-  $ mw database mysql versions [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw database mysql versions [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -1745,8 +1745,8 @@ List Redis databases belonging to a project.
 
 ```
 USAGE
-  $ mw database redis list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw database redis list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1798,8 +1798,8 @@ List available Redis versions.
 
 ```
 USAGE
-  $ mw database redis versions [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw database redis versions [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1904,8 +1904,8 @@ List Domains belonging to a Project.
 
 ```
 USAGE
-  $ mw domain list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw domain list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1955,8 +1955,8 @@ List all domain ownerships of a project.
 
 ```
 USAGE
-  $ mw domain ownership list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw domain ownership list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -2093,8 +2093,8 @@ List virtualhosts for a project.
 
 ```
 USAGE
-  $ mw domain virtualhost list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>] [-a]
+  $ mw domain virtualhost list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>] [-a]
 
 FLAGS
   -a, --all                 List all virtual hosts that you have access to, regardless of project
@@ -2290,8 +2290,8 @@ Get all mail addresses for a project ID
 
 ```
 USAGE
-  $ mw mail address list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw mail address list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -2341,8 +2341,8 @@ Get all deliveryboxes by project ID
 
 ```
 USAGE
-  $ mw mail deliverybox list [-p <value>] [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw mail deliverybox list [-p <value>] [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
+    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -2450,8 +2450,8 @@ List all invites for an organization.
 
 ```
 USAGE
-  $ mw org invite list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-o <value>]
+  $ mw org invite list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-o <value>]
 
 FLAGS
   -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
@@ -2481,8 +2481,8 @@ List all organization invites for the executing user.
 
 ```
 USAGE
-  $ mw org invite list-own [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw org invite list-own [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -2529,8 +2529,8 @@ Get all organizations the authenticated user has access to.
 
 ```
 USAGE
-  $ mw org list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw org list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -2553,8 +2553,8 @@ List all memberships belonging to an organization.
 
 ```
 USAGE
-  $ mw org membership list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-o <value>]
+  $ mw org membership list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-o <value>]
 
 FLAGS
   -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
@@ -2584,8 +2584,8 @@ List all organization memberships for the executing user.
 
 ```
 USAGE
-  $ mw org membership list-own [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw org membership list-own [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -2750,8 +2750,8 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw project backup list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw project backup list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -2782,8 +2782,8 @@ List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw project backupschedule list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw project backupschedule list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -2865,8 +2865,8 @@ List CronjobExecutions belonging to a Cronjob.
 
 ```
 USAGE
-  $ mw project cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw project cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
+    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended        show extra columns
@@ -2934,8 +2934,8 @@ List Cronjobs belonging to a Project.
 
 ```
 USAGE
-  $ mw project cronjob list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw project cronjob list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -3049,8 +3049,8 @@ List all invites belonging to a Project.
 
 ```
 USAGE
-  $ mw project invite list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw project invite list --project-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
+    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended        show extra columns
@@ -3074,8 +3074,8 @@ List all ProjectInvites for the executing user.
 
 ```
 USAGE
-  $ mw project invite list-own [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw project invite list-own [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -3098,8 +3098,8 @@ List all projects that you have access to
 
 ```
 USAGE
-  $ mw project list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw project list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -3158,8 +3158,8 @@ List all memberships for a Project.
 
 ```
 USAGE
-  $ mw project membership list --project-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw project membership list --project-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
+    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended        show extra columns
@@ -3183,8 +3183,8 @@ List ProjectMemberships belonging to the executing user.
 
 ```
 USAGE
-  $ mw project membership list-own [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw project membership list-own [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -3207,8 +3207,8 @@ List all SFTP users for a project.
 
 ```
 USAGE
-  $ mw project sftp-user list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw project sftp-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -3254,8 +3254,8 @@ List all SSH users for a project.
 
 ```
 USAGE
-  $ mw project ssh-user list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw project ssh-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -3320,8 +3320,8 @@ List Servers for an Organization or User.
 
 ```
 USAGE
-  $ mw server list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw server list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -3425,8 +3425,8 @@ List all ApiTokens of the user
 
 ```
 USAGE
-  $ mw user api-token list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw user api-token list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -3513,8 +3513,8 @@ List all active sessions
 
 ```
 USAGE
-  $ mw user session list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw user session list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
@@ -3606,8 +3606,8 @@ Get your stored ssh keys
 
 ```
 USAGE
-  $ mw user ssh-key list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ]
+  $ mw user ssh-key list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended     show extra columns
