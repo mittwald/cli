@@ -21,7 +21,7 @@ export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.database.getMysqlUser({
-      id: this.args.id,
-    } as Parameters<typeof this.apiClient.database.getMysqlUser>[0]);
+      mysqlUserId: this.args.id,
+    });
   }
 }

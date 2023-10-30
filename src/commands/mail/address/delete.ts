@@ -17,8 +17,8 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
   };
 
   protected async deleteResource(): Promise<void> {
-    const response = await this.apiClient.mail.mailaddressDelete({
-      id: this.args.id,
+    const response = await this.apiClient.mail.deleteMailAddress({
+      mailAddressId: this.args.id,
     });
 
     assertStatus(response, 200);

@@ -51,11 +51,11 @@ async function getPassword(
 async function getDatabase(
   apiClient: MittwaldAPIV2Client,
   p: ProcessRenderer,
-  id: string,
+  mysqlDatabaseId: string,
 ): Promise<DatabaseMySqlDatabase> {
   return await p.runStep("fetching database", async () => {
     const r = await apiClient.database.getMysqlDatabase({
-      id,
+      mysqlDatabaseId,
     });
     assertStatus(r, 200);
 

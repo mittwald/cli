@@ -127,7 +127,6 @@ USAGE
 * [`mw domain dnszone get ZONEID`](#mw-domain-dnszone-get-zoneid)
 * [`mw domain dnszone list`](#mw-domain-dnszone-list)
 * [`mw domain get DOMAINID`](#mw-domain-get-domainid)
-* [`mw domain get-handle DOMAINNAME`](#mw-domain-get-handle-domainname)
 * [`mw domain list`](#mw-domain-list)
 * [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
 * [`mw domain ownership list`](#mw-domain-ownership-list)
@@ -1859,15 +1858,22 @@ gets all dns zones by project id
 
 ```
 USAGE
-  $ mw domain dnszone list --project-id <value> [-o json|yaml |  | ]
+  $ mw domain dnszone list [-o json|yaml |  | ] [-p <value>]
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --project-id=<value>   (required) project you want to get the zones for
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml>
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
 
 DESCRIPTION
   gets all dns zones by project id
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw domain get DOMAINID`
@@ -1887,25 +1893,6 @@ FLAGS
 
 DESCRIPTION
   Get a Domain.
-```
-
-## `mw domain get-handle DOMAINNAME`
-
-Get a HandleSchema.
-
-```
-USAGE
-  $ mw domain get-handle DOMAINNAME [-o json|yaml |  | ]
-
-ARGUMENTS
-  DOMAINNAME  The whole domain name
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get a HandleSchema.
 ```
 
 ## `mw domain list`
@@ -1949,7 +1936,7 @@ USAGE
   $ mw domain ownership get DOMAINOWNERSHIPID [-o json|yaml |  | ]
 
 ARGUMENTS
-  DOMAINOWNERSHIPID  undefined
+  DOMAINOWNERSHIPID  The domain ownership ID.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -2328,7 +2315,7 @@ FLAG DESCRIPTIONS
 
 ## `mw mail deliverybox get ID`
 
-Get a specific deliverybox
+Get a specific delivery box
 
 ```
 USAGE
@@ -2342,7 +2329,7 @@ FLAGS
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a specific deliverybox
+  Get a specific delivery box
 ```
 
 ## `mw mail deliverybox list`

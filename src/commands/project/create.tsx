@@ -69,7 +69,7 @@ export default class Create extends ExecRenderBaseCommand<
 
       await waitUntil(async () => {
         const projectResponse = await this.apiClient.project.getProject({
-          id: result.data.id,
+          projectId: result.data.id,
           headers: { "if-event-reached": eventId },
         });
 

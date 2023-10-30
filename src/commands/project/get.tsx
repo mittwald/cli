@@ -173,7 +173,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
       [],
     );
     const projectResponse = usePromise(
-      (id: string) => this.apiClient.project.getProject({ id }),
+      (projectId: string) => this.apiClient.project.getProject({ projectId }),
       [projectId],
     );
 

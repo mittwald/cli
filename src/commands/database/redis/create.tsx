@@ -95,7 +95,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const database = await p.runStep("fetching database", async () => {
       const r = await this.apiClient.database.getRedisDatabase({
-        id: db.id,
+        redisDatabaseId: db.id,
       });
       assertStatus(r, 200);
 

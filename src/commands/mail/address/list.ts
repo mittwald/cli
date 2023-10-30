@@ -11,13 +11,13 @@ import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdMailaddresses.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdMailAddresses.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 
 export type PathParams =
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdMailaddresses.Get.Parameters.Path;
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdMailAddresses.Get.Parameters.Path;
 export type Response = Awaited<
-  ReturnType<MittwaldAPIV2Client["mail"]["mailaddressList"]>
+  ReturnType<MittwaldAPIV2Client["mail"]["listMailAddresses"]>
 >;
 
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
@@ -33,9 +33,9 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     const pathParams: PathParams = {
       projectId: this.flags["project-id"],
     };
-    return await this.apiClient.mail.mailaddressList(
+    return await this.apiClient.mail.listMailAddresses(
       (await this.mapParams(pathParams)) as Parameters<
-        typeof this.apiClient.mail.mailaddressList
+        typeof this.apiClient.mail.listMailAddresses
       >[0],
     );
   }

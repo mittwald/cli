@@ -3,7 +3,7 @@ import { GetBaseCommand } from "../../../GetBaseCommand.js";
 import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
 
 export type PathParams =
-  MittwaldAPIV2.Paths.V2MysqlDatabasesId.Get.Parameters.Path;
+  MittwaldAPIV2.Paths.V2MysqlDatabasesMysqlDatabaseId.Get.Parameters.Path;
 type APIResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["database"]["getMysqlDatabase"]>
 >;
@@ -17,14 +17,14 @@ export abstract class Get extends GetBaseCommand<typeof Get, APIResponse> {
   static args = { ...mysqlArgs };
 
   protected async getData(): Promise<APIResponse> {
-    const id = await withMySQLId(
+    const mysqlDatabaseId = await withMySQLId(
       this.apiClient,
       this.flags,
       this.args,
       this.config,
     );
     return await this.apiClient.database.getMysqlDatabase({
-      id,
-    } as Parameters<typeof this.apiClient.database.getMysqlDatabase>[0]);
+      mysqlDatabaseId,
+    });
   }
 }

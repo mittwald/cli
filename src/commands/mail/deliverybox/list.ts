@@ -7,12 +7,12 @@ import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdDeliveryboxes.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdDeliveryBoxes.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 export type PathParams =
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdDeliveryboxes.Get.Parameters.Path;
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdDeliveryBoxes.Get.Parameters.Path;
 export type Response = Awaited<
-  ReturnType<MittwaldAPIV2Client["mail"]["deliveryboxList"]>
+  ReturnType<MittwaldAPIV2Client["mail"]["listDeliveryBoxes"]>
 >;
 
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
@@ -32,7 +32,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       this.args,
       this.config,
     );
-    return await this.apiClient.mail.deliveryboxList({ projectId });
+    return await this.apiClient.mail.listDeliveryBoxes({ projectId });
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

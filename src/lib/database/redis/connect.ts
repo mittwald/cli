@@ -24,11 +24,11 @@ export async function getConnectionDetails(
 async function getDatabase(
   apiClient: MittwaldAPIV2Client,
   p: ProcessRenderer,
-  id: string,
+  redisDatabaseId: string,
 ): Promise<DatabaseRedisDatabase> {
   return await p.runStep("fetching database", async () => {
     const r = await apiClient.database.getRedisDatabase({
-      id,
+      redisDatabaseId,
     });
     assertStatus(r, 200);
 

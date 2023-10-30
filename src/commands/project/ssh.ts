@@ -10,10 +10,16 @@ export default class Ssh extends BaseCommand {
 
   public async run(): Promise<void> {
     const { args } = await this.parse(Ssh);
-    const id = await withProjectId(this.apiClient, Ssh, {}, args, this.config);
+    const projectId = await withProjectId(
+      this.apiClient,
+      Ssh,
+      {},
+      args,
+      this.config,
+    );
 
     const projectResponse = await this.apiClient.project.getProject({
-      id,
+      projectId,
     });
 
     const userResponse = await this.apiClient.user.getOwnAccount();

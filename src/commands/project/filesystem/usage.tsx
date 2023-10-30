@@ -41,7 +41,7 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
       [],
     );
     const project = usePromise(
-      (id: string) => this.apiClient.project.getProject({ id }),
+      (projectId: string) => this.apiClient.project.getProject({ projectId }),
       [projectId],
     );
     const projectDiskUsage = usePromise(
