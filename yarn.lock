@@ -1243,11 +1243,11 @@ __metadata:
   linkType: hard
 
 "@types/node-notifier@npm:^8.0.2":
-  version: 8.0.2
-  resolution: "@types/node-notifier@npm:8.0.2"
+  version: 8.0.4
+  resolution: "@types/node-notifier@npm:8.0.4"
   dependencies:
     "@types/node": "*"
-  checksum: eb380e7d6188f3883d7dce75e87f8237474074743f15977f513e25ab9d3a4def6562ee5ce26af71820ef950e32d3804af8e5edee540ada33d223f4c37e1d6528
+  checksum: feb6d4748220df5e20fc25077756fde10aa882a52c5bed907800ceb91db154e088de66278d25333e9179860df5fc070343b115d42828bec02b0429e479b5ad26
   languageName: node
   linkType: hard
 
