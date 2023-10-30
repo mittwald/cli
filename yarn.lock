@@ -323,7 +323,7 @@ __metadata:
     "@mittwald/api-client": ^3.0.7
     "@mittwald/api-client-commons": ^4.1.0
     "@mittwald/react-use-promise": ^1.3.3
-    "@oclif/core": ^2.8.5
+    "@oclif/core": ^3.9.1
     "@oclif/plugin-help": ^5.2.9
     "@oclif/plugin-update": ^3.1.28
     "@oclif/plugin-warn-if-update-available": ^2.0.45
@@ -689,7 +689,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^2.8.11, @oclif/core@npm:^2.8.4, @oclif/core@npm:^2.8.5, @oclif/core@npm:^2.8.7":
+"@oclif/core@npm:^2.8.11, @oclif/core@npm:^2.8.4, @oclif/core@npm:^2.8.7":
   version: 2.8.11
   resolution: "@oclif/core@npm:2.8.11"
   dependencies:
@@ -761,6 +761,39 @@ __metadata:
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
   checksum: 5a493178fcd332535e6c1e21f47bc4d18a16eb9d571e27c786d3c558954bdcb648ac617e7378d2f81fd4802795d5330cd18a1d0fbe7505b597965931ed37a7fb
+  languageName: node
+  linkType: hard
+
+"@oclif/core@npm:^3.9.1":
+  version: 3.9.1
+  resolution: "@oclif/core@npm:3.9.1"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.2
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 15ff7723ea5c1584371d90e207ccf7ad819c04e24f018b269b7d141a04557c4c05aa9976c28657bc6407cecde3b2a9d2ad67acbbdcbc7dd10510a881b75a6740
   languageName: node
   linkType: hard
 
@@ -2960,7 +2993,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ejs@npm:^3.1.8":
+"ejs@npm:^3.1.8, ejs@npm:^3.1.9":
   version: 3.1.9
   resolution: "ejs@npm:3.1.9"
   dependencies:
