@@ -291,7 +291,7 @@ jobs:
       - release-docker
       - release-homebrew
     steps:
-      - uses: geekyeggo/delete-artifact@v1
+      - uses: geekyeggo/delete-artifact@v2
         with:
           name: |
             pkg-tarballs
