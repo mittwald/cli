@@ -48,7 +48,7 @@
     "@mittwald/api-client-commons": "^4.1.0",
     "@mittwald/react-use-promise": "^1.3.3",
     "@oclif/core": "^3.9.1",
-    "@oclif/plugin-help": "^5.2.9",
+    "@oclif/plugin-help": "^6.0.5",
     "@oclif/plugin-update": "^3.1.28",
     "@oclif/plugin-warn-if-update-available": "^2.0.45",
     "axios": "^1.5.0",
