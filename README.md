@@ -3354,10 +3354,10 @@ update the mw CLI
 
 ```
 USAGE
-  $ mw update [CHANNEL] [-a] [-v <value> | -i] [--force]
+  $ mw update [CHANNEL] [-a] [--force] [-i | -v <value>]
 
 FLAGS
-  -a, --available        Install a specific version.
+  -a, --available        See available versions.
   -i, --interactive      Interactively select version to install. This is ignored if a channel is provided.
   -v, --version=<value>  Install a specific version.
   --force                Force a re-download of the requested version.
@@ -3383,7 +3383,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.1.28/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.1.3/src/commands/update.ts)_
 
 ## `mw user api-token create`
 
