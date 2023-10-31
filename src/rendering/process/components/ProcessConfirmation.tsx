@@ -5,7 +5,7 @@ import { useInput, useStdin } from "ink";
 
 export const ProcessConfirmation: React.FC<{
   step: ProcessStep;
-  onConfirm: (confirmed: boolean) => void;
+  onConfirm: (_: boolean) => void;
 }> = ({ step, onConfirm }) => {
   const { isRawModeSupported } = useStdin();
   if (isRawModeSupported) {
