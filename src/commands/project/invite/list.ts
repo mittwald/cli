@@ -1,32 +1,44 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import {
-  GeneratedProjectListInvitesForProject,
-  PathParams,
-  Response,
-} from "../../../generated/project/listInvitesForProject.js";
-import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
+import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdInvites.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedProjectListInvitesForProject<ResponseItem> {
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
+type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["project"]["listInvitesForProject"]>
+>;
+
+export default class List extends ListBaseCommand<
+  typeof List,
+  ResponseItem,
+  Response
+> {
+  static description = "List all invites belonging to a project.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+    ...projectFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    const projectId = await withProjectId(
+      this.apiClient,
+      List,
+      this.flags,
+      this.args,
+      this.config,
+    );
+    return await this.apiClient.project.listInvitesForProject({ projectId });
   }
 
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    input.projectId = await normalizeProjectIdToUuid(
-      this.apiClient,
-      input.projectId,
-    );
-    return super.mapParams(input);
+  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
+    return data;
   }
 
   protected getColumns(): ListColumns<ResponseItem> {

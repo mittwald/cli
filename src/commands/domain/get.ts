@@ -1,6 +1,27 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedDomainGetDomain } from "../../generated/domain/getDomain.js";
+import { Args } from "@oclif/core";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { GetBaseCommand } from "../../GetBaseCommand.js";
 
-export default class Get extends GeneratedDomainGetDomain {}
+type APIResponse = Awaited<
+  ReturnType<MittwaldAPIV2Client["domain"]["getDomain"]>
+>;
+
+export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
+  static description = "Get a domain.";
+
+  static flags = {
+    ...GetBaseCommand.baseFlags,
+  };
+  static args = {
+    "domain-id": Args.string({
+      description: "undefined",
+      required: true,
+    }),
+  };
+
+  protected async getData(): Promise<APIResponse> {
+    return await this.apiClient.domain.getDomain({
+      domainId: this.args["domain-id"],
+    });
+  }
+}

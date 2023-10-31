@@ -1,19 +1,16 @@
 /* eslint-disable */
 /* prettier-ignore */
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedCronjobGetExecution } from "../../../../generated/cronjob/getExecution.js";
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../../GetBaseCommand.js";
-import { Args, Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 
-export type PathParams =
-  MittwaldAPIV2.Paths.V2CronjobsCronjobIdExecutionsExecutionId.Get.Parameters.Path;
 type APIResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["cronjob"]["getExecution"]>
 >;
 
 export class Get extends GetBaseCommand<typeof Get, APIResponse> {
-  static description = "Get a CronjobExecution.";
+  static description = "Get a cron job execution.";
 
   static flags = {
     ...GetBaseCommand.baseFlags,
@@ -35,8 +32,6 @@ export class Get extends GetBaseCommand<typeof Get, APIResponse> {
       executionId: this.args["execution-id"],
       cronjobId: this.args["cronjob-id"],
     };
-    return await this.apiClient.cronjob.getExecution({
-      ...pathParameters,
-    } as Parameters<typeof this.apiClient.cronjob.getExecution>[0]);
+    return await this.apiClient.cronjob.getExecution(pathParameters);
   }
 }

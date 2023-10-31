@@ -5,7 +5,6 @@ import {
   MittwaldAPIV2Client,
   MittwaldAPIV2Client as MittwaldAPIClient,
 } from "@mittwald/api-client";
-import { GeneratedProjectListProjects } from "../../generated/project/listProjects.js";
 import { SuccessfulResponse } from "../../types.js";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
 
@@ -21,7 +20,7 @@ type Response = Awaited<
 >;
 
 export class List extends ListBaseCommand<
-  typeof GeneratedProjectListProjects,
+  typeof List,
   ProjectResponseItem,
   Response
 > {
