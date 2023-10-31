@@ -294,6 +294,4 @@ jobs:
       - uses: geekyeggo/delete-artifact@v2
         with:
           name: |
-            pkg-tarballs
-            pkg-windows
-            pkg-macos
+            pkg-*
