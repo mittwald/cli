@@ -3334,7 +3334,7 @@ DESCRIPTION
 
 ## `mw server list`
 
-List Servers for an Organization or User.
+List servers for an organization or user.
 
 ```
 USAGE
@@ -3353,7 +3353,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List Servers for an Organization or User.
+  List servers for an organization or user.
 ```
 
 ## `mw update [CHANNEL]`

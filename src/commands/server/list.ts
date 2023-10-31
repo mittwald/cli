@@ -16,7 +16,7 @@ export default class List extends ListBaseCommand<
   ResponseItem,
   Response
 > {
-  static description = "List Servers for an Organization or User.";
+  static description = "List servers for an organization or user.";
 
   static args = {};
   static flags = {
@@ -54,15 +54,15 @@ export default class List extends ListBaseCommand<
       },
       machineTypeName: {
         header: "Machine type",
-        get: (row: any) => row.machineType.name,
+        get: (row) => row.machineType.name,
       },
       machineTypeCpu: {
         header: "CPUs",
-        get: (row: any) => row.machineType.cpu,
+        get: (row) => row.machineType.cpu,
       },
       machineTypeMemory: {
         header: "Memory",
-        get: (row: any) => row.machineType.memory,
+        get: (row) => row.machineType.memory,
       },
     };
   }
