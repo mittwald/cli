@@ -27,7 +27,7 @@ rules:
   "@typescript-eslint/no-unused-vars":
     - error
     - varsIgnorePattern: "[iI]gnored"
-      argsIgnorePattern: "[iI]gnored"
+      argsIgnorePattern: "([iI]gnored|_)"
       caughtErrorsIgnorePattern: "[iI]gnored"
   curly:
     - error

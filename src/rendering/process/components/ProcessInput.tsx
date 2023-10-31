@@ -14,7 +14,7 @@ const InteractiveInputDisabled = () => (
 
 export const ProcessInput: React.FC<{
   step: ProcessStepInput;
-  onSubmit: (value: string) => void;
+  onSubmit: (_: string) => void;
 }> = ({ step, onSubmit }) => {
   const [value, setValue] = useState("");
   if (!step.value) {
