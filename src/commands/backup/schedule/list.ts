@@ -21,6 +21,9 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     ...projectFlags,
   };
 
+  static aliases = ["project:backupschedule:list"];
+  static deprecateAliases = true;
+
   public async getData(): Promise<Response> {
     const projectId = await withProjectId(
       this.apiClient,

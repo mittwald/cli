@@ -2,9 +2,9 @@
 /* prettier-ignore */
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../../GetBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
-import { BaseCommand } from "../../../../BaseCommand.js";
+import { BaseCommand } from "../../../BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import * as cp from "child_process";
 import * as fs from "fs";
@@ -22,6 +22,9 @@ export class Logs extends BaseCommand {
     "This command prints the log output of a cronjob execution. " +
     "" +
     'When this command is run in a terminal, the output is piped through a pager. The pager is determined by your PAGER environment variable, with defaulting to "less". You can disable this behavior with the --no-pager flag.';
+
+  static aliases = ["project:cronjob:execution:logs"];
+  static deprecateAliases = true;
 
   static flags = {
     ...GetBaseCommand.baseFlags,

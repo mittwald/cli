@@ -1,10 +1,10 @@
-import { RenderBaseCommand } from "../../../rendering/react/RenderBaseCommand.js";
+import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
 import { ReactNode } from "react";
-import { useProjectBackup } from "../../../lib/projectbackup/hooks.js";
+import { useProjectBackup } from "../../lib/projectbackup/hooks.js";
 import { Args } from "@oclif/core";
-import { ProjectBackupDetails } from "../../../rendering/react/components/ProjectBackup/ProjectBackupDetails.js";
-import { RenderJson } from "../../../rendering/react/json/RenderJson.js";
-import { GetBaseCommand } from "../../../GetBaseCommand.js";
+import { ProjectBackupDetails } from "../../rendering/react/components/ProjectBackup/ProjectBackupDetails.js";
+import { RenderJson } from "../../rendering/react/json/RenderJson.js";
+import { GetBaseCommand } from "../../GetBaseCommand.js";
 import { Box } from "ink";
 
 export default class Get extends RenderBaseCommand<typeof Get> {
@@ -18,6 +18,8 @@ export default class Get extends RenderBaseCommand<typeof Get> {
   static flags = {
     ...GetBaseCommand.baseFlags,
   };
+  static aliases = ["project:backup:get"];
+  static deprecateAliases = true;
 
   protected render(): ReactNode {
     const projectBackup = useProjectBackup(this.args["backup-id"]);

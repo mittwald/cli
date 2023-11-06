@@ -1,10 +1,10 @@
 import { Response, Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
-import { ListColumns } from "../../../Formatter.js";
-import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
+import { SuccessfulResponse } from "../../types.js";
+import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../lib/project/flags.js";
+import { ListColumns } from "../../Formatter.js";
+import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
 import BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
 
 type ListResponse = Response<BackupProjectBackup[]>;
@@ -18,6 +18,8 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
     ...ListBaseCommand.baseFlags,
     ...projectFlags,
   };
+  static aliases = ["project:backup:list"];
+  static deprecateAliases = true;
 
   protected mapData(
     data: SuccessfulResponse<ListResponse, 200>["data"],
