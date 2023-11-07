@@ -14,7 +14,7 @@ export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
   };
   static args = {
     "domain-id": Args.string({
-      description: "undefined",
+      description: "The ID of the domain to get.",
       required: true,
     }),
   };
