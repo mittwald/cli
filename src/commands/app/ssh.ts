@@ -1,25 +1,37 @@
 import { BaseCommand } from "../../BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import * as child_process from "child_process";
-import { appInstallationFlags } from "../../lib/app/flags.js";
+import {
+  appInstallationArgs,
+  withAppInstallationId,
+} from "../../lib/app/flags.js";
 import { Flags } from "@oclif/core";
 import * as path from "path";
 
 export default class Ssh extends BaseCommand {
   static description = "Connect to an app via SSH";
 
-  static args = { ...appInstallationFlags };
+  static args = { ...appInstallationArgs };
   static flags = {
     cd: Flags.boolean({
       summary: "change to installation path after connecting",
       default: true,
       allowNo: true,
     }),
+    info: Flags.boolean({
+      summary: "only print connection information, without actually connecting",
+    }),
   };
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Ssh);
-    const id = args["installation-id"];
+    const id = await withAppInstallationId(
+      this.apiClient,
+      Ssh,
+      args,
+      flags,
+      this.config,
+    );
 
     const appInstallationResponse = await this.apiClient.app.getAppinstallation(
       {
@@ -44,16 +56,23 @@ export default class Ssh extends BaseCommand {
     assertStatus(userResponse, 200);
 
     const sshHost = `ssh.${projectResponse.data.clusterID}.${projectResponse.data.clusterDomain}`;
-    const sshUser = `${userResponse.data.email}@app-${appInstallationResponse.data.id}`;
+    const sshUser = `${userResponse.data.email}@${appInstallationResponse.data.shortId}`;
+    const absoluteInstallPath = path.join(
+      projectResponse.data.directories["Web"],
+      appInstallationResponse.data.installationPath,
+    );
+
+    if (flags.info) {
+      this.log("hostname: %o", sshHost);
+      this.log("username: %o", sshUser);
+      this.log("directory: %o", absoluteInstallPath);
+      return;
+    }
 
     this.log("connecting to %o as %o", sshHost, sshUser);
     let cmd = "exec bash -l";
 
     if (flags.cd) {
-      const absoluteInstallPath = path.join(
-        projectResponse.data.directories["Web"],
-        appInstallationResponse.data.installationPath,
-      );
       cmd = flags.cd ? `cd ${absoluteInstallPath} && exec bash -l` : "bash -l";
 
       this.log(

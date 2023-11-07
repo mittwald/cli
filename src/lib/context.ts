@@ -1,37 +1,52 @@
 import { Config } from "@oclif/core";
-import * as fs from "fs/promises";
-import * as path from "path";
+import { TerraformContextProvider } from "./context_terraform.js";
+import { UserContextProvider } from "./context_user.js";
+
+export type ContextNames = "project" | "server" | "org" | "installation";
+export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
+export type ContextMap = Partial<Record<ContextKey, string>>;
+
+export interface ContextProvider {
+  getOverrides(): Promise<ContextMap>;
+}
+
+export interface WritableContextProvider extends ContextProvider {
+  persist(data: ContextMap): Promise<void>;
+}
+
+function isWritable(p: ContextProvider): p is WritableContextProvider {
+  return "persist" in p;
+}
 
 export class Context {
-  private readonly config: Config;
-  private readonly contextData: Promise<Record<string, string>>;
+  private readonly contextData: Promise<ContextMap>;
+  private readonly providers: ContextProvider[];
 
   public constructor(config: Config) {
-    this.config = config;
+    this.providers = [
+      new UserContextProvider(config),
+      new TerraformContextProvider(),
+    ];
     this.contextData = this.initializeContextData();
   }
 
-  private async initializeContextData(): Promise<Record<string, string>> {
-    try {
-      const contents = await fs.readFile(
-        path.join(this.config.configDir, "context.json"),
-        "utf-8",
-      );
-      return JSON.parse(contents);
-    } catch (e) {
-      if (e instanceof Error && "code" in e && e.code === "ENOENT") {
-        return {};
-      }
-      throw e;
+  private async initializeContextData(): Promise<ContextMap> {
+    const contextData: ContextMap = {};
+
+    for (const provider of this.providers) {
+      const overrides = await provider.getOverrides();
+      Object.assign(contextData, overrides);
     }
+
+    return contextData;
   }
 
   private async persist(data: Record<string, string>): Promise<void> {
-    await fs.writeFile(
-      path.join(this.config.configDir, "context.json"),
-      JSON.stringify(data),
-      "utf-8",
-    );
+    for (const provider of this.providers) {
+      if (isWritable(provider)) {
+        await provider.persist(data);
+      }
+    }
   }
 
   private async setContextValue(key: string, value: string): Promise<void> {
@@ -39,7 +54,7 @@ export class Context {
     return await this.persist({ ...data, [key]: value });
   }
 
-  public async getContextValue(key: string): Promise<string | undefined> {
+  public async getContextValue(key: ContextKey): Promise<string | undefined> {
     const data = await this.contextData;
     if (key in data) {
       return data[key];

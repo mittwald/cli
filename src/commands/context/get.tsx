@@ -1,6 +1,6 @@
 import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
 import { FC, ReactNode } from "react";
-import { Context } from "../../lib/context.js";
+import { Context, ContextKey } from "../../lib/context.js";
 import { SingleResult } from "../../rendering/react/components/SingleResult.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { usePromise } from "@mittwald/react-use-promise";
@@ -15,7 +15,12 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
   const { renderAsJson } = useRenderContext();
   const values: Record<string, string | undefined> = {};
 
-  for (const key of ["project-id", "server-id", "org-id"]) {
+  for (const key of [
+    "project-id",
+    "server-id",
+    "org-id",
+    "installation-id",
+  ] as ContextKey[]) {
     const value = usePromise(ctx.getContextValue.bind(ctx), [key]);
     if (value) {
       rows[`--${key}`] = <Value>{value}</Value>;

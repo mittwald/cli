@@ -1,5 +1,9 @@
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
-import { appInstallationFlags } from "../../../lib/app/flags.js";
+import {
+  appInstallationArgs,
+  appInstallationFlags,
+  withAppInstallationId,
+} from "../../../lib/app/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -19,7 +23,7 @@ import { Text } from "ink";
 
 export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
   static summary = "Update the dependencies of an app";
-  static args = { ...appInstallationFlags };
+  static args = { ...appInstallationArgs };
   static examples = [
     {
       description:
@@ -46,7 +50,13 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
   };
 
   protected async exec(): Promise<void> {
-    const appInstallationId = this.args["installation-id"];
+    const appInstallationId = await withAppInstallationId(
+      this.apiClient,
+      Update,
+      this.flags,
+      this.args,
+      this.config,
+    );
     const updatePolicy = this.flags[
       "update-policy"
     ] as AppSystemSoftwareUpdatePolicy;

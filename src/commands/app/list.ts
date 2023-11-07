@@ -82,6 +82,10 @@ export default class List extends ListBaseCommand<
         header: "ID",
         minWidth: 36,
       },
+      shortId: {
+        header: "Short ID",
+        minWidth: 8,
+      },
       description: {},
       app: {
         header: "Application",

@@ -1,20 +1,26 @@
-import { Args } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
+import {
+  appInstallationArgs,
+  withAppInstallationId,
+} from "../../lib/app/flags.js";
 
 export default class Uninstall extends DeleteBaseCommand<typeof Uninstall> {
   static description = "Uninstall an app";
   static resourceName = "app installation";
 
   static args = {
-    "installation-id": Args.string({
-      description: "ID of the app installation to delete",
-      required: true,
-    }),
+    ...appInstallationArgs,
   };
 
   protected async deleteResource(): Promise<void> {
-    const appInstallationId = this.args["installation-id"];
+    const appInstallationId = await withAppInstallationId(
+      this.apiClient,
+      Uninstall,
+      this.flags,
+      this.args,
+      this.config,
+    );
     const response = await this.apiClient.app.uninstallAppinstallation({
       appInstallationId,
     });

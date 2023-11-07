@@ -1,5 +1,8 @@
 import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
-import { appInstallationFlags } from "../../lib/app/flags.js";
+import {
+  appInstallationArgs,
+  withAppInstallationId,
+} from "../../lib/app/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -15,7 +18,7 @@ type Result = {
 
 export class Copy extends ExecRenderBaseCommand<typeof Copy, Result> {
   static description = "Copy an app within a project";
-  static args = { ...appInstallationFlags };
+  static args = { ...appInstallationArgs };
   static flags = {
     ...processFlags,
     description: Flags.string({
@@ -25,7 +28,13 @@ export class Copy extends ExecRenderBaseCommand<typeof Copy, Result> {
   };
 
   protected async exec(): Promise<Result> {
-    const { "installation-id": id } = this.args;
+    const id = await withAppInstallationId(
+      this.apiClient,
+      Copy,
+      this.flags,
+      this.args,
+      this.config,
+    );
     const { description } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Copying app installation");

@@ -7,18 +7,21 @@ import {
 } from "@oclif/core/lib/interfaces/parser.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
-import { Context } from "./context.js";
+import { Context, ContextNames } from "./context.js";
 
-type FlagIDType<N extends string> = `${N}-id`;
+type FlagIDType<N extends ContextNames> = `${N}-id`;
 
-type ContextFlags<N extends string, TID extends string = FlagIDType<N>> = {
+type ContextFlags<
+  N extends ContextNames,
+  TID extends string = FlagIDType<N>,
+> = {
   [k in TID]: OptionFlag<string>;
 };
-type ContextArgs<N extends string, TID extends string = FlagIDType<N>> = {
+type ContextArgs<N extends ContextNames, TID extends string = FlagIDType<N>> = {
   [k in TID]: Arg<string>;
 };
 
-type CommandType<N extends string, TID extends string = FlagIDType<N>> =
+type CommandType<N extends ContextNames, TID extends string = FlagIDType<N>> =
   | {
       flags: { [k in TID]: OptionFlag<string> };
     }
@@ -42,7 +45,7 @@ class MissingArgError extends Error {
   }
 }
 
-export type FlagSet<TName extends string> = {
+export type FlagSet<TName extends ContextNames> = {
   name: TName;
   flags: ContextFlags<TName>;
   args: ContextArgs<TName>;
@@ -60,7 +63,7 @@ export type NormalizeFn = (
   id: string,
 ) => string | Promise<string>;
 
-export function makeFlagSet<TName extends string>(
+export function makeFlagSet<TName extends ContextNames>(
   name: TName,
   char: AlphabetLowercase,
   normalize: NormalizeFn = (_, id) => id,
