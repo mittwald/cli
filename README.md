@@ -79,14 +79,14 @@ USAGE
 ## Commands
 
 <!-- commands -->
-* [`mw app copy INSTALLATION-ID`](#mw-app-copy-installation-id)
+* [`mw app copy [INSTALLATION-ID]`](#mw-app-copy-installation-id)
 * [`mw app create node`](#mw-app-create-node)
 * [`mw app create php`](#mw-app-create-php)
 * [`mw app create static`](#mw-app-create-static)
 * [`mw app dependency list`](#mw-app-dependency-list)
-* [`mw app dependency update INSTALLATION-ID`](#mw-app-dependency-update-installation-id)
+* [`mw app dependency update [INSTALLATION-ID]`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
-* [`mw app get INSTALLATION-ID`](#mw-app-get-installation-id)
+* [`mw app get [INSTALLATION-ID]`](#mw-app-get-installation-id)
 * [`mw app install contao`](#mw-app-install-contao)
 * [`mw app install joomla`](#mw-app-install-joomla)
 * [`mw app install matomo`](#mw-app-install-matomo)
@@ -95,8 +95,8 @@ USAGE
 * [`mw app install typo3`](#mw-app-install-typo3)
 * [`mw app install wordpress`](#mw-app-install-wordpress)
 * [`mw app list`](#mw-app-list)
-* [`mw app ssh INSTALLATION-ID`](#mw-app-ssh-installation-id)
-* [`mw app uninstall INSTALLATION-ID`](#mw-app-uninstall-installation-id)
+* [`mw app ssh [INSTALLATION-ID]`](#mw-app-ssh-installation-id)
+* [`mw app uninstall [INSTALLATION-ID]`](#mw-app-uninstall-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
 * [`mw context get`](#mw-context-get)
 * [`mw context set`](#mw-context-set)
@@ -196,16 +196,17 @@ USAGE
 * [`mw user ssh-key get SSHKEYID`](#mw-user-ssh-key-get-sshkeyid)
 * [`mw user ssh-key list`](#mw-user-ssh-key-list)
 
-## `mw app copy INSTALLATION-ID`
+## `mw app copy [INSTALLATION-ID]`
 
 Copy an app within a project
 
 ```
 USAGE
-  $ mw app copy INSTALLATION-ID --description <value> [-q]
+  $ mw app copy [INSTALLATION-ID] --description <value> [-q]
 
 ARGUMENTS
-  INSTALLATION-ID  ID of the app installation to get
+  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
+                   context
 
 FLAGS
   -q, --quiet            suppress process output and only display a machine-readable summary.
@@ -378,16 +379,17 @@ DESCRIPTION
   Get all available dependencies
 ```
 
-## `mw app dependency update INSTALLATION-ID`
+## `mw app dependency update [INSTALLATION-ID]`
 
 Update the dependencies of an app
 
 ```
 USAGE
-  $ mw app dependency update INSTALLATION-ID --set <value> [-q] [--update-policy none|inheritedFromApp|patchLevel|all]
+  $ mw app dependency update [INSTALLATION-ID] --set <value> [-q] [--update-policy none|inheritedFromApp|patchLevel|all]
 
 ARGUMENTS
-  INSTALLATION-ID  ID of the app installation to get
+  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
+                   context
 
 FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary.
@@ -441,16 +443,17 @@ DESCRIPTION
   Get all available versions of a particular dependency
 ```
 
-## `mw app get INSTALLATION-ID`
+## `mw app get [INSTALLATION-ID]`
 
 Get details about an app installation
 
 ```
 USAGE
-  $ mw app get INSTALLATION-ID [-o json|yaml |  | ]
+  $ mw app get [INSTALLATION-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  INSTALLATION-ID  ID of the app installation to get
+  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
+                   context
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -1137,34 +1140,37 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-## `mw app ssh INSTALLATION-ID`
+## `mw app ssh [INSTALLATION-ID]`
 
 Connect to an app via SSH
 
 ```
 USAGE
-  $ mw app ssh INSTALLATION-ID [--cd]
+  $ mw app ssh [INSTALLATION-ID] [--cd] [--info]
 
 ARGUMENTS
-  INSTALLATION-ID  ID of the app installation to get
+  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
+                   context
 
 FLAGS
   --[no-]cd  change to installation path after connecting
+  --info     only print connection information, without actually connecting
 
 DESCRIPTION
   Connect to an app via SSH
 ```
 
-## `mw app uninstall INSTALLATION-ID`
+## `mw app uninstall [INSTALLATION-ID]`
 
 Uninstall an app
 
 ```
 USAGE
-  $ mw app uninstall INSTALLATION-ID [-q] [-f]
+  $ mw app uninstall [INSTALLATION-ID] [-q] [-f]
 
 ARGUMENTS
-  INSTALLATION-ID  ID of the app installation to delete
+  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
+                   context
 
 FLAGS
   -f, --force  Do not ask for confirmation
