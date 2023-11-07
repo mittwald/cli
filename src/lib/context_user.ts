@@ -10,6 +10,8 @@ import { Config } from "@oclif/core";
 export class UserContextProvider
   implements ContextProvider, WritableContextProvider
 {
+  public name = "user";
+
   public constructor(private readonly config: Config) {}
 
   public async getOverrides(): Promise<ContextMap> {

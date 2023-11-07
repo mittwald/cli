@@ -7,6 +7,7 @@ export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
 export type ContextMap = Partial<Record<ContextKey, string>>;
 
 export interface ContextProvider {
+  name: string;
   getOverrides(): Promise<ContextMap>;
 }
 
@@ -20,7 +21,8 @@ function isWritable(p: ContextProvider): p is WritableContextProvider {
 
 export class Context {
   private readonly contextData: Promise<ContextMap>;
-  private readonly providers: ContextProvider[];
+
+  public readonly providers: ContextProvider[];
 
   public constructor(config: Config) {
     this.providers = [

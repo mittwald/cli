@@ -4,6 +4,8 @@ import path from "path";
 import { ContextMap, ContextProvider } from "./context.js";
 
 export class TerraformContextProvider implements ContextProvider {
+  public readonly name = "terraform";
+
   public async getOverrides(): Promise<ContextMap> {
     const file = await this.findTerraformStateFile();
     if (!file) {
