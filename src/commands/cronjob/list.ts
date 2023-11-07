@@ -1,10 +1,10 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListColumns } from "../../../Formatter.js";
-import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { SuccessfulResponse } from "../../types.js";
+import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../lib/project/flags.js";
+import { ListColumns } from "../../Formatter.js";
+import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdCronjobs.Get.Responses.$200.Content.ApplicationJson[number]
@@ -18,6 +18,8 @@ export type Response = Awaited<
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   static description = "List Cronjobs belonging to a Project.";
 
+  static aliases = ["project:cronjob:list"];
+  static deprecateAliases = true;
   static args = {};
   static flags = {
     ...ListBaseCommand.baseFlags,

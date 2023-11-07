@@ -1,8 +1,5 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../../GetBaseCommand.js";
 import { Args } from "@oclif/core";
 
 type APIResponse = Awaited<
@@ -12,6 +9,8 @@ type APIResponse = Awaited<
 export class Get extends GetBaseCommand<typeof Get, APIResponse> {
   static description = "Get a cron job execution.";
 
+  static aliases = ["project:cronjob:execution:get"];
+  static deprecateAliases = true;
   static flags = {
     ...GetBaseCommand.baseFlags,
   };
@@ -28,10 +27,9 @@ export class Get extends GetBaseCommand<typeof Get, APIResponse> {
   };
 
   protected async getData(): Promise<APIResponse> {
-    const pathParameters = {
+    return await this.apiClient.cronjob.getExecution({
       executionId: this.args["execution-id"],
       cronjobId: this.args["cronjob-id"],
-    };
-    return await this.apiClient.cronjob.getExecution(pathParameters);
+    });
   }
 }

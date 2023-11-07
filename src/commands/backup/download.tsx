@@ -1,25 +1,25 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
 import {
   makeProcessRenderer,
   processFlags,
-} from "../../../rendering/process/process_flags.js";
+} from "../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
-import { ProcessRenderer } from "../../../rendering/process/process.js";
+import { ProcessRenderer } from "../../rendering/process/process.js";
 import crypto from "crypto";
 import { Text } from "ink";
-import { Value } from "../../../rendering/react/components/Value.js";
+import { Value } from "../../rendering/react/components/Value.js";
 import {
   assertStatus,
   AxiosRequestConfig,
   AxiosResponseHeaders,
   RawAxiosResponseHeaders,
 } from "@mittwald/api-client-commons";
-import { waitUntil } from "../../../lib/wait.js";
+import { waitUntil } from "../../lib/wait.js";
 import axios from "axios";
 import * as fs from "fs";
-import { formatBytes } from "../../../lib/viewhelpers/size.js";
-import { Success } from "../../../rendering/react/components/Success.js";
+import { formatBytes } from "../../lib/viewhelpers/size.js";
+import { Success } from "../../rendering/react/components/Success.js";
 
 type Result = { outputFilename: string };
 
@@ -64,6 +64,8 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
       dependsOn: ["output"],
     }),
   };
+  static aliases = ["project:backup:download"];
+  static deprecateAliases = true;
 
   protected async getPassword(p: ProcessRenderer): Promise<string | undefined> {
     if (this.flags.password) {

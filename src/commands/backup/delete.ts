@@ -1,4 +1,4 @@
-import { DeleteBaseCommand } from "../../../DeleteBaseCommand.js";
+import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Args } from "@oclif/core";
 
@@ -13,6 +13,8 @@ export class Delete extends DeleteBaseCommand<typeof Delete> {
       description: "The ID of the Backup to show.",
     }),
   };
+  static aliases = ["project:backup:delete"];
+  static deprecateAliases = true;
 
   protected async deleteResource(): Promise<void> {
     const projectBackupId = this.args["backup-id"];

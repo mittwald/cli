@@ -129,6 +129,14 @@
       "article": {
         "description": "Query available hosting articles"
       },
+      "backup": {
+        "description": "Manage backups of your projects",
+        "subtopics": {
+          "schedule": {
+            "description": "Manage backup schedules of your projects"
+          }
+        }
+      },
       "context": {
         "description": "Save certain environment parameters for later use"
       },
@@ -137,6 +145,9 @@
       },
       "conversation": {
         "description": "Manage your support cases"
+      },
+      "cronjob": {
+        "description": "Manage cronjobs of your projects"
       },
       "database": {
         "description": "Manage databases (like MySQL and Redis) in your projects"
@@ -156,15 +167,6 @@
       "project": {
         "description": "Manage your projects, and also any kinds of user memberships concerning these projects.",
         "subtopics": {
-          "backup": {
-            "description": "Manage backups of your projects"
-          },
-          "backupschedule": {
-            "description": "Manage backup schedules of your projects"
-          },
-          "cronjob": {
-            "description": "Manage cronjobs of your projects"
-          },
           "filesystem": {
             "description": "Interact with the filesystem of your project"
           },
@@ -173,17 +175,17 @@
           },
           "membership": {
             "description": "Control who gets to work on your projects, and who doesn't"
-          },
-          "sftp-user": {
-            "description": "Manage SFTP users of your projects"
-          },
-          "ssh-user": {
-            "description": "Manage SSH users of your projects"
           }
         }
       },
       "server": {
         "description": "Manage your servers"
+      },
+      "sftp-user": {
+        "description": "Manage SFTP users of your projects"
+      },
+      "ssh-user": {
+        "description": "Manage SSH users of your projects"
       },
       "user": {
         "description": "Manage your own user account",
