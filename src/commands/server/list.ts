@@ -1,19 +1,32 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
-import {
-  GeneratedProjectListServers,
-  Response,
-} from "../../generated/project/listServers.js";
 import { ListColumns } from "../../Formatter.js";
+import { ListBaseCommand } from "../../ListBaseCommand.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Servers.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedProjectListServers<ResponseItem> {
+type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["project"]["listServers"]>
+>;
+
+export default class List extends ListBaseCommand<
+  typeof List,
+  ResponseItem,
+  Response
+> {
+  static description = "List servers for an organization or user.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    return await this.apiClient.project.listServers();
+  }
+
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return data;
   }
@@ -41,15 +54,15 @@ export default class List extends GeneratedProjectListServers<ResponseItem> {
       },
       machineTypeName: {
         header: "Machine type",
-        get: (row: any) => row.machineType.name,
+        get: (row) => row.machineType.name,
       },
       machineTypeCpu: {
         header: "CPUs",
-        get: (row: any) => row.machineType.cpu,
+        get: (row) => row.machineType.cpu,
       },
       machineTypeMemory: {
         header: "Memory",
-        get: (row: any) => row.machineType.memory,
+        get: (row) => row.machineType.memory,
       },
     };
   }

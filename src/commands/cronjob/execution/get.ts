@@ -7,7 +7,7 @@ type APIResponse = Awaited<
 >;
 
 export class Get extends GetBaseCommand<typeof Get, APIResponse> {
-  static description = "Get a cronjob execution.";
+  static description = "Get a cron job execution.";
 
   static aliases = ["project:cronjob:execution:get"];
   static deprecateAliases = true;

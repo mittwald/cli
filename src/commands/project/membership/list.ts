@@ -1,22 +1,44 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import {
-  GeneratedProjectListMembershipsForProject,
-  PathParams,
-  Response,
-} from "../../../generated/project/listMembershipsForProject.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
-import { normalizeProjectIdToUuid } from "../../../Helpers.js";
+import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdMemberships.Get.Responses.$200.Content.ApplicationJson[number]
 > & { user?: MittwaldAPIV2.Components.Schemas.UserUser };
-export default class List extends GeneratedProjectListMembershipsForProject<ResponseItem> {
+type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["project"]["listMembershipsForProject"]>
+>;
+
+export default class List extends ListBaseCommand<
+  typeof List,
+  ResponseItem,
+  Response
+> {
+  static description = "List all memberships for a Project.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+    ...projectFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    const pathParams = {
+      projectId: await withProjectId(
+        this.apiClient,
+        List,
+        this.flags,
+        this.args,
+        this.config,
+      ),
+    };
+    return await this.apiClient.project.listMembershipsForProject(pathParams);
+  }
+
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return Promise.all(
       data.map(async (item) => {
@@ -30,14 +52,6 @@ export default class List extends GeneratedProjectListMembershipsForProject<Resp
         return out;
       }),
     );
-  }
-
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    input.projectId = await normalizeProjectIdToUuid(
-      this.apiClient,
-      input.projectId,
-    );
-    return super.mapParams(input);
   }
 
   protected getColumns(): ListColumns<ResponseItem> {

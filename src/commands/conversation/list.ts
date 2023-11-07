@@ -1,25 +1,39 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
-import {
-  GeneratedConversationListConversations,
-  Response,
-} from "../../generated/conversation/listConversations.js";
 import { ListColumns } from "../../Formatter.js";
 import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
+import { ListBaseCommand } from "../../ListBaseCommand.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Conversations.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export default class List extends GeneratedConversationListConversations<ResponseItem> {
+type Response = Awaited<
+  ReturnType<MittwaldAPIV2Client["conversation"]["listConversations"]>
+>;
+
+export default class List extends ListBaseCommand<
+  typeof List,
+  ResponseItem,
+  Response
+> {
+  static description =
+    "Get all conversations the authenticated user has created or has access to.";
+
+  static args = {};
+  static flags = {
+    ...ListBaseCommand.baseFlags,
+  };
+
+  public async getData(): Promise<Response> {
+    return await this.apiClient.conversation.listConversations();
+  }
+
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return data;
   }
 
-  protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+  protected getColumns(): ListColumns<ResponseItem> {
     return {
       conversationId: {
         header: "ID",

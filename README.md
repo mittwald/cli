@@ -137,7 +137,7 @@ USAGE
 * [`mw database redis versions`](#mw-database-redis-versions)
 * [`mw domain dnszone get ZONEID`](#mw-domain-dnszone-get-zoneid)
 * [`mw domain dnszone list`](#mw-domain-dnszone-list)
-* [`mw domain get DOMAINID`](#mw-domain-get-domainid)
+* [`mw domain get DOMAIN-ID`](#mw-domain-get-domain-id)
 * [`mw domain list`](#mw-domain-list)
 * [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
 * [`mw domain ownership list`](#mw-domain-ownership-list)
@@ -180,11 +180,11 @@ USAGE
 * [`mw project delete [PROJECT-ID]`](#mw-project-delete-project-id)
 * [`mw project filesystem usage [PROJECT-ID]`](#mw-project-filesystem-usage-project-id)
 * [`mw project get [PROJECT-ID]`](#mw-project-get-project-id)
-* [`mw project invite get INVITEID`](#mw-project-invite-get-inviteid)
+* [`mw project invite get INVITE-ID`](#mw-project-invite-get-invite-id)
 * [`mw project invite list`](#mw-project-invite-list)
 * [`mw project invite list-own`](#mw-project-invite-list-own)
 * [`mw project list`](#mw-project-list)
-* [`mw project membership get MEMBERSHIPID`](#mw-project-membership-get-membershipid)
+* [`mw project membership get MEMBERSHIP-ID`](#mw-project-membership-get-membership-id)
 * [`mw project membership get-own`](#mw-project-membership-get-own)
 * [`mw project membership list`](#mw-project-membership-list)
 * [`mw project membership list-own`](#mw-project-membership-list-own)
@@ -192,21 +192,21 @@ USAGE
 * [`mw project ssh [PROJECT-ID]`](#mw-project-ssh-project-id)
 * [`mw project ssh-user list`](#mw-project-ssh-user-list)
 * [`mw project update [PROJECT-ID]`](#mw-project-update-project-id)
-* [`mw server get SERVERID`](#mw-server-get-serverid)
+* [`mw server get [SERVER-ID]`](#mw-server-get-server-id)
 * [`mw server list`](#mw-server-list)
 * [`mw sftp-user list`](#mw-sftp-user-list)
 * [`mw ssh-user list`](#mw-ssh-user-list)
 * [`mw update [CHANNEL]`](#mw-update-channel)
 * [`mw user api-token create`](#mw-user-api-token-create)
-* [`mw user api-token get APITOKENID`](#mw-user-api-token-get-apitokenid)
+* [`mw user api-token get TOKEN-ID`](#mw-user-api-token-get-token-id)
 * [`mw user api-token list`](#mw-user-api-token-list)
 * [`mw user api-token revoke ID`](#mw-user-api-token-revoke-id)
 * [`mw user get USER-ID`](#mw-user-get-user-id)
-* [`mw user session get TOKENID`](#mw-user-session-get-tokenid)
+* [`mw user session get TOKEN-ID`](#mw-user-session-get-token-id)
 * [`mw user session list`](#mw-user-session-list)
 * [`mw user ssh-key create`](#mw-user-ssh-key-create)
 * [`mw user ssh-key delete ID`](#mw-user-ssh-key-delete-id)
-* [`mw user ssh-key get SSHKEYID`](#mw-user-ssh-key-get-sshkeyid)
+* [`mw user ssh-key get KEY-ID`](#mw-user-ssh-key-get-key-id)
 * [`mw user ssh-key list`](#mw-user-ssh-key-list)
 
 ## `mw app copy INSTALLATION-ID`
@@ -1344,8 +1344,8 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw backup list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw backup list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1379,8 +1379,8 @@ List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw backup schedule list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw backup schedule list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1513,7 +1513,7 @@ DESCRIPTION
 
 ## `mw conversation list`
 
-Get all conversation the authenticated user has created or has access to.
+Get all conversations the authenticated user has created or has access to.
 
 ```
 USAGE
@@ -1532,7 +1532,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  Get all conversation the authenticated user has created or has access to.
+  Get all conversations the authenticated user has created or has access to.
 ```
 
 ## `mw conversation reply ID`
@@ -1588,7 +1588,7 @@ FLAGS
 
 ## `mw cronjob execution get CRONJOB-ID EXECUTION-ID`
 
-Get a cronjob execution.
+Get a cron job execution.
 
 ```
 USAGE
@@ -1603,7 +1603,7 @@ FLAGS
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a cronjob execution.
+  Get a cron job execution.
 
 ALIASES
   $ mw project cronjob execution get
@@ -1615,8 +1615,8 @@ List CronjobExecutions belonging to a Cronjob.
 
 ```
 USAGE
-  $ mw cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
-    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+  $ mw cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
+    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
   -x, --extended        show extra columns
@@ -1693,8 +1693,8 @@ List Cronjobs belonging to a Project.
 
 ```
 USAGE
-  $ mw cronjob list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw cronjob list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -2225,23 +2225,23 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-## `mw domain get DOMAINID`
+## `mw domain get DOMAIN-ID`
 
-Get a Domain.
+Get a domain.
 
 ```
 USAGE
-  $ mw domain get DOMAINID [-o json|yaml |  | ]
+  $ mw domain get DOMAIN-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  DOMAINID  undefined
+  DOMAIN-ID  The ID of the domain to get.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a Domain.
+  Get a domain.
 ```
 
 ## `mw domain list`
@@ -3205,7 +3205,7 @@ FLAG DESCRIPTIONS
 
 ## `mw project cronjob execution get CRONJOB-ID EXECUTION-ID`
 
-Get a cronjob execution.
+Get a cron job execution.
 
 ```
 USAGE
@@ -3220,7 +3220,7 @@ FLAGS
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a cronjob execution.
+  Get a cron job execution.
 
 ALIASES
   $ mw project cronjob execution get
@@ -3403,16 +3403,16 @@ DESCRIPTION
   Get details of a project
 ```
 
-## `mw project invite get INVITEID`
+## `mw project invite get INVITE-ID`
 
 Get a ProjectInvite.
 
 ```
 USAGE
-  $ mw project invite get INVITEID [-o json|yaml |  | ]
+  $ mw project invite get INVITE-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  INVITEID  ID of the ProjectInvite to be retrieved.
+  INVITE-ID  ID of the ProjectInvite to be retrieved.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -3424,32 +3424,39 @@ DESCRIPTION
 
 ## `mw project invite list`
 
-List all invites belonging to a Project.
+List all invites belonging to a project.
 
 ```
 USAGE
-  $ mw project invite list --project-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
-    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+  $ mw project invite list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project to list invites for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all invites belonging to a Project.
+  List all invites belonging to a project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw project invite list-own`
 
-List all ProjectInvites for the executing user.
+List all project invites for the executing user.
 
 ```
 USAGE
@@ -3468,7 +3475,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all ProjectInvites for the executing user.
+  List all project invites for the executing user.
 ```
 
 ## `mw project list`
@@ -3495,16 +3502,16 @@ DESCRIPTION
   List all projects that you have access to
 ```
 
-## `mw project membership get MEMBERSHIPID`
+## `mw project membership get MEMBERSHIP-ID`
 
 Get a ProjectMembership
 
 ```
 USAGE
-  $ mw project membership get MEMBERSHIPID [-o json|yaml |  | ]
+  $ mw project membership get MEMBERSHIP-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  MEMBERSHIPID  ID of the ProjectMembership to be retrieved.
+  MEMBERSHIP-ID  ID of the ProjectMembership to be retrieved.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -3520,15 +3527,22 @@ Get the executing user's membership in a Project.
 
 ```
 USAGE
-  $ mw project membership get-own --project-id <value> [-o json|yaml |  | ]
+  $ mw project membership get-own [-o json|yaml |  | ] [-p <value>]
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --project-id=<value>   (required) ID of the Project to get the membership for.
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml>
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
 
 DESCRIPTION
   Get the executing user's membership in a Project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw project membership list`
@@ -3537,23 +3551,30 @@ List all memberships for a Project.
 
 ```
 USAGE
-  $ mw project membership list --project-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
-    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+  $ mw project membership list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project to list memberships for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all memberships for a Project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw project membership list-own`
@@ -3680,28 +3701,28 @@ DESCRIPTION
   Updates a project
 ```
 
-## `mw server get SERVERID`
+## `mw server get [SERVER-ID]`
 
-Get a Server.
+Get a server.
 
 ```
 USAGE
-  $ mw server get SERVERID [-o json|yaml |  | ]
+  $ mw server get [SERVER-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  SERVERID  ID of the Server to be retrieved.
+  SERVER-ID  ID or short ID of a server; this argument is optional if a default server is set in the context
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a Server.
+  Get a server.
 ```
 
 ## `mw server list`
 
-List Servers for an Organization or User.
+List servers for an organization or user.
 
 ```
 USAGE
@@ -3720,7 +3741,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List Servers for an Organization or User.
+  List servers for an organization or user.
 ```
 
 ## `mw sftp-user list`
@@ -3729,8 +3750,8 @@ List all SFTP users for a project.
 
 ```
 USAGE
-  $ mw sftp-user list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw sftp-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -3764,8 +3785,8 @@ List all SSH users for a project.
 
 ```
 USAGE
-  $ mw ssh-user list [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output csv|json|yaml |  |
-    [--csv | --no-truncate]] [--no-header | ] [-p <value>]
+  $ mw ssh-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -3855,28 +3876,28 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw user api-token get APITOKENID`
+## `mw user api-token get TOKEN-ID`
 
-Get a specific ApiToken
+Get a specific API token
 
 ```
 USAGE
-  $ mw user api-token get APITOKENID [-o json|yaml |  | ]
+  $ mw user api-token get TOKEN-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  APITOKENID  The uuid of an ApiToken
+  TOKEN-ID  The ID of an API token
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a specific ApiToken
+  Get a specific API token
 ```
 
 ## `mw user api-token list`
 
-List all ApiTokens of the user
+List all API tokens of the user
 
 ```
 USAGE
@@ -3895,7 +3916,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all ApiTokens of the user
+  List all API tokens of the user
 ```
 
 ## `mw user api-token revoke ID`
@@ -3943,23 +3964,23 @@ DESCRIPTION
   Get profile information for a user.
 ```
 
-## `mw user session get TOKENID`
+## `mw user session get TOKEN-ID`
 
-Get a specific Session
+Get a specific session
 
 ```
 USAGE
-  $ mw user session get TOKENID [-o json|yaml |  | ]
+  $ mw user session get TOKEN-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  TOKENID  tokenId to identify the concrete Session
+  TOKEN-ID  Token ID to identify the specific session
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a specific Session
+  Get a specific session
 ```
 
 ## `mw user session list`
@@ -4036,23 +4057,23 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw user ssh-key get SSHKEYID`
+## `mw user ssh-key get KEY-ID`
 
-Get a specific stored SshKey
+Get a specific SSH key
 
 ```
 USAGE
-  $ mw user ssh-key get SSHKEYID [-o json|yaml |  | ]
+  $ mw user ssh-key get KEY-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  SSHKEYID  undefined
+  KEY-ID  The ID of an SSH key
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a specific stored SshKey
+  Get a specific SSH key
 ```
 
 ## `mw user ssh-key list`
