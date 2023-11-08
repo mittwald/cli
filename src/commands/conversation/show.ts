@@ -55,9 +55,6 @@ export default class Show extends BaseCommand {
 
     marked.setOptions({
       renderer: new TerminalRenderer() as Renderer,
-      mangle: false,
-      headerIds: false,
-      headerPrefix: "",
     });
 
     const metaColor = chalk.gray;
