@@ -14,7 +14,8 @@ export class TerraformContextProvider implements ContextProvider {
 
     const contents = await fs.readFile(file, "utf-8");
     const data = JSON.parse(contents);
-    const overrides: Record<string, string> = {};
+    const overrides: ContextMap = {};
+    const source = { type: "terraform", identifier: file };
 
     const overrideID = (type: string): string | undefined => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,17 +26,17 @@ export class TerraformContextProvider implements ContextProvider {
 
     const projectID = overrideID("mittwald_project");
     if (projectID) {
-      overrides["project-id"] = projectID;
+      overrides["project-id"] = { value: projectID, source };
     }
 
     const serverID = overrideID("mittwald_server");
     if (serverID) {
-      overrides["server-id"] = serverID;
+      overrides["server-id"] = { value: serverID, source };
     }
 
     const appID = overrideID("mittwald_app");
     if (appID) {
-      overrides["installation-id"] = appID;
+      overrides["installation-id"] = { value: appID, source };
     }
 
     return overrides;

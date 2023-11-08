@@ -4,19 +4,23 @@ import { UserContextProvider } from "./context_user.js";
 
 export type ContextNames = "project" | "server" | "org" | "installation";
 export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
-export type ContextMap = Partial<Record<ContextKey, string>>;
+export type ContextMap = Partial<Record<ContextKey, ContextValue>>;
+export type ContextMapUpdate = Partial<Record<ContextKey, string>>;
+export type ContextValueSource = { type: string; identifier: string };
+export type ContextValue = { value: string; source: ContextValueSource };
 
 export interface ContextProvider {
   name: string;
+
   getOverrides(): Promise<ContextMap>;
 }
 
 export interface WritableContextProvider extends ContextProvider {
-  persist(data: ContextMap): Promise<void>;
+  update(data: ContextMapUpdate): Promise<void>;
 }
 
 function isWritable(p: ContextProvider): p is WritableContextProvider {
-  return "persist" in p;
+  return "update" in p;
 }
 
 export class Context {
@@ -43,20 +47,21 @@ export class Context {
     return contextData;
   }
 
-  private async persist(data: Record<string, string>): Promise<void> {
+  private async persist(data: ContextMapUpdate): Promise<void> {
     for (const provider of this.providers) {
       if (isWritable(provider)) {
-        await provider.persist(data);
+        await provider.update(data);
       }
     }
   }
 
-  private async setContextValue(key: string, value: string): Promise<void> {
-    const data = await this.contextData;
-    return await this.persist({ ...data, [key]: value });
+  private async setContextValue(key: ContextKey, value: string): Promise<void> {
+    return await this.persist({ [key]: value });
   }
 
-  public async getContextValue(key: ContextKey): Promise<string | undefined> {
+  public async getContextValue(
+    key: ContextKey,
+  ): Promise<ContextValue | undefined> {
     const data = await this.contextData;
     if (key in data) {
       return data[key];

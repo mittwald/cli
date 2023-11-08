@@ -113,7 +113,7 @@ export function makeFlagSet<TName extends ContextNames>(
 
     const idFromContext = await new Context(cfg).getContextValue(flagName);
     if (idFromContext) {
-      return idFromContext;
+      return idFromContext.value;
     }
 
     if (commandType === "flag") {
