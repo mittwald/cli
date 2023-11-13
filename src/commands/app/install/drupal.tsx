@@ -19,8 +19,8 @@ const installer = new AppInstaller(
   ] as const,
 );
 
-export default class InstallShopware6 extends ExecRenderBaseCommand<
-  typeof InstallShopware6,
+export default class InstallDrupal extends ExecRenderBaseCommand<
+  typeof InstallDrupal,
   AppInstallationResult
 > {
   static description = installer.description;

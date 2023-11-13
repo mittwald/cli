@@ -5,21 +5,21 @@ import {
   AppInstaller,
 } from "../../../lib/app/Installer.js";
 
-export const staticInstaller = new AppInstaller(
+export const pythonInstaller = new AppInstaller(
   "be57d166-dae9-4480-bae2-da3f3c6f0a2e",
   "custom python site",
   ["document-root", "site-title", "wait"] as const,
 );
 
-export default class InstallNode extends ExecRenderBaseCommand<
-  typeof InstallNode,
+export default class InstallPython extends ExecRenderBaseCommand<
+  typeof InstallPython,
   AppInstallationResult
 > {
-  static description = staticInstaller.description;
-  static flags = staticInstaller.flags;
+  static description = pythonInstaller.description;
+  static flags = pythonInstaller.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return staticInstaller.exec(
+    return pythonInstaller.exec(
       this.apiClient,
       this.args,
       this.flags,
@@ -28,6 +28,6 @@ export default class InstallNode extends ExecRenderBaseCommand<
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return staticInstaller.render(result, this.flags);
+    return pythonInstaller.render(result, this.flags);
   }
 }
