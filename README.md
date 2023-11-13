@@ -82,14 +82,18 @@ USAGE
 * [`mw app copy INSTALLATION-ID`](#mw-app-copy-installation-id)
 * [`mw app create node`](#mw-app-create-node)
 * [`mw app create php`](#mw-app-create-php)
+* [`mw app create python`](#mw-app-create-python)
 * [`mw app create static`](#mw-app-create-static)
 * [`mw app dependency list`](#mw-app-dependency-list)
 * [`mw app dependency update INSTALLATION-ID`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
 * [`mw app get INSTALLATION-ID`](#mw-app-get-installation-id)
 * [`mw app install contao`](#mw-app-install-contao)
+* [`mw app install drupal`](#mw-app-install-drupal)
+* [`mw app install grav`](#mw-app-install-grav)
 * [`mw app install joomla`](#mw-app-install-joomla)
 * [`mw app install matomo`](#mw-app-install-matomo)
+* [`mw app install nextcloud`](#mw-app-install-nextcloud)
 * [`mw app install shopware5`](#mw-app-install-shopware5)
 * [`mw app install shopware6`](#mw-app-install-shopware6)
 * [`mw app install typo3`](#mw-app-install-typo3)
@@ -314,6 +318,54 @@ FLAG DESCRIPTIONS
   --site-title=<value>  Site Title for your custom PHP installation.
 
     Site Title which will be displayed in the Tab and at the top of the Frontend of your custom PHP installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+```
+
+## `mw app create python`
+
+Creates new custom python site installation.
+
+```
+USAGE
+  $ mw app create python --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your custom python site to be ready.
+  --document-root=<value>   (required) [default: /] The document root from which your custom python site will be served
+                            (relative to the installation path)
+  --json
+  --site-title=<value>      Site Title for your custom python site installation.
+
+DESCRIPTION
+  Creates new custom python site installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --document-root=<value>
+
+    The document root from which your custom python site will be served (relative to the installation path)
+
+    This is the document root from which the files of your application will be served by the web server. This directory
+    is specified relative to the installation path.
+
+  --site-title=<value>  Site Title for your custom python site installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your custom python site
+    installation.
     It is also the Title shown in the App-Overview in the mStudio.
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
@@ -563,6 +615,162 @@ FLAG DESCRIPTIONS
     If none is given the Contao will be installed in the latest available version.
 ```
 
+## `mw app install drupal`
+
+Creates new Drupal installation.
+
+```
+USAGE
+  $ mw app install drupal --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your Drupal to be ready.
+  --admin-email=<value>     E-Mail-Address of your administrator-user.
+  --admin-pass=<value>      Password of your administrator-user.
+  --admin-user=<value>      Username for your administrator-user.
+  --host=<value>            Host to initially configure your Drupal installation with; needs to be created separately.
+  --json
+  --site-title=<value>      Site Title for your Drupal installation.
+  --version=<value>         (required) [default: latest] Version of Drupal to be installed.
+
+DESCRIPTION
+  Creates new Drupal installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Drupal
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Drupal installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Drupal installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your Drupal installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Drupal configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Drupal
+    installation.
+
+  --site-title=<value>  Site Title for your Drupal installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Drupal installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of Drupal to be installed.
+
+    Specify the Version in which your Drupal will be installed.
+    If none is given the Drupal will be installed in the latest available version.
+```
+
+## `mw app install grav`
+
+Creates new Grav installation.
+
+```
+USAGE
+  $ mw app install grav --version <value> [-p <value>] [-q] [--admin-user <value>] [--admin-email <value>]
+    [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Grav to be ready.
+  --admin-email=<value>      E-Mail-Address of your administrator-user.
+  --admin-firstname=<value>  Firstname of your administrator-user.
+  --admin-lastname=<value>   Lastname of your administrator-user.
+  --admin-pass=<value>       Password of your administrator-user.
+  --admin-user=<value>       Username for your administrator-user.
+  --json
+  --site-title=<value>       Site Title for your Grav installation.
+  --version=<value>          (required) [default: latest] Version of Grav to be installed.
+
+DESCRIPTION
+  Creates new Grav installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Grav
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  Firstname of your administrator-user.
+
+    Firstname that will correlate to the first administrator-user which will be created during the Grav installation.
+    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
+    is finished
+
+  --admin-lastname=<value>  Lastname of your administrator-user.
+
+    Lastname that will correlate to the first administrator-user which will be created during the Grav installation.
+    If none is given your mStudio Account-Firstname will be used. This Lastname can be changed after the installation is
+    finished
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Grav installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Grav installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --site-title=<value>  Site Title for your Grav installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Grav installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of Grav to be installed.
+
+    Specify the Version in which your Grav will be installed.
+    If none is given the Grav will be installed in the latest available version.
+```
+
 ## `mw app install joomla`
 
 Creates new Joomla! installation.
@@ -726,6 +934,83 @@ FLAG DESCRIPTIONS
 
     Specify the Version in which your Matomo will be installed.
     If none is given the Matomo will be installed in the latest available version.
+```
+
+## `mw app install nextcloud`
+
+Creates new Shopware 6 installation.
+
+```
+USAGE
+  $ mw app install nextcloud --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your Shopware 6 to be ready.
+  --admin-email=<value>     E-Mail-Address of your administrator-user.
+  --admin-pass=<value>      Password of your administrator-user.
+  --admin-user=<value>      Username for your administrator-user.
+  --host=<value>            Host to initially configure your Shopware 6 installation with; needs to be created
+                            separately.
+  --json
+  --site-title=<value>      Site Title for your Shopware 6 installation.
+  --version=<value>         (required) [default: latest] Version of Shopware 6 to be installed.
+
+DESCRIPTION
+  Creates new Shopware 6 installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Shopware 6
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Shopware 6
+    installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Shopware 6 installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your Shopware 6 installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Shopware 6 configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Shopware
+    6 installation.
+
+  --site-title=<value>  Site Title for your Shopware 6 installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Shopware 6 installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of Shopware 6 to be installed.
+
+    Specify the Version in which your Shopware 6 will be installed.
+    If none is given the Shopware 6 will be installed in the latest available version.
 ```
 
 ## `mw app install shopware5`
