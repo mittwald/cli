@@ -750,6 +750,40 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^3.10.8":
+  version: 3.10.8
+  resolution: "@oclif/core@npm:3.10.8"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.2
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    tsconfck: ^3.0.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 8d01b3eb97ca932e54d06e47e0074d9ba71aa1e539c43b8599e3a45b1ad77c7f749fd5d7c9c6bd7affdc2646247c0ede17abb933cec26717ce4dc7efa522b932
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-help@npm:^5.2.14":
   version: 5.2.20
   resolution: "@oclif/plugin-help@npm:5.2.20"
@@ -760,11 +794,11 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5":
-  version: 6.0.5
-  resolution: "@oclif/plugin-help@npm:6.0.5"
+  version: 6.0.6
+  resolution: "@oclif/plugin-help@npm:6.0.6"
   dependencies:
-    "@oclif/core": ^3.9.1
-  checksum: 9a03ee97514b692dcebad41a546511764bcd0273fc04e4f471e36730e5cbc9c1a5ef7669f51aad5725bebdc4cde707e83a1367b1ef78a0e931fe2e2f09212984
+    "@oclif/core": ^3.10.8
+  checksum: 5a38bd37f67a3af9a7565809a43808cbd89eeecf6c9c047152d5bad88d605a841dc079a6bd6f68539d54ee0417858bfbd3c7c42d043fd43eb561b1972c5b754f
   languageName: node
   linkType: hard
 
@@ -8307,6 +8341,20 @@ __metadata:
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
   checksum: 090adff1302ab20bd3486e6b4799e90f97726ed39e02b39e566f8ab674fd5bd5f727f43615debbfc580d33c6d9d1c6b1b3ce7d8e3cca3e20530a145ffa232c35
+  languageName: node
+  linkType: hard
+
+"tsconfck@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "tsconfck@npm:3.0.0"
+  peerDependencies:
+    typescript: ^5.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  bin:
+    tsconfck: bin/tsconfck.js
+  checksum: a9fd941dfbeb3cb095ff079e1177c219bf7b900edb36bb273f081c226436e1561e8f78aa482240450097da3463dc0f57353ef4e2cda2df7d472ecded16843379
   languageName: node
   linkType: hard
 
