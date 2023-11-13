@@ -349,7 +349,7 @@ __metadata:
     "@types/chalk": ^2.2.0
     "@types/copyfiles": ^2.4.1
     "@types/js-yaml": ^4.0.5
-    "@types/marked-terminal": ^3.1.3
+    "@types/marked-terminal": ^6.0.1
     "@types/node": ^20.3.3
     "@types/node-notifier": ^8.0.2
     "@types/parse-duration": ^0.3.0
@@ -1059,6 +1059,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cardinal@npm:^2.1":
+  version: 2.1.1
+  resolution: "@types/cardinal@npm:2.1.1"
+  checksum: cca3fffcfecdf26c77eecb3ff1977c24c201ae05aadf346e454013d4ecd55b782403bc65fa1b65df462f9e1c407bfbc00e026ace95f6fe8882d36f1418a7b8a0
+  languageName: node
+  linkType: hard
+
 "@types/chalk@npm:^2.2.0":
   version: 2.2.0
   resolution: "@types/chalk@npm:2.2.0"
@@ -1144,13 +1151,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/marked-terminal@npm:^3.1.3":
-  version: 3.1.7
-  resolution: "@types/marked-terminal@npm:3.1.7"
+"@types/marked-terminal@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "@types/marked-terminal@npm:6.0.1"
   dependencies:
-    chalk: ^2.4.1
-    marked: ^6.0.0
-  checksum: aa4bdf523f365a7bc45bdb8e31d7d9f2501496f601676c3b97c96a77dde1fb4cdc0343b0fe2118fd7aebc70d16fbce8fb39f437c3f93fe53892aeaa9ea03fd23
+    "@types/cardinal": ^2.1
+    "@types/node": "*"
+    chalk: ^5.3.0
+    marked: ">=6.0.0 <10"
+  checksum: 6ac5879c3624e30532fc9cb06e35898a8c048bb75e51333089cabbfb971df4d68bfdc1233a2d1a55c71d74c3efc5ccaeb1c5e9b92226d6bc3f639fc80a9afb2a
   languageName: node
   linkType: hard
 
@@ -2348,7 +2357,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^2.0.0, chalk@npm:^2.4.1":
+"chalk@npm:^2.0.0":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
   dependencies:
@@ -5205,8 +5214,8 @@ __metadata:
   linkType: hard
 
 "marked-terminal@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "marked-terminal@npm:6.0.0"
+  version: 6.1.0
+  resolution: "marked-terminal@npm:6.1.0"
   dependencies:
     ansi-escapes: ^6.2.0
     cardinal: ^2.1.1
@@ -5215,17 +5224,17 @@ __metadata:
     node-emoji: ^2.1.0
     supports-hyperlinks: ^3.0.0
   peerDependencies:
-    marked: ">=1 <10"
-  checksum: 82a73f787bb69410860b8e8a62975be49a6b3ad8e82a3f9015e4ee6b68c3494e90320323c45342433d8970b381e934aa1aea7d1c923142a7e21d084f4b5fa199
+    marked: ">=1 <11"
+  checksum: 41ddbde95b7a0b6dbeb32186a100514311983ea4ab0d9e00ecde0b5011cb21ec10f70faa3982c3798bf5de4de607a19ab09a3395aa36f5f49cd7155e12bb8788
   languageName: node
   linkType: hard
 
-"marked@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "marked@npm:6.0.0"
+"marked@npm:>=6.0.0 <10":
+  version: 9.1.6
+  resolution: "marked@npm:9.1.6"
   bin:
     marked: bin/marked.js
-  checksum: 1b02d4254d8aeec4d54799d2191821fd86da8c743361065b523617d1c226ba14ebd8677dc7bef7fa183a4253217c53d0d56e82d378a78b5a1ebaf8409e90136e
+  checksum: fc8db42e993d0b97a6f12b8edd93635fa30259ef7088982c714b1c0f54b16946dda54f1bb8a80ab1bd6914647a7217a4f482eda96eb7049bf67437c79e75a609
   languageName: node
   linkType: hard
 
