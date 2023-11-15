@@ -103,7 +103,7 @@ export default class Create extends ExecRenderBaseCommand<
     const { id: ingressId } = await process.runStep(
       "creating ingress",
       async () => {
-        const response = await this.apiClient.domain.ingressCreate({
+        const response = await this.apiClient.domain.ingressCreateIngress({
           data: {
             projectId,
             hostname,
@@ -121,7 +121,7 @@ export default class Create extends ExecRenderBaseCommand<
       "waiting for ingress to be ready",
       async (): Promise<[IngressIngress, DomainDomainOwnership | null]> => {
         return await waitUntil(async () => {
-          const response = await this.apiClient.domain.ingressGetSpecific({
+          const response = await this.apiClient.domain.ingressGetIngress({
             ingressId,
           });
 

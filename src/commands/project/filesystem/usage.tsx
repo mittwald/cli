@@ -15,7 +15,7 @@ import { Note, noteColor } from "../../../rendering/react/components/Note.js";
 import { ListItem } from "../../../rendering/react/components/ListItem.js";
 
 export type PathParams =
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdFilesystemUsagesDisk.Get.Parameters.Path;
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdFilesystemDiskUsage.Get.Parameters.Path;
 
 export class Usage extends RenderBaseCommand<typeof Usage> {
   static description = "Get a Project directory filesystem usage.";

@@ -89,8 +89,8 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
 
   const vhosts = usePromise(
     (id) =>
-      apiClient.domain.ingressListForProject({
-        projectId: id,
+      apiClient.domain.ingressListIngresses({
+        queryParameters: { projectId: id },
       }),
     [response.id],
   );
