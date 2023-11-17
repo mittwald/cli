@@ -1,18 +1,30 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import {
-  GeneratedProjectGetSelfMembershipForProject,
-  PathParams
-} from "../../../generated/project/getSelfMembershipForProject.js";
-import { normalizeProjectIdToUuid } from "../../../Helpers.js";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { GetBaseCommand } from "../../../GetBaseCommand.js";
+import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
 
-export default class Get extends GeneratedProjectGetSelfMembershipForProject {
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    input.projectId = await normalizeProjectIdToUuid(
+type APIResponse = Awaited<
+  ReturnType<MittwaldAPIV2Client["project"]["getSelfMembershipForProject"]>
+>;
+
+export default class GetOwn extends GetBaseCommand<typeof GetOwn, APIResponse> {
+  static description = "Get the executing user's membership in a Project.";
+
+  static flags = {
+    ...GetBaseCommand.baseFlags,
+    ...projectFlags,
+  };
+  static args = {};
+
+  protected async getData(): Promise<APIResponse> {
+    const projectId = await withProjectId(
       this.apiClient,
-      input.projectId,
+      GetOwn,
+      this.flags,
+      this.args,
+      this.config,
     );
-    return super.mapParams(input);
+    return await this.apiClient.project.getSelfMembershipForProject({
+      projectId,
+    });
   }
 }

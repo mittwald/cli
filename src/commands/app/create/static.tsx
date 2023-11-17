@@ -11,8 +11,8 @@ export const staticInstaller = new AppInstaller(
   ["document-root", "site-title", "wait"] as const,
 );
 
-export default class InstallNode extends ExecRenderBaseCommand<
-  typeof InstallNode,
+export default class InstallStatic extends ExecRenderBaseCommand<
+  typeof InstallStatic,
   AppInstallationResult
 > {
   static description = staticInstaller.description;

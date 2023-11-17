@@ -82,14 +82,18 @@ USAGE
 * [`mw app copy [INSTALLATION-ID]`](#mw-app-copy-installation-id)
 * [`mw app create node`](#mw-app-create-node)
 * [`mw app create php`](#mw-app-create-php)
+* [`mw app create python`](#mw-app-create-python)
 * [`mw app create static`](#mw-app-create-static)
 * [`mw app dependency list`](#mw-app-dependency-list)
 * [`mw app dependency update [INSTALLATION-ID]`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
 * [`mw app get [INSTALLATION-ID]`](#mw-app-get-installation-id)
 * [`mw app install contao`](#mw-app-install-contao)
+* [`mw app install drupal`](#mw-app-install-drupal)
+* [`mw app install grav`](#mw-app-install-grav)
 * [`mw app install joomla`](#mw-app-install-joomla)
 * [`mw app install matomo`](#mw-app-install-matomo)
+* [`mw app install nextcloud`](#mw-app-install-nextcloud)
 * [`mw app install shopware5`](#mw-app-install-shopware5)
 * [`mw app install shopware6`](#mw-app-install-shopware6)
 * [`mw app install typo3`](#mw-app-install-typo3)
@@ -98,6 +102,12 @@ USAGE
 * [`mw app ssh [INSTALLATION-ID]`](#mw-app-ssh-installation-id)
 * [`mw app uninstall [INSTALLATION-ID]`](#mw-app-uninstall-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
+* [`mw backup create`](#mw-backup-create)
+* [`mw backup delete BACKUP-ID`](#mw-backup-delete-backup-id)
+* [`mw backup download BACKUP-ID`](#mw-backup-download-backup-id)
+* [`mw backup get BACKUP-ID`](#mw-backup-get-backup-id)
+* [`mw backup list`](#mw-backup-list)
+* [`mw backup schedule list`](#mw-backup-schedule-list)
 * [`mw context get`](#mw-context-get)
 * [`mw context set`](#mw-context-set)
 * [`mw conversation categories`](#mw-conversation-categories)
@@ -107,6 +117,11 @@ USAGE
 * [`mw conversation reply ID`](#mw-conversation-reply-id)
 * [`mw conversation show ID`](#mw-conversation-show-id)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
+* [`mw cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-get-cronjob-id-execution-id)
+* [`mw cronjob execution list`](#mw-cronjob-execution-list)
+* [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
+* [`mw cronjob get CRONJOBID`](#mw-cronjob-get-cronjobid)
+* [`mw cronjob list`](#mw-cronjob-list)
 * [`mw database mysql charsets`](#mw-database-mysql-charsets)
 * [`mw database mysql create`](#mw-database-mysql-create)
 * [`mw database mysql delete DATABASE-ID`](#mw-database-mysql-delete-database-id)
@@ -126,7 +141,7 @@ USAGE
 * [`mw database redis versions`](#mw-database-redis-versions)
 * [`mw domain dnszone get ZONEID`](#mw-domain-dnszone-get-zoneid)
 * [`mw domain dnszone list`](#mw-domain-dnszone-list)
-* [`mw domain get DOMAINID`](#mw-domain-get-domainid)
+* [`mw domain get DOMAIN-ID`](#mw-domain-get-domain-id)
 * [`mw domain list`](#mw-domain-list)
 * [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
 * [`mw domain ownership list`](#mw-domain-ownership-list)
@@ -169,11 +184,11 @@ USAGE
 * [`mw project delete [PROJECT-ID]`](#mw-project-delete-project-id)
 * [`mw project filesystem usage [PROJECT-ID]`](#mw-project-filesystem-usage-project-id)
 * [`mw project get [PROJECT-ID]`](#mw-project-get-project-id)
-* [`mw project invite get INVITEID`](#mw-project-invite-get-inviteid)
+* [`mw project invite get INVITE-ID`](#mw-project-invite-get-invite-id)
 * [`mw project invite list`](#mw-project-invite-list)
 * [`mw project invite list-own`](#mw-project-invite-list-own)
 * [`mw project list`](#mw-project-list)
-* [`mw project membership get MEMBERSHIPID`](#mw-project-membership-get-membershipid)
+* [`mw project membership get MEMBERSHIP-ID`](#mw-project-membership-get-membership-id)
 * [`mw project membership get-own`](#mw-project-membership-get-own)
 * [`mw project membership list`](#mw-project-membership-list)
 * [`mw project membership list-own`](#mw-project-membership-list-own)
@@ -181,19 +196,21 @@ USAGE
 * [`mw project ssh [PROJECT-ID]`](#mw-project-ssh-project-id)
 * [`mw project ssh-user list`](#mw-project-ssh-user-list)
 * [`mw project update [PROJECT-ID]`](#mw-project-update-project-id)
-* [`mw server get SERVERID`](#mw-server-get-serverid)
+* [`mw server get [SERVER-ID]`](#mw-server-get-server-id)
 * [`mw server list`](#mw-server-list)
+* [`mw sftp-user list`](#mw-sftp-user-list)
+* [`mw ssh-user list`](#mw-ssh-user-list)
 * [`mw update [CHANNEL]`](#mw-update-channel)
 * [`mw user api-token create`](#mw-user-api-token-create)
-* [`mw user api-token get APITOKENID`](#mw-user-api-token-get-apitokenid)
+* [`mw user api-token get TOKEN-ID`](#mw-user-api-token-get-token-id)
 * [`mw user api-token list`](#mw-user-api-token-list)
 * [`mw user api-token revoke ID`](#mw-user-api-token-revoke-id)
 * [`mw user get USER-ID`](#mw-user-get-user-id)
-* [`mw user session get TOKENID`](#mw-user-session-get-tokenid)
+* [`mw user session get TOKEN-ID`](#mw-user-session-get-token-id)
 * [`mw user session list`](#mw-user-session-list)
 * [`mw user ssh-key create`](#mw-user-ssh-key-create)
 * [`mw user ssh-key delete ID`](#mw-user-ssh-key-delete-id)
-* [`mw user ssh-key get SSHKEYID`](#mw-user-ssh-key-get-sshkeyid)
+* [`mw user ssh-key get KEY-ID`](#mw-user-ssh-key-get-key-id)
 * [`mw user ssh-key list`](#mw-user-ssh-key-list)
 
 ## `mw app copy [INSTALLATION-ID]`
@@ -302,6 +319,54 @@ FLAG DESCRIPTIONS
   --site-title=<value>  Site Title for your custom PHP installation.
 
     Site Title which will be displayed in the Tab and at the top of the Frontend of your custom PHP installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+```
+
+## `mw app create python`
+
+Creates new custom python site installation.
+
+```
+USAGE
+  $ mw app create python --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your custom python site to be ready.
+  --document-root=<value>   (required) [default: /] The document root from which your custom python site will be served
+                            (relative to the installation path)
+  --json
+  --site-title=<value>      Site Title for your custom python site installation.
+
+DESCRIPTION
+  Creates new custom python site installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --document-root=<value>
+
+    The document root from which your custom python site will be served (relative to the installation path)
+
+    This is the document root from which the files of your application will be served by the web server. This directory
+    is specified relative to the installation path.
+
+  --site-title=<value>  Site Title for your custom python site installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your custom python site
+    installation.
     It is also the Title shown in the App-Overview in the mStudio.
     If none is given the Software Name and the given Project will be used. The Title can be changed after the
     installation is finished
@@ -553,6 +618,162 @@ FLAG DESCRIPTIONS
     If none is given the Contao will be installed in the latest available version.
 ```
 
+## `mw app install drupal`
+
+Creates new Drupal installation.
+
+```
+USAGE
+  $ mw app install drupal --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your Drupal to be ready.
+  --admin-email=<value>     E-Mail-Address of your administrator-user.
+  --admin-pass=<value>      Password of your administrator-user.
+  --admin-user=<value>      Username for your administrator-user.
+  --host=<value>            Host to initially configure your Drupal installation with; needs to be created separately.
+  --json
+  --site-title=<value>      Site Title for your Drupal installation.
+  --version=<value>         (required) [default: latest] Version of Drupal to be installed.
+
+DESCRIPTION
+  Creates new Drupal installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Drupal
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Drupal installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Drupal installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your Drupal installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Drupal configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Drupal
+    installation.
+
+  --site-title=<value>  Site Title for your Drupal installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Drupal installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of Drupal to be installed.
+
+    Specify the Version in which your Drupal will be installed.
+    If none is given the Drupal will be installed in the latest available version.
+```
+
+## `mw app install grav`
+
+Creates new Grav installation.
+
+```
+USAGE
+  $ mw app install grav --version <value> [-p <value>] [-q] [--admin-user <value>] [--admin-email <value>]
+    [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Grav to be ready.
+  --admin-email=<value>      E-Mail-Address of your administrator-user.
+  --admin-firstname=<value>  Firstname of your administrator-user.
+  --admin-lastname=<value>   Lastname of your administrator-user.
+  --admin-pass=<value>       Password of your administrator-user.
+  --admin-user=<value>       Username for your administrator-user.
+  --json
+  --site-title=<value>       Site Title for your Grav installation.
+  --version=<value>          (required) [default: latest] Version of Grav to be installed.
+
+DESCRIPTION
+  Creates new Grav installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Grav
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  Firstname of your administrator-user.
+
+    Firstname that will correlate to the first administrator-user which will be created during the Grav installation.
+    If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation
+    is finished
+
+  --admin-lastname=<value>  Lastname of your administrator-user.
+
+    Lastname that will correlate to the first administrator-user which will be created during the Grav installation.
+    If none is given your mStudio Account-Firstname will be used. This Lastname can be changed after the installation is
+    finished
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Grav installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Grav installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --site-title=<value>  Site Title for your Grav installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Grav installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of Grav to be installed.
+
+    Specify the Version in which your Grav will be installed.
+    If none is given the Grav will be installed in the latest available version.
+```
+
 ## `mw app install joomla`
 
 Creates new Joomla! installation.
@@ -716,6 +937,83 @@ FLAG DESCRIPTIONS
 
     Specify the Version in which your Matomo will be installed.
     If none is given the Matomo will be installed in the latest available version.
+```
+
+## `mw app install nextcloud`
+
+Creates new Shopware 6 installation.
+
+```
+USAGE
+  $ mw app install nextcloud --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for your Shopware 6 to be ready.
+  --admin-email=<value>     E-Mail-Address of your administrator-user.
+  --admin-pass=<value>      Password of your administrator-user.
+  --admin-user=<value>      Username for your administrator-user.
+  --host=<value>            Host to initially configure your Shopware 6 installation with; needs to be created
+                            separately.
+  --json
+  --site-title=<value>      Site Title for your Shopware 6 installation.
+  --version=<value>         (required) [default: latest] Version of Shopware 6 to be installed.
+
+DESCRIPTION
+  Creates new Shopware 6 installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  E-Mail-Address of your administrator-user.
+
+    E-Mail-Address that will correlate to the first administrator-user which will be created during the Shopware 6
+    installation.
+    If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the
+    installation is finished.
+
+  --admin-pass=<value>  Password of your administrator-user.
+
+    Password that will correlate to the first administrator-user which will be created during the Shopware 6
+    installation.
+    If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the
+    installation is finished
+
+  --admin-user=<value>  Username for your administrator-user.
+
+    Username of the first administrator-user which will be created during the Shopware 6 installation.
+    If not given an adequate username will be created from your mStudio Account Data.
+    After the installation is finished the Username can be changed and additional administrator-users can be created.
+
+  --host=<value>  Host to initially configure your Shopware 6 installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Shopware 6 configuration.
+    If not given the default host for the given Project will be used.
+    This does not change the target of the used Host and can be changed later by configuring the Host and your Shopware
+    6 installation.
+
+  --site-title=<value>  Site Title for your Shopware 6 installation.
+
+    Site Title which will be displayed in the Tab and at the top of the Frontend of your Shopware 6 installation.
+    It is also the Title shown in the App-Overview in the mStudio.
+    If none is given the Software Name and the given Project will be used. The Title can be changed after the
+    installation is finished
+
+  --version=<value>  Version of Shopware 6 to be installed.
+
+    Specify the Version in which your Shopware 6 will be installed.
+    If none is given the Shopware 6 will be installed in the latest available version.
 ```
 
 ## `mw app install shopware5`
@@ -1201,6 +1499,206 @@ DESCRIPTION
   List supported Apps and Versions
 ```
 
+## `mw backup create`
+
+Create a new backup of a project
+
+```
+USAGE
+  $ mw backup create --expires <value> [-q] [-p <value>] [--description <value>] [-w] [--wait-timeout <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -w, --wait                Wait for the resource to be ready.
+  --description=<value>     a description for the backup.
+  --expires=<value>         (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
+  --wait-timeout=<value>    [default: 600] The number of seconds to wait for the resource to be ready.
+
+ALIASES
+  $ mw project backup create
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw backup delete BACKUP-ID`
+
+Delete a backup
+
+```
+USAGE
+  $ mw backup delete BACKUP-ID [-q] [-f]
+
+ARGUMENTS
+  BACKUP-ID  The ID of the Backup to show.
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a backup
+
+ALIASES
+  $ mw project backup delete
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw backup download BACKUP-ID`
+
+Download a backup to your local disk
+
+```
+USAGE
+  $ mw backup download BACKUP-ID [-q] [--format tar|zip] [--password <value> | --generate-password |
+    --prompt-password] [--resume --output <value>]
+
+ARGUMENTS
+  BACKUP-ID  the ID of the Backup to download.
+
+FLAGS
+  -q, --quiet          suppress process output and only display a machine-readable summary.
+  --format=<option>    [default: tar] the file format to download the backup in.
+                       <options: tar|zip>
+  --generate-password  generate a random password to encrypt the backup with.
+  --output=<value>     the file to write the backup to; if omitted, the filename will be determined by the server.
+  --password=<value>   the password to encrypt the backup with.
+  --prompt-password    prompt for a password to encrypt the backup with.
+  --resume             resume a previously interrupted download.
+
+DESCRIPTION
+  Download a backup to your local disk
+
+ALIASES
+  $ mw project backup download
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --generate-password  generate a random password to encrypt the backup with.
+
+    CAUTION: this is not stored anywhere.
+
+  --password=<value>  the password to encrypt the backup with.
+
+    CAUTION #1: this is not stored anywhere.
+    CAUTION #2: it is dangerous to use this option, as the password might be stored in your shell history.
+
+  --prompt-password  prompt for a password to encrypt the backup with.
+
+    CAUTION: this is not stored anywhere.
+```
+
+## `mw backup get BACKUP-ID`
+
+show details of a backup.
+
+```
+USAGE
+  $ mw backup get BACKUP-ID [-o json|yaml |  | ]
+
+ARGUMENTS
+  BACKUP-ID  The ID of the Backup to show.
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+
+DESCRIPTION
+  show details of a backup.
+
+ALIASES
+  $ mw project backup get
+```
+
+## `mw backup list`
+
+List Backups for a given Project.
+
+```
+USAGE
+  $ mw backup list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List Backups for a given Project.
+
+ALIASES
+  $ mw project backup list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw backup schedule list`
+
+List backup schedules belonging to a given project.
+
+```
+USAGE
+  $ mw backup schedule list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List backup schedules belonging to a given project.
+
+ALIASES
+  $ mw project backupschedule list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+```
+
 ## `mw context get`
 
 Print an overview of currently set context parameters
@@ -1306,7 +1804,7 @@ DESCRIPTION
 
 ## `mw conversation list`
 
-Get all conversation the authenticated user has created or has access to.
+Get all conversations the authenticated user has created or has access to.
 
 ```
 USAGE
@@ -1325,7 +1823,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  Get all conversation the authenticated user has created or has access to.
+  Get all conversations the authenticated user has created or has access to.
 ```
 
 ## `mw conversation reply ID`
@@ -1377,6 +1875,142 @@ FLAGS
                          representation, and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
   --wait
+```
+
+## `mw cronjob execution get CRONJOB-ID EXECUTION-ID`
+
+Get a cron job execution.
+
+```
+USAGE
+  $ mw cronjob execution get CRONJOB-ID EXECUTION-ID [-o json|yaml |  | ]
+
+ARGUMENTS
+  CRONJOB-ID    ID of the cronjob the execution belongs to
+  EXECUTION-ID  ID of the cronjob execution to be retrieved.
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+
+DESCRIPTION
+  Get a cron job execution.
+
+ALIASES
+  $ mw project cronjob execution get
+```
+
+## `mw cronjob execution list`
+
+List CronjobExecutions belonging to a Cronjob.
+
+```
+USAGE
+  $ mw cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
+    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+
+FLAGS
+  -x, --extended        show extra columns
+  --columns=<value>     only show provided columns (comma-separated)
+  --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
+  --csv                 output is csv format [alias: --output=csv]
+  --filter=<value>      filter property by partial string matching, ex: name=foo
+  --no-header           hide table header from output
+  --no-truncate         do not truncate output to fit screen
+  --output=<option>     output in a more machine friendly format
+                        <options: csv|json|yaml>
+  --sort=<value>        property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List CronjobExecutions belonging to a Cronjob.
+
+ALIASES
+  $ mw project cronjob execution list
+```
+
+## `mw cronjob execution logs CRONJOB-ID EXECUTION-ID`
+
+Get the log output of a cronjob execution.
+
+```
+USAGE
+  $ mw cronjob execution logs CRONJOB-ID EXECUTION-ID [-o json|yaml |  | ] [--no-pager]
+
+ARGUMENTS
+  CRONJOB-ID    ID of the cronjob the execution belongs to
+  EXECUTION-ID  ID of the cronjob execution to be retrieved.
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+  --no-pager             Disable pager for output.
+
+DESCRIPTION
+  Get the log output of a cronjob execution.
+
+  This command prints the log output of a cronjob execution. When this command is run in a terminal, the output is piped
+  through a pager. The pager is determined by your PAGER environment variable, with defaulting to "less". You can
+  disable this behavior with the --no-pager flag.
+
+ALIASES
+  $ mw project cronjob execution logs
+```
+
+## `mw cronjob get CRONJOBID`
+
+Get a cronjob.
+
+```
+USAGE
+  $ mw cronjob get CRONJOBID [-o json|yaml |  | ]
+
+ARGUMENTS
+  CRONJOBID  ID of the cronjob to be retrieved.
+
+FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml>
+
+DESCRIPTION
+  Get a cronjob.
+
+ALIASES
+  $ mw project cronjob get
+```
+
+## `mw cronjob list`
+
+List Cronjobs belonging to a Project.
+
+```
+USAGE
+  $ mw cronjob list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List Cronjobs belonging to a Project.
+
+ALIASES
+  $ mw project cronjob list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw database mysql charsets`
@@ -1882,23 +2516,23 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-## `mw domain get DOMAINID`
+## `mw domain get DOMAIN-ID`
 
-Get a Domain.
+Get a domain.
 
 ```
 USAGE
-  $ mw domain get DOMAINID [-o json|yaml |  | ]
+  $ mw domain get DOMAIN-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  DOMAINID  undefined
+  DOMAIN-ID  The ID of the domain to get.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a Domain.
+  Get a domain.
 ```
 
 ## `mw domain list`
@@ -2646,6 +3280,9 @@ FLAGS
   --expires=<value>         (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
   --wait-timeout=<value>    [default: 600] The number of seconds to wait for the resource to be ready.
 
+ALIASES
+  $ mw project backup create
+
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
@@ -2675,6 +3312,9 @@ FLAGS
 
 DESCRIPTION
   Delete a backup
+
+ALIASES
+  $ mw project backup delete
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -2707,6 +3347,9 @@ FLAGS
 
 DESCRIPTION
   Download a backup to your local disk
+
+ALIASES
+  $ mw project backup download
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -2745,6 +3388,9 @@ FLAGS
 
 DESCRIPTION
   show details of a backup.
+
+ALIASES
+  $ mw project backup get
 ```
 
 ## `mw project backup list`
@@ -2771,6 +3417,9 @@ FLAGS
 
 DESCRIPTION
   List Backups for a given Project.
+
+ALIASES
+  $ mw project backup list
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -2803,6 +3452,9 @@ FLAGS
 
 DESCRIPTION
   List backup schedules belonging to a given project.
+
+ALIASES
+  $ mw project backupschedule list
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -2844,7 +3496,7 @@ FLAG DESCRIPTIONS
 
 ## `mw project cronjob execution get CRONJOB-ID EXECUTION-ID`
 
-Get a CronjobExecution.
+Get a cron job execution.
 
 ```
 USAGE
@@ -2859,7 +3511,10 @@ FLAGS
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a CronjobExecution.
+  Get a cron job execution.
+
+ALIASES
+  $ mw project cronjob execution get
 ```
 
 ## `mw project cronjob execution list`
@@ -2885,6 +3540,9 @@ FLAGS
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
+
+ALIASES
+  $ mw project cronjob execution list
 ```
 
 ## `mw project cronjob execution logs CRONJOB-ID EXECUTION-ID`
@@ -2910,25 +3568,31 @@ DESCRIPTION
   This command prints the log output of a cronjob execution. When this command is run in a terminal, the output is piped
   through a pager. The pager is determined by your PAGER environment variable, with defaulting to "less". You can
   disable this behavior with the --no-pager flag.
+
+ALIASES
+  $ mw project cronjob execution logs
 ```
 
 ## `mw project cronjob get CRONJOBID`
 
-Get a Cronjob.
+Get a cronjob.
 
 ```
 USAGE
   $ mw project cronjob get CRONJOBID [-o json|yaml |  | ]
 
 ARGUMENTS
-  CRONJOBID  ID of the Cronjob to be retrieved.
+  CRONJOBID  ID of the cronjob to be retrieved.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a Cronjob.
+  Get a cronjob.
+
+ALIASES
+  $ mw project cronjob get
 ```
 
 ## `mw project cronjob list`
@@ -2955,6 +3619,9 @@ FLAGS
 
 DESCRIPTION
   List Cronjobs belonging to a Project.
+
+ALIASES
+  $ mw project cronjob list
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -3027,16 +3694,16 @@ DESCRIPTION
   Get details of a project
 ```
 
-## `mw project invite get INVITEID`
+## `mw project invite get INVITE-ID`
 
 Get a ProjectInvite.
 
 ```
 USAGE
-  $ mw project invite get INVITEID [-o json|yaml |  | ]
+  $ mw project invite get INVITE-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  INVITEID  ID of the ProjectInvite to be retrieved.
+  INVITE-ID  ID of the ProjectInvite to be retrieved.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -3048,32 +3715,39 @@ DESCRIPTION
 
 ## `mw project invite list`
 
-List all invites belonging to a Project.
+List all invites belonging to a project.
 
 ```
 USAGE
-  $ mw project invite list --project-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
-    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+  $ mw project invite list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project to list invites for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all invites belonging to a Project.
+  List all invites belonging to a project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw project invite list-own`
 
-List all ProjectInvites for the executing user.
+List all project invites for the executing user.
 
 ```
 USAGE
@@ -3092,7 +3766,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all ProjectInvites for the executing user.
+  List all project invites for the executing user.
 ```
 
 ## `mw project list`
@@ -3119,16 +3793,16 @@ DESCRIPTION
   List all projects that you have access to
 ```
 
-## `mw project membership get MEMBERSHIPID`
+## `mw project membership get MEMBERSHIP-ID`
 
 Get a ProjectMembership
 
 ```
 USAGE
-  $ mw project membership get MEMBERSHIPID [-o json|yaml |  | ]
+  $ mw project membership get MEMBERSHIP-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  MEMBERSHIPID  ID of the ProjectMembership to be retrieved.
+  MEMBERSHIP-ID  ID of the ProjectMembership to be retrieved.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -3144,15 +3818,22 @@ Get the executing user's membership in a Project.
 
 ```
 USAGE
-  $ mw project membership get-own --project-id <value> [-o json|yaml |  | ]
+  $ mw project membership get-own [-o json|yaml |  | ] [-p <value>]
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-  --project-id=<value>   (required) ID of the Project to get the membership for.
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml>
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
 
 DESCRIPTION
   Get the executing user's membership in a Project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw project membership list`
@@ -3161,23 +3842,30 @@ List all memberships for a Project.
 
 ```
 USAGE
-  $ mw project membership list --project-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
-    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+  $ mw project membership list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --project-id=<value>  (required) ID of the Project to list memberships for.
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all memberships for a Project.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw project membership list-own`
@@ -3229,6 +3917,9 @@ FLAGS
 DESCRIPTION
   List all SFTP users for a project.
 
+ALIASES
+  $ mw project sftp-user list
+
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
@@ -3276,6 +3967,9 @@ FLAGS
 DESCRIPTION
   List all SSH users for a project.
 
+ALIASES
+  $ mw project ssh-user list
+
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
@@ -3298,28 +3992,28 @@ DESCRIPTION
   Updates a project
 ```
 
-## `mw server get SERVERID`
+## `mw server get [SERVER-ID]`
 
-Get a Server.
+Get a server.
 
 ```
 USAGE
-  $ mw server get SERVERID [-o json|yaml |  | ]
+  $ mw server get [SERVER-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  SERVERID  ID of the Server to be retrieved.
+  SERVER-ID  ID or short ID of a server; this argument is optional if a default server is set in the context
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a Server.
+  Get a server.
 ```
 
 ## `mw server list`
 
-List Servers for an Organization or User.
+List servers for an organization or user.
 
 ```
 USAGE
@@ -3338,7 +4032,77 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List Servers for an Organization or User.
+  List servers for an organization or user.
+```
+
+## `mw sftp-user list`
+
+List all SFTP users for a project.
+
+```
+USAGE
+  $ mw sftp-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List all SFTP users for a project.
+
+ALIASES
+  $ mw project sftp-user list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw ssh-user list`
+
+List all SSH users for a project.
+
+```
+USAGE
+  $ mw ssh-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
+    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -x, --extended            show extra columns
+  --columns=<value>         only show provided columns (comma-separated)
+  --csv                     output is csv format [alias: --output=csv]
+  --filter=<value>          filter property by partial string matching, ex: name=foo
+  --no-header               hide table header from output
+  --no-truncate             do not truncate output to fit screen
+  --output=<option>         output in a more machine friendly format
+                            <options: csv|json|yaml>
+  --sort=<value>            property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  List all SSH users for a project.
+
+ALIASES
+  $ mw project ssh-user list
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
 ```
 
 ## `mw update [CHANNEL]`
@@ -3403,28 +4167,28 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw user api-token get APITOKENID`
+## `mw user api-token get TOKEN-ID`
 
-Get a specific ApiToken
+Get a specific API token
 
 ```
 USAGE
-  $ mw user api-token get APITOKENID [-o json|yaml |  | ]
+  $ mw user api-token get TOKEN-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  APITOKENID  The uuid of an ApiToken
+  TOKEN-ID  The ID of an API token
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a specific ApiToken
+  Get a specific API token
 ```
 
 ## `mw user api-token list`
 
-List all ApiTokens of the user
+List all API tokens of the user
 
 ```
 USAGE
@@ -3443,7 +4207,7 @@ FLAGS
   --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all ApiTokens of the user
+  List all API tokens of the user
 ```
 
 ## `mw user api-token revoke ID`
@@ -3491,23 +4255,23 @@ DESCRIPTION
   Get profile information for a user.
 ```
 
-## `mw user session get TOKENID`
+## `mw user session get TOKEN-ID`
 
-Get a specific Session
+Get a specific session
 
 ```
 USAGE
-  $ mw user session get TOKENID [-o json|yaml |  | ]
+  $ mw user session get TOKEN-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  TOKENID  tokenId to identify the concrete Session
+  TOKEN-ID  Token ID to identify the specific session
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a specific Session
+  Get a specific session
 ```
 
 ## `mw user session list`
@@ -3584,23 +4348,23 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw user ssh-key get SSHKEYID`
+## `mw user ssh-key get KEY-ID`
 
-Get a specific stored SshKey
+Get a specific SSH key
 
 ```
 USAGE
-  $ mw user ssh-key get SSHKEYID [-o json|yaml |  | ]
+  $ mw user ssh-key get KEY-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  SSHKEYID  undefined
+  KEY-ID  The ID of an SSH key
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a specific stored SshKey
+  Get a specific SSH key
 ```
 
 ## `mw user ssh-key list`

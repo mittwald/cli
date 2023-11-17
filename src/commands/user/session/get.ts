@@ -1,6 +1,27 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedUserGetSession } from "../../../generated/user/getSession.js";
+import { Args } from "@oclif/core";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { GetBaseCommand } from "../../../GetBaseCommand.js";
 
-export default class Get extends GeneratedUserGetSession {}
+type APIResponse = Awaited<
+  ReturnType<MittwaldAPIV2Client["user"]["getSession"]>
+>;
+
+export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
+  static description = "Get a specific session";
+
+  static flags = {
+    ...GetBaseCommand.baseFlags,
+  };
+  static args = {
+    "token-id": Args.string({
+      description: "Token ID to identify the specific session",
+      required: true,
+    }),
+  };
+
+  protected async getData(): Promise<APIResponse> {
+    return await this.apiClient.user.getSession({
+      tokenId: this.args["token-id"],
+    });
+  }
+}

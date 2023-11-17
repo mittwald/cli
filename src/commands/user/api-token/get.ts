@@ -1,6 +1,27 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { GeneratedUserGetApiToken } from "../../../generated/user/getApiToken.js";
+import { Args } from "@oclif/core";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { GetBaseCommand } from "../../../GetBaseCommand.js";
 
-export default class Get extends GeneratedUserGetApiToken {}
+type APIResponse = Awaited<
+  ReturnType<MittwaldAPIV2Client["user"]["getApiToken"]>
+>;
+
+export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
+  static description = "Get a specific API token";
+
+  static flags = {
+    ...GetBaseCommand.baseFlags,
+  };
+  static args = {
+    "token-id": Args.string({
+      description: "The ID of an API token",
+      required: true,
+    }),
+  };
+
+  protected async getData(): Promise<APIResponse> {
+    return await this.apiClient.user.getApiToken({
+      apiTokenId: this.args["token-id"],
+    });
+  }
+}
