@@ -5,7 +5,7 @@ import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { ListColumns } from "../../../Formatter.js";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2Systemsoftwares.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2SystemSoftwares.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["app"]["listSystemsoftwares"]>
