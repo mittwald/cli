@@ -391,7 +391,7 @@ __metadata:
     ink-text-input: ^5.0.1
     js-yaml: ^4.1.0
     license-checker-rseidelsohn: ^4.2.6
-    marked: ^9.1.5
+    marked: ^10.0.0
     marked-terminal: ^6.0.0
     node-notifier: ^10.0.1
     oclif: ^4.0.3
@@ -5238,21 +5238,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"marked@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "marked@npm:10.0.0"
+  bin:
+    marked: bin/marked.js
+  checksum: 343c2c9a1cd66dacb59a269e93cea75901c98f4fb993078435628e5c79a76c9caaa9930de32bf30a5520f978a4c37098b7f557b2f45104d38a0d9d58dcc9bf9b
+  languageName: node
+  linkType: hard
+
 "marked@npm:^6.0.0":
   version: 6.0.0
   resolution: "marked@npm:6.0.0"
   bin:
     marked: bin/marked.js
   checksum: 1b02d4254d8aeec4d54799d2191821fd86da8c743361065b523617d1c226ba14ebd8677dc7bef7fa183a4253217c53d0d56e82d378a78b5a1ebaf8409e90136e
-  languageName: node
-  linkType: hard
-
-"marked@npm:^9.1.5":
-  version: 9.1.5
-  resolution: "marked@npm:9.1.5"
-  bin:
-    marked: bin/marked.js
-  checksum: 55b27281f67c362d7ad08e9639a30fc80d1eea24d88a2071bbf8a6e0821d9203b0acf03ce3e7c47f361613cabc22293be3aaca7fa05dce159a30a936cfcb0f9c
   languageName: node
   linkType: hard
 
