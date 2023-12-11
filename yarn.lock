@@ -768,6 +768,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^3.14.1":
+  version: 3.14.1
+  resolution: "@oclif/core@npm:3.14.1"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    color: ^4.2.3
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.2
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    tsconfck: ^3.0.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 3b9258cb2575c0e42a1153145f3070f1c496a869931a1da7fe07588ff61d9359c11c29e6bfc4060111fc1907139884084d4bdecaa5d76a6c12ee37c6d5b4b2e0
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-help@npm:^5.2.14":
   version: 5.2.20
   resolution: "@oclif/plugin-help@npm:5.2.20"
@@ -778,11 +813,11 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5":
-  version: 6.0.5
-  resolution: "@oclif/plugin-help@npm:6.0.5"
+  version: 6.0.8
+  resolution: "@oclif/plugin-help@npm:6.0.8"
   dependencies:
-    "@oclif/core": ^3.9.1
-  checksum: 9a03ee97514b692dcebad41a546511764bcd0273fc04e4f471e36730e5cbc9c1a5ef7669f51aad5725bebdc4cde707e83a1367b1ef78a0e931fe2e2f09212984
+    "@oclif/core": ^3.14.1
+  checksum: 38f22b7fcba45418e8e3d85b88f36f5955e3486b28a6abf2d16d7db93e9201d7b02810fae8489e6190a12349eb211fcdee5001080aa5dc6551713f023962a680
   languageName: node
   linkType: hard
 
@@ -2665,10 +2700,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-name@npm:~1.1.4":
+"color-name@npm:^1.0.0, color-name@npm:~1.1.4":
   version: 1.1.4
   resolution: "color-name@npm:1.1.4"
   checksum: b0445859521eb4021cd0fb0cc1a75cecf67fceecae89b63f62b201cca8d345baf8b952c966862a9d9a2632987d4f6581f0ec8d957dfacece86f0a7919316f610
+  languageName: node
+  linkType: hard
+
+"color-string@npm:^1.9.0":
+  version: 1.9.1
+  resolution: "color-string@npm:1.9.1"
+  dependencies:
+    color-name: ^1.0.0
+    simple-swizzle: ^0.2.2
+  checksum: c13fe7cff7885f603f49105827d621ce87f4571d78ba28ef4a3f1a104304748f620615e6bf065ecd2145d0d9dad83a3553f52bb25ede7239d18e9f81622f1cc5
   languageName: node
   linkType: hard
 
@@ -2678,6 +2723,16 @@ __metadata:
   bin:
     color-support: bin.js
   checksum: 9b7356817670b9a13a26ca5af1c21615463b500783b739b7634a0c2047c16cef4b2865d7576875c31c3cddf9dd621fa19285e628f20198b233a5cfdda6d0793b
+  languageName: node
+  linkType: hard
+
+"color@npm:^4.2.3":
+  version: 4.2.3
+  resolution: "color@npm:4.2.3"
+  dependencies:
+    color-convert: ^2.0.1
+    color-string: ^1.9.0
+  checksum: 0579629c02c631b426780038da929cca8e8d80a40158b09811a0112a107c62e10e4aad719843b791b1e658ab4e800558f2e87ca4522c8b32349d497ecb6adeb4
   languageName: node
   linkType: hard
 
@@ -4476,6 +4531,13 @@ __metadata:
   version: 0.2.1
   resolution: "is-arrayish@npm:0.2.1"
   checksum: eef4417e3c10e60e2c810b6084942b3ead455af16c4509959a27e490e7aee87cfb3f38e01bbde92220b528a0ee1a18d52b787e1458ee86174d8c7f0e58cd488f
+  languageName: node
+  linkType: hard
+
+"is-arrayish@npm:^0.3.1":
+  version: 0.3.2
+  resolution: "is-arrayish@npm:0.3.2"
+  checksum: 977e64f54d91c8f169b59afcd80ff19227e9f5c791fa28fa2e5bce355cbaf6c2c356711b734656e80c9dd4a854dd7efcf7894402f1031dfc5de5d620775b4d5f
   languageName: node
   linkType: hard
 
@@ -7716,6 +7778,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"simple-swizzle@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "simple-swizzle@npm:0.2.2"
+  dependencies:
+    is-arrayish: ^0.3.1
+  checksum: a7f3f2ab5c76c4472d5c578df892e857323e452d9f392e1b5cf74b74db66e6294a1e1b8b390b519fa1b96b5b613f2a37db6cffef52c3f1f8f3c5ea64eb2d54c0
+  languageName: node
+  linkType: hard
+
 "skin-tone@npm:^2.0.0":
   version: 2.0.0
   resolution: "skin-tone@npm:2.0.0"
@@ -8325,6 +8396,20 @@ __metadata:
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
   checksum: 090adff1302ab20bd3486e6b4799e90f97726ed39e02b39e566f8ab674fd5bd5f727f43615debbfc580d33c6d9d1c6b1b3ce7d8e3cca3e20530a145ffa232c35
+  languageName: node
+  linkType: hard
+
+"tsconfck@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "tsconfck@npm:3.0.0"
+  peerDependencies:
+    typescript: ^5.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  bin:
+    tsconfck: bin/tsconfck.js
+  checksum: a9fd941dfbeb3cb095ff079e1177c219bf7b900edb36bb273f081c226436e1561e8f78aa482240450097da3463dc0f57353ef4e2cda2df7d472ecded16843379
   languageName: node
   linkType: hard
 
