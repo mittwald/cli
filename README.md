@@ -102,6 +102,7 @@ USAGE
 * [`mw app ssh INSTALLATION-ID`](#mw-app-ssh-installation-id)
 * [`mw app uninstall INSTALLATION-ID`](#mw-app-uninstall-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
+* [`mw autocomplete [SHELL]`](#mw-autocomplete-shell)
 * [`mw backup create`](#mw-backup-create)
 * [`mw backup delete BACKUP-ID`](#mw-backup-delete-backup-id)
 * [`mw backup download BACKUP-ID`](#mw-backup-download-backup-id)
@@ -1495,6 +1496,37 @@ ARGUMENTS
 DESCRIPTION
   List supported Apps and Versions
 ```
+
+## `mw autocomplete [SHELL]`
+
+Display autocomplete installation instructions.
+
+```
+USAGE
+  $ mw autocomplete [SHELL] [-r]
+
+ARGUMENTS
+  SHELL  (zsh|bash|powershell) Shell type
+
+FLAGS
+  -r, --refresh-cache  Refresh cache (ignores displaying instructions)
+
+DESCRIPTION
+  Display autocomplete installation instructions.
+
+EXAMPLES
+  $ mw autocomplete
+
+  $ mw autocomplete bash
+
+  $ mw autocomplete zsh
+
+  $ mw autocomplete powershell
+
+  $ mw autocomplete --refresh-cache
+```
+
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.3/src/commands/autocomplete/index.ts)_
 
 ## `mw backup create`
 
