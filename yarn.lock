@@ -770,6 +770,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^3.15.0":
+  version: 3.15.0
+  resolution: "@oclif/core@npm:3.15.0"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    color: ^4.2.3
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.2
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    tsconfck: ^3.0.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 7825cf4ce4db27400c8392c8c385b8e189e0fe3df8e1a74e820803977dbc0c7e06d2378ebf6ee2b61cd635073abc309cdc4717fb1f4e572d498bb27b542c00fa
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-help@npm:^5.2.14":
   version: 5.2.20
   resolution: "@oclif/plugin-help@npm:5.2.20"
@@ -780,11 +815,11 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5":
-  version: 6.0.5
-  resolution: "@oclif/plugin-help@npm:6.0.5"
+  version: 6.0.9
+  resolution: "@oclif/plugin-help@npm:6.0.9"
   dependencies:
-    "@oclif/core": ^3.9.1
-  checksum: 9a03ee97514b692dcebad41a546511764bcd0273fc04e4f471e36730e5cbc9c1a5ef7669f51aad5725bebdc4cde707e83a1367b1ef78a0e931fe2e2f09212984
+    "@oclif/core": ^3.15.0
+  checksum: 024c56000490e719db7a50447e08226851920c1a61361bff879e7a7696472c422fa601752d61ff194aba4a2f5c652bd4c5c791b31ecf084f8d98f5e21582bd8a
   languageName: node
   linkType: hard
 
