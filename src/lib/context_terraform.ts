@@ -3,6 +3,40 @@ import { cwd } from "process";
 import path from "path";
 import { ContextMap, ContextProvider } from "./context.js";
 
+interface TerraformInstance {
+  attributes: Record<string, unknown>;
+}
+
+interface TerraformResource {
+  type: string;
+  name: string;
+  provider: string;
+  instances: TerraformInstance[];
+}
+
+interface TerraformState {
+  resources: TerraformResource[];
+}
+
+function overrideIDFromState(
+  state: TerraformState,
+  type: string,
+): string | undefined {
+  const instances = state.resources?.find((r) => r.type === type)?.instances;
+  if (instances === undefined) {
+    return undefined;
+  }
+
+  // If the context cannot be determined unambiguously, don't use the Terraform
+  // state at all.
+  if (instances.length > 1) {
+    return undefined;
+  }
+
+  const id = instances[0]?.attributes?.id;
+  return typeof id === "string" ? id : undefined;
+}
+
 export class TerraformContextProvider implements ContextProvider {
   public readonly name = "terraform";
 
@@ -13,28 +47,21 @@ export class TerraformContextProvider implements ContextProvider {
     }
 
     const contents = await fs.readFile(file, "utf-8");
-    const data = JSON.parse(contents);
+    const state: TerraformState = JSON.parse(contents);
     const overrides: ContextMap = {};
     const source = { type: "terraform", identifier: file };
 
-    const overrideID = (type: string): string | undefined => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const id = data.resources?.find((r: any) => r.type === type)?.instances[0]
-        .attributes.id;
-      return id;
-    };
-
-    const projectID = overrideID("mittwald_project");
+    const projectID = overrideIDFromState(state, "mittwald_project");
     if (projectID) {
       overrides["project-id"] = { value: projectID, source };
     }
 
-    const serverID = overrideID("mittwald_server");
+    const serverID = overrideIDFromState(state, "mittwald_server");
     if (serverID) {
       overrides["server-id"] = { value: serverID, source };
     }
 
-    const appID = overrideID("mittwald_app");
+    const appID = overrideIDFromState(state, "mittwald_app");
     if (appID) {
       overrides["installation-id"] = { value: appID, source };
     }
