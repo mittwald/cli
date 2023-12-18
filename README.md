@@ -225,8 +225,8 @@ ARGUMENTS
   INSTALLATION-ID  ID of the app installation to get
 
 FLAGS
-  -q, --quiet            suppress process output and only display a machine-readable summary.
-  --description=<value>  (required) set a description for the new app installation
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  (required) set a description for the new app installation
 
 DESCRIPTION
   Copy an app within a project
@@ -252,7 +252,7 @@ FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary.
   -w, --wait                Wait for your custom Node.js to be ready.
   --json
-  --site-title=<value>      Site Title for your custom Node.js installation.
+      --site-title=<value>  Site Title for your custom Node.js installation.
 
 DESCRIPTION
   Creates new custom Node.js installation.
@@ -285,14 +285,14 @@ USAGE
   $ mw app create php --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your custom PHP to be ready.
-  --document-root=<value>   (required) [default: /] The document root from which your custom PHP will be served
-                            (relative to the installation path)
+  -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
+                               context
+  -q, --quiet                  suppress process output and only display a machine-readable summary.
+  -w, --wait                   Wait for your custom PHP to be ready.
+      --document-root=<value>  (required) [default: /] The document root from which your custom PHP will be served
+                               (relative to the installation path)
   --json
-  --site-title=<value>      Site Title for your custom PHP installation.
+      --site-title=<value>     Site Title for your custom PHP installation.
 
 DESCRIPTION
   Creates new custom PHP installation.
@@ -332,14 +332,14 @@ USAGE
   $ mw app create python --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your custom python site to be ready.
-  --document-root=<value>   (required) [default: /] The document root from which your custom python site will be served
-                            (relative to the installation path)
+  -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
+                               context
+  -q, --quiet                  suppress process output and only display a machine-readable summary.
+  -w, --wait                   Wait for your custom python site to be ready.
+      --document-root=<value>  (required) [default: /] The document root from which your custom python site will be
+                               served (relative to the installation path)
   --json
-  --site-title=<value>      Site Title for your custom python site installation.
+      --site-title=<value>     Site Title for your custom python site installation.
 
 DESCRIPTION
   Creates new custom python site installation.
@@ -380,14 +380,14 @@ USAGE
   $ mw app create static --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your custom static site to be ready.
-  --document-root=<value>   (required) [default: /] The document root from which your custom static site will be served
-                            (relative to the installation path)
+  -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
+                               context
+  -q, --quiet                  suppress process output and only display a machine-readable summary.
+  -w, --wait                   Wait for your custom static site to be ready.
+      --document-root=<value>  (required) [default: /] The document root from which your custom static site will be
+                               served (relative to the installation path)
   --json
-  --site-title=<value>      Site Title for your custom static site installation.
+      --site-title=<value>     Site Title for your custom static site installation.
 
 DESCRIPTION
   Creates new custom static site installation.
@@ -429,15 +429,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all available dependencies
@@ -455,10 +455,10 @@ ARGUMENTS
   INSTALLATION-ID  ID of the app installation to get
 
 FLAGS
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  --set=<value>...          (required) set a dependency to a specific version
-  --update-policy=<option>  [default: patchLevel] set the update policy for the configured dependencies
-                            <options: none|inheritedFromApp|patchLevel|all>
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --set=<value>...          (required) set a dependency to a specific version
+      --update-policy=<option>  [default: patchLevel] set the update policy for the configured dependencies
+                                <options: none|inheritedFromApp|patchLevel|all>
 
 EXAMPLES
   Update Node.js version to newest available from the 18.x branch
@@ -492,15 +492,15 @@ ARGUMENTS
   SYSTEMSOFTWARE  name of the systemsoftware for which to list versions
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all available versions of a particular dependency
@@ -536,19 +536,20 @@ USAGE
     [--json]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 Wait for your Contao to be ready.
-  --admin-email=<value>      E-Mail-Address of your administrator-user.
-  --admin-firstname=<value>  Firstname of your administrator-user.
-  --admin-lastname=<value>   Lastname of your administrator-user.
-  --admin-pass=<value>       Password of your administrator-user.
-  --admin-user=<value>       Username for your administrator-user.
-  --host=<value>             Host to initially configure your Contao installation with; needs to be created separately.
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     Wait for your Contao to be ready.
+      --admin-email=<value>      E-Mail-Address of your administrator-user.
+      --admin-firstname=<value>  Firstname of your administrator-user.
+      --admin-lastname=<value>   Lastname of your administrator-user.
+      --admin-pass=<value>       Password of your administrator-user.
+      --admin-user=<value>       Username for your administrator-user.
+      --host=<value>             Host to initially configure your Contao installation with; needs to be created
+                                 separately.
   --json
-  --site-title=<value>       Site Title for your Contao installation.
-  --version=<value>          (required) [default: latest] Version of Contao to be installed.
+      --site-title=<value>       Site Title for your Contao installation.
+      --version=<value>          (required) [default: latest] Version of Contao to be installed.
 
 DESCRIPTION
   Creates new Contao installation.
@@ -625,17 +626,17 @@ USAGE
     <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your Drupal to be ready.
-  --admin-email=<value>     E-Mail-Address of your administrator-user.
-  --admin-pass=<value>      Password of your administrator-user.
-  --admin-user=<value>      Username for your administrator-user.
-  --host=<value>            Host to initially configure your Drupal installation with; needs to be created separately.
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Drupal to be ready.
+      --admin-email=<value>  E-Mail-Address of your administrator-user.
+      --admin-pass=<value>   Password of your administrator-user.
+      --admin-user=<value>   Username for your administrator-user.
+      --host=<value>         Host to initially configure your Drupal installation with; needs to be created separately.
   --json
-  --site-title=<value>      Site Title for your Drupal installation.
-  --version=<value>         (required) [default: latest] Version of Drupal to be installed.
+      --site-title=<value>   Site Title for your Drupal installation.
+      --version=<value>      (required) [default: latest] Version of Drupal to be installed.
 
 DESCRIPTION
   Creates new Drupal installation.
@@ -700,18 +701,18 @@ USAGE
     [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 Wait for your Grav to be ready.
-  --admin-email=<value>      E-Mail-Address of your administrator-user.
-  --admin-firstname=<value>  Firstname of your administrator-user.
-  --admin-lastname=<value>   Lastname of your administrator-user.
-  --admin-pass=<value>       Password of your administrator-user.
-  --admin-user=<value>       Username for your administrator-user.
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     Wait for your Grav to be ready.
+      --admin-email=<value>      E-Mail-Address of your administrator-user.
+      --admin-firstname=<value>  Firstname of your administrator-user.
+      --admin-lastname=<value>   Lastname of your administrator-user.
+      --admin-pass=<value>       Password of your administrator-user.
+      --admin-user=<value>       Username for your administrator-user.
   --json
-  --site-title=<value>       Site Title for your Grav installation.
-  --version=<value>          (required) [default: latest] Version of Grav to be installed.
+      --site-title=<value>       Site Title for your Grav installation.
+      --version=<value>          (required) [default: latest] Version of Grav to be installed.
 
 DESCRIPTION
   Creates new Grav installation.
@@ -782,19 +783,20 @@ USAGE
     [--json]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 Wait for your Joomla! to be ready.
-  --admin-email=<value>      E-Mail-Address of your administrator-user.
-  --admin-firstname=<value>  Firstname of your administrator-user.
-  --admin-lastname=<value>   Lastname of your administrator-user.
-  --admin-pass=<value>       Password of your administrator-user.
-  --admin-user=<value>       Username for your administrator-user.
-  --host=<value>             Host to initially configure your Joomla! installation with; needs to be created separately.
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     Wait for your Joomla! to be ready.
+      --admin-email=<value>      E-Mail-Address of your administrator-user.
+      --admin-firstname=<value>  Firstname of your administrator-user.
+      --admin-lastname=<value>   Lastname of your administrator-user.
+      --admin-pass=<value>       Password of your administrator-user.
+      --admin-user=<value>       Username for your administrator-user.
+      --host=<value>             Host to initially configure your Joomla! installation with; needs to be created
+                                 separately.
   --json
-  --site-title=<value>       Site Title for your Joomla! installation.
-  --version=<value>          (required) [default: latest] Version of Joomla! to be installed.
+      --site-title=<value>       Site Title for your Joomla! installation.
+      --version=<value>          (required) [default: latest] Version of Joomla! to be installed.
 
 DESCRIPTION
   Creates new Joomla! installation.
@@ -871,17 +873,17 @@ USAGE
     <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your Matomo to be ready.
-  --admin-email=<value>     E-Mail-Address of your administrator-user.
-  --admin-pass=<value>      Password of your administrator-user.
-  --admin-user=<value>      Username for your administrator-user.
-  --host=<value>            Host to initially configure your Matomo installation with; needs to be created separately.
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Matomo to be ready.
+      --admin-email=<value>  E-Mail-Address of your administrator-user.
+      --admin-pass=<value>   Password of your administrator-user.
+      --admin-user=<value>   Username for your administrator-user.
+      --host=<value>         Host to initially configure your Matomo installation with; needs to be created separately.
   --json
-  --site-title=<value>      Site Title for your Matomo installation.
-  --version=<value>         (required) [default: latest] Version of Matomo to be installed.
+      --site-title=<value>   Site Title for your Matomo installation.
+      --version=<value>      (required) [default: latest] Version of Matomo to be installed.
 
 DESCRIPTION
   Creates new Matomo installation.
@@ -946,18 +948,18 @@ USAGE
     <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your Shopware 6 to be ready.
-  --admin-email=<value>     E-Mail-Address of your administrator-user.
-  --admin-pass=<value>      Password of your administrator-user.
-  --admin-user=<value>      Username for your administrator-user.
-  --host=<value>            Host to initially configure your Shopware 6 installation with; needs to be created
-                            separately.
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your Shopware 6 to be ready.
+      --admin-email=<value>  E-Mail-Address of your administrator-user.
+      --admin-pass=<value>   Password of your administrator-user.
+      --admin-user=<value>   Username for your administrator-user.
+      --host=<value>         Host to initially configure your Shopware 6 installation with; needs to be created
+                             separately.
   --json
-  --site-title=<value>      Site Title for your Shopware 6 installation.
-  --version=<value>         (required) [default: latest] Version of Shopware 6 to be installed.
+      --site-title=<value>   Site Title for your Shopware 6 installation.
+      --version=<value>      (required) [default: latest] Version of Shopware 6 to be installed.
 
 DESCRIPTION
   Creates new Shopware 6 installation.
@@ -1024,23 +1026,23 @@ USAGE
     [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 Wait for your Shopware 5 to be ready.
-  --admin-email=<value>      E-Mail-Address of your administrator-user.
-  --admin-firstname=<value>  Firstname of your administrator-user.
-  --admin-lastname=<value>   Lastname of your administrator-user.
-  --admin-pass=<value>       Password of your administrator-user.
-  --admin-user=<value>       Username for your administrator-user.
-  --host=<value>             Host to initially configure your Shopware 5 installation with; needs to be created
-                             separately.
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     Wait for your Shopware 5 to be ready.
+      --admin-email=<value>      E-Mail-Address of your administrator-user.
+      --admin-firstname=<value>  Firstname of your administrator-user.
+      --admin-lastname=<value>   Lastname of your administrator-user.
+      --admin-pass=<value>       Password of your administrator-user.
+      --admin-user=<value>       Username for your administrator-user.
+      --host=<value>             Host to initially configure your Shopware 5 installation with; needs to be created
+                                 separately.
   --json
-  --shop-currency=<value>    Currency your Shopware 5 will be working with.
-  --shop-email=<value>       E-Mail-Address your Shopware 5 will be working with.
-  --shop-lang=<value>        Language your Shopware 5 will be working with.
-  --site-title=<value>       Site Title for your Shopware 5 installation.
-  --version=<value>          (required) [default: latest] Version of Shopware 5 to be installed.
+      --shop-currency=<value>    Currency your Shopware 5 will be working with.
+      --shop-email=<value>       E-Mail-Address your Shopware 5 will be working with.
+      --shop-lang=<value>        Language your Shopware 5 will be working with.
+      --site-title=<value>       Site Title for your Shopware 5 installation.
+      --version=<value>          (required) [default: latest] Version of Shopware 5 to be installed.
 
 DESCRIPTION
   Creates new Shopware 5 installation.
@@ -1138,23 +1140,23 @@ USAGE
     [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 Wait for your Shopware 6 to be ready.
-  --admin-email=<value>      E-Mail-Address of your administrator-user.
-  --admin-firstname=<value>  Firstname of your administrator-user.
-  --admin-lastname=<value>   Lastname of your administrator-user.
-  --admin-pass=<value>       Password of your administrator-user.
-  --admin-user=<value>       Username for your administrator-user.
-  --host=<value>             Host to initially configure your Shopware 6 installation with; needs to be created
-                             separately.
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     Wait for your Shopware 6 to be ready.
+      --admin-email=<value>      E-Mail-Address of your administrator-user.
+      --admin-firstname=<value>  Firstname of your administrator-user.
+      --admin-lastname=<value>   Lastname of your administrator-user.
+      --admin-pass=<value>       Password of your administrator-user.
+      --admin-user=<value>       Username for your administrator-user.
+      --host=<value>             Host to initially configure your Shopware 6 installation with; needs to be created
+                                 separately.
   --json
-  --shop-currency=<value>    Currency your Shopware 6 will be working with.
-  --shop-email=<value>       E-Mail-Address your Shopware 6 will be working with.
-  --shop-lang=<value>        Language your Shopware 6 will be working with.
-  --site-title=<value>       Site Title for your Shopware 6 installation.
-  --version=<value>          (required) [default: latest] Version of Shopware 6 to be installed.
+      --shop-currency=<value>    Currency your Shopware 6 will be working with.
+      --shop-email=<value>       E-Mail-Address your Shopware 6 will be working with.
+      --shop-lang=<value>        Language your Shopware 6 will be working with.
+      --site-title=<value>       Site Title for your Shopware 6 installation.
+      --version=<value>          (required) [default: latest] Version of Shopware 6 to be installed.
 
 DESCRIPTION
   Creates new Shopware 6 installation.
@@ -1251,19 +1253,20 @@ USAGE
     [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your TYPO3 to be ready.
-  --admin-email=<value>     E-Mail-Address of your administrator-user.
-  --admin-pass=<value>      Password of your administrator-user.
-  --admin-user=<value>      Username for your administrator-user.
-  --host=<value>            Host to initially configure your TYPO3 installation with; needs to be created separately.
-  --install-mode=<option>   (required) [default: composer] The installation variant your TYPO3 will be installed with.
-                            <options: composer|symlink>
+  -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
+                               context
+  -q, --quiet                  suppress process output and only display a machine-readable summary.
+  -w, --wait                   Wait for your TYPO3 to be ready.
+      --admin-email=<value>    E-Mail-Address of your administrator-user.
+      --admin-pass=<value>     Password of your administrator-user.
+      --admin-user=<value>     Username for your administrator-user.
+      --host=<value>           Host to initially configure your TYPO3 installation with; needs to be created separately.
+      --install-mode=<option>  (required) [default: composer] The installation variant your TYPO3 will be installed
+                               with.
+                               <options: composer|symlink>
   --json
-  --site-title=<value>      Site Title for your TYPO3 installation.
-  --version=<value>         (required) [default: latest] Version of TYPO3 to be installed.
+      --site-title=<value>     Site Title for your TYPO3 installation.
+      --version=<value>        (required) [default: latest] Version of TYPO3 to be installed.
 
 DESCRIPTION
   Creates new TYPO3 installation.
@@ -1336,18 +1339,18 @@ USAGE
     <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--json]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for your WordPress to be ready.
-  --admin-email=<value>     E-Mail-Address of your administrator-user.
-  --admin-pass=<value>      Password of your administrator-user.
-  --admin-user=<value>      Username for your administrator-user.
-  --host=<value>            Host to initially configure your WordPress installation with; needs to be created
-                            separately.
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 Wait for your WordPress to be ready.
+      --admin-email=<value>  E-Mail-Address of your administrator-user.
+      --admin-pass=<value>   Password of your administrator-user.
+      --admin-user=<value>   Username for your administrator-user.
+      --host=<value>         Host to initially configure your WordPress installation with; needs to be created
+                             separately.
   --json
-  --site-title=<value>      Site Title for your WordPress installation.
-  --version=<value>         (required) [default: latest] Version of WordPress to be installed.
+      --site-title=<value>   Site Title for your WordPress installation.
+      --version=<value>      (required) [default: latest] Version of WordPress to be installed.
 
 DESCRIPTION
   Creates new WordPress installation.
@@ -1416,14 +1419,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List installed apps in a project.
@@ -1502,13 +1505,13 @@ USAGE
   $ mw backup create --expires <value> [-q] [-p <value>] [--description <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for the resource to be ready.
-  --description=<value>     a description for the backup.
-  --expires=<value>         (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
-  --wait-timeout=<value>    [default: 600] The number of seconds to wait for the resource to be ready.
+  -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
+                              context
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -w, --wait                  Wait for the resource to be ready.
+      --description=<value>   a description for the backup.
+      --expires=<value>       (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
+      --wait-timeout=<value>  [default: 600] The number of seconds to wait for the resource to be ready.
 
 ALIASES
   $ mw project backup create
@@ -1566,14 +1569,14 @@ ARGUMENTS
   BACKUP-ID  the ID of the Backup to download.
 
 FLAGS
-  -q, --quiet          suppress process output and only display a machine-readable summary.
-  --format=<option>    [default: tar] the file format to download the backup in.
-                       <options: tar|zip>
-  --generate-password  generate a random password to encrypt the backup with.
-  --output=<value>     the file to write the backup to; if omitted, the filename will be determined by the server.
-  --password=<value>   the password to encrypt the backup with.
-  --prompt-password    prompt for a password to encrypt the backup with.
-  --resume             resume a previously interrupted download.
+  -q, --quiet              suppress process output and only display a machine-readable summary.
+      --format=<option>    [default: tar] the file format to download the backup in.
+                           <options: tar|zip>
+      --generate-password  generate a random password to encrypt the backup with.
+      --output=<value>     the file to write the backup to; if omitted, the filename will be determined by the server.
+      --password=<value>   the password to encrypt the backup with.
+      --prompt-password    prompt for a password to encrypt the backup with.
+      --resume             resume a previously interrupted download.
 
 DESCRIPTION
   Download a backup to your local disk
@@ -1636,14 +1639,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Backups for a given Project.
@@ -1671,14 +1674,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List backup schedules belonging to a given project.
@@ -1743,15 +1746,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all conversation categories.
@@ -1806,15 +1809,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all conversations the authenticated user has created or has access to.
@@ -1904,16 +1907,16 @@ USAGE
     --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -x, --extended            show extra columns
+      --columns=<value>     only show provided columns (comma-separated)
+      --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
+                            <options: csv|json|yaml>
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
@@ -1937,7 +1940,7 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
-  --no-pager             Disable pager for output.
+      --no-pager         Disable pager for output.
 
 DESCRIPTION
   Get the log output of a cronjob execution.
@@ -1985,14 +1988,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Cronjobs belonging to a Project.
@@ -2017,15 +2020,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List available MySQL character sets and collations, optionally filtered by a MySQLVersion.
@@ -2041,17 +2044,17 @@ USAGE
     [--user-password <value>] [--user-external] [--user-access-level full|readonly]
 
 FLAGS
-  -d, --description=<value>     (required) a description for the database
-  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
-                                context
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
-  --character-set=<value>       [default: utf8mb4] the character set to use
-  --collation=<value>           [default: utf8mb4_unicode_ci] the collation to use
-  --user-access-level=<option>  [default: full] the access level preset for the default user
-                                <options: full|readonly>
-  --user-external               enable external access for default user
-  --user-password=<value>       the password to use for the default user (env: MYSQL_PWD)
-  --version=<value>             (required) the MySQL version to use
+  -d, --description=<value>         (required) a description for the database
+  -p, --project-id=<value>          ID or short ID of a project; this flag is optional if a default project is set in
+                                    the context
+  -q, --quiet                       suppress process output and only display a machine-readable summary.
+      --character-set=<value>       [default: utf8mb4] the character set to use
+      --collation=<value>           [default: utf8mb4_unicode_ci] the collation to use
+      --user-access-level=<option>  [default: full] the access level preset for the default user
+                                    <options: full|readonly>
+      --user-external               enable external access for default user
+      --user-password=<value>       the password to use for the default user (env: MYSQL_PWD)
+      --version=<value>             (required) the MySQL version to use
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -2163,14 +2166,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List MySQLDatabases belonging to a Project.
@@ -2206,8 +2209,8 @@ ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
 
 FLAGS
-  -q, --quiet     suppress process output and only display a machine-readable summary.
-  --port=<value>  [default: 3306] The local TCP port to forward to
+  -q, --quiet         suppress process output and only display a machine-readable summary.
+      --port=<value>  [default: 3306] The local TCP port to forward to
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -2275,16 +2278,16 @@ USAGE
     --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended         show extra columns
-  --columns=<value>      only show provided columns (comma-separated)
-  --csv                  output is csv format [alias: --output=csv]
-  --database-id=<value>  (required) ID of the MySQL database to list users for.
-  --filter=<value>       filter property by partial string matching, ex: name=foo
-  --no-header            hide table header from output
-  --no-truncate          do not truncate output to fit screen
-  --output=<option>      output in a more machine friendly format
-                         <options: csv|json|yaml>
-  --sort=<value>         property to sort by (prepend '-' for descending)
+  -x, --extended             show extra columns
+      --columns=<value>      only show provided columns (comma-separated)
+      --csv                  output is csv format [alias: --output=csv]
+      --database-id=<value>  (required) ID of the MySQL database to list users for.
+      --filter=<value>       filter property by partial string matching, ex: name=foo
+      --no-header            hide table header from output
+      --no-truncate          do not truncate output to fit screen
+      --output=<option>      output in a more machine friendly format
+                             <options: csv|json|yaml>
+      --sort=<value>         property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List MySQL users belonging to a database.
@@ -2300,15 +2303,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List available MySQL versions.
@@ -2325,16 +2328,16 @@ USAGE
     noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-random|volatile-random|volatile-ttl]
 
 FLAGS
-  -d, --description=<value>     (required) a description for the database
-  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
-                                context
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
-  --max-memory=<value>          the maximum memory for the Redis database
-  --max-memory-policy=<option>  the Redis eviction policy
-                                <options: noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-random|vo
-                                latile-random|volatile-ttl>
-  --[no-]persistent             enable persistent storage for the Redis database
-  --version=<value>             (required) the Redis version to use
+  -d, --description=<value>         (required) a description for the database
+  -p, --project-id=<value>          ID or short ID of a project; this flag is optional if a default project is set in
+                                    the context
+  -q, --quiet                       suppress process output and only display a machine-readable summary.
+      --max-memory=<value>          the maximum memory for the Redis database
+      --max-memory-policy=<option>  the Redis eviction policy
+                                    <options: noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-rando
+                                    m|volatile-random|volatile-ttl>
+      --[no-]persistent             enable persistent storage for the Redis database
+      --version=<value>             (required) the Redis version to use
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -2395,14 +2398,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Redis databases belonging to a project.
@@ -2448,14 +2451,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List available Redis versions.
@@ -2542,14 +2545,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Domains belonging to a Project.
@@ -2593,14 +2596,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all domain ownerships of a project.
@@ -2622,13 +2625,13 @@ USAGE
     [--path-to-url <value>]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  --hostname=<value>        (required) the hostname of the ingress
-  --path-to-app=<value>...  add a path mapping to an app
-  --path-to-dir=<value>...  add a path mapping to a directory
-  --path-to-url=<value>...  add a path mapping to an external url
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --hostname=<value>        (required) the hostname of the ingress
+      --path-to-app=<value>...  add a path mapping to an app
+      --path-to-dir=<value>...  add a path mapping to a directory
+      --path-to-url=<value>...  add a path mapping to an external url
 
 DESCRIPTION
   Create a new ingress
@@ -2732,14 +2735,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List virtualhosts for a project.
@@ -2820,15 +2823,15 @@ USAGE
     [--password <value>] [--random-password]
 
 FLAGS
-  -a, --address=<value>          (required) mail address
-  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
-                                 context
-  -q, --quiet                    suppress process output and only display a machine-readable summary.
-  --catch-all                    make this a catch-all mail address
-  --[no-]enable-spam-protection  enable spam protection for this mailbox
-  --password=<value>             mailbox password
-  --quota=<value>                [default: 1024] mailbox quota in mebibytes
-  --random-password              generate a random password
+  -a, --address=<value>              (required) mail address
+  -p, --project-id=<value>           ID or short ID of a project; this flag is optional if a default project is set in
+                                     the context
+  -q, --quiet                        suppress process output and only display a machine-readable summary.
+      --catch-all                    make this a catch-all mail address
+      --[no-]enable-spam-protection  enable spam protection for this mailbox
+      --password=<value>             mailbox password
+      --quota=<value>                [default: 1024] mailbox quota in mebibytes
+      --random-password              generate a random password
 
 DESCRIPTION
   Create a new mail address
@@ -2928,14 +2931,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all mail addresses for a project ID
@@ -2979,14 +2982,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all deliveryboxes by project ID
@@ -3052,13 +3055,13 @@ USAGE
     [--expires <value>]
 
 FLAGS
-  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
-  -q, --quiet           suppress process output and only display a machine-readable summary.
-  --email=<value>       (required) The email address of the user to invite.
-  --expires=<value>     An interval after which the invitation expires (examples: 30m, 30d, 1y).
-  --message=<value>     A message to include in the invitation email.
-  --role=<option>       [default: member] The role of the user to invite.
-                        <options: owner|member|accountant>
+  -o, --org-id=<value>   ID or short ID of a org; this flag is optional if a default org is set in the context
+  -q, --quiet            suppress process output and only display a machine-readable summary.
+      --email=<value>    (required) The email address of the user to invite.
+      --expires=<value>  An interval after which the invitation expires (examples: 30m, 30d, 1y).
+      --message=<value>  A message to include in the invitation email.
+      --role=<option>    [default: member] The role of the user to invite.
+                         <options: owner|member|accountant>
 
 DESCRIPTION
   Invite a user to an organization.
@@ -3085,16 +3088,16 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>] [-o <value>]
 
 FLAGS
-  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -o, --org-id=<value>   ID or short ID of a org; this flag is optional if a default org is set in the context
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all invites for an organization.
@@ -3116,15 +3119,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all organization invites for the executing user.
@@ -3164,15 +3167,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all organizations the authenticated user has access to.
@@ -3188,16 +3191,16 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>] [-o <value>]
 
 FLAGS
-  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -o, --org-id=<value>   ID or short ID of a org; this flag is optional if a default org is set in the context
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all memberships belonging to an organization.
@@ -3219,15 +3222,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all organization memberships for the executing user.
@@ -3266,13 +3269,13 @@ USAGE
   $ mw project backup create --expires <value> [-q] [-p <value>] [--description <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                Wait for the resource to be ready.
-  --description=<value>     a description for the backup.
-  --expires=<value>         (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
-  --wait-timeout=<value>    [default: 600] The number of seconds to wait for the resource to be ready.
+  -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
+                              context
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -w, --wait                  Wait for the resource to be ready.
+      --description=<value>   a description for the backup.
+      --expires=<value>       (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
+      --wait-timeout=<value>  [default: 600] The number of seconds to wait for the resource to be ready.
 
 ALIASES
   $ mw project backup create
@@ -3330,14 +3333,14 @@ ARGUMENTS
   BACKUP-ID  the ID of the Backup to download.
 
 FLAGS
-  -q, --quiet          suppress process output and only display a machine-readable summary.
-  --format=<option>    [default: tar] the file format to download the backup in.
-                       <options: tar|zip>
-  --generate-password  generate a random password to encrypt the backup with.
-  --output=<value>     the file to write the backup to; if omitted, the filename will be determined by the server.
-  --password=<value>   the password to encrypt the backup with.
-  --prompt-password    prompt for a password to encrypt the backup with.
-  --resume             resume a previously interrupted download.
+  -q, --quiet              suppress process output and only display a machine-readable summary.
+      --format=<option>    [default: tar] the file format to download the backup in.
+                           <options: tar|zip>
+      --generate-password  generate a random password to encrypt the backup with.
+      --output=<value>     the file to write the backup to; if omitted, the filename will be determined by the server.
+      --password=<value>   the password to encrypt the backup with.
+      --prompt-password    prompt for a password to encrypt the backup with.
+      --resume             resume a previously interrupted download.
 
 DESCRIPTION
   Download a backup to your local disk
@@ -3400,14 +3403,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Backups for a given Project.
@@ -3435,14 +3438,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List backup schedules belonging to a given project.
@@ -3466,12 +3469,13 @@ USAGE
   $ mw project create -d <value> [-s <value>] [-q] [-w] [--wait-timeout <value>] [--update-context]
 
 FLAGS
-  -d, --description=<value>  (required) A description for the project.
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -s, --server-id=<value>    ID or short ID of a server; this flag is optional if a default server is set in the context
-  -w, --wait                 Wait for the resource to be ready.
-  --update-context           Update the CLI context to use the newly created project
-  --wait-timeout=<value>     [default: 600] The number of seconds to wait for the resource to be ready.
+  -d, --description=<value>   (required) A description for the project.
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -s, --server-id=<value>     ID or short ID of a server; this flag is optional if a default server is set in the
+                              context
+  -w, --wait                  Wait for the resource to be ready.
+      --update-context        Update the CLI context to use the newly created project
+      --wait-timeout=<value>  [default: 600] The number of seconds to wait for the resource to be ready.
 
 DESCRIPTION
   Create a new project
@@ -3521,16 +3525,16 @@ USAGE
     --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended        show extra columns
-  --columns=<value>     only show provided columns (comma-separated)
-  --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
-  --csv                 output is csv format [alias: --output=csv]
-  --filter=<value>      filter property by partial string matching, ex: name=foo
-  --no-header           hide table header from output
-  --no-truncate         do not truncate output to fit screen
-  --output=<option>     output in a more machine friendly format
-                        <options: csv|json|yaml>
-  --sort=<value>        property to sort by (prepend '-' for descending)
+  -x, --extended            show extra columns
+      --columns=<value>     only show provided columns (comma-separated)
+      --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
+                            <options: csv|json|yaml>
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
@@ -3554,7 +3558,7 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
-  --no-pager             Disable pager for output.
+      --no-pager         Disable pager for output.
 
 DESCRIPTION
   Get the log output of a cronjob execution.
@@ -3602,14 +3606,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Cronjobs belonging to a Project.
@@ -3663,7 +3667,7 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
-  --human                Display human readable sizes.
+      --human            Display human readable sizes.
 
 DESCRIPTION
   Get a Project directory filesystem usage.
@@ -3720,14 +3724,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all invites belonging to a project.
@@ -3749,15 +3753,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all project invites for the executing user.
@@ -3773,15 +3777,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all projects that you have access to
@@ -3843,14 +3847,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all memberships for a Project.
@@ -3872,15 +3876,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List ProjectMemberships belonging to the executing user.
@@ -3899,14 +3903,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all SFTP users for a project.
@@ -3949,14 +3953,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all SSH users for a project.
@@ -4015,15 +4019,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List servers for an organization or user.
@@ -4042,14 +4046,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all SFTP users for a project.
@@ -4077,14 +4081,14 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
-  --columns=<value>         only show provided columns (comma-separated)
-  --csv                     output is csv format [alias: --output=csv]
-  --filter=<value>          filter property by partial string matching, ex: name=foo
-  --no-header               hide table header from output
-  --no-truncate             do not truncate output to fit screen
-  --output=<option>         output in a more machine friendly format
+      --columns=<value>     only show provided columns (comma-separated)
+      --csv                 output is csv format [alias: --output=csv]
+      --filter=<value>      filter property by partial string matching, ex: name=foo
+      --no-header           hide table header from output
+      --no-truncate         do not truncate output to fit screen
+      --output=<option>     output in a more machine friendly format
                             <options: csv|json|yaml>
-  --sort=<value>            property to sort by (prepend '-' for descending)
+      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all SSH users for a project.
@@ -4111,7 +4115,7 @@ FLAGS
   -a, --available        See available versions.
   -i, --interactive      Interactively select version to install. This is ignored if a channel is provided.
   -v, --version=<value>  Install a specific version.
-  --force                Force a re-download of the requested version.
+      --force            Force a re-download of the requested version.
 
 DESCRIPTION
   update the mw CLI
@@ -4145,11 +4149,11 @@ USAGE
   $ mw user api-token create --description <value> --roles api_read|api_write [-q] [--expires-in <value>]
 
 FLAGS
-  -q, --quiet            suppress process output and only display a machine-readable summary.
-  --description=<value>  (required) Description of the API token
-  --expires-in=<value>   Expiration interval of the API token (example: 30d)
-  --roles=<option>...    (required) Roles of the API token
-                         <options: api_read|api_write>
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  (required) Description of the API token
+      --expires-in=<value>   Expiration interval of the API token (example: 30d)
+      --roles=<option>...    (required) Roles of the API token
+                             <options: api_read|api_write>
 
 DESCRIPTION
   Create a new API token
@@ -4190,15 +4194,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all API tokens of the user
@@ -4278,15 +4282,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all active sessions
@@ -4301,11 +4305,11 @@ USAGE
   $ mw user ssh-key create [-q] [--output <value>] [--no-passphrase] [--comment <value>] [--expiresAt <value>]
 
 FLAGS
-  -q, --quiet          suppress process output and only display a machine-readable summary.
-  --comment=<value>    A comment for the SSH key.
-  --expiresAt=<value>  Duration after which the SSH key should expire (example: '1y').
-  --no-passphrase      Use this flag to not set a passphrase for the SSH key.
-  --output=<value>     [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
+  -q, --quiet              suppress process output and only display a machine-readable summary.
+      --comment=<value>    A comment for the SSH key.
+      --expiresAt=<value>  Duration after which the SSH key should expire (example: '1y').
+      --no-passphrase      Use this flag to not set a passphrase for the SSH key.
+      --output=<value>     [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
 
 DESCRIPTION
   Create and import a new SSH key
@@ -4371,15 +4375,15 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>]
 
 FLAGS
-  -x, --extended     show extra columns
-  --columns=<value>  only show provided columns (comma-separated)
-  --csv              output is csv format [alias: --output=csv]
-  --filter=<value>   filter property by partial string matching, ex: name=foo
-  --no-header        hide table header from output
-  --no-truncate      do not truncate output to fit screen
-  --output=<option>  output in a more machine friendly format
-                     <options: csv|json|yaml>
-  --sort=<value>     property to sort by (prepend '-' for descending)
+  -x, --extended         show extra columns
+      --columns=<value>  only show provided columns (comma-separated)
+      --csv              output is csv format [alias: --output=csv]
+      --filter=<value>   filter property by partial string matching, ex: name=foo
+      --no-header        hide table header from output
+      --no-truncate      do not truncate output to fit screen
+      --output=<option>  output in a more machine friendly format
+                         <options: csv|json|yaml>
+      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get your stored ssh keys
