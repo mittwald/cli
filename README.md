@@ -62,6 +62,16 @@ Enter your mStudio API token: ****************
 token saved to '/Users/mhelmich/.config/mw/token'
 ```
 
+### Setting up shell autocompletion
+
+The `mw` CLI offers a lot of commands and flags, and it can be hard to remember all of them. To make your life easier, the CLI offers autocompletion for the Bash and ZSH shells. To enable autocompletion, run the following command:
+
+```shell
+$ mw autocomplete
+```
+
+After that, follow the instructions printed by that command (those are specific to your shell -- Bash, ZSH and Powershell are supported).
+
 ## Usage
 
 ```sh-session
