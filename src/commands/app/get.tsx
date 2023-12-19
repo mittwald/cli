@@ -4,15 +4,16 @@ import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { GetBaseCommand } from "../../GetBaseCommand.js";
 import { AppInstallationDetails } from "../../rendering/react/components/AppInstallation/AppInstallationDetails.js";
 import { useApp, useAppInstallation } from "../../lib/app/hooks.js";
-import { appInstallationFlags } from "../../lib/app/flags.js";
+import { appInstallationArgs } from "../../lib/app/flags.js";
 
 export default class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get details about an app installation";
   static flags = { ...GetBaseCommand.baseFlags };
-  static args = { ...appInstallationFlags };
+  static args = { ...appInstallationArgs };
 
   protected render(): ReactNode {
-    const appInstallation = useAppInstallation(this.args["installation-id"]);
+    const appInstallationId = this.useAppInstallationId(Get);
+    const appInstallation = useAppInstallation(appInstallationId);
     const app = useApp(appInstallation.appId);
 
     if (this.flags.output === "json") {

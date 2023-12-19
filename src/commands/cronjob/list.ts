@@ -2,7 +2,7 @@ import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../lib/project/flags.js";
+import { projectFlags } from "../../lib/project/flags.js";
 import { ListColumns } from "../../Formatter.js";
 import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
 
@@ -27,18 +27,8 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   };
 
   public async getData(): Promise<Response> {
-    const pathParams: PathParams = {
-      projectId: await withProjectId(
-        this.apiClient,
-        List,
-        this.flags,
-        this.args,
-        this.config,
-      ),
-    };
-    return await this.apiClient.cronjob.listCronjobs(
-      pathParams as Parameters<typeof this.apiClient.cronjob.listCronjobs>[0],
-    );
+    const projectId = await this.withProjectId(List);
+    return await this.apiClient.cronjob.listCronjobs({ projectId });
   }
 
   protected mapData(

@@ -8,9 +8,7 @@ import { ListColumns } from "../../../../Formatter.js";
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2MysqlDatabasesDatabaseIdUsers.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export type PathParams =
-  MittwaldAPIV2.Paths.V2MysqlDatabasesDatabaseIdUsers.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["database"]["listMysqlUsers"]>
 >;
 
@@ -27,14 +25,9 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   };
 
   public async getData(): Promise<Response> {
-    const pathParams: PathParams = {
+    return await this.apiClient.database.listMysqlUsers({
       databaseId: this.flags["database-id"],
-    };
-    return await this.apiClient.database.listMysqlUsers(
-      pathParams as Parameters<
-        typeof this.apiClient.database.listMysqlUsers
-      >[0],
-    );
+    });
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

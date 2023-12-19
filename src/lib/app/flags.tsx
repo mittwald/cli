@@ -11,7 +11,7 @@ import {
   ProcessFlags,
   processFlags,
 } from "../../rendering/process/process_flags.js";
-import { Flags, Args } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import {
   BooleanFlag,
   FlagInput,
@@ -19,13 +19,14 @@ import {
   OutputFlags,
 } from "@oclif/core/lib/interfaces/parser.js";
 import { generatePasswordWithSpecialChars } from "../password.js";
+import { makeFlagSet } from "../context_flags.js";
 
-export const appInstallationFlags = {
-  "installation-id": Args.string({
-    description: "ID of the app installation to get",
-    required: true,
-  }),
-};
+export const {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  flags: appInstallationFlags,
+  args: appInstallationArgs,
+  withId: withAppInstallationId,
+} = makeFlagSet("installation", "i");
 
 export type AvailableFlagName = keyof AvailableFlags;
 

@@ -1,45 +1,67 @@
 import { Config } from "@oclif/core";
-import * as fs from "fs/promises";
-import * as path from "path";
+import { TerraformContextProvider } from "./context_terraform.js";
+import { UserContextProvider } from "./context_user.js";
+
+export type ContextNames = "project" | "server" | "org" | "installation";
+export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
+export type ContextMap = Partial<Record<ContextKey, ContextValue>>;
+export type ContextMapUpdate = Partial<Record<ContextKey, string>>;
+export type ContextValueSource = { type: string; identifier: string };
+export type ContextValue = { value: string; source: ContextValueSource };
+
+export interface ContextProvider {
+  name: string;
+
+  getOverrides(): Promise<ContextMap>;
+}
+
+export interface WritableContextProvider extends ContextProvider {
+  update(data: ContextMapUpdate): Promise<void>;
+}
+
+function isWritable(p: ContextProvider): p is WritableContextProvider {
+  return "update" in p;
+}
 
 export class Context {
-  private readonly config: Config;
-  private readonly contextData: Promise<Record<string, string>>;
+  private readonly contextData: Promise<ContextMap>;
+
+  public readonly providers: ContextProvider[];
 
   public constructor(config: Config) {
-    this.config = config;
+    this.providers = [
+      new UserContextProvider(config),
+      new TerraformContextProvider(),
+    ];
     this.contextData = this.initializeContextData();
   }
 
-  private async initializeContextData(): Promise<Record<string, string>> {
-    try {
-      const contents = await fs.readFile(
-        path.join(this.config.configDir, "context.json"),
-        "utf-8",
-      );
-      return JSON.parse(contents);
-    } catch (e) {
-      if (e instanceof Error && "code" in e && e.code === "ENOENT") {
-        return {};
+  private async initializeContextData(): Promise<ContextMap> {
+    const contextData: ContextMap = {};
+
+    for (const provider of this.providers) {
+      const overrides = await provider.getOverrides();
+      Object.assign(contextData, overrides);
+    }
+
+    return contextData;
+  }
+
+  private async persist(data: ContextMapUpdate): Promise<void> {
+    for (const provider of this.providers) {
+      if (isWritable(provider)) {
+        await provider.update(data);
       }
-      throw e;
     }
   }
 
-  private async persist(data: Record<string, string>): Promise<void> {
-    await fs.writeFile(
-      path.join(this.config.configDir, "context.json"),
-      JSON.stringify(data),
-      "utf-8",
-    );
+  private async setContextValue(key: ContextKey, value: string): Promise<void> {
+    return await this.persist({ [key]: value });
   }
 
-  private async setContextValue(key: string, value: string): Promise<void> {
-    const data = await this.contextData;
-    return await this.persist({ ...data, [key]: value });
-  }
-
-  public async getContextValue(key: string): Promise<string | undefined> {
+  public async getContextValue(
+    key: ContextKey,
+  ): Promise<ContextValue | undefined> {
     const data = await this.contextData;
     if (key in data) {
       return data[key];

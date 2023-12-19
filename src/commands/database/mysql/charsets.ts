@@ -1,6 +1,3 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
@@ -10,9 +7,7 @@ import { ListColumns } from "../../../Formatter.js";
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2MysqlCharsets.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export type PathParams =
-  MittwaldAPIV2.Paths.V2MysqlCharsets.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["database"]["listMysqlCharsets"]>
 >;
 
@@ -30,16 +25,7 @@ export class Charsets extends ListBaseCommand<
   };
 
   public async getData(): Promise<Response> {
-    const pathParams: PathParams = {};
-    return await this.apiClient.database.listMysqlCharsets(
-      (await this.mapParams(pathParams)) as Parameters<
-        typeof this.apiClient.database.listMysqlCharsets
-      >[0],
-    );
-  }
-
-  protected mapParams(input: PathParams): Promise<PathParams> | PathParams {
-    return input;
+    return await this.apiClient.database.listMysqlCharsets({});
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
@@ -47,7 +33,7 @@ export class Charsets extends ListBaseCommand<
     return data;
   }
 
-  protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+  protected getColumns(): ListColumns<ResponseItem> {
     return {
       name: {},
       collations: {

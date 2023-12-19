@@ -1,9 +1,7 @@
 import { Args } from "@oclif/core";
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../GetBaseCommand.js";
 
-export type PathParams =
-  MittwaldAPIV2.Paths.V2RedisDatabasesRedisDatabaseId.Get.Parameters.Path;
 type APIResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["database"]["getRedisDatabase"]>
 >;
@@ -25,9 +23,5 @@ export class Get extends GetBaseCommand<typeof Get, APIResponse> {
     return await this.apiClient.database.getRedisDatabase({
       redisDatabaseId: this.args.id,
     });
-  }
-
-  protected mapParams(input: PathParams): Promise<PathParams> | PathParams {
-    return input;
   }
 }

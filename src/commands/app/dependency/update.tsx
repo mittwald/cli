@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
-import { appInstallationFlags } from "../../../lib/app/flags.js";
+import { appInstallationArgs } from "../../../lib/app/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -8,18 +8,18 @@ import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { ReactNode } from "react";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import AppSystemSoftwareUpdatePolicy = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareUpdatePolicy;
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Range, SemVer } from "semver";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import AppSystemSoftwareVersion = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
-import AppSystemSoftware = MittwaldAPIV2.Components.Schemas.AppSystemSoftware;
 import { Value } from "../../../rendering/react/components/Value.js";
 import { Text } from "ink";
+import AppSystemSoftwareUpdatePolicy = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareUpdatePolicy;
+import AppSystemSoftwareVersion = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
+import AppSystemSoftware = MittwaldAPIV2.Components.Schemas.AppSystemSoftware;
 
 export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
   static summary = "Update the dependencies of an app";
-  static args = { ...appInstallationFlags };
+  static args = { ...appInstallationArgs };
   static examples = [
     {
       description:
@@ -46,7 +46,7 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
   };
 
   protected async exec(): Promise<void> {
-    const appInstallationId = this.args["installation-id"];
+    const appInstallationId = await this.withAppInstallationId(Update);
     const updatePolicy = this.flags[
       "update-policy"
     ] as AppSystemSoftwareUpdatePolicy;

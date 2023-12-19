@@ -4,14 +4,13 @@ import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { Flags } from "@oclif/core";
 import { ListColumns } from "../../../Formatter.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Ingresses.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 
-export type PathParams = MittwaldAPIV2.Paths.V2Ingresses.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["domain"]["ingressListIngresses"]>
 >;
 
@@ -34,21 +33,11 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       return await this.apiClient.domain.ingressListIngresses({});
     }
 
-    const projectId = await withProjectId(
-      this.apiClient,
-      List,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const projectId = await this.withProjectId(List);
 
     return await this.apiClient.domain.ingressListIngresses({
       queryParameters: { projectId },
     });
-  }
-
-  protected mapParams(input: PathParams): Promise<PathParams> | PathParams {
-    return input;
   }
 
   protected mapData(

@@ -1,22 +1,15 @@
-import { BaseCommand } from "../../BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import * as child_process from "child_process";
-import { projectArgs, withProjectId } from "../../lib/project/flags.js";
+import { projectArgs } from "../../lib/project/flags.js";
+import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
 
-export default class Ssh extends BaseCommand {
+export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static description = "Connect to a project via SSH";
 
   static args = { ...projectArgs };
 
   public async run(): Promise<void> {
-    const { args } = await this.parse(Ssh);
-    const projectId = await withProjectId(
-      this.apiClient,
-      Ssh,
-      {},
-      args,
-      this.config,
-    );
+    const projectId = await this.withProjectId(Ssh);
 
     const projectResponse = await this.apiClient.project.getProject({
       projectId,

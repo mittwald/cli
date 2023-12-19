@@ -1,6 +1,3 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
@@ -14,9 +11,9 @@ type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdMailAddresses.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 
-export type PathParams =
+type PathParams =
   MittwaldAPIV2.Paths.V2ProjectsProjectIdMailAddresses.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["mail"]["listMailAddresses"]>
 >;
 
@@ -30,14 +27,8 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   };
 
   public async getData(): Promise<Response> {
-    const pathParams: PathParams = {
-      projectId: this.flags["project-id"],
-    };
-    return await this.apiClient.mail.listMailAddresses(
-      (await this.mapParams(pathParams)) as Parameters<
-        typeof this.apiClient.mail.listMailAddresses
-      >[0],
-    );
+    const projectId = await this.withProjectId(List);
+    return await this.apiClient.mail.listMailAddresses({ projectId });
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

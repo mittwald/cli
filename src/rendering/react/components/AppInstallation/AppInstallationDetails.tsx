@@ -12,6 +12,7 @@ import { phpInstaller } from "../../../../commands/app/create/php.js";
 import { nodeInstaller } from "../../../../commands/app/create/node.js";
 import { useProject } from "../../../../lib/project/hooks.js";
 import { IDAndShortID } from "../IDAndShortID.js";
+import path from "path";
 
 export const AppInstallationDetails: FC<{
   appInstallation: AppAppInstallation;
@@ -29,6 +30,10 @@ export const AppInstallationDetails: FC<{
     : undefined;
   const project = appInstallation.projectId
     ? useProject(appInstallation.projectId)
+    : null;
+
+  const absoluteInstallPath = project
+    ? path.join(project.directories["Web"], appInstallation.installationPath)
     : null;
 
   const rows = {
@@ -51,7 +56,11 @@ export const AppInstallationDetails: FC<{
     ) : (
       <Value notSet />
     ),
-    "Installation Path": <Value>{appInstallation.installationPath}</Value>,
+    "Installation Path": absoluteInstallPath ? (
+      <Value>{absoluteInstallPath}</Value>
+    ) : (
+      <Value notSet />
+    ),
     "Document root (in installation path)": (
       <Value>{appInstallation.customDocumentRoot ?? "/"}</Value>
     ),
@@ -75,6 +84,22 @@ export const AppInstallationDetails: FC<{
 
   const sections = [
     <SingleResult key="primary" title={title} rows={rows} />,
+    <SingleResult
+      key="access"
+      title="Access"
+      rows={{
+        "SSH/SFTP Host": (
+          <Text>
+            <Value>
+              ssh.{project?.clusterID}.{project?.clusterDomain}
+            </Value>{" "}
+            <Text color="gray">
+              (Use the "app ssh" command to connect directly using the CLI)
+            </Text>
+          </Text>
+        ),
+      }}
+    />,
     <AppSystemSoftware
       key="systemsoftware"
       appInstallation={appInstallation}

@@ -9,6 +9,8 @@ import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
 import { Render } from "./components/Render.js";
 import { CommandArgs, CommandFlags } from "../../types.js";
 import { useIncreaseInkStdoutColumns } from "./hooks/useIncreaseInkStdoutColumns.js";
+import { usePromise } from "@mittwald/react-use-promise";
+import { CommandType } from "../../lib/context_flags.js";
 
 const renderFlags = {
   output: Flags.string({
@@ -73,4 +75,16 @@ export abstract class RenderBaseCommand<
   }
 
   protected abstract render(): ReactNode;
+
+  protected useAppInstallationId(
+    command: CommandType<"installation"> | "flag" | "arg",
+  ): string {
+    return usePromise(() => this.withAppInstallationId(command), []);
+  }
+
+  protected useProjectId(
+    command: CommandType<"project"> | "flag" | "arg",
+  ): string {
+    return usePromise(() => this.withProjectId(command), []);
+  }
 }

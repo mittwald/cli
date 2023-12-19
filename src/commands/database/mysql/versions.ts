@@ -7,9 +7,7 @@ import { ListColumns } from "../../../Formatter.js";
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2MysqlVersions.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export type PathParams =
-  MittwaldAPIV2.Paths.V2MysqlVersions.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["database"]["listMysqlVersions"]>
 >;
 
@@ -26,9 +24,7 @@ export class Versions extends ListBaseCommand<
   };
 
   public async getData(): Promise<Response> {
-    return await this.apiClient.database.listMysqlVersions({
-      pathParameters: {},
-    } as Parameters<typeof this.apiClient.database.listMysqlVersions>[0]);
+    return await this.apiClient.database.listMysqlVersions({});
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

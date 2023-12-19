@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { serverFlags, withServerId } from "../../lib/server/flags.js";
+import { serverFlags } from "../../lib/server/flags.js";
 import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
 import { Text } from "ink";
 import React, { ReactNode } from "react";
@@ -37,13 +37,7 @@ export default class Create extends ExecRenderBaseCommand<
     const { flags } = await this.parse(Create);
     const { description } = flags;
     const process = makeProcessRenderer(flags, "Creating project");
-    const serverId = await withServerId(
-      this.apiClient,
-      Create,
-      flags,
-      {},
-      this.config,
-    );
+    const serverId = await this.withServerId(Create);
 
     const stepCreating = process.addStep(<Text>creating a new project</Text>);
 

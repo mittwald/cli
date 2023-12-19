@@ -5,6 +5,7 @@ export type NoteProps = PropsWithChildren<{
   title?: string;
   color?: string;
   marginY?: number;
+  marginBottom?: number;
   raw?: boolean;
 }>;
 
@@ -28,6 +29,7 @@ export const Note: FC<NoteProps> = (props) => {
       flexDirection="column"
       paddingX={2}
       marginY={marginY}
+      marginBottom={props.marginBottom}
     >
       <Text bold underline color={color}>
         {title.toUpperCase()}

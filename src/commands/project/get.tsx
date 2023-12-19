@@ -1,6 +1,6 @@
 import { GetBaseCommand } from "../../GetBaseCommand.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import { projectArgs, withProjectId } from "../../lib/project/flags.js";
+import { projectArgs } from "../../lib/project/flags.js";
 import { FC, ReactNode } from "react";
 import { GetFormatter } from "../../Formatter.js";
 import {
@@ -167,11 +167,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
   );
 
   protected render(): ReactNode {
-    const projectId = usePromise(
-      () =>
-        withProjectId(this.apiClient, Get, this.flags, this.args, this.config),
-      [],
-    );
+    const projectId = this.useProjectId(Get);
     const projectResponse = usePromise(
       (projectId: string) => this.apiClient.project.getProject({ projectId }),
       [projectId],

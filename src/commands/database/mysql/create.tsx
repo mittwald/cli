@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/project/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -58,13 +58,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Creating a new MySQL database");
-    const projectId = await withProjectId(
-      this.apiClient,
-      Create,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const projectId = await this.withProjectId(Create);
 
     const {
       description,
