@@ -130,6 +130,8 @@ USAGE
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
 * [`mw cronjob create`](#mw-cronjob-create)
 * [`mw cronjob delete CRONJOB-ID`](#mw-cronjob-delete-cronjob-id)
+* [`mw cronjob execute CRONJOB-ID`](#mw-cronjob-execute-cronjob-id)
+* [`mw cronjob execution abort CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-abort-cronjob-id-execution-id)
 * [`mw cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-get-cronjob-id-execution-id)
 * [`mw cronjob execution list`](#mw-cronjob-execution-list)
 * [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
@@ -1985,6 +1987,46 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+## `mw cronjob execute CRONJOB-ID`
+
+Manually run a cron job
+
+```
+USAGE
+  $ mw cronjob execute CRONJOB-ID [-q]
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw cronjob execution abort CRONJOB-ID EXECUTION-ID`
+
+Abort a running cron job execution.
+
+```
+USAGE
+  $ mw cronjob execution abort CRONJOB-ID EXECUTION-ID [-q]
+
+ARGUMENTS
+  CRONJOB-ID    ID of the cronjob the execution belongs to
+  EXECUTION-ID  ID of the cron job execution to abort
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 ## `mw cronjob execution get CRONJOB-ID EXECUTION-ID`
 
 Get a cron job execution.
@@ -2020,7 +2062,7 @@ USAGE
 FLAGS
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
-      --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
+      --cronjob-id=<value>  (required) ID of the cron job for which to list executions for.
       --csv                 output is csv format [alias: --output=csv]
       --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
@@ -3638,7 +3680,7 @@ USAGE
 FLAGS
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
-      --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
+      --cronjob-id=<value>  (required) ID of the cron job for which to list executions for.
       --csv                 output is csv format [alias: --output=csv]
       --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output

@@ -8,10 +8,7 @@ import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-import {
-  appInstallationFlags,
-  withAppInstallationId,
-} from "../../lib/app/flags.js";
+import { appInstallationFlags } from "../../lib/app/flags.js";
 
 type Result = {
   cronjobId: string;
@@ -64,13 +61,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Creating a new cron job");
-    const appInstallationId = await withAppInstallationId(
-      this.apiClient,
-      Create,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const appInstallationId = await this.withAppInstallationId(Create);
 
     const { description, interval, disable, email, url, interpreter, command } =
       this.flags;
