@@ -36,6 +36,11 @@ export class ListFormatter {
   public static get flags(): FlagInput {
     return {
       ...ux.table.flags(),
+      output: {
+        ...ux.table.flags().output,
+        options: ["json", "yaml", "csv"],
+        char: "o",
+      },
     };
   }
 
@@ -45,6 +50,11 @@ export class ListFormatter {
     opts?: ListOptions,
   ): void {
     if (output.length === 0) {
+      return;
+    }
+
+    if (opts?.output === "json" || opts?.output === "yaml") {
+      PrinterFactory.build(opts.output).log(output);
       return;
     }
 
