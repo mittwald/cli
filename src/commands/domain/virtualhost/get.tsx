@@ -162,7 +162,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
     const ingressId = this.args["ingress-id"];
     const ingressResponse = usePromise(
       (id: string) =>
-        this.apiClient.domain.ingressGetSpecific({
+        this.apiClient.domain.ingressGetIngress({
           ingressId: id,
         }),
       [ingressId],

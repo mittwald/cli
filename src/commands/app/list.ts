@@ -11,7 +11,7 @@ import { phpInstaller } from "./create/php.js";
 import { nodeInstaller } from "./create/node.js";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdAppinstallations.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2ProjectsProjectIdAppInstallations.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 
 type Response = Awaited<

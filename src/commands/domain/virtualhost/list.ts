@@ -12,7 +12,7 @@ type ResponseItem = Simplify<
 
 export type PathParams = MittwaldAPIV2.Paths.V2Ingresses.Get.Parameters.Path;
 export type Response = Awaited<
-  ReturnType<MittwaldAPIV2Client["domain"]["ingressListAccessible"]>
+  ReturnType<MittwaldAPIV2Client["domain"]["ingressListIngresses"]>
 >;
 
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
@@ -31,7 +31,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   public async getData(): Promise<Response> {
     if (this.flags.all) {
-      return await this.apiClient.domain.ingressListAccessible({});
+      return await this.apiClient.domain.ingressListIngresses({});
     }
 
     const projectId = await withProjectId(
@@ -42,8 +42,8 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       this.config,
     );
 
-    return await this.apiClient.domain.ingressListForProject({
-      projectId,
+    return await this.apiClient.domain.ingressListIngresses({
+      queryParameters: { projectId },
     });
   }
 

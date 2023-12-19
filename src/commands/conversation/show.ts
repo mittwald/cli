@@ -67,10 +67,9 @@ export default class Show extends BaseCommand {
           ),
         );
 
-        const rendered = marked(msg.messageContent ?? "")
+        const rendered = (await marked(msg.messageContent ?? ""))
           .trim()
           .split("\n")
-          //.map((l) => `| ${l}`)
           .join("\n");
 
         console.log(rendered);
