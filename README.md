@@ -154,7 +154,6 @@ USAGE
 * [`mw domain dnszone list`](#mw-domain-dnszone-list)
 * [`mw domain get DOMAIN-ID`](#mw-domain-get-domain-id)
 * [`mw domain list`](#mw-domain-list)
-* [`mw domain ownership get DOMAINOWNERSHIPID`](#mw-domain-ownership-get-domainownershipid)
 * [`mw domain ownership list`](#mw-domain-ownership-list)
 * [`mw domain virtualhost create`](#mw-domain-virtualhost-create)
 * [`mw domain virtualhost delete VIRTUAL-HOST-ID`](#mw-domain-virtualhost-delete-virtual-host-id)
@@ -2610,25 +2609,6 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-```
-
-## `mw domain ownership get DOMAINOWNERSHIPID`
-
-Get a domain ownership.
-
-```
-USAGE
-  $ mw domain ownership get DOMAINOWNERSHIPID [-o json|yaml |  | ]
-
-ARGUMENTS
-  DOMAINOWNERSHIPID  The domain ownership ID.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get a domain ownership.
 ```
 
 ## `mw domain ownership list`
