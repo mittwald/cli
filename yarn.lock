@@ -6415,8 +6415,8 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "oclif@npm:4.0.3"
+  version: 4.1.0
+  resolution: "oclif@npm:4.1.0"
   dependencies:
     "@oclif/core": ^3.0.4
     "@oclif/plugin-help": ^5.2.14
@@ -6438,7 +6438,7 @@ __metadata:
     yeoman-generator: ^5.8.0
   bin:
     oclif: bin/run.js
-  checksum: f1a8881696c6f1de816a3f75f0aa00d68482dca692d1b7b60f69c787992786fdb7f4a9b85eac32b1d96cb7944493f345137fd77f6d74965239991bedc213330c
+  checksum: 02fc1775454d172a4b6182720306be36c5a947a69ca9c56c7d05bc47ed58cf2d1f5e268d0c8eff6a587ead0422305967d0ac847630462ca0f4ab3a066c97a9a6
   languageName: node
   linkType: hard
 
