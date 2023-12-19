@@ -1,6 +1,6 @@
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../GetBaseCommand.js";
-import { projectArgs, withProjectId } from "../../../lib/project/flags.js";
+import { projectArgs } from "../../../lib/project/flags.js";
 import { RenderBaseCommand } from "../../../rendering/react/RenderBaseCommand.js";
 import { ReactNode } from "react";
 import { usePromise } from "@mittwald/react-use-promise";
@@ -18,7 +18,7 @@ export type PathParams =
   MittwaldAPIV2.Paths.V2ProjectsProjectIdFilesystemDiskUsage.Get.Parameters.Path;
 
 export class Usage extends RenderBaseCommand<typeof Usage> {
-  static description = "Get a Project directory filesystem usage.";
+  static description = "Get a project directory filesystem usage.";
 
   static flags = {
     ...GetBaseCommand.baseFlags,
@@ -29,17 +29,7 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
   static args = { ...projectArgs };
 
   protected render(): ReactNode {
-    const projectId = usePromise(
-      () =>
-        withProjectId(
-          this.apiClient,
-          Usage,
-          this.flags,
-          this.args,
-          this.config,
-        ),
-      [],
-    );
+    const projectId = this.useProjectId(Usage);
     const project = usePromise(
       (projectId: string) => this.apiClient.project.getProject({ projectId }),
       [projectId],

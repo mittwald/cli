@@ -4,11 +4,7 @@ import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { GetBaseCommand } from "../../GetBaseCommand.js";
 import { AppInstallationDetails } from "../../rendering/react/components/AppInstallation/AppInstallationDetails.js";
 import { useApp, useAppInstallation } from "../../lib/app/hooks.js";
-import {
-  appInstallationArgs,
-  withAppInstallationId,
-} from "../../lib/app/flags.js";
-import { usePromise } from "@mittwald/react-use-promise";
+import { appInstallationArgs } from "../../lib/app/flags.js";
 
 export default class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get details about an app installation";

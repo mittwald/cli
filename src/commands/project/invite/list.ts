@@ -4,7 +4,7 @@ import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdInvites.Get.Responses.$200.Content.ApplicationJson[number]
@@ -27,13 +27,7 @@ export default class List extends ListBaseCommand<
   };
 
   public async getData(): Promise<Response> {
-    const projectId = await withProjectId(
-      this.apiClient,
-      List,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const projectId = await this.withProjectId(List);
     return await this.apiClient.project.listInvitesForProject({ projectId });
   }
 

@@ -3,14 +3,12 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdMysqlDatabases.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export type PathParams =
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdMysqlDatabases.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["database"]["listMysqlDatabases"]>
 >;
 
@@ -24,16 +22,10 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   };
 
   public async getData(): Promise<Response> {
-    const projectId = await withProjectId(
-      this.apiClient,
-      List,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const projectId = await this.withProjectId(List);
     return await this.apiClient.database.listMysqlDatabases({
       projectId,
-    } as Parameters<typeof this.apiClient.database.listMysqlDatabases>[0]);
+    });
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

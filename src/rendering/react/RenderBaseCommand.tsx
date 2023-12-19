@@ -81,4 +81,10 @@ export abstract class RenderBaseCommand<
   ): string {
     return usePromise(() => this.withAppInstallationId(command), []);
   }
+
+  protected useProjectId(
+    command: CommandType<"project"> | "flag" | "arg",
+  ): string {
+    return usePromise(() => this.withProjectId(command), []);
+  }
 }

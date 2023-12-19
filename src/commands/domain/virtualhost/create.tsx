@@ -3,7 +3,7 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../../rendering/process/process_flags.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/project/flags.js";
 import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Flags } from "@oclif/core";
@@ -13,10 +13,10 @@ import { Value } from "../../../rendering/react/components/Value.js";
 import { waitUntil } from "../../../lib/wait.js";
 import { Box } from "ink";
 import { DnsValidationErrors } from "../../../rendering/react/components/Ingress/DnsValidationErrors.js";
+import { DomainOwnership } from "../../../rendering/react/components/Ingress/DomainOwnership.js";
 import IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
 import IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
 import DomainDomainOwnership = MittwaldAPIV2.Components.Schemas.DomainDomainOwnership;
-import { DomainOwnership } from "../../../rendering/react/components/Ingress/DomainOwnership.js";
 
 type CreateResult = {
   ingress: IngressIngress;
@@ -74,13 +74,7 @@ export default class Create extends ExecRenderBaseCommand<
   };
 
   protected async exec(): Promise<CreateResult> {
-    const projectId = await withProjectId(
-      this.apiClient,
-      Create,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const projectId = await this.withProjectId(Create);
     const process = makeProcessRenderer(this.flags, "Creating a new ingress");
     const { hostname } = this.flags;
     const paths: IngressPath[] = [];

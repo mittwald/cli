@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/project/flags.js";
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
@@ -99,13 +99,7 @@ export default class Create extends ExecRenderBaseCommand<
 
   protected async exec(): Promise<CreateResult> {
     const { flags } = await this.parse(Create);
-    const projectId = await withProjectId(
-      this.apiClient,
-      Create,
-      flags,
-      {},
-      this.config,
-    );
+    const projectId = await this.withProjectId(Create);
 
     const process = makeProcessRenderer(flags, "Creating a new mail address");
     const [password, passwordGenerated] = await this.getPassword(process);

@@ -3,7 +3,7 @@ import { Simplify } from "@mittwald/api-client-commons";
 import { SuccessfulResponse } from "../../types.js";
 import { ListColumns } from "../../Formatter.js";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../lib/project/flags.js";
+import { projectFlags } from "../../lib/project/flags.js";
 
 type SshUserResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["sshsftpUser"]["sftpUserListSftpUsers"]>
@@ -32,13 +32,7 @@ export class List extends ListBaseCommand<
   static deprecateAliases = true;
 
   public async getData(): Promise<Response> {
-    const projectId = await withProjectId(
-      this.apiClient,
-      List,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const projectId = await this.withProjectId(List);
     return await this.apiClient.sshsftpUser.sshUserListSshUsers({ projectId });
   }
 

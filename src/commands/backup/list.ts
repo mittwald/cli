@@ -2,7 +2,7 @@ import { Response, Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../lib/project/flags.js";
+import { projectFlags } from "../../lib/project/flags.js";
 import { ListColumns } from "../../Formatter.js";
 import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
 import BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
@@ -28,13 +28,7 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
   }
 
   public async getData(): Promise<ListResponse> {
-    const projectId = await withProjectId(
-      this.apiClient,
-      List,
-      this.flags,
-      {},
-      this.config,
-    );
+    const projectId = await this.withProjectId(List);
     return await this.apiClient.backup.listProjectBackups({
       projectId,
     } as Parameters<typeof this.apiClient.backup.listProjectBackups>[0]);
