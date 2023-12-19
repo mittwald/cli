@@ -7,21 +7,19 @@ import {
 } from "@oclif/core/lib/interfaces/parser.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
-import { Context, ContextNames } from "./context.js";
-
-type FlagIDType<N extends ContextNames> = `${N}-id`;
+import { Context, ContextKey, ContextNames } from "./context.js";
 
 type ContextFlags<
   N extends ContextNames,
-  TID extends string = FlagIDType<N>,
+  TID extends string = ContextKey<N>,
 > = {
   [k in TID]: OptionFlag<string>;
 };
-type ContextArgs<N extends ContextNames, TID extends string = FlagIDType<N>> = {
+type ContextArgs<N extends ContextNames, TID extends string = ContextKey<N>> = {
   [k in TID]: Arg<string>;
 };
 
-type CommandType<N extends ContextNames, TID extends string = FlagIDType<N>> =
+type CommandType<N extends ContextNames, TID extends string = ContextKey<N>> =
   | {
       flags: { [k in TID]: OptionFlag<string> };
     }
@@ -68,13 +66,14 @@ export function makeFlagSet<TName extends ContextNames>(
   char: AlphabetLowercase,
   normalize: NormalizeFn = (_, id) => id,
 ): FlagSet<TName> {
-  const flagName: FlagIDType<TName> = `${name}-id`;
+  const flagName: ContextKey<TName> = `${name}-id`;
   const flags = {
     [flagName]: Flags.string({
       char,
       required: false,
       summary: `ID or short ID of a ${name}; this flag is optional if a default ${name} is set in the context`,
       description: `May contain a short ID or a full ID of a ${name}; you can also use the "<%= config.bin %> context set --${name}-id=<VALUE>" command to persistently set a default ${name} for all commands that accept this flag.`,
+      default: undefined,
     }),
   } as ContextFlags<TName>;
 
