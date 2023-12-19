@@ -34,10 +34,11 @@ export class GetFormatter<T = unknown> {
 
 export class ListFormatter {
   public static get flags(): FlagInput {
+    const tableFlags = ux.table.flags();
     return {
-      ...ux.table.flags(),
+      ...tableFlags,
       output: {
-        ...ux.table.flags().output,
+        ...tableFlags.output,
         options: ["json", "yaml", "csv"],
         char: "o",
       },
@@ -49,12 +50,12 @@ export class ListFormatter {
     columns: ListColumns<T>,
     opts?: ListOptions,
   ): void {
-    if (output.length === 0) {
+    if (opts?.output === "json" || opts?.output === "yaml") {
+      PrinterFactory.build(opts.output).log(output);
       return;
     }
 
-    if (opts?.output === "json" || opts?.output === "yaml") {
-      PrinterFactory.build(opts.output).log(output);
+    if (output.length === 0) {
       return;
     }
 
