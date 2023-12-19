@@ -128,6 +128,8 @@ USAGE
 * [`mw conversation reply ID`](#mw-conversation-reply-id)
 * [`mw conversation show ID`](#mw-conversation-show-id)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
+* [`mw cronjob create`](#mw-cronjob-create)
+* [`mw cronjob delete CRONJOB-ID`](#mw-cronjob-delete-cronjob-id)
 * [`mw cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-get-cronjob-id-execution-id)
 * [`mw cronjob execution list`](#mw-cronjob-execution-list)
 * [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
@@ -1922,6 +1924,67 @@ FLAGS
   --wait
 ```
 
+## `mw cronjob create`
+
+Create a new cron job
+
+```
+USAGE
+  $ mw cronjob create --description <value> --interval <value> [-i <value>] [-q] [--disable] [--email <value>]
+    [--url <value> | --command <value>] [--interpreter <value>]
+
+FLAGS
+  -i, --installation-id=<value>  ID or short ID of a installation; this flag is optional if a default installation is
+                                 set in the context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+      --command=<value>          Command to execute for the cron job; either this or `--url` is required.
+      --description=<value>      (required) Description of the cron job
+      --disable                  Disable the cron job after creation
+      --email=<value>            Email address to send cron job output to
+      --interpreter=<value>      [default: /bin/sh] Interpreter to use for the cron job
+      --interval=<value>         (required) Interval of the cron job, in standard UNIX cron syntax
+      --url=<value>              URL to call for the cron job; either this or `--command` is required.
+
+FLAG DESCRIPTIONS
+  -i, --installation-id=<value>
+
+    ID or short ID of a installation; this flag is optional if a default installation is set in the context
+
+    May contain a short ID or a full ID of a installation; you can also use the "mw context set
+    --installation-id=<VALUE>" command to persistently set a default installation for all commands that accept this
+    flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw cronjob delete CRONJOB-ID`
+
+Delete a cron job
+
+```
+USAGE
+  $ mw cronjob delete CRONJOB-ID [-q] [-f]
+
+ARGUMENTS
+  CRONJOB-ID  ID of the cronjob to be deleted.
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a cron job
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 ## `mw cronjob execution get CRONJOB-ID EXECUTION-ID`
 
 Get a cron job execution.
@@ -2025,7 +2088,7 @@ ALIASES
 
 ## `mw cronjob list`
 
-List Cronjobs belonging to a Project.
+List cron jobs belonging to a project.
 
 ```
 USAGE
@@ -2046,7 +2109,7 @@ FLAGS
       --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List Cronjobs belonging to a Project.
+  List cron jobs belonging to a project.
 
 ALIASES
   $ mw project cronjob list
@@ -3643,7 +3706,7 @@ ALIASES
 
 ## `mw project cronjob list`
 
-List Cronjobs belonging to a Project.
+List cron jobs belonging to a project.
 
 ```
 USAGE
@@ -3664,7 +3727,7 @@ FLAGS
       --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List Cronjobs belonging to a Project.
+  List cron jobs belonging to a project.
 
 ALIASES
   $ mw project cronjob list

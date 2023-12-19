@@ -16,7 +16,7 @@ export type Response = Awaited<
 >;
 
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
-  static description = "List Cronjobs belonging to a Project.";
+  static description = "List cron jobs belonging to a project.";
 
   static aliases = ["project:cronjob:list"];
   static deprecateAliases = true;
