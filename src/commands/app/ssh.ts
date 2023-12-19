@@ -1,14 +1,11 @@
-import { BaseCommand } from "../../BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import * as child_process from "child_process";
-import {
-  appInstallationArgs,
-  withAppInstallationId,
-} from "../../lib/app/flags.js";
+import { appInstallationArgs } from "../../lib/app/flags.js";
 import { Flags } from "@oclif/core";
 import * as path from "path";
+import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
 
-export default class Ssh extends BaseCommand {
+export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static description = "Connect to an app via SSH";
 
   static args = { ...appInstallationArgs };
@@ -24,18 +21,12 @@ export default class Ssh extends BaseCommand {
   };
 
   public async run(): Promise<void> {
-    const { args, flags } = await this.parse(Ssh);
-    const id = await withAppInstallationId(
-      this.apiClient,
-      Ssh,
-      args,
-      flags,
-      this.config,
-    );
+    const { flags } = await this.parse(Ssh);
+    const appInstallationId = await this.withAppInstallationId(Ssh);
 
     const appInstallationResponse = await this.apiClient.app.getAppinstallation(
       {
-        appInstallationId: id,
+        appInstallationId,
       },
     );
 

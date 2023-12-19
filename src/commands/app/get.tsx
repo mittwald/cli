@@ -16,17 +16,7 @@ export default class Get extends RenderBaseCommand<typeof Get> {
   static args = { ...appInstallationArgs };
 
   protected render(): ReactNode {
-    const appInstallationId = usePromise(
-      () =>
-        withAppInstallationId(
-          this.apiClient,
-          Get,
-          this.flags,
-          this.args,
-          this.config,
-        ),
-      [],
-    );
+    const appInstallationId = this.useAppInstallationId(Get);
     const appInstallation = useAppInstallation(appInstallationId);
     const app = useApp(appInstallation.appId);
 

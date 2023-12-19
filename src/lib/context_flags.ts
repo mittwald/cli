@@ -19,7 +19,10 @@ type ContextArgs<N extends ContextNames, TID extends string = ContextKey<N>> = {
   [k in TID]: Arg<string>;
 };
 
-type CommandType<N extends ContextNames, TID extends string = ContextKey<N>> =
+export type CommandType<
+  N extends ContextNames,
+  TID extends string = ContextKey<N>,
+> =
   | {
       flags: { [k in TID]: OptionFlag<string> };
     }

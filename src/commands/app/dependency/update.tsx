@@ -1,8 +1,5 @@
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
-import {
-  appInstallationArgs,
-  withAppInstallationId,
-} from "../../../lib/app/flags.js";
+import { appInstallationArgs } from "../../../lib/app/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -49,13 +46,7 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
   };
 
   protected async exec(): Promise<void> {
-    const appInstallationId = await withAppInstallationId(
-      this.apiClient,
-      Update,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const appInstallationId = await this.withAppInstallationId(Update);
     const updatePolicy = this.flags[
       "update-policy"
     ] as AppSystemSoftwareUpdatePolicy;

@@ -1,9 +1,6 @@
 import { assertStatus } from "@mittwald/api-client-commons";
 import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
-import {
-  appInstallationArgs,
-  withAppInstallationId,
-} from "../../lib/app/flags.js";
+import { appInstallationArgs } from "../../lib/app/flags.js";
 
 export default class Uninstall extends DeleteBaseCommand<typeof Uninstall> {
   static description = "Uninstall an app";
@@ -14,13 +11,7 @@ export default class Uninstall extends DeleteBaseCommand<typeof Uninstall> {
   };
 
   protected async deleteResource(): Promise<void> {
-    const appInstallationId = await withAppInstallationId(
-      this.apiClient,
-      Uninstall,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const appInstallationId = await this.withAppInstallationId(Uninstall);
     const response = await this.apiClient.app.uninstallAppinstallation({
       appInstallationId,
     });
