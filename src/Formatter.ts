@@ -34,7 +34,12 @@ export class GetFormatter<T = unknown> {
 
 export class ListFormatter {
   public static get flags(): FlagInput {
-    const tableFlags = ux.table.flags();
+    const tableFlags: Partial<typeof ux.table.Flags> &
+      Pick<typeof ux.table.Flags, "output"> = ux.table.flags();
+
+    delete tableFlags.sort;
+    delete tableFlags.filter;
+
     return {
       ...tableFlags,
       output: {
