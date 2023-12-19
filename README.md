@@ -3703,7 +3703,7 @@ FLAG DESCRIPTIONS
 
 ## `mw project filesystem usage [PROJECT-ID]`
 
-Get a Project directory filesystem usage.
+Get a project directory filesystem usage.
 
 ```
 USAGE
@@ -3718,7 +3718,7 @@ FLAGS
       --human            Display human readable sizes.
 
 DESCRIPTION
-  Get a Project directory filesystem usage.
+  Get a project directory filesystem usage.
 ```
 
 ## `mw project get [PROJECT-ID]`
