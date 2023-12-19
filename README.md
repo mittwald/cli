@@ -2613,7 +2613,7 @@ FLAG DESCRIPTIONS
 
 ## `mw domain ownership list`
 
-List all domain ownerships of a project.
+List all pending domain ownerships of a project.
 
 ```
 USAGE
@@ -2634,7 +2634,7 @@ FLAGS
       --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
-  List all domain ownerships of a project.
+  List all pending domain ownerships of a project.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context

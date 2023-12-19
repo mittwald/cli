@@ -3,6 +3,7 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { projectFlags } from "../../../lib/project/flags.js";
+import { ListColumns } from "../../../Formatter.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdDomainOwnerships.Get.Responses.$200.Content.ApplicationJson[number]
@@ -12,7 +13,7 @@ type Response = Awaited<
 >;
 
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
-  static description = "List all domain ownerships of a project.";
+  static description = "List all pending domain ownerships of a project.";
 
   static args = {};
   static flags = {
@@ -27,5 +28,15 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return data;
+  }
+
+  protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+    const { id } = super.getColumns(data);
+    return {
+      id,
+      domain: {
+        header: "Domain",
+      },
+    };
   }
 }
