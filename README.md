@@ -135,7 +135,7 @@ USAGE
 * [`mw cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-get-cronjob-id-execution-id)
 * [`mw cronjob execution list`](#mw-cronjob-execution-list)
 * [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
-* [`mw cronjob get CRONJOBID`](#mw-cronjob-get-cronjobid)
+* [`mw cronjob get CRONJOB-ID`](#mw-cronjob-get-cronjob-id)
 * [`mw cronjob list`](#mw-cronjob-list)
 * [`mw database mysql charsets`](#mw-database-mysql-charsets)
 * [`mw database mysql create`](#mw-database-mysql-create)
@@ -194,7 +194,6 @@ USAGE
 * [`mw project cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-project-cronjob-execution-get-cronjob-id-execution-id)
 * [`mw project cronjob execution list`](#mw-project-cronjob-execution-list)
 * [`mw project cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-project-cronjob-execution-logs-cronjob-id-execution-id)
-* [`mw project cronjob get CRONJOBID`](#mw-project-cronjob-get-cronjobid)
 * [`mw project cronjob list`](#mw-project-cronjob-list)
 * [`mw project delete [PROJECT-ID]`](#mw-project-delete-project-id)
 * [`mw project filesystem usage [PROJECT-ID]`](#mw-project-filesystem-usage-project-id)
@@ -2106,26 +2105,23 @@ ALIASES
   $ mw project cronjob execution logs
 ```
 
-## `mw cronjob get CRONJOBID`
+## `mw cronjob get CRONJOB-ID`
 
-Get a cronjob.
+Get details of a cron job
 
 ```
 USAGE
-  $ mw cronjob get CRONJOBID [-o json|yaml |  | ]
+  $ mw cronjob get CRONJOB-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  CRONJOBID  ID of the cronjob to be retrieved.
+  CRONJOB-ID  ID of the cron job to be retrieved.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a cronjob.
-
-ALIASES
-  $ mw project cronjob get
+  Get details of a cron job
 ```
 
 ## `mw cronjob list`
@@ -3722,28 +3718,6 @@ DESCRIPTION
 
 ALIASES
   $ mw project cronjob execution logs
-```
-
-## `mw project cronjob get CRONJOBID`
-
-Get a cronjob.
-
-```
-USAGE
-  $ mw project cronjob get CRONJOBID [-o json|yaml |  | ]
-
-ARGUMENTS
-  CRONJOBID  ID of the cronjob to be retrieved.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get a cronjob.
-
-ALIASES
-  $ mw project cronjob get
 ```
 
 ## `mw project cronjob list`
