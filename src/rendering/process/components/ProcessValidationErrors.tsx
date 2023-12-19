@@ -17,16 +17,20 @@ export const ProcessValidationErrors: React.FC<{
   err: CommonsValidationErrors;
   color?: string;
 }> = ({ err, color = "red" }) => {
-  const errorItems = err.validationErrors.map((e, idx) => (
-    <Box flexDirection="row" key={idx}>
-      <Box minWidth={e.path.length + 2}>
-        <Text color={color} bold>
-          {e.path}:{" "}
-        </Text>
+  const errorItems = err.validationErrors.map((e, idx) => {
+    return (
+      <Box flexDirection="row" key={idx}>
+        {e.path && (
+          <Box minWidth={e.path + 2}>
+            <Text color={color} bold>
+              {e.path}:{" "}
+            </Text>
+          </Box>
+        )}
+        <Text color={color}>{e.message}</Text>
       </Box>
-      <Text color={color}>{e.message}</Text>
-    </Box>
-  ));
+    );
+  });
 
   return (
     <Box {...boxProps}>
