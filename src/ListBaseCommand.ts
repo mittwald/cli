@@ -4,6 +4,7 @@ import { ListColumns, ListFormatter } from "./Formatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
 import { formatRelativeDate } from "./lib/viewhelpers/date.js";
 import { SuccessfulResponse } from "./types.js";
+import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof ListBaseCommand)["baseFlags"] & T["flags"]
@@ -14,13 +15,10 @@ export abstract class ListBaseCommand<
   T extends typeof BaseCommand,
   TItem extends Record<string, unknown>,
   TAPIResponse extends Response,
-> extends BaseCommand {
+> extends ExtendedBaseCommand<T> {
   static baseFlags = {
     ...ListFormatter.flags,
   };
-
-  protected flags!: Flags<T>;
-  protected args!: Args<T>;
 
   protected formatter: ListFormatter = new ListFormatter();
 

@@ -2,6 +2,7 @@ import { BaseCommand } from "./BaseCommand.js";
 import { CommandArgs, CommandFlags } from "./types.js";
 import { withAppInstallationId } from "./lib/app/flags.js";
 import { CommandType } from "./lib/context_flags.js";
+import { withProjectId } from "./lib/project/flags.js";
 
 export abstract class ExtendedBaseCommand<
   T extends typeof BaseCommand,
@@ -26,6 +27,18 @@ export abstract class ExtendedBaseCommand<
     command: CommandType<"installation"> | "flag" | "arg",
   ): Promise<string> {
     return withAppInstallationId(
+      this.apiClient,
+      command,
+      this.flags,
+      this.args,
+      this.config,
+    );
+  }
+
+  public async withProjectId(
+    command: CommandType<"project"> | "flag" | "arg",
+  ): Promise<string> {
+    return withProjectId(
       this.apiClient,
       command,
       this.flags,
