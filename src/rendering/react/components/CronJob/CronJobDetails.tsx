@@ -39,17 +39,17 @@ const CronJobExecutionTargetURL: FC<{ dest: CronjobCronjobUrl }> = ({
   );
 };
 
-const CronJobExecutionTargetCommand: FC<{ dest: CronjobCronjobCommand }> = ({
-  dest,
+const CronJobExecutionTargetCommand: FC<{ command: CronjobCronjobCommand }> = ({
+  command,
 }) => {
   return (
     <SingleResult
       title="EXECUTION TARGET"
       rows={{
-        Interpreter: <Value>{dest.interpreter}</Value>,
-        Script: <Value>{dest.path}</Value>,
-        Parameters: dest.parameters ? (
-          <Value>{dest.parameters} </Value>
+        Interpreter: <Value>{command.interpreter}</Value>,
+        Script: <Value>{command.path}</Value>,
+        Parameters: command.parameters ? (
+          <Value>{command.parameters} </Value>
         ) : (
           <Value notSet />
         ),
@@ -98,7 +98,7 @@ export const CronJobDetails: CronJobComponent = ({ cronjob }) => {
     sections.push(
       <CronJobExecutionTargetCommand
         key="destination"
-        dest={cronjob.destination}
+        command={cronjob.destination}
       />,
     );
   }
