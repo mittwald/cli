@@ -5,4 +5,4 @@ export const {
   flags: projectFlags,
   args: projectArgs,
   withId: withProjectId,
-} = makeFlagSet("project", "p", normalizeProjectIdToUuid);
+} = makeFlagSet("project", "p", { normalize: normalizeProjectIdToUuid });
