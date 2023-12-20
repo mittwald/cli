@@ -3,6 +3,7 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
 import { projectFlags } from "../../lib/project/flags.js";
 import { SuccessfulResponse } from "../../types.js";
+import { ListColumns } from "../../Formatter.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdDomains.Get.Responses.$200.Content.ApplicationJson[number]
@@ -12,7 +13,7 @@ type Response = Awaited<
 >;
 
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
-  static description = "List Domains belonging to a Project.";
+  static description = "List domains belonging to a project.";
 
   static args = {};
   static flags = {
@@ -29,5 +30,31 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     data: SuccessfulResponse<Response, 200>["data"],
   ): ResponseItem[] | Promise<ResponseItem[]> {
     return data;
+  }
+
+  protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+    return {
+      id: {
+        header: "ID",
+        get: (r) => r.domainId,
+      },
+      domain: {
+        header: "Domain",
+      },
+      owner: {
+        header: "Owner",
+        get: (r) =>
+          r.handles.ownerC.current.handleFields?.find((f) => f.name === "name")
+            ?.value,
+      },
+      connected: {
+        header: "Connected",
+      },
+      nameservers: {
+        header: "Nameservers",
+        extended: true,
+        get: (r) => r.nameservers.join(", "),
+      },
+    };
   }
 }

@@ -30,14 +30,14 @@ export default class Verify extends ExecRenderBaseCommand<
     ...projectFlags,
   };
   static args = {
-    domain: Args.string({
+    hostname: Args.string({
       description: "Name of the domain to verify",
       required: true,
     }),
   };
 
   protected async exec(): Promise<VerifyResult> {
-    const { domain } = this.args;
+    const { hostname } = this.args;
     const projectId = await this.withProjectId(Verify);
     const process = makeProcessRenderer(
       this.flags,
@@ -56,9 +56,9 @@ export default class Verify extends ExecRenderBaseCommand<
       },
     );
 
-    const ownership = ownerships.find((o) => o.domain === domain);
+    const ownership = ownerships.find((o) => o.domain === hostname);
     if (!ownership) {
-      throw new Error(`No pending domain ownership for ${domain} found.`);
+      throw new Error(`No pending domain ownership for ${hostname} found.`);
     }
 
     await process.runStep("verifying domain ownership", async () => {

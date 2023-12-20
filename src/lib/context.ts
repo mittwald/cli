@@ -2,7 +2,12 @@ import { Config } from "@oclif/core";
 import { TerraformContextProvider } from "./context_terraform.js";
 import { UserContextProvider } from "./context_user.js";
 
-export type ContextNames = "project" | "server" | "org" | "installation";
+export type ContextNames =
+  | "project"
+  | "server"
+  | "org"
+  | "installation"
+  | "dnszone";
 export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
 export type ContextMap = Partial<Record<ContextKey, ContextValue>>;
 export type ContextMapUpdate = Partial<Record<ContextKey, string>>;
