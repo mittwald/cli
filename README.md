@@ -236,8 +236,8 @@ USAGE
   $ mw app copy [INSTALLATION-ID] --description <value> [-q]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
@@ -467,8 +467,8 @@ USAGE
   $ mw app dependency update [INSTALLATION-ID] --set <value> [-q] [--update-policy none|inheritedFromApp|patchLevel|all]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
@@ -531,8 +531,8 @@ USAGE
   $ mw app get [INSTALLATION-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -1464,8 +1464,8 @@ USAGE
   $ mw app ssh [INSTALLATION-ID] [--cd] [--info]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   --[no-]cd  change to installation path after connecting
@@ -1484,8 +1484,8 @@ USAGE
   $ mw app uninstall [INSTALLATION-ID] [-q] [-f]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -1935,8 +1935,8 @@ USAGE
     [--url <value> | --command <value>] [--interpreter <value>]
 
 FLAGS
-  -i, --installation-id=<value>  ID or short ID of a installation; this flag is optional if a default installation is
-                                 set in the context
+  -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
+                                 installation is set in the context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
       --command=<value>          Command to execute for the cron job; either this or `--url` is required.
       --description=<value>      (required) Description of the cron job
@@ -1949,10 +1949,10 @@ FLAGS
 FLAG DESCRIPTIONS
   -i, --installation-id=<value>
 
-    ID or short ID of a installation; this flag is optional if a default installation is set in the context
+    ID or short ID of an app installation; this flag is optional if a default app installation is set in the context
 
-    May contain a short ID or a full ID of a installation; you can also use the "mw context set
-    --installation-id=<VALUE>" command to persistently set a default installation for all commands that accept this
+    May contain a short ID or a full ID of an app installation; you can also use the "mw context set
+    --installation-id=<VALUE>" command to persistently set a default app installation for all commands that accept this
     flag.
 
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -3159,7 +3159,7 @@ USAGE
   $ mw org delete [ORG-ID] [-q] [-f]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of a org; this argument is optional if a default org is set in the context
+  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -3184,7 +3184,7 @@ USAGE
   $ mw org get [ORG-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of a org; this argument is optional if a default org is set in the context
+  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -3204,7 +3204,7 @@ USAGE
     [--expires <value>]
 
 FLAGS
-  -o, --org-id=<value>   ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
   -q, --quiet            suppress process output and only display a machine-readable summary.
       --email=<value>    (required) The email address of the user to invite.
       --expires=<value>  An interval after which the invitation expires (examples: 30m, 30d, 1y).
@@ -3216,9 +3216,9 @@ DESCRIPTION
   Invite a user to an organization.
 
 FLAG DESCRIPTIONS
-  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>  ID or short ID of an org; this flag is optional if a default org is set in the context
 
-    May contain a short ID or a full ID of a org; you can also use the "mw context set --org-id=<VALUE>" command to
+    May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
     persistently set a default org for all commands that accept this flag.
 
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -3237,7 +3237,7 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>] [-o <value>]
 
 FLAGS
-  -o, --org-id=<value>   ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
@@ -3252,9 +3252,9 @@ DESCRIPTION
   List all invites for an organization.
 
 FLAG DESCRIPTIONS
-  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>  ID or short ID of an org; this flag is optional if a default org is set in the context
 
-    May contain a short ID or a full ID of a org; you can also use the "mw context set --org-id=<VALUE>" command to
+    May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
     persistently set a default org for all commands that accept this flag.
 ```
 
@@ -3340,7 +3340,7 @@ USAGE
     csv|json|yaml |  | ] [--sort <value>] [-o <value>]
 
 FLAGS
-  -o, --org-id=<value>   ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
@@ -3355,9 +3355,9 @@ DESCRIPTION
   List all memberships belonging to an organization.
 
 FLAG DESCRIPTIONS
-  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>  ID or short ID of an org; this flag is optional if a default org is set in the context
 
-    May contain a short ID or a full ID of a org; you can also use the "mw context set --org-id=<VALUE>" command to
+    May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
     persistently set a default org for all commands that accept this flag.
 ```
 

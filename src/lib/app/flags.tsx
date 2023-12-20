@@ -22,11 +22,10 @@ import { generatePasswordWithSpecialChars } from "../password.js";
 import { makeFlagSet } from "../context_flags.js";
 
 export const {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   flags: appInstallationFlags,
   args: appInstallationArgs,
   withId: withAppInstallationId,
-} = makeFlagSet("installation", "i");
+} = makeFlagSet("installation", "i", { displayName: "app installation" });
 
 export type AvailableFlagName = keyof AvailableFlags;
 

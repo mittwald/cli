@@ -5,4 +5,4 @@ export const {
   flags: serverFlags,
   args: serverArgs,
   withId: withServerId,
-} = makeFlagSet("server", "s", normalizeServerIdToUuid);
+} = makeFlagSet("server", "s", { normalize: normalizeServerIdToUuid });
