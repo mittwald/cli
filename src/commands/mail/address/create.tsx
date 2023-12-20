@@ -12,6 +12,7 @@ import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import * as crypto from "crypto";
 import { Value } from "../../../rendering/react/components/Value.js";
+import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
 
 type CreateResult = {
   addressId: string;
@@ -24,6 +25,14 @@ export default class Create extends ExecRenderBaseCommand<
 > {
   static summary = "Create a new mail address";
   static description = `\
+    This command can be used to create a new mail address in a project.
+    
+    A mail address is either associated with a mailbox, or forwards to another address.
+    
+    To create a forwarding address, use the --forward-to flag. This flag can be used multiple times to forward to multiple addresses.
+    
+    When no --forward-to flag is given, the command will create a mailbox for the address. In this case, the --catch-all flag can be used to make the mailbox a catch-all mailbox.
+  
     When running this command with the --quiet flag, the output will contain the ID of the newly created address.
     In addition, when run with --generated-password the output will be the ID of the newly created address, followed by a tab character and the generated password.`;
   static flags = {
@@ -56,6 +65,25 @@ export default class Create extends ExecRenderBaseCommand<
       description:
         "This flag will cause the command to generate a random 32-character password for the mailbox; when running with --quiet, the address ID and the password will be printed to stdout, separated by a tab character.",
     }),
+    "forward-to": Flags.string({
+      summary: "forward mail to another address",
+      default: undefined,
+      multiple: true,
+      description:
+        "This flag will cause the mailbox to forward all incoming mail to the given address.\n\nNote: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.",
+      relationships: [
+        {
+          type: "none",
+          flags: [
+            "catch-all",
+            "enable-spam-protection",
+            "quota",
+            "password",
+            "random-password",
+          ],
+        },
+      ],
+    }),
   };
 
   static examples = [
@@ -68,6 +96,11 @@ export default class Create extends ExecRenderBaseCommand<
       description: "Create non-interactively with random password",
       command:
         "<%= config.bin %> <%= command.id %> --random-password --address foo@bar.example",
+    },
+    {
+      description: "Create a forwarding address",
+      command:
+        "<%= config.bin %> <%= command.id %> --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example",
     },
   ];
 
@@ -97,11 +130,42 @@ export default class Create extends ExecRenderBaseCommand<
     return [await process.addInput(<Text>Mailbox password</Text>, true), false];
   }
 
-  protected async exec(): Promise<CreateResult> {
-    const { flags } = await this.parse(Create);
-    const projectId = await this.withProjectId(Create);
+  protected async createForwardAddress(
+    projectId: string,
+    process: ProcessRenderer,
+    flags: OutputFlags<FlagInput<typeof Create.flags>>,
+  ): Promise<CreateResult> {
+    const response = await process.runStep(
+      "creating mail address",
+      async () => {
+        const response = await this.apiClient.mail.createMailAddress({
+          projectId,
+          data: {
+            address: flags.address,
+            forwardAddresses: flags["forward-to"],
+          },
+        });
 
-    const process = makeProcessRenderer(flags, "Creating a new mail address");
+        assertStatus(response, 201);
+        return response;
+      },
+    );
+
+    process.complete(
+      <Success>Your mail address was successfully created.</Success>,
+    );
+
+    return {
+      addressId: response.data.id,
+      generatedPassword: null,
+    };
+  }
+
+  protected async createMailbox(
+    projectId: string,
+    process: ProcessRenderer,
+    flags: OutputFlags<FlagInput<typeof Create.flags>>,
+  ): Promise<CreateResult> {
     const [password, passwordGenerated] = await this.getPassword(process);
 
     const response = await process.runStep(
@@ -133,6 +197,19 @@ export default class Create extends ExecRenderBaseCommand<
       addressId: response.data.id,
       generatedPassword: passwordGenerated ? password : null,
     };
+  }
+
+  protected async exec(): Promise<CreateResult> {
+    const { flags } = await this.parse(Create);
+    const projectId = await this.withProjectId(Create);
+
+    const process = makeProcessRenderer(flags, "Creating a new mail address");
+
+    if (flags["forward-to"]) {
+      return this.createForwardAddress(projectId, process, flags);
+    }
+
+    return this.createMailbox(projectId, process, flags);
   }
 
   protected render(executionResult: CreateResult): ReactNode {
