@@ -34,8 +34,19 @@ export class GetFormatter<T = unknown> {
 
 export class ListFormatter {
   public static get flags(): FlagInput {
+    const tableFlags: Partial<typeof ux.table.Flags> &
+      Pick<typeof ux.table.Flags, "output"> = ux.table.flags();
+
+    delete tableFlags.sort;
+    delete tableFlags.filter;
+
     return {
-      ...ux.table.flags(),
+      ...tableFlags,
+      output: {
+        ...tableFlags.output,
+        options: ["json", "yaml", "csv"],
+        char: "o",
+      },
     };
   }
 
@@ -44,6 +55,11 @@ export class ListFormatter {
     columns: ListColumns<T>,
     opts?: ListOptions,
   ): void {
+    if (opts?.output === "json" || opts?.output === "yaml") {
+      PrinterFactory.build(opts.output).log(output);
+      return;
+    }
+
     if (output.length === 0) {
       return;
     }

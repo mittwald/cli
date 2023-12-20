@@ -440,19 +440,16 @@ Get all available dependencies
 
 ```
 USAGE
-  $ mw app dependency list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw app dependency list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all available dependencies
@@ -501,22 +498,20 @@ Get all available versions of a particular dependency
 
 ```
 USAGE
-  $ mw app dependency versions SYSTEMSOFTWARE [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
-    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+  $ mw app dependency versions SYSTEMSOFTWARE [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o
+    json|yaml|csv |  | ]
 
 ARGUMENTS
   SYSTEMSOFTWARE  name of the systemsoftware for which to list versions
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all available versions of a particular dependency
@@ -1429,21 +1424,19 @@ List installed apps in a project.
 
 ```
 USAGE
-  $ mw app list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw app list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List installed apps in a project.
@@ -1683,21 +1676,19 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw backup list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw backup list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Backups for a given Project.
@@ -1718,21 +1709,19 @@ List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw backup schedule list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw backup schedule list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List backup schedules belonging to a given project.
@@ -1793,19 +1782,16 @@ Get all conversation categories.
 
 ```
 USAGE
-  $ mw conversation categories [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw conversation categories [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all conversation categories.
@@ -1856,19 +1842,16 @@ Get all conversations the authenticated user has created or has access to.
 
 ```
 USAGE
-  $ mw conversation list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw conversation list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all conversations the authenticated user has created or has access to.
@@ -2055,20 +2038,18 @@ List CronjobExecutions belonging to a Cronjob.
 
 ```
 USAGE
-  $ mw cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
-    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+  $ mw cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o
+    json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --cronjob-id=<value>  (required) ID of the cron job for which to list executions for.
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
@@ -2130,21 +2111,19 @@ List cron jobs belonging to a project.
 
 ```
 USAGE
-  $ mw cronjob list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw cronjob list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List cron jobs belonging to a project.
@@ -2165,19 +2144,16 @@ List available MySQL character sets and collations, optionally filtered by a MyS
 
 ```
 USAGE
-  $ mw database mysql charsets [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw database mysql charsets [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List available MySQL character sets and collations, optionally filtered by a MySQLVersion.
@@ -2308,21 +2284,19 @@ List MySQLDatabases belonging to a Project.
 
 ```
 USAGE
-  $ mw database mysql list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw database mysql list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List MySQLDatabases belonging to a Project.
@@ -2423,20 +2397,18 @@ List MySQL users belonging to a database.
 
 ```
 USAGE
-  $ mw database mysql user list --database-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
-    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+  $ mw database mysql user list --database-id <value> [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o
+    json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>      output in a more machine friendly format
+                             <options: json|yaml|csv>
   -x, --extended             show extra columns
       --columns=<value>      only show provided columns (comma-separated)
       --csv                  output is csv format [alias: --output=csv]
       --database-id=<value>  (required) ID of the MySQL database to list users for.
-      --filter=<value>       filter property by partial string matching, ex: name=foo
       --no-header            hide table header from output
       --no-truncate          do not truncate output to fit screen
-      --output=<option>      output in a more machine friendly format
-                             <options: csv|json|yaml>
-      --sort=<value>         property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List MySQL users belonging to a database.
@@ -2448,19 +2420,16 @@ List available MySQL versions.
 
 ```
 USAGE
-  $ mw database mysql versions [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw database mysql versions [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List available MySQL versions.
@@ -2540,21 +2509,19 @@ List Redis databases belonging to a project.
 
 ```
 USAGE
-  $ mw database redis list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw database redis list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Redis databases belonging to a project.
@@ -2593,21 +2560,19 @@ List available Redis versions.
 
 ```
 USAGE
-  $ mw database redis versions [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw database redis versions [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List available Redis versions.
@@ -2687,21 +2652,19 @@ List Domains belonging to a Project.
 
 ```
 USAGE
-  $ mw domain list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw domain list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Domains belonging to a Project.
@@ -2738,21 +2701,19 @@ List all domain ownerships of a project.
 
 ```
 USAGE
-  $ mw domain ownership list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw domain ownership list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all domain ownerships of a project.
@@ -2876,22 +2837,20 @@ List virtualhosts for a project.
 
 ```
 USAGE
-  $ mw domain virtualhost list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>] [-a]
+  $ mw domain virtualhost list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>] [-a]
 
 FLAGS
   -a, --all                 List all virtual hosts that you have access to, regardless of project
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List virtualhosts for a project.
@@ -2969,7 +2928,7 @@ Create a new mail address
 ```
 USAGE
   $ mw mail address create -a <value> [-p <value>] [-q] [--catch-all] [--enable-spam-protection] [--quota <value>]
-    [--password <value>] [--random-password]
+    [--password <value>] [--random-password] [--forward-to <value>]
 
 FLAGS
   -a, --address=<value>              (required) mail address
@@ -2978,12 +2937,23 @@ FLAGS
   -q, --quiet                        suppress process output and only display a machine-readable summary.
       --catch-all                    make this a catch-all mail address
       --[no-]enable-spam-protection  enable spam protection for this mailbox
+      --forward-to=<value>...        forward mail to another address
       --password=<value>             mailbox password
       --quota=<value>                [default: 1024] mailbox quota in mebibytes
       --random-password              generate a random password
 
 DESCRIPTION
   Create a new mail address
+
+  This command can be used to create a new mail address in a project.
+
+  A mail address is either associated with a mailbox, or forwards to another address.
+
+  To create a forwarding address, use the --forward-to flag. This flag can be used multiple times to forward to multiple
+  addresses.
+
+  When no --forward-to flag is given, the command will create a mailbox for the address. In this case, the --catch-all
+  flag can be used to make the mailbox a catch-all mailbox.
 
   When running this command with the --quiet flag, the output will contain the ID of the newly created address.
   In addition, when run with --generated-password the output will be the ID of the newly created address, followed by a
@@ -2999,6 +2969,10 @@ EXAMPLES
 
     $ mw mail address create --random-password --address foo@bar.example
 
+  Create a forwarding address
+
+    $ mw mail address create --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
+
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
@@ -3009,6 +2983,12 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --forward-to=<value>...  forward mail to another address
+
+    This flag will cause the mailbox to forward all incoming mail to the given address.
+
+    Note: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.
 
   --password=<value>  mailbox password
 
@@ -3073,21 +3053,19 @@ Get all mail addresses for a project ID
 
 ```
 USAGE
-  $ mw mail address list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw mail address list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all mail addresses for a project ID
@@ -3124,21 +3102,19 @@ Get all deliveryboxes by project ID
 
 ```
 USAGE
-  $ mw mail deliverybox list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw mail deliverybox list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all deliveryboxes by project ID
@@ -3233,20 +3209,18 @@ List all invites for an organization.
 
 ```
 USAGE
-  $ mw org invite list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-o <value>]
+  $ mw org invite list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-o
+    <value>]
 
 FLAGS
   -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all invites for an organization.
@@ -3264,19 +3238,16 @@ List all organization invites for the executing user.
 
 ```
 USAGE
-  $ mw org invite list-own [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw org invite list-own [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all organization invites for the executing user.
@@ -3312,19 +3283,16 @@ Get all organizations the authenticated user has access to.
 
 ```
 USAGE
-  $ mw org list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw org list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get all organizations the authenticated user has access to.
@@ -3336,20 +3304,18 @@ List all memberships belonging to an organization.
 
 ```
 USAGE
-  $ mw org membership list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-o <value>]
+  $ mw org membership list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-o
+    <value>]
 
 FLAGS
   -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all memberships belonging to an organization.
@@ -3367,19 +3333,16 @@ List all organization memberships for the executing user.
 
 ```
 USAGE
-  $ mw org membership list-own [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw org membership list-own [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all organization memberships for the executing user.
@@ -3545,21 +3508,19 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw project backup list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw project backup list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List Backups for a given Project.
@@ -3580,21 +3541,19 @@ List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw project backupschedule list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw project backupschedule list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List backup schedules belonging to a given project.
@@ -3670,20 +3629,18 @@ List CronjobExecutions belonging to a Cronjob.
 
 ```
 USAGE
-  $ mw project cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--filter <value>] [--no-header | [--csv |
-    --no-truncate]] [--output csv|json|yaml |  | ] [--sort <value>]
+  $ mw project cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o
+    json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --cronjob-id=<value>  (required) ID of the cron job for which to list executions for.
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
@@ -3726,21 +3683,19 @@ List cron jobs belonging to a project.
 
 ```
 USAGE
-  $ mw project cronjob list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw project cronjob list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List cron jobs belonging to a project.
@@ -3844,21 +3799,19 @@ List all invites belonging to a project.
 
 ```
 USAGE
-  $ mw project invite list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw project invite list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all invites belonging to a project.
@@ -3876,19 +3829,16 @@ List all project invites for the executing user.
 
 ```
 USAGE
-  $ mw project invite list-own [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw project invite list-own [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all project invites for the executing user.
@@ -3900,19 +3850,16 @@ List all projects that you have access to
 
 ```
 USAGE
-  $ mw project list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw project list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all projects that you have access to
@@ -3967,21 +3914,19 @@ List all memberships for a Project.
 
 ```
 USAGE
-  $ mw project membership list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw project membership list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all memberships for a Project.
@@ -3999,19 +3944,17 @@ List ProjectMemberships belonging to the executing user.
 
 ```
 USAGE
-  $ mw project membership list-own [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw project membership list-own [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |
+  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List ProjectMemberships belonging to the executing user.
@@ -4023,21 +3966,19 @@ List all SFTP users for a project.
 
 ```
 USAGE
-  $ mw project sftp-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw project sftp-user list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all SFTP users for a project.
@@ -4073,21 +4014,19 @@ List all SSH users for a project.
 
 ```
 USAGE
-  $ mw project ssh-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw project ssh-user list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all SSH users for a project.
@@ -4142,19 +4081,16 @@ List servers for an organization or user.
 
 ```
 USAGE
-  $ mw server list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw server list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List servers for an organization or user.
@@ -4166,21 +4102,19 @@ List all SFTP users for a project.
 
 ```
 USAGE
-  $ mw sftp-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw sftp-user list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all SFTP users for a project.
@@ -4201,21 +4135,19 @@ List all SSH users for a project.
 
 ```
 USAGE
-  $ mw ssh-user list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>] [-p <value>]
+  $ mw ssh-user list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ] [-p
+    <value>]
 
 FLAGS
+  -o, --output=<option>     output in a more machine friendly format
+                            <options: json|yaml|csv>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
       --csv                 output is csv format [alias: --output=csv]
-      --filter=<value>      filter property by partial string matching, ex: name=foo
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
-      --output=<option>     output in a more machine friendly format
-                            <options: csv|json|yaml>
-      --sort=<value>        property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all SSH users for a project.
@@ -4317,19 +4249,16 @@ List all API tokens of the user
 
 ```
 USAGE
-  $ mw user api-token list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw user api-token list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all API tokens of the user
@@ -4405,19 +4334,16 @@ List all active sessions
 
 ```
 USAGE
-  $ mw user session list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw user session list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   List all active sessions
@@ -4498,19 +4424,16 @@ Get your stored ssh keys
 
 ```
 USAGE
-  $ mw user ssh-key list [--columns <value> | -x] [--filter <value>] [--no-header | [--csv | --no-truncate]] [--output
-    csv|json|yaml |  | ] [--sort <value>]
+  $ mw user ssh-key list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o json|yaml|csv |  | ]
 
 FLAGS
+  -o, --output=<option>  output in a more machine friendly format
+                         <options: json|yaml|csv>
   -x, --extended         show extra columns
       --columns=<value>  only show provided columns (comma-separated)
       --csv              output is csv format [alias: --output=csv]
-      --filter=<value>   filter property by partial string matching, ex: name=foo
       --no-header        hide table header from output
       --no-truncate      do not truncate output to fit screen
-      --output=<option>  output in a more machine friendly format
-                         <options: csv|json|yaml>
-      --sort=<value>     property to sort by (prepend '-' for descending)
 
 DESCRIPTION
   Get your stored ssh keys
