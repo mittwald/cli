@@ -11,7 +11,7 @@ import {
   isManagedMXRecord,
   isSRVRecord,
   isTXTRecord,
-} from "../../../lib/dnszone/records.js";
+} from "../../../lib/domain/dnszone/records.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdDnsZones.Get.Responses.$200.Content.ApplicationJson[number]
