@@ -7,6 +7,7 @@ export type ContextNames =
   | "server"
   | "org"
   | "installation"
+  | "domain"
   | "dnszone";
 export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
 export type ContextMap = Partial<Record<ContextKey, ContextValue>>;
