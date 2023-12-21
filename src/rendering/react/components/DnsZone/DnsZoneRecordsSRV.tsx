@@ -1,0 +1,20 @@
+import { RecordComponent } from "./RecordComponent.js";
+import { isSRVRecord } from "../../../../lib/dnszone/records.js";
+import { Value } from "../Value.js";
+import React from "react";
+import { MittwaldAPIV2 } from "@mittwald/api-client";
+import DnsRecordSRV = MittwaldAPIV2.Components.Schemas.DnsRecordSRV;
+
+export const DnsZoneRecordsSRV: RecordComponent<DnsRecordSRV> = ({
+  record,
+}) => {
+  if (isSRVRecord(record)) {
+    return record.records.map((a, idx) => (
+      <Value key={idx}>
+        {a.priority} {a.weight} {a.port} {a.fqdn}
+      </Value>
+    ));
+  }
+
+  return <Value notSet />;
+};
