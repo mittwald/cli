@@ -6,24 +6,10 @@ import {
 import { projectFlags } from "../../../lib/project/flags.js";
 import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { Args, Flags } from "@oclif/core";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { Args } from "@oclif/core";
 import { Success } from "../../../rendering/react/components/Success.js";
-import { Value } from "../../../rendering/react/components/Value.js";
-import { waitUntil } from "../../../lib/wait.js";
-import { Box } from "ink";
-import { DnsValidationErrors } from "../../../rendering/react/components/Ingress/DnsValidationErrors.js";
-import { DomainOwnership } from "../../../rendering/react/components/Ingress/DomainOwnership.js";
-import IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
-import IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
-import DomainDomainOwnership = MittwaldAPIV2.Components.Schemas.DomainDomainOwnership;
 
-type VerifyResult = void;
-
-export default class Verify extends ExecRenderBaseCommand<
-  typeof Verify,
-  VerifyResult
-> {
+export class Verify extends ExecRenderBaseCommand<typeof Verify, void> {
   static description = "Verify domain ownership";
   static flags = {
     ...processFlags,
@@ -36,7 +22,7 @@ export default class Verify extends ExecRenderBaseCommand<
     }),
   };
 
-  protected async exec(): Promise<VerifyResult> {
+  protected async exec(): Promise<void> {
     const { hostname } = this.args;
     const projectId = await this.withProjectId(Verify);
     const process = makeProcessRenderer(
