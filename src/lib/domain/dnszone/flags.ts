@@ -23,4 +23,5 @@ export const {
     return dnsZone.id;
   },
   shortIDName: "domain name",
+  displayName: "DNS zone",
 });

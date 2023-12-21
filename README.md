@@ -2594,7 +2594,7 @@ USAGE
   $ mw domain dnszone get DNSZONE-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  DNSZONE-ID  ID or domain name of a dnszone
+  DNSZONE-ID  ID or domain name of a DNS zone
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -2644,7 +2644,7 @@ USAGE
     <value>]
 
 ARGUMENTS
-  DNSZONE-ID  ID or domain name of a dnszone
+  DNSZONE-ID  ID or domain name of a DNS zone
   RECORD-SET  (a|mx|txt|srv|cname) The record type of the record set
 
 FLAGS
