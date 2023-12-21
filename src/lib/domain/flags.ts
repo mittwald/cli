@@ -6,10 +6,8 @@ export const {
   flags: domainFlags,
   args: domainArgs,
   withId: withDomainId,
-} = makeProjectFlagSet(
-  "domain",
-  "d",
-  async (apiClient, projectId, id): Promise<string> => {
+} = makeProjectFlagSet("domain", "d", {
+  normalize: async (apiClient, projectId, id): Promise<string> => {
     if (isUuid(id)) {
       return id;
     }
@@ -24,5 +22,5 @@ export const {
 
     return domain.domainId;
   },
-  { shortIDName: "domain name" },
-);
+  shortIDName: "domain name",
+});

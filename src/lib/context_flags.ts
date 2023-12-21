@@ -63,6 +63,11 @@ export type FlagSet<TName extends ContextNames> = {
   ) => Promise<string>;
 };
 
+export type FlagSetOptions = {
+  normalize: NormalizeFn;
+  displayName: string;
+};
+
 export type NormalizeFn = (
   apiClient: MittwaldAPIV2Client,
   id: string,
@@ -110,22 +115,25 @@ export function makeMissingContextInputError<TName extends ContextNames>(
 export function makeFlagSet<TName extends ContextNames>(
   name: TName,
   char: AlphabetLowercase,
-  normalize: NormalizeFn = (_, id) => id,
+  opts: Partial<FlagSetOptions> = {},
 ): FlagSet<TName> {
+  const { displayName = name, normalize = (_, id) => id } = opts;
+  const article = displayName.match(/^[aeiou]/i) ? "an" : "a";
+
   const flagName: ContextKey<TName> = `${name}-id`;
   const flags = {
     [flagName]: Flags.string({
       char,
       required: false,
-      summary: `ID or short ID of a ${name}; this flag is optional if a default ${name} is set in the context`,
-      description: `May contain a short ID or a full ID of a ${name}; you can also use the "<%= config.bin %> context set --${name}-id=<VALUE>" command to persistently set a default ${name} for all commands that accept this flag.`,
+      summary: `ID or short ID of ${article} ${displayName}; this flag is optional if a default ${displayName} is set in the context`,
+      description: `May contain a short ID or a full ID of ${article} ${displayName}; you can also use the "<%= config.bin %> context set --${flagName}=<VALUE>" command to persistently set a default ${displayName} for all commands that accept this flag.`,
       default: undefined,
     }),
   } as ContextFlags<TName>;
 
   const args = {
     [flagName]: Args.string({
-      description: `ID or short ID of a ${name}; this argument is optional if a default ${name} is set in the context`,
+      description: `ID or short ID of ${article} ${displayName}; this argument is optional if a default ${displayName} is set in the context`,
     }),
   } as ContextArgs<TName>;
 

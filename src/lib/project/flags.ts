@@ -17,7 +17,7 @@ export const {
   flags: projectFlags,
   args: projectArgs,
   withId: withProjectId,
-} = makeFlagSet("project", "p", normalizeProjectIdToUuid);
+} = makeFlagSet("project", "p", { normalize: normalizeProjectIdToUuid });
 
 export type SubNormalizeFn = (
   apiClient: MittwaldAPIV2Client,
@@ -26,16 +26,16 @@ export type SubNormalizeFn = (
 ) => string | Promise<string>;
 
 export type ProjectFlagSetOpts = {
+  normalize: SubNormalizeFn;
   shortIDName: string;
 };
 
 export function makeProjectFlagSet<TName extends ContextNames>(
   name: TName,
   char: AlphabetLowercase,
-  normalize: SubNormalizeFn = (_1, _2, id) => id,
   opts: Partial<ProjectFlagSetOpts> = {},
 ): FlagSet<TName | "project"> {
-  const { shortIDName = "short ID" } = opts;
+  const { normalize = (_1, _2, id) => id, shortIDName = "short ID" } = opts;
 
   const flagName: ContextKey<TName> = `${name}-id`;
   const flags = {

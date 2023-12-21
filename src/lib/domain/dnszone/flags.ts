@@ -6,10 +6,8 @@ export const {
   flags: dnsZoneFlags,
   args: dnsZoneArgs,
   withId: withDnsZoneId,
-} = makeProjectFlagSet(
-  "dnszone",
-  "z",
-  async (apiClient, projectId, id): Promise<string> => {
+} = makeProjectFlagSet("dnszone", "z", {
+  normalize: async (apiClient, projectId, id): Promise<string> => {
     if (isUuid(id)) {
       return id;
     }
@@ -24,5 +22,5 @@ export const {
 
     return dnsZone.id;
   },
-  { shortIDName: "domain name" },
-);
+  shortIDName: "domain name",
+});

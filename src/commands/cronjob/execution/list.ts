@@ -22,19 +22,16 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   static flags = {
     ...ListBaseCommand.baseFlags,
     "cronjob-id": Flags.string({
-      description: "ID of the Cronjob for which to list CronjobExecutions for.",
+      description: "ID of the cron job for which to list executions for.",
       required: true,
+      default: undefined,
     }),
   };
 
   public async getData(): Promise<Response> {
-    const pathParams = {
-      cronjobId: this.flags["cronjob-id"],
-    };
+    const { "cronjob-id": cronjobId } = this.flags;
 
-    return await this.apiClient.cronjob.listExecutions(
-      pathParams as Parameters<typeof this.apiClient.cronjob.listExecutions>[0],
-    );
+    return await this.apiClient.cronjob.listExecutions({ cronjobId });
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

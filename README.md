@@ -128,10 +128,14 @@ USAGE
 * [`mw conversation reply ID`](#mw-conversation-reply-id)
 * [`mw conversation show ID`](#mw-conversation-show-id)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
+* [`mw cronjob create`](#mw-cronjob-create)
+* [`mw cronjob delete CRONJOB-ID`](#mw-cronjob-delete-cronjob-id)
+* [`mw cronjob execute CRONJOB-ID`](#mw-cronjob-execute-cronjob-id)
+* [`mw cronjob execution abort CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-abort-cronjob-id-execution-id)
 * [`mw cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-get-cronjob-id-execution-id)
 * [`mw cronjob execution list`](#mw-cronjob-execution-list)
 * [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
-* [`mw cronjob get CRONJOBID`](#mw-cronjob-get-cronjobid)
+* [`mw cronjob get CRONJOB-ID`](#mw-cronjob-get-cronjob-id)
 * [`mw cronjob list`](#mw-cronjob-list)
 * [`mw database mysql charsets`](#mw-database-mysql-charsets)
 * [`mw database mysql create`](#mw-database-mysql-create)
@@ -191,7 +195,6 @@ USAGE
 * [`mw project cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-project-cronjob-execution-get-cronjob-id-execution-id)
 * [`mw project cronjob execution list`](#mw-project-cronjob-execution-list)
 * [`mw project cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-project-cronjob-execution-logs-cronjob-id-execution-id)
-* [`mw project cronjob get CRONJOBID`](#mw-project-cronjob-get-cronjobid)
 * [`mw project cronjob list`](#mw-project-cronjob-list)
 * [`mw project delete [PROJECT-ID]`](#mw-project-delete-project-id)
 * [`mw project filesystem usage [PROJECT-ID]`](#mw-project-filesystem-usage-project-id)
@@ -234,8 +237,8 @@ USAGE
   $ mw app copy [INSTALLATION-ID] --description <value> [-q]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
@@ -462,8 +465,8 @@ USAGE
   $ mw app dependency update [INSTALLATION-ID] --set <value> [-q] [--update-policy none|inheritedFromApp|patchLevel|all]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
@@ -524,8 +527,8 @@ USAGE
   $ mw app get [INSTALLATION-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -1455,8 +1458,8 @@ USAGE
   $ mw app ssh [INSTALLATION-ID] [--cd] [--info]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   --[no-]cd  change to installation path after connecting
@@ -1475,8 +1478,8 @@ USAGE
   $ mw app uninstall [INSTALLATION-ID] [-q] [-f]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of a installation; this argument is optional if a default installation is set in the
-                   context
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -1906,6 +1909,107 @@ FLAGS
   --wait
 ```
 
+## `mw cronjob create`
+
+Create a new cron job
+
+```
+USAGE
+  $ mw cronjob create --description <value> --interval <value> [-i <value>] [-q] [--disable] [--email <value>]
+    [--url <value> | --command <value>] [--interpreter <value>]
+
+FLAGS
+  -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
+                                 installation is set in the context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+      --command=<value>          Command to execute for the cron job; either this or `--url` is required.
+      --description=<value>      (required) Description of the cron job
+      --disable                  Disable the cron job after creation
+      --email=<value>            Email address to send cron job output to
+      --interpreter=<value>      [default: /bin/sh] Interpreter to use for the cron job
+      --interval=<value>         (required) Interval of the cron job, in standard UNIX cron syntax
+      --url=<value>              URL to call for the cron job; either this or `--command` is required.
+
+FLAG DESCRIPTIONS
+  -i, --installation-id=<value>
+
+    ID or short ID of an app installation; this flag is optional if a default app installation is set in the context
+
+    May contain a short ID or a full ID of an app installation; you can also use the "mw context set
+    --installation-id=<VALUE>" command to persistently set a default app installation for all commands that accept this
+    flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw cronjob delete CRONJOB-ID`
+
+Delete a cron job
+
+```
+USAGE
+  $ mw cronjob delete CRONJOB-ID [-q] [-f]
+
+ARGUMENTS
+  CRONJOB-ID  ID of the cronjob to be deleted.
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a cron job
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw cronjob execute CRONJOB-ID`
+
+Manually run a cron job
+
+```
+USAGE
+  $ mw cronjob execute CRONJOB-ID [-q]
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw cronjob execution abort CRONJOB-ID EXECUTION-ID`
+
+Abort a running cron job execution.
+
+```
+USAGE
+  $ mw cronjob execution abort CRONJOB-ID EXECUTION-ID [-q]
+
+ARGUMENTS
+  CRONJOB-ID    ID of the cronjob the execution belongs to
+  EXECUTION-ID  ID of the cron job execution to abort
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 ## `mw cronjob execution get CRONJOB-ID EXECUTION-ID`
 
 Get a cron job execution.
@@ -1943,7 +2047,7 @@ FLAGS
                             <options: json|yaml|csv>
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
-      --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
+      --cronjob-id=<value>  (required) ID of the cron job for which to list executions for.
       --csv                 output is csv format [alias: --output=csv]
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
@@ -1983,31 +2087,28 @@ ALIASES
   $ mw project cronjob execution logs
 ```
 
-## `mw cronjob get CRONJOBID`
+## `mw cronjob get CRONJOB-ID`
 
-Get a cronjob.
+Get details of a cron job
 
 ```
 USAGE
-  $ mw cronjob get CRONJOBID [-o json|yaml |  | ]
+  $ mw cronjob get CRONJOB-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  CRONJOBID  ID of the cronjob to be retrieved.
+  CRONJOB-ID  ID of the cron job to be retrieved.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  Get a cronjob.
-
-ALIASES
-  $ mw project cronjob get
+  Get details of a cron job
 ```
 
 ## `mw cronjob list`
 
-List Cronjobs belonging to a Project.
+List cron jobs belonging to a project.
 
 ```
 USAGE
@@ -2026,7 +2127,7 @@ FLAGS
       --no-truncate         do not truncate output to fit screen
 
 DESCRIPTION
-  List Cronjobs belonging to a Project.
+  List cron jobs belonging to a project.
 
 ALIASES
   $ mw project cronjob list
@@ -2904,7 +3005,7 @@ Create a new mail address
 ```
 USAGE
   $ mw mail address create -a <value> [-p <value>] [-q] [--catch-all] [--enable-spam-protection] [--quota <value>]
-    [--password <value>] [--random-password]
+    [--password <value>] [--random-password] [--forward-to <value>]
 
 FLAGS
   -a, --address=<value>              (required) mail address
@@ -2913,12 +3014,23 @@ FLAGS
   -q, --quiet                        suppress process output and only display a machine-readable summary.
       --catch-all                    make this a catch-all mail address
       --[no-]enable-spam-protection  enable spam protection for this mailbox
+      --forward-to=<value>...        forward mail to another address
       --password=<value>             mailbox password
       --quota=<value>                [default: 1024] mailbox quota in mebibytes
       --random-password              generate a random password
 
 DESCRIPTION
   Create a new mail address
+
+  This command can be used to create a new mail address in a project.
+
+  A mail address is either associated with a mailbox, or forwards to another address.
+
+  To create a forwarding address, use the --forward-to flag. This flag can be used multiple times to forward to multiple
+  addresses.
+
+  When no --forward-to flag is given, the command will create a mailbox for the address. In this case, the --catch-all
+  flag can be used to make the mailbox a catch-all mailbox.
 
   When running this command with the --quiet flag, the output will contain the ID of the newly created address.
   In addition, when run with --generated-password the output will be the ID of the newly created address, followed by a
@@ -2934,6 +3046,10 @@ EXAMPLES
 
     $ mw mail address create --random-password --address foo@bar.example
 
+  Create a forwarding address
+
+    $ mw mail address create --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
+
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
@@ -2944,6 +3060,12 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --forward-to=<value>...  forward mail to another address
+
+    This flag will cause the mailbox to forward all incoming mail to the given address.
+
+    Note: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.
 
   --password=<value>  mailbox password
 
@@ -3090,7 +3212,7 @@ USAGE
   $ mw org delete [ORG-ID] [-q] [-f]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of a org; this argument is optional if a default org is set in the context
+  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -3115,7 +3237,7 @@ USAGE
   $ mw org get [ORG-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of a org; this argument is optional if a default org is set in the context
+  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -3135,7 +3257,7 @@ USAGE
     [--expires <value>]
 
 FLAGS
-  -o, --org-id=<value>   ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
   -q, --quiet            suppress process output and only display a machine-readable summary.
       --email=<value>    (required) The email address of the user to invite.
       --expires=<value>  An interval after which the invitation expires (examples: 30m, 30d, 1y).
@@ -3147,9 +3269,9 @@ DESCRIPTION
   Invite a user to an organization.
 
 FLAG DESCRIPTIONS
-  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>  ID or short ID of an org; this flag is optional if a default org is set in the context
 
-    May contain a short ID or a full ID of a org; you can also use the "mw context set --org-id=<VALUE>" command to
+    May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
     persistently set a default org for all commands that accept this flag.
 
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -3168,7 +3290,7 @@ USAGE
     <value>]
 
 FLAGS
-  -o, --org-id=<value>   ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml|csv>
   -x, --extended         show extra columns
@@ -3181,9 +3303,9 @@ DESCRIPTION
   List all invites for an organization.
 
 FLAG DESCRIPTIONS
-  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>  ID or short ID of an org; this flag is optional if a default org is set in the context
 
-    May contain a short ID or a full ID of a org; you can also use the "mw context set --org-id=<VALUE>" command to
+    May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
     persistently set a default org for all commands that accept this flag.
 ```
 
@@ -3263,7 +3385,7 @@ USAGE
     <value>]
 
 FLAGS
-  -o, --org-id=<value>   ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml|csv>
   -x, --extended         show extra columns
@@ -3276,9 +3398,9 @@ DESCRIPTION
   List all memberships belonging to an organization.
 
 FLAG DESCRIPTIONS
-  -o, --org-id=<value>  ID or short ID of a org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>  ID or short ID of an org; this flag is optional if a default org is set in the context
 
-    May contain a short ID or a full ID of a org; you can also use the "mw context set --org-id=<VALUE>" command to
+    May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
     persistently set a default org for all commands that accept this flag.
 ```
 
@@ -3592,7 +3714,7 @@ FLAGS
                             <options: json|yaml|csv>
   -x, --extended            show extra columns
       --columns=<value>     only show provided columns (comma-separated)
-      --cronjob-id=<value>  (required) ID of the Cronjob for which to list CronjobExecutions for.
+      --cronjob-id=<value>  (required) ID of the cron job for which to list executions for.
       --csv                 output is csv format [alias: --output=csv]
       --no-header           hide table header from output
       --no-truncate         do not truncate output to fit screen
@@ -3632,31 +3754,9 @@ ALIASES
   $ mw project cronjob execution logs
 ```
 
-## `mw project cronjob get CRONJOBID`
-
-Get a cronjob.
-
-```
-USAGE
-  $ mw project cronjob get CRONJOBID [-o json|yaml |  | ]
-
-ARGUMENTS
-  CRONJOBID  ID of the cronjob to be retrieved.
-
-FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
-
-DESCRIPTION
-  Get a cronjob.
-
-ALIASES
-  $ mw project cronjob get
-```
-
 ## `mw project cronjob list`
 
-List Cronjobs belonging to a Project.
+List cron jobs belonging to a project.
 
 ```
 USAGE
@@ -3675,7 +3775,7 @@ FLAGS
       --no-truncate         do not truncate output to fit screen
 
 DESCRIPTION
-  List Cronjobs belonging to a Project.
+  List cron jobs belonging to a project.
 
 ALIASES
   $ mw project cronjob list
