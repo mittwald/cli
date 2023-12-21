@@ -19,7 +19,7 @@ export function isManagedARecord(
 export function isCustomARecord(
   r: DnsRecordCombinedA,
 ): r is DnsCombinedACustom {
-  return "custom" in r;
+  return "a" in r || "aaaa" in r;
 }
 
 export function isManagedMXRecord(r: DnsRecordMX): r is DnsRecordMXManaged {

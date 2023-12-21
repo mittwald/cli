@@ -3,7 +3,7 @@ import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Value } from "../Value.js";
 import { SingleResult } from "../SingleResult.js";
 import DnsZone = MittwaldAPIV2.Components.Schemas.DnsZone;
-import { Box, Text } from "ink";
+import { Box, Text, Newline } from "ink";
 import DnsRecordCombinedA = MittwaldAPIV2.Components.Schemas.DnsRecordCombinedA;
 import {
   isCustomARecord,
@@ -22,8 +22,8 @@ const DnsZoneRecordsA: FC<{ record: DnsRecordCombinedA }> = ({ record }) => {
     return <Text color="green">managed by mittwald</Text>;
   }
 
-  if (isCustomARecord(record)) {
-    return record.a.map((a, idx) => <Text key={idx}>{a}</Text>);
+  if (isCustomARecord(record) && record.a.length > 0) {
+    return <Text>{record.a.join("\n")}</Text>;
   }
 
   return <Value notSet />;
@@ -34,7 +34,7 @@ const DnsZoneRecordsAAAA: FC<{ record: DnsRecordCombinedA }> = ({ record }) => {
     return <Text color="green">managed by mittwald</Text>;
   }
 
-  if (isCustomARecord(record)) {
+  if (isCustomARecord(record) && record.aaaa.length > 0) {
     return record.aaaa.map((a, idx) => <Text key={idx}>{a}</Text>);
   }
 
