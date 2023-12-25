@@ -806,6 +806,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^3.15.1":
+  version: 3.15.1
+  resolution: "@oclif/core@npm:3.15.1"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    color: ^4.2.3
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.3
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    tsconfck: ^3.0.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 092e43507fbf653477b5577e8543b6a2f6b52d07605a396a5791f18f9a77779c30fe2a48841b0a553b7f53500bd406e9dc63b4b5e7d0fdc2654d46d6a02f0abe
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-autocomplete@npm:^3.0.3":
   version: 3.0.3
   resolution: "@oclif/plugin-autocomplete@npm:3.0.3"
@@ -866,15 +901,15 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.0, @oclif/plugin-warn-if-update-available@npm:^3.0.2":
-  version: 3.0.7
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.7"
+  version: 3.0.8
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.8"
   dependencies:
-    "@oclif/core": ^3.15.0
+    "@oclif/core": ^3.15.1
     chalk: ^5.3.0
     debug: ^4.1.0
     http-call: ^5.2.2
     lodash.template: ^4.5.0
-  checksum: a752fc47b48fbc1918238a7a277848ccd960b42a623358688c07709d7cb80af462e4beee3fb36713511b6e98e00e6adc69e0bcc93a1f25a6a0fefcc32ce2eaef
+  checksum: c6bc7bad7f40374c0fc81f30ee833ee5edb98d809be3d2e398fce98b6afe6f7d528db30b96b4ccdfb431c2ff5a0feff938e894c59469842fd6f6bd08e0e5d17c
   languageName: node
   linkType: hard
 
@@ -6763,6 +6798,16 @@ __metadata:
     ansi-escapes: ^3.1.0
     cross-spawn: ^6.0.5
   checksum: 4763ec1b48cb311d60df37186e31f1b85ec3249a21cc17bbf8407d66c5b55cffe34b4eb529ebd044ed4ced7f3ea3fad744fe15e30a5de31645433e94cd444266
+  languageName: node
+  linkType: hard
+
+"password-prompt@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "password-prompt@npm:1.1.3"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    cross-spawn: ^7.0.3
+  checksum: 9a5fdbd7360db896809704c141acfe9258450a9982c4c177b82a1e6c69d204800cdab6064abac6736bd7d31142c80108deedf4484146594747cb3ce776816e97
   languageName: node
   linkType: hard
 
