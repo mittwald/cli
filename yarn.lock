@@ -293,7 +293,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ljharb/through@npm:^2.3.9":
+"@ljharb/through@npm:^2.3.11":
   version: 2.3.11
   resolution: "@ljharb/through@npm:2.3.11"
   dependencies:
@@ -736,7 +736,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.0.4, @oclif/core@npm:^3.5.0, @oclif/core@npm:^3.9.1":
+"@oclif/core@npm:^3.0.4, @oclif/core@npm:^3.9.1":
   version: 3.14.1
   resolution: "@oclif/core@npm:3.14.1"
   dependencies:
@@ -806,6 +806,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^3.15.1":
+  version: 3.15.1
+  resolution: "@oclif/core@npm:3.15.1"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    color: ^4.2.3
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.3
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    tsconfck: ^3.0.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 092e43507fbf653477b5577e8543b6a2f6b52d07605a396a5791f18f9a77779c30fe2a48841b0a553b7f53500bd406e9dc63b4b5e7d0fdc2654d46d6a02f0abe
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-autocomplete@npm:^3.0.3":
   version: 3.0.3
   resolution: "@oclif/plugin-autocomplete@npm:3.0.3"
@@ -848,20 +883,20 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.1.3
-  resolution: "@oclif/plugin-update@npm:4.1.3"
+  version: 4.1.7
+  resolution: "@oclif/plugin-update@npm:4.1.7"
   dependencies:
-    "@oclif/core": ^3.5.0
+    "@oclif/core": ^3.15.1
     chalk: ^5
     cross-spawn: ^7.0.3
     debug: ^4.3.1
     filesize: ^6.1.0
     http-call: ^5.3.0
-    inquirer: ^9.2.11
+    inquirer: ^9.2.12
     lodash.throttle: ^4.1.1
     semver: ^7.5.4
     tar-fs: ^2.1.1
-  checksum: 803be881736ca5c6e09d640fb873d9cb85d8a2be3f0592b1b6e7108ff94ca111f1d2098a5eaedc3114e5af70d27b94b717e6361b4e0c60901328903101c3aabf
+  checksum: faf6537e895a712e70e608f11319d13fdd8415b98cbf229ee56a1662b9f30737d2b64954cb65c22b84ebdf919e3c5e9ca4eee3321961cf0c9a98f2ce42b9246e
   languageName: node
   linkType: hard
 
@@ -4485,11 +4520,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^9.2.11":
-  version: 9.2.11
-  resolution: "inquirer@npm:9.2.11"
+"inquirer@npm:^9.2.12":
+  version: 9.2.12
+  resolution: "inquirer@npm:9.2.12"
   dependencies:
-    "@ljharb/through": ^2.3.9
+    "@ljharb/through": ^2.3.11
     ansi-escapes: ^4.3.2
     chalk: ^5.3.0
     cli-cursor: ^3.1.0
@@ -4504,7 +4539,7 @@ __metadata:
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
     wrap-ansi: ^6.2.0
-  checksum: af59b422eb6005dac90f6c5e8295013d0611ac5471ff4fbf4ad3e228136e0f41db73af2d5a68e36770f9e31ac203ae1589d35c3e970acbc6110bb5df905928f9
+  checksum: 8c372832367f5adb4bb08a0c3ee3b8b16e83202c125d1a681ece2c0ef2f00a5d7d6589a501fd58a0249b4ad49a8013584ac58ae12a20d29b1c24a0ec450927a5
   languageName: node
   linkType: hard
 
@@ -6763,6 +6798,16 @@ __metadata:
     ansi-escapes: ^3.1.0
     cross-spawn: ^6.0.5
   checksum: 4763ec1b48cb311d60df37186e31f1b85ec3249a21cc17bbf8407d66c5b55cffe34b4eb529ebd044ed4ced7f3ea3fad744fe15e30a5de31645433e94cd444266
+  languageName: node
+  linkType: hard
+
+"password-prompt@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "password-prompt@npm:1.1.3"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    cross-spawn: ^7.0.3
+  checksum: 9a5fdbd7360db896809704c141acfe9258450a9982c4c177b82a1e6c69d204800cdab6064abac6736bd7d31142c80108deedf4484146594747cb3ce776816e97
   languageName: node
   linkType: hard
 
