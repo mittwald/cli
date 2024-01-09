@@ -1281,11 +1281,11 @@ __metadata:
   linkType: hard
 
 "@types/node-notifier@npm:^8.0.2":
-  version: 8.0.4
-  resolution: "@types/node-notifier@npm:8.0.4"
+  version: 8.0.5
+  resolution: "@types/node-notifier@npm:8.0.5"
   dependencies:
     "@types/node": "*"
-  checksum: feb6d4748220df5e20fc25077756fde10aa882a52c5bed907800ceb91db154e088de66278d25333e9179860df5fc070343b115d42828bec02b0429e479b5ad26
+  checksum: ba8cec2f840f10d6daa901889ac60efedbf9608c8721384d85b4aeea3c85ba842f2ff10222cf62cf0334c4c31877aeddaf3bb1c9fb072c453c634e9a8d861753
   languageName: node
   linkType: hard
 
