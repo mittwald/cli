@@ -1,7 +1,7 @@
-import { assertStatus } from "@mittwald/api-client-commons";
 import { normalizeProjectIdToUuid } from "../../../Helpers.js";
 import { DeleteBaseCommand } from "../../../DeleteBaseCommand.js";
 import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
+import assertSuccess from "../../../lib/assert_success.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete a MySQL database";
@@ -21,7 +21,7 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
       mysqlDatabaseId,
     });
 
-    assertStatus(response, 200);
+    assertSuccess(response);
   }
 
   protected mapResourceId(id: string): Promise<string> {
