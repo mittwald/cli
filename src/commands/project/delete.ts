@@ -1,6 +1,6 @@
-import { assertStatus } from "@mittwald/api-client-commons";
 import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
 import { projectArgs } from "../../lib/project/flags.js";
+import assertSuccess from "../../lib/assert_success.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete a project";
@@ -15,6 +15,6 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
       projectId,
     });
 
-    assertStatus(response, 200);
+    assertSuccess(response);
   }
 }

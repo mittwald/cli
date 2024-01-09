@@ -5,9 +5,9 @@ import {
 } from "../../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
 import { Args } from "@oclif/core";
-import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
+import assertSuccess from "../../../lib/assert_success.js";
 
 type Result = {
   executionId: string;
@@ -39,7 +39,7 @@ export class Abort extends ExecRenderBaseCommand<typeof Abort, Result> {
         executionId,
       });
 
-      assertStatus(r, 200);
+      assertSuccess(r);
     });
 
     p.complete(
