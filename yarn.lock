@@ -736,79 +736,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.0.4, @oclif/core@npm:^3.9.1":
-  version: 3.14.1
-  resolution: "@oclif/core@npm:3.14.1"
-  dependencies:
-    ansi-escapes: ^4.3.2
-    ansi-styles: ^4.3.0
-    cardinal: ^2.1.1
-    chalk: ^4.1.2
-    clean-stack: ^3.0.1
-    cli-progress: ^3.12.0
-    color: ^4.2.3
-    debug: ^4.3.4
-    ejs: ^3.1.9
-    get-package-type: ^0.1.0
-    globby: ^11.1.0
-    hyperlinker: ^1.0.0
-    indent-string: ^4.0.0
-    is-wsl: ^2.2.0
-    js-yaml: ^3.14.1
-    natural-orderby: ^2.0.3
-    object-treeify: ^1.1.33
-    password-prompt: ^1.1.2
-    slice-ansi: ^4.0.0
-    string-width: ^4.2.3
-    strip-ansi: ^6.0.1
-    supports-color: ^8.1.1
-    supports-hyperlinks: ^2.2.0
-    tsconfck: ^3.0.0
-    widest-line: ^3.1.0
-    wordwrap: ^1.0.0
-    wrap-ansi: ^7.0.0
-  checksum: 3b9258cb2575c0e42a1153145f3070f1c496a869931a1da7fe07588ff61d9359c11c29e6bfc4060111fc1907139884084d4bdecaa5d76a6c12ee37c6d5b4b2e0
-  languageName: node
-  linkType: hard
-
-"@oclif/core@npm:^3.14.1, @oclif/core@npm:^3.15.0":
-  version: 3.15.0
-  resolution: "@oclif/core@npm:3.15.0"
-  dependencies:
-    ansi-escapes: ^4.3.2
-    ansi-styles: ^4.3.0
-    cardinal: ^2.1.1
-    chalk: ^4.1.2
-    clean-stack: ^3.0.1
-    cli-progress: ^3.12.0
-    color: ^4.2.3
-    debug: ^4.3.4
-    ejs: ^3.1.9
-    get-package-type: ^0.1.0
-    globby: ^11.1.0
-    hyperlinker: ^1.0.0
-    indent-string: ^4.0.0
-    is-wsl: ^2.2.0
-    js-yaml: ^3.14.1
-    natural-orderby: ^2.0.3
-    object-treeify: ^1.1.33
-    password-prompt: ^1.1.2
-    slice-ansi: ^4.0.0
-    string-width: ^4.2.3
-    strip-ansi: ^6.0.1
-    supports-color: ^8.1.1
-    supports-hyperlinks: ^2.2.0
-    tsconfck: ^3.0.0
-    widest-line: ^3.1.0
-    wordwrap: ^1.0.0
-    wrap-ansi: ^7.0.0
-  checksum: 7825cf4ce4db27400c8392c8c385b8e189e0fe3df8e1a74e820803977dbc0c7e06d2378ebf6ee2b61cd635073abc309cdc4717fb1f4e572d498bb27b542c00fa
-  languageName: node
-  linkType: hard
-
-"@oclif/core@npm:^3.15.1":
-  version: 3.15.1
-  resolution: "@oclif/core@npm:3.15.1"
+"@oclif/core@npm:^3.0.4, @oclif/core@npm:^3.14.1, @oclif/core@npm:^3.15.0, @oclif/core@npm:^3.15.1, @oclif/core@npm:^3.9.1":
+  version: 3.16.0
+  resolution: "@oclif/core@npm:3.16.0"
   dependencies:
     ansi-escapes: ^4.3.2
     ansi-styles: ^4.3.0
@@ -837,7 +767,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 092e43507fbf653477b5577e8543b6a2f6b52d07605a396a5791f18f9a77779c30fe2a48841b0a553b7f53500bd406e9dc63b4b5e7d0fdc2654d46d6a02f0abe
+  checksum: 2d5580f8fd9bcac2ae4e7512d451c841ddfaa625cbacbfb97b0863026ff44c9e26f383e7990f8a2b86c9d5ab219b526b5bd8b7832e8c70cd8367aa34f1ebc5ab
   languageName: node
   linkType: hard
 
