@@ -92,6 +92,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
           interval,
           email,
           destination: url ? { url } : { interpreter, path: command },
+          timeout: 3600,
         },
       });
 

@@ -21,7 +21,7 @@ export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.project.getProjectMembership({
-      membershipId: this.args["membership-id"],
+      projectMembershipId: this.args["membership-id"],
     });
   }
 }

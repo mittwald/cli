@@ -302,54 +302,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@mittwald/api-client-commons@npm:4.1.0"
+"@mittwald/api-client-commons@npm:^4.2.0, @mittwald/api-client-commons@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@mittwald/api-client-commons@npm:4.2.1"
   dependencies:
-    "@types/parse-path": ^7.0.0
-    axios: ^1.4.0
+    "@types/parse-path": ^7.0.3
+    axios: ^1.6.2
     parse-path: ^7.0.0
     path-to-regexp: ^6.2.1
-    type-fest: ^3.12.0
+    type-fest: ^4.8.2
   peerDependencies:
-    "@mittwald/react-use-promise": ^1.3.2
+    "@mittwald/react-use-promise": ^2.1.0
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 4b45717283d6f45af5cada3cc099d49c7918020c9e03f880818e71cb653606c90ace17ab79261ee8290bd038cdb1989229524b2dfac0447021dd291ff78504aa
+  checksum: c651e0f52dc4e1ec27ba7e09d78766b989b536a731b999dfa04525517007e8facc3a3d647cdbd9199433e7e85257f0a99306d5f8b77702266d0266623e40c7a6
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "@mittwald/api-client-commons@npm:4.1.1"
+"@mittwald/api-client@npm:^3.1.38":
+  version: 3.1.38
+  resolution: "@mittwald/api-client@npm:3.1.38"
   dependencies:
-    "@types/parse-path": ^7.0.0
-    axios: ^1.4.0
-    parse-path: ^7.0.0
-    path-to-regexp: ^6.2.1
-    type-fest: ^3.12.0
+    "@mittwald/api-client-commons": ^4.2.0
+    browser-or-node: ^3.0.0-pre.0
   peerDependencies:
     "@mittwald/react-use-promise": ^1.3.2
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 8c61a33bf02fbc4410932e90a142794ea63313f5e68b48c5e88b733a4b186b0d4c89bac7b57e1c16ff001aaa049c2b8116b6b9baf341d79c97faabdba84bc565
-  languageName: node
-  linkType: hard
-
-"@mittwald/api-client@npm:^3.1.13":
-  version: 3.1.18
-  resolution: "@mittwald/api-client@npm:3.1.18"
-  dependencies:
-    "@mittwald/api-client-commons": ^4.1.0
-    browser-or-node: ^2.1.1
-  peerDependencies:
-    "@mittwald/react-use-promise": ^1.3.2
-  peerDependenciesMeta:
-    "@mittwald/react-use-promise":
-      optional: true
-  checksum: 2b4cc07919d90322e8f844e685d1c350f1afc7583f22a17f8e843f791a7f5d184517742de7a506a4797a5cb955e35211758deb3b889309f7ee0c73b9cef3a3fd
+  checksum: 85edb9929d58102872e060d23c0fef10188a7825e297bd343914668452c89f9f94fdc1e1c2c3eb98fceb90c7f26541bf81c27939a79c85963bb0466e0eef2cb1
   languageName: node
   linkType: hard
 
@@ -357,9 +339,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mittwald/cli@workspace:."
   dependencies:
-    "@mittwald/api-client": ^3.1.13
-    "@mittwald/api-client-commons": ^4.1.1
-    "@mittwald/react-use-promise": ^2.1.0
+    "@mittwald/api-client": ^3.1.38
+    "@mittwald/api-client-commons": ^4.2.1
+    "@mittwald/react-use-promise": ^2.1.2
     "@oclif/core": ^3.9.1
     "@oclif/plugin-autocomplete": ^3.0.3
     "@oclif/plugin-help": ^6.0.5
@@ -415,17 +397,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mittwald/react-use-promise@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@mittwald/react-use-promise@npm:2.1.0"
+"@mittwald/react-use-promise@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "@mittwald/react-use-promise@npm:2.1.2"
   dependencies:
-    "@types/luxon": 3.3.3
-    luxon: ~3.4.3
+    "@types/luxon": 3.3.7
+    luxon: ~3.4.4
     minimatch: ^9.0.3
-    object-code: ^1.3.0
+    object-code: ^1.3.2
   peerDependencies:
     react: ">=17.0"
-  checksum: 87446728e99558db3d599cfc85f6ec848e03d96efbde108645eec2ff045c3c5c7f72e50b7136807ae6b4ddbb9aca72e9c159022275fec2803dccaf735c7de0e8
+  checksum: e183d857cce83c8e34cc82063ef8fe2e1cb9f959f667d606b3000ec48ac4036d1dc20031847f9ca6c586f91e5969d8abcde0931301ef0acf28fc663f6fa26f28
   languageName: node
   linkType: hard
 
@@ -1170,10 +1152,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:3.3.3":
-  version: 3.3.3
-  resolution: "@types/luxon@npm:3.3.3"
-  checksum: 072dd39eea3f63453788fab2fcfc83eb33917afcaffe178ce08ecd8b016824b8ab3bfa991f66266f2fc1927768a56b4334945f2eb1d83638e325c0c43d7d0e86
+"@types/luxon@npm:3.3.7":
+  version: 3.3.7
+  resolution: "@types/luxon@npm:3.3.7"
+  checksum: 97026557e92bcba308a5592f981591cd200d493fc8997874d79acecf6a2ec41debeded3ac5cd80c371ef7f6f56cc0d1be0a5aca846e03d3e6b4a2be37256fe2f
   languageName: node
   linkType: hard
 
@@ -1260,10 +1242,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/parse-path@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "@types/parse-path@npm:7.0.0"
-  checksum: 46148da2ef5eccca84c664e2ebc47bdcb0e2bc93a489a121a62d93520ef469ba11494f7026af5503ee2b7c33dfe66f3ac334690d3420027c9d5f8a6ee4d0d56c
+"@types/parse-path@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "@types/parse-path@npm:7.0.3"
+  checksum: 21a12c228d38f5a75659dfd7cb127dc2001ed3f6acbd1b2e0575d1348c735594c0bab06a97fe849c151438384829f20ea5971cb045f7ecd37d53c76a9fcb9de3
   languageName: node
   linkType: hard
 
@@ -2035,7 +2017,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.4.0, axios@npm:^1.5.0":
+"axios@npm:^1.5.0":
   version: 1.6.0
   resolution: "axios@npm:1.6.0"
   dependencies:
@@ -2043,6 +2025,17 @@ __metadata:
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
   checksum: c7c9f2ae9e0b9bad7d6f9a4dff030930b12ee667dedf54c3c776714f91681feb743c509ac0796ae5c01e12c4ab4a2bee74905068dd200fbc1ab86f9814578fb0
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.6.2":
+  version: 1.6.5
+  resolution: "axios@npm:1.6.5"
+  dependencies:
+    follow-redirects: ^1.15.4
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: e28d67b2d9134cb4608c44d8068b0678cfdccc652742e619006f27264a30c7aba13b2cd19c6f1f52ae195b5232734925928fb192d5c85feea7edd2f273df206d
   languageName: node
   linkType: hard
 
@@ -2150,10 +2143,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browser-or-node@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "browser-or-node@npm:2.1.1"
-  checksum: b1650b579345574d2c1905c73d385915a032523066ef9589036cf129b23b27b85096b6713476dffb88feb83cda798ed0774363e699117aa2724a0409adea25aa
+"browser-or-node@npm:^3.0.0-pre.0":
+  version: 3.0.0-pre.0
+  resolution: "browser-or-node@npm:3.0.0-pre.0"
+  checksum: 16610f655079cf116c1bd817dc4489023baf79fff57ce4f756dd176aab8853dbac2c6a791b673751021ca3a07da263ce3ecbd296a1438cb92110a36e65644a45
   languageName: node
   linkType: hard
 
@@ -3690,6 +3683,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.15.4":
+  version: 1.15.4
+  resolution: "follow-redirects@npm:1.15.4"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: e178d1deff8b23d5d24ec3f7a94cde6e47d74d0dc649c35fc9857041267c12ec5d44650a0c5597ef83056ada9ea6ca0c30e7c4f97dbf07d035086be9e6a5b7b6
+  languageName: node
+  linkType: hard
+
 "for-each@npm:^0.3.3":
   version: 0.3.3
   resolution: "for-each@npm:0.3.3"
@@ -5179,7 +5182,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luxon@npm:~3.4.3":
+"luxon@npm:~3.4.4":
   version: 3.4.4
   resolution: "luxon@npm:3.4.4"
   checksum: 36c1f99c4796ee4bfddf7dc94fa87815add43ebc44c8934c924946260a58512f0fd2743a629302885df7f35ccbd2d13f178c15df046d0e3b6eb71db178f1c60c
@@ -6365,10 +6368,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-code@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "object-code@npm:1.3.0"
-  checksum: bc5e3df85ac54785b3d1d9b8a9b2e168eb5f69e02be3c958fc05aebaa85ec659c55903852bf15ebf44e98053212f88eb7d3a9e28a50f10c4d60d820f80aa8d64
+"object-code@npm:^1.3.2":
+  version: 1.3.2
+  resolution: "object-code@npm:1.3.2"
+  checksum: 9ee737965887bbb5ea21f322dbc186a09890615058fe9d02f1a94b72c57b90c29374cd866d7c2d8d846568fbb729bd20c6ab0d7779b264539bc0d6773f5c8bbc
   languageName: node
   linkType: hard
 
@@ -8495,7 +8498,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^3.0.0, type-fest@npm:^3.12.0":
+"type-fest@npm:^3.0.0":
   version: 3.12.0
   resolution: "type-fest@npm:3.12.0"
   checksum: 11cb6f40e42f92c462a13677eafedf5c48353eaefa8e489a146e55fe0ae5cecd59a2ba03cd6b294345b5ea304361891a6313c23ed959fa0117f63fb71ee6cbab
@@ -8513,6 +8516,13 @@ __metadata:
   version: 4.6.0
   resolution: "type-fest@npm:4.6.0"
   checksum: e38f2b4b35e912bf60dbe7d4350653fb76b241a456e849fab85002ba08e938a26a7c44a330dd5620dd48ce57566be7c97e997064dc0d5066d5b6949b8c444430
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.8.2":
+  version: 4.9.0
+  resolution: "type-fest@npm:4.9.0"
+  checksum: 73383de23237b399a70397a53101152548846d919aebcc7d8733000c6c354dc2632fe37c4a70b8571b79fdbfa099e2d8304c5ac56b3254780acff93e4c7a797f
   languageName: node
   linkType: hard
 

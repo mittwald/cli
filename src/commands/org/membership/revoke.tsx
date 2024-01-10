@@ -32,7 +32,7 @@ export class Revoke extends ExecRenderBaseCommand<
     const user = await process.runStep("Fetching existing member", async () => {
       const memberResponse =
         await this.apiClient.customer.getCustomerMembership({
-          membershipId,
+          customerMembershipId: membershipId,
         });
       assertStatus(memberResponse, 200);
 
@@ -46,7 +46,7 @@ export class Revoke extends ExecRenderBaseCommand<
 
     await process.runStep("Revoking membership", async () => {
       const response = await this.apiClient.customer.deleteCustomerMembership({
-        membershipId,
+        customerMembershipId: membershipId,
       });
 
       assertStatus(response, 204);
