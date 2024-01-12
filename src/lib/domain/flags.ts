@@ -12,7 +12,9 @@ export const {
       return id;
     }
 
-    const response = await apiClient.domain.listDomains({ projectId });
+    const response = await apiClient.domain.listDomains({
+      queryParameters: { projectId },
+    });
     assertStatus(response, 200);
 
     const domain = response.data.find(({ domain }) => domain === id);
