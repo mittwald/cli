@@ -17,7 +17,7 @@ export class PhpMyAdmin extends BaseCommand {
       this.config,
     );
     const users = await this.apiClient.database.listMysqlUsers({
-      databaseId,
+      mysqlDatabaseId: databaseId,
     });
 
     assertStatus(users, 200);

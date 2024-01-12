@@ -70,7 +70,7 @@ async function getDatabaseUser(
 ): Promise<DatabaseMySqlUser> {
   return await p.runStep("fetching main user", async () => {
     const r = await apiClient.database.listMysqlUsers({
-      databaseId,
+      mysqlDatabaseId: databaseId,
     });
     assertStatus(r, 200);
 

@@ -1,9 +1,9 @@
 import { Text } from "ink";
 import { FC } from "react";
 import { ProjectEnabled } from "./ProjectEnabled.js";
-import { ProjectReadiness } from "./ProjectReadiness.js";
+import { ProjectSimpleStatus } from "./ProjectSimpleStatus.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import ProjectProjectReadinessStatus = MittwaldAPIV2.Components.Schemas.ProjectProjectReadinessStatus;
+import ProjectProjectReadinessStatus = MittwaldAPIV2.Components.Schemas.ProjectProjectStatus;
 
 interface Props {
   /**
@@ -15,7 +15,7 @@ interface Props {
    */
   project: {
     enabled: boolean;
-    readiness: ProjectProjectReadinessStatus;
+    status: ProjectProjectReadinessStatus;
   };
 }
 
@@ -26,7 +26,7 @@ export const ProjectStatus: FC<Props> = (props) => {
     <Text>
       <ProjectEnabled enabled={project.enabled} />
       <Text> / </Text>
-      <ProjectReadiness readiness={project.readiness} />
+      <ProjectSimpleStatus status={project.status} />
     </Text>
   );
 };

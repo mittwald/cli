@@ -1,6 +1,6 @@
-import { assertStatus } from "@mittwald/api-client-commons";
 import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
 import { Args } from "@oclif/core";
+import assertSuccess from "../../lib/assert_success.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete a cron job";
@@ -20,6 +20,6 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
       cronjobId,
     });
 
-    assertStatus(response, 200);
+    assertSuccess(response);
   }
 }

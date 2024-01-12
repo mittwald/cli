@@ -6,7 +6,7 @@ import { SuccessfulResponse } from "../../types.js";
 import { ListColumns } from "../../Formatter.js";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdDomains.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2Domains.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["domain"]["listDomains"]>
@@ -23,7 +23,9 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   public async getData(): Promise<Response> {
     const projectId = await this.withProjectId(List);
-    return await this.apiClient.domain.listDomains({ projectId });
+    return this.apiClient.domain.listDomains({
+      queryParameters: { projectId },
+    });
   }
 
   protected mapData(

@@ -21,7 +21,7 @@ export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
 
   protected async getData(): Promise<APIResponse> {
     return await this.apiClient.project.getProjectInvite({
-      inviteId: this.args["invite-id"],
+      projectInviteId: this.args["invite-id"],
     });
   }
 }

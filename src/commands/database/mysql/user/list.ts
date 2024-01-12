@@ -6,7 +6,7 @@ import { Flags } from "@oclif/core";
 import { ListColumns } from "../../../../Formatter.js";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2MysqlDatabasesDatabaseIdUsers.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2MysqlDatabasesMysqlDatabaseIdUsers.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["database"]["listMysqlUsers"]>
@@ -26,7 +26,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   public async getData(): Promise<Response> {
     return await this.apiClient.database.listMysqlUsers({
-      databaseId: this.flags["database-id"],
+      mysqlDatabaseId: this.flags["database-id"],
     });
   }
 
