@@ -21,6 +21,6 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
       mailAddressId: this.args.id,
     });
 
-    assertStatus(response, 200);
+    assertStatus(response, 204);
   }
 }
