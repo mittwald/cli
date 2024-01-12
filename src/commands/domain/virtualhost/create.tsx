@@ -13,14 +13,11 @@ import { Value } from "../../../rendering/react/components/Value.js";
 import { waitUntil } from "../../../lib/wait.js";
 import { Box } from "ink";
 import { DnsValidationErrors } from "../../../rendering/react/components/Ingress/DnsValidationErrors.js";
-import { DomainOwnership } from "../../../rendering/react/components/Ingress/DomainOwnership.js";
 import IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
 import IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
-import DomainDomainOwnership = MittwaldAPIV2.Components.Schemas.DomainDomainOwnership;
 
 type CreateResult = {
   ingress: IngressIngress;
-  ownership: DomainDomainOwnership | null;
 };
 
 export default class Create extends ExecRenderBaseCommand<
@@ -111,36 +108,19 @@ export default class Create extends ExecRenderBaseCommand<
       },
     );
 
-    const [ingress, ownership] = await process.runStep(
+    const ingress = await process.runStep(
       "waiting for ingress to be ready",
-      async (): Promise<[IngressIngress, DomainDomainOwnership | null]> => {
+      async (): Promise<IngressIngress> => {
         return await waitUntil(async () => {
           const response = await this.apiClient.domain.ingressGetIngress({
             ingressId,
           });
 
-          if (response.status !== 200) {
+          if (response.status !== 200 || response.data.ips.v4.length === 0) {
             return null;
           }
 
-          const ownershipResponse =
-            await this.apiClient.domain.listDomainOwnerships({
-              projectId,
-            });
-          if (ownershipResponse.status === 200) {
-            const ownership = ownershipResponse.data.find(
-              (o) => o.domain === hostname,
-            );
-            if (ownership) {
-              return [response.data, ownership];
-            }
-          }
-
-          if (response.data.ips.v4.length === 0) {
-            return null;
-          }
-
-          return [response.data, null];
+          return response.data;
         });
       },
     );
@@ -156,10 +136,10 @@ export default class Create extends ExecRenderBaseCommand<
       </Success>,
     );
 
-    return { ingress, ownership };
+    return { ingress };
   }
 
-  protected render({ ingress, ownership }: CreateResult): ReactNode {
+  protected render({ ingress }: CreateResult): ReactNode {
     if (this.flags.quiet) {
       this.log(ingress.id);
     }
@@ -170,14 +150,6 @@ export default class Create extends ExecRenderBaseCommand<
       output.push(
         <Box key="dns" marginLeft={2}>
           <DnsValidationErrors ingress={ingress} />
-        </Box>,
-      );
-    }
-
-    if (ownership) {
-      output.push(
-        <Box key="ownership" marginLeft={2}>
-          <DomainOwnership ownership={ownership} />
         </Box>,
       );
     }

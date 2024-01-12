@@ -11,27 +11,12 @@ import { SingleResult } from "../../../rendering/react/components/SingleResult.j
 import { Value } from "../../../rendering/react/components/Value.js";
 import { Box, Text } from "ink";
 import { Header } from "../../../rendering/react/components/Header.js";
-import { DomainOwnership } from "../../../rendering/react/components/Ingress/DomainOwnership.js";
 import { DnsValidationErrors } from "../../../rendering/react/components/Ingress/DnsValidationErrors.js";
 import IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
-import DomainDomainOwnership = MittwaldAPIV2.Components.Schemas.DomainDomainOwnership;
 import IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2IngressesIngressId.Get.Parameters.Path;
-
-const IngressOwnershipVerificationSummary: FC<{
-  ownership: DomainDomainOwnership | undefined;
-}> = ({ ownership }) => {
-  return ownership ? (
-    <>
-      <Text color="yellow">still required</Text>
-      <Text color="gray"> (see instructions below)</Text>
-    </>
-  ) : (
-    <Text color="green">verified</Text>
-  );
-};
 
 const IngressPath: FC<{ path: IngressPath }> = ({ path }) => {
   if ("directory" in path.target) {
@@ -87,22 +72,9 @@ const IngressPaths: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
 };
 
 const GetIngress: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
-  const { apiClient } = useRenderContext();
-  const ownerships = usePromise(
-    (projectId) => apiClient.domain.listDomainOwnerships({ projectId }),
-    [ingress.projectId],
-  );
-
-  assertStatus(ownerships, 200);
-
-  const ownership = ownerships.data.find((o) => o.domain === ingress.hostname);
-
   const rows = {
     "Virtual Host ID": <Value>{ingress.id}</Value>,
     Hostname: <Value>{ingress.hostname}</Value>,
-    "Verification of ownership": (
-      <IngressOwnershipVerificationSummary ownership={ownership} />
-    ),
     "IP addresses": <Value>{ingress.ips.v4.join("\n")}</Value>,
   };
   const sections = [
@@ -117,17 +89,6 @@ const GetIngress: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
     />,
     <IngressPaths key="paths" ingress={ingress} />,
   ];
-
-  if (ownership) {
-    sections.push(
-      <Box key="ownership" flexDirection="column">
-        <Box marginY={1}>
-          <Header title="Pending ownership verification" />
-        </Box>
-        <DomainOwnership ownership={ownership} />
-      </Box>,
-    );
-  }
 
   if (ingress.dnsValidationErrors.length > 0) {
     sections.push(
