@@ -33,6 +33,9 @@ For a development environment for this CLI, you need:
 - 7zip + NSIS (for Windows builds)
 - Docker (for building the Docker image)
 
+When you are using an IDE that supports [devcontainers](https://containers.dev), you can use the provided devcontainer
+configuration to get a development environment with all required tools.
+
 ### Implementation notes for typical commands
 
 #### Documentation & examples
