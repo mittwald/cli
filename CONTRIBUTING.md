@@ -89,7 +89,7 @@ completes successfully and JSON output is required.
 Some implementation notes:
 
 - Use the `ProcessRenderer` class (to be instantiated with the `makeProcessRenderer` function) to render the progress
-  of the process; the class also offers option to prompt additional/missing input data from the user.
+  of the process; the class also offers an option to prompt additional/missing input data from the user.
 - Wrap each long-running operation (API calls, especially when you need to poll the results) into its own separate
   process step.
 
@@ -107,7 +107,7 @@ the most common of these contexts, we provide functions to retrieve the respecti
 - `withOrganizationId`
 - `withServerId`
 - `withAppInstallationId`
-- possible more to come
+- possibly more to come
 
 Using these functions typically requires providing an argument or a flag to the respective command that can be used to
 specify the respective context ID, when it can not be retrieved by any other means:
@@ -128,6 +128,6 @@ class MyCommand extends ExtendedBaseCommand<typeof MyCommand> {
 Use flags and arguments to model inputs. Follow the following guidelines when defining flags and arguments:
 
 - Use flags for optional inputs
-- Use arguments for required inputs; commands that affect an existing resource should accept that resource's ID as first
-  argument.
+- Use arguments for required inputs; commands that affect an existing resource should accept that resource's ID as the
+  first argument.
 - Both should be named in `kebab-case`
