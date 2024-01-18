@@ -33,11 +33,15 @@ $ brew install mw
 
 #### Windows, using the Installer
 
-Find the appropriate Windows installer from the [releases page](https://github.com/mittwald/cli/releases) and run the installer. After running the installer, you should be able to use the `mw` command on either the CMD prompt or PowerShell.
+Find the appropriate Windows installer from the [releases page](https://github.com/mittwald/cli/releases) and run the
+installer. After running the installer, you should be able to use the `mw` command on either the CMD prompt or
+PowerShell.
 
 #### Any OS, using Node.js+NPM
 
-Installing the CLI via NPM will work on any OS; however we cannot guarantee stability, because functionality of the CLI may depend in the Node.js runtime already installed on your system. Also, the automatic upgrade will not work when using NPM; remember to run `npm upgrade -g @mittwald/cli` occasionally.
+Installing the CLI via NPM will work on any OS; however we cannot guarantee stability, because functionality of the CLI
+may depend in the Node.js runtime already installed on your system. Also, the automatic upgrade will not work when using
+NPM; remember to run `npm upgrade -g @mittwald/cli` occasionally.
 
 ```shell
 $ npm install -g @mittwald/cli
@@ -45,7 +49,10 @@ $ npm install -g @mittwald/cli
 
 #### Any OS, using Docker
 
-There is also the [`mittwald/cli` Docker image](https://hub.docker.com/r/mittwald/cli) that you can use instead of installing the CLI on your system. In case of the Docker container, authentication works a bit differently than described below: Make sure that there is an environment variable `MITTWALD_API_TOKEN` present on your system; you can then pass that environment variable into your container:
+There is also the [`mittwald/cli` Docker image](https://hub.docker.com/r/mittwald/cli) that you can use instead of
+installing the CLI on your system. In case of the Docker container, authentication works a bit differently than
+described below: Make sure that there is an environment variable `MITTWALD_API_TOKEN` present on your system; you can
+then pass that environment variable into your container:
 
 ```shell
 $ export MITTWALD_API_TOKEN=<enter token here>
@@ -54,7 +61,8 @@ $ docker run --rm -it -e MITTWALD_API_TOKEN mittwald/cli help
 
 ### Authentication
 
-To use the CLI, you will need an [mStudio API token](https://studio.mittwald.de/app/profile/api-tokens). With your token in your clipboard, run the `mw login token` command:
+To use the CLI, you will need an [mStudio API token](https://studio.mittwald.de/app/profile/api-tokens). With your token
+in your clipboard, run the `mw login token` command:
 
 ```shell
 $ mw login token
@@ -64,13 +72,20 @@ token saved to '/Users/mhelmich/.config/mw/token'
 
 ### Setting up shell autocompletion
 
-The `mw` CLI offers a lot of commands and flags, and it can be hard to remember all of them. To make your life easier, the CLI offers autocompletion for the Bash and ZSH shells. To enable autocompletion, run the following command:
+The `mw` CLI offers a lot of commands and flags, and it can be hard to remember all of them. To make your life easier,
+the CLI offers autocompletion for the Bash and ZSH shells. To enable autocompletion, run the following command:
 
 ```shell
 $ mw autocomplete
 ```
 
-After that, follow the instructions printed by that command (those are specific to your shell -- Bash, ZSH and Powershell are supported).
+After that, follow the instructions printed by that command (those are specific to your shell -- Bash, ZSH and
+Powershell are supported).
+
+## Contributing
+
+If you are a developer (either at @mittwald or an external contributor) and want to contribute to the CLI, please refer
+to the [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
 ## Usage
 
