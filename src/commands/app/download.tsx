@@ -9,6 +9,7 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { getSSHConnectionForAppInstallation } from "../../lib/app/ssh.js";
 import { spawn } from "child_process";
+import { hasBinary } from "../../lib/hasbin.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static description =
@@ -41,6 +42,12 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       },
     );
 
+    await p.runStep("check if rsync is installed", async () => {
+      if (!(await hasBinary("rsync"))) {
+        throw new Error("this command requires rsync to be installed");
+      }
+    });
+
     const downloadStep = p.addStep("downloading app installation");
 
     const child = spawn(
@@ -49,9 +56,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
         "--archive",
         "--recursive",
         "--verbose",
-        // "--delete",
-        // "--dry-run",
-        `${user}@${host}:${directory}`,
+        `${user}@${host}:${directory}/`,
         targetDirectory,
       ],
       {
