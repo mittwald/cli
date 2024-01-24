@@ -77,7 +77,7 @@ export abstract class RenderBaseCommand<
   protected abstract render(): ReactNode;
 
   protected useAppInstallationId(
-    command: CommandType<"installation"> | "flag" | "arg",
+    command: CommandType<"installation" | "project"> | "flag" | "arg",
   ): string {
     return usePromise(() => this.withAppInstallationId(command), []);
   }
