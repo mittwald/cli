@@ -16,14 +16,10 @@ export const DnsZoneDetails: FC<{ dnsZone: DnsZone }> = ({ dnsZone }) => {
   const rows = {
     ID: <Value>{dnsZone.id}</Value>,
   };
-  const sections = [
-    <SingleResult key="primary" title={title} rows={rows} />,
-    <DnsZoneRecords key="records" dnsZone={dnsZone} />,
-  ];
-
   return (
     <Box flexDirection="column" marginBottom={1}>
-      {sections}
+      <SingleResult title={title} rows={rows} />
+      <DnsZoneRecords dnsZone={dnsZone} />
     </Box>
   );
 };

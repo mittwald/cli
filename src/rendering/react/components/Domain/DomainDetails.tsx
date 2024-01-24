@@ -6,15 +6,11 @@ import { DomainBaseDetails } from "./DomainBaseDetails.js";
 import DomainDomain = MittwaldAPIV2.Components.Schemas.DomainDomain;
 
 export const DomainDetails: FC<{ domain: DomainDomain }> = ({ domain }) => {
-  const sections = [
-    <DomainBaseDetails key="primary" domain={domain} />,
-    <DomainHandle key="owner" title="OWNER" handle={domain.handles.ownerC} />,
-    <DomainHandle key="admin" title="ADMIN" handle={domain.handles.adminC} />,
-  ];
-
   return (
     <Box flexDirection="column" marginBottom={1}>
-      {sections}
+      <DomainBaseDetails domain={domain} />
+      <DomainHandle title="OWNER" handle={domain.handles.ownerC} />
+      <DomainHandle title="ADMIN" handle={domain.handles.adminC} />
     </Box>
   );
 };
