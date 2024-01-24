@@ -19,6 +19,10 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   };
   static flags = {
     ...processFlags,
+    "dry-run": Flags.boolean({
+      description: "do not actually download the app installation",
+      default: false,
+    }),
     target: Flags.directory({
       description: "target directory to download the app installation to",
       required: true,
@@ -28,7 +32,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Download);
-    const targetDirectory = this.flags["target"];
+    const { "dry-run": dryRun, target } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Downloading app installation");
 
@@ -48,19 +52,19 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       }
     });
 
-    const downloadStep = p.addStep("downloading app installation");
+    const downloadStep = p.addStep(
+      "downloading app installation" + (dryRun ? " (dry-run)" : ""),
+    );
+
+    const rsyncOpts = ["--archive", "--recursive", "--verbose"];
+    if (dryRun) {
+      rsyncOpts.push("--dry-run");
+    }
 
     const child = spawn(
       "rsync",
-      [
-        "--archive",
-        "--recursive",
-        "--verbose",
-        `${user}@${host}:${directory}/`,
-        targetDirectory,
-      ],
+      [...rsyncOpts, `${user}@${host}:${directory}/`, target],
       {
-        // stdio: "inherit",
         shell: false,
       },
     );
@@ -81,7 +85,15 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
 
     await downloadStep.wait();
 
-    p.complete(<Success>App successfully copied; have fun! 🚀</Success>);
+    if (dryRun) {
+      p.complete(
+        <Success>
+          App would (probably) have successfully been downloaded. 🙂
+        </Success>,
+      );
+    } else {
+      p.complete(<Success>App successfully downloaded; have fun! 🚀</Success>);
+    }
   }
 
   protected render(): ReactNode {
