@@ -4,6 +4,7 @@ import { appInstallationArgs } from "../../lib/app/flags.js";
 import { Flags } from "@oclif/core";
 import * as path from "path";
 import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
+import { getSSHConnectionForAppInstallation } from "../../lib/app/ssh.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static description = "Connect to an app via SSH";
@@ -24,60 +25,32 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
     const { flags } = await this.parse(Ssh);
     const appInstallationId = await this.withAppInstallationId(Ssh);
 
-    const appInstallationResponse = await this.apiClient.app.getAppinstallation(
-      {
-        appInstallationId,
-      },
-    );
-
-    assertStatus(appInstallationResponse, 200);
-
-    if (appInstallationResponse.data.projectId === undefined) {
-      throw new Error("Project ID of app must not be undefined");
-    }
-
-    const projectResponse = await this.apiClient.project.getProject({
-      projectId: appInstallationResponse.data.projectId,
-    });
-
-    assertStatus(projectResponse, 200);
-
-    const userResponse = await this.apiClient.user.getOwnAccount();
-
-    assertStatus(userResponse, 200);
-
-    const sshHost = `ssh.${projectResponse.data.clusterID}.${projectResponse.data.clusterDomain}`;
-    const sshUser = `${userResponse.data.email}@${appInstallationResponse.data.shortId}`;
-    const absoluteInstallPath = path.join(
-      projectResponse.data.directories["Web"],
-      appInstallationResponse.data.installationPath,
+    const { host, user, directory } = await getSSHConnectionForAppInstallation(
+      this.apiClient,
+      appInstallationId,
     );
 
     if (flags.info) {
-      this.log("hostname: %o", sshHost);
-      this.log("username: %o", sshUser);
-      this.log("directory: %o", absoluteInstallPath);
+      this.log("hostname: %o", host);
+      this.log("username: %o", user);
+      this.log("directory: %o", directory);
       return;
     }
 
-    this.log("connecting to %o as %o", sshHost, sshUser);
+    this.log("connecting to %o as %o", host, user);
     let cmd = "exec bash -l";
 
     if (flags.cd) {
-      cmd = flags.cd ? `cd ${absoluteInstallPath} && exec bash -l` : "bash -l";
+      cmd = flags.cd ? `cd ${directory} && exec bash -l` : "bash -l";
 
       this.log(
         "changing to %o; use --no-cd to disable this behaviour",
-        absoluteInstallPath,
+        directory,
       );
     }
 
-    child_process.spawnSync(
-      "/usr/bin/ssh",
-      ["-t", "-l", sshUser, sshHost, cmd],
-      {
-        stdio: "inherit",
-      },
-    );
+    child_process.spawnSync("/usr/bin/ssh", ["-t", "-l", user, host, cmd], {
+      stdio: "inherit",
+    });
   }
 }
