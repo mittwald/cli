@@ -23,6 +23,10 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       description: "do not actually download the app installation",
       default: false,
     }),
+    delete: Flags.boolean({
+      description: "delete local files that are not present on the server",
+      default: false,
+    }),
     target: Flags.directory({
       description: "target directory to download the app installation to",
       required: true,
@@ -32,7 +36,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Download);
-    const { "dry-run": dryRun, target } = this.flags;
+    const { "dry-run": dryRun, target, delete: deleteLocal } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Downloading app installation");
 
@@ -56,9 +60,18 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       "downloading app installation" + (dryRun ? " (dry-run)" : ""),
     );
 
-    const rsyncOpts = ["--archive", "--recursive", "--verbose"];
+    const rsyncOpts = [
+      "--archive",
+      "--recursive",
+      "--verbose",
+      "--progress",
+      "--exclude=typo3temp",
+    ];
     if (dryRun) {
       rsyncOpts.push("--dry-run");
+    }
+    if (deleteLocal) {
+      rsyncOpts.push("--delete");
     }
 
     const child = spawn(
