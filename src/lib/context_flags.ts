@@ -9,13 +9,17 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import { Context, ContextKey, ContextNames } from "./context.js";
 
-type ContextFlags<
+export type ContextFlags<
   N extends ContextNames,
   TID extends string = ContextKey<N>,
 > = {
   [k in TID]: OptionFlag<string>;
 };
-type ContextArgs<N extends ContextNames, TID extends string = ContextKey<N>> = {
+
+export type ContextArgs<
+  N extends ContextNames,
+  TID extends string = ContextKey<N>,
+> = {
   [k in TID]: Arg<string>;
 };
 
@@ -30,7 +34,7 @@ export type CommandType<
       args: { [k in TID]: Arg<string> };
     };
 
-class MissingFlagError extends Error {
+export class MissingFlagError extends Error {
   constructor(name: string, flagName: string) {
     super(
       `No ${name} ID given. Please specify one with --${flagName} or set a default ${name} with 'mittwald context set --${flagName} <${flagName}>'`,
@@ -38,7 +42,7 @@ class MissingFlagError extends Error {
   }
 }
 
-class MissingArgError extends Error {
+export class MissingArgError extends Error {
   constructor(name: string, flagName: string) {
     super(
       `No ${name} ID given. Please specify one as positional argument or set a default ${name} with 'mittwald context set --${flagName} <${flagName}>'`,
@@ -68,6 +72,45 @@ export type NormalizeFn = (
   apiClient: MittwaldAPIV2Client,
   id: string,
 ) => string | Promise<string>;
+
+export function makeMissingContextInputError<TName extends ContextNames>(
+  commandType:
+    | { flags: { [k in ContextKey<TName>]: OptionFlag<string> } }
+    | {
+        args: { [k in ContextKey<TName>]: Arg<string> };
+      }
+    | "flag"
+    | "arg",
+  name: TName,
+  flagName: `${TName}-id`,
+  contextSupport: boolean = true,
+): Error {
+  if (commandType === "flag") {
+    return new MissingFlagError(name, flagName);
+  }
+
+  if (commandType === "arg") {
+    return new MissingArgError(name, flagName);
+  }
+
+  if ("flags" in commandType && flagName in commandType.flags) {
+    return new MissingFlagError(name, flagName);
+  }
+
+  if ("args" in commandType && flagName in commandType.args) {
+    return new MissingArgError(name, flagName);
+  }
+
+  if (contextSupport) {
+    return new Error(
+      `No ${name} ID given. Please consult the --help page of this command or set a default ${name} with 'mittwald context set --${flagName} <${flagName}>'`,
+    );
+  }
+
+  return new Error(
+    `No ${name} ID given. Please consult the --help page of this command.`,
+  );
+}
 
 export function makeFlagSet<TName extends ContextNames>(
   name: TName,
@@ -126,25 +169,7 @@ export function makeFlagSet<TName extends ContextNames>(
       return idFromContext.value;
     }
 
-    if (commandType === "flag") {
-      throw new MissingFlagError(name, flagName);
-    }
-
-    if (commandType === "arg") {
-      throw new MissingArgError(name, flagName);
-    }
-
-    if ("flags" in commandType && flagName in commandType.flags) {
-      throw new MissingFlagError(name, flagName);
-    }
-
-    if ("args" in commandType && flagName in commandType.args) {
-      throw new MissingArgError(name, flagName);
-    }
-
-    throw new Error(
-      `No ${name} ID given. Please consult the --help page of this command or set a default ${name} with 'mittwald context set --${flagName} <${flagName}>'`,
-    );
+    throw makeMissingContextInputError<TName>(commandType, name, flagName);
   };
 
   return {
