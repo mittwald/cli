@@ -43,6 +43,7 @@ export function makeProjectFlagSet<TName extends ContextNames>(
     displayName = name,
     supportsContext = false,
   } = opts;
+  const article = displayName.match(/^[aeiou]/i) ? "an" : "a";
 
   const flagName: ContextKey<TName> = `${name}-id`;
   const flags = {
@@ -50,18 +51,30 @@ export function makeProjectFlagSet<TName extends ContextNames>(
     [flagName]: Flags.string({
       char,
       required: !supportsContext,
-      summary: `ID or ${shortIDName} of a ${displayName}`,
-      description: `May contain a ${shortIDName} or a full ID of a ${displayName}.`,
+      summary: `ID or ${shortIDName} of ${article} ${displayName}`,
+      description: `May contain a ${shortIDName} or a full ID of ${article} ${displayName}.`,
       default: undefined,
     }),
   } as ContextFlags<TName | "project">;
 
   const args = {
     [flagName]: Args.string({
-      description: `ID or ${shortIDName} of a ${displayName}`,
+      description: `ID or ${shortIDName} of ${article} ${displayName}`,
       required: !supportsContext,
     }),
   } as ContextArgs<TName | "project">;
+
+  if (supportsContext) {
+    flags[
+      flagName
+    ].summary += `; this flag is optional if a default ${displayName} is set in the context`;
+    flags[
+      flagName
+    ].description += `; you can also use the "<%= config.bin %> context set --${flagName}=<VALUE>" command to persistently set a default ${displayName} for all commands that accept this flag.`;
+    args[
+      flagName
+    ].description += `; this argument is optional if a default ${displayName} is set in the context`;
+  }
 
   const idFromArgsOrFlag = (
     flags: FlagOutput,
