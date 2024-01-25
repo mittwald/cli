@@ -38,6 +38,7 @@ jobs:
           yarn oclif upload tarballs
           --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64
         env:
+          AWS_REGION: eu-central-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -79,6 +80,7 @@ jobs:
       - name: Upload to S3
         run: yarn oclif upload win
         env:
+          AWS_REGION: eu-central-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -116,6 +118,7 @@ jobs:
       - name: Upload to S3
         run: yarn oclif upload macos
         env:
+          AWS_REGION: eu-central-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
