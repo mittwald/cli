@@ -120,6 +120,7 @@ USAGE
 * [`mw app dependency list`](#mw-app-dependency-list)
 * [`mw app dependency update [INSTALLATION-ID]`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
+* [`mw app download [INSTALLATION-ID]`](#mw-app-download-installation-id)
 * [`mw app get [INSTALLATION-ID]`](#mw-app-get-installation-id)
 * [`mw app install contao`](#mw-app-install-contao)
 * [`mw app install drupal`](#mw-app-install-drupal)
@@ -537,6 +538,34 @@ FLAGS
 
 DESCRIPTION
   Get all available versions of a particular dependency
+```
+
+## `mw app download [INSTALLATION-ID]`
+
+Download the filesystem of an app within a project to your local machine
+
+```
+USAGE
+  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--dry-run] [--delete]
+
+ARGUMENTS
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
+
+FLAGS
+  -q, --quiet           suppress process output and only display a machine-readable summary.
+      --delete          delete local files that are not present on the server
+      --dry-run         do not actually download the app installation
+      --target=<value>  (required) target directory to download the app installation to
+
+DESCRIPTION
+  Download the filesystem of an app within a project to your local machine
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw app get [INSTALLATION-ID]`
@@ -1476,7 +1505,7 @@ Connect to an app via SSH
 
 ```
 USAGE
-  $ mw app ssh [INSTALLATION-ID] [--cd] [--info]
+  $ mw app ssh [INSTALLATION-ID] [--cd] [--info] [--test]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1485,6 +1514,7 @@ ARGUMENTS
 FLAGS
   --[no-]cd  change to installation path after connecting
   --info     only print connection information, without actually connecting
+  --test     test connection and exit
 
 DESCRIPTION
   Connect to an app via SSH
