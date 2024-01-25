@@ -36,17 +36,26 @@ export class UserContextProvider
     }
   }
 
-  public async update(data: Record<ContextKey, string>): Promise<void> {
-    const baseData = await this.getOverrides();
+  public async update(updatedData: Record<ContextKey, string>): Promise<void> {
+    const data = await this.getOverrides();
     const source = { type: "user", identifier: this.contextFile };
 
+    for (const k of Object.keys(updatedData) as ContextKey[]) {
+      data[k] = { value: updatedData[k], source };
+    }
+
+    const output: Record<string, string> = {};
+
     for (const k of Object.keys(data) as ContextKey[]) {
-      baseData[k] = { value: data[k], source };
+      const val = data[k]?.value;
+      if (val !== undefined) {
+        output[k] = val;
+      }
     }
 
     await fs.writeFile(
       path.join(this.config.configDir, "context.json"),
-      JSON.stringify(data),
+      JSON.stringify(output),
       "utf-8",
     );
   }
