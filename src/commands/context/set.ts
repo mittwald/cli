@@ -6,6 +6,7 @@ import {
   normalizeProjectIdToUuid,
   normalizeServerIdToUuid,
 } from "../../Helpers.js";
+import { normalizeAppInstallationId } from "../../lib/app/flags.js";
 
 export class Set extends BaseCommand {
   static summary = "Set context values for the current project, org or server";
@@ -20,6 +21,10 @@ export class Set extends BaseCommand {
     }),
     "org-id": Flags.string({
       description: "ID or short ID of an organization",
+    }),
+    "installation-id": Flags.string({
+      description: "ID or short ID of an app installation",
+      aliases: ["app-id", "app-installation-id"],
     }),
   };
 
@@ -52,6 +57,16 @@ export class Set extends BaseCommand {
       );
       await ctx.setOrgId(orgId);
       this.log(`Set organization ID to ${orgId}`);
+    }
+
+    if (flags["installation-id"]) {
+      const installationId = await normalizeAppInstallationId(
+        this.apiClient,
+        (await ctx.projectId())?.value ?? "",
+        flags["installation-id"],
+      );
+      await ctx.setAppInstallationId(installationId);
+      this.log(`Set installation ID to ${installationId}`);
     }
   }
 }

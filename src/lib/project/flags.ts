@@ -29,6 +29,7 @@ export type ProjectFlagSetOpts = {
   normalize: SubNormalizeFn;
   shortIDName: string;
   displayName: string;
+  supportsContext: boolean;
 };
 
 export function makeProjectFlagSet<TName extends ContextNames>(
@@ -40,6 +41,7 @@ export function makeProjectFlagSet<TName extends ContextNames>(
     normalize = (_1, _2, id) => id,
     shortIDName = "short ID",
     displayName = name,
+    supportsContext = false,
   } = opts;
 
   const flagName: ContextKey<TName> = `${name}-id`;
@@ -47,7 +49,7 @@ export function makeProjectFlagSet<TName extends ContextNames>(
     ...projectFlags,
     [flagName]: Flags.string({
       char,
-      required: true,
+      required: !supportsContext,
       summary: `ID or ${shortIDName} of a ${displayName}`,
       description: `May contain a ${shortIDName} or a full ID of a ${displayName}.`,
       default: undefined,
@@ -57,7 +59,7 @@ export function makeProjectFlagSet<TName extends ContextNames>(
   const args = {
     [flagName]: Args.string({
       description: `ID or ${shortIDName} of a ${displayName}`,
-      required: true,
+      required: !supportsContext,
     }),
   } as ContextArgs<TName | "project">;
 

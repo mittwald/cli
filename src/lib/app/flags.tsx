@@ -27,19 +27,26 @@ export const {
   withId: withAppInstallationId,
 } = makeProjectFlagSet("installation", "i", {
   displayName: "app installation",
-  normalize: async (apiClient, projectId, id): Promise<string> => {
-    if (isUuid(id)) {
-      return id;
-    }
-
-    const appInstallations = await apiClient.app.listAppinstallations({
-      projectId,
-    });
-    assertStatus(appInstallations, 200);
-
-    return appInstallations.data.find((inst) => inst.shortId === id)?.id ?? id;
-  },
+  normalize: normalizeAppInstallationId,
+  supportsContext: true,
 });
+
+export async function normalizeAppInstallationId(
+  apiClient: MittwaldAPIV2Client,
+  projectId: string,
+  id: string,
+): Promise<string> {
+  if (isUuid(id)) {
+    return id;
+  }
+
+  const appInstallations = await apiClient.app.listAppinstallations({
+    projectId,
+  });
+  assertStatus(appInstallations, 200);
+
+  return appInstallations.data.find((inst) => inst.shortId === id)?.id ?? id;
+}
 
 export type AvailableFlagName = keyof AvailableFlags;
 
