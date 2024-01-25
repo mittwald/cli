@@ -79,8 +79,11 @@ export class Context {
   public setProjectId = (id: string) => this.setContextValue("project-id", id);
   public setServerId = (id: string) => this.setContextValue("server-id", id);
   public setOrgId = (id: string) => this.setContextValue("org-id", id);
+  public setAppInstallationId = (id: string) =>
+    this.setContextValue("installation-id", id);
 
   public projectId = () => this.getContextValue("project-id");
   public serverId = () => this.getContextValue("server-id");
   public orgId = () => this.getContextValue("org-id");
+  public appInstallationId = () => this.getContextValue("installation-id");
 }
