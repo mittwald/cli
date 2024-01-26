@@ -7840,11 +7840,11 @@ __metadata:
   linkType: hard
 
 "prettier-plugin-package@npm:^1.3.1":
-  version: 1.3.1
-  resolution: "prettier-plugin-package@npm:1.3.1"
+  version: 1.4.0
+  resolution: "prettier-plugin-package@npm:1.4.0"
   peerDependencies:
-    prettier: ^2.0.0
-  checksum: d907c80dbabb1d81157697eca537f4e51d57c808dd7b69a5825d730a8be0026ac13372f8b1a0d70b966a278276a5b495d4445d09a30af7f0e3a4331fd05243b9
+    prettier: ^2.0.0 || ^3.0.0
+  checksum: 09c48d1cd43aa13e3cfa30f6f8a4c72bf07b1cd5da955419b6da611f34c80427e8681a86f55cd63114f10a0082c51b3fb8a3515c9afdd4a9eaaf54ffc3d0b1a2
   languageName: node
   linkType: hard
 
