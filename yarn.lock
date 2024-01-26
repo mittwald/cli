@@ -2280,9 +2280,9 @@ __metadata:
   linkType: hard
 
 "@types/copyfiles@npm:^2.4.1":
-  version: 2.4.2
-  resolution: "@types/copyfiles@npm:2.4.2"
-  checksum: 984ea1df5da421e83e782e902ee131bedde726f811dec5d01f68593c8f319a3c6346d90f7f8827bb9f1c85ab0817f819cfc7449bf664316af6e30343fcc48df3
+  version: 2.4.4
+  resolution: "@types/copyfiles@npm:2.4.4"
+  checksum: 0513199240828feda5f6ed04c69d6a642c47e6ab66b81214716807f948ed3e865e9b3d2b69f75cbcc6fbe2154630755c47ca473b3913f0a831179366c709a8cc
   languageName: node
   linkType: hard
 
