@@ -7451,8 +7451,8 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.3.9":
-  version: 4.3.9
-  resolution: "oclif@npm:4.3.9"
+  version: 4.3.10
+  resolution: "oclif@npm:4.3.10"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.496.0
     "@aws-sdk/client-s3": ^3.496.0
@@ -7475,7 +7475,7 @@ __metadata:
     yeoman-generator: ^5.8.0
   bin:
     oclif: bin/run.js
-  checksum: 8488e6c2892745ba4da18c8e1e1cc51a8451435fddd81f2d1e2523da0fbfded1bd9773c1b87aece647bf7113072134c7b56b9e30b789a6a59e430ddfb9c372f4
+  checksum: 2b763df90c15befe9e1e7931a9c7a06fb9d2daa64453ce6128ee61d71d4bf5124bc82258b2df9b46a07c7a80c5977a9362f7d68a41c658981dae0b67d7a6677d
   languageName: node
   linkType: hard
 
