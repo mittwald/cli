@@ -1,4 +1,3 @@
-import { WriteStream } from "fs";
 import cp from "child_process";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SSHConnectionData } from "./types.js";
@@ -12,7 +11,7 @@ export async function executeViaSSH(
   target: RunTarget,
   command: string,
   args: string[],
-  output: WriteStream,
+  output: NodeJS.WritableStream,
 ): Promise<void> {
   const { user, host } = await connectionDataForTarget(client, target);
   const sshArgs = ["-l", user, "-T", host, command, ...args];
@@ -29,12 +28,18 @@ export async function executeViaSSH(
 
   await new Promise((res, rej) => {
     ssh.on("exit", (code) => {
-      output.close();
+      const resolve = () => {
+        if (code === 0) {
+          res(undefined);
+        } else {
+          rej(new Error(`ssh+${command} exited with code ${code}\n${err}`));
+        }
+      };
 
-      if (code === 0) {
-        res(undefined);
+      if (output === process.stdout) {
+        resolve();
       } else {
-        rej(new Error(`ssh+${command} exited with code ${code}\n${err}`));
+        output.end(resolve);
       }
     });
   });

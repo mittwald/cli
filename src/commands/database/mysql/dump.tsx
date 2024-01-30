@@ -84,7 +84,10 @@ export class Dump extends ExecRenderBaseCommand<
     const { project } = connectionDetails;
     const mysqldumpArgs = buildMySqlDumpArgs(connectionDetails);
 
-    const stream = fs.createWriteStream(this.flags.output);
+    const stream =
+      this.flags.output === "-"
+        ? process.stdout
+        : fs.createWriteStream(this.flags.output);
     await p.runStep(
       <Text>
         starting mysqldump via SSH on project <Value>{project.shortId}</Value>
