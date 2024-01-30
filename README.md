@@ -169,6 +169,7 @@ USAGE
 * [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
 * [`mw database mysql shell DATABASE-ID`](#mw-database-mysql-shell-database-id)
+* [`mw database mysql user delete USER-ID`](#mw-database-mysql-user-delete-user-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
@@ -2258,7 +2259,7 @@ Create a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>]
+  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user]
 
 ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
@@ -2267,6 +2268,7 @@ FLAGS
   -o, --output=<value>          (required) the output file to write the dump to ("-" for stdout)
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --[no-]temporary-user     create a temporary user for the dump
 
 FLAG DESCRIPTIONS
   -o, --output=<value>  the output file to write the dump to ("-" for stdout)
@@ -2287,6 +2289,14 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --[no-]temporary-user  create a temporary user for the dump
+
+    Create a temporary user for the dump. This user will be deleted after the dump has been created. This is useful if
+    you want to dump a database that is not accessible from the outside.
+
+    If this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password
+    flag or via the MYSQL_PWD environment variable.
 ```
 
 ## `mw database mysql get DATABASE-ID`
@@ -2396,6 +2406,31 @@ FLAG DESCRIPTIONS
     NOTE: This is a security risk, as the password will be visible in the process list of your system, and will be
     visible in your Shell history. It is recommended to use the environment variable instead.
 
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw database mysql user delete USER-ID`
+
+Delete a MySQL user
+
+```
+USAGE
+  $ mw database mysql user delete USER-ID [-q] [-f]
+
+ARGUMENTS
+  USER-ID  ID of the MySQL user to delete.
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a MySQL user
+
+FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
