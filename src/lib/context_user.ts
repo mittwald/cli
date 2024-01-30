@@ -53,6 +53,7 @@ export class UserContextProvider
       }
     }
 
+    await fs.mkdir(this.config.configDir, { recursive: true });
     await fs.writeFile(
       path.join(this.config.configDir, "context.json"),
       JSON.stringify(output),
