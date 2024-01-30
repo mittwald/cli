@@ -16,6 +16,8 @@ import {
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
+import { assertStatus } from "@mittwald/api-client";
+import { randomBytes } from "crypto";
 
 export class Dump extends ExecRenderBaseCommand<
   typeof Dump,
@@ -25,6 +27,14 @@ export class Dump extends ExecRenderBaseCommand<
   static flags = {
     ...processFlags,
     ...mysqlConnectionFlags,
+    "temporary-user": Flags.boolean({
+      summary: "create a temporary user for the dump",
+      description:
+        "Create a temporary user for the dump. This user will be deleted after the dump has been created. This is useful if you want to dump a database that is not accessible from the outside.\n\nIf this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password flag or via the MYSQL_PWD environment variable.",
+      default: true,
+      required: false,
+      allowNo: true,
+    }),
     output: Flags.string({
       char: "o",
       summary: 'the output file to write the dump to ("-" for stdout)',
@@ -44,13 +54,57 @@ export class Dump extends ExecRenderBaseCommand<
     );
     const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
 
-    const { sshUser, sshHost, user, hostname, database, password } =
-      await getConnectionDetailsWithPassword(
-        this.apiClient,
-        databaseId,
-        p,
-        this.flags,
+    const connectionDetails = await getConnectionDetailsWithPassword(
+      this.apiClient,
+      databaseId,
+      p,
+      this.flags,
+    );
+
+    let cleanup: () => Promise<void> = async () => {};
+
+    if (this.flags["temporary-user"]) {
+      const tempPassword = randomBytes(32).toString("base64");
+      const tempUser = await p.runStep(
+        "creating a temporary database user",
+        async () => {
+          const createResponse = await this.apiClient.database.createMysqlUser({
+            mysqlDatabaseId: databaseId,
+            data: {
+              accessLevel: "full", // needed for "PROCESS" privilege
+              externalAccess: false,
+              password: tempPassword,
+              databaseId,
+              description: "Temporary user for exporting database",
+            },
+          });
+
+          assertStatus(createResponse, 201);
+
+          const userResponse = await this.apiClient.database.getMysqlUser({
+            mysqlUserId: createResponse.data.id,
+          });
+          assertStatus(userResponse, 200);
+
+          return userResponse.data;
+        },
       );
+
+      cleanup = async () => {
+        await p.runStep("deleting temporary user", async () => {
+          const r = await this.apiClient.database.deleteMysqlUser({
+            mysqlUserId: tempUser.id,
+          });
+          assertStatus(r, 204);
+        });
+      };
+
+      connectionDetails.user = tempUser.name;
+      connectionDetails.password = tempPassword;
+    }
+
+    const { sshUser, sshHost, user, hostname, database, password } =
+      connectionDetails;
 
     const sshArgs = [
       "-l",
@@ -96,6 +150,8 @@ export class Dump extends ExecRenderBaseCommand<
         });
       },
     );
+
+    await cleanup();
 
     p.complete(
       <Success>

@@ -9,9 +9,12 @@ export async function getConnectionDetailsWithPassword(
   apiClient: MittwaldAPIV2Client,
   databaseId: string,
   p: ProcessRenderer,
-  flags: { "mysql-password": string | undefined },
+  flags: {
+    "mysql-password": string | undefined;
+    "temporary-user"?: boolean;
+  },
 ) {
-  const password = await getPassword(p, flags);
+  const password = flags["temporary-user"] ? "" : await getPassword(p, flags);
   return {
     ...(await getConnectionDetails(apiClient, databaseId, p)),
     password,
