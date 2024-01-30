@@ -1,4 +1,4 @@
-import { normalizeProjectIdToUuid } from "../../Helpers.js";
+import { isUuid, normalizeProjectIdToUuid } from "../../Helpers.js";
 import {
   CommandType,
   ContextArgs,
@@ -7,7 +7,7 @@ import {
   makeFlagSet,
   makeMissingContextInputError,
 } from "../context_flags.js";
-import { ContextKey, ContextNames } from "../context.js";
+import { Context, ContextKey, ContextNames } from "../context.js";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import { Args, Config, Flags } from "@oclif/core";
 import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
@@ -98,17 +98,25 @@ export function makeProjectFlagSet<TName extends ContextNames>(
     args: ArgOutput,
     cfg: Config,
   ): Promise<string> => {
-    const projectId = await withProjectId(
-      apiClient,
-      commandType,
-      flags,
-      args,
-      cfg,
-    );
-
     const idInput = idFromArgsOrFlag(flags, args);
     if (idInput) {
+      if (isUuid(idInput)) {
+        return idInput;
+      }
+
+      const projectId = await withProjectId(
+        apiClient,
+        commandType,
+        flags,
+        args,
+        cfg,
+      );
       return normalize(apiClient, projectId, idInput);
+    }
+
+    const idFromContext = await new Context(cfg).getContextValue(flagName);
+    if (idFromContext) {
+      return idFromContext.value;
     }
 
     throw makeMissingContextInputError<TName>(
