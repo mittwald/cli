@@ -37,6 +37,7 @@ export async function getConnectionDetails(
     user: databaseUser.name,
     sshHost: `ssh.${project.clusterID}.${project.clusterDomain}`,
     sshUser: `${user.email}@${project.shortId}`,
+    project,
   };
 }
 

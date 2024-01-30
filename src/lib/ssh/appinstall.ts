@@ -1,11 +1,6 @@
 import { MittwaldAPIV2Client, assertStatus } from "@mittwald/api-client";
 import path from "path";
-
-export interface SSHConnectionData {
-  host: string;
-  user: string;
-  directory: string;
-}
+import { SSHConnectionData } from "./types.js";
 
 export async function getSSHConnectionForAppInstallation(
   client: MittwaldAPIV2Client,

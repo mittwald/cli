@@ -5,7 +5,6 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../../rendering/process/process_flags.js";
-import * as cp from "child_process";
 import { Text } from "ink";
 import { Value } from "../../../rendering/react/components/Value.js";
 import * as fs from "fs";
@@ -18,6 +17,7 @@ import {
 import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
 import { assertStatus } from "@mittwald/api-client";
 import { randomBytes } from "crypto";
+import { executeViaSSH } from "../../../lib/ssh/exec.js";
 
 export class Dump extends ExecRenderBaseCommand<
   typeof Dump,
@@ -103,15 +103,9 @@ export class Dump extends ExecRenderBaseCommand<
       connectionDetails.password = tempPassword;
     }
 
-    const { sshUser, sshHost, user, hostname, database, password } =
-      connectionDetails;
+    const { user, hostname, database, password, project } = connectionDetails;
 
-    const sshArgs = [
-      "-l",
-      sshUser,
-      "-T",
-      sshHost,
-      "mysqldump",
+    const mysqldumpArgs = [
       "-h",
       hostname,
       "-u",
@@ -123,31 +117,16 @@ export class Dump extends ExecRenderBaseCommand<
     const stream = fs.createWriteStream(this.flags.output);
     await p.runStep(
       <Text>
-        starting mysqldump via SSH on <Value>{sshHost}</Value> as{" "}
-        <Value>{sshUser}</Value>
+        starting mysqldump via SSH on project <Value>{project.shortId}</Value>
       </Text>,
-      () => {
-        const ssh = cp.spawn("ssh", sshArgs, {
-          stdio: ["ignore", "pipe", "pipe"],
-        });
-
-        let err = "";
-
-        ssh.stdout.pipe(stream);
-        ssh.stderr.on("data", (data) => {
-          err += data.toString();
-        });
-
-        return new Promise((res, rej) => {
-          ssh.on("exit", (code) => {
-            stream.close();
-            if (code === 0) {
-              res(undefined);
-            } else {
-              rej(new Error(`ssh+mysqldump exited with code ${code}\n${err}`));
-            }
-          });
-        });
+      async () => {
+        await executeViaSSH(
+          this.apiClient,
+          { projectId: connectionDetails.project.id },
+          "mysqldump",
+          mysqldumpArgs,
+          stream,
+        );
       },
     );
 
