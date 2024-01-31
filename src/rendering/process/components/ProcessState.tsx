@@ -14,6 +14,14 @@ export const ProcessState: React.FC<{ step: ProcessStep }> = ({ step }) => {
         <ProcessStateSummary step={step} />
       </Box>
 
+      {step.type === "step" && step.output ? (
+        <Box marginX={6}>
+          <Text color="gray">
+            {step.output.split("\n").slice(-10).join("\n")}
+          </Text>
+        </Box>
+      ) : null}
+
       {step.type === "step" && step.error ? (
         <ProcessError err={step.error} />
       ) : null}

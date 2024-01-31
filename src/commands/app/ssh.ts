@@ -17,6 +17,9 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
     info: Flags.boolean({
       summary: "only print connection information, without actually connecting",
     }),
+    test: Flags.boolean({
+      summary: "test connection and exit",
+    }),
   };
 
   public async run(): Promise<void> {
@@ -36,9 +39,14 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
     }
 
     this.log("connecting to %o as %o", host, user);
-    let cmd = "exec bash -l";
 
-    if (flags.cd) {
+    let cmd = "exec bash -l";
+    const args = ["-t", "-l", user];
+
+    if (flags.test) {
+      cmd = "/bin/true";
+      args.push("-q");
+    } else if (flags.cd) {
       cmd = flags.cd ? `cd ${directory} && exec bash -l` : "bash -l";
 
       this.log(
@@ -47,7 +55,7 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
       );
     }
 
-    child_process.spawnSync("/usr/bin/ssh", ["-t", "-l", user, host, cmd], {
+    child_process.spawnSync("/usr/bin/ssh", [...args, host, cmd], {
       stdio: "inherit",
     });
   }
