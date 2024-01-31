@@ -1,5 +1,10 @@
 import React, { ReactElement, ReactNode } from "react";
-import { ProcessRenderer, ProcessStep, RunnableHandler } from "./process.js";
+import {
+  CleanupFunction,
+  ProcessRenderer,
+  ProcessStep,
+  RunnableHandler,
+} from "./process.js";
 import { Header } from "../react/components/Header.js";
 import { Box, render, Text } from "ink";
 import { ProcessState } from "./components/ProcessState.js";
@@ -10,6 +15,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
   private readonly title: string;
   private started = false;
   private currentHandler: RunnableHandler | null = null;
+  private cleanupFns: CleanupFunction[] = [];
 
   public constructor(title: string) {
     this.title = title;
@@ -55,7 +61,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
       step.complete();
       return result;
     } catch (err) {
-      step.error(err);
+      await this.error(err);
       throw err;
     }
   }
@@ -136,10 +142,12 @@ export class FancyProcessRenderer implements ProcessRenderer {
     });
   }
 
-  public complete(summary: ReactElement) {
+  public async complete(summary: ReactElement) {
     if (this.currentHandler) {
       this.currentHandler.complete();
     }
+
+    await this.cleanup();
 
     render(
       <Box marginY={1} marginX={2}>
@@ -148,10 +156,12 @@ export class FancyProcessRenderer implements ProcessRenderer {
     ).unmount();
   }
 
-  public error(err: unknown): void {
+  public async error(err: unknown): Promise<void> {
     if (this.currentHandler) {
       this.currentHandler.error(err);
+      await this.cleanup();
     } else {
+      await this.cleanup();
       render(
         <Box marginY={1} marginX={2} borderStyle="round" borderColor="red">
           <Text color="red">Error: {err?.toString()}</Text>
@@ -166,5 +176,21 @@ export class FancyProcessRenderer implements ProcessRenderer {
         <Header title={this.title} />
       </Box>
     );
+  }
+
+  public addCleanup(title: ReactNode, fn: () => Promise<unknown>): void {
+    this.cleanupFns.push({ title, fn });
+  }
+
+  private async cleanup() {
+    if (this.cleanupFns.length === 0) {
+      return;
+    }
+
+    for (const { title, fn } of this.cleanupFns) {
+      await this.runStep(title, async () => {
+        await fn();
+      });
+    }
   }
 }

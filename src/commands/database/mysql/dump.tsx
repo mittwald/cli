@@ -62,20 +62,18 @@ export class Dump extends ExecRenderBaseCommand<
       this.flags,
     );
 
-    let cleanup: (() => Promise<void>) | undefined;
-
     if (this.flags["temporary-user"]) {
       const [tempUser, tempPassword] = await p.runStep(
         "creating a temporary database user",
         () => this.createTemporaryUser(databaseId),
       );
 
-      cleanup = async () => {
+      p.addCleanup("removing temporary database user", async () => {
         const r = await this.apiClient.database.deleteMysqlUser({
           mysqlUserId: tempUser.id,
         });
         assertSuccess(r);
-      };
+      });
 
       connectionDetails.user = tempUser.name;
       connectionDetails.password = tempPassword;
@@ -84,10 +82,6 @@ export class Dump extends ExecRenderBaseCommand<
     const { project } = connectionDetails;
     const mysqldumpArgs = buildMySqlDumpArgs(connectionDetails);
 
-    const stream =
-      this.flags.output === "-"
-        ? process.stdout
-        : fs.createWriteStream(this.flags.output);
     await p.runStep(
       <Text>
         starting mysqldump via SSH on project <Value>{project.shortId}</Value>
@@ -98,15 +92,11 @@ export class Dump extends ExecRenderBaseCommand<
           { projectId: connectionDetails.project.id },
           "mysqldump",
           mysqldumpArgs,
-          stream,
+          this.getOutputStream(),
         ),
     );
 
-    if (cleanup) {
-      await p.runStep("cleaning up temporary resources", cleanup);
-    }
-
-    p.complete(
+    await p.complete(
       <DumpSuccess
         database={connectionDetails.database}
         output={this.flags.output}
@@ -118,6 +108,14 @@ export class Dump extends ExecRenderBaseCommand<
 
   protected render(): ReactNode {
     return undefined;
+  }
+
+  private getOutputStream(): NodeJS.WritableStream {
+    if (this.flags.output === "-") {
+      return process.stdout;
+    }
+
+    return fs.createWriteStream(this.flags.output);
   }
 
   private async createTemporaryUser(
