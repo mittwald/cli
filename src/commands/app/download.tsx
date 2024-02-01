@@ -7,9 +7,9 @@ import {
 import { Flags } from "@oclif/core";
 import { Success } from "../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
-import { getSSHConnectionForAppInstallation } from "../../lib/app/ssh.js";
 import { spawn } from "child_process";
 import { hasBinary } from "../../lib/hasbin.js";
+import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static description =

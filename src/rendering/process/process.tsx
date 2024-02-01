@@ -33,6 +33,11 @@ export type ProcessStep =
   | ProcessStepConfirm
   | ProcessStepInput;
 
+export type CleanupFunction = {
+  title: ReactNode;
+  fn: () => Promise<unknown>;
+};
+
 export class RunnableHandler {
   private readonly listener: () => void;
   private readonly processStep: ProcessStepRunnable;
@@ -48,6 +53,8 @@ export class RunnableHandler {
       this.resolve = res;
       this.reject = rej;
     });
+
+    this.promise.catch(() => {});
   }
 
   public get done(): boolean {
@@ -95,7 +102,8 @@ export interface ProcessRenderer {
   addInfo(title: ReactElement): void;
   addConfirmation(question: ReactElement): Promise<boolean>;
   addInput(question: ReactNode, mask?: boolean): Promise<string>;
+  addCleanup(title: ReactNode, fn: () => Promise<unknown>): void;
 
-  complete(summary: ReactElement): void;
-  error(err: unknown): void;
+  complete(summary: ReactElement): Promise<void>;
+  error(err: unknown): Promise<void>;
 }

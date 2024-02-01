@@ -1,7 +1,10 @@
 import { ReactNode } from "react";
 import { ProcessRenderer, RunnableHandler } from "./process.js";
+import * as console from "console";
 
 export class SilentProcessRenderer implements ProcessRenderer {
+  private cleanupFns: (() => Promise<unknown>)[] = [];
+
   public start() {
     // 🤐
   }
@@ -26,12 +29,13 @@ export class SilentProcessRenderer implements ProcessRenderer {
     // 🤐
   }
 
-  public complete() {
-    // 🤐
+  public async complete() {
+    await this.cleanup();
   }
 
-  public error(err: unknown): void {
+  public error(err: unknown) {
     console.error(err);
+    return Promise.resolve();
   }
 
   public addConfirmation(): Promise<boolean> {
@@ -40,5 +44,15 @@ export class SilentProcessRenderer implements ProcessRenderer {
 
   public addInput(): Promise<string> {
     throw new Error("no interactive input available in quiet mode");
+  }
+
+  public addCleanup(_: ReactNode, fn: () => Promise<unknown>): void {
+    this.cleanupFns.push(fn);
+  }
+
+  private async cleanup() {
+    for (const fn of this.cleanupFns) {
+      await fn();
+    }
   }
 }

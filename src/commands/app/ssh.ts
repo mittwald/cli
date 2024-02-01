@@ -2,7 +2,7 @@ import * as child_process from "child_process";
 import { appInstallationArgs } from "../../lib/app/flags.js";
 import { Flags } from "@oclif/core";
 import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
-import { getSSHConnectionForAppInstallation } from "../../lib/app/ssh.js";
+import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static description = "Connect to an app via SSH";

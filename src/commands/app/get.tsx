@@ -14,11 +14,12 @@ export default class Get extends RenderBaseCommand<typeof Get> {
   protected render(): ReactNode {
     const appInstallationId = this.useAppInstallationId(Get);
     const appInstallation = useAppInstallation(appInstallationId);
-    const app = useApp(appInstallation.appId);
 
     if (this.flags.output === "json") {
       return <RenderJson name="appInstallation" data={appInstallation} />;
     }
+
+    const app = useApp(appInstallation.appId);
 
     return (
       <AppInstallationDetails appInstallation={appInstallation} app={app} />
