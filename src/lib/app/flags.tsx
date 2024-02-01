@@ -65,100 +65,115 @@ interface AvailableFlags {
   "install-mode": OptionFlag<string>;
   "document-root": OptionFlag<string>;
   wait: BooleanFlag<boolean | undefined>;
+  entrypoint: OptionFlag<string | undefined>;
 }
 
 function buildFlagsWithDescription(appName: string): AvailableFlags {
   return {
     version: Flags.string({
       required: true,
-      summary: `Version of ${appName} to be installed.`,
-      description: `Specify the Version in which your ${appName} will be installed. 
-      If none is given the ${appName} will be installed in the latest available version.`,
+      summary: `version of ${appName} to be installed.`,
+      description: `Specify the version in which your ${appName} will be installed. 
+      If unspecified, the ${appName} will be installed in the latest available version.`,
       default: "latest",
     }),
     host: Flags.string({
       required: false,
-      summary: `Host to initially configure your ${appName} installation with; needs to be created separately.`,
+      summary: `host to initially configure your ${appName} installation with; needs to be created separately.`,
       description: `Specify a host which will be used during the installation and as an initial host for the ${appName} configuration.
-      If not given the default host for the given Project will be used. 
-      This does not change the target of the used Host and can be changed later by configuring the Host and your ${appName} installation.`,
+      If unspecified, the default host for the given project will be used. 
+      This does not change the target of the used host and can be changed later by configuring the host and your ${appName} installation.`,
+      default: undefined,
     }),
     "admin-user": Flags.string({
       required: false,
-      summary: "Username for your administrator-user.",
-      description: `Username of the first administrator-user which will be created during the ${appName} installation. 
-      If not given an adequate username will be created from your mStudio Account Data.
-      After the installation is finished the Username can be changed and additional administrator-users can be created.`,
+      summary: "Username for your administrator user.",
+      description: `Username of the first administrator user which will be created during the ${appName} installation. 
+      If unspecified, an adequate username will be generated.
+      After the installation is finished, the username can be changed and additional administrator users can be created.`,
+      default: undefined,
     }),
     "admin-email": Flags.string({
       required: false,
-      summary: "E-Mail-Address of your administrator-user.",
-      description: `E-Mail-Address that will correlate to the first administrator-user which will be created during the ${appName} installation.
-      If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the installation is finished.`,
+      summary: "email address of your administrator user.",
+      description: `email address that will be used for the first administrator user that is created during the ${appName} installation.
+      If unspecified, email address of your mStudio account will be used. This email address can be changed after the installation is finished.`,
+      default: undefined,
     }),
     "admin-pass": Flags.string({
       required: false,
-      summary: "Password of your administrator-user.",
-      description: `Password that will correlate to the first administrator-user which will be created during the ${appName} installation.
-      If not given a random secure Password will be generated and sent to stdout. This Password can be changed after the installation is finished`,
+      summary: "password of your administrator user.",
+      description: `The password that will be used for the first administrator user that is created during the ${appName} installation.
+      If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after the installation is finished`,
+      default: undefined,
     }),
     "admin-firstname": Flags.string({
       required: false,
-      summary: "Firstname of your administrator-user.",
-      description: `Firstname that will correlate to the first administrator-user which will be created during the ${appName} installation.
-      If none is given your mStudio Account-Firstname will be used. This Firstname can be changed after the installation is finished`,
+      summary: "first name of your administrator user.",
+      description: `The first name that will be used for the first administrator user that is created during the ${appName} installation.
+      If unspecified, the first name of your mStudio user will be used. This value can be changed after the installation is finished.`,
+      default: undefined,
     }),
     "admin-lastname": Flags.string({
       required: false,
-      summary: "Lastname of your administrator-user.",
-      description: `Lastname that will correlate to the first administrator-user which will be created during the ${appName} installation.
-      If none is given your mStudio Account-Firstname will be used. This Lastname can be changed after the installation is finished`,
+      summary: "Lastname of your administrator user.",
+      description: `The last name that will be used for the first administrator user that is created during the ${appName} installation.
+      If unspecified, the last name of your mStudio user will be used. This value can be changed after the installation is finished.`,
+      default: undefined,
     }),
     "site-title": Flags.string({
       required: false,
-      summary: `Site Title for your ${appName} installation.`,
-      description: `Site Title which will be displayed in the Tab and at the top of the Frontend of your ${appName} installation.
-      It is also the Title shown in the App-Overview in the mStudio.
-      If none is given the Software Name and the given Project will be used. The Title can be changed after the installation is finished`,
+      summary: `site title for your ${appName} installation.`,
+      description: `The site title for this ${appName} installation. It is also the title shown in the app overview in the mStudio and the CLI.
+      If unspecified, the application name and the given project ID will be used. The title can be changed after the installation is finished`,
+      default: undefined,
     }),
     "shop-email": Flags.string({
       required: false,
-      summary: `E-Mail-Address your ${appName} will be working with.`,
-      description: `The E-Mail-Address your ${appName} shop will be using for correspondence..
-      If not given your mStudio Account-E-Mail-Address will be used. This E-Mail-Address can be changed after the installation is finished.`,
+      summary: `email address your ${appName} will be working with.`,
+      description: `The email address your ${appName} installation will be using for correspondence with end users.
+      If unspecified, your mStudio account email will be used. This email address can be changed after the installation is finished.`,
+      default: undefined,
     }),
     "shop-lang": Flags.string({
       required: false,
-      summary: `Language your ${appName} will be working with.`,
-      description: `The default Language your ${appName} shop will be using.
-      The Front- and Backend will be displayed using the given language.
-      If not given will default to German(de_DE). The language can be changed after the installation is finished.`,
+      summary: `language your ${appName} will be working with.`,
+      description: `The default language your ${appName} installation will be using. The front- and back end will be displayed using the given language.
+      If unspecified, this will default to German (de_DE). The language can be changed after the installation is finished.`,
+      default: undefined,
     }),
     "shop-currency": Flags.string({
       required: false,
       summary: `Currency your ${appName} will be working with.`,
-      description: `The default Currency your ${appName} shop communicates prices and calculates transactions with.
-      If not given will default to EUR(€). The currency can be changed after the installation is finished.`,
+      description: `The default currency your ${appName} shop communicates prices and calculates transactions with.
+      If unspecified, this will default to EUR(€). The currency can be changed after the installation is finished.`,
+      default: undefined,
     }),
     "install-mode": Flags.string({
       required: true,
-      summary: `The installation variant your ${appName} will be installed with.`,
-      description: `${appName} can be installed in one of two different ways.  your ${appName} shop communicates prices and calculates transactions with.
-      Either as a composer project or in a more manual fashion using the source directory and the ${appName} console install wizard.
-      If not given will default to composer installation. This can not be changed later.`,
+      summary: `The installation mode your ${appName} will be installed with.`,
+      description: `${appName} can be installed in one of two different ways: either as a composer project or in a more manual fashion using the source directory and the ${appName} console install wizard.
+      If unspecified, this will default to a composer-based installation. This can not be changed later.`,
       options: ["composer", "symlink"],
       default: "composer",
     }),
     "document-root": Flags.string({
       required: true,
-      summary: `The document root from which your ${appName} will be served (relative to the installation path)`,
+      summary: `the document root from which your ${appName} will be served (relative to the installation path)`,
       description:
         "This is the document root from which the files of your application will be served by the web server. This directory is specified relative to the installation path.",
       default: "/",
     }),
+    entrypoint: Flags.string({
+      summary: `the command that should be used to start your ${appName} application.`,
+      description:
+        "This is the command that should be used to start your application; the app is required to run in the foreground, and to listen on the port specified by the PORT environment variable.",
+      required: false,
+      default: undefined,
+    }),
     wait: Flags.boolean({
       char: "w",
-      description: `Wait for your ${appName} to be ready.`,
+      description: `wait for your ${appName} to be ready.`,
     }),
   };
 }
@@ -189,7 +204,6 @@ export function provideSupportedFlags<
     ...projectFlags,
     ...processFlags,
     ...supportedFlags,
-    json: Flags.boolean({}),
   };
 
   return flagsToReturn as RelevantFlagInput<TFlagNames>;

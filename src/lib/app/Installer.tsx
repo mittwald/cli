@@ -26,6 +26,10 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
   public readonly appSupportedFlags: readonly TFlagName[];
   public readonly description: string;
 
+  public mutateFlags?: (
+    flags: RelevantFlagInput<readonly TFlagName[]>,
+  ) => unknown;
+
   private static makeDescription(appName: string): string {
     return `Creates new ${appName} installation.`;
   }
@@ -42,7 +46,13 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
   }
 
   public get flags(): RelevantFlagInput<readonly TFlagName[]> {
-    return provideSupportedFlags(this.appSupportedFlags, this.appName);
+    const flags = provideSupportedFlags(this.appSupportedFlags, this.appName);
+
+    if (this.mutateFlags) {
+      this.mutateFlags(flags);
+    }
+
+    return flags;
   }
 
   public async exec(
