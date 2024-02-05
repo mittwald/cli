@@ -1558,6 +1558,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^3.18.2":
+  version: 3.19.0
+  resolution: "@oclif/core@npm:3.19.0"
+  dependencies:
+    "@types/cli-progress": ^3.11.5
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    color: ^4.2.3
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.3
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: a4705a6b5aed281088ae24877c0cef9469ab0ead114ae082f8367b7585ce24c1b73b02e9f8edc5ab49327b593cf03753cc8fd63847a7213e1a7249a9878eceb3
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-autocomplete@npm:^3.0.3":
   version: 3.0.5
   resolution: "@oclif/plugin-autocomplete@npm:3.0.5"
@@ -1609,15 +1644,15 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.0.9":
-  version: 3.0.9
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.9"
+  version: 3.0.10
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.10"
   dependencies:
-    "@oclif/core": ^3.16.0
+    "@oclif/core": ^3.18.2
     chalk: ^5.3.0
     debug: ^4.1.0
     http-call: ^5.2.2
     lodash.template: ^4.5.0
-  checksum: a230f936efef2d7fedbf2d2e4accf7b88925d9a3ce46f4e1b8e0cdbe55c6736add54e11f7bc5c7284ec93d08550c47e2f0032306330bded1e4028abb00f16ac0
+  checksum: f98060d649c4464a187cc0740503958a6be2266bbc6586b37e2cefa2ee6dd64fe1d0ccf996cc592b4b356c2a672db1d5615848ff7cc7f98cb06463a4ea7d8ba5
   languageName: node
   linkType: hard
 
