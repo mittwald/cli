@@ -5,14 +5,12 @@ import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 import { formatBytes } from "../../../lib/viewhelpers/size.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdMailAddresses.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 
-type PathParams =
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdMailAddresses.Get.Parameters.Path;
 type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["mail"]["listMailAddresses"]>
 >;
