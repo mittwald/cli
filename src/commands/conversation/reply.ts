@@ -1,6 +1,6 @@
 import { BaseCommand } from "../../BaseCommand.js";
 import { Args, ux } from "@oclif/core";
-import { normalizeConversationIdToUuid } from "../../Helpers.js";
+import { normalizeConversationId } from "../../normalize_id.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import {
   messageFlags,
@@ -23,7 +23,7 @@ export default class Reply extends BaseCommand {
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Reply);
-    const conversationId = await normalizeConversationIdToUuid(
+    const conversationId = await normalizeConversationId(
       this.apiClient,
       args.id,
     );

@@ -1,6 +1,6 @@
 import { BaseCommand } from "../../BaseCommand.js";
 import { Args, ux } from "@oclif/core";
-import { normalizeConversationIdToUuid } from "../../Helpers.js";
+import { normalizeConversationId } from "../../normalize_id.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 
 export default class Close extends BaseCommand {
@@ -14,7 +14,7 @@ export default class Close extends BaseCommand {
 
   public async run(): Promise<void> {
     const { args } = await this.parse(Close);
-    const conversationId = await normalizeConversationIdToUuid(
+    const conversationId = await normalizeConversationId(
       this.apiClient,
       args.id,
     );

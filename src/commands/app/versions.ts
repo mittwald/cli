@@ -1,6 +1,6 @@
 import { BaseCommand } from "../../BaseCommand.js";
 import { Args } from "@oclif/core";
-import { isUuid } from "../../Helpers.js";
+import { isUuid } from "../../normalize_id.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import {

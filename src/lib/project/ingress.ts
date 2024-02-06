@@ -1,12 +1,12 @@
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { normalizeProjectIdToUuid } from "../../Helpers.js";
+import { normalizeProjectId } from "../../normalize_id.js";
 
 export async function getDefaultIngressForProject(
   apiClient: MittwaldAPIV2Client,
   projectId: string,
 ): Promise<string> {
-  const projectUuid = await normalizeProjectIdToUuid(apiClient, projectId);
+  const projectUuid = await normalizeProjectId(apiClient, projectId);
   const projectIngresses = await apiClient.domain.ingressListIngresses({
     queryParameters: {
       projectId: projectUuid,

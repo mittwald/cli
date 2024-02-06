@@ -23,6 +23,7 @@ export interface ContextProvider {
 
 export interface WritableContextProvider extends ContextProvider {
   update(data: ContextMapUpdate): Promise<void>;
+  reset(): Promise<void>;
 }
 
 function isWritable(p: ContextProvider): p is WritableContextProvider {
@@ -51,6 +52,14 @@ export class Context {
     }
 
     return contextData;
+  }
+
+  public async reset(): Promise<void> {
+    for (const provider of this.providers) {
+      if (isWritable(provider)) {
+        await provider.reset();
+      }
+    }
   }
 
   private async persist(data: ContextMapUpdate): Promise<void> {

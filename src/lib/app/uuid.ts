@@ -1,56 +1,40 @@
-import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { assertStatus } from "@mittwald/api-client-commons";
-import { isUuid } from "../../Helpers.js";
+import { isUuid } from "../../normalize_id.js";
+import {
+  MittwaldAPIV2,
+  MittwaldAPIV2Client,
+  assertStatus,
+} from "@mittwald/api-client";
+import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 
-// Get App UUID from App Name
-export async function getAppUuidFromAppName(
+/**
+ * Lookup an app by its UUID
+ *
+ * @param apiClient
+ * @param appId
+ */
+export async function getAppFromUuid(
   apiClient: MittwaldAPIV2Client,
-  softwareName: string,
-): Promise<string> {
-  const apps = await apiClient.app.listApps();
-  assertStatus(apps, 200);
+  appId: string,
+): Promise<AppApp> {
+  const result = await apiClient.app.getApp({ appId });
+  assertStatus(result, 200);
 
-  const foundApp = apps.data.find((item) => {
-    return (
-      item.name.toLowerCase().replace(/[!. ]/g, "") ===
-      softwareName.toLowerCase().replace(/[!. ]/g, "")
-    );
-  });
-
-  if (foundApp) {
-    return foundApp.id;
-  }
-  throw new Error("Access Denied.");
+  return result.data;
 }
 
-// Get App Human readable Name from App UUID
-export async function getAppNameFromUuid(
-  apiClient: MittwaldAPIV2Client,
-  uuid: string,
-): Promise<string> {
-  if (!isUuid(uuid)) {
-    throw new Error("Given UUID not valid.");
-  }
-
-  const apps = await apiClient.app.listApps();
-  assertStatus(apps, 200);
-
-  const foundApp = apps.data.find((item) => {
-    return item.id === uuid;
-  });
-
-  if (foundApp) {
-    return foundApp.name as string;
-  }
-  throw new Error("App not found.");
-}
-
-// Get App Human Readable Version from App Version
+/**
+ * Lookup an app version by its UUID
+ *
+ * @param apiClient
+ * @param appId
+ * @param appVersionId
+ */
 export async function getAppVersionFromUuid(
   apiClient: MittwaldAPIV2Client,
   appId: string,
   appVersionId: string,
-): Promise<string> {
+): Promise<AppAppVersion> {
   if (!isUuid(appId) && !isUuid(appVersionId)) {
     throw new Error("Given UUID not valid.");
   }
@@ -60,8 +44,62 @@ export async function getAppVersionFromUuid(
     appVersionId: appVersionId,
   });
 
-  if (appVersion.data.externalVersion) {
-    return appVersion.data.externalVersion as string;
+  assertStatus(appVersion, 200);
+
+  return appVersion.data;
+}
+
+/**
+ * Lookup an app by its human readable name
+ *
+ * @param apiClient
+ * @param appName
+ */
+export async function getAppUuidFromAppName(
+  apiClient: MittwaldAPIV2Client,
+  appName: string,
+): Promise<string> {
+  const apps = await apiClient.app.listApps();
+  assertStatus(apps, 200);
+
+  const foundApp = apps.data.find((item) => {
+    return (
+      item.name.toLowerCase().replace(/[!. ]/g, "") ===
+      appName.toLowerCase().replace(/[!. ]/g, "")
+    );
+  });
+
+  if (foundApp) {
+    return foundApp.id;
   }
-  throw new Error("AppVersion not found.");
+  throw new Error("Access Denied.");
+}
+
+/**
+ * Lookup an app name by its UUID
+ *
+ * @param apiClient
+ * @param uuid
+ */
+export async function getAppNameFromUuid(
+  apiClient: MittwaldAPIV2Client,
+  uuid: string,
+): Promise<string> {
+  return (await getAppFromUuid(apiClient, uuid)).name;
+}
+
+/**
+ * Lookup an app version number by its UUID
+ *
+ * @param apiClient
+ * @param appId
+ * @param appVersionId
+ */
+export async function getAppVersionNumberFromUuid(
+  apiClient: MittwaldAPIV2Client,
+  appId: string,
+  appVersionId: string,
+): Promise<string> {
+  return (await getAppVersionFromUuid(apiClient, appId, appVersionId))
+    .externalVersion;
 }

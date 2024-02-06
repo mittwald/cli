@@ -1,4 +1,4 @@
-import { isUuid } from "../../../Helpers.js";
+import { isUuid } from "../../../normalize_id.js";
 import { makeProjectFlagSet } from "../../project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 
