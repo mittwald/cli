@@ -45,13 +45,15 @@ export class List extends ListBaseCommand<
   protected getColumns(
     data: SshUserResponseItem[],
   ): ListColumns<SshUserResponseItem> {
-    const baseColumns = super.getColumns(data);
+    const { id, userName, createdAt } = super.getColumns(data, {
+      shortIdKey: "userName",
+    });
     return {
-      id: baseColumns.id,
-      userName: { header: "Username" },
+      id,
+      userName,
       description: {},
       active: {},
-      createdAt: baseColumns.createdAt,
+      createdAt,
     };
   }
 }

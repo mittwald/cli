@@ -38,10 +38,10 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
-    const baseColumns = super.getColumns(data);
+    const { id, shortId, createdAt } = super.getColumns(data);
     return {
-      id: baseColumns.id,
-      shortId: baseColumns.shortId,
+      id,
+      shortId,
       interval: {},
       description: {},
       lastExecution: {
@@ -59,7 +59,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
           );
         },
       },
-      createdAt: baseColumns.createdAt,
+      createdAt,
     };
   }
 }

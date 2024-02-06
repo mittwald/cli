@@ -35,19 +35,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     return data;
   }
 
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    return {
-      ...input,
-      projectId: await withProjectId(
-        this.apiClient,
-        List,
-        this.flags,
-        this.args,
-        this.config,
-      ),
-    };
-  }
-
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
     const baseColumns = super.getColumns(data);
     return {

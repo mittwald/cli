@@ -38,16 +38,16 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     return data;
   }
 
-  protected getColumns(): ListColumns<ResponseItem> {
+  protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+    const { id, customerNumber } = super.getColumns(data, {
+      shortIdKey: "customerNumber",
+    });
     return {
       id: {
-        header: "ID",
+        ...id,
         get: (r) => r.customerId,
-        minWidth: 36,
       },
-      customerNumber: {
-        header: "Customer No.",
-      },
+      customerNumber,
       name: {},
       owner: {
         get: (r) => {

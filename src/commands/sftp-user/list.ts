@@ -47,13 +47,15 @@ export default class List extends ListBaseCommand<
   protected getColumns(
     data: SftpUserResponseItem[],
   ): ListColumns<SftpUserResponseItem> {
-    const baseColumns = super.getColumns(data);
+    const { id, userName, createdAt } = super.getColumns(data, {
+      shortIdKey: "userName",
+    });
     return {
-      id: baseColumns.id,
-      userName: { header: "Username" },
+      id,
+      userName,
       description: {},
       active: {},
-      createdAt: baseColumns.createdAt,
+      createdAt,
     };
   }
 }

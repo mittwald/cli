@@ -76,16 +76,13 @@ export default class List extends ListBaseCommand<
     );
   }
 
-  protected getColumns(): ListColumns<ExtendedResponseItem> {
+  protected getColumns(
+    rows: ResponseItem[],
+  ): ListColumns<ExtendedResponseItem> {
+    const { id, shortId } = super.getColumns(rows);
     return {
-      id: {
-        header: "ID",
-        minWidth: 36,
-      },
-      shortId: {
-        header: "Short ID",
-        minWidth: 8,
-      },
+      id,
+      shortId,
       description: {},
       app: {
         header: "Application",

@@ -34,9 +34,9 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
-    const baseColumns = super.getColumns(data);
+    const { id } = super.getColumns(data);
     return {
-      id: baseColumns.id,
+      id,
       name: {},
       tags: {
         get: (item) => item.tags.join(", "),
