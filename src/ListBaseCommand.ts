@@ -67,10 +67,15 @@ export abstract class ListBaseCommand<
       },
     };
     if ("shortId" in data[0]) {
+      // If there's a short ID in the data, the actual UUID becomes less useful,
+      // so we hide it by default.
+      columns.id.header = "UUID";
+      columns.id.extended = true;
+
       columns = {
         ...columns,
         shortId: {
-          header: "Short ID",
+          header: "ID",
           minWidth: 8,
         },
       };
