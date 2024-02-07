@@ -32,12 +32,12 @@ export default class List extends ListBaseCommand<
   }
 
   protected getColumns(ignoredData: ResponseItem[]): ListColumns<ResponseItem> {
-    const baseColumns = super.getColumns(ignoredData);
+    const { id, shortId } = super.getColumns(ignoredData);
     return {
-      id: baseColumns.id,
-      shortId: baseColumns.shortId,
+      id,
+      shortId,
       customerId: {
-        header: "Customer ID",
+        header: "Org ID",
         extended: true,
       },
       description: {

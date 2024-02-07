@@ -8,6 +8,10 @@ import fs from "fs/promises";
 import path from "path";
 import { Config } from "@oclif/core";
 
+function isNotExists(e: unknown): e is { code: "ENOENT" } {
+  return e instanceof Error && "code" in e && e.code === "ENOENT";
+}
+
 export class UserContextProvider
   implements ContextProvider, WritableContextProvider
 {
@@ -29,8 +33,19 @@ export class UserContextProvider
         Object.entries(rawValues).map(([k, v]) => [k, { value: v, source }]),
       );
     } catch (e) {
-      if (e instanceof Error && "code" in e && e.code === "ENOENT") {
+      if (isNotExists(e)) {
         return {};
+      }
+      throw e;
+    }
+  }
+
+  public async reset(): Promise<void> {
+    try {
+      await fs.unlink(this.contextFile);
+    } catch (e) {
+      if (isNotExists(e)) {
+        return;
       }
       throw e;
     }

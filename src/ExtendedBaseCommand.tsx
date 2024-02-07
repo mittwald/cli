@@ -25,7 +25,7 @@ export abstract class ExtendedBaseCommand<
   }
 
   public async withAppInstallationId(
-    command: CommandType<"installation" | "project"> | "flag" | "arg",
+    command: CommandType<"installation"> | "flag" | "arg",
   ): Promise<string> {
     return withAppInstallationId(
       this.apiClient,

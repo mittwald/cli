@@ -31,14 +31,16 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
-    const baseColumns = super.getColumns(data);
+    const { id, name, createdAt } = super.getColumns(data, {
+      shortIdKey: "name",
+    });
     return {
-      id: baseColumns.id,
-      name: {},
+      id,
+      name,
       version: {},
       description: {},
       hostname: {},
-      createdAt: baseColumns.createdAt,
+      createdAt,
     };
   }
 }

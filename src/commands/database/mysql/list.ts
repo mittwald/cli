@@ -33,13 +33,12 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   }
 
   protected getColumns(ignoredData: ResponseItem[]): ListColumns<ResponseItem> {
-    const commonColumns = super.getColumns(ignoredData);
+    const { id, name, createdAt } = super.getColumns(ignoredData, {
+      shortIdKey: "name",
+    });
     return {
-      id: commonColumns.id,
-      name: {
-        header: "Name",
-        minWidth: 12,
-      },
+      id,
+      name,
       version: {
         header: "Version",
       },
@@ -68,7 +67,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
         get: (row) => row.characterSettings?.collation,
         extended: true,
       },
-      createdAt: commonColumns.createdAt,
+      createdAt,
     };
   }
 }

@@ -1,7 +1,7 @@
 import { Args, Config, Flags } from "@oclif/core";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
-import { isUuid } from "../../../Helpers.js";
+import { isUuid } from "../../../normalize_id.js";
 import { withProjectId } from "../../project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 

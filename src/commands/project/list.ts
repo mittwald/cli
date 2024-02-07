@@ -44,15 +44,12 @@ export class List extends ListBaseCommand<
   protected getColumns(
     ignoredData: ProjectResponseItem[],
   ): ListColumns<ProjectResponseItem> {
-    const baseColumns = super.getColumns(ignoredData);
+    const { id, shortId, createdAt } = super.getColumns(ignoredData);
     return {
-      id: baseColumns.id,
-      shortId: {
-        header: "Short ID",
-        minWidth: 8,
-      },
+      id,
+      shortId,
       customerId: {
-        header: "Customer ID",
+        header: "Org ID",
         extended: true,
       },
       description: {
@@ -67,7 +64,7 @@ export class List extends ListBaseCommand<
           return row.readiness;
         },
       },
-      createdAt: baseColumns.createdAt,
+      createdAt,
     };
   }
 }

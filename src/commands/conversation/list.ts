@@ -36,12 +36,12 @@ export default class List extends ListBaseCommand<
   protected getColumns(): ListColumns<ResponseItem> {
     return {
       conversationId: {
-        header: "ID",
+        header: "UUID",
         minWidth: 36,
         extended: true,
       },
       shortId: {
-        header: "Short ID",
+        header: "ID",
         minWidth: 8,
       },
       status: {},

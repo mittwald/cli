@@ -6,7 +6,7 @@ import React from "react";
 import { Text } from "ink";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { ProcessRenderer } from "../../rendering/process/process.js";
-import { makeProjectFlagSet, projectFlags } from "../project/flags.js";
+import { projectFlags } from "../project/flags.js";
 import {
   ProcessFlags,
   processFlags,
@@ -19,35 +19,17 @@ import {
   OutputFlags,
 } from "@oclif/core/lib/interfaces/parser.js";
 import { generatePasswordWithSpecialChars } from "../password.js";
-import { isUuid } from "../../Helpers.js";
+import { normalizeAppInstallationId } from "../../normalize_id.js";
+import { makeFlagSet } from "../context_flags.js";
 
 export const {
   flags: appInstallationFlags,
   args: appInstallationArgs,
   withId: withAppInstallationId,
-} = makeProjectFlagSet("installation", "i", {
+} = makeFlagSet("installation", "i", {
   displayName: "app installation",
   normalize: normalizeAppInstallationId,
-  supportsContext: true,
 });
-
-export async function normalizeAppInstallationId(
-  apiClient: MittwaldAPIV2Client,
-  projectId: string,
-  id: string,
-): Promise<string> {
-  if (isUuid(id)) {
-    return id;
-  }
-
-  const appInstallations = await apiClient.app.listAppinstallations({
-    projectId,
-  });
-  assertStatus(appInstallations, 200);
-
-  return appInstallations.data.find((inst) => inst.shortId === id)?.id ?? id;
-}
-
 export type AvailableFlagName = keyof AvailableFlags;
 
 interface AvailableFlags {

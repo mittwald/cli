@@ -1,4 +1,4 @@
-import { normalizeProjectIdToUuid } from "../../../Helpers.js";
+import { normalizeProjectId } from "../../../normalize_id.js";
 import { DeleteBaseCommand } from "../../../DeleteBaseCommand.js";
 import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
 import assertSuccess from "../../../lib/assert_success.js";
@@ -25,6 +25,6 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
   }
 
   protected mapResourceId(id: string): Promise<string> {
-    return normalizeProjectIdToUuid(this.apiClient, id);
+    return normalizeProjectId(this.apiClient, id);
   }
 }

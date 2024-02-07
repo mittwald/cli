@@ -42,13 +42,13 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
-    const baseColumns = super.getColumns(data);
+    const { id, createdAt } = super.getColumns(data);
     return {
-      id: baseColumns.id,
+      id,
       isSystemBackup: { header: "System backup" },
       schedule: {},
       ttl: { header: "TTL" },
-      createdAt: baseColumns.createdAt,
+      createdAt,
     };
   }
 }

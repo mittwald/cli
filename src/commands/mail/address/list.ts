@@ -5,14 +5,12 @@ import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 import { formatBytes } from "../../../lib/viewhelpers/size.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdMailAddresses.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 
-type PathParams =
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdMailAddresses.Get.Parameters.Path;
 type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["mail"]["listMailAddresses"]>
 >;
@@ -33,19 +31,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
     return data;
-  }
-
-  protected async mapParams(input: PathParams): Promise<PathParams> {
-    return {
-      ...input,
-      projectId: await withProjectId(
-        this.apiClient,
-        List,
-        this.flags,
-        this.args,
-        this.config,
-      ),
-    };
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {

@@ -11,6 +11,10 @@ export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
 >;
 export type Args<T extends typeof Command> = Interfaces.InferredArgs<T["args"]>;
 
+export type ColumnOpts<TItem> = {
+  shortIdKey?: keyof TItem;
+};
+
 export abstract class ListBaseCommand<
   T extends typeof BaseCommand,
   TItem extends Record<string, unknown>,
@@ -50,7 +54,12 @@ export abstract class ListBaseCommand<
     data: SuccessfulResponse<TAPIResponse, 200>["data"],
   ): TItem[] | Promise<TItem[]>;
 
-  protected getColumns(data: TItem[]): ListColumns<TItem> {
+  protected getColumns(
+    data: TItem[],
+    opts: ColumnOpts<TItem> = {},
+  ): ListColumns<TItem> {
+    const { shortIdKey = "shortId" } = opts;
+
     if (data.length === 0) {
       return {
         id: {
@@ -66,11 +75,16 @@ export abstract class ListBaseCommand<
         minWidth: 36,
       },
     };
-    if ("shortId" in data[0]) {
+    if (shortIdKey in data[0]) {
+      // If there's a short ID in the data, the actual UUID becomes less useful,
+      // so we hide it by default.
+      columns.id.header = "UUID";
+      columns.id.extended = true;
+
       columns = {
         ...columns,
-        shortId: {
-          header: "Short ID",
+        [shortIdKey]: {
+          header: "ID",
           minWidth: 8,
         },
       };

@@ -35,11 +35,11 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
   }
 
   protected getColumns(data: ListItem[]): ListColumns<ListItem> {
-    const baseColumns = super.getColumns(data);
+    const { id, createdAt } = super.getColumns(data);
     return {
-      id: baseColumns.id,
+      id,
       status: {},
-      createdAt: baseColumns.createdAt,
+      createdAt,
       expiresIn: {
         header: "Expires in",
         get: (r) => formatRelativeDate(r.expiresAt),

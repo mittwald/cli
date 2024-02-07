@@ -1,4 +1,4 @@
-import { isUuid, normalizeProjectIdToUuid } from "../../Helpers.js";
+import { isUuid, normalizeProjectId } from "../../normalize_id.js";
 import {
   CommandType,
   ContextArgs,
@@ -17,7 +17,7 @@ export const {
   flags: projectFlags,
   args: projectArgs,
   withId: withProjectId,
-} = makeFlagSet("project", "p", { normalize: normalizeProjectIdToUuid });
+} = makeFlagSet("project", "p", { normalize: normalizeProjectId });
 
 export type SubNormalizeFn = (
   apiClient: MittwaldAPIV2Client,

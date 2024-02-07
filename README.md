@@ -144,6 +144,7 @@ USAGE
 * [`mw backup list`](#mw-backup-list)
 * [`mw backup schedule list`](#mw-backup-schedule-list)
 * [`mw context get`](#mw-context-get)
+* [`mw context reset`](#mw-context-reset)
 * [`mw context set`](#mw-context-set)
 * [`mw conversation categories`](#mw-conversation-categories)
 * [`mw conversation close ID`](#mw-conversation-close-id)
@@ -1779,6 +1780,20 @@ DESCRIPTION
   don't have to specify them on every command.
 ```
 
+## `mw context reset`
+
+Reset context values
+
+```
+USAGE
+  $ mw context reset
+
+DESCRIPTION
+  Reset context values
+
+  This command resets any values for common parameters that you've previously set with 'context set'.
+```
+
 ## `mw context set`
 
 Set context values for the current project, org or server
@@ -1938,14 +1953,12 @@ Create a new cron job
 
 ```
 USAGE
-  $ mw cronjob create --description <value> --interval <value> [-p <value>] [-i <value>] [-q] [--disable] [--email
-    <value>] [--url <value> | --command <value>] [--interpreter <value>]
+  $ mw cronjob create --description <value> --interval <value> [-i <value>] [-q] [--disable] [--email <value>]
+    [--url <value> | --command <value>] [--interpreter <value>]
 
 FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
                                  installation is set in the context
-  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
-                                 context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
       --command=<value>          Command to execute for the cron job; either this or `--url` is required.
       --description=<value>      (required) Description of the cron job
@@ -1960,14 +1973,9 @@ FLAG DESCRIPTIONS
 
     ID or short ID of an app installation; this flag is optional if a default app installation is set in the context
 
-    May contain a short ID or a full ID of an app installation.; you can also use the "mw context set
+    May contain a short ID or a full ID of an app installation; you can also use the "mw context set
     --installation-id=<VALUE>" command to persistently set a default app installation for all commands that accept this
     flag.
-
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
-
-    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
-    to persistently set a default project for all commands that accept this flag.
 
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
