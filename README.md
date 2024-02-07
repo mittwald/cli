@@ -1791,8 +1791,7 @@ USAGE
 DESCRIPTION
   Reset context values
 
-  The context allows you reset any persistent values for common parameters that you've previously set with 'context
-  set'.
+  This command resets any values for common parameters that you've previously set with 'context set'.
 ```
 
 ## `mw context set`
