@@ -50,6 +50,16 @@ export async function getAppVersionFromUuid(
 }
 
 /**
+ * Convert an app name in a format suitable for fuzzy comparison (ignore casing,
+ * punctuation, etc.)
+ *
+ * @param appName
+ */
+function canonicalizeAppName(appName: string): string {
+  return appName.toLowerCase().replace(/[!. ]/g, "");
+}
+
+/**
  * Lookup an app by its human readable name
  *
  * @param apiClient
@@ -62,16 +72,16 @@ export async function getAppUuidFromAppName(
   const apps = await apiClient.app.listApps();
   assertStatus(apps, 200);
 
-  const foundApp = apps.data.find((item) => {
-    return (
-      item.name.toLowerCase().replace(/[!. ]/g, "") ===
-      appName.toLowerCase().replace(/[!. ]/g, "")
-    );
-  });
+  const appNameCanonical = canonicalizeAppName(appName);
+  const appNameMatches = (item: AppApp): boolean =>
+    canonicalizeAppName(item.name) === appNameCanonical;
+
+  const foundApp = apps.data.find(appNameMatches);
 
   if (foundApp) {
     return foundApp.id;
   }
+
   throw new Error("Access Denied.");
 }
 
