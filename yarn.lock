@@ -1502,7 +1502,7 @@ __metadata:
     "@oclif/plugin-warn-if-update-available": ^3.0.2
     "@types/chalk": ^2.2.0
     "@types/copyfiles": ^2.4.1
-    "@types/js-yaml": ^4.0.5
+    "@types/js-yaml": ^4.0.9
     "@types/marked-terminal": ^3.1.3
     "@types/node": ^20.3.3
     "@types/node-notifier": ^8.0.2
@@ -2773,7 +2773,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/js-yaml@npm:^4.0.5":
+"@types/js-yaml@npm:^4.0.9":
   version: 4.0.9
   resolution: "@types/js-yaml@npm:4.0.9"
   checksum: e5e5e49b5789a29fdb1f7d204f82de11cb9e8f6cb24ab064c616da5d6e1b3ccfbf95aa5d1498a9fbd3b9e745564e69b4a20b6c530b5a8bbb2d4eb830cda9bc69
