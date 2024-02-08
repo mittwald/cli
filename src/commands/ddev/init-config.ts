@@ -5,6 +5,7 @@ import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import { Flags } from "@oclif/core";
 import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 import AppLinkedDatabase = MittwaldAPIV2.Components.Schemas.AppLinkedDatabase;
+import { DDEVConfig } from "../../lib/ddev/config.js";
 
 type SystemSoftwareVersions = Record<string, string>;
 
@@ -28,7 +29,7 @@ export class InitConfig extends ExtendedBaseCommand<typeof InitConfig> {
   };
 
   public async run(): Promise<void> {
-    const ddevConfig: Record<string, any> = {};
+    const ddevConfig: Partial<DDEVConfig> = {};
 
     const appInstallation = await this.withAppInstallation();
     const systemSoftwares = await this.buildSystemSoftwareVersionMap(
