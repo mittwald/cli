@@ -32,6 +32,13 @@ const ContextSourceValue: FC<{ source: ContextValueSource }> = ({ source }) => {
           <LocalFilename filename={source.identifier} relative />
         </Text>
       );
+    case "ddev":
+      return (
+        <Text>
+          <Text color="yellow">DDEV configuration</Text>, in{" "}
+          <LocalFilename filename={source.identifier} relative />
+        </Text>
+      );
     default:
       return <Text color="yellow">unknown</Text>;
   }
@@ -105,7 +112,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
   static flags = { ...RenderBaseCommand.buildFlags() };
 
   protected render(): ReactNode {
-    const ctx = new Context(this.config);
+    const ctx = new Context(this.apiClient, this.config);
     return <GetContext ctx={ctx} />;
   }
 }

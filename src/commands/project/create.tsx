@@ -80,7 +80,9 @@ export default class Create extends ExecRenderBaseCommand<
 
     if (flags["update-context"]) {
       await process.runStep("updating CLI context", async () => {
-        await new Context(this.config).setProjectId(result.data.id);
+        await new Context(this.apiClient, this.config).setProjectId(
+          result.data.id,
+        );
       });
     }
 
