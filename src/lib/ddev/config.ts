@@ -12,8 +12,10 @@ export interface DDEVConfig {
   nodejs_version: string;
   web_environment: string[];
   docroot: string;
-  database: {
-    type: string;
-    version: string;
-  };
+  database: DDEVDatabaseConfig;
+}
+
+export interface DDEVDatabaseConfig {
+  type: string;
+  version: string;
 }

@@ -1,9 +1,9 @@
 import {
+  assertStatus,
   MittwaldAPIV2,
   MittwaldAPIV2Client,
-  assertStatus,
 } from "@mittwald/api-client";
-import { DDEVConfig } from "./config.js";
+import { DDEVConfig, DDEVDatabaseConfig } from "./config.js";
 import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 import AppLinkedDatabase = MittwaldAPIV2.Components.Schemas.AppLinkedDatabase;
 
@@ -27,29 +27,18 @@ export class DDEVConfigBuilder {
     output["override_config"] = true;
     output["webserver_type"] = "apache-fpm";
     output["php_version"] = this.determinePHPVersion(systemSoftwares);
+    output["database"] = await this.determineDatabaseVersion(appInstallation);
+    output["docroot"] = appInstallation.customDocumentRoot;
     output["web_environment"] = [
       `MITTWALD_APP_INSTALLATION_ID=${appInstallation.shortId}`,
     ];
 
-    const database = await this.determineDatabaseVersion(appInstallation);
-    if (database) {
-      output["database"] = database;
-    }
-
-    if (appInstallation.customDocumentRoot) {
-      output["docroot"] = appInstallation.customDocumentRoot;
-    }
-
     return output;
   }
 
-  private async determineDatabaseVersion(inst: AppAppInstallation): Promise<
-    | {
-        type: string;
-        version: string;
-      }
-    | undefined
-  > {
+  private async determineDatabaseVersion(
+    inst: AppAppInstallation,
+  ): Promise<DDEVDatabaseConfig | undefined> {
     const isPrimary = (db: AppLinkedDatabase) => db.purpose === "primary";
     const primary = (inst.linkedDatabases || []).find(isPrimary);
 
