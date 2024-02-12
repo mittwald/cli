@@ -5,7 +5,7 @@ import {
   AppInstaller,
 } from "../../../lib/app/Installer.js";
 
-const installer = new AppInstaller(
+export const typo3Installer = new AppInstaller(
   "352971cc-b96a-4a26-8651-b08d7c8a7357",
   "TYPO3",
   [
@@ -24,14 +24,19 @@ export default class InstallTYPO3 extends ExecRenderBaseCommand<
   typeof InstallTYPO3,
   AppInstallationResult
 > {
-  static description = installer.description;
-  static flags = installer.flags;
+  static description = typo3Installer.description;
+  static flags = typo3Installer.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return installer.exec(this.apiClient, this.args, this.flags, this.config);
+    return typo3Installer.exec(
+      this.apiClient,
+      this.args,
+      this.flags,
+      this.config,
+    );
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return installer.render(result, this.flags);
+    return typo3Installer.render(result, this.flags);
   }
 }

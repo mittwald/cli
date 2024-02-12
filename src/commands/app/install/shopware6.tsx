@@ -5,7 +5,7 @@ import {
   AppInstaller,
 } from "../../../lib/app/Installer.js";
 
-const installer = new AppInstaller(
+export const shopware6Installer = new AppInstaller(
   "12d54d05-7e55-4cf3-90c4-093516e0eaf8",
   "Shopware 6",
   [
@@ -28,14 +28,19 @@ export default class InstallShopware6 extends ExecRenderBaseCommand<
   typeof InstallShopware6,
   AppInstallationResult
 > {
-  static description = installer.description;
-  static flags = installer.flags;
+  static description = shopware6Installer.description;
+  static flags = shopware6Installer.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return installer.exec(this.apiClient, this.args, this.flags, this.config);
+    return shopware6Installer.exec(
+      this.apiClient,
+      this.args,
+      this.flags,
+      this.config,
+    );
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return installer.render(result, this.flags);
+    return shopware6Installer.render(result, this.flags);
   }
 }

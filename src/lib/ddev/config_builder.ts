@@ -5,7 +5,12 @@ import {
 } from "@mittwald/api-client";
 import { DDEVConfig, DDEVDatabaseConfig } from "./config.js";
 import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
+import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 import AppLinkedDatabase = MittwaldAPIV2.Components.Schemas.AppLinkedDatabase;
+import { typo3Installer } from "../../commands/app/install/typo3.js";
+import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
+import { shopware6Installer } from "../../commands/app/install/shopware6.js";
+import { drupalInstaller } from "../../commands/app/install/drupal.js";
 
 type SystemSoftwareVersions = Record<string, string>;
 
@@ -16,7 +21,10 @@ export class DDEVConfigBuilder {
     this.apiClient = apiClient;
   }
 
-  public async build(appInstallationId: string): Promise<Partial<DDEVConfig>> {
+  public async build(
+    appInstallationId: string,
+    type: string,
+  ): Promise<Partial<DDEVConfig>> {
     const output: Partial<DDEVConfig> = {};
 
     const appInstallation = await this.withAppInstallation(appInstallationId);
@@ -24,6 +32,7 @@ export class DDEVConfigBuilder {
       appInstallation,
     );
 
+    output["type"] = await this.determineProjectType(appInstallation, type);
     output["override_config"] = true;
     output["webserver_type"] = "apache-fpm";
     output["php_version"] = this.determinePHPVersion(systemSoftwares);
@@ -34,6 +43,41 @@ export class DDEVConfigBuilder {
     ];
 
     return output;
+  }
+
+  private async determineProjectType(
+    inst: AppAppInstallation,
+    type: string,
+  ): Promise<string> {
+    if (type !== "auto") {
+      return type;
+    }
+
+    if (inst.appId === typo3Installer.appId) {
+      return "typo3";
+    }
+
+    if (inst.appId === wordpressInstaller.appId) {
+      return "wordpress";
+    }
+
+    if (inst.appId === shopware6Installer.appId) {
+      return "shopware6";
+    }
+
+    if (inst.appId === drupalInstaller.appId) {
+      const version = await this.getAppVersion(
+        inst.appId,
+        inst.appVersion.desired,
+      );
+
+      const [major] = version.externalVersion.split(".");
+      return `drupal${major}`;
+    }
+
+    throw new Error(
+      "Automatic project type detection failed. Please specify the project type manually by setting the `--override-type` flag.",
+    );
   }
 
   private async determineDatabaseVersion(
@@ -100,6 +144,19 @@ export class DDEVConfigBuilder {
     }
 
     return versionMap;
+  }
+
+  private async getAppVersion(
+    appId: string,
+    appVersionId: string,
+  ): Promise<AppAppVersion> {
+    const r = await this.apiClient.app.getAppversion({
+      appId,
+      appVersionId,
+    });
+
+    assertStatus(r, 200);
+    return r.data;
   }
 
   private async withAppInstallation(

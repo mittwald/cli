@@ -12,6 +12,7 @@ export class InitConfig extends ExtendedBaseCommand<typeof InitConfig> {
   static flags = {
     "override-type": Flags.string({
       summary: "Override the type of the generated DDEV configuration",
+      default: "auto",
       description:
         "The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which is also the default) for automatic discovery." +
         "" +
@@ -25,9 +26,13 @@ export class InitConfig extends ExtendedBaseCommand<typeof InitConfig> {
 
   public async run(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(InitConfig);
+    const projectType = this.flags["override-type"];
 
     const ddevConfigBuilder = new DDEVConfigBuilder(this.apiClient);
-    const ddevConfig = await ddevConfigBuilder.build(appInstallationId);
+    const ddevConfig = await ddevConfigBuilder.build(
+      appInstallationId,
+      projectType,
+    );
 
     console.log(
       `# DDEV configuration for mittwald app installation '${appInstallationId}'`,
