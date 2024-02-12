@@ -1471,10 +1471,10 @@ __metadata:
     open: ^10.0.3
     parse-duration: ^1.1.0
     pkg: ^5.8.1
-    prettier: ^2.8.8
+    prettier: ^3.2.5
     prettier-plugin-jsdoc: ^0.4.2
     prettier-plugin-package: ^1.3.1
-    prettier-plugin-sort-json: ^2.0.0
+    prettier-plugin-sort-json: ^3.1.0
     pretty-bytes: ^6.1.0
     react: ^18.2.0
     rimraf: ^5.0.1
@@ -2862,13 +2862,6 @@ __metadata:
   version: 7.0.3
   resolution: "@types/parse-path@npm:7.0.3"
   checksum: 21a12c228d38f5a75659dfd7cb127dc2001ed3f6acbd1b2e0575d1348c735594c0bab06a97fe849c151438384829f20ea5971cb045f7ecd37d53c76a9fcb9de3
-  languageName: node
-  linkType: hard
-
-"@types/prettier@npm:^2.7.2":
-  version: 2.7.3
-  resolution: "@types/prettier@npm:2.7.3"
-  checksum: 705384209cea6d1433ff6c187c80dcc0b95d99d5c5ce21a46a9a58060c527973506822e428789d842761e0280d25e3359300f017fbe77b9755bc772ab3dc2f83
   languageName: node
   linkType: hard
 
@@ -8323,23 +8316,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-sort-json@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "prettier-plugin-sort-json@npm:2.0.0"
-  dependencies:
-    "@types/prettier": ^2.7.2
+"prettier-plugin-sort-json@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "prettier-plugin-sort-json@npm:3.1.0"
   peerDependencies:
-    prettier: ^2.3.2
-  checksum: 2fbe83b3458d5e7c67bed18a0393a54811873173ca5093f9445263d5339e9d87e49fe4caec74b4cc2eefa8e1b30b8bde5abb2fe5ac6c9585769eef5a5c5fa6cf
+    prettier: ^3.0.0
+  checksum: c10c165490567379bbf22329102d40627874caed60df7f3f7d2998ce00a7287163db31b8870590d41f9cab24acfc9ec1d7b21dd33405499dbb7b67db6908a014
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.8.8":
-  version: 2.8.8
-  resolution: "prettier@npm:2.8.8"
+"prettier@npm:^3.2.5":
+  version: 3.2.5
+  resolution: "prettier@npm:3.2.5"
   bin:
-    prettier: bin-prettier.js
-  checksum: b49e409431bf129dd89238d64299ba80717b57ff5a6d1c1a8b1a28b590d998a34e083fa13573bc732bb8d2305becb4c9a4407f8486c81fa7d55100eb08263cf8
+    prettier: bin/prettier.cjs
+  checksum: 2ee4e1417572372afb7a13bb446b34f20f1bf1747db77cf6ccaf57a9be005f2f15c40f903d41a6b79eec3f57fff14d32a20fb6dee1f126da48908926fe43c311
   languageName: node
   linkType: hard
 
