@@ -95,7 +95,7 @@ export class Dump extends ExecRenderBaseCommand<
     if (this.flags.gzip) {
       const escapedArgs = shellEscape(mysqldumpArgs);
       cmd = {
-        shell: `set -xe -o pipefail > /dev/null ; mysqldump ${escapedArgs} | gzip`,
+        shell: `set -e -o pipefail > /dev/null ; mysqldump ${escapedArgs} | gzip`,
       };
     }
 
