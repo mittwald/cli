@@ -1,12 +1,26 @@
 import { defaultSuccessColor, Success } from "../Success.js";
 import { Box, Text } from "ink";
-import React from "react";
+import React, { ReactNode } from "react";
 
-function DDEVCommand({ command, text }: { command: string; text: string }) {
+function DDEVCommand({
+  command,
+  text,
+  dangerous,
+}: {
+  command: string[];
+  text: ReactNode;
+  dangerous?: boolean;
+}) {
   return (
     <>
       <Box>
-        <Text color="yellow">{command}</Text>
+        <Text color="yellow">{command.join(" ")}</Text>
+        {dangerous ? (
+          <Text color="red" bold>
+            {" "}
+            (DANGEROUS!)
+          </Text>
+        ) : undefined}
       </Box>
       <Box marginLeft={2}>
         <Text wrap="wrap">{text}</Text>
@@ -30,13 +44,24 @@ export function DDEVInitSuccess() {
         </Text>
       </Box>
       <DDEVCommand
-        command="ddev start"
+        command={["ddev", "start"]}
         text="Start and initialize all project containers"
       />
       <DDEVCommand
-        command="ddev pull mittwald"
+        command={["ddev", "pull", "mittwald"]}
         text="Download the latest database and files from the mittwald application linked to this DDEV project"
       />
+      <DDEVCommand
+        command={["ddev", "push", "mittwald"]}
+        text="Upload the latest database and files to the mittwald application linked to this DDEV project"
+        dangerous
+      />
+      <Box marginTop={1}>
+        <Text color={defaultSuccessColor}>
+          You can also use the <Text color="yellow">mw ddev init</Text> command
+          repeatedly to continuously update your DDEV configuration.
+        </Text>
+      </Box>
     </Success>
   );
 }
