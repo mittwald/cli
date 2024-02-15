@@ -12,6 +12,7 @@ import yaml from "js-yaml";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { Flags } from "@oclif/core";
 import { DDEVInitSuccess } from "../../rendering/react/components/DDEV/DDEVInitSuccess.js";
+import { hasBinary } from "../../lib/hasbin.js";
 
 export class Init extends ExecRenderBaseCommand<typeof Init, void> {
   static summary =
@@ -44,6 +45,12 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
 
     const { "override-mittwald-plugin": mittwaldPlugin } = this.flags;
     let { "project-name": projectName } = this.flags;
+
+    await r.runStep("check if DDEV is installed", async () => {
+      if (!(await hasBinary("ddev"))) {
+        throw new Error("this command requires DDEV to be installed");
+      }
+    });
 
     const config = await r.runStep(
       "creating mittwald-specific DDEV configuration",
