@@ -11,7 +11,7 @@ import * as fs from "fs";
 import { Success } from "../../../rendering/react/components/Success.js";
 import {
   mysqlArgs,
-  mysqlConnectionFlags,
+  mysqlConnectionFlagsWithTempUser,
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetailsWithPasswordOrTemporaryUser } from "../../../lib/database/mysql/connect.js";
@@ -24,15 +24,7 @@ export class Import extends ExecRenderBaseCommand<
   static summary = "Imports a dump of a MySQL database";
   static flags = {
     ...processFlags,
-    ...mysqlConnectionFlags,
-    "temporary-user": Flags.boolean({
-      summary: "create a temporary user for the dump",
-      description:
-        "Create a temporary user for the dump. This user will be deleted after the dump has been imported. This is useful if you want to import a dump into a database that is not accessible from the outside.\n\nIf this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password flag or via the MYSQL_PWD environment variable.",
-      default: true,
-      required: false,
-      allowNo: true,
-    }),
+    ...mysqlConnectionFlagsWithTempUser,
     input: Flags.string({
       char: "i",
       summary: 'the input file from which to read the dump ("-" for stdin)',

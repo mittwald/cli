@@ -19,6 +19,18 @@ NOTE: This is a security risk, as the password will be visible in the process li
   }),
 };
 
+export const mysqlConnectionFlagsWithTempUser = {
+  ...mysqlConnectionFlags,
+  "temporary-user": Flags.boolean({
+    summary: "create a temporary user for the dump",
+    description:
+      "Create a temporary user for this operation. This user will be deleted after the operation has completed. This is useful if you want to work with a database that is not accessible from the outside.\n\nIf this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password flag or via the MYSQL_PWD environment variable.",
+    default: true,
+    required: false,
+    allowNo: true,
+  }),
+};
+
 export const mysqlArgs = {
   "database-id": Args.string({
     description:
