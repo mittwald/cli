@@ -16,8 +16,7 @@ import { ddevConfigToFlags } from "../../lib/ddev/config.js";
 import { hasBinary } from "../../lib/hasbin.js";
 
 export class Init extends ExecRenderBaseCommand<typeof Init, void> {
-  static summary =
-    "initialize a new ddev configuration in the current directory";
+  static summary = "Initialize a new ddev project in the current directory";
   static description =
     "This command initializes a new ddev configuration in the current directory.";
 

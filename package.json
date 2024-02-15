@@ -152,6 +152,9 @@
       "database": {
         "description": "Manage databases (like MySQL and Redis) in your projects"
       },
+      "ddev": {
+        "description": "Integrate your mittwald projects with DDEV"
+      },
       "domain": {
         "description": "Manage domains, virtual hosts and DNS settings in your projects"
       },
