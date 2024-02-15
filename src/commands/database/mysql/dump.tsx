@@ -80,8 +80,6 @@ export class Dump extends ExecRenderBaseCommand<
       };
     }
 
-    console.log(cmd);
-
     await p.runStep(
       <Text>
         starting mysqldump via SSH on project <Value>{project.shortId}</Value>
