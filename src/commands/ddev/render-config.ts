@@ -4,8 +4,9 @@ import yaml from "js-yaml";
 import { Flags } from "@oclif/core";
 import { DDEVConfigBuilder } from "../../lib/ddev/config_builder.js";
 
-export class InitConfig extends ExtendedBaseCommand<typeof InitConfig> {
-  static summary = "Initialize a new ddev configuration";
+export class RenderConfig extends ExtendedBaseCommand<typeof RenderConfig> {
+  static summary =
+    "Generate a DDEV configuration YAML file for the current app.";
   static description =
     "This command initializes a new ddev configuration in the current directory.";
 
@@ -25,7 +26,7 @@ export class InitConfig extends ExtendedBaseCommand<typeof InitConfig> {
   };
 
   public async run(): Promise<void> {
-    const appInstallationId = await this.withAppInstallationId(InitConfig);
+    const appInstallationId = await this.withAppInstallationId(RenderConfig);
     const projectType = this.flags["override-type"];
 
     const ddevConfigBuilder = new DDEVConfigBuilder(this.apiClient);
