@@ -7,9 +7,9 @@ import {
 import { Flags } from "@oclif/core";
 import { Success } from "../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
-import { spawn } from "child_process";
 import { hasBinary } from "../../lib/hasbin.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
+import { spawnInProcess } from "../../rendering/process/process_exec.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static description =
@@ -56,10 +56,6 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       }
     });
 
-    const downloadStep = p.addStep(
-      "downloading app installation" + (dryRun ? " (dry-run)" : ""),
-    );
-
     const rsyncOpts = [
       "--archive",
       "--recursive",
@@ -74,38 +70,23 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       rsyncOpts.push("--delete");
     }
 
-    const child = spawn(
+    await spawnInProcess(
+      p,
+      "downloading app installation" + (dryRun ? " (dry-run)" : ""),
       "rsync",
       [...rsyncOpts, `${user}@${host}:${directory}/`, target],
-      {
-        shell: false,
-      },
     );
-
-    child.stdout.on("data", (chunk) =>
-      downloadStep.appendOutput(chunk.toString()),
-    );
-    child.stderr.on("data", (chunk) =>
-      downloadStep.appendOutput(chunk.toString()),
-    );
-    child.on("exit", (code) => {
-      if (code === 0) {
-        downloadStep.complete();
-      } else {
-        downloadStep.error(new Error(`rsync exited with code ${code}`));
-      }
-    });
-
-    await downloadStep.wait();
 
     if (dryRun) {
-      p.complete(
+      await p.complete(
         <Success>
           App would (probably) have successfully been downloaded. 🙂
         </Success>,
       );
     } else {
-      p.complete(<Success>App successfully downloaded; have fun! 🚀</Success>);
+      await p.complete(
+        <Success>App successfully downloaded; have fun! 🚀</Success>,
+      );
     }
   }
 
