@@ -4,15 +4,46 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { getProject, getUser } from "../common.js";
 import DatabaseMySqlDatabase = MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
 import DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
+import { createTemporaryUser } from "./temp_user.js";
+
+export interface MySQLConnectionFlags {
+  "mysql-password": string | undefined;
+  "temporary-user"?: boolean;
+}
+
+export async function getConnectionDetailsWithPasswordOrTemporaryUser(
+  apiClient: MittwaldAPIV2Client,
+  databaseId: string,
+  p: ProcessRenderer,
+  flags: MySQLConnectionFlags,
+) {
+  const connectionDetails = await getConnectionDetailsWithPassword(
+    apiClient,
+    databaseId,
+    p,
+    flags,
+  );
+
+  if (flags["temporary-user"]) {
+    const { user, password, cleanup } = await p.runStep(
+      "creating a temporary database user",
+      () => createTemporaryUser(apiClient, databaseId),
+    );
+
+    p.addCleanup("removing temporary database user", cleanup);
+
+    connectionDetails.user = user.name;
+    connectionDetails.password = password;
+  }
+
+  return connectionDetails;
+}
 
 export async function getConnectionDetailsWithPassword(
   apiClient: MittwaldAPIV2Client,
   databaseId: string,
   p: ProcessRenderer,
-  flags: {
-    "mysql-password": string | undefined;
-    "temporary-user"?: boolean;
-  },
+  flags: MySQLConnectionFlags,
 ) {
   const password = flags["temporary-user"] ? "" : await getPassword(p, flags);
   return {

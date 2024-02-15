@@ -14,11 +14,8 @@ import {
   mysqlConnectionFlags,
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
-import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
-import { assertStatus } from "@mittwald/api-client";
-import { randomBytes } from "crypto";
+import { getConnectionDetailsWithPasswordOrTemporaryUser } from "../../../lib/database/mysql/connect.js";
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
-import assertSuccess from "../../../lib/assert_success.js";
 import shellEscape from "shell-escape";
 
 export class Dump extends ExecRenderBaseCommand<
@@ -64,29 +61,13 @@ export class Dump extends ExecRenderBaseCommand<
     );
     const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
 
-    const connectionDetails = await getConnectionDetailsWithPassword(
-      this.apiClient,
-      databaseId,
-      p,
-      this.flags,
-    );
-
-    if (this.flags["temporary-user"]) {
-      const [tempUser, tempPassword] = await p.runStep(
-        "creating a temporary database user",
-        () => this.createTemporaryUser(databaseId),
+    const connectionDetails =
+      await getConnectionDetailsWithPasswordOrTemporaryUser(
+        this.apiClient,
+        databaseId,
+        p,
+        this.flags,
       );
-
-      p.addCleanup("removing temporary database user", async () => {
-        const r = await this.apiClient.database.deleteMysqlUser({
-          mysqlUserId: tempUser.id,
-        });
-        assertSuccess(r);
-      });
-
-      connectionDetails.user = tempUser.name;
-      connectionDetails.password = tempPassword;
-    }
 
     const { project } = connectionDetails;
     const mysqldumpArgs = buildMySqlDumpArgs(connectionDetails);
@@ -134,31 +115,6 @@ export class Dump extends ExecRenderBaseCommand<
     }
 
     return fs.createWriteStream(this.flags.output);
-  }
-
-  private async createTemporaryUser(
-    databaseId: string,
-  ): Promise<[{ id: string; name: string }, string]> {
-    const password = randomBytes(32).toString("base64");
-    const createResponse = await this.apiClient.database.createMysqlUser({
-      mysqlDatabaseId: databaseId,
-      data: {
-        accessLevel: "full", // needed for "PROCESS" privilege
-        externalAccess: false,
-        password,
-        databaseId,
-        description: "Temporary user for exporting database",
-      },
-    });
-
-    assertStatus(createResponse, 201);
-
-    const userResponse = await this.apiClient.database.getMysqlUser({
-      mysqlUserId: createResponse.data.id,
-    });
-    assertStatus(userResponse, 200);
-
-    return [userResponse.data, password];
   }
 }
 
