@@ -37,12 +37,30 @@ export class DDEVConfigBuilder {
     output["webserver_type"] = "apache-fpm";
     output["php_version"] = this.determinePHPVersion(systemSoftwares);
     output["database"] = await this.determineDatabaseVersion(appInstallation);
-    output["docroot"] = appInstallation.customDocumentRoot;
+    output["docroot"] = await this.determineDocumentRoot(appInstallation);
     output["web_environment"] = [
       `MITTWALD_APP_INSTALLATION_ID=${appInstallation.shortId}`,
     ];
 
     return output;
+  }
+
+  private async determineDocumentRoot(
+    inst: AppAppInstallation,
+  ): Promise<string> {
+    const appVersion = await this.getAppVersion(
+      inst.appId,
+      inst.appVersion.desired,
+    );
+
+    if (
+      appVersion.docRootUserEditable &&
+      inst.customDocumentRoot !== undefined
+    ) {
+      return inst.customDocumentRoot.replace(/^\//, "");
+    }
+
+    return appVersion.docRoot.replace(/^\//, "");
   }
 
   private async determineProjectType(
