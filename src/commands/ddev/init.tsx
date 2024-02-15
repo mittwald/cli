@@ -76,8 +76,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     const ddevArgs = [
       "--project-name",
       projectName,
-      "--web-environment-add",
-      `MITTWALD_APP_INSTALLATION_ID=${appInstallationId}`,
+      ...ddevConfigToFlags(config),
     ];
 
     if (config.type) {
