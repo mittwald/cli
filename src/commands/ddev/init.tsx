@@ -12,6 +12,7 @@ import yaml from "js-yaml";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { Flags } from "@oclif/core";
 import { DDEVInitSuccess } from "../../rendering/react/components/DDEV/DDEVInitSuccess.js";
+import { ddevConfigToFlags } from "../../lib/ddev/config.js";
 import { hasBinary } from "../../lib/hasbin.js";
 
 export class Init extends ExecRenderBaseCommand<typeof Init, void> {
@@ -91,6 +92,11 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     await spawnInProcess(r, "installing mittwald plugin", "ddev", [
       "get",
       mittwaldPlugin,
+    ]);
+
+    await spawnInProcess(r, "adding SSH credentials to DDEV", "ddev", [
+      "auth",
+      "ssh",
     ]);
 
     await r.complete(<DDEVInitSuccess />);
