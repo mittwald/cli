@@ -42,7 +42,7 @@ either the CMD prompt or PowerShell.
 #### Any OS, using Node.js+NPM
 
 Installing the CLI via NPM will work on any OS; however we cannot guarantee
-stability, because functionality of the CLI may depend in the Node.js runtime
+stability, because functionality of the CLI may depend on the Node.js runtime
 already installed on your system. Also, the automatic upgrade will not work when
 using NPM; remember to run `npm upgrade -g @mittwald/cli` occasionally.
 
