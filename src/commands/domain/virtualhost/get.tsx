@@ -18,7 +18,7 @@ import IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
 export type PathParams =
   MittwaldAPIV2.Paths.V2IngressesIngressId.Get.Parameters.Path;
 
-const IngressPath: FC<{ path: IngressPath }> = ({ path }) => {
+const IngressPathItem: FC<{ path: IngressPath }> = ({ path }) => {
   if ("directory" in path.target) {
     return (
       <Text>
@@ -65,7 +65,7 @@ const IngressPaths: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
   const paths: Record<string, ReactNode> = {};
 
   for (const path of ingress.paths) {
-    paths[path.path] = <IngressPath path={path} />;
+    paths[path.path] = <IngressPathItem path={path} />;
   }
 
   return <SingleResult title="Paths" rows={paths} />;

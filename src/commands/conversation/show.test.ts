@@ -1,8 +1,9 @@
 import { expect, test } from "@oclif/test";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import Conversation = MittwaldAPIV2.Components.Schemas.ConversationConversation;
-import Message = MittwaldAPIV2.Components.Schemas.ConversationMessage;
-import StatusUpdate = MittwaldAPIV2.Components.Schemas.ConversationStatusUpdate;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+
+type Conversation = MittwaldAPIV2.Components.Schemas.ConversationConversation;
+type Message = MittwaldAPIV2.Components.Schemas.ConversationMessage;
+type StatusUpdate = MittwaldAPIV2.Components.Schemas.ConversationStatusUpdate;
 
 describe("conversation:show", () => {
   const conversationId = "186f8f22-aa0f-42bf-909d-757cb9d27b04";
