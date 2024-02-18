@@ -6,7 +6,6 @@ import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
 import { marked, Renderer } from "marked";
 import TerminalRenderer from "marked-terminal";
 import chalk from "chalk";
-import { printHeader, printKeyValues } from "../../lib/viewhelpers/tui.js";
 
 export default class Show extends BaseCommand {
   static description = "Show a conversation and message history";
@@ -38,9 +37,11 @@ export default class Show extends BaseCommand {
 
     const conv = conversationResponse.data;
 
-    printHeader("Conversation metadata");
+    console.log(chalk.bold.white("Conversation metadata"));
+    console.log(chalk.bold.white("─".repeat("Conversation metadata".length)));
+    console.log();
 
-    printKeyValues({
+    const keys = Object.keys({
       Title: conv.title,
       ID: conv.shortId,
       Opened: `${formatRelativeDate(conv.createdAt)} by ${
@@ -48,16 +49,32 @@ export default class Show extends BaseCommand {
       }`,
       Status: conv.status,
     });
+    const l = Math.max(...keys.map((k) => k.length));
+
+    for (const key of keys) {
+      console.log(
+        chalk.blueBright(key.padEnd(l, " ")),
+        " ",
+        {
+          Title: conv.title,
+          ID: conv.shortId,
+          Opened: `${formatRelativeDate(conv.createdAt)} by ${
+            conv.createdBy ? conv.createdBy.clearName : "Unknown User"
+          }`,
+          Status: conv.status,
+        }[key],
+      );
+    }
 
     console.log();
 
-    printHeader("Messages");
+    console.log(chalk.bold.white("Messages"));
+    console.log(chalk.bold.white("─".repeat("Messages".length)));
+    console.log();
 
     marked.setOptions({
       renderer: new TerminalRenderer() as Renderer,
     });
-
-    const metaColor = chalk.gray;
 
     for (const msg of messagesResponse.data) {
       if (msg.type === "MESSAGE") {
@@ -78,22 +95,22 @@ export default class Show extends BaseCommand {
         switch (msg.messageContent) {
           case "CONVERSATION_CREATED":
             console.log(
-              metaColor(`CREATED, ${formatRelativeDate(msg.createdAt)}`),
+              chalk.gray(`CREATED, ${formatRelativeDate(msg.createdAt)}`),
             );
             break;
           case "STATUS_OPEN":
             console.log(
-              metaColor(`REOPENED, ${formatRelativeDate(msg.createdAt)}`),
+              chalk.gray(`REOPENED, ${formatRelativeDate(msg.createdAt)}`),
             );
             break;
           case "STATUS_CLOSED":
             console.log(
-              metaColor(`CLOSED, ${formatRelativeDate(msg.createdAt)}`),
+              chalk.gray(`CLOSED, ${formatRelativeDate(msg.createdAt)}`),
             );
             break;
           default:
             console.log(
-              metaColor(
+              chalk.gray(
                 `${msg.messageContent}, ${formatRelativeDate(msg.createdAt)}`,
               ),
             );
