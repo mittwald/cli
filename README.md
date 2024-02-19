@@ -2669,7 +2669,7 @@ FLAG DESCRIPTIONS
 
 ## `mw ddev init [INSTALLATION-ID]`
 
-Initialize a new ddev project in the current directory
+Initialize a new ddev project in the current directory.
 
 ```
 USAGE
@@ -2680,14 +2680,27 @@ ARGUMENTS
                    in the context
 
 FLAGS
-  -q, --quiet                             suppress process output and only display a machine-readable summary.
-      --override-mittwald-plugin=<value>  [default: mittwald/ddev] override the mittwald plugin
-      --project-name=<value>              DDEV project name
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+      --project-name=<value>  DDEV project name
+
+DEVELOPMENT FLAGS
+  --override-mittwald-plugin=<value>  [default: mittwald/ddev] override the mittwald plugin
 
 DESCRIPTION
-  Initialize a new ddev project in the current directory
+  Initialize a new ddev project in the current directory.
 
-  This command initializes a new ddev configuration in the current directory.
+  This command initializes a new ddev configuration for an existing app installation in the current directory.
+
+  More precisely, this command will do the following:
+
+  1. Create a new ddev configuration file in the .ddev directory, appropriate for the reference app installation
+  2. Initialize a new ddev project with the given configuration
+  3. Install the official mittwald DDEV addon
+  4. Add SSH credentials to the DDEV project
+
+  This command can be run repeatedly to update the DDEV configuration of the project.
+
+  Please note that this command requires DDEV to be installed on your system.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.

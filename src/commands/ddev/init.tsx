@@ -17,9 +17,19 @@ import { hasBinary } from "../../lib/hasbin.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 
 export class Init extends ExecRenderBaseCommand<typeof Init, void> {
-  static summary = "Initialize a new ddev project in the current directory";
+  static summary = "Initialize a new ddev project in the current directory.";
   static description =
-    "This command initializes a new ddev configuration in the current directory.";
+    "This command initializes a new ddev configuration for an existing app installation in the current directory.\n" +
+    "\n" +
+    "More precisely, this command will do the following:\n\n" +
+    "  1. Create a new ddev configuration file in the .ddev directory, appropriate for the reference app installation\n" +
+    "  2. Initialize a new ddev project with the given configuration\n" +
+    "  3. Install the official mittwald DDEV addon\n" +
+    "  4. Add SSH credentials to the DDEV project\n" +
+    "\n" +
+    "This command can be run repeatedly to update the DDEV configuration of the project.\n" +
+    "\n" +
+    "Please note that this command requires DDEV to be installed on your system.";
 
   static flags = {
     ...processFlags,
@@ -31,6 +41,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     }),
     "override-mittwald-plugin": Flags.string({
       summary: "override the mittwald plugin",
+      helpGroup: "Development",
       description:
         "This flag allows you to override the mittwald plugin that should be installed by default; this is useful for testing purposes",
       default: "mittwald/ddev",
