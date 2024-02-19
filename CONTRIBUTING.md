@@ -67,10 +67,27 @@ Some implementation hints regarding the table output:
   if the resource has a short ID). Make sure to set the `minWidth` property for
   both columns, as these values are not useful to the user if they are
   truncated.
+- If a resource has a short ID, and the short ID can be used in place of the
+  regular ID, the columns should present the short ID as the regular ID; in this
+  case, the regular ID should be hidden behind the `--extended` flag.
 - The last column should be the "created at" column, if the resource has a
   creation date.
 - Add other columns as needed. Use the `extended` option to hide columns that
   are not relevant for the user in the default output.
+
+You can re-use the most common column definitions, by invoking
+`super.getColumns`, and extracting the columns you need from the result:
+
+```js
+const { id, shortId, createdAt } = super.getColumns(row);
+
+return {
+  id,
+  shortId,
+  // ... other columns
+  createdAt,
+};
+```
 
 Every list command should support the `--output=txt|csv|json|yaml` flags to
 control the output format. This is automatically supported when inheriting from

@@ -42,7 +42,7 @@ either the CMD prompt or PowerShell.
 #### Any OS, using Node.js+NPM
 
 Installing the CLI via NPM will work on any OS; however we cannot guarantee
-stability, because functionality of the CLI may depend in the Node.js runtime
+stability, because functionality of the CLI may depend on the Node.js runtime
 already installed on your system. Also, the automatic upgrade will not work when
 using NPM; remember to run `npm upgrade -g @mittwald/cli` occasionally.
 
@@ -2271,7 +2271,7 @@ Create a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user]
+  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
@@ -2280,6 +2280,7 @@ FLAGS
   -o, --output=<value>          (required) the output file to write the dump to ("-" for stdout)
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --gzip                    compress the dump with gzip
       --[no-]temporary-user     create a temporary user for the dump
 
 FLAG DESCRIPTIONS
@@ -2301,6 +2302,11 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --gzip  compress the dump with gzip
+
+    Compress the dump with gzip. This is useful for large databases, as it can significantly reduce the size of the
+    dump.
 
   --[no-]temporary-user  create a temporary user for the dump
 

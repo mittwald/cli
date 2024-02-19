@@ -7,16 +7,23 @@ import { Readable, Writable } from "stream";
 
 export type RunTarget = { appInstallationId: string } | { projectId: string };
 
+export type RunCommand =
+  | { command: string; args: string[] }
+  | { shell: string };
+
 export async function executeViaSSH(
   client: MittwaldAPIV2Client,
   target: RunTarget,
-  command: string,
-  args: string[],
+  command: RunCommand,
   output: NodeJS.WritableStream | null,
   input: NodeJS.ReadableStream | null = null,
 ): Promise<void> {
   const { user, host } = await connectionDataForTarget(client, target);
-  const sshArgs = ["-l", user, "-T", host, command, ...args];
+  const sshCommandArgs =
+    "shell" in command
+      ? ["bash", "-c", command.shell]
+      : [command.command, ...command.args];
+  const sshArgs = ["-l", user, "-T", host, ...sshCommandArgs];
   const ssh = cp.spawn("ssh", sshArgs, {
     stdio: [input ? "pipe" : "ignore", output ? "pipe" : "ignore", "pipe"],
   }) as ChildProcessByStdio<Writable | null, Readable | null, Readable>;
