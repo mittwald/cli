@@ -30,24 +30,22 @@ export class DDEVConfigBuilder {
     appInstallationId: string,
     type: string,
   ): Promise<Partial<DDEVConfig>> {
-    const output: Partial<DDEVConfig> = {};
-
     const appInstallation = await this.getAppInstallation(appInstallationId);
     const systemSoftwares = await this.buildSystemSoftwareVersionMap(
       appInstallation,
     );
 
-    output["type"] = await this.determineProjectType(appInstallation, type);
-    output["override_config"] = true;
-    output["webserver_type"] = "apache-fpm";
-    output["php_version"] = this.determinePHPVersion(systemSoftwares);
-    output["database"] = await this.determineDatabaseVersion(appInstallation);
-    output["docroot"] = await this.determineDocumentRoot(appInstallation);
-    output["web_environment"] = [
-      `MITTWALD_APP_INSTALLATION_ID=${appInstallation.shortId}`,
-    ];
-
-    return output;
+    return {
+      override_config: true,
+      type: await this.determineProjectType(appInstallation, type),
+      webserver_type: "apache-fpm",
+      php_version: this.determinePHPVersion(systemSoftwares),
+      database: await this.determineDatabaseVersion(appInstallation),
+      docroot: await this.determineDocumentRoot(appInstallation),
+      web_environment: [
+        `MITTWALD_APP_INSTALLATION_ID=${appInstallation.shortId}`,
+      ],
+    };
   }
 
   private async determineDocumentRoot(inst: AppInstallation): Promise<string> {
