@@ -10,6 +10,7 @@ import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetails } from "../../../lib/database/mysql/connect.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { Flags } from "@oclif/core";
+import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
 
 export class PortForward extends ExecRenderBaseCommand<
   typeof PortForward,
@@ -18,6 +19,7 @@ export class PortForward extends ExecRenderBaseCommand<
   static summary = "Forward the TCP port of a MySQL database to a local port";
   static flags = {
     ...processFlags,
+    ...sshConnectionFlags,
     port: Flags.integer({
       summary: "The local TCP port to forward to",
       default: 3306,
@@ -40,6 +42,7 @@ export class PortForward extends ExecRenderBaseCommand<
     const { sshUser, sshHost, hostname, database } = await getConnectionDetails(
       this.apiClient,
       databaseId,
+      this.flags["ssh-user"],
       p,
     );
 
