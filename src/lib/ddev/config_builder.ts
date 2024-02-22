@@ -124,9 +124,7 @@ export class DDEVConfigBuilder {
     }
 
     const version = systemSoftwareVersions["php"];
-    const [major, minor] = version.split(".");
-
-    return `${major}.${minor}`;
+    return stripPatchLevelVersion(version);
   }
 
   private async buildSystemSoftwareVersionMap(
@@ -206,4 +204,9 @@ function hasCustomDocumentRoot(
 
 function stripLeadingSlash(input: string): string {
   return input.replace(/^\//, "");
+}
+
+function stripPatchLevelVersion(version: string): string {
+  const [major, minor] = version.split(".");
+  return `${major}.${minor}`;
 }
