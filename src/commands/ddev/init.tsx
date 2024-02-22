@@ -8,7 +8,6 @@ import {
 import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { DDEVConfigBuilder } from "../../lib/ddev/config_builder.js";
-import yaml from "js-yaml";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { Flags } from "@oclif/core";
 import { DDEVInitSuccess } from "../../rendering/react/components/DDEV/DDEVInitSuccess.js";
@@ -146,5 +145,5 @@ async function writeContentsToFile(
   const dirname = path.dirname(filename);
 
   await mkdir(dirname, { recursive: true });
-  await writeFile(filename, yaml.dump(data));
+  await writeFile(filename, data);
 }
