@@ -39,7 +39,9 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
     return await this.apiClient.customer.listMembershipsForCustomer({
       customerId,
-    } as Parameters<typeof this.apiClient.customer.listMembershipsForCustomer>[0]);
+    } as Parameters<
+      typeof this.apiClient.customer.listMembershipsForCustomer
+    >[0]);
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
