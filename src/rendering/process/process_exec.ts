@@ -3,12 +3,12 @@ import { ProcessRenderer } from "./process.js";
 import { ReactNode } from "react";
 
 export async function spawnInProcess(
-  p: ProcessRenderer,
+  r: ProcessRenderer,
   title: ReactNode,
   cmd: string,
   args: string[],
 ): Promise<void> {
-  const step = p.addStep(title);
+  const step = r.addStep(title);
 
   const child = spawn(cmd, args, {
     shell: false,
