@@ -10,6 +10,7 @@ import { ReactNode } from "react";
 import { hasBinary } from "../../lib/hasbin.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
+import { sshConnectionFlags } from "../../lib/ssh/flags.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static description =
@@ -19,6 +20,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   };
   static flags = {
     ...processFlags,
+    ...sshConnectionFlags,
     "dry-run": Flags.boolean({
       description: "do not actually download the app installation",
       default: false,
@@ -36,7 +38,12 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Download);
-    const { "dry-run": dryRun, target, delete: deleteLocal } = this.flags;
+    const {
+      "dry-run": dryRun,
+      target,
+      delete: deleteLocal,
+      "ssh-user": sshUser,
+    } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Downloading app installation");
 
@@ -46,6 +53,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
         return getSSHConnectionForAppInstallation(
           this.apiClient,
           appInstallationId,
+          sshUser,
         );
       },
     );

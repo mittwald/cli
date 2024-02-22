@@ -20,6 +20,7 @@ import { randomBytes } from "crypto";
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
 import assertSuccess from "../../../lib/assert_success.js";
 import shellEscape from "shell-escape";
+import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
 
 export class Dump extends ExecRenderBaseCommand<
   typeof Dump,
@@ -29,6 +30,7 @@ export class Dump extends ExecRenderBaseCommand<
   static flags = {
     ...processFlags,
     ...mysqlConnectionFlags,
+    ...sshConnectionFlags,
     "temporary-user": Flags.boolean({
       summary: "create a temporary user for the dump",
       description:
@@ -106,6 +108,7 @@ export class Dump extends ExecRenderBaseCommand<
       () =>
         executeViaSSH(
           this.apiClient,
+          this.flags["ssh-user"],
           { projectId: connectionDetails.project.id },
           cmd,
           this.getOutputStream(),

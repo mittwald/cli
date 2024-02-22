@@ -13,12 +13,13 @@ export type RunCommand =
 
 export async function executeViaSSH(
   client: MittwaldAPIV2Client,
+  sshUser: string | undefined,
   target: RunTarget,
   command: RunCommand,
   output: NodeJS.WritableStream | null,
   input: NodeJS.ReadableStream | null = null,
 ): Promise<void> {
-  const { user, host } = await connectionDataForTarget(client, target);
+  const { user, host } = await connectionDataForTarget(client, target, sshUser);
   const sshCommandArgs =
     "shell" in command
       ? ["bash", "-c", command.shell]
@@ -64,10 +65,15 @@ export async function executeViaSSH(
 async function connectionDataForTarget(
   client: MittwaldAPIV2Client,
   target: RunTarget,
+  sshUser: string | undefined,
 ): Promise<SSHConnectionData> {
   if ("appInstallationId" in target) {
-    return getSSHConnectionForAppInstallation(client, target.appInstallationId);
+    return getSSHConnectionForAppInstallation(
+      client,
+      target.appInstallationId,
+      sshUser,
+    );
   } else {
-    return getSSHConnectionForProject(client, target.projectId);
+    return getSSHConnectionForProject(client, target.projectId, sshUser);
   }
 }
