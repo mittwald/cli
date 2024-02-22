@@ -1,4 +1,4 @@
-import { ContextMap, ContextProvider } from "./context.js";
+import { ContextMap, ContextProvider, ContextValueSource } from "./context.js";
 import { cwd } from "process";
 import path from "path";
 import fs from "fs/promises";
@@ -30,12 +30,10 @@ export class DDEVContextProvider implements ContextProvider {
 
     const configs = [
       "config.yaml",
-      ...(await fs.readdir(ddevConfigDir)).filter((e) =>
-        /^config\.*\.ya?ml$/.test(e),
-      ),
+      ...(await findDDEVConfigFiles(ddevConfigDir)),
     ];
 
-    const overrides: ContextMap = {};
+    let overrides: ContextMap = {};
 
     for (const config of configs) {
       const configPath = path.join(ddevConfigDir, config);
@@ -46,24 +44,41 @@ export class DDEVContextProvider implements ContextProvider {
       for (const env of parsed.web_environment ?? []) {
         const [name, valueInput] = env.split("=", 2);
         if (name === "MITTWALD_APP_INSTALLATION_ID") {
-          const response = await this.apiClient.app.getAppinstallation({
-            appInstallationId: valueInput,
-          });
-          assertStatus(response, 200);
-
-          overrides["installation-id"] = { value: response.data.id, source };
-
-          if (response.data.projectId) {
-            overrides["project-id"] = {
-              value: response.data.projectId,
+          overrides = {
+            ...overrides,
+            ...(await this.fillOverridesFromAppInstallationId(
               source,
-            };
-          }
+              valueInput,
+            )),
+          };
         }
       }
     }
 
     return overrides;
+  }
+
+  private async fillOverridesFromAppInstallationId(
+    source: ContextValueSource,
+    appInstallationId: string,
+  ): Promise<ContextMap> {
+    const response = await this.apiClient.app.getAppinstallation({
+      appInstallationId,
+    });
+    assertStatus(response, 200);
+
+    const out: ContextMap = {
+      "installation-id": { value: response.data.id, source },
+    };
+
+    if (response.data.projectId) {
+      out["project-id"] = {
+        value: response.data.projectId,
+        source,
+      };
+    }
+
+    return out;
   }
 
   /**
@@ -82,4 +97,9 @@ export class DDEVContextProvider implements ContextProvider {
     }
     return undefined;
   }
+}
+
+async function findDDEVConfigFiles(dir: string): Promise<string[]> {
+  const configFilePattern = /^config\.*\.ya?ml$/;
+  return (await fs.readdir(dir)).filter((e) => configFilePattern.test(e));
 }
