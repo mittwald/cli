@@ -24,11 +24,19 @@ const ContextSourceValue: FC<{ source: ContextValueSource }> = ({ source }) => {
       );
     case "terraform":
       return (
-        <ContextSourceKnownValue name="terraform state file" source={source} />
+        <ContextSourceKnownValue
+          name="terraform state file"
+          source={source}
+          relative
+        />
       );
     case "ddev":
       return (
-        <ContextSourceKnownValue name="DDEV configuration" source={source} />
+        <ContextSourceKnownValue
+          name="DDEV configuration"
+          source={source}
+          relative
+        />
       );
     default:
       return <ContextSourceUnknown />;
@@ -38,11 +46,12 @@ const ContextSourceValue: FC<{ source: ContextValueSource }> = ({ source }) => {
 const ContextSourceKnownValue: FC<{
   name: string;
   source: ContextValueSource;
-}> = ({ name, source }) => {
+  relative?: boolean;
+}> = ({ name, source, relative }) => {
   return (
     <Text>
       <Text color="yellow">{name}</Text>, in{" "}
-      <LocalFilename filename={source.identifier} />
+      <LocalFilename filename={source.identifier} relative={relative} />
     </Text>
   );
 };
