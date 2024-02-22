@@ -551,17 +551,18 @@ Download the filesystem of an app within a project to your local machine
 
 ```
 USAGE
-  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--dry-run] [--delete]
+  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  -q, --quiet           suppress process output and only display a machine-readable summary.
-      --delete          delete local files that are not present on the server
-      --dry-run         do not actually download the app installation
-      --target=<value>  (required) target directory to download the app installation to
+  -q, --quiet             suppress process output and only display a machine-readable summary.
+      --delete            delete local files that are not present on the server
+      --dry-run           do not actually download the app installation
+      --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+      --target=<value>    (required) target directory to download the app installation to
 
 DESCRIPTION
   Download the filesystem of an app within a project to your local machine
@@ -571,6 +572,13 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw app get [INSTALLATION-ID]`
@@ -1479,19 +1487,28 @@ Connect to an app via SSH
 
 ```
 USAGE
-  $ mw app ssh [INSTALLATION-ID] [--cd] [--info] [--test]
+  $ mw app ssh [INSTALLATION-ID] [--ssh-user <value>] [--cd] [--info] [--test]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  --[no-]cd  change to installation path after connecting
-  --info     only print connection information, without actually connecting
-  --test     test connection and exit
+  --[no-]cd           change to installation path after connecting
+  --info              only print connection information, without actually connecting
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+  --test              test connection and exit
 
 DESCRIPTION
   Connect to an app via SSH
+
+FLAG DESCRIPTIONS
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw app uninstall [INSTALLATION-ID]`
@@ -2269,7 +2286,7 @@ Create a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user] [--gzip]
+  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--ssh-user <value>] [--temporary-user] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
@@ -2279,6 +2296,7 @@ FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --gzip                    compress the dump with gzip
+      --ssh-user=<value>        override the SSH user to connect with; if omitted, your own user will be used
       --[no-]temporary-user     create a temporary user for the dump
 
 FLAG DESCRIPTIONS
@@ -2305,6 +2323,13 @@ FLAG DESCRIPTIONS
 
     Compress the dump with gzip. This is useful for large databases, as it can significantly reduce the size of the
     dump.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 
   --[no-]temporary-user  create a temporary user for the dump
 
@@ -2382,20 +2407,28 @@ Forward the TCP port of a MySQL database to a local port
 
 ```
 USAGE
-  $ mw database mysql port-forward DATABASE-ID [-q] [--port <value>]
+  $ mw database mysql port-forward DATABASE-ID [-q] [--ssh-user <value>] [--port <value>]
 
 ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
 
 FLAGS
-  -q, --quiet         suppress process output and only display a machine-readable summary.
-      --port=<value>  [default: 3306] The local TCP port to forward to
+  -q, --quiet             suppress process output and only display a machine-readable summary.
+      --port=<value>      [default: 3306] The local TCP port to forward to
+      --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw database mysql shell DATABASE-ID`
