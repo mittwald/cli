@@ -6,7 +6,7 @@ export const ddevFlags = {
     default: "auto",
     description:
       "The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which is also the default) for automatic discovery." +
-      "" +
+      "\n\n" +
       "See https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information",
   }),
 };

@@ -2706,15 +2706,17 @@ Initialize a new ddev project in the current directory.
 
 ```
 USAGE
-  $ mw ddev init [INSTALLATION-ID] [-q] [--project-name <value>] [--override-mittwald-plugin <value>]
+  $ mw ddev init [INSTALLATION-ID] [-q] [--override-type <value>] [--project-name <value>]
+    [--override-mittwald-plugin <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
-      --project-name=<value>  DDEV project name
+  -q, --quiet                  suppress process output and only display a machine-readable summary.
+      --override-type=<value>  [default: auto] Override the type of the generated DDEV configuration
+      --project-name=<value>   DDEV project name
 
 DEVELOPMENT FLAGS
   --override-mittwald-plugin=<value>  [default: mittwald/ddev] override the mittwald plugin
@@ -2746,6 +2748,13 @@ FLAG DESCRIPTIONS
     This flag allows you to override the mittwald plugin that should be installed by default; this is useful for testing
     purposes
 
+  --override-type=<value>  Override the type of the generated DDEV configuration
+
+    The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which
+    is also the default) for automatic discovery.
+
+    See https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information
+
   --project-name=<value>  DDEV project name
 
     The name of the DDEV project
@@ -2775,8 +2784,9 @@ FLAG DESCRIPTIONS
   --override-type=<value>  Override the type of the generated DDEV configuration
 
     The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which
-    is also the default) for automatic discovery.See
-    https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information
+    is also the default) for automatic discovery.
+
+    See https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information
 ```
 
 ## `mw domain dnszone get DNSZONE-ID`
