@@ -6,6 +6,7 @@
  * [ddev-config]: https://ddev.readthedocs.io/en/latest/users/configuration/config/
  */
 export interface DDEVConfig {
+  name: string;
   type: string;
   override_config: boolean;
   webserver_type: string;

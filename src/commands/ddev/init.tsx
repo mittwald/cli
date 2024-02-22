@@ -15,6 +15,8 @@ import { DDEVConfig, ddevConfigToFlags } from "../../lib/ddev/config.js";
 import { hasBinary } from "../../lib/hasbin.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { renderDDEVConfig } from "../../lib/ddev/config_render.js";
+import { loadDDEVConfig } from "../../lib/ddev/config_loader.js";
+import { Value } from "../../rendering/react/components/Value.js";
 
 export class Init extends ExecRenderBaseCommand<typeof Init, void> {
   static summary = "Initialize a new ddev project in the current directory.";
@@ -105,6 +107,12 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       return projectName;
     }
 
+    const existing = await loadDDEVConfig();
+    if (existing?.name) {
+      r.addInfo(<InfoUsingExistingName name={existing.name} />);
+      return existing.name;
+    }
+
     return await r.addInput("Enter the project name", false);
   }
 
@@ -146,4 +154,12 @@ async function writeContentsToFile(
 
   await mkdir(dirname, { recursive: true });
   await writeFile(filename, data);
+}
+
+function InfoUsingExistingName({ name }: { name: string }) {
+  return (
+    <>
+      using existing project name: <Value>{name}</Value>
+    </>
+  );
 }
