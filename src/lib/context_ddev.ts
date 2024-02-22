@@ -5,10 +5,7 @@ import fs from "fs/promises";
 import yaml from "js-yaml";
 import { DDEVConfig } from "./ddev/config.js";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
-
-function isNotFound(e: unknown): boolean {
-  return e instanceof Error && "code" in e && e.code === "ENOENT";
-}
+import { pathExists } from "./fsutil.js";
 
 /**
  * DDEVContextProvider is a ContextProvider that reads context overrides from
@@ -77,16 +74,11 @@ export class DDEVContextProvider implements ContextProvider {
     let currentDir = cwd();
     while (currentDir !== "/") {
       const ddevDir = path.join(currentDir, ".ddev", "config.yaml");
-      try {
-        await fs.stat(ddevDir);
+      if (await pathExists(ddevDir)) {
         return path.dirname(ddevDir);
-      } catch (e) {
-        if (isNotFound(e)) {
-          currentDir = path.dirname(currentDir);
-          continue;
-        }
-        throw e;
       }
+
+      currentDir = path.dirname(currentDir);
     }
     return undefined;
   }
