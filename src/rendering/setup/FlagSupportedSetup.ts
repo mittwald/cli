@@ -3,12 +3,13 @@ import { InferredFlags } from "@oclif/core/lib/interfaces/index.js";
 import { Class } from "type-fest";
 import { mergeObjects } from "../../lib/mergeObjects.js";
 
-export type InferredOutput<T> = T extends Class<
-  FlagSupportedSetup<FlagInput, any, infer TOut>, // eslint-disable-line
-  any // eslint-disable-line
->
-  ? TOut
-  : never;
+export type InferredOutput<T> =
+  T extends Class<
+    FlagSupportedSetup<FlagInput, any, infer TOut>, // eslint-disable-line
+    any // eslint-disable-line
+  >
+    ? TOut
+    : never;
 
 export abstract class FlagSupportedSetup<
   TFlags extends FlagInput,
