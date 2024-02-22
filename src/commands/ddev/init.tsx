@@ -17,6 +17,7 @@ import { ProcessRenderer } from "../../rendering/process/process.js";
 import { renderDDEVConfig } from "../../lib/ddev/config_render.js";
 import { loadDDEVConfig } from "../../lib/ddev/config_loader.js";
 import { Value } from "../../rendering/react/components/Value.js";
+import { ddevFlags } from "../../lib/ddev/flags.js";
 
 export class Init extends ExecRenderBaseCommand<typeof Init, void> {
   static summary = "Initialize a new ddev project in the current directory.";
@@ -35,6 +36,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
 
   static flags = {
     ...processFlags,
+    ...ddevFlags,
     "project-name": Flags.string({
       summary: "DDEV project name",
       description: "The name of the DDEV project",
@@ -124,7 +126,10 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       "creating mittwald-specific DDEV configuration",
       async () => {
         const builder = new DDEVConfigBuilder(this.apiClient);
-        const config = await builder.build(appInstallationId, "auto");
+        const config = await builder.build(
+          appInstallationId,
+          this.flags["override-type"],
+        );
         const configFile = path.join(".ddev", "config.mittwald.yaml");
 
         await writeContentsToFile(
