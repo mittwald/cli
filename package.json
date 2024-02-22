@@ -34,7 +34,8 @@
     "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64",
     "package:windows": "oclif pack win",
     "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
-    "test": "yarn lint && yarn format --check && yarn test:licenses",
+    "test": "yarn test:format && yarn test:licenses && yarn test:unit",
+    "test:format": "yarn lint && yarn format --check",
     "test:unit": "nyc mocha --forbid-only \"src/**/*.test.ts\"",
     "test:licenses": "yarn license-check --summary --unknown --failOn 'UNLICENSED;UNKNOWN'",
     "test:readme": "yarn generate:readme && git diff --exit-code README.md"
