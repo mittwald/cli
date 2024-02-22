@@ -6,15 +6,23 @@ import { getSSHConnectionForProject } from "./project.js";
 
 export type RunTarget = { appInstallationId: string } | { projectId: string };
 
+export type RunCommand =
+  | { command: string; args: string[] }
+  | { shell: string };
+
 export async function executeViaSSH(
   client: MittwaldAPIV2Client,
+  sshUser: string | undefined,
   target: RunTarget,
-  command: string,
-  args: string[],
+  command: RunCommand,
   output: NodeJS.WritableStream,
 ): Promise<void> {
-  const { user, host } = await connectionDataForTarget(client, target);
-  const sshArgs = ["-l", user, "-T", host, command, ...args];
+  const { user, host } = await connectionDataForTarget(client, target, sshUser);
+  const sshCommandArgs =
+    "shell" in command
+      ? ["bash", "-c", command.shell]
+      : [command.command, ...command.args];
+  const sshArgs = ["-l", user, "-T", host, ...sshCommandArgs];
   const ssh = cp.spawn("ssh", sshArgs, {
     stdio: ["ignore", "pipe", "pipe"],
   });
@@ -48,10 +56,15 @@ export async function executeViaSSH(
 async function connectionDataForTarget(
   client: MittwaldAPIV2Client,
   target: RunTarget,
+  sshUser: string | undefined,
 ): Promise<SSHConnectionData> {
   if ("appInstallationId" in target) {
-    return getSSHConnectionForAppInstallation(client, target.appInstallationId);
+    return getSSHConnectionForAppInstallation(
+      client,
+      target.appInstallationId,
+      sshUser,
+    );
   } else {
-    return getSSHConnectionForProject(client, target.projectId);
+    return getSSHConnectionForProject(client, target.projectId, sshUser);
   }
 }

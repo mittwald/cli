@@ -17,8 +17,10 @@ import {
 import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
 import { assertStatus } from "@mittwald/api-client";
 import { randomBytes } from "crypto";
-import { executeViaSSH } from "../../../lib/ssh/exec.js";
+import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
 import assertSuccess from "../../../lib/assert_success.js";
+import shellEscape from "shell-escape";
+import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
 
 export class Dump extends ExecRenderBaseCommand<
   typeof Dump,
@@ -28,6 +30,7 @@ export class Dump extends ExecRenderBaseCommand<
   static flags = {
     ...processFlags,
     ...mysqlConnectionFlags,
+    ...sshConnectionFlags,
     "temporary-user": Flags.boolean({
       summary: "create a temporary user for the dump",
       description:
@@ -42,6 +45,14 @@ export class Dump extends ExecRenderBaseCommand<
       description:
         'The output file to write the dump to. You can specify "-" or "/dev/stdout" to write the dump directly to STDOUT; in this case, you might want to use the --quiet/-q flag to supress all other output, so that you can pipe the mysqldump for further processing.',
       required: true,
+    }),
+    gzip: Flags.boolean({
+      summary: "compress the dump with gzip",
+      aliases: ["gz"],
+      description:
+        "Compress the dump with gzip. This is useful for large databases, as it can significantly reduce the size of the dump.",
+      default: false,
+      required: false,
     }),
   };
   static args = { ...mysqlArgs };
@@ -82,6 +93,14 @@ export class Dump extends ExecRenderBaseCommand<
     const { project } = connectionDetails;
     const mysqldumpArgs = buildMySqlDumpArgs(connectionDetails);
 
+    let cmd: RunCommand = { command: "mysqldump", args: mysqldumpArgs };
+    if (this.flags.gzip) {
+      const escapedArgs = shellEscape(mysqldumpArgs);
+      cmd = {
+        shell: `set -e -o pipefail > /dev/null ; mysqldump ${escapedArgs} | gzip`,
+      };
+    }
+
     await p.runStep(
       <Text>
         starting mysqldump via SSH on project <Value>{project.shortId}</Value>
@@ -89,9 +108,9 @@ export class Dump extends ExecRenderBaseCommand<
       () =>
         executeViaSSH(
           this.apiClient,
+          this.flags["ssh-user"],
           { projectId: connectionDetails.project.id },
-          "mysqldump",
-          mysqldumpArgs,
+          cmd,
           this.getOutputStream(),
         ),
     );
