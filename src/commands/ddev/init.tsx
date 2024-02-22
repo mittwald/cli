@@ -15,6 +15,7 @@ import { DDEVInitSuccess } from "../../rendering/react/components/DDEV/DDEVInitS
 import { DDEVConfig, ddevConfigToFlags } from "../../lib/ddev/config.js";
 import { hasBinary } from "../../lib/hasbin.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
+import { renderDDEVConfig } from "../../lib/ddev/config_render.js";
 
 export class Init extends ExecRenderBaseCommand<typeof Init, void> {
   static summary = "Initialize a new ddev project in the current directory.";
@@ -119,7 +120,10 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
         const config = await builder.build(appInstallationId, "auto");
         const configFile = path.join(".ddev", "config.mittwald.yaml");
 
-        await writeYAMLToFile(configFile, config);
+        await writeContentsToFile(
+          configFile,
+          renderDDEVConfig(appInstallationId, config),
+        );
 
         return config;
       },
@@ -135,7 +139,10 @@ async function assertDDEVIsInstalled(r: ProcessRenderer): Promise<void> {
   });
 }
 
-async function writeYAMLToFile(filename: string, data: unknown): Promise<void> {
+async function writeContentsToFile(
+  filename: string,
+  data: string,
+): Promise<void> {
   const dirname = path.dirname(filename);
 
   await mkdir(dirname, { recursive: true });
