@@ -68,31 +68,27 @@ export class DDEVConfigBuilder {
       return type;
     }
 
-    if (inst.appId === typo3Installer.appId) {
-      return "typo3";
+    switch (inst.appId) {
+      case typo3Installer.appId:
+        return "typo3";
+      case wordpressInstaller.appId:
+        return "wordpress";
+      case shopware6Installer.appId:
+        return "shopware6";
+      case drupalInstaller.appId: {
+        const version = await this.getAppVersion(
+          inst.appId,
+          inst.appVersion.desired,
+        );
+
+        const [major] = version.externalVersion.split(".");
+        return `drupal${major}`;
+      }
+      default:
+        throw new Error(
+          "Automatic project type detection failed. Please specify the project type manually by setting the `--override-type` flag.",
+        );
     }
-
-    if (inst.appId === wordpressInstaller.appId) {
-      return "wordpress";
-    }
-
-    if (inst.appId === shopware6Installer.appId) {
-      return "shopware6";
-    }
-
-    if (inst.appId === drupalInstaller.appId) {
-      const version = await this.getAppVersion(
-        inst.appId,
-        inst.appVersion.desired,
-      );
-
-      const [major] = version.externalVersion.split(".");
-      return `drupal${major}`;
-    }
-
-    throw new Error(
-      "Automatic project type detection failed. Please specify the project type manually by setting the `--override-type` flag.",
-    );
   }
 
   private async determineDatabaseVersion(
