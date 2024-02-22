@@ -31,9 +31,8 @@ export class DDEVConfigBuilder {
     type: string,
   ): Promise<Partial<DDEVConfig>> {
     const appInstallation = await this.getAppInstallation(appInstallationId);
-    const systemSoftwares = await this.buildSystemSoftwareVersionMap(
-      appInstallation,
-    );
+    const systemSoftwares =
+      await this.buildSystemSoftwareVersionMap(appInstallation);
 
     return {
       override_config: true,
