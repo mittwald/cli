@@ -12,18 +12,30 @@ export type RunCommand =
 
 export async function executeViaSSH(
   client: MittwaldAPIV2Client,
-  sshUser: string | undefined,
+  sshConnectionFlags: {
+    "ssh-user": string | undefined;
+    "ssh-identity-file": string | undefined;
+  },
   target: RunTarget,
   command: RunCommand,
   output: NodeJS.WritableStream,
 ): Promise<void> {
-  const { user, host } = await connectionDataForTarget(client, target, sshUser);
+  const { user, host } = await connectionDataForTarget(
+    client,
+    target,
+    sshConnectionFlags["ssh-user"],
+  );
   const sshCommandArgs =
     "shell" in command
       ? ["bash", "-c", command.shell]
       : [command.command, ...command.args];
-  const sshArgs = ["-l", user, "-T", host, ...sshCommandArgs];
-  const ssh = cp.spawn("ssh", sshArgs, {
+  const sshArgs = ["-l", user, "-T"];
+
+  if (sshConnectionFlags["ssh-identity-file"]) {
+    sshArgs.push("-i", sshConnectionFlags["ssh-identity-file"]);
+  }
+
+  const ssh = cp.spawn("ssh", [...sshArgs, host, ...sshCommandArgs], {
     stdio: ["ignore", "pipe", "pipe"],
   });
 

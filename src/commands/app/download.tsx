@@ -43,6 +43,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       target,
       delete: deleteLocal,
       "ssh-user": sshUser,
+      "ssh-identity-file": sshIdentityFile,
     } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Downloading app installation");
@@ -80,6 +81,9 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
     }
     if (deleteLocal) {
       rsyncOpts.push("--delete");
+    }
+    if (sshIdentityFile) {
+      rsyncOpts.push("--rsh", `ssh -i ${sshIdentityFile}`);
     }
 
     const child = spawn(

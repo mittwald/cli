@@ -3,7 +3,7 @@ import { appInstallationArgs } from "../../lib/app/flags.js";
 import { Flags } from "@oclif/core";
 import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
-import { sshConnectionFlags } from "../../lib/ssh/flags.js";
+import { SSHConnectionFlags, sshConnectionFlags } from "../../lib/ssh/flags.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static description = "Connect to an app via SSH";
@@ -43,15 +43,11 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
 
     this.log("connecting to %o as %o", host, user);
 
-    let cmd = "exec bash -l";
-    const args = ["-t", "-l", user];
+    const [cmd, args] = buildSSHCmdAndFlags(user, directory, this.flags);
 
-    if (flags.test) {
-      cmd = "/bin/true";
-      args.push("-q");
-    } else if (flags.cd) {
-      cmd = flags.cd ? `cd ${directory} && exec bash -l` : "bash -l";
+    this.debug("running ssh %o on %o, with command %o", args, host, cmd);
 
+    if (flags.cd) {
       this.log(
         "changing to %o; use --no-cd to disable this behaviour",
         directory,
@@ -62,4 +58,31 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
       stdio: "inherit",
     });
   }
+}
+
+function buildSSHArgs(user: string, flags: SSHConnectionFlags) {
+  const args = ["-t", "-l", user];
+
+  if (flags["ssh-identity-file"]) {
+    args.push("-i", flags["ssh-identity-file"]);
+  }
+  return args;
+}
+
+function buildSSHCmdAndFlags(
+  user: string,
+  directory: string,
+  flags: SSHConnectionFlags & { test: boolean; cd: boolean },
+): [string, string[]] {
+  const args = buildSSHArgs(user, flags);
+
+  if (flags.test) {
+    return ["/bin/true", [...args, "-q"]];
+  }
+
+  if (flags.cd) {
+    return [`cd ${directory} && exec bash -l`, args];
+  }
+
+  return ["exec bash -l", args];
 }

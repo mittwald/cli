@@ -55,18 +55,13 @@ export class PortForward extends ExecRenderBaseCommand<
       </Text>,
     );
 
-    const sshArgs = [
-      "-T",
-      "-L",
-      `${port}:${hostname}:3306`,
-      "-l",
-      sshUser,
-      sshHost,
-      "cat",
-      "/dev/zero",
-    ];
+    const sshArgs = ["-T", "-L", `${port}:${hostname}:3306`, "-l", sshUser];
 
-    cp.spawnSync("ssh", sshArgs, {
+    if (this.flags["ssh-identity-file"]) {
+      sshArgs.push("-i", this.flags["ssh-identity-file"]);
+    }
+
+    cp.spawnSync("ssh", [...sshArgs, sshHost, "cat", "/dev/zero"], {
       stdio: ["ignore", process.stdout, process.stderr],
     });
     return {};
