@@ -31,7 +31,7 @@ export async function spawnInProcess(
     if (code === 0) {
       step.complete();
     } else {
-      step.error(new Error(`rsync exited with code ${code}`));
+      step.error(new Error(`${cmd} exited with code ${code}`));
     }
   });
 
