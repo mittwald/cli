@@ -1,8 +1,9 @@
-import cp from "child_process";
+import cp, { ChildProcessByStdio } from "child_process";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SSHConnectionData } from "./types.js";
 import { getSSHConnectionForAppInstallation } from "./appinstall.js";
 import { getSSHConnectionForProject } from "./project.js";
+import { Readable, Writable } from "stream";
 
 export type RunTarget = { appInstallationId: string } | { projectId: string };
 
@@ -15,7 +16,8 @@ export async function executeViaSSH(
   sshUser: string | undefined,
   target: RunTarget,
   command: RunCommand,
-  output: NodeJS.WritableStream,
+  output: NodeJS.WritableStream | null,
+  input: NodeJS.ReadableStream | null = null,
 ): Promise<void> {
   const { user, host } = await connectionDataForTarget(client, target, sshUser);
   const sshCommandArgs =
@@ -24,12 +26,19 @@ export async function executeViaSSH(
       : [command.command, ...command.args];
   const sshArgs = ["-l", user, "-T", host, ...sshCommandArgs];
   const ssh = cp.spawn("ssh", sshArgs, {
-    stdio: ["ignore", "pipe", "pipe"],
-  });
+    stdio: [input ? "pipe" : "ignore", output ? "pipe" : "ignore", "pipe"],
+  }) as ChildProcessByStdio<Writable | null, Readable | null, Readable>;
 
   let err = "";
 
-  ssh.stdout.pipe(output);
+  if (input && ssh.stdin) {
+    input.pipe(ssh.stdin);
+  }
+
+  if (output && ssh.stdout) {
+    ssh.stdout.pipe(output);
+  }
+
   ssh.stderr.on("data", (data) => {
     err += data.toString();
   });
@@ -44,7 +53,7 @@ export async function executeViaSSH(
         }
       };
 
-      if (output === process.stdout) {
+      if (output === process.stdout || output === null) {
         resolve();
       } else {
         output.end(resolve);
