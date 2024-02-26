@@ -20,10 +20,7 @@
   },
   "scripts": {
     "clean": "(rimraf --glob dist tsconfig.*.tsbuildinfo) | true",
-    "compile": "tsc --build tsconfig.esm.json",
-    "compile:all": "yarn clean && yarn compile:cjs && yarn compile:esm",
-    "compile:cjs": "tsc --build tsconfig.cjs.json",
-    "compile:esm": "tsc --build tsconfig.esm.json",
+    "compile": "tsc --build tsconfig.json",
     "format": "prettier --write $@ '**/*.{ts,tsx,yaml,yml,json,md,mdx}'",
     "generate:commands": "yarn generate:commands:v2",
     "generate:commands-dev": "yarn generate:commands-dev:v2",
@@ -43,7 +40,7 @@
   },
   "files": [
     ".deps",
-    "{dist,dist-cjs}/**/*.{js,d.ts}",
+    "dist/**/*.{js,d.ts}",
     "bin"
   ],
   "dependencies": {
@@ -102,13 +99,14 @@
     "prettier-plugin-package": "^1.4.0",
     "prettier-plugin-sort-json": "^3.1.0",
     "rimraf": "^5.0.1",
+    "tsx": "^4.7.1",
     "type-fest": "^4.6.0",
     "typescript": "^5.1.6"
   },
   "oclif": {
     "bin": "mw",
     "dirname": "mw",
-    "commands": "./dist/esm/commands",
+    "commands": "./dist/commands",
     "macos": {
       "identifier": "de.mittwald.cli"
     },

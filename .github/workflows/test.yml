@@ -39,3 +39,17 @@ jobs:
       - run: yarn compile
       - run: yarn generate:readme
       - run: git diff --exit-code README.md
+
+  docker:
+    name: Build and run docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: yarn
+      - run: yarn compile
+      - run: yarn package:tarballs
+      - run: docker build --build-arg PKG_SOURCE=dist -t mittwald/cli:testing .
+      - run: docker run --rm mittwald/cli:testing --help
