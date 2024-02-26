@@ -1,9 +1,9 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
-import { formatCreatedAt } from "../../../lib/viewhelpers/date.js";
 import { ListColumns } from "../../../Formatter.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { buildCreatedAtColumn } from "../../../lib/viewhelpers/list_column_date.js";
 
 type ResponseItem = Simplify<
   Required<MittwaldAPIV2.Paths.V2UsersSelfSshKeys.Get.Responses.$200.Content.ApplicationJson>["sshKeys"][number]
@@ -38,10 +38,7 @@ export default class List extends ListBaseCommand<
       },
       comment: {},
       fingerprint: {},
-      created: {
-        header: "Created at",
-        get: formatCreatedAt,
-      },
+      createdAt: buildCreatedAtColumn(this.flags),
     };
   }
 }

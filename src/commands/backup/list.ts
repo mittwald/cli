@@ -4,7 +4,8 @@ import { SuccessfulResponse } from "../../types.js";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
 import { projectFlags } from "../../lib/project/flags.js";
 import { ListColumns } from "../../Formatter.js";
-import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
+import { optionalDateRenderer } from "../../lib/viewhelpers/date.js";
+import { makeDateRendererForFlags } from "../../lib/viewhelpers/list_column_date.js";
 import BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
 
 type ListResponse = Response<BackupProjectBackup[]>;
@@ -36,13 +37,16 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
 
   protected getColumns(data: ListItem[]): ListColumns<ListItem> {
     const { id, createdAt } = super.getColumns(data);
+    const dateRenderer = optionalDateRenderer(
+      makeDateRendererForFlags(this.flags),
+    );
     return {
       id,
       status: {},
       createdAt,
       expiresIn: {
         header: "Expires in",
-        get: (r) => formatRelativeDate(r.expiresAt),
+        get: (r) => dateRenderer(r.expiresAt),
       },
     };
   }
