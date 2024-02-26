@@ -1,3 +1,3 @@
 @echo off
 
-node "%~dp0\dev" %*
+node --import tsx --no-warnings=ExperimentalWarning "%~dp0\dev" %*
