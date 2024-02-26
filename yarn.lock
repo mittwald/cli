@@ -2012,9 +2012,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.16.0, @oclif/core@npm:^3.18.1, @oclif/core@npm:^3.18.2, @oclif/core@npm:^3.19.1":
-  version: 3.19.1
-  resolution: "@oclif/core@npm:3.19.1"
+"@oclif/core@npm:^3.16.0, @oclif/core@npm:^3.18.1, @oclif/core@npm:^3.18.2, @oclif/core@npm:^3.19.1, @oclif/core@npm:^3.19.2":
+  version: 3.19.6
+  resolution: "@oclif/core@npm:3.19.6"
   dependencies:
     "@types/cli-progress": ^3.11.5
     ansi-escapes: ^4.3.2
@@ -2043,42 +2043,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: c5e2ed2e08afeb77b6cdb297027f6b88317dfb1219c43c50a2875b9adef41c1e14a5c55dcbfc4474a1299c982b477d38b06b7c708ee122b3fb570ecaeb3d53f1
-  languageName: node
-  linkType: hard
-
-"@oclif/core@npm:^3.19.2":
-  version: 3.19.3
-  resolution: "@oclif/core@npm:3.19.3"
-  dependencies:
-    "@types/cli-progress": ^3.11.5
-    ansi-escapes: ^4.3.2
-    ansi-styles: ^4.3.0
-    cardinal: ^2.1.1
-    chalk: ^4.1.2
-    clean-stack: ^3.0.1
-    cli-progress: ^3.12.0
-    color: ^4.2.3
-    debug: ^4.3.4
-    ejs: ^3.1.9
-    get-package-type: ^0.1.0
-    globby: ^11.1.0
-    hyperlinker: ^1.0.0
-    indent-string: ^4.0.0
-    is-wsl: ^2.2.0
-    js-yaml: ^3.14.1
-    natural-orderby: ^2.0.3
-    object-treeify: ^1.1.33
-    password-prompt: ^1.1.3
-    slice-ansi: ^4.0.0
-    string-width: ^4.2.3
-    strip-ansi: ^6.0.1
-    supports-color: ^8.1.1
-    supports-hyperlinks: ^2.2.0
-    widest-line: ^3.1.0
-    wordwrap: ^1.0.0
-    wrap-ansi: ^7.0.0
-  checksum: 60102760993ab2c0721e33355f90efb7e059bd09dd4362fb9a154c53403978d42e97d353484369a0cba4c2f1f2d1ee76bb8397bd8e8e6230dc327db52b79ea61
+  checksum: 47cf98b155d3d51e0b5f129fab3e15a9d048c1d15b6ce491703459632a9a18e16d0d7fbee5869cef852ba8334f8e03721ac207e1c735f2dbc92617b40ed67471
   languageName: node
   linkType: hard
 
