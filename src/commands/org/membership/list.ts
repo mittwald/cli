@@ -4,12 +4,9 @@ import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { orgFlags, withOrgId } from "../../../lib/org/flags.js";
 import { ListColumns } from "../../../Formatter.js";
-import {
-  formatRelativeDate,
-  optionalDateRenderer,
-} from "../../../lib/viewhelpers/date.js";
-import UserUser = MittwaldAPIV2.Components.Schemas.UserUser;
+import { optionalDateRenderer } from "../../../lib/viewhelpers/date.js";
 import { makeDateRendererForFlags } from "../../../lib/viewhelpers/list_column_date.js";
+import UserUser = MittwaldAPIV2.Components.Schemas.UserUser;
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2CustomersCustomerIdMemberships.Get.Responses.$200.Content.ApplicationJson[number]

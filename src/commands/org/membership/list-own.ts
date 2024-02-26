@@ -3,12 +3,9 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { ListColumns } from "../../../Formatter.js";
-import {
-  formatRelativeDate,
-  optionalDateRenderer,
-} from "../../../lib/viewhelpers/date.js";
-import CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
+import { optionalDateRenderer } from "../../../lib/viewhelpers/date.js";
 import { makeDateRendererForFlags } from "../../../lib/viewhelpers/list_column_date.js";
+import CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2CustomerMemberships.Get.Responses.$200.Content.ApplicationJson[number]

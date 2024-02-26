@@ -1,17 +1,9 @@
 import { Command, Interfaces } from "@oclif/core";
 import { BaseCommand } from "./BaseCommand.js";
-import {
-  isListFormatterFlags,
-  ListColumns,
-  ListFormatter,
-} from "./Formatter.js";
+import { ListColumns, ListFormatter } from "./Formatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
 import { SuccessfulResponse } from "./types.js";
 import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
-import {
-  formatDateISO,
-  makeDateRendererForFormat,
-} from "./lib/viewhelpers/date.js";
 import {
   buildCreatedAtColumn,
   isResourceWithCreatedAt,
