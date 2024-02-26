@@ -21,7 +21,7 @@ export function isResourceWithCreatedAt(
 
 export function makeDateRendererForFlags(flags: FlagOutput): DateRenderer {
   if (isListFormatterFlags(flags)) {
-    return makeDateRendererForFormat(flags.output, flags["relative-dates"]);
+    return makeDateRendererForFormat(flags.output, !flags["no-relative-dates"]);
   }
   return formatDateISO;
 }

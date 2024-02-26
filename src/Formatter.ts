@@ -2,7 +2,6 @@ import {
   BooleanFlag,
   FlagInput,
   FlagOutput,
-  OptionFlag,
 } from "@oclif/core/lib/interfaces/parser.js";
 import { Flags, ux } from "@oclif/core";
 import { DefaultPrinter, Printer, PrinterFactory } from "./Printer.js";
@@ -40,10 +39,13 @@ export class GetFormatter<T = unknown> {
 type RelevantTableBaseFlags = Partial<typeof ux.table.Flags> &
   Pick<typeof ux.table.Flags, "output">;
 type ListFormatterFlags = RelevantTableBaseFlags & {
-  "relative-dates": BooleanFlag<boolean>;
+  "no-relative-dates": BooleanFlag<boolean>;
 };
 
-type ListFormatterFlagsOutput = { output: string; "relative-dates": boolean };
+type ListFormatterFlagsOutput = {
+  output: string;
+  "no-relative-dates": boolean;
+};
 
 export function isListFormatterFlags(
   flags: FlagOutput,
@@ -66,11 +68,10 @@ export class ListFormatter {
         char: "o",
         default: "txt",
       },
-      "relative-dates": Flags.boolean({
-        description: "Show dates relative to now.",
-        required: true,
-        default: true,
-        allowNo: true,
+      "no-relative-dates": Flags.boolean({
+        description: "show dates in absolute format, not relative",
+        required: false,
+        default: false,
       }),
     };
   }
