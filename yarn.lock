@@ -8610,14 +8610,14 @@ __metadata:
   linkType: hard
 
 "open@npm:^10.0.3":
-  version: 10.0.3
-  resolution: "open@npm:10.0.3"
+  version: 10.0.4
+  resolution: "open@npm:10.0.4"
   dependencies:
     default-browser: ^5.2.1
     define-lazy-prop: ^3.0.0
     is-inside-container: ^1.0.0
     is-wsl: ^3.1.0
-  checksum: 3c4b4eb3c08210f7b7b3f3311d36440f4b83f0641ac70e5e56d637f48d4a7736e0fd49a604eebe0a55c51223d77f9ced11912223cab12d5e9fdc866727c6cb1d
+  checksum: 60d4be9ab5f0c36c508bb1ecbe7fda5e1ff8705ed345e2622c1ba877b1926799df226a7e3af78fd8688c86d7b59bcba0e71c5eab724c43f89e04ce233c28ac53
   languageName: node
   linkType: hard
 
