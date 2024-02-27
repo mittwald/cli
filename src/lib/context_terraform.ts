@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import { cwd } from "process";
 import path from "path";
 import { ContextMap, ContextProvider } from "./context.js";
+import { pathExists } from "./fsutil.js";
 
 interface TerraformInstance {
   attributes: Record<string, unknown>;
@@ -74,16 +75,10 @@ export class TerraformContextProvider implements ContextProvider {
     let currentDir = cwd();
     while (currentDir !== "/") {
       const stateFile = path.join(currentDir, "terraform.tfstate");
-      try {
-        await fs.stat(stateFile);
+      if (await pathExists(stateFile)) {
         return stateFile;
-      } catch (e) {
-        if (e instanceof Error && "code" in e && e.code === "ENOENT") {
-          currentDir = path.dirname(currentDir);
-          continue;
-        }
-        throw e;
       }
+      currentDir = path.dirname(currentDir);
     }
     return undefined;
   }

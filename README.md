@@ -42,7 +42,7 @@ either the CMD prompt or PowerShell.
 #### Any OS, using Node.js+NPM
 
 Installing the CLI via NPM will work on any OS; however we cannot guarantee
-stability, because functionality of the CLI may depend in the Node.js runtime
+stability, because functionality of the CLI may depend on the Node.js runtime
 already installed on your system. Also, the automatic upgrade will not work when
 using NPM; remember to run `npm upgrade -g @mittwald/cli` occasionally.
 
@@ -135,6 +135,7 @@ USAGE
 * [`mw app list`](#mw-app-list)
 * [`mw app ssh [INSTALLATION-ID]`](#mw-app-ssh-installation-id)
 * [`mw app uninstall [INSTALLATION-ID]`](#mw-app-uninstall-installation-id)
+* [`mw app upload [INSTALLATION-ID]`](#mw-app-upload-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
 * [`mw autocomplete [SHELL]`](#mw-autocomplete-shell)
 * [`mw backup create`](#mw-backup-create)
@@ -167,6 +168,7 @@ USAGE
 * [`mw database mysql delete DATABASE-ID`](#mw-database-mysql-delete-database-id)
 * [`mw database mysql dump DATABASE-ID`](#mw-database-mysql-dump-database-id)
 * [`mw database mysql get DATABASE-ID`](#mw-database-mysql-get-database-id)
+* [`mw database mysql import DATABASE-ID`](#mw-database-mysql-import-database-id)
 * [`mw database mysql list`](#mw-database-mysql-list)
 * [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
@@ -553,17 +555,18 @@ Download the filesystem of an app within a project to your local machine
 
 ```
 USAGE
-  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--dry-run] [--delete]
+  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  -q, --quiet           suppress process output and only display a machine-readable summary.
-      --delete          delete local files that are not present on the server
-      --dry-run         do not actually download the app installation
-      --target=<value>  (required) target directory to download the app installation to
+  -q, --quiet             suppress process output and only display a machine-readable summary.
+      --delete            delete local files that are not present on the server
+      --dry-run           do not actually download the app installation
+      --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+      --target=<value>    (required) target directory to download the app installation to
 
 DESCRIPTION
   Download the filesystem of an app within a project to your local machine
@@ -573,6 +576,13 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw app get [INSTALLATION-ID]`
@@ -1481,19 +1491,28 @@ Connect to an app via SSH
 
 ```
 USAGE
-  $ mw app ssh [INSTALLATION-ID] [--cd] [--info] [--test]
+  $ mw app ssh [INSTALLATION-ID] [--ssh-user <value>] [--cd] [--info] [--test]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  --[no-]cd  change to installation path after connecting
-  --info     only print connection information, without actually connecting
-  --test     test connection and exit
+  --[no-]cd           change to installation path after connecting
+  --info              only print connection information, without actually connecting
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+  --test              test connection and exit
 
 DESCRIPTION
   Connect to an app via SSH
+
+FLAG DESCRIPTIONS
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw app uninstall [INSTALLATION-ID]`
@@ -1520,6 +1539,46 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw app upload [INSTALLATION-ID]`
+
+Upload the filesystem of an app to a project
+
+```
+USAGE
+  $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--dry-run] [--delete]
+
+ARGUMENTS
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
+
+FLAGS
+  -q, --quiet             suppress process output and only display a machine-readable summary.
+      --delete            delete local files that are not present on the server
+      --dry-run           do not actually download the app installation
+      --source=<value>    (required) source directory from which to upload the app installation
+      --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+DESCRIPTION
+  Upload the filesystem of an app to a project
+
+  Upload the filesystem of an app from your local machine to a project.CAUTION: This is a potentially destructive
+  operation. It will overwrite files on the server with the files from your local machine.This is NOT a turnkey
+  deployment solution. It is intended for development purposes only.
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw app versions [APP]`
@@ -2271,7 +2330,7 @@ Create a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user] [--gzip]
+  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
@@ -2281,6 +2340,7 @@ FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --gzip                    compress the dump with gzip
+      --ssh-user=<value>        override the SSH user to connect with; if omitted, your own user will be used
       --[no-]temporary-user     create a temporary user for the dump
 
 FLAG DESCRIPTIONS
@@ -2308,10 +2368,17 @@ FLAG DESCRIPTIONS
     Compress the dump with gzip. This is useful for large databases, as it can significantly reduce the size of the
     dump.
 
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
+
   --[no-]temporary-user  create a temporary user for the dump
 
-    Create a temporary user for the dump. This user will be deleted after the dump has been created. This is useful if
-    you want to dump a database that is not accessible from the outside.
+    Create a temporary user for this operation. This user will be deleted after the operation has completed. This is
+    useful if you want to work with a database that is not accessible from the outside.
 
     If this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password
     flag or via the MYSQL_PWD environment variable.
@@ -2334,6 +2401,59 @@ FLAGS
 
 DESCRIPTION
   Get a MySQLDatabase.
+```
+
+## `mw database mysql import DATABASE-ID`
+
+Imports a dump of a MySQL database
+
+```
+USAGE
+  $ mw database mysql import DATABASE-ID -i <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>]
+
+ARGUMENTS
+  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+
+FLAGS
+  -i, --input=<value>           (required) the input file from which to read the dump ("-" for stdin)
+  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --ssh-user=<value>        override the SSH user to connect with; if omitted, your own user will be used
+      --[no-]temporary-user     create a temporary user for the dump
+
+FLAG DESCRIPTIONS
+  -i, --input=<value>  the input file from which to read the dump ("-" for stdin)
+
+    The input file from which to read the dump to. You can specify "-" or "/dev/stdin" to read the dump directly from
+    STDIN.
+
+  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+
+    The password to use for the MySQL user. If not provided, the environment variable MYSQL_PWD will be used. If that is
+    not set either, the command will interactively ask for the password.
+
+    NOTE: This is a security risk, as the password will be visible in the process list of your system, and will be
+    visible in your Shell history. It is recommended to use the environment variable instead.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
+
+  --[no-]temporary-user  create a temporary user for the dump
+
+    Create a temporary user for this operation. This user will be deleted after the operation has completed. This is
+    useful if you want to work with a database that is not accessible from the outside.
+
+    If this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password
+    flag or via the MYSQL_PWD environment variable.
 ```
 
 ## `mw database mysql list`
@@ -2384,20 +2504,28 @@ Forward the TCP port of a MySQL database to a local port
 
 ```
 USAGE
-  $ mw database mysql port-forward DATABASE-ID [-q] [--port <value>]
+  $ mw database mysql port-forward DATABASE-ID [-q] [--ssh-user <value>] [--port <value>]
 
 ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
 
 FLAGS
-  -q, --quiet         suppress process output and only display a machine-readable summary.
-      --port=<value>  [default: 3306] The local TCP port to forward to
+  -q, --quiet             suppress process output and only display a machine-readable summary.
+      --port=<value>      [default: 3306] The local TCP port to forward to
+      --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw database mysql shell DATABASE-ID`
@@ -2669,25 +2797,40 @@ FLAG DESCRIPTIONS
 
 ## `mw ddev init [INSTALLATION-ID]`
 
-Initialize a new ddev project in the current directory
+Initialize a new ddev project in the current directory.
 
 ```
 USAGE
-  $ mw ddev init [INSTALLATION-ID] [-q] [--project-name <value>] [--override-mittwald-plugin <value>]
+  $ mw ddev init [INSTALLATION-ID] [-q] [--override-type <value>] [--project-name <value>]
+    [--override-mittwald-plugin <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  -q, --quiet                             suppress process output and only display a machine-readable summary.
-      --override-mittwald-plugin=<value>  [default: mittwald/ddev] override the mittwald plugin
-      --project-name=<value>              DDEV project name
+  -q, --quiet                  suppress process output and only display a machine-readable summary.
+      --override-type=<value>  [default: auto] Override the type of the generated DDEV configuration
+      --project-name=<value>   DDEV project name
+
+DEVELOPMENT FLAGS
+  --override-mittwald-plugin=<value>  [default: mittwald/ddev] override the mittwald plugin
 
 DESCRIPTION
-  Initialize a new ddev project in the current directory
+  Initialize a new ddev project in the current directory.
 
-  This command initializes a new ddev configuration in the current directory.
+  This command initializes a new ddev configuration for an existing app installation in the current directory.
+
+  More precisely, this command will do the following:
+
+  1. Create a new ddev configuration file in the .ddev directory, appropriate for the reference app installation
+  2. Initialize a new ddev project with the given configuration
+  3. Install the official mittwald DDEV addon
+  4. Add SSH credentials to the DDEV project
+
+  This command can be run repeatedly to update the DDEV configuration of the project.
+
+  Please note that this command requires DDEV to be installed on your system.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -2699,6 +2842,13 @@ FLAG DESCRIPTIONS
 
     This flag allows you to override the mittwald plugin that should be installed by default; this is useful for testing
     purposes
+
+  --override-type=<value>  Override the type of the generated DDEV configuration
+
+    The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which
+    is also the default) for automatic discovery.
+
+    See https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information
 
   --project-name=<value>  DDEV project name
 
@@ -2729,8 +2879,9 @@ FLAG DESCRIPTIONS
   --override-type=<value>  Override the type of the generated DDEV configuration
 
     The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which
-    is also the default) for automatic discovery.See
-    https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information
+    is also the default) for automatic discovery.
+
+    See https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information
 ```
 
 ## `mw domain dnszone get DNSZONE-ID`
@@ -3044,7 +3195,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.12/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.13/src/commands/help.ts)_
 
 ## `mw login reset`
 

@@ -11,13 +11,13 @@ import * as fs from "fs";
 import { Success } from "../../../rendering/react/components/Success.js";
 import {
   mysqlArgs,
-  mysqlConnectionFlags,
   mysqlConnectionFlagsWithTempUser,
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetailsWithPasswordOrTemporaryUser } from "../../../lib/database/mysql/connect.js";
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
 import shellEscape from "shell-escape";
+import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
 
 export class Dump extends ExecRenderBaseCommand<
   typeof Dump,
@@ -27,6 +27,7 @@ export class Dump extends ExecRenderBaseCommand<
   static flags = {
     ...processFlags,
     ...mysqlConnectionFlagsWithTempUser,
+    ...sshConnectionFlags,
     output: Flags.string({
       char: "o",
       summary: 'the output file to write the dump to ("-" for stdout)',
@@ -80,6 +81,7 @@ export class Dump extends ExecRenderBaseCommand<
       () =>
         executeViaSSH(
           this.apiClient,
+          this.flags["ssh-user"],
           { projectId: connectionDetails.project.id },
           cmd,
           this.getOutputStream(),

@@ -3,12 +3,14 @@ import { appInstallationArgs } from "../../lib/app/flags.js";
 import { Flags } from "@oclif/core";
 import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
+import { sshConnectionFlags } from "../../lib/ssh/flags.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static description = "Connect to an app via SSH";
 
   static args = { ...appInstallationArgs };
   static flags = {
+    ...sshConnectionFlags,
     cd: Flags.boolean({
       summary: "change to installation path after connecting",
       default: true,
@@ -29,6 +31,7 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
     const { host, user, directory } = await getSSHConnectionForAppInstallation(
       this.apiClient,
       appInstallationId,
+      flags["ssh-user"],
     );
 
     if (flags.info) {

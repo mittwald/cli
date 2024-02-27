@@ -10,6 +10,7 @@ import { ReactNode } from "react";
 import { hasBinary } from "../../lib/hasbin.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
+import { sshConnectionFlags } from "../../lib/ssh/flags.js";
 
 export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
   static summary = "Upload the filesystem of an app to a project";
@@ -23,6 +24,7 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
   };
   static flags = {
     ...processFlags,
+    ...sshConnectionFlags,
     "dry-run": Flags.boolean({
       description: "do not actually download the app installation",
       default: false,
@@ -40,7 +42,12 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Upload);
-    const { "dry-run": dryRun, source, delete: deleteRemote } = this.flags;
+    const {
+      "dry-run": dryRun,
+      source,
+      delete: deleteRemote,
+      "ssh-user": sshUser,
+    } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Uploading app installation");
 
@@ -50,6 +57,7 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
         return getSSHConnectionForAppInstallation(
           this.apiClient,
           appInstallationId,
+          sshUser,
         );
       },
     );

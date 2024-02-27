@@ -5,6 +5,7 @@ import { SSHConnectionData } from "./types.js";
 export async function getSSHConnectionForAppInstallation(
   client: MittwaldAPIV2Client,
   appInstallationId: string,
+  sshUser: string | undefined,
 ): Promise<SSHConnectionData> {
   const appInstallationResponse = await client.app.getAppinstallation({
     appInstallationId,
@@ -22,12 +23,15 @@ export async function getSSHConnectionForAppInstallation(
 
   assertStatus(projectResponse, 200);
 
-  const userResponse = await client.user.getOwnAccount();
+  if (sshUser === undefined) {
+    const userResponse = await client.user.getOwnAccount();
 
-  assertStatus(userResponse, 200);
+    assertStatus(userResponse, 200);
+    sshUser = userResponse.data.email;
+  }
 
   const host = `ssh.${projectResponse.data.clusterID}.${projectResponse.data.clusterDomain}`;
-  const user = `${userResponse.data.email}@${appInstallationResponse.data.shortId}`;
+  const user = `${sshUser}@${appInstallationResponse.data.shortId}`;
   const directory = path.join(
     projectResponse.data.directories["Web"],
     appInstallationResponse.data.installationPath,

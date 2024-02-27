@@ -1,7 +1,8 @@
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { getProject, getUser } from "../common.js";
+import { getProject } from "../common.js";
+import { getSSHConnectionForProject } from "../../ssh/project.js";
 import DatabaseMySqlDatabase = MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
 import DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
 import { createTemporaryUser } from "./temp_user.js";
@@ -9,6 +10,7 @@ import { createTemporaryUser } from "./temp_user.js";
 export interface MySQLConnectionFlags {
   "mysql-password": string | undefined;
   "temporary-user"?: boolean;
+  "ssh-user"?: string;
 }
 
 export async function getConnectionDetailsWithPasswordOrTemporaryUser(
@@ -46,8 +48,9 @@ export async function getConnectionDetailsWithPassword(
   flags: MySQLConnectionFlags,
 ) {
   const password = flags["temporary-user"] ? "" : await getPassword(p, flags);
+  const sshUser = flags["ssh-user"];
   return {
-    ...(await getConnectionDetails(apiClient, databaseId, p)),
+    ...(await getConnectionDetails(apiClient, databaseId, sshUser, p)),
     password,
   };
 }
@@ -55,19 +58,24 @@ export async function getConnectionDetailsWithPassword(
 export async function getConnectionDetails(
   apiClient: MittwaldAPIV2Client,
   databaseId: string,
+  sshUser: string | undefined,
   p: ProcessRenderer,
 ) {
   const database = await getDatabase(apiClient, p, databaseId);
   const databaseUser = await getDatabaseUser(apiClient, p, databaseId);
   const project = await getProject(apiClient, p, database);
-  const user = await getUser(apiClient, p);
+  const sshConnectionData = await getSSHConnectionForProject(
+    apiClient,
+    database.projectId,
+    sshUser,
+  );
 
   return {
     hostname: database.hostname,
     database: database.name,
     user: databaseUser.name,
-    sshHost: `ssh.${project.clusterID}.${project.clusterDomain}`,
-    sshUser: `${user.email}@${project.shortId}`,
+    sshHost: sshConnectionData.host,
+    sshUser: sshConnectionData.user,
     project,
   };
 }

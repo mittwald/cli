@@ -16,6 +16,7 @@ import {
 } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetailsWithPasswordOrTemporaryUser } from "../../../lib/database/mysql/connect.js";
 import { executeViaSSH } from "../../../lib/ssh/exec.js";
+import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
 
 export class Import extends ExecRenderBaseCommand<
   typeof Import,
@@ -25,6 +26,7 @@ export class Import extends ExecRenderBaseCommand<
   static flags = {
     ...processFlags,
     ...mysqlConnectionFlagsWithTempUser,
+    ...sshConnectionFlags,
     input: Flags.string({
       char: "i",
       summary: 'the input file from which to read the dump ("-" for stdin)',
@@ -62,6 +64,7 @@ export class Import extends ExecRenderBaseCommand<
       () =>
         executeViaSSH(
           this.apiClient,
+          this.flags["ssh-user"],
           { projectId: connectionDetails.project.id },
           { command: "mysql", args: mysqlArgs },
           null,
