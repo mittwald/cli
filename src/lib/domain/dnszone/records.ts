@@ -1,4 +1,5 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
+
 type DnsRecordCombinedA = MittwaldAPIV2.Components.Schemas.DnsRecordCombinedA;
 type DnsCombinedAManaged = MittwaldAPIV2.Components.Schemas.DnsCombinedAManaged;
 type DnsRecordMX = MittwaldAPIV2.Components.Schemas.DnsRecordMX;

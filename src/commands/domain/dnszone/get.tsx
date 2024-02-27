@@ -9,8 +9,9 @@ import React from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { usePromise } from "@mittwald/react-use-promise";
 import { DnsZoneDetails } from "../../../rendering/react/components/DnsZone/DnsZoneDetails.js";
-type DnsZone = MittwaldAPIV2.Components.Schemas.DnsZone;
 import { RenderJson } from "../../../rendering/react/json/RenderJson.js";
+
+type DnsZone = MittwaldAPIV2.Components.Schemas.DnsZone;
 
 export class Get extends RenderBaseCommand<typeof Get> {
   static description = "gets a specific zone";

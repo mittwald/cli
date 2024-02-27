@@ -13,9 +13,10 @@ import {
 import { projectFlags } from "../../../lib/project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { ProcessRenderer } from "../../../rendering/process/process.js";
+
 type DnsRecordMXRecord = MittwaldAPIV2.Components.Schemas.DnsRecordMXRecord;
 type DnsRecordSRVRecord = MittwaldAPIV2.Components.Schemas.DnsRecordSRVRecord;
-import { ProcessRenderer } from "../../../rendering/process/process.js";
 
 type UpdateResult = void;
 

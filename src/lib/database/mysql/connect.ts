@@ -3,6 +3,7 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { getProject } from "../common.js";
 import { getSSHConnectionForProject } from "../../ssh/project.js";
+
 type DatabaseMySqlDatabase =
   MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
 type DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;

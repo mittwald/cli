@@ -4,6 +4,7 @@ import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+
 type BackupProjectBackupSchedule =
   MittwaldAPIV2.Components.Schemas.BackupProjectBackupSchedule;
 

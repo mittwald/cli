@@ -14,6 +14,7 @@ import { Success } from "../../rendering/react/components/Success.js";
 import React from "react";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Config } from "@oclif/core";
+
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 export interface AppInstallationResult {

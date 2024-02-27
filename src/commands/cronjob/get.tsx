@@ -9,6 +9,7 @@ import { usePromise } from "@mittwald/react-use-promise";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { CronJobDetails } from "../../rendering/react/components/CronJob/CronJobDetails.js";
+
 type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
 
 export class Get extends RenderBaseCommand<typeof Get> {

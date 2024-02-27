@@ -13,6 +13,7 @@ import { Range, SemVer } from "semver";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { Text } from "ink";
+
 type AppSystemSoftwareUpdatePolicy =
   MittwaldAPIV2.Components.Schemas.AppSystemSoftwareUpdatePolicy;
 type AppSystemSoftwareVersion =

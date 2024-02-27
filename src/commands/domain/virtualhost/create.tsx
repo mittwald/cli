@@ -13,6 +13,7 @@ import { Value } from "../../../rendering/react/components/Value.js";
 import { waitUntil } from "../../../lib/wait.js";
 import { Box } from "ink";
 import { DnsValidationErrors } from "../../../rendering/react/components/Ingress/DnsValidationErrors.js";
+
 type IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
 type IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
 

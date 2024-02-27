@@ -25,6 +25,7 @@ export interface ContextProvider {
 
 export interface WritableContextProvider extends ContextProvider {
   update(data: ContextMapUpdate): Promise<void>;
+
   reset(): Promise<void>;
 }
 

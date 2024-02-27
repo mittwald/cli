@@ -1,9 +1,10 @@
 import { isUuid } from "../../normalize_id.js";
 import {
+  assertStatus,
   MittwaldAPIV2,
   MittwaldAPIV2Client,
-  assertStatus,
 } from "@mittwald/api-client";
+
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 
