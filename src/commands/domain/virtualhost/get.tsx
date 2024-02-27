@@ -1,4 +1,4 @@
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../GetBaseCommand.js";
 import { Args } from "@oclif/core";
 import { RenderBaseCommand } from "../../../rendering/react/RenderBaseCommand.js";
@@ -12,8 +12,9 @@ import { Value } from "../../../rendering/react/components/Value.js";
 import { Box, Text } from "ink";
 import { Header } from "../../../rendering/react/components/Header.js";
 import { DnsValidationErrors } from "../../../rendering/react/components/Ingress/DnsValidationErrors.js";
-import IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
-import IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
+
+type IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
+type IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2IngressesIngressId.Get.Parameters.Path;

@@ -1,11 +1,10 @@
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { DDEVConfig, DDEVDatabaseConfig } from "./config.js";
 import { typo3Installer } from "../../commands/app/install/typo3.js";
 import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
 import { shopware6Installer } from "../../commands/app/install/shopware6.js";
 import { drupalInstaller } from "../../commands/app/install/drupal.js";
-
-import type { MittwaldAPIV2 } from "@mittwald/api-client";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;

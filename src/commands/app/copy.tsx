@@ -25,14 +25,14 @@ export class Copy extends ExecRenderBaseCommand<typeof Copy, Result> {
   };
 
   protected async exec(): Promise<Result> {
-    const id = await this.withAppInstallationId(Copy);
+    const appInstallationId = await this.withAppInstallationId(Copy);
     const { description } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Copying app installation");
 
     const result = await p.runStep("requesting app copy", async () => {
       const r = await this.apiClient.app.requestAppinstallationCopy({
-        id,
+        appInstallationId,
         data: {
           description,
         },

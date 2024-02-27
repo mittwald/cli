@@ -7,14 +7,15 @@ import { projectFlags } from "../../../lib/project/flags.js";
 import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Flags } from "@oclif/core";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { waitUntil } from "../../../lib/wait.js";
 import { Box } from "ink";
 import { DnsValidationErrors } from "../../../rendering/react/components/Ingress/DnsValidationErrors.js";
-import IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
-import IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
+
+type IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
+type IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
 
 type CreateResult = {
   ingress: IngressIngress;

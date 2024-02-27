@@ -1,6 +1,6 @@
 import { Text } from "ink";
 import { FC } from "react";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Value } from "../Value.js";
 
 interface Props {

@@ -1,14 +1,17 @@
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import DnsRecordCombinedA = MittwaldAPIV2.Components.Schemas.DnsRecordCombinedA;
-import DnsCombinedAManaged = MittwaldAPIV2.Components.Schemas.DnsCombinedAManaged;
-import DnsRecordMX = MittwaldAPIV2.Components.Schemas.DnsRecordMX;
-import DnsRecordMXManaged = MittwaldAPIV2.Components.Schemas.DnsRecordMXManaged;
-import DnsCombinedACustom = MittwaldAPIV2.Components.Schemas.DnsCombinedACustom;
-import DnsRecordMXCustom = MittwaldAPIV2.Components.Schemas.DnsRecordMXCustom;
-import DnsRecordTXT = MittwaldAPIV2.Components.Schemas.DnsRecordTXT;
-import DnsRecordTXTComponent = MittwaldAPIV2.Components.Schemas.DnsRecordTXTComponent;
-import DnsRecordSRVComponent = MittwaldAPIV2.Components.Schemas.DnsRecordSRVComponent;
-import DnsRecordSRV = MittwaldAPIV2.Components.Schemas.DnsRecordSRV;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+
+type DnsRecordCombinedA = MittwaldAPIV2.Components.Schemas.DnsRecordCombinedA;
+type DnsCombinedAManaged = MittwaldAPIV2.Components.Schemas.DnsCombinedAManaged;
+type DnsRecordMX = MittwaldAPIV2.Components.Schemas.DnsRecordMX;
+type DnsRecordMXManaged = MittwaldAPIV2.Components.Schemas.DnsRecordMXManaged;
+type DnsCombinedACustom = MittwaldAPIV2.Components.Schemas.DnsCombinedACustom;
+type DnsRecordMXCustom = MittwaldAPIV2.Components.Schemas.DnsRecordMXCustom;
+type DnsRecordTXT = MittwaldAPIV2.Components.Schemas.DnsRecordTXT;
+type DnsRecordTXTComponent =
+  MittwaldAPIV2.Components.Schemas.DnsRecordTXTComponent;
+type DnsRecordSRVComponent =
+  MittwaldAPIV2.Components.Schemas.DnsRecordSRVComponent;
+type DnsRecordSRV = MittwaldAPIV2.Components.Schemas.DnsRecordSRV;
 
 export function isManagedARecord(
   r: DnsRecordCombinedA,
