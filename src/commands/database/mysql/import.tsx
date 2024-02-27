@@ -15,8 +15,9 @@ import {
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetailsWithPasswordOrTemporaryUser } from "../../../lib/database/mysql/connect.js";
-import { executeViaSSH } from "../../../lib/ssh/exec.js";
+import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
+import shellEscape from "shell-escape";
 
 export class Import extends ExecRenderBaseCommand<
   typeof Import,
@@ -33,6 +34,14 @@ export class Import extends ExecRenderBaseCommand<
       description:
         'The input file from which to read the dump to. You can specify "-" or "/dev/stdin" to read the dump directly from STDIN.',
       required: true,
+    }),
+    gzip: Flags.boolean({
+      summary: "uncompress the dump with gzip",
+      aliases: ["gz"],
+      description:
+        "Uncompress the dump with gzip while importing. This is useful for large databases, as it can significantly reduce the size of the dump.",
+      default: false,
+      required: false,
     }),
   };
   static args = { ...mysqlArgs };
@@ -57,6 +66,14 @@ export class Import extends ExecRenderBaseCommand<
     const { project } = connectionDetails;
     const mysqlArgs = buildMySqlArgs(connectionDetails);
 
+    let cmd: RunCommand = { command: "mysql", args: mysqlArgs };
+    if (this.flags.gzip) {
+      const escapedArgs = shellEscape(mysqlArgs);
+      cmd = {
+        shell: `set -e -o pipefail > /dev/null ; gunzip | mysqldump ${escapedArgs}`,
+      };
+    }
+
     await p.runStep(
       <Text>
         starting mysql via SSH on project <Value>{project.shortId}</Value>
@@ -66,7 +83,7 @@ export class Import extends ExecRenderBaseCommand<
           this.apiClient,
           this.flags["ssh-user"],
           { projectId: connectionDetails.project.id },
-          { command: "mysql", args: mysqlArgs },
+          cmd,
           null,
           this.getInputStream(),
         ),
