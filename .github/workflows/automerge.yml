@@ -6,6 +6,23 @@ permissions:
   pull-requests: write
 
 jobs:
+  update-readme:
+    name: Re-generate README
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: yarn
+      - run: yarn compile
+      - run: yarn generate:readme
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: re-generate README"
+          file_pattern: README.md
+
   dependabot:
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]'
