@@ -11,7 +11,7 @@ updates:
     schedule:
       interval: "daily"
     groups:
-      docusaurus:
+      mittwald-api:
         patterns:
           - "@mittwald/api-*"
 
