@@ -1,4 +1,4 @@
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../GetBaseCommand.js";
 import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
 import React from "react";
@@ -7,7 +7,7 @@ import { usePromise } from "@mittwald/react-use-promise";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { domainArgs, withDomainId } from "../../lib/domain/flags.js";
 import { DomainDetails } from "../../rendering/react/components/Domain/DomainDetails.js";
-import DomainDomain = MittwaldAPIV2.Components.Schemas.DomainDomain;
+type DomainDomain = MittwaldAPIV2.Components.Schemas.DomainDomain;
 
 export class Get extends RenderBaseCommand<typeof Get> {
   static description = "gets a specific domain";

@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { SingleResult, SingleResultTable } from "../SingleResult.js";
 import { Value } from "../Value.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import CustomerContact = MittwaldAPIV2.Components.Schemas.CustomerContact;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+type CustomerContact = MittwaldAPIV2.Components.Schemas.CustomerContact;
 
 export const OrganizationOwner: FC<{ owner: CustomerContact }> = ({
   owner,

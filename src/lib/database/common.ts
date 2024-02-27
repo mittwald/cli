@@ -1,8 +1,8 @@
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
-import SignupAccount = MittwaldAPIV2.Components.Schemas.SignupAccount;
+type ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
+type SignupAccount = MittwaldAPIV2.Components.Schemas.SignupAccount;
 
 export async function getUser(
   apiClient: MittwaldAPIV2Client,

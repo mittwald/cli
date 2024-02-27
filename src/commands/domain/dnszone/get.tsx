@@ -1,4 +1,4 @@
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../GetBaseCommand.js";
 import { RenderBaseCommand } from "../../../rendering/react/RenderBaseCommand.js";
 import {
@@ -9,7 +9,7 @@ import React from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { usePromise } from "@mittwald/react-use-promise";
 import { DnsZoneDetails } from "../../../rendering/react/components/DnsZone/DnsZoneDetails.js";
-import DnsZone = MittwaldAPIV2.Components.Schemas.DnsZone;
+type DnsZone = MittwaldAPIV2.Components.Schemas.DnsZone;
 import { RenderJson } from "../../../rendering/react/json/RenderJson.js";
 
 export class Get extends RenderBaseCommand<typeof Get> {

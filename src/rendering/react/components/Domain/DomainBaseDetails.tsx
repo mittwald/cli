@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { Value } from "../Value.js";
 import { SingleResult } from "../SingleResult.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { BooleanValue } from "../BooleanValue.js";
-import DomainDomain = MittwaldAPIV2.Components.Schemas.DomainDomain;
+type DomainDomain = MittwaldAPIV2.Components.Schemas.DomainDomain;
 
 export const DomainBaseDetails: FC<{ domain: DomainDomain }> = ({ domain }) => {
   const title = (

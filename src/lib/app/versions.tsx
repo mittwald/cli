@@ -2,7 +2,7 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { gt } from "semver";
 import { Value } from "../../rendering/react/components/Value.js";
-import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { Text } from "ink";
 import React from "react";

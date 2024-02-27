@@ -1,4 +1,4 @@
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../GetBaseCommand.js";
 import { Args } from "@oclif/core";
 import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
@@ -9,7 +9,7 @@ import { usePromise } from "@mittwald/react-use-promise";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { CronJobDetails } from "../../rendering/react/components/CronJob/CronJobDetails.js";
-import CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
+type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
 
 export class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get details of a cron job";

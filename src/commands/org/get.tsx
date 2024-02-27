@@ -1,4 +1,4 @@
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../GetBaseCommand.js";
 import { orgArgs, withOrgId } from "../../lib/org/flags.js";
 import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
@@ -14,7 +14,8 @@ import { useRenderContext } from "../../rendering/react/context.js";
 import { OrganizationOwner } from "../../rendering/react/components/Organization/OrganizationOwner.js";
 import { CustomerIDAndNumber } from "../../rendering/react/components/Organization/CustomerIDAndNumber.js";
 import { OrganizationOrderEligibility } from "../../rendering/react/components/Organization/OrganizationOrderEligibility.js";
-import CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
+
+type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2CustomersCustomerId.Get.Parameters.Path;

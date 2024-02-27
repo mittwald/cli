@@ -7,8 +7,8 @@ import { ListColumns } from "../../Formatter.js";
 import { phpInstaller } from "./create/php.js";
 import { nodeInstaller } from "./create/node.js";
 import { getAppFromUuid, getAppVersionFromUuid } from "../../lib/app/uuid.js";
-import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
-import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
+type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdAppInstallations.Get.Responses.$200.Content.ApplicationJson[number]

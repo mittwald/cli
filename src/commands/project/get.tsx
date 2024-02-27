@@ -1,5 +1,5 @@
 import { GetBaseCommand } from "../../GetBaseCommand.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { projectArgs } from "../../lib/project/flags.js";
 import { FC, ReactNode } from "react";
 import { GetFormatter } from "../../Formatter.js";
@@ -20,10 +20,11 @@ import { ByteFormat } from "../../rendering/react/components/ByteFormat.js";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import Link from "ink-link";
 import { ProjectStatus } from "../../rendering/react/components/Project/ProjectStatus.js";
-import ProjectHardwareSpec = MittwaldAPIV2.Components.Schemas.ProjectHardwareSpec;
-import ProjectVisitorSpec = MittwaldAPIV2.Components.Schemas.ProjectVisitorSpec;
-import ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
-import CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
+
+type ProjectHardwareSpec = MittwaldAPIV2.Components.Schemas.ProjectHardwareSpec;
+type ProjectVisitorSpec = MittwaldAPIV2.Components.Schemas.ProjectVisitorSpec;
+type ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
+type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 
 const ProjectSpecs: FC<{
   projectId: string;

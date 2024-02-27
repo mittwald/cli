@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Box, Text } from "ink";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 
 type Message = MittwaldAPIV2.Components.Schemas.ConversationStatusUpdate;
 

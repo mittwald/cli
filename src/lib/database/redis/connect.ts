@@ -2,7 +2,8 @@ import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { getProject, getUser } from "../common.js";
-import DatabaseRedisDatabase = MittwaldAPIV2.Components.Schemas.DatabaseRedisDatabase;
+type DatabaseRedisDatabase =
+  MittwaldAPIV2.Components.Schemas.DatabaseRedisDatabase;
 
 export async function getConnectionDetails(
   apiClient: MittwaldAPIV2Client,

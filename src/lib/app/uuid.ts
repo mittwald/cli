@@ -4,8 +4,8 @@ import {
   MittwaldAPIV2Client,
   assertStatus,
 } from "@mittwald/api-client";
-import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
-import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
+type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 
 /**
  * Lookup an app by its UUID

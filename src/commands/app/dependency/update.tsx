@@ -7,15 +7,17 @@ import {
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { ReactNode } from "react";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Range, SemVer } from "semver";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { Text } from "ink";
-import AppSystemSoftwareUpdatePolicy = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareUpdatePolicy;
-import AppSystemSoftwareVersion = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
-import AppSystemSoftware = MittwaldAPIV2.Components.Schemas.AppSystemSoftware;
+type AppSystemSoftwareUpdatePolicy =
+  MittwaldAPIV2.Components.Schemas.AppSystemSoftwareUpdatePolicy;
+type AppSystemSoftwareVersion =
+  MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
+type AppSystemSoftware = MittwaldAPIV2.Components.Schemas.AppSystemSoftware;
 
 export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
   static summary = "Update the dependencies of an app";
