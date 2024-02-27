@@ -50,6 +50,6 @@ jobs:
           node-version: 18
       - run: yarn
       - run: yarn compile
-      - run: yarn package:tarballs
+      - run: npx oclif pack tarballs --targets=linux-x64
       - run: docker build --build-arg PKG_SOURCE=dist -t mittwald/cli:testing .
       - run: docker run --rm mittwald/cli:testing --help
