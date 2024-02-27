@@ -25,12 +25,14 @@ export const ProcessInput: React.FC<{
           <ProcessStateIcon step={step} />
           <Text>{step.title}: </Text>
           {isRawModeSupported ? (
-            <TextInput
-              mask={step.mask ? "*" : undefined}
-              value={value}
-              onChange={setValue}
-              onSubmit={onSubmit}
-            />
+            <Text color="blue">
+              <TextInput
+                mask={step.mask ? "*" : undefined}
+                value={value}
+                onChange={setValue}
+                onSubmit={onSubmit}
+              />
+            </Text>
           ) : (
             <InteractiveInputDisabled />
           )}

@@ -83,6 +83,9 @@ export class RunnableHandler {
   }
 
   public appendOutput(o: string) {
+    if (this.processStep.output === undefined) {
+      this.processStep.output = "";
+    }
     this.processStep.output += o;
     this.listener();
   }

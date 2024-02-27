@@ -65,15 +65,12 @@ export function makeProjectFlagSet<TName extends ContextNames>(
   } as ContextArgs<TName | "project">;
 
   if (supportsContext) {
-    flags[
-      flagName
-    ].summary += `; this flag is optional if a default ${displayName} is set in the context`;
-    flags[
-      flagName
-    ].description += `; you can also use the "<%= config.bin %> context set --${flagName}=<VALUE>" command to persistently set a default ${displayName} for all commands that accept this flag.`;
-    args[
-      flagName
-    ].description += `; this argument is optional if a default ${displayName} is set in the context`;
+    flags[flagName].summary +=
+      `; this flag is optional if a default ${displayName} is set in the context`;
+    flags[flagName].description +=
+      `; you can also use the "<%= config.bin %> context set --${flagName}=<VALUE>" command to persistently set a default ${displayName} for all commands that accept this flag.`;
+    args[flagName].description +=
+      `; this argument is optional if a default ${displayName} is set in the context`;
   }
 
   const idFromArgsOrFlag = (
@@ -114,7 +111,9 @@ export function makeProjectFlagSet<TName extends ContextNames>(
       return normalize(apiClient, projectId, idInput);
     }
 
-    const idFromContext = await new Context(cfg).getContextValue(flagName);
+    const idFromContext = await new Context(apiClient, cfg).getContextValue(
+      flagName,
+    );
     if (idFromContext) {
       return idFromContext.value;
     }

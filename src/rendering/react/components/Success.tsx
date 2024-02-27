@@ -1,15 +1,30 @@
-import React, { FC } from "react";
+import React, { FC, PropsWithChildren } from "react";
 import { Box, Text } from "ink";
 
 interface Props {
   title?: string;
-  children?: React.ReactNode;
   color?: string;
   width?: number;
+  innerText?: boolean;
 }
 
-export const Success: FC<Props> = (props) => {
-  const { title = "Success", color = "#00B785", width = 80 } = props;
+export const defaultSuccessColor = "#00B785";
+
+export const Success: FC<PropsWithChildren<Props>> = (props) => {
+  const {
+    title = "Success",
+    color = defaultSuccessColor,
+    width = 80,
+    innerText = true,
+  } = props;
+
+  const inner = innerText ? (
+    <Text wrap="wrap" color={color}>
+      {props.children}
+    </Text>
+  ) : (
+    props.children
+  );
 
   return (
     <Box
@@ -22,9 +37,7 @@ export const Success: FC<Props> = (props) => {
       <Text bold underline color={color}>
         {title.toUpperCase()}
       </Text>
-      <Text wrap="wrap" color={color}>
-        {props.children}
-      </Text>
+      {inner}
     </Box>
   );
 };

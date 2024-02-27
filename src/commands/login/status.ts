@@ -18,9 +18,8 @@ export default class Status extends BaseCommand {
     };
 
     if (response.data.person) {
-      output[
-        "Name"
-      ] = `${response.data.person.firstName} ${response.data.person.lastName}`;
+      output["Name"] =
+        `${response.data.person.firstName} ${response.data.person.lastName}`;
     }
 
     if (response.data.passwordUpdatedAt) {

@@ -20,21 +20,44 @@ const ContextSourceValue: FC<{ source: ContextValueSource }> = ({ source }) => {
   switch (source.type) {
     case "user":
       return (
-        <Text>
-          <Text color="yellow">user configuration</Text>, in{" "}
-          <LocalFilename filename={source.identifier} />
-        </Text>
+        <ContextSourceKnownValue name="user configuration" source={source} />
       );
     case "terraform":
       return (
-        <Text>
-          <Text color="yellow">terraform state file</Text>, in{" "}
-          <LocalFilename filename={source.identifier} relative />
-        </Text>
+        <ContextSourceKnownValue
+          name="terraform state file"
+          source={source}
+          relative
+        />
+      );
+    case "ddev":
+      return (
+        <ContextSourceKnownValue
+          name="DDEV configuration"
+          source={source}
+          relative
+        />
       );
     default:
-      return <Text color="yellow">unknown</Text>;
+      return <ContextSourceUnknown />;
   }
+};
+
+const ContextSourceKnownValue: FC<{
+  name: string;
+  source: ContextValueSource;
+  relative?: boolean;
+}> = ({ name, source, relative }) => {
+  return (
+    <Text>
+      <Text color="yellow">{name}</Text>, in{" "}
+      <LocalFilename filename={source.identifier} relative={relative} />
+    </Text>
+  );
+};
+
+const ContextSourceUnknown: FC = () => {
+  return <Text color="yellow">unknown</Text>;
 };
 
 const ContextSource: FC<{ source: ContextValueSource }> = ({ source }) => {
@@ -51,6 +74,7 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
   const values: Record<string, ContextValue | undefined> = {};
 
   let hasTerraformSource = false;
+  let hasDDEVSource = false;
 
   for (const key of [
     "project-id",
@@ -69,6 +93,7 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
 
       hasTerraformSource =
         hasTerraformSource || value.source.type === "terraform";
+      hasDDEVSource = hasDDEVSource || value.source.type === "ddev";
     } else {
       rows[`--${key}`] = <Value notSet />;
     }
@@ -79,25 +104,37 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
   }
 
   return (
-    <>
-      <Box flexDirection="column">
-        <Box marginBottom={1}>
-          <SingleResult title="Current CLI context" rows={rows} />
-        </Box>
-        {hasTerraformSource && (
-          <Note marginBottom={1}>
-            You are in a directory that contains a terraform state file; some of
-            the context values were read from there.
-          </Note>
-        )}
-        <Note marginBottom={1}>
-          Use the <Value>mw context set</Value> command to set one of the values
-          listed above.
-        </Note>
+    <Box flexDirection="column">
+      <Box marginBottom={1}>
+        <SingleResult title="Current CLI context" rows={rows} />
       </Box>
-    </>
+      {hasTerraformSource && <TerraformHint />}
+      {hasDDEVSource && <DDEVHint />}
+      <ContextSetHint />
+    </Box>
   );
 };
+
+const TerraformHint: FC = () => (
+  <Note marginBottom={1}>
+    You are in a directory that contains a terraform state file; some of the
+    context values were read from there.
+  </Note>
+);
+
+const DDEVHint: FC = () => (
+  <Note marginBottom={1}>
+    You are in a directory that contains a DDEV project; some of the context
+    values were read from there.
+  </Note>
+);
+
+const ContextSetHint: FC = () => (
+  <Note marginBottom={1}>
+    Use the <Value>mw context set</Value> command to set one of the values
+    listed above.
+  </Note>
+);
 
 export class Get extends RenderBaseCommand<typeof Get> {
   static summary = "Print an overview of currently set context parameters";
@@ -105,7 +142,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
   static flags = { ...RenderBaseCommand.buildFlags() };
 
   protected render(): ReactNode {
-    const ctx = new Context(this.config);
+    const ctx = new Context(this.apiClient, this.config);
     return <GetContext ctx={ctx} />;
   }
 }

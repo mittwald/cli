@@ -5,7 +5,7 @@ import {
   AppInstaller,
 } from "../../../lib/app/Installer.js";
 
-const installer = new AppInstaller(
+export const wordpressInstaller = new AppInstaller(
   "da3aa3ae-4b6b-4398-a4a8-ee8def827876",
   "WordPress",
   [
@@ -23,14 +23,19 @@ export default class InstallWordPress extends ExecRenderBaseCommand<
   typeof InstallWordPress,
   AppInstallationResult
 > {
-  static description = installer.description;
-  static flags = installer.flags;
+  static description = wordpressInstaller.description;
+  static flags = wordpressInstaller.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return installer.exec(this.apiClient, this.args, this.flags, this.config);
+    return wordpressInstaller.exec(
+      this.apiClient,
+      this.args,
+      this.flags,
+      this.config,
+    );
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return installer.render(result, this.flags);
+    return wordpressInstaller.render(result, this.flags);
   }
 }

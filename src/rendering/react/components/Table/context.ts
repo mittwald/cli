@@ -10,7 +10,7 @@ export const buildTableContext = (
 ): TableContext =>
   ({
     ...ctx,
-  } as TableContext);
+  }) as TableContext;
 
 const context = createContext<TableContext>(buildTableContext());
 
