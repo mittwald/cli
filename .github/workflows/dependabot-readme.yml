@@ -1,0 +1,27 @@
+name: Dependabot update README
+on:
+  workflow_run:
+    workflows:
+      - "Dependabot auto-merge"
+    types:
+      - completed
+
+jobs:
+  update-readme:
+    name: Re-generate README
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MACHINE_USER_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: yarn
+      - run: yarn compile
+      - run: yarn generate:readme
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: re-generate README"
+          file_pattern: README.md
