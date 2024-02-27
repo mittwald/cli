@@ -1,20 +1,17 @@
-name: Dependabot update README
+name: Update README
 on:
-  workflow_run:
-    workflows:
-      - "Dependabot auto-merge"
-    types:
-      - completed
+  push:
+    branches:
+      - master
 
 jobs:
   update-readme:
     name: Re-generate README
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.MACHINE_USER_TOKEN }}
       - uses: actions/setup-node@v4
         with:
           node-version: 18

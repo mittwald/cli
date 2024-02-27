@@ -30,6 +30,7 @@ jobs:
   readme:
     name: Assert README.md is up-to-date
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
