@@ -1609,39 +1609,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.2.0":
-  version: 4.2.1
-  resolution: "@mittwald/api-client-commons@npm:4.2.1"
+"@mittwald/api-client-commons@npm:^4.2.0, @mittwald/api-client-commons@npm:^4.2.2":
+  version: 4.8.2
+  resolution: "@mittwald/api-client-commons@npm:4.8.2"
   dependencies:
     "@types/parse-path": ^7.0.3
-    axios: ^1.6.2
+    axios: ^1.6.7
     parse-path: ^7.0.0
     path-to-regexp: ^6.2.1
-    type-fest: ^4.8.2
+    type-fest: ^4.10.3
   peerDependencies:
     "@mittwald/react-use-promise": ^2.1.0
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: c651e0f52dc4e1ec27ba7e09d78766b989b536a731b999dfa04525517007e8facc3a3d647cdbd9199433e7e85257f0a99306d5f8b77702266d0266623e40c7a6
-  languageName: node
-  linkType: hard
-
-"@mittwald/api-client-commons@npm:^4.2.2":
-  version: 4.2.2
-  resolution: "@mittwald/api-client-commons@npm:4.2.2"
-  dependencies:
-    "@types/parse-path": ^7.0.3
-    axios: ^1.6.2
-    parse-path: ^7.0.0
-    path-to-regexp: ^6.2.1
-    type-fest: ^4.8.2
-  peerDependencies:
-    "@mittwald/react-use-promise": ^2.1.0
-  peerDependenciesMeta:
-    "@mittwald/react-use-promise":
-      optional: true
-  checksum: 57ae39697bb2138c4db37710903ef3c59835532f7acd8387eb3206175e4a3f261cd84e8b4596772e719bbdbfaf496ccd6a357fbe8250032c5858a2bd2b5de7aa
+  checksum: 7ad065d0d05e27dc02ab90630f81548a0b22571b738d563ad51c5b90c8e2c637ee51323c5eb2525c8a69c5c0ec50c3a5759538e2da3b26955d61578370d5e4d5
   languageName: node
   linkType: hard
 
@@ -4145,7 +4127,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.5.0, axios@npm:^1.6.2":
+"axios@npm:^1.5.0, axios@npm:^1.6.7":
   version: 1.6.7
   resolution: "axios@npm:1.6.7"
   dependencies:
@@ -10632,7 +10614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.6.0, type-fest@npm:^4.8.2":
+"type-fest@npm:^4.10.3, type-fest@npm:^4.6.0":
   version: 4.10.3
   resolution: "type-fest@npm:4.10.3"
   checksum: 37d265d584a6587253fe4ab2ed25ef787bb0650fe1924319f68ac3197bfaf3142b304a72d6499d61b60c38c9aba7e1e8f5e940df0898c974a8e6c4a37339b64e
