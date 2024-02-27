@@ -10,6 +10,11 @@ updates:
     open-pull-requests-limit: 10
     schedule:
       interval: "daily"
+    groups:
+      docusaurus:
+        patterns:
+          - "@mittwald/api-*"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
