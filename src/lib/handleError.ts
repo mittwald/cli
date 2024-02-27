@@ -3,10 +3,12 @@ import {
   PrettyPrintableError,
 } from "@oclif/core/lib/interfaces/index.js";
 import { ApiClientError, AxiosResponse } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ExitError } from "@oclif/core/lib/errors/index.js";
 import { renderError } from "../rendering/react/error.js";
-import CommonsValidationErrors = MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
+
+type CommonsValidationErrors =
+  MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
 
 export const handleError = (
   error: Error &

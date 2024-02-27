@@ -1,11 +1,9 @@
-import {
-  assertStatus,
-  MittwaldAPIV2,
-  MittwaldAPIV2Client,
-} from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { randomBytes } from "crypto";
 import assertSuccess from "../../assert_success.js";
-import DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
+
+type DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
 
 export interface TemporaryUser {
   user: DatabaseMySqlUser;

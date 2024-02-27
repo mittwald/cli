@@ -1,11 +1,14 @@
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { getProject } from "../common.js";
 import { getSSHConnectionForProject } from "../../ssh/project.js";
-import DatabaseMySqlDatabase = MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
-import DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
 import { createTemporaryUser } from "./temp_user.js";
+
+type DatabaseMySqlDatabase =
+  MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
+type DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
 
 export interface MySQLConnectionFlags {
   "mysql-password": string | undefined;

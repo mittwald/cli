@@ -1,4 +1,4 @@
-import { Response, ApiClientError } from "@mittwald/api-client-commons";
+import { ApiClientError, Response } from "@mittwald/api-client-commons";
 
 export function assertSuccess<T extends Response>(response: T): void {
   if (response.status >= 300) {

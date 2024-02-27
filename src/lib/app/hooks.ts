@@ -1,12 +1,14 @@
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import AppSystemSoftware = MittwaldAPIV2.Components.Schemas.AppSystemSoftware;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { usePromise } from "@mittwald/react-use-promise";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { useRenderContext } from "../../rendering/react/context.js";
-import AppSystemSoftwareVersion = MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
-import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
-import AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
-import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
+
+type AppSystemSoftware = MittwaldAPIV2.Components.Schemas.AppSystemSoftware;
+type AppSystemSoftwareVersion =
+  MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
+type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
+type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
 export function useApp(appId: string): AppApp {
   const { apiClient } = useRenderContext();

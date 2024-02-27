@@ -1,9 +1,10 @@
 import React, { FC, ReactNode } from "react";
 import { SingleResult } from "../SingleResult.js";
 import { Value } from "../Value.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Text } from "ink";
-import DomainHandleReadable = MittwaldAPIV2.Components.Schemas.DomainHandleReadable;
+type DomainHandleReadable =
+  MittwaldAPIV2.Components.Schemas.DomainHandleReadable;
 
 export const DomainHandle: FC<{
   title: ReactNode;
