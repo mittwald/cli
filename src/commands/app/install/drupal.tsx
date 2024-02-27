@@ -5,7 +5,7 @@ import {
   AppInstaller,
 } from "../../../lib/app/Installer.js";
 
-const installer = new AppInstaller(
+export const drupalInstaller = new AppInstaller(
   "3d8a261a-3d6f-4e09-b68c-bfe90aece514",
   "Drupal",
   [
@@ -23,14 +23,19 @@ export default class InstallDrupal extends ExecRenderBaseCommand<
   typeof InstallDrupal,
   AppInstallationResult
 > {
-  static description = installer.description;
-  static flags = installer.flags;
+  static description = drupalInstaller.description;
+  static flags = drupalInstaller.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return installer.exec(this.apiClient, this.args, this.flags, this.config);
+    return drupalInstaller.exec(
+      this.apiClient,
+      this.args,
+      this.flags,
+      this.config,
+    );
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return installer.render(result, this.flags);
+    return drupalInstaller.render(result, this.flags);
   }
 }

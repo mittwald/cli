@@ -1,7 +1,9 @@
-ARG ARCH=
+ARG ARCH=""
 FROM ${ARCH}ubuntu:22.04 AS builder
 
-COPY pkg-tarballs/mw-*-linux-*.tar.gz /tmp/
+ARG PKG_SOURCE="pkg-tarballs"
+
+COPY ${PKG_SOURCE}/mw-*-linux-*.tar.gz /tmp/
 RUN mkdir /app
 RUN echo $ARCH
 
