@@ -15,9 +15,9 @@ import { sshConnectionFlags } from "../../lib/ssh/flags.js";
 export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
   static summary = "Upload the filesystem of an app to a project";
   static description =
-    "Upload the filesystem of an app from your local machine to a project." +
+    "Upload the filesystem of an app from your local machine to a project.\n\n" +
     "" +
-    "CAUTION: This is a potentially destructive operation. It will overwrite files on the server with the files from your local machine." +
+    "CAUTION: This is a potentially destructive operation. It will overwrite files on the server with the files from your local machine. " +
     "This is NOT a turnkey deployment solution. It is intended for development purposes only.";
   static args = {
     ...appInstallationArgs,
@@ -26,17 +26,17 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
     ...processFlags,
     ...sshConnectionFlags,
     "dry-run": Flags.boolean({
-      description: "do not actually download the app installation",
+      description: "do not actually upload the app installation",
       default: false,
     }),
     delete: Flags.boolean({
-      description: "delete local files that are not present on the server",
+      description: "delete remote files that are not present locally",
       default: false,
     }),
     source: Flags.directory({
       description: "source directory from which to upload the app installation",
       required: true,
-      exists: false,
+      exists: true,
     }),
   };
 
@@ -89,20 +89,22 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
       [...rsyncOpts, source, `${user}@${host}:${directory}/`],
     );
 
-    if (dryRun) {
-      await p.complete(
-        <Success>
-          App would (probably) have successfully been uploaded. 🙂
-        </Success>,
-      );
-    } else {
-      await p.complete(
-        <Success>App successfully uploaded; have fun! 🚀</Success>,
-      );
-    }
+    await p.complete(<UploadSuccess dryRun={dryRun} />);
   }
 
   protected render(): ReactNode {
     return undefined;
   }
+}
+
+function UploadSuccess({ dryRun }: { dryRun: boolean }) {
+  if (dryRun) {
+    return (
+      <Success>
+        App would (probably) have successfully been uploaded. 🙂
+      </Success>
+    );
+  }
+
+  return <Success>App successfully uploaded; have fun! 🚀</Success>;
 }

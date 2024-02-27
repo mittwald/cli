@@ -1555,17 +1555,18 @@ ARGUMENTS
 
 FLAGS
   -q, --quiet             suppress process output and only display a machine-readable summary.
-      --delete            delete local files that are not present on the server
-      --dry-run           do not actually download the app installation
+      --delete            delete remote files that are not present locally
+      --dry-run           do not actually upload the app installation
       --source=<value>    (required) source directory from which to upload the app installation
       --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
 DESCRIPTION
   Upload the filesystem of an app to a project
 
-  Upload the filesystem of an app from your local machine to a project.CAUTION: This is a potentially destructive
-  operation. It will overwrite files on the server with the files from your local machine.This is NOT a turnkey
-  deployment solution. It is intended for development purposes only.
+  Upload the filesystem of an app from your local machine to a project.
+
+  CAUTION: This is a potentially destructive operation. It will overwrite files on the server with the files from your
+  local machine. This is NOT a turnkey deployment solution. It is intended for development purposes only.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -2409,7 +2410,7 @@ Imports a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql import DATABASE-ID -i <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>]
+  $ mw database mysql import DATABASE-ID -i <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
@@ -2418,6 +2419,7 @@ FLAGS
   -i, --input=<value>           (required) the input file from which to read the dump ("-" for stdin)
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --gzip                    uncompress the dump with gzip
       --ssh-user=<value>        override the SSH user to connect with; if omitted, your own user will be used
       --[no-]temporary-user     create a temporary user for the dump
 
@@ -2439,6 +2441,11 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --gzip  uncompress the dump with gzip
+
+    Uncompress the dump with gzip while importing. This is useful for large databases, as it can significantly reduce
+    the size of the dump.
 
   --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
