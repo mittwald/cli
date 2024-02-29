@@ -7,8 +7,9 @@ import {
 import { Value } from "../Value.js";
 import { SingleResult } from "../SingleResult.js";
 import { Text } from "ink";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+
+type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
 export const AppSystemSoftware: FC<{ appInstallation: AppAppInstallation }> = ({
   appInstallation,

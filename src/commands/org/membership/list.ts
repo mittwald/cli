@@ -1,18 +1,22 @@
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { orgFlags, withOrgId } from "../../../lib/org/flags.js";
 import { ListColumns } from "../../../Formatter.js";
 import { optionalDateRenderer } from "../../../lib/viewhelpers/date.js";
 import { makeDateRendererForFlags } from "../../../lib/viewhelpers/list_column_date.js";
-import UserUser = MittwaldAPIV2.Components.Schemas.UserUser;
+
+type UserUser = MittwaldAPIV2.Components.Schemas.UserUser;
+type CustomerMembership =
+  MittwaldAPIV2.Components.Schemas.MembershipCustomerMembership;
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2CustomersCustomerIdMemberships.Get.Responses.$200.Content.ApplicationJson[number]
-> & {
-  user?: UserUser;
-};
+  CustomerMembership & {
+    user?: UserUser;
+  }
+>;
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2CustomersCustomerIdMemberships.Get.Parameters.Path;

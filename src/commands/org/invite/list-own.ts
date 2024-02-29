@@ -1,17 +1,16 @@
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
-import CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 
-type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2CustomerInvites.Get.Responses.$200.Content.ApplicationJson[number]
-> & { org?: CustomerCustomer };
-export type PathParams =
-  MittwaldAPIV2.Paths.V2CustomerInvites.Get.Parameters.Path;
-export type Response = Awaited<
+type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
+type CustomerInvite = MittwaldAPIV2.Components.Schemas.MembershipCustomerInvite;
+
+type ResponseItem = Simplify<CustomerInvite & { org?: CustomerCustomer }>;
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["customer"]["listCustomerInvites"]>
 >;
 
@@ -24,9 +23,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   };
 
   public async getData(): Promise<Response> {
-    return await this.apiClient.customer.listCustomerInvites({
-      pathParameters: {},
-    } as Parameters<typeof this.apiClient.customer.listCustomerInvites>[0]);
+    return await this.apiClient.customer.listCustomerInvites();
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

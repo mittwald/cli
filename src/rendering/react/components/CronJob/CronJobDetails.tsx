@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SingleResult } from "../SingleResult.js";
 import { Value } from "../Value.js";
 import { Box, Text } from "ink";
@@ -8,9 +8,10 @@ import { CreatedAt } from "../CreatedAt.js";
 import { useProject } from "../../../../lib/project/hooks.js";
 import { useAppInstallation } from "../../../../lib/app/hooks.js";
 import { FormattedDate } from "../FormattedDate.js";
-import CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
-import CronjobCronjobUrl = MittwaldAPIV2.Components.Schemas.CronjobCronjobUrl;
-import CronjobCronjobCommand = MittwaldAPIV2.Components.Schemas.CronjobCronjobCommand;
+type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
+type CronjobCronjobUrl = MittwaldAPIV2.Components.Schemas.CronjobCronjobUrl;
+type CronjobCronjobCommand =
+  MittwaldAPIV2.Components.Schemas.CronjobCronjobCommand;
 
 type CronJobComponent = FC<{ cronjob: CronjobCronjob }>;
 

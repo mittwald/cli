@@ -2,8 +2,10 @@ import { Text } from "ink";
 import { FC } from "react";
 import { ProjectEnabled } from "./ProjectEnabled.js";
 import { ProjectSimpleStatus } from "./ProjectSimpleStatus.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import ProjectProjectReadinessStatus = MittwaldAPIV2.Components.Schemas.ProjectProjectStatus;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+
+type ProjectProjectReadinessStatus =
+  MittwaldAPIV2.Components.Schemas.ProjectProjectStatus;
 
 interface Props {
   /**

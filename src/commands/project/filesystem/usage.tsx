@@ -1,4 +1,4 @@
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../GetBaseCommand.js";
 import { projectArgs } from "../../../lib/project/flags.js";
 import { RenderBaseCommand } from "../../../rendering/react/RenderBaseCommand.js";

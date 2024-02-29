@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+type BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
 import { SingleResult, SingleResultTable } from "../SingleResult.js";
 import { Text } from "ink";
 import { Value } from "../Value.js";

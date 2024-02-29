@@ -1,12 +1,13 @@
 import { Response, Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
 import { projectFlags } from "../../lib/project/flags.js";
 import { ListColumns } from "../../Formatter.js";
 import { optionalDateRenderer } from "../../lib/viewhelpers/date.js";
 import { makeDateRendererForFlags } from "../../lib/viewhelpers/list_column_date.js";
-import BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
+
+type BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
 
 type ListResponse = Response<BackupProjectBackup[]>;
 type ListItem = Simplify<BackupProjectBackup>;

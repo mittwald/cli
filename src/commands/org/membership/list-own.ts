@@ -1,21 +1,23 @@
 import { Simplify } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { ListColumns } from "../../../Formatter.js";
 import { optionalDateRenderer } from "../../../lib/viewhelpers/date.js";
 import { makeDateRendererForFlags } from "../../../lib/viewhelpers/list_column_date.js";
-import CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
+
+type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
+type CustomerMembership =
+  MittwaldAPIV2.Components.Schemas.MembershipCustomerMembership;
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2CustomerMemberships.Get.Responses.$200.Content.ApplicationJson[number]
-> & {
-  org?: CustomerCustomer;
-};
+  CustomerMembership & {
+    org?: CustomerCustomer;
+  }
+>;
 
-export type PathParams =
-  MittwaldAPIV2.Paths.V2CustomerMemberships.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["customer"]["listCustomerMemberships"]>
 >;
 
@@ -33,16 +35,7 @@ export class ListOwn extends ListBaseCommand<
   };
 
   public async getData(): Promise<Response> {
-    const pathParams: PathParams = {};
-    return await this.apiClient.customer.listCustomerMemberships(
-      (await this.mapParams(pathParams)) as Parameters<
-        typeof this.apiClient.customer.listCustomerMemberships
-      >[0],
-    );
-  }
-
-  protected mapParams(input: PathParams): Promise<PathParams> | PathParams {
-    return input;
+    return await this.apiClient.customer.listCustomerMemberships();
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
