@@ -13,4 +13,20 @@ export const sshConnectionFlags = {
     default: undefined,
     env: "MITTWALD_SSH_USER",
   }),
+  "ssh-identity-file": Flags.file({
+    summary:
+      "the SSH identity file (private key) to use for public key authentication.",
+    description:
+      "The SSH identity file to use for the connection. This file will be used to authenticate the connection to the server." +
+      "\n\n" +
+      "You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.",
+    required: false,
+    default: undefined,
+    env: "MITTWALD_SSH_IDENTITY_FILE",
+  }),
+} as const;
+
+export type SSHConnectionFlags = {
+  "ssh-user": string | undefined;
+  "ssh-identity-file": string | undefined;
 };

@@ -108,7 +108,7 @@ export class Dump extends ExecRenderBaseCommand<
       () =>
         executeViaSSH(
           this.apiClient,
-          this.flags["ssh-user"],
+          this.flags,
           { projectId: connectionDetails.project.id },
           cmd,
           this.getOutputStream(),
