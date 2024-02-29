@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { Value } from "../Value.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Text } from "ink";
-import AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
-import AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+
+type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
+type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 export const AppInstallationStatus: FC<{
   appInstallation: AppAppInstallation;

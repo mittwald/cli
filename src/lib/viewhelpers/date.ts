@@ -1,6 +1,34 @@
 import { formatDistanceToNow } from "date-fns";
 
-export function formatRelativeDate(date: Date | string | undefined): string {
+export type DateRenderer = (d: Date | string) => string;
+
+const forceDateType = (d: Date | string): Date => {
+  if (typeof d === "string") {
+    return new Date(d);
+  }
+  return d;
+};
+
+export function optionalDateRenderer(
+  r: DateRenderer,
+): (n: Date | string | undefined) => string | undefined {
+  return (d: Date | string | undefined): string | undefined => {
+    if (d === undefined) {
+      return undefined;
+    }
+    return r(d);
+  };
+}
+
+export const formatDateISO: DateRenderer = (d: Date | string) =>
+  forceDateType(d).toISOString();
+
+export const formatDateLocale: DateRenderer = (d: Date | string) =>
+  forceDateType(d).toLocaleString();
+
+export const formatRelativeDate: DateRenderer = (
+  date: Date | string,
+): string => {
   if (!date) {
     return "unknown";
   }
@@ -13,11 +41,7 @@ export function formatRelativeDate(date: Date | string | undefined): string {
     return formatDistanceToNow(date) + " ago";
   }
   return formatDistanceToNow(date) + " from now";
-}
-
-export function formatCreatedAt(row: { createdAt: string }): string {
-  return formatRelativeDate(new Date(`${row.createdAt}`));
-}
+};
 
 export const parseDate = (text: string): Date | undefined => {
   const time = Date.parse(text);
@@ -26,3 +50,18 @@ export const parseDate = (text: string): Date | undefined => {
   }
   return new Date(time);
 };
+
+export function makeDateRendererForFormat(
+  format: string,
+  relative: boolean,
+): DateRenderer {
+  switch (format) {
+    case "csv":
+      return formatDateISO;
+    case "json":
+    case "yaml":
+      return (d: Date | string) => forceDateType(d).toJSON();
+    default:
+      return relative ? formatRelativeDate : formatDateLocale;
+  }
+}

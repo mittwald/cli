@@ -2,9 +2,12 @@ import { Command, Interfaces } from "@oclif/core";
 import { BaseCommand } from "./BaseCommand.js";
 import { ListColumns, ListFormatter } from "./Formatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
-import { formatRelativeDate } from "./lib/viewhelpers/date.js";
 import { SuccessfulResponse } from "./types.js";
 import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
+import {
+  buildCreatedAtColumn,
+  isResourceWithCreatedAt,
+} from "./lib/viewhelpers/list_column_date.js";
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof ListBaseCommand)["baseFlags"] & T["flags"]
@@ -13,6 +16,7 @@ export type Args<T extends typeof Command> = Interfaces.InferredArgs<T["args"]>;
 
 export type ColumnOpts<TItem> = {
   shortIdKey?: keyof TItem;
+  outputFormat?: string;
 };
 
 export abstract class ListBaseCommand<
@@ -89,13 +93,12 @@ export abstract class ListBaseCommand<
         },
       };
     }
-    if ("createdAt" in data[0]) {
+    if (isResourceWithCreatedAt(data[0])) {
+      const createdAt = buildCreatedAtColumn(this.flags);
+
       columns = {
         ...columns,
-        createdAt: {
-          header: "Created at",
-          get: (row) => formatRelativeDate(new Date(`${row.createdAt}`)),
-        },
+        createdAt,
       };
     }
     return columns;

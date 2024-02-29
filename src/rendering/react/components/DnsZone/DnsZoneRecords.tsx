@@ -5,8 +5,8 @@ import { DnsZoneRecordsMX } from "./DnsZoneRecordsMX.js";
 import { DnsZoneRecordsTXT } from "./DnsZoneRecordsTXT.js";
 import { DnsZoneRecordsSRV } from "./DnsZoneRecordsSRV.js";
 import { SingleResult } from "../SingleResult.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import DnsZone = MittwaldAPIV2.Components.Schemas.DnsZone;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+type DnsZone = MittwaldAPIV2.Components.Schemas.DnsZone;
 
 export const DnsZoneRecords: FC<{ dnsZone: DnsZone }> = ({ dnsZone }) => {
   const rows = {

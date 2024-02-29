@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, BoxProps, Text } from "ink";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import CommonsValidationErrors = MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+
+type CommonsValidationErrors =
+  MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
 
 const boxProps: BoxProps = {
   marginY: 1,

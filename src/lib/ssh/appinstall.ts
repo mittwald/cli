@@ -1,4 +1,4 @@
-import { MittwaldAPIV2Client, assertStatus } from "@mittwald/api-client";
+import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
 import path from "path";
 import { SSHConnectionData } from "./types.js";
 

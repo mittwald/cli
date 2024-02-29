@@ -3,8 +3,10 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { getProject } from "../common.js";
 import { getSSHConnectionForProject } from "../../ssh/project.js";
-import DatabaseMySqlDatabase = MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
-import DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
+
+type DatabaseMySqlDatabase =
+  MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
+type DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
 
 export async function getConnectionDetailsWithPassword(
   apiClient: MittwaldAPIV2Client,
