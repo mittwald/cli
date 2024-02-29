@@ -1,0 +1,35 @@
+name: Build and package OCLIF app
+description: Build and package OCLIF app for Linux, Windows and/or macOS
+inputs:
+  target:
+    description: What to build
+    required: true
+    default: tarballs
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "18"
+
+    - name: Install dependencies
+      shell: bash
+      run: yarn
+
+    - name: Set version in package json
+      shell: bash
+      run:
+        npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version --no-workspaces-update
+
+    - name: Build
+      shell: bash
+      run: yarn compile
+
+    - name: Build packages for ${{ inputs.target }}
+      shell: bash
+      run: yarn package:${{ inputs.target }}
+      if: ${{ inputs.target != "npm" }}
