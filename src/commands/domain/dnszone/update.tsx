@@ -12,10 +12,11 @@ import {
 } from "../../../lib/domain/dnszone/flags.js";
 import { projectFlags } from "../../../lib/project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import DnsRecordMXRecord = MittwaldAPIV2.Components.Schemas.DnsRecordMXRecord;
-import DnsRecordSRVRecord = MittwaldAPIV2.Components.Schemas.DnsRecordSRVRecord;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
+
+type DnsRecordMXRecord = MittwaldAPIV2.Components.Schemas.DnsRecordMXRecord;
+type DnsRecordSRVRecord = MittwaldAPIV2.Components.Schemas.DnsRecordSRVRecord;
 
 type UpdateResult = void;
 

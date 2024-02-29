@@ -164,7 +164,9 @@ export function makeFlagSet<TName extends ContextNames>(
       return normalize(apiClient, idInput);
     }
 
-    const idFromContext = await new Context(cfg).getContextValue(flagName);
+    const idFromContext = await new Context(apiClient, cfg).getContextValue(
+      flagName,
+    );
     if (idFromContext) {
       return idFromContext.value;
     }

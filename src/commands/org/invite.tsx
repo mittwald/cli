@@ -5,7 +5,7 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { Flags } from "@oclif/core";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
@@ -14,7 +14,9 @@ import {
   expirationDateFromFlagsOptional,
   expireFlags,
 } from "../../lib/expires.js";
-import MembershipCustomerRoles = MittwaldAPIV2.Components.Schemas.MembershipCustomerRoles;
+
+type MembershipCustomerRoles =
+  MittwaldAPIV2.Components.Schemas.MembershipCustomerRoles;
 
 const inviteFlags = {
   email: Flags.string({

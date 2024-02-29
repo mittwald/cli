@@ -52,6 +52,7 @@ jobs:
   readme:
     name: Assert README.md is up-to-date
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -60,3 +61,17 @@ jobs:
       - run: yarn
       - run: yarn compile
       - run: yarn test:readme
+
+  docker:
+    name: Build and run docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: yarn
+      - run: yarn compile
+      - run: npx oclif pack tarballs --targets=linux-x64
+      - run: docker build --build-arg PKG_SOURCE=dist -t mittwald/cli:testing .
+      - run: docker run --rm mittwald/cli:testing --help

@@ -7,6 +7,6 @@ export class Reset extends BaseCommand {
     "This command resets any values for common parameters that you've previously set with 'context set'.";
 
   public async run(): Promise<void> {
-    await new Context(this.config).reset();
+    await new Context(this.apiClient, this.config).reset();
   }
 }

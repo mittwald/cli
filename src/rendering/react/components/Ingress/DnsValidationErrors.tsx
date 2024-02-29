@@ -1,9 +1,9 @@
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { FC } from "react";
 import { Warning, warningColor } from "../Warning.js";
 import { ListItem } from "../ListItem.js";
 import { Value } from "../Value.js";
-import IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
+type IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
 import { Box, Text } from "ink";
 
 type Props = {

@@ -1,6 +1,8 @@
 import { Config } from "@oclif/core";
 import { TerraformContextProvider } from "./context_terraform.js";
 import { UserContextProvider } from "./context_user.js";
+import { DDEVContextProvider } from "./context_ddev.js";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 
 export type ContextNames =
   | "project"
@@ -23,6 +25,7 @@ export interface ContextProvider {
 
 export interface WritableContextProvider extends ContextProvider {
   update(data: ContextMapUpdate): Promise<void>;
+
   reset(): Promise<void>;
 }
 
@@ -35,10 +38,11 @@ export class Context {
 
   public readonly providers: ContextProvider[];
 
-  public constructor(config: Config) {
+  public constructor(apiClient: MittwaldAPIV2Client, config: Config) {
     this.providers = [
       new UserContextProvider(config),
       new TerraformContextProvider(),
+      new DDEVContextProvider(apiClient),
     ];
     this.contextData = this.initializeContextData();
   }

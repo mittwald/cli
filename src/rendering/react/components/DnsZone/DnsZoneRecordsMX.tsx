@@ -6,8 +6,8 @@ import {
 import { RecordSetManagedByMittwald } from "./RecordSetManagedByMittwald.js";
 import { Value } from "../Value.js";
 import React from "react";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-import DnsRecordMX = MittwaldAPIV2.Components.Schemas.DnsRecordMX;
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+type DnsRecordMX = MittwaldAPIV2.Components.Schemas.DnsRecordMX;
 
 export const DnsZoneRecordsMX: RecordComponent<DnsRecordMX> = ({ record }) => {
   if (isManagedMXRecord(record)) {
