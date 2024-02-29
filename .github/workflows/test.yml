@@ -16,7 +16,18 @@ jobs:
       - run: yarn
       - run: yarn compile
 
-  test:
+  licenses:
+    runs-on: ubuntu-latest
+    name: Check license compatibility
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: yarn
+      - run: yarn test:licenses
+
+  lint:
     runs-on: ubuntu-latest
     name: Run linters
     steps:
@@ -25,7 +36,18 @@ jobs:
         with:
           node-version: 18
       - run: yarn
-      - run: yarn test
+      - run: yarn test:format
+
+  tests:
+    runs-on: ubuntu-latest
+    name: Run unit tests
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: yarn
+      - run: yarn test:unit
 
   readme:
     name: Assert README.md is up-to-date
@@ -38,8 +60,7 @@ jobs:
           node-version: 18
       - run: yarn
       - run: yarn compile
-      - run: yarn generate:readme
-      - run: git diff --exit-code README.md
+      - run: yarn test:readme
 
   docker:
     name: Build and run docker image

@@ -18,6 +18,7 @@ dist/
 dist-cjs/
 coverage/
 *.tsbuildinfo
+.nyc_output
 
 # Other
 *.log
