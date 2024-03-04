@@ -1947,7 +1947,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.18.2, @oclif/core@npm:^3.19.1, @oclif/core@npm:^3.19.2":
+"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.18.2, @oclif/core@npm:^3.19.2":
   version: 3.20.0
   resolution: "@oclif/core@npm:3.20.0"
   dependencies:
@@ -2046,13 +2046,13 @@ __metadata:
   linkType: hard
 
 "@oclif/test@npm:^3.1.16":
-  version: 3.1.16
-  resolution: "@oclif/test@npm:3.1.16"
+  version: 3.2.1
+  resolution: "@oclif/test@npm:3.2.1"
   dependencies:
-    "@oclif/core": ^3.19.1
+    "@oclif/core": ^3.19.2
     chai: ^4.4.1
-    fancy-test: ^3.0.10
-  checksum: 5b2f42a9ef8abf7367dd72cccefc3eb592e089c02b6c2a7b1a35e4ea9cf6fa8a53ca0e5a7cc2261d1635b2f1692c84b11dc24ddcf8929c9c7fd98b96de1d2d80
+    fancy-test: ^3.0.11
+  checksum: b502be600a3af2e00ef705d46d8dbecc36be45ef10d290225517b2edd5baa2cf5a6b3378b29465e5f47cfb51fa8c561fdba3c7d69d66f883ff8a294e1362e735
   languageName: node
   linkType: hard
 
@@ -5752,9 +5752,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fancy-test@npm:^3.0.10":
-  version: 3.0.10
-  resolution: "fancy-test@npm:3.0.10"
+"fancy-test@npm:^3.0.11":
+  version: 3.0.11
+  resolution: "fancy-test@npm:3.0.11"
   dependencies:
     "@types/chai": "*"
     "@types/lodash": "*"
@@ -5762,10 +5762,10 @@ __metadata:
     "@types/sinon": "*"
     lodash: ^4.17.13
     mock-stdin: ^1.0.0
-    nock: ^13.5.1
+    nock: ^13.5.3
     sinon: ^16.1.3
     stdout-stderr: ^0.1.9
-  checksum: 70d4045c80668c2c1e4ef5118069b8548e4f744b2a8e704168768c56c3c64ed595d2c9d8aeccec3b4a32abcb85f0c114d3f1fbc3dce05e019d87222b3e0a50c0
+  checksum: 7b4deb6e02b6de95d763c5e47e026d300416e486febe109003bfcf7fef9cce277e0862291872601786662d85c97e6801d10a8de3463fd23a93a3355da442ff4a
   languageName: node
   linkType: hard
 
@@ -8336,14 +8336,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nock@npm:^13.5.1":
-  version: 13.5.1
-  resolution: "nock@npm:13.5.1"
+"nock@npm:^13.5.3":
+  version: 13.5.4
+  resolution: "nock@npm:13.5.4"
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
     propagate: ^2.0.0
-  checksum: d7e33e92ef1af2c2302af411e4f9c98d53aefb3b6729de487e051281d1547e910ccd1aeb6d251fa1af70046cc28aa6f3a43c1964eff94cb75fb470bd84ffe081
+  checksum: d31f924e34c87ae985edfb7b5a56e8a4dcfc3a072334ceb6d686326581f93090b3e23492663a64ce61b8df4f365b113231d926bc300bcfe9e5eb309c3e4b8628
   languageName: node
   linkType: hard
 
