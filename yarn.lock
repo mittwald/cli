@@ -1982,6 +1982,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^3.20.0":
+  version: 3.21.0
+  resolution: "@oclif/core@npm:3.21.0"
+  dependencies:
+    "@types/cli-progress": ^3.11.5
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    color: ^4.2.3
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.3
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 01340d04adc99cfa328f23dd213e813936301e176e3216575654c9a914b874999337317beb96c841acbfc79036f147d8df319769e88fbe226f2adc6a30b4546a
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-autocomplete@npm:^3.0.3":
   version: 3.0.11
   resolution: "@oclif/plugin-autocomplete@npm:3.0.11"
@@ -2015,20 +2050,20 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.1.14
-  resolution: "@oclif/plugin-update@npm:4.1.14"
+  version: 4.1.16
+  resolution: "@oclif/plugin-update@npm:4.1.16"
   dependencies:
-    "@oclif/core": ^3.19.2
+    "@oclif/core": ^3.20.0
     chalk: ^5
     cross-spawn: ^7.0.3
     debug: ^4.3.1
     filesize: ^6.1.0
     http-call: ^5.3.0
-    inquirer: ^9.2.13
+    inquirer: ^9.2.15
     lodash.throttle: ^4.1.1
     semver: ^7.6.0
     tar-fs: ^2.1.1
-  checksum: f2eb34d8a959d548f21ffa9c9777ecba781de83137d356d236ad51ddade37261c1fc7a49aa206b63e435ebcdfb5fe5eb508d09dddd11d7b04dc25ecab8d7cc82
+  checksum: b6df4a6400e9811f1042443a156e575f8848c6378597e20f8c5dd6c3003d420f4297d516dfb2eb0c77511bac02d54244bd9b6649c363e3bbe9361887b6549d69
   languageName: node
   linkType: hard
 
@@ -6795,7 +6830,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^9.2.13":
+"inquirer@npm:^9.2.15":
   version: 9.2.15
   resolution: "inquirer@npm:9.2.15"
   dependencies:
