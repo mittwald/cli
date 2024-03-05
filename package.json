@@ -66,6 +66,7 @@
     "pretty-bytes": "^6.1.0",
     "react": "^18.2.0",
     "semver": "^7.5.4",
+    "semver-parser": "^4.1.6",
     "shell-escape": "^0.2.0",
     "tempfile": "^5.0.0"
   },
