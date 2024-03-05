@@ -11,6 +11,11 @@ import { Text } from "ink";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
+import { withAttemptsToSuccess } from "../../../lib/api_retry.js";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+
+type Database = MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
+type User = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
 
 type Result = {
   databaseId: string;
@@ -71,57 +76,73 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const password = await this.getPassword(p);
 
-    const db = await p.runStep("creating MySQL database", async () => {
+    const db = await this.createMySQLDatabase(
+      p,
+      projectId,
+      description,
+      version,
+      collation,
+      characterSet,
+      password,
+      externalAccess,
+      accessLevel,
+    );
+
+    const database = await p.runStep("fetching database", async () => {
+      const getWithRetry = withAttemptsToSuccess(
+        this.apiClient.database.getMysqlDatabase,
+      );
+      return (await getWithRetry({ mysqlDatabaseId: db.id })).data;
+    });
+
+    const user = await p.runStep("fetching user", async () => {
+      const getWithRetry = withAttemptsToSuccess(
+        this.apiClient.database.getMysqlUser,
+      );
+      return (await getWithRetry({ mysqlUserId: db.userId })).data;
+    });
+
+    await p.complete(<DatabaseCreateSuccess database={database} user={user} />);
+
+    return { databaseId: db.id, userId: db.userId };
+  }
+
+  private async createMySQLDatabase(
+    p: ProcessRenderer,
+    projectId: string,
+    description: string,
+    version: string,
+    collation: string,
+    characterSet: string,
+    password: string,
+    externalAccess: boolean,
+    accessLevel: string,
+  ) {
+    return await p.runStep("creating MySQL database", async () => {
+      const characterSettings = { collation, characterSet };
+      const database = {
+        projectId,
+        description,
+        version,
+        characterSettings,
+      };
+      const user = {
+        password,
+        externalAccess,
+        accessLevel: accessLevel as "full" | "readonly",
+      };
+
       const r = await this.apiClient.database.createMysqlDatabase({
         projectId,
         data: {
-          database: {
-            projectId,
-            description,
-            version,
-            characterSettings: {
-              collation,
-              characterSet,
-            },
-          },
-          user: {
-            password,
-            externalAccess,
-            accessLevel: accessLevel as "full" | "readonly",
-          },
+          database,
+          user,
         },
       });
 
       assertStatus(r, 201);
       return r.data;
     });
-
-    const database = await p.runStep("fetching database", async () => {
-      const r = await this.apiClient.database.getMysqlDatabase({
-        mysqlDatabaseId: db.id,
-      });
-      assertStatus(r, 200);
-
-      return r.data;
-    });
-
-    const user = await p.runStep("fetching user", async () => {
-      const r = await this.apiClient.database.getMysqlUser({
-        mysqlUserId: db.userId,
-      });
-      assertStatus(r, 200);
-
-      return r.data;
-    });
-
-    p.complete(
-      <Success>
-        The database <Value>{database.name}</Value> and the user{" "}
-        <Value>{user.name}</Value> were successfully created.
-      </Success>,
-    );
-
-    return { databaseId: db.id, userId: db.userId };
   }
 
   private async getPassword(p: ProcessRenderer): Promise<string> {
@@ -137,4 +158,19 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       return databaseId;
     }
   }
+}
+
+function DatabaseCreateSuccess({
+  database,
+  user,
+}: {
+  database: Database;
+  user: User;
+}) {
+  return (
+    <Success>
+      The database <Value>{database.name}</Value> and the user{" "}
+      <Value>{user.name}</Value> were successfully created.
+    </Success>
+  );
 }
