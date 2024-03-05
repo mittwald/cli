@@ -76,7 +76,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const password = await this.getPassword(p);
 
-    const db = await this.createMySQLDatabase(
+    const [db, eventId] = await this.createMySQLDatabase(
       p,
       projectId,
       description,
@@ -92,14 +92,24 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       const getWithRetry = withAttemptsToSuccess(
         this.apiClient.database.getMysqlDatabase,
       );
-      return (await getWithRetry({ mysqlDatabaseId: db.id })).data;
+      return (
+        await getWithRetry({
+          mysqlDatabaseId: db.id,
+          headers: { "if-event-reached": eventId },
+        })
+      ).data;
     });
 
     const user = await p.runStep("fetching user", async () => {
       const getWithRetry = withAttemptsToSuccess(
         this.apiClient.database.getMysqlUser,
       );
-      return (await getWithRetry({ mysqlUserId: db.userId })).data;
+      return (
+        await getWithRetry({
+          mysqlUserId: db.userId,
+          headers: { "if-event-reached": eventId },
+        })
+      ).data;
     });
 
     await p.complete(<DatabaseCreateSuccess database={database} user={user} />);
@@ -141,7 +151,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       });
 
       assertStatus(r, 201);
-      return r.data;
+      return [r.data, r.headers["etag"]];
     });
   }
 
