@@ -1968,6 +1968,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^3.21.0":
+  version: 3.22.0
+  resolution: "@oclif/core@npm:3.22.0"
+  dependencies:
+    "@types/cli-progress": ^3.11.5
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    color: ^4.2.3
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    minimatch: ^9.0.3
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.3
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: f96904ca71f1da246d18b8bbb91fd0cce3933c56f13fc7ea32c60f7f271ecc877e3d1e69b88a389fcffd369ec3a2ec8525e298ea8907535234f15506f3db8a1e
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-autocomplete@npm:^3.0.3":
   version: 3.0.11
   resolution: "@oclif/plugin-autocomplete@npm:3.0.11"
@@ -8841,12 +8877,12 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.3.9":
-  version: 4.4.21
-  resolution: "oclif@npm:4.4.21"
+  version: 4.5.0
+  resolution: "oclif@npm:4.5.0"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.525.0
     "@aws-sdk/client-s3": ^3.515.0
-    "@oclif/core": ^3.19.2
+    "@oclif/core": ^3.21.0
     "@oclif/plugin-help": ^6.0.14
     "@oclif/plugin-not-found": ^3.0.10
     "@oclif/plugin-warn-if-update-available": ^3.0.12
@@ -8861,11 +8897,12 @@ __metadata:
     normalize-package-data: ^3.0.3
     semver: ^7.6.0
     sort-package-json: ^2.8.0
+    validate-npm-package-name: ^5.0.0
     yeoman-environment: ^3.15.1
     yeoman-generator: ^5.8.0
   bin:
     oclif: bin/run.js
-  checksum: 1439c9fe9666d1fb6ef92c10b59ce9dc8b1a8b3b3a520b446a07e31db60ac77de3c0afd71fa265fd48bda55419988056cd7000c55611fb716c4d5b970a0f41a0
+  checksum: c5ac0815cf8cb8900f7bfe341b969d6257c8f839d160c721ebc2a777bc1a18ca101d2affc8b33555e9f8ef827a343766bca2481e9218ab9cbe82f3111ea62fe3
   languageName: node
   linkType: hard
 
