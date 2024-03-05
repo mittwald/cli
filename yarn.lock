@@ -1934,8 +1934,8 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.18.2, @oclif/core@npm:^3.19.2, @oclif/core@npm:^3.20.0":
-  version: 3.21.0
-  resolution: "@oclif/core@npm:3.21.0"
+  version: 3.22.0
+  resolution: "@oclif/core@npm:3.22.0"
   dependencies:
     "@types/cli-progress": ^3.11.5
     ansi-escapes: ^4.3.2
@@ -1953,6 +1953,7 @@ __metadata:
     indent-string: ^4.0.0
     is-wsl: ^2.2.0
     js-yaml: ^3.14.1
+    minimatch: ^9.0.3
     natural-orderby: ^2.0.3
     object-treeify: ^1.1.33
     password-prompt: ^1.1.3
@@ -1964,7 +1965,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 01340d04adc99cfa328f23dd213e813936301e176e3216575654c9a914b874999337317beb96c841acbfc79036f147d8df319769e88fbe226f2adc6a30b4546a
+  checksum: f96904ca71f1da246d18b8bbb91fd0cce3933c56f13fc7ea32c60f7f271ecc877e3d1e69b88a389fcffd369ec3a2ec8525e298ea8907535234f15506f3db8a1e
   languageName: node
   linkType: hard
 
