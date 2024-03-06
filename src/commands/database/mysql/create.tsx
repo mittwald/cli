@@ -79,13 +79,19 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     const [db, eventId] = await this.createMySQLDatabase(
       p,
       projectId,
-      description,
-      version,
-      collation,
-      characterSet,
-      password,
-      externalAccess,
-      accessLevel,
+      {
+        description,
+        version,
+        characterSettings: {
+          collation,
+          characterSet,
+        },
+      },
+      {
+        password,
+        externalAccess,
+        accessLevel: accessLevel as "full" | "readonly",
+      },
     );
 
     const database = await p.runStep("fetching database", async () => {
@@ -120,32 +126,25 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   private async createMySQLDatabase(
     p: ProcessRenderer,
     projectId: string,
-    description: string,
-    version: string,
-    collation: string,
-    characterSet: string,
-    password: string,
-    externalAccess: boolean,
-    accessLevel: string,
+    database: {
+      description: string;
+      version: string;
+      characterSettings: {
+        collation: string;
+        characterSet: string;
+      };
+    },
+    user: {
+      password: string;
+      externalAccess: boolean;
+      accessLevel: "full" | "readonly";
+    },
   ) {
     return await p.runStep("creating MySQL database", async () => {
-      const characterSettings = { collation, characterSet };
-      const database = {
-        projectId,
-        description,
-        version,
-        characterSettings,
-      };
-      const user = {
-        password,
-        externalAccess,
-        accessLevel: accessLevel as "full" | "readonly",
-      };
-
       const r = await this.apiClient.database.createMysqlDatabase({
         projectId,
         data: {
-          database,
+          database: { projectId, ...database },
           user,
         },
       });
