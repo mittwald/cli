@@ -16,7 +16,7 @@ export function configureConsistencyHandling(axios: AxiosInstance) {
 
   axios.interceptors.response.use((response) => {
     const isMutatingRequest =
-      ["post", "put", "delete"].indexOf(
+      ["post", "put", "delete", "patch"].indexOf(
         response.config?.method?.toLowerCase() ?? "",
       ) >= 0;
     const headers = response.headers as AxiosHeaders;
