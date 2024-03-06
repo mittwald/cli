@@ -10,12 +10,7 @@ export class PhpMyAdmin extends BaseCommand {
 
   public async run(): Promise<void> {
     const { flags, args } = await this.parse(PhpMyAdmin);
-    const databaseId = await withMySQLId(
-      this.apiClient,
-      flags,
-      args,
-      this.config,
-    );
+    const databaseId = await withMySQLId(this.apiClient, flags, args);
     const users = await this.apiClient.database.listMysqlUsers({
       mysqlDatabaseId: databaseId,
     });

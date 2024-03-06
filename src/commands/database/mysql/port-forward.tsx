@@ -28,12 +28,7 @@ export class PortForward extends ExecRenderBaseCommand<
   static args = { ...mysqlArgs };
 
   protected async exec(): Promise<Record<string, never>> {
-    const databaseId = await withMySQLId(
-      this.apiClient,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
     const p = makeProcessRenderer(
       this.flags,
       "Port-forwarding a MySQL database",

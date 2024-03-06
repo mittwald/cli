@@ -2280,7 +2280,7 @@ USAGE
   $ mw database mysql delete DATABASE-ID [-q] [-f]
 
 ARGUMENTS
-  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+  DATABASE-ID  The ID or name of the database
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -2305,7 +2305,7 @@ USAGE
   $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--ssh-user <value>] [--temporary-user] [--gzip]
 
 ARGUMENTS
-  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+  DATABASE-ID  The ID or name of the database
 
 FLAGS
   -o, --output=<value>          (required) the output file to write the dump to ("-" for stdout)
@@ -2365,7 +2365,7 @@ USAGE
   $ mw database mysql get DATABASE-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+  DATABASE-ID  The ID or name of the database
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -2415,7 +2415,7 @@ USAGE
   $ mw database mysql phpmyadmin DATABASE-ID
 
 ARGUMENTS
-  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+  DATABASE-ID  The ID or name of the database
 ```
 
 ## `mw database mysql port-forward DATABASE-ID`
@@ -2427,7 +2427,7 @@ USAGE
   $ mw database mysql port-forward DATABASE-ID [-q] [--ssh-user <value>] [--port <value>]
 
 ARGUMENTS
-  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+  DATABASE-ID  The ID or name of the database
 
 FLAGS
   -q, --quiet             suppress process output and only display a machine-readable summary.
@@ -2457,7 +2457,7 @@ USAGE
   $ mw database mysql shell DATABASE-ID [-q] [-p <value>]
 
 ARGUMENTS
-  DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
+  DATABASE-ID  The ID or name of the database
 
 FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
