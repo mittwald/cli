@@ -191,7 +191,7 @@ USAGE
 * [`mw domain virtualhost delete VIRTUAL-HOST-ID`](#mw-domain-virtualhost-delete-virtual-host-id)
 * [`mw domain virtualhost get INGRESS-ID`](#mw-domain-virtualhost-get-ingress-id)
 * [`mw domain virtualhost list`](#mw-domain-virtualhost-list)
-* [`mw help [COMMANDS]`](#mw-help-commands)
+* [`mw help [COMMAND]`](#mw-help-command)
 * [`mw login reset`](#mw-login-reset)
 * [`mw login status`](#mw-login-status)
 * [`mw login token`](#mw-login-token)
@@ -3105,16 +3105,16 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-## `mw help [COMMANDS]`
+## `mw help [COMMAND]`
 
 Display help for mw.
 
 ```
 USAGE
-  $ mw help [COMMANDS] [-n]
+  $ mw help [COMMAND] [-n]
 
 ARGUMENTS
-  COMMANDS  Command to show help for.
+  COMMAND  Command to show help for.
 
 FLAGS
   -n, --nested-commands  Include all nested commands in the output.
@@ -3123,7 +3123,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.15/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.16/src/commands/help.ts)_
 
 ## `mw login reset`
 
