@@ -75,7 +75,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const password = await this.getPassword(p);
 
-    const [db, eventId] = await this.createMySQLDatabase(
+    const db = await this.createMySQLDatabase(
       p,
       projectId,
       {
@@ -96,7 +96,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     const database = await p.runStep("fetching database", async () => {
       const response = await this.apiClient.database.getMysqlDatabase({
         mysqlDatabaseId: db.id,
-        headers: { "if-event-reached": eventId },
       });
       assertStatus(response, 200);
       return response.data;
@@ -105,7 +104,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     const user = await p.runStep("fetching user", async () => {
       const response = await this.apiClient.database.getMysqlUser({
         mysqlUserId: db.userId,
-        headers: { "if-event-reached": eventId },
       });
       assertStatus(response, 200);
       return response.data;
@@ -143,7 +141,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       });
 
       assertStatus(r, 201);
-      return [r.data, r.headers["etag"]];
+      return r.data;
     });
   }
 

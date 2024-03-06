@@ -16,7 +16,7 @@ export function configureAxiosRetry(axios: AxiosInstance) {
     retries: 50,
     retryDelay: axiosRetry.exponentialDelay,
     onRetry(count, error) {
-      d("retrying request after %d attempts; error: %o", count, error);
+      d("retrying request after %d attempts; error: %o", count, error.message);
     },
     retryCondition(error) {
       if (error.code === "ERR_FR_TOO_MANY_REDIRECTS") {
