@@ -11,7 +11,6 @@ import { Text } from "ink";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
-import { withAttemptsToSuccess } from "../../../lib/api_retry.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 
 type Database = MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
@@ -95,27 +94,21 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     );
 
     const database = await p.runStep("fetching database", async () => {
-      const getWithRetry = withAttemptsToSuccess(
-        this.apiClient.database.getMysqlDatabase,
-      );
-      return (
-        await getWithRetry({
-          mysqlDatabaseId: db.id,
-          headers: { "if-event-reached": eventId },
-        })
-      ).data;
+      const response = await this.apiClient.database.getMysqlDatabase({
+        mysqlDatabaseId: db.id,
+        headers: { "if-event-reached": eventId },
+      });
+      assertStatus(response, 200);
+      return response.data;
     });
 
     const user = await p.runStep("fetching user", async () => {
-      const getWithRetry = withAttemptsToSuccess(
-        this.apiClient.database.getMysqlUser,
-      );
-      return (
-        await getWithRetry({
-          mysqlUserId: db.userId,
-          headers: { "if-event-reached": eventId },
-        })
-      ).data;
+      const response = await this.apiClient.database.getMysqlUser({
+        mysqlUserId: db.userId,
+        headers: { "if-event-reached": eventId },
+      });
+      assertStatus(response, 200);
+      return response.data;
     });
 
     await p.complete(<DatabaseCreateSuccess database={database} user={user} />);
