@@ -13,7 +13,7 @@ export function configureAxiosRetry(axios: AxiosInstance) {
   });
 
   axiosRetry(axios, {
-    retries: 50,
+    retries: 10,
     retryDelay: axiosRetry.exponentialDelay,
     onRetry(count, error) {
       d("retrying request after %d attempts; error: %o", count, error.message);
