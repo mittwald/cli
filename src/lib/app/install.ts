@@ -10,10 +10,10 @@ export async function triggerAppInstallation(
   projectId: string,
   flags: Record<string, string>,
   appVersion: AppAppVersion,
-) {
-  const [appInstallationId, eventId] = await process.runStep(
+): Promise<string> {
+  const appInstallationId = await process.runStep(
     "starting installation",
-    async (): Promise<[string, string]> => {
+    async (): Promise<string> => {
       const result = await apiClient.app.requestAppinstallation({
         projectId,
         data: {
@@ -28,7 +28,7 @@ export async function triggerAppInstallation(
       });
 
       assertStatus(result, 201);
-      return [result.data.id, result.headers["etag"]];
+      return result.data.id;
     },
   );
 
@@ -52,7 +52,6 @@ export async function triggerAppInstallation(
     await process.runStep("setting document root", async () => {
       const result = await apiClient.app.patchAppinstallation({
         appInstallationId,
-        headers: { "if-event-reached": eventId },
         data: {
           customDocumentRoot: flags["document-root"],
         },
@@ -62,5 +61,5 @@ export async function triggerAppInstallation(
     });
   }
 
-  return [appInstallationId, eventId];
+  return appInstallationId;
 }
