@@ -2,12 +2,8 @@ import { Command } from "@oclif/core";
 import * as fs from "fs/promises";
 import * as path from "path";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import axiosRetry from "axios-retry";
-import debug from "debug";
 import { configureAxiosRetry } from "./lib/api_retry.js";
 import { configureConsistencyHandling } from "./lib/api_consistency.js";
-
-const d = debug("mw:base");
 
 export abstract class BaseCommand extends Command {
   protected authenticationRequired = true;

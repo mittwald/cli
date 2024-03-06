@@ -1,4 +1,4 @@
-import { AxiosInstance, Response } from "@mittwald/api-client-commons";
+import { AxiosInstance } from "@mittwald/api-client-commons";
 import debug from "debug";
 import axiosRetry from "axios-retry";
 
