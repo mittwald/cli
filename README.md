@@ -1588,7 +1588,7 @@ EXAMPLES
   $ mw autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.11/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.12/src/commands/autocomplete/index.ts)_
 
 ## `mw backup create`
 
@@ -3124,7 +3124,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.16/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.17/src/commands/help.ts)_
 
 ## `mw login reset`
 
