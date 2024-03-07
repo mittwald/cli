@@ -254,6 +254,7 @@ USAGE
 * [`mw user ssh-key create`](#mw-user-ssh-key-create)
 * [`mw user ssh-key delete ID`](#mw-user-ssh-key-delete-id)
 * [`mw user ssh-key get KEY-ID`](#mw-user-ssh-key-get-key-id)
+* [`mw user ssh-key import`](#mw-user-ssh-key-import)
 * [`mw user ssh-key list`](#mw-user-ssh-key-list)
 
 ## `mw app copy [INSTALLATION-ID]`
@@ -4679,14 +4680,14 @@ Create and import a new SSH key
 
 ```
 USAGE
-  $ mw user ssh-key create [-q] [--output <value>] [--no-passphrase] [--comment <value>] [--expiresAt <value>]
+  $ mw user ssh-key create [-q] [--expires <value>] [--output <value>] [--no-passphrase] [--comment <value>]
 
 FLAGS
-  -q, --quiet              suppress process output and only display a machine-readable summary.
-      --comment=<value>    A comment for the SSH key.
-      --expiresAt=<value>  Duration after which the SSH key should expire (example: '1y').
-      --no-passphrase      Use this flag to not set a passphrase for the SSH key.
-      --output=<value>     [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
+  -q, --quiet            suppress process output and only display a machine-readable summary.
+      --comment=<value>  A comment for the SSH key.
+      --expires=<value>  An interval after which the SSH key expires (examples: 30m, 30d, 1y).
+      --no-passphrase    Use this flag to not set a passphrase for the SSH key.
+      --output=<value>   [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
 
 DESCRIPTION
   Create and import a new SSH key
@@ -4740,6 +4741,29 @@ FLAGS
 
 DESCRIPTION
   Get a specific SSH key
+```
+
+## `mw user ssh-key import`
+
+Import an existing (local) SSH key
+
+```
+USAGE
+  $ mw user ssh-key import [-q] [--expires <value>] [--input <value>]
+
+FLAGS
+  -q, --quiet            suppress process output and only display a machine-readable summary.
+      --expires=<value>  An interval after which the SSH key expires (examples: 30m, 30d, 1y).
+      --input=<value>    [default: id_rsa.pub] A filename in your ~/.ssh directory containing the key to import.
+
+DESCRIPTION
+  Import an existing (local) SSH key
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw user ssh-key list`
