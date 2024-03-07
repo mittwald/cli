@@ -1,6 +1,6 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { DDEVConfig, DDEVDatabaseConfig } from "./config.js";
+import { DDEVConfig, DDEVDatabaseConfig, DDEVHooks } from "./config.js";
 import { typo3Installer } from "../../commands/app/install/typo3.js";
 import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
 import { shopware6Installer } from "../../commands/app/install/shopware6.js";
@@ -33,9 +33,11 @@ export class DDEVConfigBuilder {
     const systemSoftwares =
       await this.buildSystemSoftwareVersionMap(appInstallation);
 
+    type = await this.determineProjectType(appInstallation, type);
+
     return {
       override_config: true,
-      type: await this.determineProjectType(appInstallation, type),
+      type,
       webserver_type: "apache-fpm",
       php_version: this.determinePHPVersion(systemSoftwares),
       database: await this.determineDatabaseVersion(appInstallation),
@@ -43,7 +45,24 @@ export class DDEVConfigBuilder {
       web_environment: [
         `MITTWALD_APP_INSTALLATION_ID=${appInstallation.shortId}`,
       ],
+      hooks: this.buildHooks(type),
     };
+  }
+
+  private buildHooks(type: string): DDEVHooks | undefined {
+    if (type === "typo3") {
+      return {
+        "post-pull": [{ exec: "typo3 cache:flush" }],
+      };
+    }
+
+    if (type === "wordpress") {
+      return {
+        "post-pull": [{ exec: "wp cache flush" }],
+      };
+    }
+
+    return undefined;
   }
 
   private async determineDocumentRoot(inst: AppInstallation): Promise<string> {
