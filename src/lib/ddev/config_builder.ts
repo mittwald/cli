@@ -57,10 +57,14 @@ export class DDEVConfigBuilder {
   private buildHooks(type: string): DDEVHooks | undefined {
     const postPull: DDEVHook[] = [
       { "exec-host": "ddev config --project-name $DDEV_PROJECT" },
+      { "exec-host": "ddev restart" },
     ];
 
     if (type === "typo3") {
-      postPull.push({ exec: "typo3 cache:flush" });
+      postPull.push(
+        { exec: "typo3 cache:flush" },
+        { exec: "typo3 cache:warmup" },
+      );
     }
 
     if (type === "wordpress") {
