@@ -2,6 +2,8 @@ import { Command } from "@oclif/core";
 import * as fs from "fs/promises";
 import * as path from "path";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { configureAxiosRetry } from "./lib/api_retry.js";
+import { configureConsistencyHandling } from "./lib/api_consistency.js";
 
 export abstract class BaseCommand extends Command {
   protected authenticationRequired = true;
@@ -17,9 +19,13 @@ export abstract class BaseCommand extends Command {
           `Could not get token from either config file (${this.getTokenFilename()}) or environment`,
         );
       }
+
       this.apiClient = MittwaldAPIV2Client.newWithToken(token);
       this.apiClient.axios.defaults.headers["User-Agent"] =
         `mittwald-cli/${this.config.version}`;
+
+      configureAxiosRetry(this.apiClient.axios);
+      configureConsistencyHandling(this.apiClient.axios);
     }
   }
 

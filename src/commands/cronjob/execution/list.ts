@@ -4,7 +4,10 @@ import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { Flags } from "@oclif/core";
-import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
+import {
+  formatRelativeDate,
+  optionalDateRenderer,
+} from "../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2CronjobsCronjobIdExecutions.Get.Responses.$200.Content.ApplicationJson[number]
@@ -49,10 +52,10 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
             : "",
       },
       started: {
-        get: (r) => formatRelativeDate(r.executionStart),
+        get: (r) => optionalDateRenderer(formatRelativeDate)(r.executionStart),
       },
       ended: {
-        get: (r) => formatRelativeDate(r.executionEnd),
+        get: (r) => optionalDateRenderer(formatRelativeDate)(r.executionEnd),
       },
     };
   }

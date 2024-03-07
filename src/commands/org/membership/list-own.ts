@@ -4,7 +4,8 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../ListBaseCommand.js";
 import { ListColumns } from "../../../Formatter.js";
-import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
+import { optionalDateRenderer } from "../../../lib/viewhelpers/date.js";
+import { makeDateRendererForFlags } from "../../../lib/viewhelpers/list_column_date.js";
 
 type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 type CustomerMembership =
@@ -55,6 +56,9 @@ export class ListOwn extends ListBaseCommand<
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
     const baseColumns = super.getColumns(data);
+    const dateRenderer = optionalDateRenderer(
+      makeDateRendererForFlags(this.flags),
+    );
     return {
       id: baseColumns.id,
       role: {},
@@ -63,7 +67,7 @@ export class ListOwn extends ListBaseCommand<
       },
       memberSince: {
         header: "Member since",
-        get: (item) => formatRelativeDate(item.memberSince),
+        get: (item) => dateRenderer(item.memberSince),
       },
     };
   }

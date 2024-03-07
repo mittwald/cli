@@ -47,12 +47,7 @@ export class Import extends ExecRenderBaseCommand<
   static args = { ...mysqlArgs };
 
   protected async exec(): Promise<Record<string, never>> {
-    const databaseId = await withMySQLId(
-      this.apiClient,
-      this.flags,
-      this.args,
-      this.config,
-    );
+    const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
     const p = makeProcessRenderer(this.flags, "Importing a MySQL database");
 
     const connectionDetails =

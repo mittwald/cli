@@ -21,7 +21,6 @@ export abstract class Get extends GetBaseCommand<typeof Get, APIResponse> {
       this.apiClient,
       this.flags,
       this.args,
-      this.config,
     );
     return await this.apiClient.database.getMysqlDatabase({
       mysqlDatabaseId,

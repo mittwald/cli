@@ -47,7 +47,6 @@ export default class Create extends ExecRenderBaseCommand<
     });
 
     assertStatus(result, 201);
-    const eventId = result.headers["etag"];
 
     stepCreating.complete();
     process.addInfo(
@@ -64,7 +63,6 @@ export default class Create extends ExecRenderBaseCommand<
       await waitUntil(async () => {
         const projectResponse = await this.apiClient.project.getProject({
           projectId: result.data.id,
-          headers: { "if-event-reached": eventId },
         });
 
         if (

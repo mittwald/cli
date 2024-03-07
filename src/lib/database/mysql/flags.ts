@@ -1,8 +1,6 @@
-import { Args, Config, Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
-import { isUuid } from "../../../normalize_id.js";
-import { withProjectId } from "../../project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 
 export const mysqlConnectionFlags = {
@@ -33,8 +31,7 @@ export const mysqlConnectionFlagsWithTempUser = {
 
 export const mysqlArgs = {
   "database-id": Args.string({
-    description:
-      "The ID of the database (when a project context is set, you can also use the name)",
+    description: "The ID or name of the database",
     required: true,
   }),
 };
@@ -55,24 +52,13 @@ export async function withMySQLId(
   apiClient: MittwaldAPIV2Client,
   flags: FlagOutput,
   args: ArgOutput,
-  cfg: Config,
 ): Promise<string> {
-  const candidate = getIdCandidate(flags, args);
-  if (isUuid(candidate)) {
-    return candidate;
-  }
-
-  const projectId = await withProjectId(apiClient, "flag", flags, args, cfg);
-  const databases = await apiClient.database.listMysqlDatabases({
-    projectId,
+  const mysqlDatabaseId = getIdCandidate(flags, args);
+  const response = await apiClient.database.getMysqlDatabase({
+    mysqlDatabaseId,
   });
 
-  assertStatus(databases, 200);
+  assertStatus(response, 200);
 
-  const database = databases.data.find((db) => db.name === candidate);
-  if (!database) {
-    throw new Error(`No database with name "${candidate}" found`);
-  }
-
-  return database.id;
+  return response.data.id;
 }

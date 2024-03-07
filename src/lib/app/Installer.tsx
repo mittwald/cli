@@ -87,7 +87,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
       this.appId,
     );
 
-    const [appInstallationId, eventId] = await triggerAppInstallation(
+    const appInstallationId = await triggerAppInstallation(
       apiClient,
       process,
       projectId,
@@ -97,12 +97,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
 
     let successText: string;
     if (flags.wait) {
-      await waitUntilAppIsInstalled(
-        apiClient,
-        process,
-        appInstallationId,
-        eventId,
-      );
+      await waitUntilAppIsInstalled(apiClient, process, appInstallationId);
       successText = `Your ${this.appName} installation is now complete. Have fun! 🎉`;
     } else {
       successText = `Your ${this.appName} installation has started. Have fun when it's ready! 🎉`;
