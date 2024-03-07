@@ -18,6 +18,11 @@ import { renderDDEVConfig } from "../../lib/ddev/config_render.js";
 import { loadDDEVConfig } from "../../lib/ddev/config_loader.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { ddevFlags } from "../../lib/ddev/flags.js";
+import { exec } from "child_process";
+import { promisify } from "util";
+import { compareSemVer } from "semver-parser";
+
+const execAsync = promisify(exec);
 
 export class Init extends ExecRenderBaseCommand<typeof Init, void> {
   static summary = "Initialize a new ddev project in the current directory.";
@@ -61,10 +66,11 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
 
     await assertDDEVIsInstalled(r);
 
+    const ddevVersion = await this.determineDDEVVersion(r);
     const config = await this.writeMittwaldConfiguration(r, appInstallationId);
     const projectName = await this.determineProjectName(r);
 
-    await this.initializeDDEVProject(r, config, projectName);
+    await this.initializeDDEVProject(r, config, projectName, ddevVersion);
     await this.installMittwaldPlugin(r);
     await this.addSSHCredentials(r);
 
@@ -82,6 +88,15 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     ]);
   }
 
+  private async determineDDEVVersion(r: ProcessRenderer): Promise<string> {
+    const { stdout } = await execAsync("ddev --version");
+    const version = stdout.trim().replace(/^ddev version +/, "");
+
+    r.addInfo(<InfoDDEVVersion version={version} />);
+
+    return version;
+  }
+
   private async installMittwaldPlugin(r: ProcessRenderer) {
     const { "override-mittwald-plugin": mittwaldPlugin } = this.flags;
     await spawnInProcess(r, "installing mittwald plugin", "ddev", [
@@ -94,13 +109,20 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     r: ProcessRenderer,
     config: Partial<DDEVConfig>,
     projectName: string,
+    ddevVersion: string,
   ): Promise<void> {
-    await spawnInProcess(r, "initializing DDEV project", "ddev", [
+    const ddevFlags = [
       "config",
       "--project-name",
       projectName,
       ...ddevConfigToFlags(config),
-    ]);
+    ];
+
+    if (compareSemVer(ddevVersion, "1.22.7") < 0) {
+      ddevFlags.push("--create-docroot");
+    }
+
+    await spawnInProcess(r, "initializing DDEV project", "ddev", ddevFlags);
   }
 
   private async determineProjectName(r: ProcessRenderer): Promise<string> {
@@ -165,6 +187,14 @@ function InfoUsingExistingName({ name }: { name: string }) {
   return (
     <>
       using existing project name: <Value>{name}</Value>
+    </>
+  );
+}
+
+function InfoDDEVVersion({ version }: { version: string }) {
+  return (
+    <>
+      detected DDEV version: <Value>{version}</Value>
     </>
   );
 }
