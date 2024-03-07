@@ -1618,6 +1618,7 @@ __metadata:
     react: ^18.2.0
     rimraf: ^5.0.1
     semver: ^7.5.4
+    semver-parser: ^4.1.6
     shell-escape: ^0.2.0
     tempfile: ^5.0.0
     ts-node: ^10.9.2
@@ -9923,6 +9924,13 @@ __metadata:
   version: 2.1.0
   resolution: "scoped-regex@npm:2.1.0"
   checksum: 4e820444cb79727bb302d94dafe07999cce18b6026e4866583466821b3d246403034bc46085e1f4b63ec99491b637540a7c74fb2a66c5c4287700ec357d8af86
+  languageName: node
+  linkType: hard
+
+"semver-parser@npm:^4.1.6":
+  version: 4.1.6
+  resolution: "semver-parser@npm:4.1.6"
+  checksum: 4feb613281aff76f0b3ba289c1d3d67e9329f8d91854c3ada164da5ed5bc1a7df3c7f31eea04457f7d148f5b24094a0511b66c01dea4a2378554e396b4e27a58
   languageName: node
   linkType: hard
 
