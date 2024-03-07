@@ -1,6 +1,11 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { DDEVConfig, DDEVDatabaseConfig, DDEVHooks } from "./config.js";
+import {
+  DDEVConfig,
+  DDEVDatabaseConfig,
+  DDEVHook,
+  DDEVHooks,
+} from "./config.js";
 import { typo3Installer } from "../../commands/app/install/typo3.js";
 import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
 import { shopware6Installer } from "../../commands/app/install/shopware6.js";
@@ -50,19 +55,29 @@ export class DDEVConfigBuilder {
   }
 
   private buildHooks(type: string): DDEVHooks | undefined {
+    const postPull: DDEVHook[] = [
+      { "exec-host": "ddev config --project-name $DDEV_PROJECT" },
+      { "exec-host": "ddev restart" },
+    ];
+
     if (type === "typo3") {
-      return {
-        "post-pull": [{ exec: "typo3 cache:flush" }],
-      };
+      postPull.push(
+        { exec: "typo3 cache:flush" },
+        { exec: "typo3 cache:warmup" },
+      );
     }
 
     if (type === "wordpress") {
-      return {
-        "post-pull": [{ exec: "wp cache flush" }],
-      };
+      postPull.push({ exec: "wp cache flush" });
     }
 
-    return undefined;
+    if (type === "shopware6") {
+      postPull.push({ exec: "bin/console cache:clear" });
+    }
+
+    return {
+      "post-pull": postPull,
+    };
   }
 
   private async determineDocumentRoot(inst: AppInstallation): Promise<string> {
