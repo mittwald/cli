@@ -1010,7 +1010,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app install nextcloud`
 
-Creates new Shopware 6 installation.
+Creates new Nextcloud installation.
 
 ```
 USAGE
@@ -1021,17 +1021,17 @@ FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 wait for your Shopware 6 to be ready.
+  -w, --wait                 wait for your Nextcloud to be ready.
       --admin-email=<value>  email address of your administrator user.
       --admin-pass=<value>   password of your administrator user.
       --admin-user=<value>   Username for your administrator user.
-      --host=<value>         host to initially configure your Shopware 6 installation with; needs to be created
+      --host=<value>         host to initially configure your Nextcloud installation with; needs to be created
                              separately.
-      --site-title=<value>   site title for your Shopware 6 installation.
-      --version=<value>      (required) [default: latest] version of Shopware 6 to be installed.
+      --site-title=<value>   site title for your Nextcloud installation.
+      --version=<value>      (required) [default: latest] version of Nextcloud to be installed.
 
 DESCRIPTION
-  Creates new Shopware 6 installation.
+  Creates new Nextcloud installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -1046,40 +1046,40 @@ FLAG DESCRIPTIONS
 
   --admin-email=<value>  email address of your administrator user.
 
-    email address that will be used for the first administrator user that is created during the Shopware 6 installation.
+    email address that will be used for the first administrator user that is created during the Nextcloud installation.
     If unspecified, email address of your mStudio account will be used. This email address can be changed after the
     installation is finished.
 
   --admin-pass=<value>  password of your administrator user.
 
-    The password that will be used for the first administrator user that is created during the Shopware 6 installation.
+    The password that will be used for the first administrator user that is created during the Nextcloud installation.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
   --admin-user=<value>  Username for your administrator user.
 
-    Username of the first administrator user which will be created during the Shopware 6 installation.
+    Username of the first administrator user which will be created during the Nextcloud installation.
     If unspecified, an adequate username will be generated.
     After the installation is finished, the username can be changed and additional administrator users can be created.
 
-  --host=<value>  host to initially configure your Shopware 6 installation with; needs to be created separately.
+  --host=<value>  host to initially configure your Nextcloud installation with; needs to be created separately.
 
-    Specify a host which will be used during the installation and as an initial host for the Shopware 6 configuration.
+    Specify a host which will be used during the installation and as an initial host for the Nextcloud configuration.
     If unspecified, the default host for the given project will be used.
-    This does not change the target of the used host and can be changed later by configuring the host and your Shopware
-    6 installation.
+    This does not change the target of the used host and can be changed later by configuring the host and your Nextcloud
+    installation.
 
-  --site-title=<value>  site title for your Shopware 6 installation.
+  --site-title=<value>  site title for your Nextcloud installation.
 
-    The site title for this Shopware 6 installation. It is also the title shown in the app overview in the mStudio and
+    The site title for this Nextcloud installation. It is also the title shown in the app overview in the mStudio and
     the CLI.
     If unspecified, the application name and the given project ID will be used. The title can be changed after the
     installation is finished
 
-  --version=<value>  version of Shopware 6 to be installed.
+  --version=<value>  version of Nextcloud to be installed.
 
-    Specify the version in which your Shopware 6 will be installed.
-    If unspecified, the Shopware 6 will be installed in the latest available version.
+    Specify the version in which your Nextcloud will be installed.
+    If unspecified, the Nextcloud will be installed in the latest available version.
 ```
 
 ## `mw app install shopware5`
