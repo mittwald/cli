@@ -10,10 +10,6 @@ function useSelectControls(
   length: number,
   onSelect: (x: number) => void,
 ) {
-  if (initial === -1) {
-    initial = undefined;
-  }
-
   const [value, setValue] = useState(initial);
   const [extraUsageHint, setExtraUsageHint] = useState(false);
 
@@ -50,7 +46,10 @@ export function ProcessSelect<TVal>({
   onSubmit: (_: TVal) => void;
 }) {
   const { value, extraUsageHint } = useSelectControls(
-    step.options.findIndex((o) => o.value === step.selected),
+    Math.max(
+      step.options.findIndex((o) => o.value === step.selected),
+      0,
+    ),
     step.options.length,
     (idx) => onSubmit(step.options[idx].value),
   );
