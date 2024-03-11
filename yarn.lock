@@ -2058,15 +2058,15 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.12, @oclif/plugin-warn-if-update-available@npm:^3.0.2":
-  version: 3.0.13
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.13"
+  version: 3.0.14
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.14"
   dependencies:
-    "@oclif/core": ^3.21.0
+    "@oclif/core": ^3.23.0
     chalk: ^5.3.0
     debug: ^4.1.0
     http-call: ^5.2.2
     lodash.template: ^4.5.0
-  checksum: 36767c08e60da906aef3848214993d8566ca6adae11fd1280994029ffbe092d675c3eb1c29dd5910465c03d66d3afc1750765ac9138f5784c7d90e4d600ddac6
+  checksum: bc03ebbcf6dd2d24205de8c1948791395987dae0855d57262d0eefcf4d835cf2d8c0f99cff0accc29ef0561c4dc1b270bfb4962ddf8a21fe061abe4eb3d8cd53
   languageName: node
   linkType: hard
 
