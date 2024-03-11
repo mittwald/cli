@@ -1,6 +1,8 @@
 import { Flags, ux } from "@oclif/core";
 import { BaseCommand } from "../../BaseCommand.js";
 import * as fs from "fs/promises";
+import { getTokenFilename } from "../../lib/auth/token.js";
+import { isNotFound } from "../../lib/fsutil.js";
 
 export default class Token extends BaseCommand {
   static description = "Authenticate using an API token";
@@ -28,18 +30,20 @@ export default class Token extends BaseCommand {
       type: "mask",
     });
 
-    await fs.mkdir(this.config.configDir, { recursive: true });
-    await fs.writeFile(this.getTokenFilename(), token, "utf-8");
+    const tokenFilename = getTokenFilename(this.config);
 
-    this.log("token saved to %o", this.getTokenFilename());
+    await fs.mkdir(this.config.configDir, { recursive: true });
+    await fs.writeFile(tokenFilename, token, "utf-8");
+
+    this.log("token saved to %o", tokenFilename);
   }
 
   private async tokenFileExists(): Promise<boolean> {
     try {
-      await fs.access(this.getTokenFilename());
+      await fs.access(getTokenFilename(this.config));
       return true;
     } catch (err) {
-      if (err instanceof Error && "code" in err && err.code === "ENOENT") {
+      if (isNotFound(err)) {
         return false;
       }
       throw err;
