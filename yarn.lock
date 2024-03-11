@@ -1530,15 +1530,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.13.1":
-  version: 4.13.1
-  resolution: "@mittwald/api-client-commons@npm:4.13.1"
+"@mittwald/api-client-commons@npm:^4.14.1":
+  version: 4.14.1
+  resolution: "@mittwald/api-client-commons@npm:4.14.1"
   dependencies:
     "@types/parse-path": ^7.0.3
     axios: ^1.6.7
     parse-path: ^7.0.0
     path-to-regexp: ^6.2.1
-    type-fest: ^4.10.3
+    type-fest: ^4.12.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.1.0
   peerDependenciesMeta:
@@ -1546,22 +1546,22 @@ __metadata:
       optional: true
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 3fafbb21c1fe4e2c50c32148e64fb4ddecd7fa0e8f1292ebb1dbafe9631578dd6b85ec31bd9c1aa3f4f9b10b0fbebd6a124a1160230b88a1ec35db418f6d1ac1
+  checksum: 8449c1999d63918923f0eebe62360cf60eeb268aff7351a7d0e18f901c711673639bdb1c0ca05fbee558c1fc6ba3c389bafc320d77b1ddbf9069b13058a25a2c
   languageName: node
   linkType: hard
 
 "@mittwald/api-client@npm:^4.9.0":
-  version: 4.13.1
-  resolution: "@mittwald/api-client@npm:4.13.1"
+  version: 4.14.1
+  resolution: "@mittwald/api-client@npm:4.14.1"
   dependencies:
-    "@mittwald/api-client-commons": ^4.13.1
+    "@mittwald/api-client-commons": ^4.14.1
     browser-or-node: ^3.0.0-pre.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.3.12
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 61aa53c8c610d3d5bc0ea7d04d738692ede19473e9847f6a7da138db9bb3e7db23e45fec60a2c7470f7e0ac3f7982c6d5c78264fb6d4a5976f17cbdb002d99c1
+  checksum: b33c8c147c340030d8f4dd95da71de24c08f88127547c86049f0f46abbeb2efe01e122eeca8eb3b888832054d507ec79b7743a186b0f852ce84b403d8281db60
   languageName: node
   linkType: hard
 
@@ -10870,7 +10870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.10.3, type-fest@npm:^4.6.0":
+"type-fest@npm:^4.12.0, type-fest@npm:^4.6.0":
   version: 4.12.0
   resolution: "type-fest@npm:4.12.0"
   checksum: 3731d4c7a690462d7f2280b33231d0ee720c7b01d68aff0433ab41ef9cb4fe38717f28c8c59bad7c3514362892f0cf9cdd59609a829f7a8df09db5d1218caac1
