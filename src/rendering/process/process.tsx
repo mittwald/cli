@@ -27,11 +27,19 @@ export type ProcessStepInput = {
   value?: string;
 };
 
+export type ProcessStepSelect = {
+  type: "select";
+  title: ReactNode;
+  options: ReactNode[];
+  selected?: number;
+};
+
 export type ProcessStep =
   | ProcessStepInfo
   | ProcessStepRunnable
   | ProcessStepConfirm
-  | ProcessStepInput;
+  | ProcessStepInput
+  | ProcessStepSelect;
 
 export type CleanupFunction = {
   title: ReactNode;
@@ -105,6 +113,7 @@ export interface ProcessRenderer {
   addInfo(title: ReactElement): void;
   addConfirmation(question: ReactElement): Promise<boolean>;
   addInput(question: ReactNode, mask?: boolean): Promise<string>;
+  addSelect(question: ReactNode, options: ReactNode[]): Promise<number>;
   addCleanup(title: ReactNode, fn: () => Promise<unknown>): void;
 
   complete(summary: ReactElement): Promise<void>;

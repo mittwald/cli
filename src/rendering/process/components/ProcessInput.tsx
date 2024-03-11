@@ -4,13 +4,7 @@ import { ProcessStateIcon } from "./ProcessStateIcon.js";
 import { ProcessState } from "./ProcessState.js";
 import { Box, Text, useStdin } from "ink";
 import TextInput from "ink-text-input";
-
-const InteractiveInputDisabled = () => (
-  <Text color="red">
-    interactive input required; inspect this command's --help page to learn how
-    to pass the required input non-interactively.
-  </Text>
-);
+import { InteractiveInputDisabled } from "./InteractiveInputDisabled.js";
 
 export const ProcessInput: React.FC<{
   step: ProcessStepInput;

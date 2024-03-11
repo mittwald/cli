@@ -10,6 +10,7 @@ import { Box, render, Text } from "ink";
 import { ProcessState } from "./components/ProcessState.js";
 import { ProcessConfirmation } from "./components/ProcessConfirmation.js";
 import { ProcessInput } from "./components/ProcessInput.js";
+import { ProcessSelect } from "./components/ProcessSelect.js";
 
 export class FancyProcessRenderer implements ProcessRenderer {
   private readonly title: string;
@@ -107,6 +108,42 @@ export class FancyProcessRenderer implements ProcessRenderer {
 
       const renderHandle = render(
         <ProcessInput step={state} onSubmit={onInput} />,
+      );
+    });
+  }
+
+  public addSelect(
+    question: React.ReactNode,
+    options: React.ReactNode[],
+  ): Promise<number> {
+    this.start();
+
+    if (this.currentHandler !== null) {
+      this.currentHandler.complete();
+    }
+
+    const state: ProcessStep = {
+      type: "select",
+      title: question,
+      options,
+      selected: undefined,
+    };
+
+    return new Promise<number>((res) => {
+      const onSelect = (selected: number) => {
+        res(selected);
+        state.selected = selected;
+        if (renderHandle) {
+          console.log("rerender: " + JSON.stringify(state));
+          renderHandle.rerender(
+            <ProcessSelect step={state} onSubmit={onSelect} />,
+          );
+          renderHandle.unmount();
+        }
+      };
+
+      const renderHandle = render(
+        <ProcessSelect step={state} onSubmit={onSelect} />,
       );
     });
   }
