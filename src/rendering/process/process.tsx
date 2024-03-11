@@ -27,11 +27,11 @@ export type ProcessStepInput = {
   value?: string;
 };
 
-export type ProcessStepSelect = {
+export type ProcessStepSelect<TVal> = {
   type: "select";
   title: ReactNode;
-  options: ReactNode[];
-  selected?: number;
+  options: { value: TVal; label: ReactNode }[];
+  selected?: TVal;
 };
 
 export type ProcessStep =
@@ -39,7 +39,7 @@ export type ProcessStep =
   | ProcessStepRunnable
   | ProcessStepConfirm
   | ProcessStepInput
-  | ProcessStepSelect;
+  | ProcessStepSelect<unknown>;
 
 export type CleanupFunction = {
   title: ReactNode;
@@ -113,7 +113,10 @@ export interface ProcessRenderer {
   addInfo(title: ReactElement): void;
   addConfirmation(question: ReactElement): Promise<boolean>;
   addInput(question: ReactNode, mask?: boolean): Promise<string>;
-  addSelect(question: ReactNode, options: ReactNode[]): Promise<number>;
+  addSelect<TVal>(
+    question: ReactNode,
+    options: { value: TVal; label: ReactNode }[],
+  ): Promise<TVal>;
   addCleanup(title: ReactNode, fn: () => Promise<unknown>): void;
 
   complete(summary: ReactElement): Promise<void>;

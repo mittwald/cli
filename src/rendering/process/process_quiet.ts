@@ -46,7 +46,7 @@ export class SilentProcessRenderer implements ProcessRenderer {
     throw new Error("no interactive input available in quiet mode");
   }
 
-  public addSelect(): Promise<number> {
+  public addSelect<TVal>(): Promise<TVal> {
     throw new Error("no interactive input available in quiet mode");
   }
 

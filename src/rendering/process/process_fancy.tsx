@@ -3,6 +3,7 @@ import {
   CleanupFunction,
   ProcessRenderer,
   ProcessStep,
+  ProcessStepSelect,
   RunnableHandler,
 } from "./process.js";
 import { Header } from "../react/components/Header.js";
@@ -112,29 +113,28 @@ export class FancyProcessRenderer implements ProcessRenderer {
     });
   }
 
-  public addSelect(
+  public addSelect<TVal>(
     question: React.ReactNode,
-    options: React.ReactNode[],
-  ): Promise<number> {
+    options: { value: TVal; label: React.ReactNode }[],
+  ): Promise<TVal> {
     this.start();
 
     if (this.currentHandler !== null) {
       this.currentHandler.complete();
     }
 
-    const state: ProcessStep = {
+    const state: ProcessStepSelect<TVal> = {
       type: "select",
       title: question,
       options,
       selected: undefined,
     };
 
-    return new Promise<number>((res) => {
-      const onSelect = (selected: number) => {
+    return new Promise<TVal>((res) => {
+      const onSelect = (selected: TVal) => {
         res(selected);
         state.selected = selected;
         if (renderHandle) {
-          console.log("rerender: " + JSON.stringify(state));
           renderHandle.rerender(
             <ProcessSelect step={state} onSubmit={onSelect} />,
           );

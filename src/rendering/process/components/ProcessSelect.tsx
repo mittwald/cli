@@ -5,11 +5,15 @@ import { ProcessState } from "./ProcessState.js";
 import { Box, Text, useInput, useStdin } from "ink";
 import { InteractiveInputDisabled } from "./InteractiveInputDisabled.js";
 
-const useSelectControls = (
+function useSelectControls(
   initial: number | undefined,
   length: number,
   onSelect: (x: number) => void,
-) => {
+) {
+  if (initial === -1) {
+    initial = undefined;
+  }
+
   const [value, setValue] = useState(initial);
   const [extraUsageHint, setExtraUsageHint] = useState(false);
 
@@ -36,16 +40,19 @@ const useSelectControls = (
     value,
     extraUsageHint,
   };
-};
+}
 
-export const ProcessSelect: React.FC<{
-  step: ProcessStepSelect;
-  onSubmit: (_: number) => void;
-}> = ({ step, onSubmit }) => {
+export function ProcessSelect<TVal>({
+  step,
+  onSubmit,
+}: {
+  step: ProcessStepSelect<TVal>;
+  onSubmit: (_: TVal) => void;
+}) {
   const { value, extraUsageHint } = useSelectControls(
-    step.selected,
+    step.options.findIndex((o) => o.value === step.selected),
     step.options.length,
-    onSubmit,
+    (idx) => onSubmit(step.options[idx].value),
   );
   const { isRawModeSupported } = useStdin();
 
@@ -72,7 +79,7 @@ export const ProcessSelect: React.FC<{
             <SelectOption
               key={index}
               selected={index === value}
-              label={option}
+              label={option.label}
             />
           ))}
         </Box>
@@ -81,7 +88,7 @@ export const ProcessSelect: React.FC<{
   }
 
   return <ProcessState step={step} />;
-};
+}
 
 function SelectUsageHint({ extraHint }: { extraHint: boolean }) {
   return (
