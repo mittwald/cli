@@ -1,5 +1,4 @@
 import { Box, BoxProps, Text } from "ink";
-import Link from "ink-link";
 import { FC } from "react";
 import {
   FailedFlagValidationError,
@@ -10,6 +9,7 @@ import {
   AxiosResponseHeaders,
 } from "@mittwald/api-client-commons";
 import { RawAxiosResponseHeaders } from "axios";
+import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 
 const color = "red";
 const issueURL = "https://github.com/mittwald/cli/issues/new";
@@ -55,8 +55,7 @@ const GenericError: FC<{ err: Error; withStack: boolean }> = ({
           <Text color={color}>{err.toString()}</Text>
         </Box>
         <Text color={color}>
-          If you believe this to be a bug, please open an issue at{" "}
-          <Link url={issueURL}>{issueURL}</Link>.
+          If you believe this to be a bug, please open an issue at {issueURL}.
         </Text>
       </Box>
 
@@ -201,6 +200,8 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
     return <InvalidArgsError err={err} />;
   } else if (err instanceof ApiClientError) {
     return <ApiError err={err} withStack withHTTPMessages="body" />;
+  } else if (err instanceof InteractiveInputRequiredError) {
+    return <GenericError err={err} withStack={false} />;
   } else if (err instanceof Error) {
     return <GenericError err={err} withStack />;
   }

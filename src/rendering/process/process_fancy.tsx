@@ -130,7 +130,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
       selected: undefined,
     };
 
-    return new Promise<TVal>((res) => {
+    return new Promise<TVal>((res, rej) => {
       const onSelect = (selected: TVal) => {
         res(selected);
         state.selected = selected;
@@ -141,9 +141,15 @@ export class FancyProcessRenderer implements ProcessRenderer {
           renderHandle.unmount();
         }
       };
+      const onError = (err: unknown) => {
+        if (renderHandle) {
+          renderHandle.unmount();
+        }
+        rej(err);
+      };
 
       const renderHandle = render(
-        <ProcessSelect step={state} onSubmit={onSelect} />,
+        <ProcessSelect step={state} onSubmit={onSelect} onError={onError} />,
       );
     });
   }

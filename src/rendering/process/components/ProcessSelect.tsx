@@ -1,17 +1,26 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { ProcessStepSelect } from "../process.js";
 import { ProcessStateIcon } from "./ProcessStateIcon.js";
 import { ProcessState } from "./ProcessState.js";
 import { Box, Text, useInput, useStdin } from "ink";
 import { InteractiveInputDisabled } from "./InteractiveInputDisabled.js";
+import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 
 function useSelectControls(
   initial: number | undefined,
   length: number,
   onSelect: (x: number) => void,
 ) {
+  const { isRawModeSupported } = useStdin();
   const [value, setValue] = useState(initial);
   const [extraUsageHint, setExtraUsageHint] = useState(false);
+
+  if (!isRawModeSupported) {
+    return {
+      value: undefined,
+      extraUsageHint: false,
+    };
+  }
 
   useInput((_, key) => {
     if (key.return) {
@@ -41,9 +50,11 @@ function useSelectControls(
 export function ProcessSelect<TVal>({
   step,
   onSubmit,
+  onError,
 }: {
   step: ProcessStepSelect<TVal>;
   onSubmit: (_: TVal) => void;
+  onError?: (err: unknown) => void;
 }) {
   const { value, extraUsageHint } = useSelectControls(
     Math.max(
@@ -57,11 +68,18 @@ export function ProcessSelect<TVal>({
 
   if (step.selected === undefined) {
     if (!isRawModeSupported) {
+      useEffect(() => {
+        onError && onError(new InteractiveInputRequiredError());
+      });
       return (
-        <Box marginX={2}>
-          <ProcessStateIcon step={step} />
-          <Text>{step.title}: </Text>
-          <InteractiveInputDisabled />
+        <Box flexDirection="column">
+          <Box marginX={2}>
+            <ProcessStateIcon step={step} />
+            <Text>{step.title}: </Text>
+          </Box>
+          <Box marginX={8}>
+            <InteractiveInputDisabled />
+          </Box>
         </Box>
       );
     }
