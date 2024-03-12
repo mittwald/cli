@@ -5,7 +5,7 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/process/process_flags.js";
-import { mkdir, writeFile } from "fs/promises";
+import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { DDEVConfigBuilder } from "../../lib/ddev/config_builder.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
@@ -23,6 +23,9 @@ import { promisify } from "util";
 import { compareSemVer } from "semver-parser";
 import { assertStatus, type MittwaldAPIV2 } from "@mittwald/api-client";
 import { Text } from "ink";
+import { readApiToken } from "../../lib/auth/token.js";
+import { isNotFound } from "../../lib/fsutil.js";
+import { dump, load } from "js-yaml";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
@@ -73,6 +76,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     const ddevVersion = await this.determineDDEVVersion(r);
     const appInstallation = await this.getAppInstallation(r, appInstallationId);
     const databaseId = await this.determineDatabaseId(r, appInstallation);
+    await this.writeAuthConfiguration(r);
     const config = await this.writeMittwaldConfiguration(
       r,
       appInstallationId,
@@ -220,6 +224,50 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
         label: "no database",
       },
     ]);
+  }
+
+  /**
+   * This steps writes the users API token to the local DDEV configuration file.
+   * This is necessary to authenticate the DDEV project with the mittwald API.
+   *
+   * The token is written to the `web_environment` section of the
+   * `config.local.yaml`, which _should_ be safe to store credentials in, as it
+   * is in DDEV's default `.gitignore` file.
+   */
+  private async writeAuthConfiguration(r: ProcessRenderer) {
+    // NOTE that config.local.yaml is in DDEV's default .gitignore file, so
+    // it *should* be safe to store credentials in there.
+    const configFile = path.join(".ddev", "config.local.yaml");
+    const token = await readApiToken(this.config);
+
+    await r.runStep("writing local-only DDEV configuration", async () => {
+      try {
+        const existing = await readFile(configFile, { encoding: "utf-8" });
+        const parsed = load(existing) as Partial<DDEVConfig>;
+
+        const alreadyContainsAPIToken = (parsed.web_environment ?? []).some(
+          (e) => e.startsWith("MITTWALD_API_TOKEN="),
+        );
+        if (!alreadyContainsAPIToken) {
+          parsed.web_environment = [
+            ...(parsed.web_environment ?? []),
+            `MITTWALD_API_TOKEN=${token}`,
+          ];
+          await writeContentsToFile(configFile, dump(parsed));
+        }
+      } catch (err) {
+        if (isNotFound(err)) {
+          const config: Partial<DDEVConfig> = {
+            web_environment: [`MITTWALD_API_TOKEN=${token}`],
+          };
+
+          await writeContentsToFile(configFile, dump(config));
+          return;
+        } else {
+          throw err;
+        }
+      }
+    });
   }
 
   private async writeMittwaldConfiguration(
