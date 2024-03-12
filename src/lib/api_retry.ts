@@ -5,11 +5,20 @@ import axiosRetry from "axios-retry";
 const d = debug("mw:api-retry");
 
 export function configureAxiosRetry(axios: AxiosInstance) {
+  let shouldRetryAccessDenied = false;
+
   axios.interceptors.request.use((config) => {
     return {
       ...config,
       validateStatus: (status) => status < 300,
     };
+  });
+
+  axios.interceptors.request.use((config) => {
+    if (config.method?.toLowerCase() === "post") {
+      shouldRetryAccessDenied = true;
+    }
+    return config;
   });
 
   axiosRetry(axios, {
@@ -30,7 +39,7 @@ export function configureAxiosRetry(axios: AxiosInstance) {
       const isSafeRequest = error.config?.method?.toLowerCase() === "get";
       const isAccessDenied = error.response?.status === 403;
 
-      return isSafeRequest && isAccessDenied;
+      return isSafeRequest && isAccessDenied && shouldRetryAccessDenied;
     },
   });
 }
