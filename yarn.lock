@@ -5159,9 +5159,9 @@ __metadata:
   linkType: hard
 
 "date-fns@npm:^3.2.0":
-  version: 3.3.1
-  resolution: "date-fns@npm:3.3.1"
-  checksum: 6245e93a47de28ac96dffd4d62877f86e6b64854860ae1e00a4f83174d80bc8e59bd1259cf265223fb2ddce5c8e586dc9cc210f0d052faba2f7660e265877283
+  version: 3.4.0
+  resolution: "date-fns@npm:3.4.0"
+  checksum: 46aea6573558f65b2a64471946b34f552e120bd4b2fdd02c2a900b9db4dc69d85b2af0838723297608d4bd723a958b0d65983a9e4e421e3090d791a8bafc99c1
   languageName: node
   linkType: hard
 
