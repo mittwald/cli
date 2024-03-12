@@ -5,28 +5,30 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/process/process_flags.js";
-import { mkdir, writeFile } from "fs/promises";
+import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { DDEVConfigBuilder } from "../../lib/ddev/config_builder.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { Flags } from "@oclif/core";
 import { DDEVInitSuccess } from "../../rendering/react/components/DDEV/DDEVInitSuccess.js";
 import { DDEVConfig, ddevConfigToFlags } from "../../lib/ddev/config.js";
-import { hasBinary } from "../../lib/hasbin.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { renderDDEVConfig } from "../../lib/ddev/config_render.js";
 import { loadDDEVConfig } from "../../lib/ddev/config_loader.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { ddevFlags } from "../../lib/ddev/flags.js";
-import { exec } from "child_process";
-import { promisify } from "util";
 import { compareSemVer } from "semver-parser";
 import { assertStatus, type MittwaldAPIV2 } from "@mittwald/api-client";
-import { Text } from "ink";
+import { readApiToken } from "../../lib/auth/token.js";
+import { isNotFound } from "../../lib/fsutil.js";
+import { dump, load } from "js-yaml";
+import { determineDDEVDatabaseId } from "../../lib/ddev/init_database.js";
+import {
+  assertDDEVIsInstalled,
+  determineDDEVVersion,
+} from "../../lib/ddev/init_assert.js";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
-
-const execAsync = promisify(exec);
 
 export class Init extends ExecRenderBaseCommand<typeof Init, void> {
   static summary = "Initialize a new ddev project in the current directory.";
@@ -70,9 +72,15 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
 
     await assertDDEVIsInstalled(r);
 
-    const ddevVersion = await this.determineDDEVVersion(r);
+    const ddevVersion = await determineDDEVVersion(r);
     const appInstallation = await this.getAppInstallation(r, appInstallationId);
-    const databaseId = await this.determineDatabaseId(r, appInstallation);
+    const databaseId = await determineDDEVDatabaseId(
+      r,
+      this.apiClient,
+      this.flags,
+      appInstallation,
+    );
+    await this.writeAuthConfiguration(r);
     const config = await this.writeMittwaldConfiguration(
       r,
       appInstallationId,
@@ -96,15 +104,6 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       "auth",
       "ssh",
     ]);
-  }
-
-  private async determineDDEVVersion(r: ProcessRenderer): Promise<string> {
-    const { stdout } = await execAsync("ddev --version");
-    const version = stdout.trim().replace(/^ddev version +/, "");
-
-    r.addInfo(<InfoDDEVVersion version={version} />);
-
-    return version;
   }
 
   private async getAppInstallation(
@@ -166,60 +165,48 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     return await r.addInput("Enter the project name", false);
   }
 
-  private async determineDatabaseId(
-    r: ProcessRenderer,
-    appInstallation: AppInstallation,
-  ): Promise<string | undefined> {
-    let databaseId: string | undefined = this.flags["database-id"];
-    const withoutDatabase = this.flags["without-database"];
+  /**
+   * This steps writes the users API token to the local DDEV configuration file.
+   * This is necessary to authenticate the DDEV project with the mittwald API.
+   *
+   * The token is written to the `web_environment` section of the
+   * `config.local.yaml`, which _should_ be safe to store credentials in, as it
+   * is in DDEV's default `.gitignore` file.
+   */
+  private async writeAuthConfiguration(r: ProcessRenderer) {
+    // NOTE that config.local.yaml is in DDEV's default .gitignore file, so
+    // it *should* be safe to store credentials in there.
+    const configFile = path.join(".ddev", "config.local.yaml");
+    const token = await readApiToken(this.config);
 
-    if (withoutDatabase) {
-      return undefined;
-    }
+    await r.runStep("writing local-only DDEV configuration", async () => {
+      try {
+        const existing = await readFile(configFile, { encoding: "utf-8" });
+        const parsed = load(existing) as Partial<DDEVConfig>;
 
-    if (databaseId === undefined) {
-      databaseId = (appInstallation.linkedDatabases ?? []).find(
-        (db) => db.purpose === "primary",
-      )?.databaseId;
-    }
+        const alreadyContainsAPIToken = (parsed.web_environment ?? []).some(
+          (e) => e.startsWith("MITTWALD_API_TOKEN="),
+        );
+        if (!alreadyContainsAPIToken) {
+          parsed.web_environment = [
+            ...(parsed.web_environment ?? []),
+            `MITTWALD_API_TOKEN=${token}`,
+          ];
+          await writeContentsToFile(configFile, dump(parsed));
+        }
+      } catch (err) {
+        if (isNotFound(err)) {
+          const config: Partial<DDEVConfig> = {
+            web_environment: [`MITTWALD_API_TOKEN=${token}`],
+          };
 
-    if (databaseId !== undefined) {
-      const mysqlDatabaseResponse =
-        await this.apiClient.database.getMysqlDatabase({
-          mysqlDatabaseId: databaseId,
-        });
-      assertStatus(mysqlDatabaseResponse, 200);
-
-      r.addInfo(<InfoDatabase name={mysqlDatabaseResponse.data.name} />);
-      return mysqlDatabaseResponse.data.name;
-    }
-
-    return await this.promptDatabaseFromUser(r, appInstallation);
-  }
-
-  private async promptDatabaseFromUser(
-    r: ProcessRenderer,
-    appInstallation: AppInstallation,
-  ): Promise<string | undefined> {
-    const { projectId } = appInstallation;
-    if (!projectId) {
-      throw new Error("app installation has no project ID");
-    }
-
-    const mysqlDatabaseResponse =
-      await this.apiClient.database.listMysqlDatabases({ projectId });
-    assertStatus(mysqlDatabaseResponse, 200);
-
-    return await r.addSelect("select the database to use", [
-      ...mysqlDatabaseResponse.data.map((db) => ({
-        value: db.name,
-        label: `${db.name} (${db.description})`,
-      })),
-      {
-        value: undefined,
-        label: "no database",
-      },
-    ]);
+          await writeContentsToFile(configFile, dump(config));
+          return;
+        } else {
+          throw err;
+        }
+      }
+    });
   }
 
   private async writeMittwaldConfiguration(
@@ -250,14 +237,6 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
   }
 }
 
-async function assertDDEVIsInstalled(r: ProcessRenderer): Promise<void> {
-  await r.runStep("check if DDEV is installed", async () => {
-    if (!(await hasBinary("ddev"))) {
-      throw new Error("this command requires DDEV to be installed");
-    }
-  });
-}
-
 async function writeContentsToFile(
   filename: string,
   data: string,
@@ -273,21 +252,5 @@ function InfoUsingExistingName({ name }: { name: string }) {
     <>
       using existing project name: <Value>{name}</Value>
     </>
-  );
-}
-
-function InfoDDEVVersion({ version }: { version: string }) {
-  return (
-    <>
-      detected DDEV version: <Value>{version}</Value>
-    </>
-  );
-}
-
-function InfoDatabase({ name }: { name: string }) {
-  return (
-    <Text>
-      using database: <Value>{name}</Value>
-    </Text>
   );
 }

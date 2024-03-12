@@ -1,14 +1,7 @@
 import { Flags } from "@oclif/core";
+import { InferredFlags } from "@oclif/core/lib/interfaces/index.js";
 
-export const ddevFlags = {
-  "override-type": Flags.string({
-    summary: "Override the type of the generated DDEV configuration",
-    default: "auto",
-    description:
-      "The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which is also the default) for automatic discovery." +
-      "\n\n" +
-      "See https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information",
-  }),
+const ddevDatabaseFlags = {
   "database-id": Flags.string({
     summary: "ID of the application database",
     description:
@@ -26,3 +19,17 @@ export const ddevFlags = {
     exclusive: ["database-id"],
   }),
 };
+
+export const ddevFlags = {
+  "override-type": Flags.string({
+    summary: "Override the type of the generated DDEV configuration",
+    default: "auto",
+    description:
+      "The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which is also the default) for automatic discovery." +
+      "\n\n" +
+      "See https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information",
+  }),
+  ...ddevDatabaseFlags,
+};
+
+export type DDEVDatabaseFlags = InferredFlags<typeof ddevDatabaseFlags>;

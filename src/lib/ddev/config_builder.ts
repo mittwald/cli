@@ -42,7 +42,6 @@ export class DDEVConfigBuilder {
     type = await this.determineProjectType(appInstallation, type);
 
     return {
-      override_config: true,
       type,
       webserver_type: "apache-fpm",
       php_version: this.determinePHPVersion(systemSoftwares),
