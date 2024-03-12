@@ -194,13 +194,13 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       return mysqlDatabaseResponse.data.name;
     }
 
-    return await this.queryDatabaseId(r, appInstallation);
+    return await this.promptDatabaseFromUser(r, appInstallation);
   }
 
-  private async queryDatabaseId(
+  private async promptDatabaseFromUser(
     r: ProcessRenderer,
     appInstallation: AppInstallation,
-  ): Promise<string> {
+  ): Promise<string | undefined> {
     const { projectId } = appInstallation;
     if (!projectId) {
       throw new Error("app installation has no project ID");
@@ -210,13 +210,16 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       await this.apiClient.database.listMysqlDatabases({ projectId });
     assertStatus(mysqlDatabaseResponse, 200);
 
-    return await r.addSelect(
-      "select the database to use",
-      mysqlDatabaseResponse.data.map((db) => ({
+    return await r.addSelect("select the database to use", [
+      ...mysqlDatabaseResponse.data.map((db) => ({
         value: db.name,
         label: `${db.name} (${db.description})`,
       })),
-    );
+      {
+        value: undefined,
+        label: "no database",
+      },
+    ]);
   }
 
   private async writeMittwaldConfiguration(
