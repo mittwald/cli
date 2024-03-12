@@ -32,6 +32,7 @@ export class DDEVConfigBuilder {
 
   public async build(
     appInstallationId: string,
+    databaseId: string | undefined,
     type: string,
   ): Promise<Partial<DDEVConfig>> {
     const appInstallation = await this.getAppInstallation(appInstallationId);
@@ -45,10 +46,11 @@ export class DDEVConfigBuilder {
       type,
       webserver_type: "apache-fpm",
       php_version: this.determinePHPVersion(systemSoftwares),
-      database: await this.determineDatabaseVersion(appInstallation),
+      database: await this.determineDatabaseVersion(databaseId),
       docroot: await this.determineDocumentRoot(appInstallation),
       web_environment: [
         `MITTWALD_APP_INSTALLATION_ID=${appInstallation.shortId}`,
+        `MITTWALD_DATABASE_ID=${databaseId ?? ""}`,
       ],
       hooks: this.buildHooks(type),
     };
@@ -125,21 +127,45 @@ export class DDEVConfigBuilder {
   }
 
   private async determineDatabaseVersion(
+    databaseId: string | undefined,
+  ): Promise<DDEVDatabaseConfig | undefined> {
+    if (!databaseId) {
+      return undefined;
+    }
+
+    const mysqlDatabase = await this.determineMySQLDatabaseVersion(databaseId);
+    if (mysqlDatabase) {
+      return mysqlDatabase;
+    }
+
+    return undefined;
+  }
+
+  private async determineMySQLDatabaseVersion(
+    mysqlDatabaseId: string,
+  ): Promise<DDEVDatabaseConfig | undefined> {
+    const r = await this.apiClient.database.getMysqlDatabase({
+      mysqlDatabaseId,
+    });
+
+    if (r.status !== 200) {
+      return undefined;
+    }
+
+    return {
+      type: "mysql",
+      version: r.data.version,
+    };
+  }
+
+  private async determineDatabaseVersionFromInstallation(
     inst: AppInstallation,
   ): Promise<DDEVDatabaseConfig | undefined> {
     const isPrimary = (db: LinkedDatabase) => db.purpose === "primary";
     const primary = (inst.linkedDatabases || []).find(isPrimary);
 
     if (primary?.kind === "mysql") {
-      const r = await this.apiClient.database.getMysqlDatabase({
-        mysqlDatabaseId: primary.databaseId,
-      });
-      assertStatus(r, 200);
-
-      return {
-        type: "mysql",
-        version: r.data.version,
-      };
+      return this.determineMySQLDatabaseVersion(primary.databaseId);
     }
 
     return undefined;

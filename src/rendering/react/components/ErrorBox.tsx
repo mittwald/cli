@@ -1,5 +1,4 @@
 import { Box, BoxProps, Text } from "ink";
-import Link from "ink-link";
 import { FC } from "react";
 import {
   FailedFlagValidationError,
@@ -10,6 +9,7 @@ import {
   AxiosResponseHeaders,
 } from "@mittwald/api-client-commons";
 import { RawAxiosResponseHeaders } from "axios";
+import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 
 const color = "red";
 const issueURL = "https://github.com/mittwald/cli/issues/new";
@@ -38,15 +38,17 @@ const ErrorStack: FC<{ err: Error }> = ({ err }) => {
   );
 };
 
-const GenericError: FC<{ err: Error; withStack: boolean }> = ({
-  err,
-  withStack,
-}) => {
+const GenericError: FC<{
+  err: Error;
+  withStack: boolean;
+  withIssue?: boolean;
+  title?: string;
+}> = ({ err, withStack, withIssue = true, title = "Error" }) => {
   return (
     <>
       <Box {...boxProps} borderColor={color}>
         <Text color={color} bold underline>
-          ERROR
+          {title.toUpperCase()}
         </Text>
         <Text color={color}>
           An error occurred while executing this command:
@@ -54,10 +56,11 @@ const GenericError: FC<{ err: Error; withStack: boolean }> = ({
         <Box marginX={2}>
           <Text color={color}>{err.toString()}</Text>
         </Box>
-        <Text color={color}>
-          If you believe this to be a bug, please open an issue at{" "}
-          <Link url={issueURL}>{issueURL}</Link>.
-        </Text>
+        {withIssue ? (
+          <Text color={color}>
+            If you believe this to be a bug, please open an issue at {issueURL}.
+          </Text>
+        ) : undefined}
       </Box>
 
       {withStack && "stack" in err ? <ErrorStack err={err} /> : undefined}
@@ -201,6 +204,15 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
     return <InvalidArgsError err={err} />;
   } else if (err instanceof ApiClientError) {
     return <ApiError err={err} withStack withHTTPMessages="body" />;
+  } else if (err instanceof InteractiveInputRequiredError) {
+    return (
+      <GenericError
+        err={err}
+        withStack={false}
+        withIssue={false}
+        title="Input required"
+      />
+    );
   } else if (err instanceof Error) {
     return <GenericError err={err} withStack />;
   }

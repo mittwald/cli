@@ -21,6 +21,10 @@ import { ddevFlags } from "../../lib/ddev/flags.js";
 import { exec } from "child_process";
 import { promisify } from "util";
 import { compareSemVer } from "semver-parser";
+import { assertStatus, type MittwaldAPIV2 } from "@mittwald/api-client";
+import { Text } from "ink";
+
+type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
 const execAsync = promisify(exec);
 
@@ -67,7 +71,13 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     await assertDDEVIsInstalled(r);
 
     const ddevVersion = await this.determineDDEVVersion(r);
-    const config = await this.writeMittwaldConfiguration(r, appInstallationId);
+    const appInstallation = await this.getAppInstallation(r, appInstallationId);
+    const databaseId = await this.determineDatabaseId(r, appInstallation);
+    const config = await this.writeMittwaldConfiguration(
+      r,
+      appInstallationId,
+      databaseId,
+    );
     const projectName = await this.determineProjectName(r);
 
     await this.initializeDDEVProject(r, config, projectName, ddevVersion);
@@ -97,6 +107,20 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     return version;
   }
 
+  private async getAppInstallation(
+    r: ProcessRenderer,
+    appInstallationId: string,
+  ): Promise<AppInstallation> {
+    return r.runStep("fetching app installation", async () => {
+      const r = await this.apiClient.app.getAppinstallation({
+        appInstallationId,
+      });
+      assertStatus(r, 200);
+
+      return r.data;
+    });
+  }
+
   private async installMittwaldPlugin(r: ProcessRenderer) {
     const { "override-mittwald-plugin": mittwaldPlugin } = this.flags;
     await spawnInProcess(r, "installing mittwald plugin", "ddev", [
@@ -122,6 +146,8 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       ddevFlags.push("--create-docroot");
     }
 
+    this.debug("running %o %o", "ddev", ddevFlags);
+
     await spawnInProcess(r, "initializing DDEV project", "ddev", ddevFlags);
   }
 
@@ -140,16 +166,75 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     return await r.addInput("Enter the project name", false);
   }
 
+  private async determineDatabaseId(
+    r: ProcessRenderer,
+    appInstallation: AppInstallation,
+  ): Promise<string | undefined> {
+    let databaseId: string | undefined = this.flags["database-id"];
+    const withoutDatabase = this.flags["without-database"];
+
+    if (withoutDatabase) {
+      return undefined;
+    }
+
+    if (databaseId === undefined) {
+      databaseId = (appInstallation.linkedDatabases ?? []).find(
+        (db) => db.purpose === "primary",
+      )?.databaseId;
+    }
+
+    if (databaseId !== undefined) {
+      const mysqlDatabaseResponse =
+        await this.apiClient.database.getMysqlDatabase({
+          mysqlDatabaseId: databaseId,
+        });
+      assertStatus(mysqlDatabaseResponse, 200);
+
+      r.addInfo(<InfoDatabase name={mysqlDatabaseResponse.data.name} />);
+      return mysqlDatabaseResponse.data.name;
+    }
+
+    return await this.promptDatabaseFromUser(r, appInstallation);
+  }
+
+  private async promptDatabaseFromUser(
+    r: ProcessRenderer,
+    appInstallation: AppInstallation,
+  ): Promise<string | undefined> {
+    const { projectId } = appInstallation;
+    if (!projectId) {
+      throw new Error("app installation has no project ID");
+    }
+
+    const mysqlDatabaseResponse =
+      await this.apiClient.database.listMysqlDatabases({ projectId });
+    assertStatus(mysqlDatabaseResponse, 200);
+
+    return await r.addSelect("select the database to use", [
+      ...mysqlDatabaseResponse.data.map((db) => ({
+        value: db.name,
+        label: `${db.name} (${db.description})`,
+      })),
+      {
+        value: undefined,
+        label: "no database",
+      },
+    ]);
+  }
+
   private async writeMittwaldConfiguration(
     r: ProcessRenderer,
     appInstallationId: string,
+    databaseId: string | undefined,
   ) {
+    const builder = new DDEVConfigBuilder(this.apiClient);
+
     return await r.runStep(
       "creating mittwald-specific DDEV configuration",
       async () => {
-        const builder = new DDEVConfigBuilder(this.apiClient);
         const config = await builder.build(
           appInstallationId,
+          databaseId,
           this.flags["override-type"],
         );
         const configFile = path.join(".ddev", "config.mittwald.yaml");
@@ -196,5 +281,13 @@ function InfoDDEVVersion({ version }: { version: string }) {
     <>
       detected DDEV version: <Value>{version}</Value>
     </>
+  );
+}
+
+function InfoDatabase({ name }: { name: string }) {
+  return (
+    <Text>
+      using database: <Value>{name}</Value>
+    </Text>
   );
 }
