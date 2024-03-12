@@ -5,9 +5,13 @@ const d = debug("mw:api-consistency");
 
 export function configureConsistencyHandling(axios: AxiosInstance) {
   let lastEventId: string | undefined = undefined;
+  let mutatedPaths: string[] | undefined = undefined;
 
   axios.interceptors.request.use((config) => {
-    if (lastEventId !== undefined) {
+    if (
+      lastEventId !== undefined &&
+      mutatedPaths?.some((path) => config.url?.startsWith(path))
+    ) {
       d("setting if-event-reached to %o", lastEventId);
       config.headers["if-event-reached"] = lastEventId;
     }
@@ -22,11 +26,18 @@ export function configureConsistencyHandling(axios: AxiosInstance) {
     const headers = response.headers as AxiosHeaders;
 
     if (headers.has("etag") && isMutatingRequest) {
-      d(
-        "setting last event id to %o after mutating request",
-        headers.get("etag"),
-      );
       lastEventId = headers.get("etag") as string;
+
+      const mutatedPath = response.config?.url;
+      if (mutatedPath !== undefined) {
+        mutatedPaths = [mutatedPath];
+      }
+
+      d(
+        "setting last event id to %o after mutating request for path %o",
+        headers["etag"],
+        mutatedPath,
+      );
     }
     return response;
   });

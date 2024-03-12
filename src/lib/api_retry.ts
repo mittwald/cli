@@ -24,7 +24,10 @@ export function configureAxiosRetry(axios: AxiosInstance) {
   axiosRetry(axios, {
     retries: 10,
     retryDelay: axiosRetry.exponentialDelay,
-    onRetry(count, error) {
+    onRetry(count, error, config) {
+      if (error.response?.status === 412 && config.headers !== undefined) {
+        delete config.headers["if-event-reached"];
+      }
       d("retrying request after %d attempts; error: %o", count, error.message);
     },
     retryCondition(error) {
@@ -37,7 +40,12 @@ export function configureAxiosRetry(axios: AxiosInstance) {
       }
 
       const isSafeRequest = error.config?.method?.toLowerCase() === "get";
+      const isPreconditionFailed = error.response?.status === 412;
       const isAccessDenied = error.response?.status === 403;
+
+      if (isPreconditionFailed) {
+        return true;
+      }
 
       return isSafeRequest && isAccessDenied && shouldRetryAccessDenied;
     },
