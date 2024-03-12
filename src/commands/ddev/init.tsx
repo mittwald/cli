@@ -146,6 +146,8 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       ddevFlags.push("--create-docroot");
     }
 
+    this.debug("running %o %o", "ddev", ddevFlags);
+
     await spawnInProcess(r, "initializing DDEV project", "ddev", ddevFlags);
   }
 
