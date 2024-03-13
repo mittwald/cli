@@ -1,6 +1,7 @@
 import { Box } from "ink";
 import ErrorText from "./ErrorText.js";
 
+/** Render the stack trace of an error. */
 export default function ErrorStack({ err }: { err: Error }) {
   return (
     <Box marginX={2} marginY={1} flexDirection="column" rowGap={1}>

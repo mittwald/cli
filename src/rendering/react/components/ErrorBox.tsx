@@ -14,7 +14,6 @@ import APIError from "./Error/APIError.js";
 /**
  * Render an error to the terminal.
  *
- * @class
  * @param err The error to render. May be anything, although different errors
  *   will be rendered differently.
  */

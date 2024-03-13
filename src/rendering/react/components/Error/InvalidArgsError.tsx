@@ -2,6 +2,7 @@ import { RequiredArgsError } from "@oclif/core/lib/parser/errors.js";
 import { Text } from "ink";
 import ErrorBox from "./ErrorBox.js";
 
+/** Render an error for invalid command arguments. */
 export default function InvalidArgsError({ err }: { err: RequiredArgsError }) {
   const color = "yellow";
   return (

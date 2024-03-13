@@ -10,6 +10,7 @@ const defaultErrorBoxProps: BoxProps = {
   rowGap: 1,
 };
 
+/** A pre-styled box for displaying errors. */
 export default function ErrorBox(props: PropsWithChildren<BoxProps>) {
   return (
     <Box {...defaultErrorBoxProps} {...props}>

@@ -12,6 +12,10 @@ interface GenericErrorProps {
   title?: string;
 }
 
+/**
+ * Render a generic error to the terminal. This is used for errors that don't
+ * have a specific rendering function.
+ */
 export default function GenericError({
   err,
   withStack,

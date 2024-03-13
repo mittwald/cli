@@ -88,6 +88,11 @@ interface APIErrorProps {
   withHTTPMessages: "no" | "body" | "full";
 }
 
+/**
+ * Render an API client error to the terminal. In the case of an API client
+ * error, the error message will be displayed, as well as (when enabled) the
+ * request and response headers and body.
+ */
 export default function APIError({
   err,
   withStack,
