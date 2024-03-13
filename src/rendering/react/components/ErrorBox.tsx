@@ -1,5 +1,4 @@
-import { Box, Text } from "ink";
-import { FC } from "react";
+import React, { FC } from "react";
 import {
   FailedFlagValidationError,
   RequiredArgsError,
@@ -7,25 +6,10 @@ import {
 import { ApiClientError } from "@mittwald/api-client-commons";
 import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 import UnexpectedShortIDPassedError from "../../../lib/error/UnexpectedShortIDPassedError.js";
-import { defaultErrorBoxProps } from "./Error/common.js";
 import { GenericError } from "./Error/GenericError.js";
 import { ApiError } from "./Error/APIError.js";
 import { InvalidFlagsError } from "./Error/InvalidFlagsError.js";
-
-const InvalidArgsError: FC<{ err: RequiredArgsError }> = ({ err }) => {
-  const color = "yellow";
-  return (
-    <Box {...defaultErrorBoxProps} borderColor={color}>
-      <Text color={color} bold underline>
-        INVALID COMMAND ARGUMENTS
-      </Text>
-      <Text color={color}>
-        The arguments that you provided for this command were invalid.{" "}
-        {err.message}
-      </Text>
-    </Box>
-  );
-};
+import InvalidArgsError from "./Error/InvalidArgsError.js";
 
 /**
  * Render an error to the terminal.
