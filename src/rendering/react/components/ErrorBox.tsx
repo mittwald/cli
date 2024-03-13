@@ -34,6 +34,15 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
         title="Input required"
       />
     );
+  } else if (err instanceof UnexpectedShortIDPassedError) {
+    return (
+      <GenericError
+        err={err}
+        withStack={false}
+        withIssue={false}
+        title="Invalid input"
+      />
+    );
   } else if (err instanceof Error) {
     return <GenericError err={err} withStack />;
   }
