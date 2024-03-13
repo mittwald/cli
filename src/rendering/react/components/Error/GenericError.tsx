@@ -1,7 +1,9 @@
 import { Box } from "ink";
-import { defaultErrorBoxProps, issueURL } from "./common.js";
 import ErrorStack from "./ErrorStack.js";
 import ErrorText from "./ErrorText.js";
+import ErrorBox from "./ErrorBox.js";
+
+const issueURL = "https://github.com/mittwald/cli/issues/new";
 
 interface GenericErrorProps {
   err: Error;
@@ -18,7 +20,7 @@ export default function GenericError({
 }: GenericErrorProps) {
   return (
     <>
-      <Box {...defaultErrorBoxProps}>
+      <ErrorBox>
         <ErrorText bold underline>
           {title.toUpperCase()}
         </ErrorText>
@@ -31,7 +33,7 @@ export default function GenericError({
             If you believe this to be a bug, please open an issue at {issueURL}.
           </ErrorText>
         ) : undefined}
-      </Box>
+      </ErrorBox>
 
       {withStack && "stack" in err ? <ErrorStack err={err} /> : undefined}
     </>

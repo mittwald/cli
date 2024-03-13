@@ -1,4 +1,3 @@
-import { defaultErrorBoxProps } from "./common.js";
 import {
   ApiClientError,
   AxiosResponseHeaders,
@@ -7,6 +6,7 @@ import { Box, Text } from "ink";
 import { RawAxiosResponseHeaders } from "axios";
 import ErrorStack from "./ErrorStack.js";
 import ErrorText from "./ErrorText.js";
+import ErrorBox from "./ErrorBox.js";
 
 function RequestHeaders({ headers }: { headers: string }) {
   const lines = headers.trim().split("\r\n");
@@ -95,7 +95,7 @@ export default function APIError({
 }: APIErrorProps) {
   return (
     <>
-      <Box {...defaultErrorBoxProps}>
+      <ErrorBox>
         <ErrorText bold underline>
           API CLIENT ERROR
         </ErrorText>
@@ -104,7 +104,7 @@ export default function APIError({
         </ErrorText>
 
         <Text>{JSON.stringify(err.response?.data, undefined, 2)}</Text>
-      </Box>
+      </ErrorBox>
 
       {withHTTPMessages === "full" ? <HttpMessages err={err} /> : undefined}
       {withStack && "stack" in err ? <ErrorStack err={err} /> : undefined}

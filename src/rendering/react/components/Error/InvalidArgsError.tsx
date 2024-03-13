@@ -1,11 +1,11 @@
 import { RequiredArgsError } from "@oclif/core/lib/parser/errors.js";
-import { Box, Text } from "ink";
-import { defaultErrorBoxProps } from "./common.js";
+import { Text } from "ink";
+import ErrorBox from "./ErrorBox.js";
 
 export default function InvalidArgsError({ err }: { err: RequiredArgsError }) {
   const color = "yellow";
   return (
-    <Box {...defaultErrorBoxProps} borderColor={color}>
+    <ErrorBox borderColor={color}>
       <Text color={color} bold underline>
         INVALID COMMAND ARGUMENTS
       </Text>
@@ -13,6 +13,6 @@ export default function InvalidArgsError({ err }: { err: RequiredArgsError }) {
         The arguments that you provided for this command were invalid.{" "}
         {err.message}
       </Text>
-    </Box>
+    </ErrorBox>
   );
 }
