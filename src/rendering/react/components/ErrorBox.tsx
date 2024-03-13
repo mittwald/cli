@@ -10,6 +10,7 @@ import GenericError from "./Error/GenericError.js";
 import InvalidFlagsError from "./Error/InvalidFlagsError.js";
 import InvalidArgsError from "./Error/InvalidArgsError.js";
 import APIError from "./Error/APIError.js";
+import UnexpectedShortIDPassedErrorBox from "./Error/UnexpectedShortIDPassedErrorBox.js";
 
 /**
  * Render an error to the terminal.
@@ -34,14 +35,7 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
       />
     );
   } else if (err instanceof UnexpectedShortIDPassedError) {
-    return (
-      <GenericError
-        err={err}
-        withStack={false}
-        withIssue={false}
-        title="Invalid input"
-      />
-    );
+    return <UnexpectedShortIDPassedErrorBox err={err} />;
   } else if (err instanceof Error) {
     return <GenericError err={err} withStack />;
   }
