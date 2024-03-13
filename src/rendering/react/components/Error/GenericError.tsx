@@ -1,6 +1,7 @@
-import { Box, Text } from "ink";
-import { defaultErrorBoxProps, defaultErrorColor, issueURL } from "./common.js";
+import { Box } from "ink";
+import { defaultErrorBoxProps, issueURL } from "./common.js";
 import ErrorStack from "./ErrorStack.js";
+import ErrorText from "./ErrorText.js";
 
 interface GenericErrorProps {
   err: Error;
@@ -17,20 +18,18 @@ export default function GenericError({
 }: GenericErrorProps) {
   return (
     <>
-      <Box {...defaultErrorBoxProps} borderColor={defaultErrorColor}>
-        <Text color={defaultErrorColor} bold underline>
+      <Box {...defaultErrorBoxProps}>
+        <ErrorText bold underline>
           {title.toUpperCase()}
-        </Text>
-        <Text color={defaultErrorColor}>
-          An error occurred while executing this command:
-        </Text>
+        </ErrorText>
+        <ErrorText>An error occurred while executing this command:</ErrorText>
         <Box marginX={2}>
-          <Text color={defaultErrorColor}>{err.toString()}</Text>
+          <ErrorText>{err.toString()}</ErrorText>
         </Box>
         {withIssue ? (
-          <Text color={defaultErrorColor}>
+          <ErrorText>
             If you believe this to be a bug, please open an issue at {issueURL}.
-          </Text>
+          </ErrorText>
         ) : undefined}
       </Box>
 

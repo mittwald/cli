@@ -1,4 +1,4 @@
-import { defaultErrorBoxProps, defaultErrorColor } from "./common.js";
+import { defaultErrorBoxProps } from "./common.js";
 import {
   ApiClientError,
   AxiosResponseHeaders,
@@ -6,6 +6,7 @@ import {
 import { Box, Text } from "ink";
 import { RawAxiosResponseHeaders } from "axios";
 import ErrorStack from "./ErrorStack.js";
+import ErrorText from "./ErrorText.js";
 
 function RequestHeaders({ headers }: { headers: string }) {
   const lines = headers.trim().split("\r\n");
@@ -95,12 +96,12 @@ export default function APIError({
   return (
     <>
       <Box {...defaultErrorBoxProps}>
-        <Text color={defaultErrorColor} bold underline>
+        <ErrorText bold underline>
           API CLIENT ERROR
-        </Text>
-        <Text color={defaultErrorColor}>
+        </ErrorText>
+        <ErrorText>
           An error occurred while communicating with the API: {err.message}
-        </Text>
+        </ErrorText>
 
         <Text>{JSON.stringify(err.response?.data, undefined, 2)}</Text>
       </Box>

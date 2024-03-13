@@ -1,6 +1,6 @@
 import { BoxProps } from "ink";
 
-export const defaultErrorColor = "red";
+const defaultErrorColor = "red";
 export const issueURL = "https://github.com/mittwald/cli/issues/new";
 export const defaultErrorBoxProps: BoxProps = {
   width: 80,
