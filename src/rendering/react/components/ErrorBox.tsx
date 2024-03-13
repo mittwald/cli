@@ -1,4 +1,4 @@
-import { Box, BoxProps, Text } from "ink";
+import { Box, Text } from "ink";
 import { FC } from "react";
 import {
   FailedFlagValidationError,
@@ -10,68 +10,15 @@ import {
 } from "@mittwald/api-client-commons";
 import { RawAxiosResponseHeaders } from "axios";
 import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
-
-const color = "red";
-const issueURL = "https://github.com/mittwald/cli/issues/new";
-const boxProps: BoxProps = {
-  width: 80,
-  flexDirection: "column",
-  borderColor: color,
-  borderStyle: "round",
-  paddingX: 1,
-  rowGap: 1,
-};
-
-const ErrorStack: FC<{ err: Error }> = ({ err }) => {
-  return (
-    <Box marginX={2} marginY={1} flexDirection="column" rowGap={1}>
-      <Text color={color} dimColor bold>
-        ERROR STACK TRACE
-      </Text>
-      <Text color={color} dimColor>
-        Please provide this when opening a bug report.
-      </Text>
-      <Text color={color} dimColor>
-        {err.stack}
-      </Text>
-    </Box>
-  );
-};
-
-const GenericError: FC<{
-  err: Error;
-  withStack: boolean;
-  withIssue?: boolean;
-  title?: string;
-}> = ({ err, withStack, withIssue = true, title = "Error" }) => {
-  return (
-    <>
-      <Box {...boxProps} borderColor={color}>
-        <Text color={color} bold underline>
-          {title.toUpperCase()}
-        </Text>
-        <Text color={color}>
-          An error occurred while executing this command:
-        </Text>
-        <Box marginX={2}>
-          <Text color={color}>{err.toString()}</Text>
-        </Box>
-        {withIssue ? (
-          <Text color={color}>
-            If you believe this to be a bug, please open an issue at {issueURL}.
-          </Text>
-        ) : undefined}
-      </Box>
-
-      {withStack && "stack" in err ? <ErrorStack err={err} /> : undefined}
-    </>
-  );
-};
+import UnexpectedShortIDPassedError from "../../../lib/error/UnexpectedShortIDPassedError.js";
+import { defaultErrorBoxProps, defaultErrorColor } from "./Error/common.js";
+import { GenericError } from "./Error/GenericError.js";
+import { ErrorStack } from "./Error/ErrorStack.js";
 
 const InvalidFlagsError: FC<{ err: FailedFlagValidationError }> = ({ err }) => {
   const color = "yellow";
   return (
-    <Box {...boxProps} borderColor={color}>
+    <Box {...defaultErrorBoxProps} borderColor={color}>
       <Text color={color} bold underline>
         INVALID COMMAND FLAGS
       </Text>
@@ -85,7 +32,7 @@ const InvalidFlagsError: FC<{ err: FailedFlagValidationError }> = ({ err }) => {
 const InvalidArgsError: FC<{ err: RequiredArgsError }> = ({ err }) => {
   const color = "yellow";
   return (
-    <Box {...boxProps} borderColor={color}>
+    <Box {...defaultErrorBoxProps} borderColor={color}>
       <Text color={color} bold underline>
         INVALID COMMAND ARGUMENTS
       </Text>
@@ -173,11 +120,11 @@ const ApiError: FC<{
 }> = ({ err, withStack, withHTTPMessages }) => {
   return (
     <>
-      <Box {...boxProps}>
-        <Text color={color} bold underline>
+      <Box {...defaultErrorBoxProps}>
+        <Text color={defaultErrorColor} bold underline>
           API CLIENT ERROR
         </Text>
-        <Text color={color}>
+        <Text color={defaultErrorColor}>
           An error occurred while communicating with the API: {err.message}
         </Text>
 
