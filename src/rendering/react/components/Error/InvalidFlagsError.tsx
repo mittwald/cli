@@ -1,11 +1,13 @@
-import React, { FC } from "react";
+import React from "react";
 import { FailedFlagValidationError } from "@oclif/core/lib/parser/errors.js";
 import { defaultErrorBoxProps } from "./common.js";
 import { Box, Text } from "ink";
 
-export const InvalidFlagsError: FC<{ err: FailedFlagValidationError }> = ({
+export default function InvalidFlagsError({
   err,
-}) => {
+}: {
+  err: FailedFlagValidationError;
+}) {
   const color = "yellow";
   return (
     <Box {...defaultErrorBoxProps} borderColor={color}>
@@ -17,4 +19,4 @@ export const InvalidFlagsError: FC<{ err: FailedFlagValidationError }> = ({
       </Text>
     </Box>
   );
-};
+}

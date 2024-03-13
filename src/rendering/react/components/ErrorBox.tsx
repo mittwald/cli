@@ -6,10 +6,10 @@ import {
 import { ApiClientError } from "@mittwald/api-client-commons";
 import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 import UnexpectedShortIDPassedError from "../../../lib/error/UnexpectedShortIDPassedError.js";
-import { GenericError } from "./Error/GenericError.js";
-import { ApiError } from "./Error/APIError.js";
-import { InvalidFlagsError } from "./Error/InvalidFlagsError.js";
+import GenericError from "./Error/GenericError.js";
+import InvalidFlagsError from "./Error/InvalidFlagsError.js";
 import InvalidArgsError from "./Error/InvalidArgsError.js";
+import APIError from "./Error/APIError.js";
 
 /**
  * Render an error to the terminal.
@@ -24,7 +24,7 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
   } else if (err instanceof RequiredArgsError) {
     return <InvalidArgsError err={err} />;
   } else if (err instanceof ApiClientError) {
-    return <ApiError err={err} withStack withHTTPMessages="body" />;
+    return <APIError err={err} withStack withHTTPMessages="body" />;
   } else if (err instanceof InteractiveInputRequiredError) {
     return (
       <GenericError

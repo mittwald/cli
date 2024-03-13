@@ -1,14 +1,13 @@
-import { FC } from "react";
 import { defaultErrorBoxProps, defaultErrorColor } from "./common.js";
-import { ErrorStack } from "./ErrorStack.js";
 import {
   ApiClientError,
   AxiosResponseHeaders,
 } from "@mittwald/api-client-commons";
 import { Box, Text } from "ink";
 import { RawAxiosResponseHeaders } from "axios";
+import ErrorStack from "./ErrorStack.js";
 
-const RequestHeaders: FC<{ headers: string }> = ({ headers }) => {
+function RequestHeaders({ headers }: { headers: string }) {
   const lines = headers.trim().split("\r\n");
   const requestLine = lines.shift();
   const values = lines.map((line) => line.split(": ", 2)) as [string, string][];
@@ -27,14 +26,19 @@ const RequestHeaders: FC<{ headers: string }> = ({ headers }) => {
       ))}
     </Box>
   );
-};
+}
 
-const Response: FC<{
+function Response({
+  status,
+  statusText,
+  body,
+  headers,
+}: {
   status: number;
   statusText: string;
   body: unknown;
   headers: RawAxiosResponseHeaders | AxiosResponseHeaders;
-}> = ({ status, statusText, body, headers }) => {
+}) {
   const keys = Object.keys(headers);
   const maxKeyLength = Math.max(...keys.map((key) => key.length));
   return (
@@ -55,9 +59,9 @@ const Response: FC<{
       </Box>
     </Box>
   );
-};
+}
 
-const HttpMessages: FC<{ err: ApiClientError }> = ({ err }) => {
+function HttpMessages({ err }: { err: ApiClientError }) {
   const response = err.response ? (
     <Response
       status={err.response.status!}
@@ -75,13 +79,19 @@ const HttpMessages: FC<{ err: ApiClientError }> = ({ err }) => {
       {response}
     </Box>
   );
-};
+}
 
-export const ApiError: FC<{
+interface APIErrorProps {
   err: ApiClientError;
   withStack: boolean;
   withHTTPMessages: "no" | "body" | "full";
-}> = ({ err, withStack, withHTTPMessages }) => {
+}
+
+export default function APIError({
+  err,
+  withStack,
+  withHTTPMessages,
+}: APIErrorProps) {
   return (
     <>
       <Box {...defaultErrorBoxProps}>
@@ -99,4 +109,4 @@ export const ApiError: FC<{
       {withStack && "stack" in err ? <ErrorStack err={err} /> : undefined}
     </>
   );
-};
+}

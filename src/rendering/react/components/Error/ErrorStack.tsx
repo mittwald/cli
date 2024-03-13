@@ -1,8 +1,7 @@
 import { Box, Text } from "ink";
-import { FC } from "react";
 import { defaultErrorColor } from "./common.js";
 
-export const ErrorStack: FC<{ err: Error }> = ({ err }) => {
+export default function ErrorStack({ err }: { err: Error }) {
   return (
     <Box marginX={2} marginY={1} flexDirection="column" rowGap={1}>
       <Text color={defaultErrorColor} dimColor bold>
@@ -16,4 +15,4 @@ export const ErrorStack: FC<{ err: Error }> = ({ err }) => {
       </Text>
     </Box>
   );
-};
+}

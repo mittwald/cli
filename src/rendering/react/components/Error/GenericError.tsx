@@ -1,14 +1,20 @@
 import { Box, Text } from "ink";
-import { FC } from "react";
 import { defaultErrorBoxProps, defaultErrorColor, issueURL } from "./common.js";
-import { ErrorStack } from "./ErrorStack.js";
+import ErrorStack from "./ErrorStack.js";
 
-export const GenericError: FC<{
+interface GenericErrorProps {
   err: Error;
   withStack: boolean;
   withIssue?: boolean;
   title?: string;
-}> = ({ err, withStack, withIssue = true, title = "Error" }) => {
+}
+
+export default function GenericError({
+  err,
+  withStack,
+  withIssue = true,
+  title = "Error",
+}: GenericErrorProps) {
   return (
     <>
       <Box {...defaultErrorBoxProps} borderColor={defaultErrorColor}>
@@ -31,4 +37,4 @@ export const GenericError: FC<{
       {withStack && "stack" in err ? <ErrorStack err={err} /> : undefined}
     </>
   );
-};
+}
