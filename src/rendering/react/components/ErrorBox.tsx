@@ -10,20 +10,7 @@ import UnexpectedShortIDPassedError from "../../../lib/error/UnexpectedShortIDPa
 import { defaultErrorBoxProps } from "./Error/common.js";
 import { GenericError } from "./Error/GenericError.js";
 import { ApiError } from "./Error/APIError.js";
-
-const InvalidFlagsError: FC<{ err: FailedFlagValidationError }> = ({ err }) => {
-  const color = "yellow";
-  return (
-    <Box {...defaultErrorBoxProps} borderColor={color}>
-      <Text color={color} bold underline>
-        INVALID COMMAND FLAGS
-      </Text>
-      <Text color={color}>
-        The flags that you provided for this command were invalid. {err.message}
-      </Text>
-    </Box>
-  );
-};
+import { InvalidFlagsError } from "./Error/InvalidFlagsError.js";
 
 const InvalidArgsError: FC<{ err: RequiredArgsError }> = ({ err }) => {
   const color = "yellow";
