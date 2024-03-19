@@ -1209,7 +1209,7 @@ __metadata:
     prettier: ^3.2.5
     prettier-plugin-jsdoc: ^1.3.0
     prettier-plugin-package: ^1.4.0
-    prettier-plugin-sort-json: ^3.1.0
+    prettier-plugin-sort-json: ^4.0.0
     pretty-bytes: ^6.1.0
     react: ^18.2.0
     rimraf: ^5.0.1
@@ -8534,12 +8534,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-sort-json@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "prettier-plugin-sort-json@npm:3.1.0"
+"prettier-plugin-sort-json@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "prettier-plugin-sort-json@npm:4.0.0"
   peerDependencies:
     prettier: ^3.0.0
-  checksum: c10c165490567379bbf22329102d40627874caed60df7f3f7d2998ce00a7287163db31b8870590d41f9cab24acfc9ec1d7b21dd33405499dbb7b67db6908a014
+  checksum: 06497ba44d04083c785d196e658bbdc267239857de6ca4925d55a888b2be4ffd6c2603af3d53d37f8e15ff8db25c0d2c90410adc6c150d73df6d56130ddc3404
   languageName: node
   linkType: hard
 
