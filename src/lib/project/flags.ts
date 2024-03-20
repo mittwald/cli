@@ -17,7 +17,13 @@ export const {
   flags: projectFlags,
   args: projectArgs,
   withId: withProjectId,
-} = makeFlagSet("project", "p", { normalize: normalizeProjectId });
+} = makeFlagSet("project", "p", {
+  normalize: normalizeProjectId,
+  expectedShortIDFormat: {
+    pattern: /^p-.*/,
+    display: "p-XXXXXX",
+  },
+});
 
 export type SubNormalizeFn = (
   apiClient: MittwaldAPIV2Client,

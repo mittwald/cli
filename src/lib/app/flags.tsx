@@ -29,6 +29,10 @@ export const {
 } = makeFlagSet("installation", "i", {
   displayName: "app installation",
   normalize: normalizeAppInstallationId,
+  expectedShortIDFormat: {
+    pattern: /^a-.*/,
+    display: "a-XXXXXX",
+  },
 });
 export type AvailableFlagName = keyof AvailableFlags;
 
