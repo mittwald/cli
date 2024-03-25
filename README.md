@@ -4548,7 +4548,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.0/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.2/src/commands/update.ts)_
 
 ## `mw user api-token create`
 
