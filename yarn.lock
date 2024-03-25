@@ -1068,7 +1068,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/input@npm:^2.0.0":
+"@inquirer/input@npm:^2.1.0":
   version: 2.1.0
   resolution: "@inquirer/input@npm:2.1.0"
   dependencies:
@@ -1351,6 +1351,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^3.26.0":
+  version: 3.26.0
+  resolution: "@oclif/core@npm:3.26.0"
+  dependencies:
+    "@types/cli-progress": ^3.11.5
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    color: ^4.2.3
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    minimatch: ^9.0.3
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.3
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: b548b5cce446a4982e6d1e80c5889b69d8d5195505947cda2157227c63684f4d16a5cd007b0b2414f3b7d8a7cb9f94291c6adad4186ce27ed40fa8a8877e5fd9
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-autocomplete@npm:^3.0.3":
   version: 3.0.13
   resolution: "@oclif/plugin-autocomplete@npm:3.0.13"
@@ -1401,7 +1437,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-warn-if-update-available@npm:^3.0.12, @oclif/plugin-warn-if-update-available@npm:^3.0.2":
+"@oclif/plugin-warn-if-update-available@npm:^3.0.14":
+  version: 3.0.15
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.15"
+  dependencies:
+    "@oclif/core": ^3.26.0
+    chalk: ^5.3.0
+    debug: ^4.1.0
+    http-call: ^5.2.2
+    lodash.template: ^4.5.0
+  checksum: 1eb6603defe0072e05540aa094802396a726ab756e864d004fb0e9205523677c87a726f62da9d717491ee358c0612166c022e5373460a25498da86657c1487a0
+  languageName: node
+  linkType: hard
+
+"@oclif/plugin-warn-if-update-available@npm:^3.0.2":
   version: 3.0.14
   resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.14"
   dependencies:
@@ -6486,18 +6535,18 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.3.9":
-  version: 4.6.1
-  resolution: "oclif@npm:4.6.1"
+  version: 4.6.3
+  resolution: "oclif@npm:4.6.3"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.535.0
     "@aws-sdk/client-s3": ^3.535.0
     "@inquirer/confirm": ^3.0.0
-    "@inquirer/input": ^2.0.0
+    "@inquirer/input": ^2.1.0
     "@inquirer/select": ^2.0.0
     "@oclif/core": ^3.21.0
     "@oclif/plugin-help": ^6.0.18
     "@oclif/plugin-not-found": ^3.0.14
-    "@oclif/plugin-warn-if-update-available": ^3.0.12
+    "@oclif/plugin-warn-if-update-available": ^3.0.14
     async-retry: ^1.3.3
     chalk: ^4
     change-case: ^4
@@ -6514,7 +6563,7 @@ __metadata:
     validate-npm-package-name: ^5.0.0
   bin:
     oclif: bin/run.js
-  checksum: 78fed9ecb9fee8afd386ea7bb8485b15d7b8867043f13fb98585fee6fc401266209e08c4ed8864c81e6212d69d610ce16fd7d1b07d61eb4b98131519a78812ea
+  checksum: a6bda090d0a7ef5dff531b7d84f96f1f19fd3015fe0c7ad00c379d80abe2db4a12fb16ec91a420a0edc12eee9115f13032dea6680279ffd07e1c96b2f0ab5ddd
   languageName: node
   linkType: hard
 
