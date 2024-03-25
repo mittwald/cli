@@ -1315,7 +1315,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.21.0, @oclif/core@npm:^3.23.0, @oclif/core@npm:^3.25.2":
+"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.21.0, @oclif/core@npm:^3.23.0":
   version: 3.25.3
   resolution: "@oclif/core@npm:3.25.3"
   dependencies:
@@ -1348,6 +1348,42 @@ __metadata:
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
   checksum: 9581610f096239f1f59fe5d387a8dde7f763715d758e574c43bd1e1ad8f4f61039181d722b2d9fbbae9bb1e12c4a87f51ec92d046cfc5286d290d5c46c42597c
+  languageName: node
+  linkType: hard
+
+"@oclif/core@npm:^3.26.0":
+  version: 3.26.0
+  resolution: "@oclif/core@npm:3.26.0"
+  dependencies:
+    "@types/cli-progress": ^3.11.5
+    ansi-escapes: ^4.3.2
+    ansi-styles: ^4.3.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.2
+    clean-stack: ^3.0.1
+    cli-progress: ^3.12.0
+    color: ^4.2.3
+    debug: ^4.3.4
+    ejs: ^3.1.9
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.14.1
+    minimatch: ^9.0.3
+    natural-orderby: ^2.0.3
+    object-treeify: ^1.1.33
+    password-prompt: ^1.1.3
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    supports-color: ^8.1.1
+    supports-hyperlinks: ^2.2.0
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: b548b5cce446a4982e6d1e80c5889b69d8d5195505947cda2157227c63684f4d16a5cd007b0b2414f3b7d8a7cb9f94291c6adad4186ce27ed40fa8a8877e5fd9
   languageName: node
   linkType: hard
 
@@ -1415,13 +1451,13 @@ __metadata:
   linkType: hard
 
 "@oclif/test@npm:^3.1.16":
-  version: 3.2.6
-  resolution: "@oclif/test@npm:3.2.6"
+  version: 3.2.8
+  resolution: "@oclif/test@npm:3.2.8"
   dependencies:
-    "@oclif/core": ^3.25.2
+    "@oclif/core": ^3.26.0
     chai: ^4.4.1
-    fancy-test: ^3.0.13
-  checksum: d23130226469a9261a61b30105fff9d78d992146bc2791956fe4439bd6e949f5b143a885fbd3c7d0590844060e0135e351f7346152d33d810f3992501324bef2
+    fancy-test: ^3.0.14
+  checksum: fa4ede0c8d875a1820f2ddb60d3af14c4769340b4d7e5890cd8d7683effd8b1d341aa44319ec14cb4125bcc22158f6ba3e3e43b90ab1c4d9e998d5e5a74fee79
   languageName: node
   linkType: hard
 
@@ -4212,9 +4248,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fancy-test@npm:^3.0.13":
-  version: 3.0.13
-  resolution: "fancy-test@npm:3.0.13"
+"fancy-test@npm:^3.0.14":
+  version: 3.0.14
+  resolution: "fancy-test@npm:3.0.14"
   dependencies:
     "@types/chai": "*"
     "@types/lodash": "*"
@@ -4225,7 +4261,7 @@ __metadata:
     nock: ^13.5.4
     sinon: ^16.1.3
     stdout-stderr: ^0.1.9
-  checksum: 2449b3b98aa6473b06e5a3b4caf02fecdb314e3dbd2524867d75bfe6336f5b9205f5f20491c2f0eb1c4ea96cb12292b999a943275824e4abb202653b70ff4d5e
+  checksum: 9439b48814f79256ba04bd76bd3b7a41ebfcf62c6d006ad7cd596a2967b9a55aae1699ca1ff325f5c95115c661b58bb48787c3a9277a9607bb6dd817ae375bca
   languageName: node
   linkType: hard
 
