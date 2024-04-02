@@ -5,7 +5,7 @@ import {
   AppInstaller,
 } from "../../../lib/app/Installer.js";
 
-const installer = new AppInstaller(
+const matomoInstaller = new AppInstaller(
   "91fa05e7-34f7-42e8-a8d3-a9c42abd5f8c",
   "Matomo",
   [
@@ -23,14 +23,19 @@ export default class InstallMatomo extends ExecRenderBaseCommand<
   typeof InstallMatomo,
   AppInstallationResult
 > {
-  static description = installer.description;
-  static flags = installer.flags;
+  static description = matomoInstaller.description;
+  static flags = matomoInstaller.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return installer.exec(this.apiClient, this.args, this.flags, this.config);
+    return matomoInstaller.exec(
+      this.apiClient,
+      this.args,
+      this.flags,
+      this.config,
+    );
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return installer.render(result, this.flags);
+    return matomoInstaller.render(result, this.flags);
   }
 }
