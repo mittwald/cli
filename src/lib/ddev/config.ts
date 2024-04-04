@@ -15,7 +15,29 @@ export interface DDEVConfig {
   web_environment: string[];
   docroot: string;
   database: DDEVDatabaseConfig;
+  hooks: DDEVHooks;
 }
+
+export type DDEVHookEvent =
+  | "start"
+  | "import-db"
+  | "import-files"
+  | "composer"
+  | "stop"
+  | "config"
+  | "exec"
+  | "pull"
+  | "push"
+  | "snapshot"
+  | "restore-snapshot";
+
+export type DDEVHooks = {
+  [k in `pre-${DDEVHookEvent}`]?: DDEVHook[];
+} & {
+  [k in `post-${DDEVHookEvent}`]?: DDEVHook[];
+};
+
+export type DDEVHook = { exec: string } | { "exec-host": string };
 
 export interface DDEVDatabaseConfig {
   type: string;

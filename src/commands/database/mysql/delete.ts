@@ -15,7 +15,6 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
       this.apiClient,
       this.flags,
       this.args,
-      this.config,
     );
     const response = await this.apiClient.database.deleteMysqlDatabase({
       mysqlDatabaseId,

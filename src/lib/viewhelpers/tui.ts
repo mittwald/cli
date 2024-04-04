@@ -1,20 +1,16 @@
 import chalk from "chalk";
 
-export function printHeader(title: string): void {
-  console.log(chalk.bold.white(title));
-  console.log(chalk.bold.white("─".repeat(title.length)));
+export function printHeader(heading: string) {
+  console.log(chalk.bold.white(heading));
+  console.log(chalk.bold.white("─".repeat(heading.length)));
   console.log();
 }
 
-export function printKeyValues(input: Record<string, string>): void {
-  const keys = Object.keys(input);
-  const maxKeyLength = Math.max(...keys.map((k) => k.length));
+export function printKeyValues(tableContents: Record<string, string>) {
+  const keys = Object.keys(tableContents);
+  const l = Math.max(...keys.map((k) => k.length));
 
   for (const key of keys) {
-    console.log(
-      chalk.blueBright(key.padEnd(maxKeyLength, " ")),
-      " ",
-      input[key],
-    );
+    console.log(chalk.blueBright(key.padEnd(l, " ")), " ", tableContents[key]);
   }
 }

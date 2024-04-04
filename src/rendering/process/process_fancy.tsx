@@ -3,6 +3,7 @@ import {
   CleanupFunction,
   ProcessRenderer,
   ProcessStep,
+  ProcessStepSelect,
   RunnableHandler,
 } from "./process.js";
 import { Header } from "../react/components/Header.js";
@@ -10,6 +11,7 @@ import { Box, render, Text } from "ink";
 import { ProcessState } from "./components/ProcessState.js";
 import { ProcessConfirmation } from "./components/ProcessConfirmation.js";
 import { ProcessInput } from "./components/ProcessInput.js";
+import { ProcessSelect } from "./components/ProcessSelect.js";
 
 export class FancyProcessRenderer implements ProcessRenderer {
   private readonly title: string;
@@ -107,6 +109,47 @@ export class FancyProcessRenderer implements ProcessRenderer {
 
       const renderHandle = render(
         <ProcessInput step={state} onSubmit={onInput} />,
+      );
+    });
+  }
+
+  public addSelect<TVal>(
+    question: React.ReactNode,
+    options: { value: TVal; label: React.ReactNode }[],
+  ): Promise<TVal> {
+    this.start();
+
+    if (this.currentHandler !== null) {
+      this.currentHandler.complete();
+    }
+
+    const state: ProcessStepSelect<TVal> = {
+      type: "select",
+      title: question,
+      options,
+      selected: undefined,
+    };
+
+    return new Promise<TVal>((res, rej) => {
+      const onSelect = (selected: TVal) => {
+        res(selected);
+        state.selected = selected;
+        if (renderHandle) {
+          renderHandle.rerender(
+            <ProcessSelect step={state} onSubmit={onSelect} />,
+          );
+          renderHandle.unmount();
+        }
+      };
+      const onError = (err: unknown) => {
+        if (renderHandle) {
+          renderHandle.unmount();
+        }
+        rej(err);
+      };
+
+      const renderHandle = render(
+        <ProcessSelect step={state} onSubmit={onSelect} onError={onError} />,
       );
     });
   }
