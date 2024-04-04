@@ -5,9 +5,9 @@ import {
   AppInstaller,
 } from "../../../lib/app/Installer.js";
 
-const matomoInstaller = new AppInstaller(
-  "91fa05e7-34f7-42e8-a8d3-a9c42abd5f8c",
-  "Matomo",
+export const moodleInstaller = new AppInstaller(
+  "5ba3b4ea-9f79-460a-bbef-d901beca4cf1",
+  "Moodle",
   [
     "version",
     "host",
@@ -19,15 +19,15 @@ const matomoInstaller = new AppInstaller(
   ] as const,
 );
 
-export default class InstallMatomo extends ExecRenderBaseCommand<
-  typeof InstallMatomo,
+export default class InstallMoodle extends ExecRenderBaseCommand<
+  typeof InstallMoodle,
   AppInstallationResult
 > {
-  static description = matomoInstaller.description;
-  static flags = matomoInstaller.flags;
+  static description = moodleInstaller.description;
+  static flags = moodleInstaller.flags;
 
   protected async exec(): Promise<{ appInstallationId: string }> {
-    return matomoInstaller.exec(
+    return moodleInstaller.exec(
       this.apiClient,
       this.args,
       this.flags,
@@ -36,6 +36,6 @@ export default class InstallMatomo extends ExecRenderBaseCommand<
   }
 
   protected render(result: AppInstallationResult): React.ReactNode {
-    return matomoInstaller.render(result, this.flags);
+    return moodleInstaller.render(result, this.flags);
   }
 }
