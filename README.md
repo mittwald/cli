@@ -3391,7 +3391,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.18/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.20/src/commands/help.ts)_
 
 ## `mw login reset`
 
@@ -4785,7 +4785,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.0/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.3/src/commands/update.ts)_
 
 ## `mw user api-token create`
 
