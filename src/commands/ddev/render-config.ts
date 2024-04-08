@@ -21,10 +21,14 @@ export class RenderConfig extends ExtendedBaseCommand<typeof RenderConfig> {
   public async run(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(RenderConfig);
     const projectType = this.flags["override-type"];
+    const databaseId = this.flags["without-database"]
+      ? "none"
+      : this.flags["database-id"];
 
     const ddevConfigBuilder = new DDEVConfigBuilder(this.apiClient);
     const ddevConfig = await ddevConfigBuilder.build(
       appInstallationId,
+      databaseId,
       projectType,
     );
 

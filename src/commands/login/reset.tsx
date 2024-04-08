@@ -5,6 +5,8 @@ import { Box, Text } from "ink";
 import { Note } from "../../rendering/react/components/Note.js";
 import { FancyProcessRenderer } from "../../rendering/process/process_fancy.js";
 import { Filename } from "../../rendering/react/components/Filename.js";
+import { getTokenFilename } from "../../lib/auth/token.js";
+import { isNotFound } from "../../lib/fsutil.js";
 
 type ResetResult = { deleted: boolean };
 
@@ -17,19 +19,20 @@ export default class Reset extends ExecRenderBaseCommand<
 
   protected async exec(): Promise<ResetResult> {
     const process = new FancyProcessRenderer("Resetting authentication state");
+    const tokenFilename = getTokenFilename(this.config);
 
     process.start();
 
-    if (await this.tokenFileExists()) {
+    if (await this.tokenFileExists(tokenFilename)) {
       const step = process.addStep(
         <Text>
-          Deleting token file <Filename filename={this.getTokenFilename()} />
+          Deleting token file <Filename filename={tokenFilename} />
         </Text>,
       );
-      await fs.rm(this.getTokenFilename(), { force: true });
+      await fs.rm(tokenFilename, { force: true });
       step.complete();
 
-      process.complete(
+      await process.complete(
         <Box flexDirection="column">
           <Text>Authentication state successfully reset</Text>
           <Note>
@@ -43,7 +46,7 @@ export default class Reset extends ExecRenderBaseCommand<
       return { deleted: true };
     }
 
-    process.complete(<Text>No token file found, nothing to do</Text>);
+    await process.complete(<Text>No token file found, nothing to do</Text>);
 
     return { deleted: false };
   }
@@ -52,12 +55,12 @@ export default class Reset extends ExecRenderBaseCommand<
     return null;
   }
 
-  private async tokenFileExists(): Promise<boolean> {
+  private async tokenFileExists(tokenFilename: string): Promise<boolean> {
     try {
-      await fs.access(this.getTokenFilename());
+      await fs.access(tokenFilename);
       return true;
     } catch (err) {
-      if (err instanceof Error && "code" in err && err.code === "ENOENT") {
+      if (isNotFound(err)) {
         return false;
       }
       throw err;

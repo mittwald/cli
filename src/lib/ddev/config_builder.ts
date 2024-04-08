@@ -1,6 +1,11 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { DDEVConfig, DDEVDatabaseConfig } from "./config.js";
+import {
+  DDEVConfig,
+  DDEVDatabaseConfig,
+  DDEVHook,
+  DDEVHooks,
+} from "./config.js";
 import { typo3Installer } from "../../commands/app/install/typo3.js";
 import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
 import { shopware6Installer } from "../../commands/app/install/shopware6.js";
@@ -27,22 +32,52 @@ export class DDEVConfigBuilder {
 
   public async build(
     appInstallationId: string,
+    databaseId: string | undefined,
     type: string,
   ): Promise<Partial<DDEVConfig>> {
     const appInstallation = await this.getAppInstallation(appInstallationId);
     const systemSoftwares =
       await this.buildSystemSoftwareVersionMap(appInstallation);
 
+    type = await this.determineProjectType(appInstallation, type);
+
     return {
-      override_config: true,
-      type: await this.determineProjectType(appInstallation, type),
+      type,
       webserver_type: "apache-fpm",
       php_version: this.determinePHPVersion(systemSoftwares),
-      database: await this.determineDatabaseVersion(appInstallation),
+      database: await this.determineDatabaseVersion(databaseId),
       docroot: await this.determineDocumentRoot(appInstallation),
       web_environment: [
         `MITTWALD_APP_INSTALLATION_ID=${appInstallation.shortId}`,
+        `MITTWALD_DATABASE_ID=${databaseId ?? ""}`,
       ],
+      hooks: this.buildHooks(type),
+    };
+  }
+
+  private buildHooks(type: string): DDEVHooks | undefined {
+    const postPull: DDEVHook[] = [
+      { "exec-host": "ddev config --project-name $DDEV_PROJECT" },
+      { "exec-host": "ddev restart" },
+    ];
+
+    if (type === "typo3") {
+      postPull.push(
+        { exec: "typo3 cache:flush" },
+        { exec: "typo3 cache:warmup" },
+      );
+    }
+
+    if (type === "wordpress") {
+      postPull.push({ exec: "wp cache flush" });
+    }
+
+    if (type === "shopware6") {
+      postPull.push({ exec: "bin/console cache:clear" });
+    }
+
+    return {
+      "post-pull": postPull,
     };
   }
 
@@ -91,21 +126,45 @@ export class DDEVConfigBuilder {
   }
 
   private async determineDatabaseVersion(
+    databaseId: string | undefined,
+  ): Promise<DDEVDatabaseConfig | undefined> {
+    if (!databaseId) {
+      return undefined;
+    }
+
+    const mysqlDatabase = await this.determineMySQLDatabaseVersion(databaseId);
+    if (mysqlDatabase) {
+      return mysqlDatabase;
+    }
+
+    return undefined;
+  }
+
+  private async determineMySQLDatabaseVersion(
+    mysqlDatabaseId: string,
+  ): Promise<DDEVDatabaseConfig | undefined> {
+    const r = await this.apiClient.database.getMysqlDatabase({
+      mysqlDatabaseId,
+    });
+
+    if (r.status !== 200) {
+      return undefined;
+    }
+
+    return {
+      type: "mysql",
+      version: r.data.version,
+    };
+  }
+
+  private async determineDatabaseVersionFromInstallation(
     inst: AppInstallation,
   ): Promise<DDEVDatabaseConfig | undefined> {
     const isPrimary = (db: LinkedDatabase) => db.purpose === "primary";
     const primary = (inst.linkedDatabases || []).find(isPrimary);
 
     if (primary?.kind === "mysql") {
-      const r = await this.apiClient.database.getMysqlDatabase({
-        mysqlDatabaseId: primary.databaseId,
-      });
-      assertStatus(r, 200);
-
-      return {
-        type: "mysql",
-        version: r.data.version,
-      };
+      return this.determineMySQLDatabaseVersion(primary.databaseId);
     }
 
     return undefined;

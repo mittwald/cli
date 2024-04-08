@@ -1,10 +1,8 @@
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
-import * as cp from "child_process";
 import * as path from "path";
 import * as os from "os";
 import * as fs from "fs/promises";
-import parseDuration from "parse-duration";
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
@@ -13,6 +11,12 @@ import {
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Filename } from "../../../rendering/react/components/Filename.js";
 import { Text } from "ink";
+import { ProcessRenderer } from "../../../rendering/process/process.js";
+import {
+  expirationDateFromFlagsOptional,
+  expireFlags,
+} from "../../../lib/expires.js";
+import { spawnInProcess } from "../../../rendering/process/process_exec.js";
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,
@@ -22,6 +26,7 @@ export default class Create extends ExecRenderBaseCommand<
 
   static flags = {
     ...processFlags,
+    ...expireFlags("SSH key"),
     output: Flags.string({
       description:
         "A filename in your ~/.ssh directory to write the SSH key to.",
@@ -33,61 +38,28 @@ export default class Create extends ExecRenderBaseCommand<
     comment: Flags.string({
       description: "A comment for the SSH key.",
     }),
-    expiresAt: Flags.string({
-      description:
-        "Duration after which the SSH key should expire (example: '1y').",
-    }),
   };
 
   protected async exec(): Promise<undefined> {
-    const { flags } = await this.parse(Create);
     const cmd = "ssh-keygen";
-    const outputFile = path.join(os.homedir(), ".ssh", flags.output);
-    const args = ["-t", "rsa", "-f", outputFile];
+    const outputFile = path.join(os.homedir(), ".ssh", this.flags.output);
 
-    const process = makeProcessRenderer(flags, "Creating a new SSH key");
+    const r = makeProcessRenderer(this.flags, "Creating a new SSH key");
 
-    let expiresAt: Date | undefined;
+    const expiresAt = expirationDateFromFlagsOptional(this.flags);
+    const passphrase = await this.getPassphrase(r);
+    const args = ["-t", "rsa", "-f", outputFile, "-N", passphrase];
 
-    if (flags["expiresAt"]) {
-      const parsedDuration = parseDuration(flags["expiresAt"]);
-      if (!parsedDuration) {
-        throw new Error("Invalid duration");
-      }
-
-      expiresAt = new Date();
-      expiresAt.setTime(new Date().getTime() + parsedDuration);
+    if (this.flags.comment) {
+      args.push("-C", this.flags.comment);
     }
 
-    if (flags["no-passphrase"]) {
-      args.push("-N", "");
-    } else {
-      const passphrase = await process.addInput(
-        <Text>enter passphrase for SSH key</Text>,
-        true,
-      );
-      args.push("-N", passphrase);
-    }
+    await spawnInProcess(r, "generating SSH key using ssh-keygen", cmd, args);
+    const publicKey = await fs.readFile(outputFile + ".pub", "utf-8");
 
-    if (flags.comment) {
-      args.push("-C", flags.comment);
-    }
+    r.addInfo(<InfoSSHKeySaved filename={outputFile} />);
 
-    const publicKey = await process.runStep(
-      "generating SSH key using ssh-keygen",
-      async () => {
-        cp.spawnSync(cmd, args, { stdio: "ignore" });
-        return await fs.readFile(outputFile + ".pub", "utf-8");
-      },
-    );
-
-    process.addInfo(
-      <Text>
-        ssh key saved to <Filename filename={outputFile} />.
-      </Text>,
-    );
-
-    await process.runStep("importing SSH key", async () => {
+    await r.runStep("importing SSH key", async () => {
       const response = await this.apiClient.user.createSshKey({
         data: {
           publicKey,
@@ -96,17 +68,36 @@ export default class Create extends ExecRenderBaseCommand<
       });
 
       assertStatus(response, 201);
-      return response;
     });
 
-    process.complete(
-      <Success>
-        Your SSH key was successfully created and imported to your user profile.
-      </Success>,
-    );
+    await r.complete(<SSHKeySuccess />);
   }
 
   protected render() {
     return null;
   }
+
+  private async getPassphrase(r: ProcessRenderer): Promise<string> {
+    if (this.flags["no-passphrase"]) {
+      return "";
+    }
+
+    return await r.addInput(<Text>enter passphrase for SSH key</Text>, true);
+  }
+}
+
+function SSHKeySuccess() {
+  return (
+    <Success>
+      Your SSH key was successfully created and imported to your user profile.
+    </Success>
+  );
+}
+
+function InfoSSHKeySaved({ filename }: { filename: string }) {
+  return (
+    <Text>
+      ssh key saved to <Filename filename={filename} />.
+    </Text>
+  );
 }

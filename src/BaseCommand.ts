@@ -1,9 +1,8 @@
 import { Command } from "@oclif/core";
-import * as fs from "fs/promises";
-import * as path from "path";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { configureAxiosRetry } from "./lib/api_retry.js";
 import { configureConsistencyHandling } from "./lib/api_consistency.js";
+import { getTokenFilename, readApiToken } from "./lib/auth/token.js";
 
 export abstract class BaseCommand extends Command {
   protected authenticationRequired = true;
@@ -13,10 +12,10 @@ export abstract class BaseCommand extends Command {
   public async init(): Promise<void> {
     await super.init();
     if (this.authenticationRequired) {
-      const token = await this.readApiToken();
+      const token = await readApiToken(this.config);
       if (token === undefined) {
         throw new Error(
-          `Could not get token from either config file (${this.getTokenFilename()}) or environment`,
+          `Could not get token from either config file (${getTokenFilename(this.config)}) or environment`,
         );
       }
 
@@ -26,41 +25,6 @@ export abstract class BaseCommand extends Command {
 
       configureAxiosRetry(this.apiClient.axios);
       configureConsistencyHandling(this.apiClient.axios);
-    }
-  }
-
-  protected getTokenFilename(): string {
-    return path.join(this.config.configDir, "token");
-  }
-
-  private async readApiToken(): Promise<string | undefined> {
-    return (
-      this.readApiTokenFromEnvironment() ??
-      (await this.readApiTokenFromConfig())
-    );
-  }
-
-  private readApiTokenFromEnvironment(): string | undefined {
-    const token = process.env.MITTWALD_API_TOKEN;
-    if (token === undefined) {
-      return undefined;
-    }
-    return token.trim();
-  }
-
-  private async readApiTokenFromConfig(): Promise<string | undefined> {
-    try {
-      const tokenFileContents = await fs.readFile(
-        this.getTokenFilename(),
-        "utf-8",
-      );
-      return tokenFileContents.trim();
-    } catch (err) {
-      if (err instanceof Error && "code" in err && err.code === "ENOENT") {
-        return undefined;
-      }
-
-      throw err;
     }
   }
 }

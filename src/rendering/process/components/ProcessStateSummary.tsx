@@ -3,6 +3,7 @@ import { ProcessStep } from "../process.js";
 import { ProcessConfirmationStateSummary } from "./ProcessConfirmationStateSummary.js";
 import { ProcessInputStateSummary } from "./ProcessInputStateSummary.js";
 import { Text } from "ink";
+import { ProcessSelectStateSummary } from "./ProcessSelectStateSummary.js";
 
 export const ProcessStateSummary: React.FC<{ step: ProcessStep }> = ({
   step,
@@ -13,6 +14,8 @@ export const ProcessStateSummary: React.FC<{ step: ProcessStep }> = ({
     return <ProcessConfirmationStateSummary step={step} />;
   } else if (step.type === "input") {
     return <ProcessInputStateSummary step={step} />;
+  } else if (step.type === "select") {
+    return <ProcessSelectStateSummary step={step} />;
   } else if (step.phase === "completed") {
     return (
       <>

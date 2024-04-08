@@ -7,7 +7,7 @@ import {
 
 const installer = new AppInstaller(
   "0b97d59f-ee13-4f18-a1f6-53e1beaf2e70",
-  "Shopware 6",
+  "Nextcloud",
   [
     "version",
     "host",

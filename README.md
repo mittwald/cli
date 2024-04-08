@@ -127,7 +127,10 @@ USAGE
 * [`mw app install grav`](#mw-app-install-grav)
 * [`mw app install joomla`](#mw-app-install-joomla)
 * [`mw app install matomo`](#mw-app-install-matomo)
+* [`mw app install moodle`](#mw-app-install-moodle)
+* [`mw app install neos`](#mw-app-install-neos)
 * [`mw app install nextcloud`](#mw-app-install-nextcloud)
+* [`mw app install prestashop`](#mw-app-install-prestashop)
 * [`mw app install shopware5`](#mw-app-install-shopware5)
 * [`mw app install shopware6`](#mw-app-install-shopware6)
 * [`mw app install typo3`](#mw-app-install-typo3)
@@ -256,6 +259,7 @@ USAGE
 * [`mw user ssh-key create`](#mw-user-ssh-key-create)
 * [`mw user ssh-key delete ID`](#mw-user-ssh-key-delete-id)
 * [`mw user ssh-key get KEY-ID`](#mw-user-ssh-key-get-key-id)
+* [`mw user ssh-key import`](#mw-user-ssh-key-import)
 * [`mw user ssh-key list`](#mw-user-ssh-key-list)
 
 ## `mw app copy [INSTALLATION-ID]`
@@ -1009,30 +1013,29 @@ FLAG DESCRIPTIONS
     If unspecified, the Matomo will be installed in the latest available version.
 ```
 
-## `mw app install nextcloud`
+## `mw app install moodle`
 
-Creates new Shopware 6 installation.
+Creates new Moodle installation.
 
 ```
 USAGE
-  $ mw app install nextcloud --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+  $ mw app install moodle --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
     <value>] [--admin-pass <value>] [--site-title <value>] [-w]
 
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 wait for your Shopware 6 to be ready.
+  -w, --wait                 wait for your Moodle to be ready.
       --admin-email=<value>  email address of your administrator user.
       --admin-pass=<value>   password of your administrator user.
       --admin-user=<value>   Username for your administrator user.
-      --host=<value>         host to initially configure your Shopware 6 installation with; needs to be created
-                             separately.
-      --site-title=<value>   site title for your Shopware 6 installation.
-      --version=<value>      (required) [default: latest] version of Shopware 6 to be installed.
+      --host=<value>         host to initially configure your Moodle installation with; needs to be created separately.
+      --site-title=<value>   site title for your Moodle installation.
+      --version=<value>      (required) [default: latest] version of Moodle to be installed.
 
 DESCRIPTION
-  Creates new Shopware 6 installation.
+  Creates new Moodle installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -1047,40 +1050,275 @@ FLAG DESCRIPTIONS
 
   --admin-email=<value>  email address of your administrator user.
 
-    email address that will be used for the first administrator user that is created during the Shopware 6 installation.
+    email address that will be used for the first administrator user that is created during the Moodle installation.
     If unspecified, email address of your mStudio account will be used. This email address can be changed after the
     installation is finished.
 
   --admin-pass=<value>  password of your administrator user.
 
-    The password that will be used for the first administrator user that is created during the Shopware 6 installation.
+    The password that will be used for the first administrator user that is created during the Moodle installation.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
   --admin-user=<value>  Username for your administrator user.
 
-    Username of the first administrator user which will be created during the Shopware 6 installation.
+    Username of the first administrator user which will be created during the Moodle installation.
     If unspecified, an adequate username will be generated.
     After the installation is finished, the username can be changed and additional administrator users can be created.
 
-  --host=<value>  host to initially configure your Shopware 6 installation with; needs to be created separately.
+  --host=<value>  host to initially configure your Moodle installation with; needs to be created separately.
 
-    Specify a host which will be used during the installation and as an initial host for the Shopware 6 configuration.
+    Specify a host which will be used during the installation and as an initial host for the Moodle configuration.
     If unspecified, the default host for the given project will be used.
-    This does not change the target of the used host and can be changed later by configuring the host and your Shopware
-    6 installation.
+    This does not change the target of the used host and can be changed later by configuring the host and your Moodle
+    installation.
 
-  --site-title=<value>  site title for your Shopware 6 installation.
+  --site-title=<value>  site title for your Moodle installation.
 
-    The site title for this Shopware 6 installation. It is also the title shown in the app overview in the mStudio and
+    The site title for this Moodle installation. It is also the title shown in the app overview in the mStudio and the
+    CLI.
+    If unspecified, the application name and the given project ID will be used. The title can be changed after the
+    installation is finished
+
+  --version=<value>  version of Moodle to be installed.
+
+    Specify the version in which your Moodle will be installed.
+    If unspecified, the Moodle will be installed in the latest available version.
+```
+
+## `mw app install neos`
+
+Creates new NEOS installation.
+
+```
+USAGE
+  $ mw app install neos --version <value> [-p <value>] [-q] [--admin-user <value>] [--admin-pass <value>]
+    [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+
+FLAGS
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     wait for your NEOS to be ready.
+      --admin-firstname=<value>  first name of your administrator user.
+      --admin-lastname=<value>   Lastname of your administrator user.
+      --admin-pass=<value>       password of your administrator user.
+      --admin-user=<value>       Username for your administrator user.
+      --site-title=<value>       site title for your NEOS installation.
+      --version=<value>          (required) [default: latest] version of NEOS to be installed.
+
+DESCRIPTION
+  Creates new NEOS installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-firstname=<value>  first name of your administrator user.
+
+    The first name that will be used for the first administrator user that is created during the NEOS installation.
+    If unspecified, the first name of your mStudio user will be used. This value can be changed after the installation
+    is finished.
+
+  --admin-lastname=<value>  Lastname of your administrator user.
+
+    The last name that will be used for the first administrator user that is created during the NEOS installation.
+    If unspecified, the last name of your mStudio user will be used. This value can be changed after the installation is
+    finished.
+
+  --admin-pass=<value>  password of your administrator user.
+
+    The password that will be used for the first administrator user that is created during the NEOS installation.
+    If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
+    the installation is finished
+
+  --admin-user=<value>  Username for your administrator user.
+
+    Username of the first administrator user which will be created during the NEOS installation.
+    If unspecified, an adequate username will be generated.
+    After the installation is finished, the username can be changed and additional administrator users can be created.
+
+  --site-title=<value>  site title for your NEOS installation.
+
+    The site title for this NEOS installation. It is also the title shown in the app overview in the mStudio and the
+    CLI.
+    If unspecified, the application name and the given project ID will be used. The title can be changed after the
+    installation is finished
+
+  --version=<value>  version of NEOS to be installed.
+
+    Specify the version in which your NEOS will be installed.
+    If unspecified, the NEOS will be installed in the latest available version.
+```
+
+## `mw app install nextcloud`
+
+Creates new Nextcloud installation.
+
+```
+USAGE
+  $ mw app install nextcloud --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 wait for your Nextcloud to be ready.
+      --admin-email=<value>  email address of your administrator user.
+      --admin-pass=<value>   password of your administrator user.
+      --admin-user=<value>   Username for your administrator user.
+      --host=<value>         host to initially configure your Nextcloud installation with; needs to be created
+                             separately.
+      --site-title=<value>   site title for your Nextcloud installation.
+      --version=<value>      (required) [default: latest] version of Nextcloud to be installed.
+
+DESCRIPTION
+  Creates new Nextcloud installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  email address of your administrator user.
+
+    email address that will be used for the first administrator user that is created during the Nextcloud installation.
+    If unspecified, email address of your mStudio account will be used. This email address can be changed after the
+    installation is finished.
+
+  --admin-pass=<value>  password of your administrator user.
+
+    The password that will be used for the first administrator user that is created during the Nextcloud installation.
+    If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
+    the installation is finished
+
+  --admin-user=<value>  Username for your administrator user.
+
+    Username of the first administrator user which will be created during the Nextcloud installation.
+    If unspecified, an adequate username will be generated.
+    After the installation is finished, the username can be changed and additional administrator users can be created.
+
+  --host=<value>  host to initially configure your Nextcloud installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Nextcloud configuration.
+    If unspecified, the default host for the given project will be used.
+    This does not change the target of the used host and can be changed later by configuring the host and your Nextcloud
+    installation.
+
+  --site-title=<value>  site title for your Nextcloud installation.
+
+    The site title for this Nextcloud installation. It is also the title shown in the app overview in the mStudio and
     the CLI.
     If unspecified, the application name and the given project ID will be used. The title can be changed after the
     installation is finished
 
-  --version=<value>  version of Shopware 6 to be installed.
+  --version=<value>  version of Nextcloud to be installed.
 
-    Specify the version in which your Shopware 6 will be installed.
-    If unspecified, the Shopware 6 will be installed in the latest available version.
+    Specify the version in which your Nextcloud will be installed.
+    If unspecified, the Nextcloud will be installed in the latest available version.
+```
+
+## `mw app install prestashop`
+
+Creates new PrestaShop installation.
+
+```
+USAGE
+  $ mw app install prestashop --version <value> [-p <value>] [-q] [--host <value>] [--admin-email <value>] [--admin-pass
+    <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [--shop-lang <value>] [-w]
+
+FLAGS
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     wait for your PrestaShop to be ready.
+      --admin-email=<value>      email address of your administrator user.
+      --admin-firstname=<value>  first name of your administrator user.
+      --admin-lastname=<value>   Lastname of your administrator user.
+      --admin-pass=<value>       password of your administrator user.
+      --host=<value>             host to initially configure your PrestaShop installation with; needs to be created
+                                 separately.
+      --shop-lang=<value>        language your PrestaShop will be working with.
+      --site-title=<value>       site title for your PrestaShop installation.
+      --version=<value>          (required) [default: latest] version of PrestaShop to be installed.
+
+DESCRIPTION
+  Creates new PrestaShop installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  email address of your administrator user.
+
+    email address that will be used for the first administrator user that is created during the PrestaShop installation.
+    If unspecified, email address of your mStudio account will be used. This email address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  first name of your administrator user.
+
+    The first name that will be used for the first administrator user that is created during the PrestaShop
+    installation.
+    If unspecified, the first name of your mStudio user will be used. This value can be changed after the installation
+    is finished.
+
+  --admin-lastname=<value>  Lastname of your administrator user.
+
+    The last name that will be used for the first administrator user that is created during the PrestaShop installation.
+    If unspecified, the last name of your mStudio user will be used. This value can be changed after the installation is
+    finished.
+
+  --admin-pass=<value>  password of your administrator user.
+
+    The password that will be used for the first administrator user that is created during the PrestaShop installation.
+    If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
+    the installation is finished
+
+  --host=<value>  host to initially configure your PrestaShop installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the PrestaShop configuration.
+    If unspecified, the default host for the given project will be used.
+    This does not change the target of the used host and can be changed later by configuring the host and your
+    PrestaShop installation.
+
+  --shop-lang=<value>  language your PrestaShop will be working with.
+
+    The default language your PrestaShop installation will be using. The front- and back end will be displayed using the
+    given language.
+    If unspecified, this will default to German (de_DE). The language can be changed after the installation is finished.
+
+  --site-title=<value>  site title for your PrestaShop installation.
+
+    The site title for this PrestaShop installation. It is also the title shown in the app overview in the mStudio and
+    the CLI.
+    If unspecified, the application name and the given project ID will be used. The title can be changed after the
+    installation is finished
+
+  --version=<value>  version of PrestaShop to be installed.
+
+    Specify the version in which your PrestaShop will be installed.
+    If unspecified, the PrestaShop will be installed in the latest available version.
 ```
 
 ## `mw app install shopware5`
@@ -1630,7 +1868,7 @@ EXAMPLES
   $ mw autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.11/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.13/src/commands/autocomplete/index.ts)_
 
 ## `mw backup create`
 
@@ -2828,8 +3066,8 @@ Initialize a new ddev project in the current directory.
 
 ```
 USAGE
-  $ mw ddev init [INSTALLATION-ID] [-q] [--override-type <value>] [--project-name <value>]
-    [--override-mittwald-plugin <value>]
+  $ mw ddev init [INSTALLATION-ID] [-q] [--override-type <value>] [--without-database | --database-id <value>]
+    [--project-name <value>] [--override-mittwald-plugin <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -2837,8 +3075,10 @@ ARGUMENTS
 
 FLAGS
   -q, --quiet                  suppress process output and only display a machine-readable summary.
+      --database-id=<value>    ID of the application database
       --override-type=<value>  [default: auto] Override the type of the generated DDEV configuration
       --project-name=<value>   DDEV project name
+      --without-database       Create a DDEV project without a database
 
 DEVELOPMENT FLAGS
   --override-mittwald-plugin=<value>  [default: mittwald/ddev] override the mittwald plugin
@@ -2865,6 +3105,14 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
+  --database-id=<value>  ID of the application database
+
+    The ID of the database to use for the DDEV project; if set to 'auto', the command will use the database linked to
+    the app installation.
+
+    Setting a database ID (either automatically or manually) is required. To create a DDEV project without a database,
+    set the --without-database flag.
+
   --override-mittwald-plugin=<value>  override the mittwald plugin
 
     This flag allows you to override the mittwald plugin that should be installed by default; this is useful for testing
@@ -2880,6 +3128,11 @@ FLAG DESCRIPTIONS
   --project-name=<value>  DDEV project name
 
     The name of the DDEV project
+
+  --without-database  Create a DDEV project without a database
+
+    Use this flag to create a DDEV project without a database; this is useful for projects that do not require a
+    database.
 ```
 
 ## `mw ddev render-config [INSTALLATION-ID]`
@@ -2888,14 +3141,16 @@ Generate a DDEV configuration YAML file for the current app.
 
 ```
 USAGE
-  $ mw ddev render-config [INSTALLATION-ID] [--override-type <value>]
+  $ mw ddev render-config [INSTALLATION-ID] [--override-type <value>] [--without-database | --database-id <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
+  --database-id=<value>    ID of the application database
   --override-type=<value>  [default: auto] Override the type of the generated DDEV configuration
+  --without-database       Create a DDEV project without a database
 
 DESCRIPTION
   Generate a DDEV configuration YAML file for the current app.
@@ -2903,12 +3158,25 @@ DESCRIPTION
   This command initializes a new ddev configuration in the current directory.
 
 FLAG DESCRIPTIONS
+  --database-id=<value>  ID of the application database
+
+    The ID of the database to use for the DDEV project; if set to 'auto', the command will use the database linked to
+    the app installation.
+
+    Setting a database ID (either automatically or manually) is required. To create a DDEV project without a database,
+    set the --without-database flag.
+
   --override-type=<value>  Override the type of the generated DDEV configuration
 
     The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which
     is also the default) for automatic discovery.
 
     See https://ddev.readthedocs.io/en/latest/users/configuration/config/#type for more information
+
+  --without-database  Create a DDEV project without a database
+
+    Use this flag to create a DDEV project without a database; this is useful for projects that do not require a
+    database.
 ```
 
 ## `mw domain dnszone get DNSZONE-ID`
@@ -3213,10 +3481,10 @@ Display help for mw.
 
 ```
 USAGE
-  $ mw help [COMMAND] [-n]
+  $ mw help [COMMAND...] [-n]
 
 ARGUMENTS
-  COMMAND  Command to show help for.
+  COMMAND...  Command to show help for.
 
 FLAGS
   -n, --nested-commands  Include all nested commands in the output.
@@ -3225,7 +3493,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.16/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.20/src/commands/help.ts)_
 
 ## `mw login reset`
 
@@ -4619,7 +4887,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.1.16/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.3/src/commands/update.ts)_
 
 ## `mw user api-token create`
 
@@ -4781,14 +5049,14 @@ Create and import a new SSH key
 
 ```
 USAGE
-  $ mw user ssh-key create [-q] [--output <value>] [--no-passphrase] [--comment <value>] [--expiresAt <value>]
+  $ mw user ssh-key create [-q] [--expires <value>] [--output <value>] [--no-passphrase] [--comment <value>]
 
 FLAGS
-  -q, --quiet              suppress process output and only display a machine-readable summary.
-      --comment=<value>    A comment for the SSH key.
-      --expiresAt=<value>  Duration after which the SSH key should expire (example: '1y').
-      --no-passphrase      Use this flag to not set a passphrase for the SSH key.
-      --output=<value>     [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
+  -q, --quiet            suppress process output and only display a machine-readable summary.
+      --comment=<value>  A comment for the SSH key.
+      --expires=<value>  An interval after which the SSH key expires (examples: 30m, 30d, 1y).
+      --no-passphrase    Use this flag to not set a passphrase for the SSH key.
+      --output=<value>   [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
 
 DESCRIPTION
   Create and import a new SSH key
@@ -4842,6 +5110,29 @@ FLAGS
 
 DESCRIPTION
   Get a specific SSH key
+```
+
+## `mw user ssh-key import`
+
+Import an existing (local) SSH key
+
+```
+USAGE
+  $ mw user ssh-key import [-q] [--expires <value>] [--input <value>]
+
+FLAGS
+  -q, --quiet            suppress process output and only display a machine-readable summary.
+      --expires=<value>  An interval after which the SSH key expires (examples: 30m, 30d, 1y).
+      --input=<value>    [default: id_rsa.pub] A filename in your ~/.ssh directory containing the key to import.
+
+DESCRIPTION
+  Import an existing (local) SSH key
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw user ssh-key list`
