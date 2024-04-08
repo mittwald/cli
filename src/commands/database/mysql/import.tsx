@@ -14,10 +14,10 @@ import {
   mysqlConnectionFlagsWithTempUser,
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
-import { getConnectionDetailsWithPasswordOrTemporaryUser } from "../../../lib/database/mysql/connect.js";
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
 import shellEscape from "shell-escape";
+import { withConnectionDetails } from "../../../lib/database/mysql/connect.js";
 
 export class Import extends ExecRenderBaseCommand<
   typeof Import,
@@ -50,44 +50,43 @@ export class Import extends ExecRenderBaseCommand<
     const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
     const p = makeProcessRenderer(this.flags, "Importing a MySQL database");
 
-    const connectionDetails =
-      await getConnectionDetailsWithPasswordOrTemporaryUser(
-        this.apiClient,
-        databaseId,
-        p,
-        this.flags,
-      );
+    const name = await withConnectionDetails(
+      this.apiClient,
+      databaseId,
+      p,
+      this.flags,
+      async (connectionDetails) => {
+        const { project } = connectionDetails;
+        const mysqlArgs = buildMySqlArgs(connectionDetails);
 
-    const { project } = connectionDetails;
-    const mysqlArgs = buildMySqlArgs(connectionDetails);
+        let cmd: RunCommand = { command: "mysql", args: mysqlArgs };
+        if (this.flags.gzip) {
+          const escapedArgs = shellEscape(mysqlArgs);
+          cmd = {
+            shell: `set -e -o pipefail > /dev/null ; gunzip | mysql ${escapedArgs}`,
+          };
+        }
 
-    let cmd: RunCommand = { command: "mysql", args: mysqlArgs };
-    if (this.flags.gzip) {
-      const escapedArgs = shellEscape(mysqlArgs);
-      cmd = {
-        shell: `set -e -o pipefail > /dev/null ; gunzip | mysql ${escapedArgs}`,
-      };
-    }
+        await p.runStep(
+          <Text>
+            starting mysql via SSH on project <Value>{project.shortId}</Value>
+          </Text>,
+          () =>
+            executeViaSSH(
+              this.apiClient,
+              this.flags["ssh-user"],
+              { projectId: connectionDetails.project.id },
+              cmd,
+              { input: this.getInputStream(), output: null },
+            ),
+        );
 
-    await p.runStep(
-      <Text>
-        starting mysql via SSH on project <Value>{project.shortId}</Value>
-      </Text>,
-      () =>
-        executeViaSSH(
-          this.apiClient,
-          this.flags["ssh-user"],
-          { projectId: connectionDetails.project.id },
-          cmd,
-          { input: this.getInputStream(), output: null },
-        ),
+        return connectionDetails.database;
+      },
     );
 
     await p.complete(
-      <ImportSuccess
-        database={connectionDetails.database}
-        input={this.flags.input}
-      />,
+      <ImportSuccess database={name} input={this.flags.input} />,
     );
 
     return {};

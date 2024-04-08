@@ -14,7 +14,7 @@ import {
   mysqlConnectionFlagsWithTempUser,
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
-import { getConnectionDetailsWithPasswordOrTemporaryUser } from "../../../lib/database/mysql/connect.js";
+import { withConnectionDetails } from "../../../lib/database/mysql/connect.js";
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
 import shellEscape from "shell-escape";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
@@ -50,44 +50,44 @@ export class Dump extends ExecRenderBaseCommand<
     const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
     const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
 
-    const connectionDetails =
-      await getConnectionDetailsWithPasswordOrTemporaryUser(
-        this.apiClient,
-        databaseId,
-        p,
-        this.flags,
-      );
+    const name = await withConnectionDetails(
+      this.apiClient,
+      databaseId,
+      p,
+      this.flags,
+      async (connectionDetails) => {
+        const { project } = connectionDetails;
+        const mysqldumpArgs = buildMySqlDumpArgs(connectionDetails);
 
-    const { project } = connectionDetails;
-    const mysqldumpArgs = buildMySqlDumpArgs(connectionDetails);
+        let cmd: RunCommand = { command: "mysqldump", args: mysqldumpArgs };
+        if (this.flags.gzip) {
+          const escapedArgs = shellEscape(mysqldumpArgs);
+          cmd = {
+            shell: `set -e -o pipefail > /dev/null ; mysqldump ${escapedArgs} | gzip`,
+          };
+        }
 
-    let cmd: RunCommand = { command: "mysqldump", args: mysqldumpArgs };
-    if (this.flags.gzip) {
-      const escapedArgs = shellEscape(mysqldumpArgs);
-      cmd = {
-        shell: `set -e -o pipefail > /dev/null ; mysqldump ${escapedArgs} | gzip`,
-      };
-    }
+        await p.runStep(
+          <Text>
+            starting mysqldump via SSH on project{" "}
+            <Value>{project.shortId}</Value>
+          </Text>,
+          () =>
+            executeViaSSH(
+              this.apiClient,
+              this.flags["ssh-user"],
+              { projectId: connectionDetails.project.id },
+              cmd,
+              { input: null, output: this.getOutputStream() },
+            ),
+        );
 
-    await p.runStep(
-      <Text>
-        starting mysqldump via SSH on project <Value>{project.shortId}</Value>
-      </Text>,
-      () =>
-        executeViaSSH(
-          this.apiClient,
-          this.flags["ssh-user"],
-          { projectId: connectionDetails.project.id },
-          cmd,
-          { input: null, output: this.getOutputStream() },
-        ),
+        return connectionDetails.database;
+      },
     );
 
     await p.complete(
-      <DumpSuccess
-        database={connectionDetails.database}
-        output={this.flags.output}
-      />,
+      <DumpSuccess database={name} output={this.flags.output} />,
     );
 
     return {};

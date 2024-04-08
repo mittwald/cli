@@ -4,11 +4,12 @@ import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { getProject } from "../common.js";
 import { getSSHConnectionForProject } from "../../ssh/project.js";
-import { createTemporaryUser } from "./temp_user.js";
+import { withTemporaryUser } from "./temp_user.js";
 
 type DatabaseMySqlDatabase =
   MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
 type DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
+type Project = MittwaldAPIV2.Components.Schemas.ProjectProject;
 
 export interface MySQLConnectionFlags {
   "mysql-password": string | undefined;
@@ -16,12 +17,33 @@ export interface MySQLConnectionFlags {
   "ssh-user"?: string;
 }
 
-export async function getConnectionDetailsWithPasswordOrTemporaryUser(
+export interface MySQLConnectionDetails {
+  hostname: string;
+  database: string;
+  user: string;
+  sshHost: string;
+  sshUser: string;
+  project: Project;
+}
+
+export type MySQLConnectionDetailsWithPassword = MySQLConnectionDetails & {
+  password: string;
+};
+
+/**
+ * Runs a callback function with connection details for a MySQL database.
+ *
+ * Depending on the flags, this function will either use the credentials
+ * provided in the flags (or prompt for a password), or create a temporary user
+ * for the operation, which will be cleaned up afterwards.
+ */
+export async function withConnectionDetails<TRes>(
   apiClient: MittwaldAPIV2Client,
   databaseId: string,
   p: ProcessRenderer,
   flags: MySQLConnectionFlags,
-) {
+  cb: (connectionDetails: MySQLConnectionDetailsWithPassword) => Promise<TRes>,
+): Promise<TRes> {
   const connectionDetails = await getConnectionDetailsWithPassword(
     apiClient,
     databaseId,
@@ -30,18 +52,12 @@ export async function getConnectionDetailsWithPasswordOrTemporaryUser(
   );
 
   if (flags["temporary-user"]) {
-    const { user, password, cleanup } = await p.runStep(
-      "creating a temporary database user",
-      () => createTemporaryUser(apiClient, databaseId),
+    return withTemporaryUser(apiClient, databaseId, p, async (user, password) =>
+      cb({ ...connectionDetails, user: user.name, password }),
     );
-
-    p.addCleanup("removing temporary database user", cleanup);
-
-    connectionDetails.user = user.name;
-    connectionDetails.password = password;
   }
 
-  return connectionDetails;
+  return cb(connectionDetails);
 }
 
 export async function getConnectionDetailsWithPassword(
@@ -49,7 +65,7 @@ export async function getConnectionDetailsWithPassword(
   databaseId: string,
   p: ProcessRenderer,
   flags: MySQLConnectionFlags,
-) {
+): Promise<MySQLConnectionDetailsWithPassword> {
   const password = flags["temporary-user"] ? "" : await getPassword(p, flags);
   const sshUser = flags["ssh-user"];
   return {
@@ -63,7 +79,7 @@ export async function getConnectionDetails(
   databaseId: string,
   sshUser: string | undefined,
   p: ProcessRenderer,
-) {
+): Promise<MySQLConnectionDetails> {
   const database = await getDatabase(apiClient, p, databaseId);
   const databaseUser = await getDatabaseUser(apiClient, p, databaseId);
   const project = await getProject(apiClient, p, database);

@@ -53,7 +53,7 @@ export async function executeViaSSH(
         if (code === 0) {
           res(undefined);
         } else {
-          rej(new Error(`ssh+${command} exited with code ${code}\n${err}`));
+          rej(new Error(`command exited with code ${code}\n${err}`));
         }
       };
 
