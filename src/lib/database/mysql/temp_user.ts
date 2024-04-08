@@ -15,7 +15,7 @@ export interface TemporaryUser {
 /**
  * Creates a temporary user for a database operation.
  *
- * Caution: The returned TemporaryUser object contains a "cleanup()" functions;
+ * Caution: The returned TemporaryUser object contains a "cleanup()" function;
  * callers of the createTemporaryUser function must make sure to call this
  * function (even in case of errors) to reliably clean up any temporary users.
  */
