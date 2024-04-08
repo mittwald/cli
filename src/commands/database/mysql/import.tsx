@@ -65,7 +65,7 @@ export class Import extends ExecRenderBaseCommand<
     if (this.flags.gzip) {
       const escapedArgs = shellEscape(mysqlArgs);
       cmd = {
-        shell: `set -e -o pipefail > /dev/null ; gunzip | mysqldump ${escapedArgs}`,
+        shell: `set -e -o pipefail > /dev/null ; gunzip | mysql ${escapedArgs}`,
       };
     }
 
