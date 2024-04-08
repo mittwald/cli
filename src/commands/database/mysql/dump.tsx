@@ -79,7 +79,7 @@ export class Dump extends ExecRenderBaseCommand<
           this.flags["ssh-user"],
           { projectId: connectionDetails.project.id },
           cmd,
-          this.getOutputStream(),
+          { input: null, output: this.getOutputStream() },
         ),
     );
 

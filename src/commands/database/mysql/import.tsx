@@ -79,8 +79,7 @@ export class Import extends ExecRenderBaseCommand<
           this.flags["ssh-user"],
           { projectId: connectionDetails.project.id },
           cmd,
-          null,
-          this.getInputStream(),
+          { input: this.getInputStream(), output: null },
         ),
     );
 
