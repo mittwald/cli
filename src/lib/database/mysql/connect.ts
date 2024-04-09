@@ -37,7 +37,7 @@ export type MySQLConnectionDetailsWithPassword = MySQLConnectionDetails & {
  * provided in the flags (or prompt for a password), or create a temporary user
  * for the operation, which will be cleaned up afterwards.
  */
-export async function withConnectionDetails<TRes>(
+export async function runWithConnectionDetails<TRes>(
   apiClient: MittwaldAPIV2Client,
   databaseId: string,
   p: ProcessRenderer,

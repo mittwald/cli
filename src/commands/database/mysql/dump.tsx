@@ -14,7 +14,7 @@ import {
   mysqlConnectionFlagsWithTempUser,
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
-import { withConnectionDetails } from "../../../lib/database/mysql/connect.js";
+import { runWithConnectionDetails } from "../../../lib/database/mysql/connect.js";
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
 import shellEscape from "shell-escape";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
@@ -50,7 +50,7 @@ export class Dump extends ExecRenderBaseCommand<
     const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
     const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
 
-    const databaseName = await withConnectionDetails(
+    const databaseName = await runWithConnectionDetails(
       this.apiClient,
       databaseId,
       p,

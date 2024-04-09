@@ -17,7 +17,7 @@ import {
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
 import shellEscape from "shell-escape";
-import { withConnectionDetails } from "../../../lib/database/mysql/connect.js";
+import { runWithConnectionDetails } from "../../../lib/database/mysql/connect.js";
 
 export class Import extends ExecRenderBaseCommand<
   typeof Import,
@@ -50,7 +50,7 @@ export class Import extends ExecRenderBaseCommand<
     const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
     const p = makeProcessRenderer(this.flags, "Importing a MySQL database");
 
-    const databaseName = await withConnectionDetails(
+    const databaseName = await runWithConnectionDetails(
       this.apiClient,
       databaseId,
       p,
