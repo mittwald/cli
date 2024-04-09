@@ -20,7 +20,6 @@ export async function getAppFromUuid(
 ): Promise<AppApp> {
   const result = await apiClient.app.getApp({ appId });
   assertStatus(result, 200);
-
   return result.data;
 }
 
@@ -113,4 +112,31 @@ export async function getAppVersionNumberFromUuid(
 ): Promise<string> {
   return (await getAppVersionFromUuid(apiClient, appId, appVersionId))
     .externalVersion;
+}
+
+/**
+ * Lookup an app installation by its short id or uuid
+ *
+ * @param apiClient
+ * @param appInstallationId
+ */
+
+export async function getAppInstallationFromAnyId(
+  apiClient: MittwaldAPIV2Client,
+  appInstallationId: string,
+): Promise<Response | undefined> {
+  if (
+    RegExp("^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$").test(
+      appInstallationId,
+    )
+  ) {
+    const appInstallation = await apiClient.app.getAppinstallation({
+      appInstallationId,
+    });
+    assertStatus(appInstallation, 200);
+  } else {
+    var appInstallation = undefined;
+  }
+
+  return appInstallation;
 }
