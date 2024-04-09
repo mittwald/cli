@@ -14,32 +14,32 @@ import {
   mysqlConnectionFlagsWithTempUser,
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
-import { runWithConnectionDetails } from "../../../lib/database/mysql/connect.js";
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
-import shellEscape from "shell-escape";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
+import shellEscape from "shell-escape";
+import { runWithConnectionDetails } from "../../../lib/database/mysql/connect.js";
 
-export class Dump extends ExecRenderBaseCommand<
-  typeof Dump,
+export class Import extends ExecRenderBaseCommand<
+  typeof Import,
   Record<string, never>
 > {
-  static summary = "Create a dump of a MySQL database";
+  static summary = "Imports a dump of a MySQL database";
   static flags = {
     ...processFlags,
     ...mysqlConnectionFlagsWithTempUser,
     ...sshConnectionFlags,
-    output: Flags.string({
-      char: "o",
-      summary: 'the output file to write the dump to ("-" for stdout)',
+    input: Flags.string({
+      char: "i",
+      summary: 'the input file from which to read the dump ("-" for stdin)',
       description:
-        'The output file to write the dump to. You can specify "-" or "/dev/stdout" to write the dump directly to STDOUT; in this case, you might want to use the --quiet/-q flag to supress all other output, so that you can pipe the mysqldump for further processing.',
+        'The input file from which to read the dump to. You can specify "-" or "/dev/stdin" to read the dump directly from STDIN.',
       required: true,
     }),
     gzip: Flags.boolean({
-      summary: "compress the dump with gzip",
+      summary: "uncompress the dump with gzip",
       aliases: ["gz"],
       description:
-        "Compress the dump with gzip. This is useful for large databases, as it can significantly reduce the size of the dump.",
+        "Uncompress the dump with gzip while importing. This is useful for large databases, as it can significantly reduce the size of the dump.",
       default: false,
       required: false,
     }),
@@ -48,7 +48,7 @@ export class Dump extends ExecRenderBaseCommand<
 
   protected async exec(): Promise<Record<string, never>> {
     const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
-    const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
+    const p = makeProcessRenderer(this.flags, "Importing a MySQL database");
 
     const databaseName = await runWithConnectionDetails(
       this.apiClient,
@@ -57,20 +57,19 @@ export class Dump extends ExecRenderBaseCommand<
       this.flags,
       async (connectionDetails) => {
         const { project } = connectionDetails;
-        const mysqldumpArgs = buildMySqlDumpArgs(connectionDetails);
+        const mysqlArgs = buildMySqlArgs(connectionDetails);
 
-        let cmd: RunCommand = { command: "mysqldump", args: mysqldumpArgs };
+        let cmd: RunCommand = { command: "mysql", args: mysqlArgs };
         if (this.flags.gzip) {
-          const escapedArgs = shellEscape(mysqldumpArgs);
+          const escapedArgs = shellEscape(mysqlArgs);
           cmd = {
-            shell: `set -e -o pipefail > /dev/null ; mysqldump ${escapedArgs} | gzip`,
+            shell: `set -e -o pipefail > /dev/null ; gunzip | mysql ${escapedArgs}`,
           };
         }
 
         await p.runStep(
           <Text>
-            starting mysqldump via SSH on project{" "}
-            <Value>{project.shortId}</Value>
+            starting mysql via SSH on project <Value>{project.shortId}</Value>
           </Text>,
           () =>
             executeViaSSH(
@@ -78,7 +77,7 @@ export class Dump extends ExecRenderBaseCommand<
               this.flags["ssh-user"],
               { projectId: connectionDetails.project.id },
               cmd,
-              { input: null, output: this.getOutputStream() },
+              { input: this.getInputStream(), output: null },
             ),
         );
 
@@ -87,7 +86,7 @@ export class Dump extends ExecRenderBaseCommand<
     );
 
     await p.complete(
-      <DumpSuccess database={databaseName} output={this.flags.output} />,
+      <ImportSuccess database={databaseName} input={this.flags.input} />,
     );
 
     return {};
@@ -97,31 +96,31 @@ export class Dump extends ExecRenderBaseCommand<
     return undefined;
   }
 
-  private getOutputStream(): NodeJS.WritableStream {
-    if (this.flags.output === "-") {
-      return process.stdout;
+  private getInputStream(): NodeJS.ReadableStream {
+    if (this.flags.input === "-") {
+      return process.stdin;
     }
 
-    return fs.createWriteStream(this.flags.output);
+    return fs.createReadStream(this.flags.input);
   }
 }
 
-function DumpSuccess({
+function ImportSuccess({
   database,
-  output,
+  input,
 }: {
   database: string;
-  output: string;
+  input: string;
 }) {
   return (
     <Success>
-      Dump of MySQL database <Value>{database}</Value> written to{" "}
-      <Value>{output}</Value>
+      Dump of MySQL database <Value>{database}</Value> successfully imported{" "}
+      from <Value>{input}</Value>
     </Success>
   );
 }
 
-function buildMySqlDumpArgs(d: {
+function buildMySqlArgs(d: {
   hostname: string;
   user: string;
   password: string;
