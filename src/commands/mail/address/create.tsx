@@ -161,7 +161,7 @@ export default class Create extends ExecRenderBaseCommand<
     };
   }
 
-  protected async createMailbox(
+  protected async createMailAddress(
     projectId: string,
     process: ProcessRenderer,
     flags: OutputFlags<FlagInput<typeof Create.flags>>,
@@ -209,7 +209,7 @@ export default class Create extends ExecRenderBaseCommand<
       return this.createForwardAddress(projectId, process, flags);
     }
 
-    return this.createMailbox(projectId, process, flags);
+    return this.createMailAddress(projectId, process, flags);
   }
 
   protected render(executionResult: CreateResult): ReactNode {
