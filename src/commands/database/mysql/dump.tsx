@@ -50,7 +50,7 @@ export class Dump extends ExecRenderBaseCommand<
     const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
     const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
 
-    const name = await withConnectionDetails(
+    const databaseName = await withConnectionDetails(
       this.apiClient,
       databaseId,
       p,
@@ -87,7 +87,7 @@ export class Dump extends ExecRenderBaseCommand<
     );
 
     await p.complete(
-      <DumpSuccess database={name} output={this.flags.output} />,
+      <DumpSuccess database={databaseName} output={this.flags.output} />,
     );
 
     return {};

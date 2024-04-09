@@ -50,7 +50,7 @@ export class Import extends ExecRenderBaseCommand<
     const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
     const p = makeProcessRenderer(this.flags, "Importing a MySQL database");
 
-    const name = await withConnectionDetails(
+    const databaseName = await withConnectionDetails(
       this.apiClient,
       databaseId,
       p,
@@ -86,7 +86,7 @@ export class Import extends ExecRenderBaseCommand<
     );
 
     await p.complete(
-      <ImportSuccess database={name} input={this.flags.input} />,
+      <ImportSuccess database={databaseName} input={this.flags.input} />,
     );
 
     return {};
