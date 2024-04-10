@@ -118,25 +118,6 @@ export async function getAppVersionNumberFromUuid(
  * Lookup an app installation by its short id or uuid
  *
  * @param apiClient
+ * @param projectId
  * @param appInstallationId
  */
-
-export async function getAppInstallationFromAnyId(
-  apiClient: MittwaldAPIV2Client,
-  appInstallationId: string,
-): Promise<Response | undefined> {
-  if (
-    RegExp("^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$").test(
-      appInstallationId,
-    )
-  ) {
-    const appInstallation = await apiClient.app.getAppinstallation({
-      appInstallationId,
-    });
-    assertStatus(appInstallation, 200);
-  } else {
-    var appInstallation = undefined;
-  }
-
-  return appInstallation;
-}

@@ -70,6 +70,46 @@ export async function getLatestAvailableAppVersionForApp(
   );
 }
 
+export async function getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
+  apiClient: MittwaldAPIV2Client,
+  appId: string,
+  baseAppVersionId: string,
+): Promise<AppVersion | undefined> {
+  const versions = await apiClient.app.listUpdateCandidatesForAppversion({
+    appId,
+    baseAppVersionId,
+  });
+  assertStatus(versions, 200);
+  if (versions.data.length === 0) {
+    return undefined;
+  }
+  let latestVersion = "0.0.0";
+  for (const version of versions.data) {
+    if (gt(version.internalVersion, latestVersion)) {
+      latestVersion = version.internalVersion;
+    }
+  }
+  return versions.data.find(
+    (item: AppVersion) => item.internalVersion === latestVersion,
+  );
+}
+
+export async function getAvailableTargetAppVersionFromExternalVersion(
+  apiClient: MittwaldAPIV2Client,
+  appId: string,
+  baseAppVersionId: string,
+  targetExternalVersion: string,
+): Promise<AppVersion | undefined> {
+  const versions = await apiClient.app.listUpdateCandidatesForAppversion({
+    appId,
+    baseAppVersionId,
+  });
+  assertStatus(versions, 200);
+  return versions.data.find(
+    (item: AppVersion) => item.externalVersion === targetExternalVersion,
+  );
+}
+
 // App Version UUID from App Version irellevant if internal or external
 export async function getAppVersionUuidFromAppVersion(
   apiClient: MittwaldAPIV2Client,
