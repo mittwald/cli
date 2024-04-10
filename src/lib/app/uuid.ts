@@ -121,33 +121,3 @@ export async function getAppVersionNumberFromUuid(
  * @param projectId
  * @param appInstallationId
  */
-
-export async function normalizeAppInstallationUuid(
-  apiClient: MittwaldAPIV2Client,
-  projectId: string,
-  appInstallationId: string,
-): Promise<string> {
-  if (
-    RegExp("^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$").test(
-      appInstallationId,
-    )
-  ) {
-    const appInstallation = await apiClient.app.getAppinstallation({
-      appInstallationId,
-    });
-    assertStatus(appInstallation, 200);
-    return appInstallation.data.id;
-  } else {
-    const allAppInstallations = await apiClient.app.listAppinstallations({
-      projectId,
-    });
-    assertStatus(allAppInstallations, 200);
-    for (let i = 0; i < allAppInstallations.data.length; i++) {
-      if (allAppInstallations.data[i].shortId == appInstallationId) {
-        return allAppInstallations.data[i].id;
-      }
-    }
-  }
-  // throw Error("The given app installation Id does not seem to match any of your App-Installations.",);
-  return "arsch";
-}

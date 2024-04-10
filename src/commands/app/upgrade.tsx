@@ -1,14 +1,13 @@
 import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
-import { appInstallationArgs } from "../../lib/app/flags.js";
-import { projectFlags, withProjectId } from "../../lib/project/flags.js";
+import {
+  appInstallationArgs,
+  withAppInstallationId,
+} from "../../lib/app/flags.js";
+import { projectFlags } from "../../lib/project/flags.js";
 import { Flags, ux } from "@oclif/core";
 import React, { ReactNode } from "react";
 import { Text } from "ink";
-import {
-  getAppFromUuid,
-  getAppVersionFromUuid,
-  normalizeAppInstallationUuid,
-} from "../../lib/app/uuid.js";
+import { getAppFromUuid, getAppVersionFromUuid } from "../../lib/app/uuid.js";
 import {
   getAvailableTargetAppVersionFromExternalVersion,
   getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates,
@@ -26,10 +25,6 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     ...appInstallationArgs,
   };
   static flags = {
-    "installation-id": Flags.string({
-      description: "target app to trigger upgrade for",
-      required: false,
-    }),
     "target-version": Flags.string({
       description: "target version to upgrade target app to",
       required: true,
@@ -51,25 +46,17 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       this.flags as ProcessFlags,
       "App Upgrade",
     );
-    const projectId = await withProjectId(
+    const appInstallationId = await withAppInstallationId(
       this.apiClient,
       UpgradeApp,
       this.flags,
       this.args,
       this.config,
     );
-    const appInstallationId: string = checkInstallationIdInput(
-      this.args["installation-id"],
-      this.flags["installation-id"],
-    );
-    const appInstallationUuid: string = await normalizeAppInstallationUuid(
-      this.apiClient,
-      projectId,
-      appInstallationId,
-    );
+
     const currentAppInstallationResponse =
       await this.apiClient.app.getAppinstallation({
-        appInstallationId: appInstallationUuid,
+        appInstallationId: appInstallationId,
       });
     const currentAppInstallation = currentAppInstallationResponse.data;
 
@@ -179,30 +166,5 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
 
   protected render(): ReactNode {
     return true;
-  }
-}
-
-function checkInstallationIdInput(
-  argInstallationId: string | undefined,
-  flagInstallationId: string | undefined,
-): string {
-  if (!argInstallationId && !flagInstallationId) {
-    throw Error(
-      "No app installation id given. Please specify an app for the upgrade either as an argument or through the --installation-id=[] flag.",
-    );
-  } else if (
-    argInstallationId &&
-    flagInstallationId &&
-    argInstallationId != flagInstallationId
-  ) {
-    throw Error(
-      "Two different app installation ids given. Please specify one id either as an argument or through the --installation-id=[] flag.",
-    );
-  } else if (argInstallationId) {
-    return argInstallationId;
-  } else if (flagInstallationId) {
-    return flagInstallationId;
-  } else {
-    throw Error("Something went wrong with the given app installation ids.");
   }
 }
