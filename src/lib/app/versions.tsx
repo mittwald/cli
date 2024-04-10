@@ -8,7 +8,6 @@ import React from "react";
 import { getAppNameFromUuid } from "./uuid.js";
 
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
-
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 export async function normalizeToAppVersionUuid(

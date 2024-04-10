@@ -113,11 +113,3 @@ export async function getAppVersionNumberFromUuid(
   return (await getAppVersionFromUuid(apiClient, appId, appVersionId))
     .externalVersion;
 }
-
-/**
- * Lookup an app installation by its short id or uuid
- *
- * @param apiClient
- * @param projectId
- * @param appInstallationId
- */
