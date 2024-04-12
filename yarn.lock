@@ -2694,12 +2694,12 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:^18":
-  version: 18.2.76
-  resolution: "@types/react@npm:18.2.76"
+  version: 18.2.77
+  resolution: "@types/react@npm:18.2.77"
   dependencies:
     "@types/prop-types": "*"
     csstype: ^3.0.2
-  checksum: 4cb50c265e30846d10d2c532388058ba8a6f9c3d2147e214111c3abd45bfb67ba4b6de1c38007d80b3efdd9db7aa70b9baaa89f8a9bfe10f4bf3316c3158aa1f
+  checksum: 7014b06565228ffb24740e3b2cad168a52c1befa78f52f421c7eb61f86dcf599b494b8220c7bfc77882e19cb52440a1ed713d4a483dc8941c4ce824bd9729755
   languageName: node
   linkType: hard
 
