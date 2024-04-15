@@ -1353,6 +1353,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@inquirer/figures@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@inquirer/figures@npm:1.0.0"
+  checksum: 91e3a5298d71c71eebdc7870e263bd5f1699de7e105b70db4d75984fe9670740fe933fff377cf6d4b432e3a0975368d540c2697f4d303007a5afbf0ef4d91ecc
+  languageName: node
+  linkType: hard
+
 "@inquirer/input@npm:^2.1.1":
   version: 2.1.1
   resolution: "@inquirer/input@npm:2.1.1"
@@ -1669,8 +1676,8 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.2.4
-  resolution: "@oclif/plugin-update@npm:4.2.4"
+  version: 4.2.5
+  resolution: "@oclif/plugin-update@npm:4.2.5"
   dependencies:
     "@oclif/core": ^3.21.0
     chalk: ^5
@@ -1678,11 +1685,11 @@ __metadata:
     debug: ^4.3.1
     filesize: ^6.1.0
     http-call: ^5.3.0
-    inquirer: ^9.2.17
+    inquirer: ^9.2.18
     lodash.throttle: ^4.1.1
     semver: ^7.6.0
     tar-fs: ^2.1.1
-  checksum: 33756b0f0921bab968736110456506bf4eed6d73b183e79aa8a92de2d6cde87432a9c64d06941bf0a10229e43510195b21a005b3f109d320ef8ff5919f244678
+  checksum: 7f704d9fb57e8229204fbae2e8a610846829fd3d75768f70c690a6eed1cc6a885cc2d8dc30ad94bd8dd9d74a0987953fa897f1f4143e1fadf7b9f401ac125c53
   languageName: node
   linkType: hard
 
@@ -5449,17 +5456,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^9.2.17":
-  version: 9.2.17
-  resolution: "inquirer@npm:9.2.17"
+"inquirer@npm:^9.2.18":
+  version: 9.2.18
+  resolution: "inquirer@npm:9.2.18"
   dependencies:
+    "@inquirer/figures": ^1.0.0
     "@ljharb/through": ^2.3.13
     ansi-escapes: ^4.3.2
     chalk: ^5.3.0
     cli-cursor: ^3.1.0
     cli-width: ^4.1.0
     external-editor: ^3.1.0
-    figures: ^3.2.0
     lodash: ^4.17.21
     mute-stream: 1.0.0
     ora: ^5.4.1
@@ -5468,7 +5475,7 @@ __metadata:
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
     wrap-ansi: ^6.2.0
-  checksum: be5afe4f7008afb8057ee2b30c83708100a467a898ca741f136c1226c321dda4ea169cf1782e01b1b977f4cdd2bed6e47c1db5ae728cadf97ba64995cebc1f91
+  checksum: c9e33f5bb67d4281a76afa3d793a4eea84ce6cedbd3ea6b20eb7a393504e456dace31d59fec4b940a5390ad8a74048bbf056f88cf3c43fddd7945233a31cf5f4
   languageName: node
   linkType: hard
 
