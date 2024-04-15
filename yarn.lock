@@ -1601,8 +1601,8 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.21.0, @oclif/core@npm:^3.23.0, @oclif/core@npm:^3.26.0":
-  version: 3.26.2
-  resolution: "@oclif/core@npm:3.26.2"
+  version: 3.26.3
+  resolution: "@oclif/core@npm:3.26.3"
   dependencies:
     "@types/cli-progress": ^3.11.5
     ansi-escapes: ^4.3.2
@@ -1613,7 +1613,7 @@ __metadata:
     cli-progress: ^3.12.0
     color: ^4.2.3
     debug: ^4.3.4
-    ejs: ^3.1.9
+    ejs: ^3.1.10
     get-package-type: ^0.1.0
     globby: ^11.1.0
     hyperlinker: ^1.0.0
@@ -1632,7 +1632,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 895439b0772b76be26ec711890079eb6adf8a527c7670f93d9d8cacd1d42505ce29aaaeab7d0fcaafecc39aa1efe0b5ea4cf2412cb9b4c826f200855b283c3b0
+  checksum: b176bbaa095550da59d6e66f9494e61823ea55847fe30c2acd4d197d9427545eedcb6893ea75896f7dd734d8e6511e653ed2b2bdf3d849b27dbf7820ff86fc5e
   languageName: node
   linkType: hard
 
@@ -4156,6 +4156,17 @@ __metadata:
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
   checksum: 7d00d7cd8e49b9afa762a813faac332dee781932d6f2c848dc348939c4253f1d4564341b7af1d041853bc3f32c2ef141b58e0a4d9862c17a7f08f68df1e0f1ed
+  languageName: node
+  linkType: hard
+
+"ejs@npm:^3.1.10":
+  version: 3.1.10
+  resolution: "ejs@npm:3.1.10"
+  dependencies:
+    jake: ^10.8.5
+  bin:
+    ejs: bin/cli.js
+  checksum: ce90637e9c7538663ae023b8a7a380b2ef7cc4096de70be85abf5a3b9641912dde65353211d05e24d56b1f242d71185c6d00e02cb8860701d571786d92c71f05
   languageName: node
   linkType: hard
 
