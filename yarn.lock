@@ -1607,7 +1607,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.21.0, @oclif/core@npm:^3.23.0, @oclif/core@npm:^3.26.0":
+"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.21.0, @oclif/core@npm:^3.26.0, @oclif/core@npm:^3.26.3":
   version: 3.26.3
   resolution: "@oclif/core@npm:3.26.3"
   dependencies:
@@ -1644,14 +1644,14 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.0.13
-  resolution: "@oclif/plugin-autocomplete@npm:3.0.13"
+  version: 3.0.15
+  resolution: "@oclif/plugin-autocomplete@npm:3.0.15"
   dependencies:
-    "@oclif/core": ^3.23.0
+    "@oclif/core": ^3.26.3
     chalk: ^5.3.0
     debug: ^4.3.4
-    ejs: ^3.1.9
-  checksum: 5dfa59a851edad5adc013d8bd2fc4c5fb1571660300376a14eebea13d36c5d92599da1d7d6bcacc8bc921ba663f711cff23895361f293615932331e297346dfa
+    ejs: ^3.1.10
+  checksum: 57b5e27d5faeed07eb9978fe033c1ab015639e6b0c1e1f4c020df10f89d3ecc392b94ff7b22d07f9367dd46616727a84b53ecc34fc8f58ff6ea83f865c55f1ca
   languageName: node
   linkType: hard
 
