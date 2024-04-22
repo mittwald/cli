@@ -7,7 +7,11 @@ import { projectFlags } from "../../lib/project/flags.js";
 import { Flags, ux } from "@oclif/core";
 import React, { ReactNode } from "react";
 import { Text } from "ink";
-import { getAppFromUuid, getAppVersionFromUuid } from "../../lib/app/uuid.js";
+import {
+  getAppFromUuid,
+  getAppInstallationFromUuid,
+  getAppVersionFromUuid,
+} from "../../lib/app/uuid.js";
 import {
   getAvailableTargetAppVersionFromExternalVersion,
   getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates,
@@ -30,9 +34,6 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       required: true,
       default: "latest",
     }),
-    "show-candidates": Flags.boolean({
-      description: "list version candidates the given app can be upgraded to",
-    }),
     force: Flags.boolean({
       char: "f",
       description: "Do not ask for confirmation",
@@ -47,51 +48,25 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       "App Upgrade",
     );
     const appInstallationId = await withAppInstallationId(
-      this.apiClient,
-      UpgradeApp,
-      this.flags,
-      this.args,
-      this.config,
-    );
-
-    const currentAppInstallationResponse =
-      await this.apiClient.app.getAppinstallation({
-        appInstallationId: appInstallationId,
-      });
-    const currentAppInstallation = currentAppInstallationResponse.data;
-
-    const currentAppUuid: string = currentAppInstallation.appId as string;
-    const currentApp = await getAppFromUuid(this.apiClient, currentAppUuid);
-    const currentAppVersionUuid = (
-      currentAppInstallation.appVersion as { current: string }
-    ).current;
-
-    const currentAppVersion = await getAppVersionFromUuid(
-      this.apiClient,
-      currentAppUuid,
-      currentAppVersionUuid,
-    );
-
-    const upgradeCandidates =
-      await this.apiClient.app.listUpdateCandidatesForAppversion({
-        appId: currentAppUuid,
-        baseAppVersionId: currentAppVersionUuid,
-      });
-
-    if (this.flags["show-candidates"]) {
-      process.addInfo(
-        <Text>
-          Your {currentApp.name} in Version ${currentAppVersion.externalVersion}{" "}
-          can currently be upgraded to the following Versions:
-        </Text>,
+        this.apiClient,
+        UpgradeApp,
+        this.flags,
+        this.args,
+        this.config,
+      ),
+      currentAppInstallation = await getAppInstallationFromUuid(
+        this.apiClient,
+        appInstallationId,
+      ),
+      currentApp = await getAppFromUuid(
+        this.apiClient,
+        currentAppInstallation.appId as string,
+      ),
+      currentAppVersion = await getAppVersionFromUuid(
+        this.apiClient,
+        currentApp.id,
+        (currentAppInstallation.appVersion as { current: string }).current,
       );
-      for (let i = 0; i < upgradeCandidates.data.length; i++) {
-        process.addInfo(
-          <Text>{upgradeCandidates.data[i].externalVersion}</Text>,
-        );
-      }
-      return;
-    }
 
     let targetAppVersion;
 
@@ -99,8 +74,8 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       targetAppVersion =
         await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
           this.apiClient,
-          currentAppUuid,
-          currentAppVersionUuid,
+          currentApp.id,
+          currentAppVersion.id,
         );
       if (!targetAppVersion) {
         process.complete(
@@ -112,8 +87,8 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     } else {
       targetAppVersion = await getAvailableTargetAppVersionFromExternalVersion(
         this.apiClient,
-        currentAppUuid,
-        currentAppVersionUuid,
+        currentApp.id,
+        currentAppVersion.id,
         this.flags["target-version"],
       );
       if (!targetAppVersion) {
@@ -141,7 +116,6 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       if (!confirmed) {
         process.addInfo(<Text>Upgrade will not be triggered.</Text>);
         process.complete(<></>);
-
         ux.exit(1);
       }
     } else {

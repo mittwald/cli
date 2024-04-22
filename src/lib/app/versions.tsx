@@ -5,7 +5,7 @@ import { Value } from "../../rendering/react/components/Value.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { Text } from "ink";
 import React from "react";
-import { getAppNameFromUuid } from "./uuid.js";
+import { getAppInstallationFromUuid, getAppNameFromUuid } from "./uuid.js";
 
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
@@ -67,6 +67,24 @@ export async function getLatestAvailableAppVersionForApp(
   return versions.data.find(
     (item: AppVersion) => item.internalVersion === latestVersion,
   );
+}
+
+export async function getAllUpgradeCandidatesFromAppInstallationId(
+  apiClient: MittwaldAPIV2Client,
+  appInstallationId: string,
+): Promise<AppVersion[]> {
+  const currentAppInstallation = await getAppInstallationFromUuid(
+      apiClient,
+      appInstallationId,
+    ),
+    updateCandidates = await apiClient.app.listUpdateCandidatesForAppversion({
+      appId: currentAppInstallation.appId,
+      baseAppVersionId: (
+        currentAppInstallation.appVersion as { current: string }
+      ).current,
+    });
+  assertStatus(updateCandidates, 200);
+  return updateCandidates.data;
 }
 
 export async function getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
