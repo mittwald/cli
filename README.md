@@ -127,7 +127,10 @@ USAGE
 * [`mw app install grav`](#mw-app-install-grav)
 * [`mw app install joomla`](#mw-app-install-joomla)
 * [`mw app install matomo`](#mw-app-install-matomo)
+* [`mw app install moodle`](#mw-app-install-moodle)
+* [`mw app install neos`](#mw-app-install-neos)
 * [`mw app install nextcloud`](#mw-app-install-nextcloud)
+* [`mw app install prestashop`](#mw-app-install-prestashop)
 * [`mw app install shopware5`](#mw-app-install-shopware5)
 * [`mw app install shopware6`](#mw-app-install-shopware6)
 * [`mw app install typo3`](#mw-app-install-typo3)
@@ -135,6 +138,7 @@ USAGE
 * [`mw app list`](#mw-app-list)
 * [`mw app ssh [INSTALLATION-ID]`](#mw-app-ssh-installation-id)
 * [`mw app uninstall [INSTALLATION-ID]`](#mw-app-uninstall-installation-id)
+* [`mw app upload [INSTALLATION-ID]`](#mw-app-upload-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
 * [`mw autocomplete [SHELL]`](#mw-autocomplete-shell)
 * [`mw backup create`](#mw-backup-create)
@@ -167,6 +171,7 @@ USAGE
 * [`mw database mysql delete DATABASE-ID`](#mw-database-mysql-delete-database-id)
 * [`mw database mysql dump DATABASE-ID`](#mw-database-mysql-dump-database-id)
 * [`mw database mysql get DATABASE-ID`](#mw-database-mysql-get-database-id)
+* [`mw database mysql import DATABASE-ID`](#mw-database-mysql-import-database-id)
 * [`mw database mysql list`](#mw-database-mysql-list)
 * [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
@@ -1008,6 +1013,151 @@ FLAG DESCRIPTIONS
     If unspecified, the Matomo will be installed in the latest available version.
 ```
 
+## `mw app install moodle`
+
+Creates new Moodle installation.
+
+```
+USAGE
+  $ mw app install moodle --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -w, --wait                 wait for your Moodle to be ready.
+      --admin-email=<value>  email address of your administrator user.
+      --admin-pass=<value>   password of your administrator user.
+      --admin-user=<value>   Username for your administrator user.
+      --host=<value>         host to initially configure your Moodle installation with; needs to be created separately.
+      --site-title=<value>   site title for your Moodle installation.
+      --version=<value>      (required) [default: latest] version of Moodle to be installed.
+
+DESCRIPTION
+  Creates new Moodle installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  email address of your administrator user.
+
+    email address that will be used for the first administrator user that is created during the Moodle installation.
+    If unspecified, email address of your mStudio account will be used. This email address can be changed after the
+    installation is finished.
+
+  --admin-pass=<value>  password of your administrator user.
+
+    The password that will be used for the first administrator user that is created during the Moodle installation.
+    If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
+    the installation is finished
+
+  --admin-user=<value>  Username for your administrator user.
+
+    Username of the first administrator user which will be created during the Moodle installation.
+    If unspecified, an adequate username will be generated.
+    After the installation is finished, the username can be changed and additional administrator users can be created.
+
+  --host=<value>  host to initially configure your Moodle installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Moodle configuration.
+    If unspecified, the default host for the given project will be used.
+    This does not change the target of the used host and can be changed later by configuring the host and your Moodle
+    installation.
+
+  --site-title=<value>  site title for your Moodle installation.
+
+    The site title for this Moodle installation. It is also the title shown in the app overview in the mStudio and the
+    CLI.
+    If unspecified, the application name and the given project ID will be used. The title can be changed after the
+    installation is finished
+
+  --version=<value>  version of Moodle to be installed.
+
+    Specify the version in which your Moodle will be installed.
+    If unspecified, the Moodle will be installed in the latest available version.
+```
+
+## `mw app install neos`
+
+Creates new NEOS installation.
+
+```
+USAGE
+  $ mw app install neos --version <value> [-p <value>] [-q] [--admin-user <value>] [--admin-pass <value>]
+    [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+
+FLAGS
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     wait for your NEOS to be ready.
+      --admin-firstname=<value>  first name of your administrator user.
+      --admin-lastname=<value>   Lastname of your administrator user.
+      --admin-pass=<value>       password of your administrator user.
+      --admin-user=<value>       Username for your administrator user.
+      --site-title=<value>       site title for your NEOS installation.
+      --version=<value>          (required) [default: latest] version of NEOS to be installed.
+
+DESCRIPTION
+  Creates new NEOS installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-firstname=<value>  first name of your administrator user.
+
+    The first name that will be used for the first administrator user that is created during the NEOS installation.
+    If unspecified, the first name of your mStudio user will be used. This value can be changed after the installation
+    is finished.
+
+  --admin-lastname=<value>  Lastname of your administrator user.
+
+    The last name that will be used for the first administrator user that is created during the NEOS installation.
+    If unspecified, the last name of your mStudio user will be used. This value can be changed after the installation is
+    finished.
+
+  --admin-pass=<value>  password of your administrator user.
+
+    The password that will be used for the first administrator user that is created during the NEOS installation.
+    If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
+    the installation is finished
+
+  --admin-user=<value>  Username for your administrator user.
+
+    Username of the first administrator user which will be created during the NEOS installation.
+    If unspecified, an adequate username will be generated.
+    After the installation is finished, the username can be changed and additional administrator users can be created.
+
+  --site-title=<value>  site title for your NEOS installation.
+
+    The site title for this NEOS installation. It is also the title shown in the app overview in the mStudio and the
+    CLI.
+    If unspecified, the application name and the given project ID will be used. The title can be changed after the
+    installation is finished
+
+  --version=<value>  version of NEOS to be installed.
+
+    Specify the version in which your NEOS will be installed.
+    If unspecified, the NEOS will be installed in the latest available version.
+```
+
 ## `mw app install nextcloud`
 
 Creates new Nextcloud installation.
@@ -1080,6 +1230,95 @@ FLAG DESCRIPTIONS
 
     Specify the version in which your Nextcloud will be installed.
     If unspecified, the Nextcloud will be installed in the latest available version.
+```
+
+## `mw app install prestashop`
+
+Creates new PrestaShop installation.
+
+```
+USAGE
+  $ mw app install prestashop --version <value> [-p <value>] [-q] [--host <value>] [--admin-email <value>] [--admin-pass
+    <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [--shop-lang <value>] [-w]
+
+FLAGS
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     wait for your PrestaShop to be ready.
+      --admin-email=<value>      email address of your administrator user.
+      --admin-firstname=<value>  first name of your administrator user.
+      --admin-lastname=<value>   Lastname of your administrator user.
+      --admin-pass=<value>       password of your administrator user.
+      --host=<value>             host to initially configure your PrestaShop installation with; needs to be created
+                                 separately.
+      --shop-lang=<value>        language your PrestaShop will be working with.
+      --site-title=<value>       site title for your PrestaShop installation.
+      --version=<value>          (required) [default: latest] version of PrestaShop to be installed.
+
+DESCRIPTION
+  Creates new PrestaShop installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  email address of your administrator user.
+
+    email address that will be used for the first administrator user that is created during the PrestaShop installation.
+    If unspecified, email address of your mStudio account will be used. This email address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  first name of your administrator user.
+
+    The first name that will be used for the first administrator user that is created during the PrestaShop
+    installation.
+    If unspecified, the first name of your mStudio user will be used. This value can be changed after the installation
+    is finished.
+
+  --admin-lastname=<value>  Lastname of your administrator user.
+
+    The last name that will be used for the first administrator user that is created during the PrestaShop installation.
+    If unspecified, the last name of your mStudio user will be used. This value can be changed after the installation is
+    finished.
+
+  --admin-pass=<value>  password of your administrator user.
+
+    The password that will be used for the first administrator user that is created during the PrestaShop installation.
+    If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
+    the installation is finished
+
+  --host=<value>  host to initially configure your PrestaShop installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the PrestaShop configuration.
+    If unspecified, the default host for the given project will be used.
+    This does not change the target of the used host and can be changed later by configuring the host and your
+    PrestaShop installation.
+
+  --shop-lang=<value>  language your PrestaShop will be working with.
+
+    The default language your PrestaShop installation will be using. The front- and back end will be displayed using the
+    given language.
+    If unspecified, this will default to German (de_DE). The language can be changed after the installation is finished.
+
+  --site-title=<value>  site title for your PrestaShop installation.
+
+    The site title for this PrestaShop installation. It is also the title shown in the app overview in the mStudio and
+    the CLI.
+    If unspecified, the application name and the given project ID will be used. The title can be changed after the
+    installation is finished
+
+  --version=<value>  version of PrestaShop to be installed.
+
+    Specify the version in which your PrestaShop will be installed.
+    If unspecified, the PrestaShop will be installed in the latest available version.
 ```
 
 ## `mw app install shopware5`
@@ -1544,6 +1783,47 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+## `mw app upload [INSTALLATION-ID]`
+
+Upload the filesystem of an app to a project
+
+```
+USAGE
+  $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--dry-run] [--delete]
+
+ARGUMENTS
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
+
+FLAGS
+  -q, --quiet             suppress process output and only display a machine-readable summary.
+      --delete            delete remote files that are not present locally
+      --dry-run           do not actually upload the app installation
+      --source=<value>    (required) source directory from which to upload the app installation
+      --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+DESCRIPTION
+  Upload the filesystem of an app to a project
+
+  Upload the filesystem of an app from your local machine to a project.
+
+  CAUTION: This is a potentially destructive operation. It will overwrite files on the server with the files from your
+  local machine. This is NOT a turnkey deployment solution. It is intended for development purposes only.
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
+```
+
 ## `mw app versions [APP]`
 
 List supported Apps and Versions
@@ -1588,7 +1868,7 @@ EXAMPLES
   $ mw autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.13/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.15/src/commands/autocomplete/index.ts)_
 
 ## `mw backup create`
 
@@ -2303,7 +2583,7 @@ Create a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--ssh-user <value>] [--temporary-user] [--gzip]
+  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
@@ -2350,8 +2630,8 @@ FLAG DESCRIPTIONS
 
   --[no-]temporary-user  create a temporary user for the dump
 
-    Create a temporary user for the dump. This user will be deleted after the dump has been created. This is useful if
-    you want to dump a database that is not accessible from the outside.
+    Create a temporary user for this operation. This user will be deleted after the operation has completed. This is
+    useful if you want to work with a database that is not accessible from the outside.
 
     If this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password
     flag or via the MYSQL_PWD environment variable.
@@ -2374,6 +2654,65 @@ FLAGS
 
 DESCRIPTION
   Get a MySQLDatabase.
+```
+
+## `mw database mysql import DATABASE-ID`
+
+Imports a dump of a MySQL database
+
+```
+USAGE
+  $ mw database mysql import DATABASE-ID -i <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>] [--gzip]
+
+ARGUMENTS
+  DATABASE-ID  The ID or name of the database
+
+FLAGS
+  -i, --input=<value>           (required) the input file from which to read the dump ("-" for stdin)
+  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --gzip                    uncompress the dump with gzip
+      --ssh-user=<value>        override the SSH user to connect with; if omitted, your own user will be used
+      --[no-]temporary-user     create a temporary user for the dump
+
+FLAG DESCRIPTIONS
+  -i, --input=<value>  the input file from which to read the dump ("-" for stdin)
+
+    The input file from which to read the dump to. You can specify "-" or "/dev/stdin" to read the dump directly from
+    STDIN.
+
+  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+
+    The password to use for the MySQL user. If not provided, the environment variable MYSQL_PWD will be used. If that is
+    not set either, the command will interactively ask for the password.
+
+    NOTE: This is a security risk, as the password will be visible in the process list of your system, and will be
+    visible in your Shell history. It is recommended to use the environment variable instead.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --gzip  uncompress the dump with gzip
+
+    Uncompress the dump with gzip while importing. This is useful for large databases, as it can significantly reduce
+    the size of the dump.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
+
+  --[no-]temporary-user  create a temporary user for the dump
+
+    Create a temporary user for this operation. This user will be deleted after the operation has completed. This is
+    useful if you want to work with a database that is not accessible from the outside.
+
+    If this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password
+    flag or via the MYSQL_PWD environment variable.
 ```
 
 ## `mw database mysql list`
@@ -3154,7 +3493,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.18/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.21/src/commands/help.ts)_
 
 ## `mw login reset`
 
@@ -4548,7 +4887,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.0/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.6/src/commands/update.ts)_
 
 ## `mw user api-token create`
 

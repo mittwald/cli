@@ -300,7 +300,7 @@ jobs:
       - release-docker
       - release-homebrew
     steps:
-      - uses: geekyeggo/delete-artifact@v4
+      - uses: geekyeggo/delete-artifact@v5
         with:
           name: |
             pkg-*
