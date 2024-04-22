@@ -12,6 +12,7 @@ import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import { Args, Config, Flags } from "@oclif/core";
 import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { articleForWord } from "../language.js";
 
 export const {
   flags: projectFlags,
@@ -49,7 +50,7 @@ export function makeProjectFlagSet<TName extends ContextNames>(
     displayName = name,
     supportsContext = false,
   } = opts;
-  const article = displayName.match(/^[aeiou]/i) ? "an" : "a";
+  const article = articleForWord(displayName);
 
   const flagName: ContextKey<TName> = `${name}-id`;
   const flags = {

@@ -10,6 +10,7 @@ import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import { Context, ContextKey, ContextNames } from "./context.js";
 import UnexpectedShortIDPassedError from "./error/UnexpectedShortIDPassedError.js";
 import { isUuid } from "../normalize_id.js";
+import { articleForWord } from "./language.js";
 
 export type ContextFlags<
   N extends ContextNames,
@@ -124,7 +125,7 @@ export function makeFlagSet<TName extends ContextNames>(
   opts: Partial<FlagSetOptions> = {},
 ): FlagSet<TName> {
   const { displayName = name, normalize = (_, id) => id } = opts;
-  const article = displayName.match(/^[aeiou]/i) ? "an" : "a";
+  const article = articleForWord(displayName);
 
   const flagName: ContextKey<TName> = `${name}-id`;
   const flags = {
