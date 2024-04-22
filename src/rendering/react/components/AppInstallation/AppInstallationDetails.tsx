@@ -8,19 +8,15 @@ import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Box, Text } from "ink";
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
-import { phpInstaller } from "../../../../commands/app/create/php.js";
-import { nodeInstaller } from "../../../../commands/app/create/node.js";
 import { useProject } from "../../../../lib/project/hooks.js";
 import { IDAndShortID } from "../IDAndShortID.js";
 import path from "path";
+import { isCustomAppInstallation } from "../../../../lib/app/custom_installation.js";
 
 export const AppInstallationDetails: FC<{
   appInstallation: AppAppInstallation;
   app: AppApp;
 }> = ({ app, appInstallation }) => {
-  const customInstallation = [phpInstaller.appId, nodeInstaller.appId].includes(
-    app.id,
-  );
   const desiredAppVersion = useAppVersion(
     app.id,
     appInstallation.appVersion.desired,
@@ -65,7 +61,7 @@ export const AppInstallationDetails: FC<{
       <Value>{appInstallation.customDocumentRoot ?? "/"}</Value>
     ),
     Description: <Value>{appInstallation.description}</Value>,
-    Status: customInstallation ? (
+    Status: isCustomAppInstallation(appInstallation.appId) ? (
       <Text>custom application</Text>
     ) : (
       <AppInstallationStatus
