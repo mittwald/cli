@@ -33,13 +33,13 @@ export async function normalizeToAppVersionUuid(
       `${await getAppNameFromUuid(
         apiClient,
         appUuid,
-      )} version ${version} does not seem to exist for the mStudio.`,
+      )} Version ${version} does not seem to exist for the mStudio.`,
     );
   }
 
   process.addInfo(
     <Text>
-      installing version: <Value>{appVersion.externalVersion}</Value>
+      installing Version: <Value>{appVersion.externalVersion}</Value>
     </Text>,
   );
 
@@ -127,7 +127,6 @@ export async function getAvailableTargetAppVersionFromExternalVersion(
   );
 }
 
-// App Version UUID from App Version irellevant if internal or external
 export async function getAppVersionUuidFromAppVersion(
   apiClient: MittwaldAPIV2Client,
   appId: string,

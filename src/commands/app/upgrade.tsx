@@ -24,19 +24,19 @@ import {
 import { Success } from "../../rendering/react/components/Success.js";
 
 export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
-  static description = "Upgrade target app installation to target version";
+  static description = "Upgrade target appinstallation to target version";
   static args = {
     ...appInstallationArgs,
   };
   static flags = {
     "target-version": Flags.string({
-      description: "target version to upgrade target app to",
+      description: "Target version to upgrade target app to.",
       required: true,
       default: "latest",
     }),
     force: Flags.boolean({
       char: "f",
-      description: "Do not ask for confirmation",
+      description: "Do not ask for confirmation.",
     }),
     ...projectFlags,
     ...processFlags,
@@ -45,7 +45,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   protected async exec(): Promise<void> {
     const process = makeProcessRenderer(
       this.flags as ProcessFlags,
-      "App Upgrade",
+      "App upgrade",
     );
     const appInstallationId = await withAppInstallationId(
         this.apiClient,
@@ -101,15 +101,15 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     }
 
     if (!targetAppVersion) {
-      process.error("Target App version could not be determined properly.");
+      process.error("Target app version could not be determined properly.");
       return;
     }
 
     if (!this.flags.force) {
       const confirmed = await process.addConfirmation(
         <Text>
-          Confirm Upgrading {currentApp.name}{" "}
-          {currentAppVersion.externalVersion} (description here) to Version{" "}
+          Confirm upgrading {currentApp.name}{" "}
+          {currentAppVersion.externalVersion} (description here) to version{" "}
           {targetAppVersion.externalVersion}
         </Text>,
       );
@@ -134,7 +134,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     });
 
     process.complete(
-      <Success>The App Upgrade has been started. Buckle up! 🚀</Success>,
+      <Success>The app upgrade has been started. Buckle up! 🚀</Success>,
     );
   }
 
