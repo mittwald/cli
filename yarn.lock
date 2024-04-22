@@ -1317,13 +1317,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/confirm@npm:^3.1.4":
-  version: 3.1.4
-  resolution: "@inquirer/confirm@npm:3.1.4"
+"@inquirer/confirm@npm:^3.1.5":
+  version: 3.1.5
+  resolution: "@inquirer/confirm@npm:3.1.5"
   dependencies:
-    "@inquirer/core": ^8.0.0
+    "@inquirer/core": ^8.0.1
     "@inquirer/type": ^1.3.0
-  checksum: a6a240d67d848b2ea13442da2f137f49e9bbff41946a282fd8833f4ca07da0c612e39ad977b0bca35d7215a1d10e047c7c3948cdfc5e19f6dd78d2b5932f19df
+  checksum: 750b4480bc256143bedb5731dce842287284f2762da83a52a93b1e59172a0bbd19d7d568a0ac8e38a126b69842e5c7442bcf385335b9bffbf89b0f9447ac6bac
   languageName: node
   linkType: hard
 
@@ -1348,27 +1348,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/core@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@inquirer/core@npm:8.0.0"
-  dependencies:
-    "@inquirer/figures": ^1.0.0
-    "@inquirer/type": ^1.3.0
-    "@types/mute-stream": ^0.0.4
-    "@types/node": ^20.12.7
-    "@types/wrap-ansi": ^3.0.0
-    ansi-escapes: ^4.3.2
-    chalk: ^4.1.2
-    cli-spinners: ^2.9.2
-    cli-width: ^4.1.0
-    mute-stream: ^1.0.0
-    signal-exit: ^4.1.0
-    strip-ansi: ^6.0.1
-    wrap-ansi: ^6.2.0
-  checksum: f84a2373050df960d1a27083e7048bc54aa5daefec3663b25e9547a9d117441e8e1212d3126d2700d5f83f2137fef8c362ad0062770ccc6a14f1c4cf911a8039
-  languageName: node
-  linkType: hard
-
 "@inquirer/core@npm:^8.0.1":
   version: 8.0.1
   resolution: "@inquirer/core@npm:8.0.1"
@@ -1387,13 +1366,6 @@ __metadata:
     strip-ansi: ^6.0.1
     wrap-ansi: ^6.2.0
   checksum: 232baf956de90083aa1eef08a4fed35e8a455aafc6a73cf32041d78c84e75266acbddd7ef895aa695a2857c27c50f729380b26df2bee8e40702d8c7513ee7759
-  languageName: node
-  linkType: hard
-
-"@inquirer/figures@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@inquirer/figures@npm:1.0.0"
-  checksum: 91e3a5298d71c71eebdc7870e263bd5f1699de7e105b70db4d75984fe9670740fe933fff377cf6d4b432e3a0975368d540c2697f4d303007a5afbf0ef4d91ecc
   languageName: node
   linkType: hard
 
@@ -4211,17 +4183,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ejs@npm:^3.1.9":
-  version: 3.1.9
-  resolution: "ejs@npm:3.1.9"
-  dependencies:
-    jake: ^10.8.5
-  bin:
-    ejs: bin/cli.js
-  checksum: af6f10eb815885ff8a8cfacc42c6b6cf87daf97a4884f87a30e0c3271fedd85d76a3a297d9c33a70e735b97ee632887f85e32854b9cdd3a2d97edf931519a35f
-  languageName: node
-  linkType: hard
-
 "emoji-regex@npm:^8.0.0":
   version: 8.0.0
   resolution: "emoji-regex@npm:8.0.0"
@@ -6766,15 +6727,15 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.3.9":
-  version: 4.8.5
-  resolution: "oclif@npm:4.8.5"
+  version: 4.8.8
+  resolution: "oclif@npm:4.8.8"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.535.0
     "@aws-sdk/client-s3": ^3.554.0
-    "@inquirer/confirm": ^3.1.4
+    "@inquirer/confirm": ^3.1.5
     "@inquirer/input": ^2.1.1
     "@inquirer/select": ^2.2.1
-    "@oclif/core": ^3.26.0
+    "@oclif/core": ^3.26.4
     "@oclif/plugin-help": ^6.0.21
     "@oclif/plugin-not-found": ^3.0.14
     "@oclif/plugin-warn-if-update-available": ^3.0.14
@@ -6782,7 +6743,7 @@ __metadata:
     chalk: ^4
     change-case: ^4
     debug: ^4.3.3
-    ejs: ^3.1.9
+    ejs: ^3.1.10
     find-yarn-workspace-root: ^2.0.0
     fs-extra: ^8.1
     github-slugger: ^1.5.0
@@ -6794,7 +6755,7 @@ __metadata:
     validate-npm-package-name: ^5.0.0
   bin:
     oclif: bin/run.js
-  checksum: 796f42ba49893af298eacd6bfeebc2b66f1d889e8193a1fcb7c252dfa9be28fe8b42cf2e1dca149b32924603d3b6da38b41f0c9960f66b824591d7408aad2c38
+  checksum: 8bef78a9ca957aee60d5a72f5b41542d51a8b29c333dd1935c7a261e19c8f751915910ab6744ca9a9259ab201cefd8fc0dbcc48f15e3c57f97b9f7cdde78b824
   languageName: node
   linkType: hard
 
