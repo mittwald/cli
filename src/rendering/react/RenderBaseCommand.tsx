@@ -11,6 +11,7 @@ import { CommandArgs, CommandFlags } from "../../types.js";
 import { useIncreaseInkStdoutColumns } from "./hooks/useIncreaseInkStdoutColumns.js";
 import { usePromise } from "@mittwald/react-use-promise";
 import { CommandType } from "../../lib/context_flags.js";
+import ErrorBoundary from "./components/ErrorBoundary.js";
 
 const renderFlags = {
   output: Flags.string({
@@ -53,7 +54,14 @@ export abstract class RenderBaseCommand<
   }
 
   public async run(): Promise<void> {
-    render(
+    const onError = () => {
+      setImmediate(() => {
+        handle.unmount();
+        process.exit(1);
+      });
+    };
+
+    const handle = render(
       <RenderContextProvider
         value={{
           apiClient: this.apiClient,
@@ -62,12 +70,14 @@ export abstract class RenderBaseCommand<
       >
         <JsonCollectionProvider>
           <Suspense>
-            <Render
-              render={() => {
-                useIncreaseInkStdoutColumns();
-                return this.render();
-              }}
-            />
+            <ErrorBoundary onError={onError}>
+              <Render
+                render={() => {
+                  useIncreaseInkStdoutColumns();
+                  return this.render();
+                }}
+              />
+            </ErrorBoundary>
           </Suspense>
         </JsonCollectionProvider>
       </RenderContextProvider>,
