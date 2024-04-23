@@ -5,11 +5,8 @@ import {
 } from "../../lib/app/flags.js";
 import { ListBaseCommand } from "../../ListBaseCommand.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../types.js";
 import { ListColumns } from "../../Formatter.js";
-import { getAllUpgradeCandidatesFromAppInstallationId } from "../../lib/app/versions.js";
-
-type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+import { getAppInstallationFromUuid } from "../../lib/app/uuid.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2AppsAppIdVersions.Get.Responses.$200.Content.ApplicationJson[number]
@@ -18,10 +15,6 @@ type ResponseItem = Simplify<
 type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["app"]["listAppversions"]>
 >;
-
-type ExtendedResponseItem = ResponseItem & {
-  appVersion: AppAppVersion;
-};
 
 export default class List extends ListBaseCommand<
   typeof List,
@@ -36,7 +29,7 @@ export default class List extends ListBaseCommand<
     ...ListBaseCommand.baseFlags,
   };
 
-  protected async getData(): Promise<AppAppVersion[]> {
+  protected async getData(): Promise<Response> {
     const appInstallationId = await withAppInstallationId(
       this.apiClient,
       List,
@@ -45,35 +38,29 @@ export default class List extends ListBaseCommand<
       this.config,
     );
 
-    return getAllUpgradeCandidatesFromAppInstallationId(
+    const currentAppInstallation = await getAppInstallationFromUuid(
       this.apiClient,
       appInstallationId,
     );
+
+    return await this.apiClient.app.listUpdateCandidatesForAppversion({
+      appId: currentAppInstallation.appId,
+      baseAppVersionId: (
+        currentAppInstallation.appVersion as { current: string }
+      ).current,
+    });
   }
 
-  protected mapData(
-    data: SuccessfulResponse<Response, 200>["data"],
-  ): Promise<ExtendedResponseItem[]> {
-    return Promise.all(
-      data.map(async (item) => {
-        return {
-          ...item,
-        };
-      }),
-    );
+  protected async mapData(data: ResponseItem[]): Promise<ResponseItem[]> {
+    return data;
   }
 
-  protected getColumns(
-    rows: ResponseItem[],
-  ): ListColumns<ExtendedResponseItem> {
-    const { id, shortId } = super.getColumns(rows);
+  protected getColumns(): ListColumns<ResponseItem> {
     return {
-      id,
-      shortId,
       externalVersion: {
         header: "Version",
         get: (i) => {
-          return i.appVersion.externalVersion;
+          return i.externalVersion;
         },
       },
     };
