@@ -109,7 +109,8 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       const confirmed = await process.addConfirmation(
         <Text>
           Confirm upgrading {currentApp.name}{" "}
-          {currentAppVersion.externalVersion} (description here) to version{" "}
+          {currentAppVersion.externalVersion} (
+          {currentAppInstallation.description}) to version{" "}
           {targetAppVersion.externalVersion}
         </Text>,
       );
@@ -122,7 +123,8 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       process.addInfo(
         <Text>
           Commencing upgrade of {currentApp.name}
-          {currentAppVersion.externalVersion} (description here) to Version
+          {currentAppVersion.externalVersion} (
+          {currentAppInstallation.description}) to Version
           {targetAppVersion.externalVersion}.
         </Text>,
       );
@@ -134,7 +136,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     });
 
     process.complete(
-      <Success>The app upgrade has been started. Buckle up! 🚀</Success>,
+      <Success>The upgrade has been started. Buckle up! 🚀</Success>,
     );
   }
 
