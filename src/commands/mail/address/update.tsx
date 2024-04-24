@@ -9,11 +9,7 @@ import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import {
-  mailAddressArgs,
-  sharedMailAddressFlags,
-  withMailAddressId,
-} from "../../../lib/mail/flags.js";
+import { mailAddressArgs, withMailAddressId } from "../../../lib/mail/flags.js";
 import crypto from "crypto";
 
 type UpdateResult = {
@@ -33,12 +29,22 @@ export default class Update extends ExecRenderBaseCommand<
     To set forwarding addresses, use the --forward-to flag.
     
     Use the --catch-all flag to make the mailbox a catch-all mailbox.
+    Use the --no-catch-all flag to make the mailbox a regular mailbox.
   
     When running this command with --generated-password the output will be the newly generated and set password.`;
   static args = { ...mailAddressArgs };
   static flags = {
     ...processFlags,
-    ...sharedMailAddressFlags,
+    address: Flags.string({
+      char: "a",
+      summary: "mail address",
+    }),
+    "catch-all": Flags.boolean({
+      description: "make this a catch-all mail address",
+    }),
+    "no-catch-all": Flags.boolean({
+      description: "make this not a catch-all mail address",
+    }),
     quota: Flags.integer({
       description: "mailbox quota in mebibytes",
     }),
@@ -53,14 +59,20 @@ export default class Update extends ExecRenderBaseCommand<
         "This flag will cause the command to generate a random 32-character password for the mailbox; when running with --quiet, the password will be printed to stdout.",
     }),
     "forward-to": Flags.string({
-      summary: "forward mail to another address",
+      summary: "forward mail to other addresses",
       multiple: true,
       description:
-        "This flag will cause the mailbox to forward all incoming mail to the given address.\n\nNote: This flag is exclusive with --catch-all, --quota, --password and --random-password.",
+        "This flag will cause the mailbox to forward all incoming mail to the given addresses. This will replace any forwarding addresses, that have already been set. \n\nNote: This flag is exclusive with --catch-all, --no-catch-all, --quota, --password and --random-password.",
       relationships: [
         {
           type: "none",
-          flags: ["catch-all", "quota", "password", "random-password"],
+          flags: [
+            "catch-all",
+            "no-catch-all",
+            "quota",
+            "password",
+            "random-password",
+          ],
         },
       ],
     }),
@@ -78,7 +90,7 @@ export default class Update extends ExecRenderBaseCommand<
         "<%= config.bin %> <%= command.id %> --random-password --address foo@bar.example",
     },
     {
-      description: "Update forwarding address",
+      description: "Set forwarding addresses",
       command:
         "<%= config.bin %> <%= command.id %> --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example",
     },
@@ -189,7 +201,13 @@ export default class Update extends ExecRenderBaseCommand<
       this.setAddress(mailAddressId, this.flags.address, process);
     }
 
-    this.setCatchAll(mailAddressId, this.flags["catch-all"], process);
+    if (this.flags["catch-all"]) {
+      this.setCatchAll(mailAddressId, true, process);
+    }
+
+    if (this.flags["no-catch-all"]) {
+      this.setCatchAll(mailAddressId, false, process);
+    }
 
     if (this.flags["forward-to"]) {
       this.setForwardAddresses(

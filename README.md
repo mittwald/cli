@@ -3551,7 +3551,7 @@ FLAGS
   -q, --quiet                        suppress process output and only display a machine-readable summary.
       --catch-all                    make this a catch-all mail address
       --[no-]enable-spam-protection  enable spam protection for this mailbox
-      --forward-to=<value>...        forward mail to another address
+      --forward-to=<value>...        forward mail to other addresses
       --password=<value>             mailbox password
       --quota=<value>                [default: 1024] mailbox quota in mebibytes
       --random-password              generate a random password
@@ -3598,11 +3598,12 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
-  --forward-to=<value>...  forward mail to another address
+  --forward-to=<value>...  forward mail to other addresses
 
-    This flag will cause the mailbox to forward all incoming mail to the given address.
+    This flag will cause the mailbox to forward all incoming mail to the given addresses. This will replace any
+    forwarding addresses, that have already been set.
 
-    Note: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.
+    Note: This flag is exclusive with --catch-all, --quota, --password and --random-password.
 
   --password=<value>  mailbox password
 
@@ -3698,17 +3699,18 @@ Update a mail address
 
 ```
 USAGE
-  $ mw mail address update MAILADDRESS-ID -a <value> [-q] [--catch-all] [--quota <value>] [--password <value>]
-    [--random-password] [--forward-to <value>]
+  $ mw mail address update MAILADDRESS-ID [-q] [-a <value>] [--catch-all] [--no-catch-all] [--quota <value>] [--password
+    <value>] [--random-password] [--forward-to <value>]
 
 ARGUMENTS
   MAILADDRESS-ID  ID or mail address of a mailaddress
 
 FLAGS
-  -a, --address=<value>        (required) mail address
+  -a, --address=<value>        mail address
   -q, --quiet                  suppress process output and only display a machine-readable summary.
       --catch-all              make this a catch-all mail address
-      --forward-to=<value>...  forward mail to another address
+      --forward-to=<value>...  forward mail to other addresses
+      --no-catch-all           make this not a catch-all mail address
       --password=<value>       mailbox password
       --quota=<value>          mailbox quota in mebibytes
       --random-password        generate a random password
@@ -3723,6 +3725,7 @@ DESCRIPTION
   To set forwarding addresses, use the --forward-to flag.
 
   Use the --catch-all flag to make the mailbox a catch-all mailbox.
+  Use the --no-catch-all flag to make the mailbox a regular mailbox.
 
   When running this command with --generated-password the output will be the newly generated and set password.
 
@@ -3736,7 +3739,7 @@ EXAMPLES
 
     $ mw mail address update --random-password --address foo@bar.example
 
-  Update forwarding address
+  Set forwarding addresses
 
     $ mw mail address update --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
 
@@ -3746,11 +3749,12 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
-  --forward-to=<value>...  forward mail to another address
+  --forward-to=<value>...  forward mail to other addresses
 
-    This flag will cause the mailbox to forward all incoming mail to the given address.
+    This flag will cause the mailbox to forward all incoming mail to the given addresses. This will replace any
+    forwarding addresses, that have already been set.
 
-    Note: This flag is exclusive with --catch-all, --quota, --password and --random-password.
+    Note: This flag is exclusive with --catch-all, --no-catch-all, --quota, --password and --random-password.
 
   --password=<value>  mailbox password
 

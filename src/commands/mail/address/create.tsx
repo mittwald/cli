@@ -13,8 +13,6 @@ import { ProcessRenderer } from "../../../rendering/process/process.js";
 import * as crypto from "crypto";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
-import { sharedMailAddressFlags } from "../../../lib/mail/flags.js";
-
 type CreateResult = {
   addressId: string;
   generatedPassword: string | null;
@@ -39,7 +37,14 @@ export default class Create extends ExecRenderBaseCommand<
   static flags = {
     ...projectFlags,
     ...processFlags,
-    ...sharedMailAddressFlags,
+    address: Flags.string({
+      char: "a",
+      summary: "mail address",
+      required: true,
+    }),
+    "catch-all": Flags.boolean({
+      description: "make this a catch-all mail address",
+    }),
     "enable-spam-protection": Flags.boolean({
       description: "enable spam protection for this mailbox",
       default: true,
@@ -60,11 +65,11 @@ export default class Create extends ExecRenderBaseCommand<
         "This flag will cause the command to generate a random 32-character password for the mailbox; when running with --quiet, the address ID and the password will be printed to stdout, separated by a tab character.",
     }),
     "forward-to": Flags.string({
-      summary: "forward mail to another address",
+      summary: "forward mail to other addresses",
       default: undefined,
       multiple: true,
       description:
-        "This flag will cause the mailbox to forward all incoming mail to the given address.\n\nNote: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.",
+        "This flag will cause the mailbox to forward all incoming mail to the given addresses. This will replace any forwarding addresses, that have already been set. \n\nNote: This flag is exclusive with --catch-all, --quota, --password and --random-password.",
       relationships: [
         {
           type: "none",

@@ -1,7 +1,6 @@
 import { isUuid } from "../../normalize_id.js";
 import { makeProjectFlagSet } from "../project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { Flags } from "@oclif/core";
 
 export const {
   flags: mailAddressFlags,
@@ -27,14 +26,3 @@ export const {
   },
   shortIDName: "mail address",
 });
-
-export const sharedMailAddressFlags = {
-  address: Flags.string({
-    char: "a",
-    summary: "mail address",
-    required: true,
-  }),
-  "catch-all": Flags.boolean({
-    description: "make this a catch-all mail address",
-  }),
-};
