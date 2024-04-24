@@ -1,6 +1,5 @@
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { projectFlags } from "../../../lib/project/flags.js";
 import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
@@ -10,7 +9,11 @@ import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { mailAddressArgs, withMailAddressId } from "../../../lib/mail/flags.js";
+import {
+  mailAddressArgs,
+  sharedMailAddressFlags,
+  withMailAddressId,
+} from "../../../lib/mail/flags.js";
 import crypto from "crypto";
 
 type UpdateResult = {
@@ -35,13 +38,7 @@ export default class Update extends ExecRenderBaseCommand<
   static args = { ...mailAddressArgs };
   static flags = {
     ...processFlags,
-    address: Flags.string({
-      char: "a",
-      summary: "mail address",
-    }),
-    "catch-all": Flags.boolean({
-      description: "make this a catch-all mail address",
-    }),
+    ...sharedMailAddressFlags,
     quota: Flags.integer({
       description: "mailbox quota in bytes",
     }),

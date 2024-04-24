@@ -13,6 +13,7 @@ import { ProcessRenderer } from "../../../rendering/process/process.js";
 import * as crypto from "crypto";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
+import { sharedMailAddressFlags } from "../../../lib/mail/flags.js";
 
 type CreateResult = {
   addressId: string;
@@ -38,21 +39,14 @@ export default class Create extends ExecRenderBaseCommand<
   static flags = {
     ...projectFlags,
     ...processFlags,
-    address: Flags.string({
-      char: "a",
-      summary: "mail address",
-      required: true,
-    }),
-    "catch-all": Flags.boolean({
-      description: "make this a catch-all mail address",
-    }),
+    ...sharedMailAddressFlags,
     "enable-spam-protection": Flags.boolean({
       description: "enable spam protection for this mailbox",
       default: true,
       allowNo: true,
     }),
     quota: Flags.integer({
-      description: "mailbox quota in gbytes",
+      description: "mailbox quota in bytes",
       default: 1024,
     }),
     password: Flags.string({

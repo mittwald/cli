@@ -3553,7 +3553,7 @@ FLAGS
       --[no-]enable-spam-protection  enable spam protection for this mailbox
       --forward-to=<value>...        forward mail to another address
       --password=<value>             mailbox password
-      --quota=<value>                [default: 1024] mailbox quota in mebibytes
+      --quota=<value>                [default: 1024] mailbox quota in bytes
       --random-password              generate a random password
 
 DESCRIPTION
@@ -3698,21 +3698,19 @@ Update a mail address
 
 ```
 USAGE
-  $ mw mail address update MAILADDRESS-ID [-p <value>] [-q] [-a <value>] [--catch-all] [--quota <value>] [--password
-    <value>] [--random-password] [--forward-to <value>]
+  $ mw mail address update MAILADDRESS-ID -a <value> [-q] [--catch-all] [--quota <value>] [--password <value>]
+    [--random-password] [--forward-to <value>]
 
 ARGUMENTS
   MAILADDRESS-ID  ID or mail address of a mailaddress
 
 FLAGS
-  -a, --address=<value>        mail address
-  -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
-                               context
+  -a, --address=<value>        (required) mail address
   -q, --quiet                  suppress process output and only display a machine-readable summary.
       --catch-all              make this a catch-all mail address
       --forward-to=<value>...  forward mail to another address
       --password=<value>       mailbox password
-      --quota=<value>          mailbox quota in mebibytes
+      --quota=<value>          mailbox quota in bytes
       --random-password        generate a random password
 
 DESCRIPTION
@@ -3743,11 +3741,6 @@ EXAMPLES
     $ mw mail address update --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
-
-    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
-    to persistently set a default project for all commands that accept this flag.
-
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
@@ -3757,19 +3750,18 @@ FLAG DESCRIPTIONS
 
     This flag will cause the mailbox to forward all incoming mail to the given address.
 
-    Note: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.
+    Note: This flag is exclusive with --catch-all, --quota, --password and --random-password.
 
   --password=<value>  mailbox password
 
-    This is the password that should be used for the mailbox; if omitted, the command will prompt interactively for a
-    password.
+    If set, the mailbox will be updated to this password. If omitted, the password will remain unchanged.
 
     CAUTION: providing this flag may log your password in your shell history!
 
   --random-password  generate a random password
 
     This flag will cause the command to generate a random 32-character password for the mailbox; when running with
-    --quiet, the address ID and the password will be printed to stdout, separated by a tab character.
+    --quiet, the password will be printed to stdout.
 ```
 
 ## `mw mail deliverybox get ID`
