@@ -52,7 +52,7 @@ export default class Create extends ExecRenderBaseCommand<
       allowNo: true,
     }),
     quota: Flags.integer({
-      description: "mailbox quota in mebibytes",
+      description: "mailbox quota in gbytes",
       default: 1024,
     }),
     password: Flags.string({

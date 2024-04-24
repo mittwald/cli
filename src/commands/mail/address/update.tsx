@@ -34,7 +34,6 @@ export default class Update extends ExecRenderBaseCommand<
     When running this command with --generated-password the output will be the newly generated and set password.`;
   static args = { ...mailAddressArgs };
   static flags = {
-    ...projectFlags,
     ...processFlags,
     address: Flags.string({
       char: "a",
@@ -44,33 +43,27 @@ export default class Update extends ExecRenderBaseCommand<
       description: "make this a catch-all mail address",
     }),
     quota: Flags.integer({
-      description: "mailbox quota in mebibytes",
+      description: "mailbox quota in bytes",
     }),
     password: Flags.string({
       summary: "mailbox password",
       description:
-        "This is the password that should be used for the mailbox; if omitted, the command will prompt interactively for a password.\n\nCAUTION: providing this flag may log your password in your shell history!",
+        "If set, the mailbox will be updated to this password. If omitted, the password will remain unchanged.\n\nCAUTION: providing this flag may log your password in your shell history!",
     }),
     "random-password": Flags.boolean({
       summary: "generate a random password",
       description:
-        "This flag will cause the command to generate a random 32-character password for the mailbox; when running with --quiet, the address ID and the password will be printed to stdout, separated by a tab character.",
+        "This flag will cause the command to generate a random 32-character password for the mailbox; when running with --quiet, the password will be printed to stdout.",
     }),
     "forward-to": Flags.string({
       summary: "forward mail to another address",
       multiple: true,
       description:
-        "This flag will cause the mailbox to forward all incoming mail to the given address.\n\nNote: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.",
+        "This flag will cause the mailbox to forward all incoming mail to the given address.\n\nNote: This flag is exclusive with --catch-all, --quota, --password and --random-password.",
       relationships: [
         {
           type: "none",
-          flags: [
-            "catch-all",
-            "enable-spam-protection",
-            "quota",
-            "password",
-            "random-password",
-          ],
+          flags: ["catch-all", "quota", "password", "random-password"],
         },
       ],
     }),
@@ -109,11 +102,6 @@ export default class Update extends ExecRenderBaseCommand<
 
       assertStatus(response, 204);
     });
-    await process.complete(
-      <Success>
-        The address of your mail address was successfully updated.
-      </Success>,
-    );
   }
 
   protected async setCatchAll(
@@ -131,11 +119,6 @@ export default class Update extends ExecRenderBaseCommand<
 
       assertStatus(response, 204);
     });
-    await process.complete(
-      <Success>
-        The catchall of your mail address was successfully updated.
-      </Success>,
-    );
   }
 
   protected async setForwardAddresses(
@@ -157,11 +140,6 @@ export default class Update extends ExecRenderBaseCommand<
         assertStatus(response, 204);
       },
     );
-    await process.complete(
-      <Success>
-        The forward addresses of your mail address were successfully updated.
-      </Success>,
-    );
 
     return;
   }
@@ -181,11 +159,6 @@ export default class Update extends ExecRenderBaseCommand<
 
       assertStatus(response, 204);
     });
-    await process.complete(
-      <Success>
-        The password of your mail address was successfully updated.
-      </Success>,
-    );
   }
 
   protected async setQuota(
@@ -203,11 +176,6 @@ export default class Update extends ExecRenderBaseCommand<
 
       assertStatus(response, 204);
     });
-    await process.complete(
-      <Success>
-        The quota of your mail address was successfully updated.
-      </Success>,
-    );
   }
 
   protected async exec(): Promise<UpdateResult> {
@@ -252,6 +220,10 @@ export default class Update extends ExecRenderBaseCommand<
     if (this.flags.quota) {
       this.setQuota(mailAddressId, this.flags.quota, process);
     }
+
+    await process.complete(
+      <Success>The mail address was successfully updated.</Success>,
+    );
 
     return Promise.resolve({ generatedPassword: password });
   }
