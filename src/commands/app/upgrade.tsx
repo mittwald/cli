@@ -13,6 +13,7 @@ import {
   getAppVersionFromUuid,
 } from "../../lib/app/uuid.js";
 import {
+  getAllUpgradeCandidatesFromAppInstallationId,
   getAvailableTargetAppVersionFromExternalVersion,
   getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates,
 } from "../../lib/app/versions.js";
@@ -22,6 +23,11 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
+import { ProcessRenderer } from "../../rendering/process/process.js";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+
+type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 
 export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   static description = "Upgrade target appinstallation to target version";
@@ -31,8 +37,6 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   static flags = {
     "target-version": Flags.string({
       description: "Target version to upgrade target app to.",
-      required: true,
-      default: "latest",
     }),
     force: Flags.boolean({
       char: "f",
@@ -68,6 +72,23 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
         (currentAppInstallation.appVersion as { current: string }).current,
       );
 
+    const targetAppVersionCandidates =
+      await getAllUpgradeCandidatesFromAppInstallationId(
+        this.apiClient,
+        currentAppInstallation.id,
+      );
+
+    if (targetAppVersionCandidates.length == 0) {
+      process.addInfo(
+        <Text>
+          Your {currentApp.name} {currentAppVersion.externalVersion} is already
+          Up-To-Date. ✅
+        </Text>,
+      );
+      process.complete(<></>);
+      ux.exit(0);
+    }
+
     let targetAppVersion;
 
     if (this.flags["target-version"] == "latest") {
@@ -77,27 +98,38 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
           currentApp.id,
           currentAppVersion.id,
         );
-      if (!targetAppVersion) {
-        process.complete(
-          <Success>
-            Your App is already at the lastest available or possible version. ✅
-          </Success>,
+    } else if (this.flags["target-version"]) {
+      const targetVersionMatchFromCandidates = targetAppVersionCandidates.find(
+        (targetAppVersionCandidate) =>
+          targetAppVersionCandidate.externalVersion ===
+          this.flags["target-version"],
+      );
+
+      if (targetVersionMatchFromCandidates) {
+        targetAppVersion = targetVersionMatchFromCandidates;
+      } else {
+        process.addInfo(
+          <Text>
+            The given target upgrade version does not seem to be a valid upgrade
+            candidate.
+          </Text>,
+        );
+        targetAppVersion = await forceTargetVersionSelection(
+          process,
+          this.apiClient,
+          targetAppVersionCandidates,
+          currentApp,
+          currentAppVersion,
         );
       }
     } else {
-      targetAppVersion = await getAvailableTargetAppVersionFromExternalVersion(
+      targetAppVersion = await forceTargetVersionSelection(
+        process,
         this.apiClient,
-        currentApp.id,
-        currentAppVersion.id,
-        this.flags["target-version"],
+        targetAppVersionCandidates,
+        currentApp,
+        currentAppVersion,
       );
-      if (!targetAppVersion) {
-        process.error(
-          "Given target version is not a valid upgrade candidate for the current version of your app. \n" +
-            "You can check valid upgrade candidates for your apps with the flag '--show-candidates'",
-        );
-        return;
-      }
     }
 
     if (!targetAppVersion) {
@@ -142,5 +174,42 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
 
   protected render(): ReactNode {
     return true;
+  }
+}
+
+async function forceTargetVersionSelection(
+  process: ProcessRenderer,
+  apiClient: MittwaldAPIV2Client,
+  targetAppVersionCandidates: AppAppVersion[],
+  currentApp: AppApp,
+  currentAppVersion: AppAppVersion,
+) {
+  const targetAppVersionString = await process.addSelect(
+    `Please select target upgrade for your ${currentApp.name} ${currentAppVersion.externalVersion} from one of the following`,
+    [
+      {
+        value: "latest",
+        label: "latest",
+      },
+      ...targetAppVersionCandidates.map((targetAppVersionCandidate) => ({
+        value: targetAppVersionCandidate.externalVersion,
+        label: `${targetAppVersionCandidate.externalVersion}`,
+      })),
+    ],
+  );
+
+  if (targetAppVersionString == "latest") {
+    return await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
+      apiClient,
+      currentApp.id,
+      currentAppVersion.id,
+    );
+  } else {
+    return await getAvailableTargetAppVersionFromExternalVersion(
+      apiClient,
+      currentApp.id,
+      currentAppVersion.id,
+      targetAppVersionString,
+    );
   }
 }
