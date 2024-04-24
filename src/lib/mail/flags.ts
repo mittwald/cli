@@ -18,7 +18,7 @@ export const {
     });
     assertStatus(response, 200);
 
-    const address = response.data.find((address) => address.id === id);
+    const address = response.data.find((address) => address.address === id);
     if (!address) {
       throw new Error(`mail address with id "${id}" not found`);
     }
