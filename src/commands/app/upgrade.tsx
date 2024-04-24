@@ -25,9 +25,11 @@ import {
 import { Success } from "../../rendering/react/components/Success.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { waitUntilAppIsUpgraded } from "../../lib/app/wait.js";
 
-type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
+type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
+type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   static description = "Upgrade target appinstallation to target version";
@@ -37,6 +39,10 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   static flags = {
     "target-version": Flags.string({
       description: "Target version to upgrade target app to.",
+    }),
+    wait: Flags.boolean({
+      description: "wait for the upgrade process to finish",
+      char: "w",
     }),
     force: Flags.boolean({
       char: "f",
@@ -51,32 +57,29 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       this.flags as ProcessFlags,
       "App upgrade",
     );
-    const appInstallationId = await withAppInstallationId(
+    const appInstallationId: string = await withAppInstallationId(
         this.apiClient,
         UpgradeApp,
         this.flags,
         this.args,
         this.config,
       ),
-      currentAppInstallation = await getAppInstallationFromUuid(
-        this.apiClient,
-        appInstallationId,
-      ),
-      currentApp = await getAppFromUuid(
+      currentAppInstallation: AppAppInstallation =
+        await getAppInstallationFromUuid(this.apiClient, appInstallationId),
+      currentApp: AppApp = await getAppFromUuid(
         this.apiClient,
         currentAppInstallation.appId as string,
       ),
-      currentAppVersion = await getAppVersionFromUuid(
+      currentAppVersion: AppAppVersion = await getAppVersionFromUuid(
         this.apiClient,
         currentApp.id,
         (currentAppInstallation.appVersion as { current: string }).current,
-      );
-
-    const targetAppVersionCandidates =
-      await getAllUpgradeCandidatesFromAppInstallationId(
-        this.apiClient,
-        currentAppInstallation.id,
-      );
+      ),
+      targetAppVersionCandidates: AppAppVersion[] =
+        await getAllUpgradeCandidatesFromAppInstallationId(
+          this.apiClient,
+          currentAppInstallation.id,
+        );
 
     if (targetAppVersionCandidates.length == 0) {
       process.addInfo(
@@ -99,11 +102,12 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
           currentAppVersion.id,
         );
     } else if (this.flags["target-version"]) {
-      const targetVersionMatchFromCandidates = targetAppVersionCandidates.find(
-        (targetAppVersionCandidate) =>
-          targetAppVersionCandidate.externalVersion ===
-          this.flags["target-version"],
-      );
+      const targetVersionMatchFromCandidates: AppAppVersion | undefined =
+        targetAppVersionCandidates.find(
+          (targetAppVersionCandidate: AppAppVersion) =>
+            targetAppVersionCandidate.externalVersion ===
+            this.flags["target-version"],
+        );
 
       if (targetVersionMatchFromCandidates) {
         targetAppVersion = targetVersionMatchFromCandidates;
@@ -138,7 +142,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     }
 
     if (!this.flags.force) {
-      const confirmed = await process.addConfirmation(
+      const confirmed: boolean = await process.addConfirmation(
         <Text>
           Confirm upgrading {currentApp.name}{" "}
           {currentAppVersion.externalVersion} (
@@ -167,9 +171,15 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       data: { appVersionId: targetAppVersion.id },
     });
 
-    process.complete(
-      <Success>The upgrade has been started. Buckle up! 🚀</Success>,
-    );
+    let successText: string;
+    if (this.flags.wait) {
+      await waitUntilAppIsUpgraded(this.apiClient, process, appInstallationId);
+      successText =
+        "The upgrade finished succesfully. Please check if everything is in its place. 🔎";
+    } else {
+      successText = "The upgrade has been started. Buckle up! 🚀";
+    }
+    await process.complete(<Success>{successText}</Success>);
   }
 
   protected render(): ReactNode {
@@ -183,7 +193,7 @@ async function forceTargetVersionSelection(
   targetAppVersionCandidates: AppAppVersion[],
   currentApp: AppApp,
   currentAppVersion: AppAppVersion,
-) {
+): Promise<AppAppVersion | undefined> {
   const targetAppVersionString = await process.addSelect(
     `Please select target upgrade for your ${currentApp.name} ${currentAppVersion.externalVersion} from one of the following`,
     [

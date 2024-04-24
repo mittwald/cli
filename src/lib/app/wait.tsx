@@ -29,3 +29,29 @@ export async function waitUntilAppIsInstalled(
 
   stepWaiting.complete();
 }
+
+export async function waitUntilAppIsUpgraded(
+  apiClient: MittwaldAPIV2Client,
+  process: ProcessRenderer,
+  appInstallationId: string,
+) {
+  const stepWaiting = process.addStep(
+    <Text>waiting for app installation to be ready</Text>,
+  );
+
+  await waitUntil(async () => {
+    const installationResponse = await apiClient.app.getAppinstallation({
+      appInstallationId,
+    });
+
+    if (
+      installationResponse.status === 200 &&
+      installationResponse.data.appVersion.current ==
+        installationResponse.data.appVersion.desired
+    ) {
+      return true;
+    }
+  });
+
+  stepWaiting.complete();
+}
