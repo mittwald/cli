@@ -40,7 +40,7 @@ export default class Update extends ExecRenderBaseCommand<
     ...processFlags,
     ...sharedMailAddressFlags,
     quota: Flags.integer({
-      description: "mailbox quota in bytes",
+      description: "mailbox quota in mebibytes",
     }),
     password: Flags.string({
       summary: "mailbox password",
@@ -160,14 +160,14 @@ export default class Update extends ExecRenderBaseCommand<
 
   protected async setQuota(
     mailAddressId: string,
-    quota: number,
+    quotaInMebiBytes: number,
     process: ProcessRenderer,
   ): Promise<void> {
     await process.runStep("set the quota of a mail address", async () => {
       const response = await this.apiClient.mail.updateMailAddressQuota({
         mailAddressId: mailAddressId,
         data: {
-          quotaInBytes: quota,
+          quotaInBytes: quotaInMebiBytes * 1024 * 1024,
         },
       });
 

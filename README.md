@@ -3553,7 +3553,7 @@ FLAGS
       --[no-]enable-spam-protection  enable spam protection for this mailbox
       --forward-to=<value>...        forward mail to another address
       --password=<value>             mailbox password
-      --quota=<value>                [default: 1024] mailbox quota in bytes
+      --quota=<value>                [default: 1024] mailbox quota in mebibytes
       --random-password              generate a random password
 
 DESCRIPTION
@@ -3710,7 +3710,7 @@ FLAGS
       --catch-all              make this a catch-all mail address
       --forward-to=<value>...  forward mail to another address
       --password=<value>       mailbox password
-      --quota=<value>          mailbox quota in bytes
+      --quota=<value>          mailbox quota in mebibytes
       --random-password        generate a random password
 
 DESCRIPTION
