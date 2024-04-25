@@ -8012,8 +8012,8 @@ __metadata:
   linkType: hard
 
 "tsx@npm:^4.7.1":
-  version: 4.7.2
-  resolution: "tsx@npm:4.7.2"
+  version: 4.7.3
+  resolution: "tsx@npm:4.7.3"
   dependencies:
     esbuild: ~0.19.10
     fsevents: ~2.3.3
@@ -8023,7 +8023,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: 34c4fbbfb96848e05e39d5c55da51815f0856386428ad781a6df79e88ad62d83e9a071a3997a230ea7b45654cb215262267ac1202c31b67056359d386f6a9f65
+  checksum: aa0476760f387bdb1bcac038edb2b8b6d852558a947fd6698ba32c160842c8d9705d96caa7a719acc1e7b102a2b79a2ad97df9c54a9b6dc2fba6e26f607b34e3
   languageName: node
   linkType: hard
 
