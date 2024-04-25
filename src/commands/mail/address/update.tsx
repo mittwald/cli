@@ -40,10 +40,9 @@ export default class Update extends ExecRenderBaseCommand<
       summary: "mail address",
     }),
     "catch-all": Flags.boolean({
-      description: "make this a catch-all mail address",
-    }),
-    "no-catch-all": Flags.boolean({
-      description: "make this not a catch-all mail address",
+      description:
+        "Change this from or to a catch-all mail address; omit to leave unchanged",
+      allowNo: true,
     }),
     quota: Flags.integer({
       description: "mailbox quota in mebibytes",
@@ -201,12 +200,8 @@ export default class Update extends ExecRenderBaseCommand<
       this.setAddress(mailAddressId, this.flags.address, process);
     }
 
-    if (this.flags["catch-all"]) {
-      this.setCatchAll(mailAddressId, true, process);
-    }
-
-    if (this.flags["no-catch-all"]) {
-      this.setCatchAll(mailAddressId, false, process);
+    if (this.flags["catch-all"] !== undefined) {
+      this.setCatchAll(mailAddressId, this.flags["catch-all"], process);
     }
 
     if (this.flags["forward-to"]) {

@@ -3699,8 +3699,8 @@ Update a mail address
 
 ```
 USAGE
-  $ mw mail address update MAILADDRESS-ID [-q] [-a <value>] [--catch-all] [--no-catch-all] [--quota <value>] [--password
-    <value>] [--random-password] [--forward-to <value>]
+  $ mw mail address update MAILADDRESS-ID [-q] [-a <value>] [--catch-all] [--quota <value>] [--password <value>]
+    [--random-password] [--forward-to <value>]
 
 ARGUMENTS
   MAILADDRESS-ID  ID or mail address of a mailaddress
@@ -3708,9 +3708,8 @@ ARGUMENTS
 FLAGS
   -a, --address=<value>        mail address
   -q, --quiet                  suppress process output and only display a machine-readable summary.
-      --catch-all              make this a catch-all mail address
+      --[no-]catch-all         Change this from or to a catch-all mail address; omit to leave unchanged
       --forward-to=<value>...  forward mail to other addresses
-      --no-catch-all           make this not a catch-all mail address
       --password=<value>       mailbox password
       --quota=<value>          mailbox quota in mebibytes
       --random-password        generate a random password
