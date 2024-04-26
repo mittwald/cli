@@ -5,6 +5,7 @@ import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
 import { SSHConnectionFlags, sshConnectionFlags } from "../../lib/ssh/flags.js";
 import { sshWrapperDocumentation } from "../../lib/ssh/doc.js";
+import { buildSSHClientFlags } from "../../lib/ssh/connection.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static summary = "Connect to an app via SSH";
@@ -47,9 +48,9 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
 
     this.log("connecting to %o as %o", host, user);
 
-    const [cmd, args] = buildSSHCmdAndFlags(user, directory, this.flags);
+    const [cmd, args] = buildSSHCmdAndFlags(user, host, directory, this.flags);
 
-    this.debug("running ssh %o on %o, with command %o", args, host, cmd);
+    this.debug("running ssh %o, with command %o", args, cmd);
 
     if (flags.cd) {
       this.log(
@@ -58,30 +59,25 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
       );
     }
 
-    child_process.spawnSync("/usr/bin/ssh", [...args, host, cmd], {
+    child_process.spawnSync("/usr/bin/ssh", [...args, cmd], {
       stdio: "inherit",
     });
   }
 }
 
-function buildSSHArgs(user: string, flags: SSHConnectionFlags) {
-  const args = ["-t", "-l", user];
-
-  if (flags["ssh-identity-file"]) {
-    args.push("-i", flags["ssh-identity-file"]);
-  }
-  return args;
-}
-
 function buildSSHCmdAndFlags(
   user: string,
+  host: string,
   directory: string,
   flags: SSHConnectionFlags & { test: boolean; cd: boolean },
 ): [string, string[]] {
-  const args = buildSSHArgs(user, flags);
+  const args = buildSSHClientFlags(user, host, flags, {
+    interactive: true,
+    additionalFlags: flags.test ? ["-q"] : [],
+  });
 
   if (flags.test) {
-    return ["/bin/true", [...args, "-q"]];
+    return ["/bin/true", args];
   }
 
   if (flags.cd) {

@@ -2930,7 +2930,7 @@ Connect to a MySQL database via the MySQL shell
 
 ```
 USAGE
-  $ mw database mysql shell DATABASE-ID [-q] [-p <value>]
+  $ mw database mysql shell DATABASE-ID [-q] [--ssh-user <value>] [--ssh-identity-file <value>] [-p <value>]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
@@ -2938,6 +2938,10 @@ ARGUMENTS
 FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
 
 DESCRIPTION
   Connect to a MySQL database via the MySQL shell
@@ -2965,6 +2969,20 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw database mysql user delete USER-ID`
@@ -3163,13 +3181,17 @@ Connect to a Redis database via the redis-cli
 
 ```
 USAGE
-  $ mw database redis shell DATABASE-ID [-q]
+  $ mw database redis shell DATABASE-ID [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
 
 ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
 
 FLAGS
   -q, --quiet  suppress process output and only display a machine-readable summary.
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
 
 DESCRIPTION
   Connect to a Redis database via the redis-cli
@@ -3189,6 +3211,20 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw database redis versions`

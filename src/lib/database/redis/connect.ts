@@ -1,7 +1,7 @@
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { getProject, getUser } from "../common.js";
+import { getSSHConnectionForProject } from "../../ssh/project.js";
 
 type DatabaseRedisDatabase =
   MittwaldAPIV2.Components.Schemas.DatabaseRedisDatabase;
@@ -9,17 +9,21 @@ type DatabaseRedisDatabase =
 export async function getConnectionDetails(
   apiClient: MittwaldAPIV2Client,
   databaseId: string,
+  sshUserOverride: string | undefined,
   p: ProcessRenderer,
 ) {
   const database = await getDatabase(apiClient, p, databaseId);
-  const project = await getProject(apiClient, p, database);
-  const user = await getUser(apiClient, p);
+  const { user: sshUser, host: sshHost } = await getSSHConnectionForProject(
+    apiClient,
+    database.projectId,
+    sshUserOverride,
+  );
 
   return {
     hostname: database.hostname,
     database: database.name,
-    sshHost: `ssh.${project.clusterID}.${project.clusterDomain}`,
-    sshUser: `${user.email}@${project.shortId}`,
+    sshHost,
+    sshUser,
   };
 }
 

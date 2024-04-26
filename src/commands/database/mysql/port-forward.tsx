@@ -12,6 +12,7 @@ import { Value } from "../../../rendering/react/components/Value.js";
 import { Flags } from "@oclif/core";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
 import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
+import { buildSSHClientFlags } from "../../../lib/ssh/connection.js";
 
 export class PortForward extends ExecRenderBaseCommand<
   typeof PortForward,
@@ -54,13 +55,12 @@ export class PortForward extends ExecRenderBaseCommand<
       </Text>,
     );
 
-    const sshArgs = ["-T", "-L", `${port}:${hostname}:3306`, "-l", sshUser];
+    const sshArgs = buildSSHClientFlags(sshUser, sshHost, this.flags, {
+      interactive: false,
+      additionalFlags: ["-L", `${port}:${hostname}:3306`],
+    });
 
-    if (this.flags["ssh-identity-file"]) {
-      sshArgs.push("-i", this.flags["ssh-identity-file"]);
-    }
-
-    cp.spawnSync("ssh", [...sshArgs, sshHost, "cat", "/dev/zero"], {
+    cp.spawnSync("ssh", [...sshArgs, "cat", "/dev/zero"], {
       stdio: ["ignore", process.stdout, process.stderr],
     });
     return {};

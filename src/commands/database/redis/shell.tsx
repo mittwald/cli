@@ -9,6 +9,8 @@ import { Text } from "ink";
 import { getConnectionDetails } from "../../../lib/database/redis/connect.js";
 import { redisArgs, withRedisId } from "../../../lib/database/redis/flags.js";
 import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
+import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
+import { buildSSHClientFlags } from "../../../lib/ssh/connection.js";
 
 export class Shell extends ExecRenderBaseCommand<
   typeof Shell,
@@ -20,6 +22,7 @@ export class Shell extends ExecRenderBaseCommand<
     sshUsageDocumentation;
   static flags = {
     ...processFlags,
+    ...sshConnectionFlags,
   };
   static args = { ...redisArgs };
 
@@ -35,14 +38,20 @@ export class Shell extends ExecRenderBaseCommand<
     const { sshUser, sshHost, hostname } = await getConnectionDetails(
       this.apiClient,
       databaseId,
+      this.flags["ssh-user"],
       p,
     );
 
-    p.complete(<Text>Starting Redis shell -- get ready...</Text>);
+    await p.complete(<Text>Starting Redis shell -- get ready...</Text>);
 
-    const sshArgs = ["-t", "-l", sshUser, sshHost, "redis-cli", "-h", hostname];
+    const sshArgs = buildSSHClientFlags(sshUser, sshHost, this.flags, {
+      interactive: true,
+    });
+    const redisArgs = ["-h", hostname];
 
-    cp.spawnSync("ssh", sshArgs, { stdio: "inherit" });
+    cp.spawnSync("ssh", [...sshArgs, "redis-cli", ...redisArgs], {
+      stdio: "inherit",
+    });
     return {};
   }
 
