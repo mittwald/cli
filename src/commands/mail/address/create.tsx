@@ -150,7 +150,7 @@ export default class Create extends ExecRenderBaseCommand<
       },
     );
 
-    process.complete(
+    await process.complete(
       <Success>Your mail address was successfully created.</Success>,
     );
 
@@ -188,7 +188,7 @@ export default class Create extends ExecRenderBaseCommand<
       },
     );
 
-    process.complete(
+    await process.complete(
       <Success>Your mail address was successfully created.</Success>,
     );
 

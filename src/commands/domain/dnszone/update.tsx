@@ -180,7 +180,7 @@ export default class Update extends ExecRenderBaseCommand<
       });
     }
 
-    process.complete(<Success>DNS record set successfully set.</Success>);
+    await process.complete(<Success>DNS record set successfully set.</Success>);
 
     return;
   }

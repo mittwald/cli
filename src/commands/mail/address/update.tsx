@@ -197,15 +197,15 @@ export default class Update extends ExecRenderBaseCommand<
     );
 
     if (this.flags.address) {
-      this.setAddress(mailAddressId, this.flags.address, process);
+      await this.setAddress(mailAddressId, this.flags.address, process);
     }
 
     if (this.flags["catch-all"] !== undefined) {
-      this.setCatchAll(mailAddressId, this.flags["catch-all"], process);
+      await this.setCatchAll(mailAddressId, this.flags["catch-all"], process);
     }
 
     if (this.flags["forward-to"]) {
-      this.setForwardAddresses(
+      await this.setForwardAddresses(
         mailAddressId,
         this.flags["forward-to"],
         process,
@@ -215,7 +215,7 @@ export default class Update extends ExecRenderBaseCommand<
     let password = null;
 
     if (this.flags.password) {
-      this.setPassword(mailAddressId, this.flags.password, process);
+      await this.setPassword(mailAddressId, this.flags.password, process);
     } else if (this.flags["random-password"]) {
       password = await process.runStep(
         "generating random password",
@@ -224,11 +224,11 @@ export default class Update extends ExecRenderBaseCommand<
         },
       );
 
-      this.setPassword(mailAddressId, password, process);
+      await this.setPassword(mailAddressId, password, process);
     }
 
     if (this.flags.quota) {
-      this.setQuota(mailAddressId, this.flags.quota, process);
+      await this.setQuota(mailAddressId, this.flags.quota, process);
     }
 
     await process.complete(
