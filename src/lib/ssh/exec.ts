@@ -4,6 +4,8 @@ import { SSHConnectionData } from "./types.js";
 import { getSSHConnectionForAppInstallation } from "./appinstall.js";
 import { getSSHConnectionForProject } from "./project.js";
 import { Readable, Writable } from "stream";
+import { buildSSHClientFlags } from "./connection.js";
+import { SSHConnectionFlags } from "./flags.js";
 
 export type RunTarget = { appInstallationId: string } | { projectId: string };
 
@@ -18,18 +20,26 @@ export interface RunIO {
 
 export async function executeViaSSH(
   client: MittwaldAPIV2Client,
-  sshUser: string | undefined,
+  sshConnectionFlags: SSHConnectionFlags,
   target: RunTarget,
   command: RunCommand,
   { input = null, output = null }: RunIO,
 ): Promise<void> {
-  const { user, host } = await connectionDataForTarget(client, target, sshUser);
+  const { user, host } = await connectionDataForTarget(
+    client,
+    target,
+    sshConnectionFlags["ssh-user"],
+  );
   const sshCommandArgs =
     "shell" in command
       ? ["bash", "-c", command.shell]
       : [command.command, ...command.args];
-  const sshArgs = ["-l", user, "-T", host, ...sshCommandArgs];
-  const ssh = cp.spawn("ssh", sshArgs, {
+
+  const sshArgs = buildSSHClientFlags(user, host, sshConnectionFlags, {
+    interactive: false,
+  });
+
+  const ssh = cp.spawn("ssh", [...sshArgs, ...sshCommandArgs], {
     stdio: [input ? "pipe" : "ignore", output ? "pipe" : "ignore", "pipe"],
   }) as ChildProcessByStdio<Writable | null, Readable | null, Readable>;
 

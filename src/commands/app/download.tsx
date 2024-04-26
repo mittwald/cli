@@ -11,10 +11,15 @@ import { hasBinary } from "../../lib/hasbin.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { sshConnectionFlags } from "../../lib/ssh/flags.js";
+import { sshUsageDocumentation } from "../../lib/ssh/doc.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
-  static description =
+  static summary =
     "Download the filesystem of an app within a project to your local machine";
+  static description =
+    "This command downloads the filesystem of an app installation to your local machine via rsync.\n\n" +
+    "For this, rsync needs to be installed on your system.\n\n" +
+    sshUsageDocumentation;
   static args = {
     ...appInstallationArgs,
   };
@@ -43,6 +48,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       target,
       delete: deleteLocal,
       "ssh-user": sshUser,
+      "ssh-identity-file": sshIdentityFile,
     } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Downloading app installation");
@@ -76,6 +82,9 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
     }
     if (deleteLocal) {
       rsyncOpts.push("--delete");
+    }
+    if (sshIdentityFile) {
+      rsyncOpts.push("--rsh", `ssh -i ${sshIdentityFile}`);
     }
 
     await spawnInProcess(

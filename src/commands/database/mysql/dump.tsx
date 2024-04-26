@@ -18,12 +18,16 @@ import { runWithConnectionDetails } from "../../../lib/database/mysql/connect.js
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
 import shellEscape from "shell-escape";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
+import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
 
 export class Dump extends ExecRenderBaseCommand<
   typeof Dump,
   Record<string, never>
 > {
   static summary = "Create a dump of a MySQL database";
+  static description =
+    "This command creates a dump of a MySQL database via mysqldump and saves it to a local file.\n\n" +
+    sshUsageDocumentation;
   static flags = {
     ...processFlags,
     ...mysqlConnectionFlagsWithTempUser,
@@ -75,7 +79,7 @@ export class Dump extends ExecRenderBaseCommand<
           () =>
             executeViaSSH(
               this.apiClient,
-              this.flags["ssh-user"],
+              this.flags,
               { projectId: connectionDetails.project.id },
               cmd,
               { input: null, output: this.getOutputStream() },
