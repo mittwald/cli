@@ -8,12 +8,16 @@ import * as cp from "child_process";
 import { Text } from "ink";
 import { getConnectionDetails } from "../../../lib/database/redis/connect.js";
 import { redisArgs, withRedisId } from "../../../lib/database/redis/flags.js";
+import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
 
 export class Shell extends ExecRenderBaseCommand<
   typeof Shell,
   Record<string, never>
 > {
   static summary = "Connect to a Redis database via the redis-cli";
+  static description =
+    "This command opens an interactive redis-cli shell to a Redis database.\n\n" +
+    sshUsageDocumentation;
   static flags = {
     ...processFlags,
   };

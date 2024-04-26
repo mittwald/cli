@@ -4,9 +4,13 @@ import { Flags } from "@oclif/core";
 import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
 import { SSHConnectionFlags, sshConnectionFlags } from "../../lib/ssh/flags.js";
+import { sshWrapperDocumentation } from "../../lib/ssh/doc.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
-  static description = "Connect to an app via SSH";
+  static summary = "Connect to an app via SSH";
+  static description =
+    "Establishes an interactive SSH connection to an app installation.\n\n" +
+    sshWrapperDocumentation;
 
   static args = { ...appInstallationArgs };
   static flags = {

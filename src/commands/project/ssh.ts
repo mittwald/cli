@@ -3,9 +3,13 @@ import { projectArgs } from "../../lib/project/flags.js";
 import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
 import { sshConnectionFlags } from "../../lib/ssh/flags.js";
 import { getSSHConnectionForProject } from "../../lib/ssh/project.js";
+import { sshWrapperDocumentation } from "../../lib/ssh/doc.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
-  static description = "Connect to a project via SSH";
+  static summary = "Connect to a project via SSH";
+  static description =
+    "Establishes an interactive SSH connection to a project.\n\n" +
+    sshWrapperDocumentation;
 
   static args = { ...projectArgs };
   static flags = {

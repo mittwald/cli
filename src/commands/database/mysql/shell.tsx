@@ -12,12 +12,16 @@ import {
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
+import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
 
 export class Shell extends ExecRenderBaseCommand<
   typeof Shell,
   Record<string, never>
 > {
   static summary = "Connect to a MySQL database via the MySQL shell";
+  static description =
+    "This command opens an interactive mysql shell to a MySQL database.\n\n" +
+    sshUsageDocumentation;
   static flags = {
     ...processFlags,
     ...mysqlConnectionFlags,
