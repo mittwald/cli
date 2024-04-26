@@ -13,7 +13,6 @@ import { ProcessRenderer } from "../../../rendering/process/process.js";
 import * as crypto from "crypto";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
-
 type CreateResult = {
   addressId: string;
   generatedPassword: string | null;
@@ -66,11 +65,11 @@ export default class Create extends ExecRenderBaseCommand<
         "This flag will cause the command to generate a random 32-character password for the mailbox; when running with --quiet, the address ID and the password will be printed to stdout, separated by a tab character.",
     }),
     "forward-to": Flags.string({
-      summary: "forward mail to another address",
+      summary: "forward mail to other addresses",
       default: undefined,
       multiple: true,
       description:
-        "This flag will cause the mailbox to forward all incoming mail to the given address.\n\nNote: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.",
+        "This flag will cause the mailbox to forward all incoming mail to the given addresses. This will replace any forwarding addresses, that have already been set. \n\nNote: This flag is exclusive with --catch-all, --quota, --password and --random-password.",
       relationships: [
         {
           type: "none",
@@ -151,7 +150,7 @@ export default class Create extends ExecRenderBaseCommand<
       },
     );
 
-    process.complete(
+    await process.complete(
       <Success>Your mail address was successfully created.</Success>,
     );
 
@@ -161,7 +160,7 @@ export default class Create extends ExecRenderBaseCommand<
     };
   }
 
-  protected async createMailbox(
+  protected async createMailAddress(
     projectId: string,
     process: ProcessRenderer,
     flags: OutputFlags<FlagInput<typeof Create.flags>>,
@@ -189,7 +188,7 @@ export default class Create extends ExecRenderBaseCommand<
       },
     );
 
-    process.complete(
+    await process.complete(
       <Success>Your mail address was successfully created.</Success>,
     );
 
@@ -209,7 +208,7 @@ export default class Create extends ExecRenderBaseCommand<
       return this.createForwardAddress(projectId, process, flags);
     }
 
-    return this.createMailbox(projectId, process, flags);
+    return this.createMailAddress(projectId, process, flags);
   }
 
   protected render(executionResult: CreateResult): ReactNode {

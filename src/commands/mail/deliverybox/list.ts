@@ -26,7 +26,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   public async getData(): Promise<Response> {
     const projectId = await this.withProjectId(List);
-    return await this.apiClient.mail.listDeliveryBoxes({ projectId });
+    return this.apiClient.mail.listDeliveryBoxes({ projectId });
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
