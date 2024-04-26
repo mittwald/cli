@@ -11,6 +11,11 @@ export type RunCommand =
   | { command: string; args: string[] }
   | { shell: string };
 
+export interface RunIO {
+  input: NodeJS.ReadableStream | null;
+  output: NodeJS.WritableStream | null;
+}
+
 export async function executeViaSSH(
   client: MittwaldAPIV2Client,
   sshConnectionFlags: {
@@ -19,8 +24,7 @@ export async function executeViaSSH(
   },
   target: RunTarget,
   command: RunCommand,
-  output: NodeJS.WritableStream | null,
-  input: NodeJS.ReadableStream | null = null,
+  { input = null, output = null }: RunIO,
 ): Promise<void> {
   const { user, host } = await connectionDataForTarget(
     client,
@@ -61,7 +65,7 @@ export async function executeViaSSH(
         if (code === 0) {
           res(undefined);
         } else {
-          rej(new Error(`ssh+${command} exited with code ${code}\n${err}`));
+          rej(new Error(`command exited with code ${code}\n${err}`));
         }
       };
 

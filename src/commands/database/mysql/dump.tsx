@@ -11,14 +11,11 @@ import * as fs from "fs";
 import { Success } from "../../../rendering/react/components/Success.js";
 import {
   mysqlArgs,
-  mysqlConnectionFlags,
+  mysqlConnectionFlagsWithTempUser,
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
-import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
-import { assertStatus } from "@mittwald/api-client";
-import { randomBytes } from "crypto";
+import { runWithConnectionDetails } from "../../../lib/database/mysql/connect.js";
 import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
-import assertSuccess from "../../../lib/assert_success.js";
 import shellEscape from "shell-escape";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
 
@@ -29,16 +26,8 @@ export class Dump extends ExecRenderBaseCommand<
   static summary = "Create a dump of a MySQL database";
   static flags = {
     ...processFlags,
-    ...mysqlConnectionFlags,
+    ...mysqlConnectionFlagsWithTempUser,
     ...sshConnectionFlags,
-    "temporary-user": Flags.boolean({
-      summary: "create a temporary user for the dump",
-      description:
-        "Create a temporary user for the dump. This user will be deleted after the dump has been created. This is useful if you want to dump a database that is not accessible from the outside.\n\nIf this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password flag or via the MYSQL_PWD environment variable.",
-      default: true,
-      required: false,
-      allowNo: true,
-    }),
     output: Flags.string({
       char: "o",
       summary: 'the output file to write the dump to ("-" for stdout)',
@@ -61,60 +50,44 @@ export class Dump extends ExecRenderBaseCommand<
     const databaseId = await withMySQLId(this.apiClient, this.flags, this.args);
     const p = makeProcessRenderer(this.flags, "Dumping a MySQL database");
 
-    const connectionDetails = await getConnectionDetailsWithPassword(
+    const databaseName = await runWithConnectionDetails(
       this.apiClient,
       databaseId,
       p,
       this.flags,
-    );
+      async (connectionDetails) => {
+        const { project } = connectionDetails;
+        const mysqldumpArgs = buildMySqlDumpArgs(connectionDetails);
 
-    if (this.flags["temporary-user"]) {
-      const [tempUser, tempPassword] = await p.runStep(
-        "creating a temporary database user",
-        () => this.createTemporaryUser(databaseId),
-      );
+        let cmd: RunCommand = { command: "mysqldump", args: mysqldumpArgs };
+        if (this.flags.gzip) {
+          const escapedArgs = shellEscape(mysqldumpArgs);
+          cmd = {
+            shell: `set -e -o pipefail > /dev/null ; mysqldump ${escapedArgs} | gzip`,
+          };
+        }
 
-      p.addCleanup("removing temporary database user", async () => {
-        const r = await this.apiClient.database.deleteMysqlUser({
-          mysqlUserId: tempUser.id,
-        });
-        assertSuccess(r);
-      });
+        await p.runStep(
+          <Text>
+            starting mysqldump via SSH on project{" "}
+            <Value>{project.shortId}</Value>
+          </Text>,
+          () =>
+            executeViaSSH(
+              this.apiClient,
+              this.flags,
+              { projectId: connectionDetails.project.id },
+              cmd,
+              { input: null, output: this.getOutputStream() },
+            ),
+        );
 
-      connectionDetails.user = tempUser.name;
-      connectionDetails.password = tempPassword;
-    }
-
-    const { project } = connectionDetails;
-    const mysqldumpArgs = buildMySqlDumpArgs(connectionDetails);
-
-    let cmd: RunCommand = { command: "mysqldump", args: mysqldumpArgs };
-    if (this.flags.gzip) {
-      const escapedArgs = shellEscape(mysqldumpArgs);
-      cmd = {
-        shell: `set -e -o pipefail > /dev/null ; mysqldump ${escapedArgs} | gzip`,
-      };
-    }
-
-    await p.runStep(
-      <Text>
-        starting mysqldump via SSH on project <Value>{project.shortId}</Value>
-      </Text>,
-      () =>
-        executeViaSSH(
-          this.apiClient,
-          this.flags,
-          { projectId: connectionDetails.project.id },
-          cmd,
-          this.getOutputStream(),
-        ),
+        return connectionDetails.database;
+      },
     );
 
     await p.complete(
-      <DumpSuccess
-        database={connectionDetails.database}
-        output={this.flags.output}
-      />,
+      <DumpSuccess database={databaseName} output={this.flags.output} />,
     );
 
     return {};
@@ -130,31 +103,6 @@ export class Dump extends ExecRenderBaseCommand<
     }
 
     return fs.createWriteStream(this.flags.output);
-  }
-
-  private async createTemporaryUser(
-    databaseId: string,
-  ): Promise<[{ id: string; name: string }, string]> {
-    const password = randomBytes(32).toString("base64");
-    const createResponse = await this.apiClient.database.createMysqlUser({
-      mysqlDatabaseId: databaseId,
-      data: {
-        accessLevel: "full", // needed for "PROCESS" privilege
-        externalAccess: false,
-        password,
-        databaseId,
-        description: "Temporary user for exporting database",
-      },
-    });
-
-    assertStatus(createResponse, 201);
-
-    const userResponse = await this.apiClient.database.getMysqlUser({
-      mysqlUserId: createResponse.data.id,
-    });
-    assertStatus(userResponse, 200);
-
-    return [userResponse.data, password];
   }
 }
 
@@ -179,5 +127,5 @@ function buildMySqlDumpArgs(d: {
   password: string;
   database: string;
 }): string[] {
-  return ["-h", d.hostname, "-u", d.user, "-p" + d.password, d.database];
+  return ["-h", d.hostname, "-u", d.user, `-p${d.password}`, d.database];
 }

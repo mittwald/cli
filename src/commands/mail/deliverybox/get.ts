@@ -22,7 +22,7 @@ export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
   };
 
   protected async getData(): Promise<APIResponse> {
-    return await this.apiClient.mail.getDeliveryBox({
+    return this.apiClient.mail.getDeliveryBox({
       deliveryBoxId: this.args.id,
     } as Parameters<typeof this.apiClient.mail.getDeliveryBox>[0]);
   }

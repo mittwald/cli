@@ -8,6 +8,9 @@ import {
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import { Context, ContextKey, ContextNames } from "./context.js";
+import UnexpectedShortIDPassedError from "./error/UnexpectedShortIDPassedError.js";
+import { isUuid } from "../normalize_id.js";
+import { articleForWord } from "./language.js";
 
 export type ContextFlags<
   N extends ContextNames,
@@ -66,6 +69,10 @@ export type FlagSet<TName extends ContextNames> = {
 export type FlagSetOptions = {
   normalize: NormalizeFn;
   displayName: string;
+  expectedShortIDFormat: {
+    pattern: RegExp;
+    display: string;
+  };
 };
 
 export type NormalizeFn = (
@@ -118,7 +125,7 @@ export function makeFlagSet<TName extends ContextNames>(
   opts: Partial<FlagSetOptions> = {},
 ): FlagSet<TName> {
   const { displayName = name, normalize = (_, id) => id } = opts;
-  const article = displayName.match(/^[aeiou]/i) ? "an" : "a";
+  const article = articleForWord(displayName);
 
   const flagName: ContextKey<TName> = `${name}-id`;
   const flags = {
@@ -152,6 +159,16 @@ export function makeFlagSet<TName extends ContextNames>(
     return undefined;
   };
 
+  let idInputSanityCheck: (id: string) => void = (): void => {};
+  if (opts.expectedShortIDFormat != null) {
+    const format = opts.expectedShortIDFormat;
+    idInputSanityCheck = (id: string): void => {
+      if (!isUuid(id) && !format.pattern.test(id)) {
+        throw new UnexpectedShortIDPassedError(displayName, format.display);
+      }
+    };
+  }
+
   const withId = async (
     apiClient: MittwaldAPIV2Client,
     commandType: CommandType<TName> | "flag" | "arg",
@@ -161,6 +178,7 @@ export function makeFlagSet<TName extends ContextNames>(
   ): Promise<string> => {
     const idInput = idFromArgsOrFlag(flags, args);
     if (idInput) {
+      idInputSanityCheck(idInput);
       return normalize(apiClient, idInput);
     }
 

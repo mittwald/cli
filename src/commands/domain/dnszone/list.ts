@@ -35,7 +35,7 @@ export default class List extends ListBaseCommand<
 
   public async getData(): Promise<Response> {
     const projectId = await this.withProjectId(List);
-    return await this.apiClient.domain.dnsListDnsZones({ projectId });
+    return this.apiClient.domain.dnsListDnsZones({ projectId });
   }
 
   protected mapData(

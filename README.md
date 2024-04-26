@@ -138,6 +138,7 @@ USAGE
 * [`mw app list`](#mw-app-list)
 * [`mw app ssh [INSTALLATION-ID]`](#mw-app-ssh-installation-id)
 * [`mw app uninstall [INSTALLATION-ID]`](#mw-app-uninstall-installation-id)
+* [`mw app upload [INSTALLATION-ID]`](#mw-app-upload-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
 * [`mw autocomplete [SHELL]`](#mw-autocomplete-shell)
 * [`mw backup create`](#mw-backup-create)
@@ -170,6 +171,7 @@ USAGE
 * [`mw database mysql delete DATABASE-ID`](#mw-database-mysql-delete-database-id)
 * [`mw database mysql dump DATABASE-ID`](#mw-database-mysql-dump-database-id)
 * [`mw database mysql get DATABASE-ID`](#mw-database-mysql-get-database-id)
+* [`mw database mysql import DATABASE-ID`](#mw-database-mysql-import-database-id)
 * [`mw database mysql list`](#mw-database-mysql-list)
 * [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
@@ -202,6 +204,7 @@ USAGE
 * [`mw mail address delete ID`](#mw-mail-address-delete-id)
 * [`mw mail address get ID`](#mw-mail-address-get-id)
 * [`mw mail address list`](#mw-mail-address-list)
+* [`mw mail address update MAILADDRESS-ID`](#mw-mail-address-update-mailaddress-id)
 * [`mw mail deliverybox get ID`](#mw-mail-deliverybox-get-id)
 * [`mw mail deliverybox list`](#mw-mail-deliverybox-list)
 * [`mw org delete [ORG-ID]`](#mw-org-delete-org-id)
@@ -1798,6 +1801,56 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+## `mw app upload [INSTALLATION-ID]`
+
+Upload the filesystem of an app to a project
+
+```
+USAGE
+  $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
+    [--dry-run] [--delete]
+
+ARGUMENTS
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
+
+FLAGS
+  -q, --quiet                      suppress process output and only display a machine-readable summary.
+      --delete                     delete remote files that are not present locally
+      --dry-run                    do not actually upload the app installation
+      --source=<value>             (required) source directory from which to upload the app installation
+      --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+      --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+DESCRIPTION
+  Upload the filesystem of an app to a project
+
+  Upload the filesystem of an app from your local machine to a project.
+
+  CAUTION: This is a potentially destructive operation. It will overwrite files on the server with the files from your
+  local machine. This is NOT a turnkey deployment solution. It is intended for development purposes only.
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file will be used to authenticate the connection to the
+    server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
+```
+
 ## `mw app versions [APP]`
 
 List supported Apps and Versions
@@ -1842,7 +1895,7 @@ EXAMPLES
   $ mw autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.13/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.16/src/commands/autocomplete/index.ts)_
 
 ## `mw backup create`
 
@@ -2557,8 +2610,8 @@ Create a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--temporary-user] [--gzip]
+  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>]
+    [--ssh-identity-file <value>] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
@@ -2613,8 +2666,8 @@ FLAG DESCRIPTIONS
 
   --[no-]temporary-user  create a temporary user for the dump
 
-    Create a temporary user for the dump. This user will be deleted after the dump has been created. This is useful if
-    you want to dump a database that is not accessible from the outside.
+    Create a temporary user for this operation. This user will be deleted after the operation has completed. This is
+    useful if you want to work with a database that is not accessible from the outside.
 
     If this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password
     flag or via the MYSQL_PWD environment variable.
@@ -2637,6 +2690,74 @@ FLAGS
 
 DESCRIPTION
   Get a MySQLDatabase.
+```
+
+## `mw database mysql import DATABASE-ID`
+
+Imports a dump of a MySQL database
+
+```
+USAGE
+  $ mw database mysql import DATABASE-ID -i <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>]
+    [--ssh-identity-file <value>] [--gzip]
+
+ARGUMENTS
+  DATABASE-ID  The ID or name of the database
+
+FLAGS
+  -i, --input=<value>              (required) the input file from which to read the dump ("-" for stdin)
+  -p, --mysql-password=<value>     the password to use for the MySQL user (env: MYSQL_PWD)
+  -q, --quiet                      suppress process output and only display a machine-readable summary.
+      --gzip                       uncompress the dump with gzip
+      --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+      --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+      --[no-]temporary-user        create a temporary user for the dump
+
+FLAG DESCRIPTIONS
+  -i, --input=<value>  the input file from which to read the dump ("-" for stdin)
+
+    The input file from which to read the dump to. You can specify "-" or "/dev/stdin" to read the dump directly from
+    STDIN.
+
+  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+
+    The password to use for the MySQL user. If not provided, the environment variable MYSQL_PWD will be used. If that is
+    not set either, the command will interactively ask for the password.
+
+    NOTE: This is a security risk, as the password will be visible in the process list of your system, and will be
+    visible in your Shell history. It is recommended to use the environment variable instead.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --gzip  uncompress the dump with gzip
+
+    Uncompress the dump with gzip while importing. This is useful for large databases, as it can significantly reduce
+    the size of the dump.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file will be used to authenticate the connection to the
+    server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
+
+  --[no-]temporary-user  create a temporary user for the dump
+
+    Create a temporary user for this operation. This user will be deleted after the operation has completed. This is
+    useful if you want to work with a database that is not accessible from the outside.
+
+    If this flag is disabled, you will need to specify the password of the default user; either via the --mysql-password
+    flag or via the MYSQL_PWD environment variable.
 ```
 
 ## `mw database mysql list`
@@ -3425,7 +3546,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.20/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.21/src/commands/help.ts)_
 
 ## `mw login reset`
 
@@ -3482,7 +3603,7 @@ FLAGS
   -q, --quiet                        suppress process output and only display a machine-readable summary.
       --catch-all                    make this a catch-all mail address
       --[no-]enable-spam-protection  enable spam protection for this mailbox
-      --forward-to=<value>...        forward mail to another address
+      --forward-to=<value>...        forward mail to other addresses
       --password=<value>             mailbox password
       --quota=<value>                [default: 1024] mailbox quota in mebibytes
       --random-password              generate a random password
@@ -3529,11 +3650,12 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
-  --forward-to=<value>...  forward mail to another address
+  --forward-to=<value>...  forward mail to other addresses
 
-    This flag will cause the mailbox to forward all incoming mail to the given address.
+    This flag will cause the mailbox to forward all incoming mail to the given addresses. This will replace any
+    forwarding addresses, that have already been set.
 
-    Note: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.
+    Note: This flag is exclusive with --catch-all, --quota, --password and --random-password.
 
   --password=<value>  mailbox password
 
@@ -3621,6 +3743,80 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw mail address update MAILADDRESS-ID`
+
+Update a mail address
+
+```
+USAGE
+  $ mw mail address update MAILADDRESS-ID [-q] [-a <value>] [--catch-all] [--quota <value>] [--password <value>]
+    [--random-password] [--forward-to <value>]
+
+ARGUMENTS
+  MAILADDRESS-ID  ID or mail address of a mailaddress
+
+FLAGS
+  -a, --address=<value>        mail address
+  -q, --quiet                  suppress process output and only display a machine-readable summary.
+      --[no-]catch-all         Change this from or to a catch-all mail address; omit to leave unchanged
+      --forward-to=<value>...  forward mail to other addresses
+      --password=<value>       mailbox password
+      --quota=<value>          mailbox quota in mebibytes
+      --random-password        generate a random password
+
+DESCRIPTION
+  Update a mail address
+
+  This command can be used to update a mail address in a project.
+
+  A mail address is either associated with a mailbox, or forwards to another address.
+
+  To set forwarding addresses, use the --forward-to flag.
+
+  Use the --catch-all flag to make the mailbox a catch-all mailbox.
+  Use the --no-catch-all flag to make the mailbox a regular mailbox.
+
+  When running this command with --generated-password the output will be the newly generated and set password.
+
+EXAMPLES
+  Update non-interactively with password
+
+    $ read -s PASSWORD && \
+      mw mail address update --password $PASSWORD --address foo@bar.example
+
+  Update non-interactively with random password
+
+    $ mw mail address update --random-password --address foo@bar.example
+
+  Set forwarding addresses
+
+    $ mw mail address update --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --forward-to=<value>...  forward mail to other addresses
+
+    This flag will cause the mailbox to forward all incoming mail to the given addresses. This will replace any
+    forwarding addresses, that have already been set.
+
+    Note: This flag is exclusive with --catch-all, --no-catch-all, --quota, --password and --random-password.
+
+  --password=<value>  mailbox password
+
+    If set, the mailbox will be updated to this password. If omitted, the password will remain unchanged.
+
+    CAUTION: providing this flag may log your password in your shell history!
+
+  --random-password  generate a random password
+
+    This flag will cause the command to generate a random 32-character password for the mailbox; when running with
+    --quiet, the password will be printed to stdout.
 ```
 
 ## `mw mail deliverybox get ID`
@@ -4838,7 +5034,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.3/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.7/src/commands/update.ts)_
 
 ## `mw user api-token create`
 

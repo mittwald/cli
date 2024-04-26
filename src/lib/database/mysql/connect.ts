@@ -1,23 +1,71 @@
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { getProject } from "../common.js";
 import { getSSHConnectionForProject } from "../../ssh/project.js";
+import { withTemporaryUser } from "./temp_user.js";
 
 type DatabaseMySqlDatabase =
   MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
 type DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
+type Project = MittwaldAPIV2.Components.Schemas.ProjectProject;
+
+export interface MySQLConnectionFlags {
+  "mysql-password": string | undefined;
+  "temporary-user"?: boolean;
+  "ssh-user"?: string;
+}
+
+export interface MySQLConnectionDetails {
+  hostname: string;
+  database: string;
+  user: string;
+  sshHost: string;
+  sshUser: string;
+  project: Project;
+}
+
+export type MySQLConnectionDetailsWithPassword = MySQLConnectionDetails & {
+  password: string;
+};
+
+/**
+ * Runs a callback function with connection details for a MySQL database.
+ *
+ * Depending on the flags, this function will either use the credentials
+ * provided in the flags (or prompt for a password), or create a temporary user
+ * for the operation, which will be cleaned up afterwards.
+ */
+export async function runWithConnectionDetails<TRes>(
+  apiClient: MittwaldAPIV2Client,
+  databaseId: string,
+  p: ProcessRenderer,
+  flags: MySQLConnectionFlags,
+  cb: (connectionDetails: MySQLConnectionDetailsWithPassword) => Promise<TRes>,
+): Promise<TRes> {
+  const connectionDetails = await getConnectionDetailsWithPassword(
+    apiClient,
+    databaseId,
+    p,
+    flags,
+  );
+
+  if (flags["temporary-user"]) {
+    return withTemporaryUser(apiClient, databaseId, p, async (user, password) =>
+      cb({ ...connectionDetails, user: user.name, password }),
+    );
+  }
+
+  return cb(connectionDetails);
+}
 
 export async function getConnectionDetailsWithPassword(
   apiClient: MittwaldAPIV2Client,
   databaseId: string,
   p: ProcessRenderer,
-  flags: {
-    "mysql-password": string | undefined;
-    "temporary-user"?: boolean;
-    "ssh-user"?: string;
-  },
-) {
+  flags: MySQLConnectionFlags,
+): Promise<MySQLConnectionDetailsWithPassword> {
   const password = flags["temporary-user"] ? "" : await getPassword(p, flags);
   const sshUser = flags["ssh-user"];
   return {
@@ -31,7 +79,7 @@ export async function getConnectionDetails(
   databaseId: string,
   sshUser: string | undefined,
   p: ProcessRenderer,
-) {
+): Promise<MySQLConnectionDetails> {
   const database = await getDatabase(apiClient, p, databaseId);
   const databaseUser = await getDatabaseUser(apiClient, p, databaseId);
   const project = await getProject(apiClient, p, database);

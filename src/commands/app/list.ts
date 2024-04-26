@@ -4,9 +4,8 @@ import { ListBaseCommand } from "../../ListBaseCommand.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
 import { ListColumns } from "../../Formatter.js";
-import { phpInstaller } from "./create/php.js";
-import { nodeInstaller } from "./create/node.js";
 import { getAppFromUuid, getAppVersionFromUuid } from "../../lib/app/uuid.js";
+import { isCustomAppInstallation } from "../../lib/app/custom_installation.js";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
@@ -93,7 +92,7 @@ export default class List extends ListBaseCommand<
       appVersion: {
         header: "Version",
         get: (i) => {
-          if ([phpInstaller.appId, nodeInstaller.appId].includes(i.appId)) {
+          if (isCustomAppInstallation(i.appId)) {
             return "n/a";
           }
 
