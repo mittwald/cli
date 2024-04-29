@@ -136,8 +136,10 @@ USAGE
 * [`mw app install typo3`](#mw-app-install-typo3)
 * [`mw app install wordpress`](#mw-app-install-wordpress)
 * [`mw app list`](#mw-app-list)
+* [`mw app list-upgrade-candidates [INSTALLATION-ID]`](#mw-app-list-upgrade-candidates-installation-id)
 * [`mw app ssh [INSTALLATION-ID]`](#mw-app-ssh-installation-id)
 * [`mw app uninstall [INSTALLATION-ID]`](#mw-app-uninstall-installation-id)
+* [`mw app upgrade [INSTALLATION-ID]`](#mw-app-upgrade-installation-id)
 * [`mw app upload [INSTALLATION-ID]`](#mw-app-upload-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
 * [`mw autocomplete [SHELL]`](#mw-autocomplete-shell)
@@ -1751,6 +1753,33 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
+## `mw app list-upgrade-candidates [INSTALLATION-ID]`
+
+List update candidates for an appInstallation.
+
+```
+USAGE
+  $ mw app list-upgrade-candidates [INSTALLATION-ID] [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o
+    txt|json|yaml|csv |  | ] [--no-relative-dates]
+
+ARGUMENTS
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
+
+FLAGS
+  -o, --output=<option>    [default: txt] output in a more machine friendly format
+                           <options: txt|json|yaml|csv>
+  -x, --extended           show extra columns
+      --columns=<value>    only show provided columns (comma-separated)
+      --csv                output is csv format [alias: --output=csv]
+      --no-header          hide table header from output
+      --no-relative-dates  show dates in absolute format, not relative
+      --no-truncate        do not truncate output to fit screen
+
+DESCRIPTION
+  List update candidates for an appInstallation.
+```
+
 ## `mw app ssh [INSTALLATION-ID]`
 
 Connect to an app via SSH
@@ -1820,6 +1849,41 @@ DESCRIPTION
   Uninstall an app
 
 FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw app upgrade [INSTALLATION-ID]`
+
+Upgrade target appinstallation to target version
+
+```
+USAGE
+  $ mw app upgrade [INSTALLATION-ID] [--target-version <value>] [-w] [-f] [-p <value>] [-q]
+
+ARGUMENTS
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
+
+FLAGS
+  -f, --force                   Do not ask for confirmation.
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -w, --wait                    wait for the upgrade process to finish
+      --target-version=<value>  Target version to upgrade target app to.
+
+DESCRIPTION
+  Upgrade target appinstallation to target version
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
@@ -1932,7 +1996,7 @@ EXAMPLES
   $ mw autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.16/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.13/src/commands/autocomplete/index.ts)_
 
 ## `mw backup create`
 
@@ -3691,7 +3755,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.21/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.20/src/commands/help.ts)_
 
 ## `mw login reset`
 
@@ -5188,7 +5252,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.8/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.4/src/commands/update.ts)_
 
 ## `mw user api-token create`
 
