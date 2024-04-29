@@ -11,14 +11,16 @@ import { hasBinary } from "../../lib/hasbin.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { sshConnectionFlags } from "../../lib/ssh/flags.js";
+import { sshUsageDocumentation } from "../../lib/ssh/doc.js";
 
 export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
   static summary = "Upload the filesystem of an app to a project";
   static description =
     "Upload the filesystem of an app from your local machine to a project.\n\n" +
-    "" +
+    "For this, rsync needs to be installed on your system.\n\n" +
     "CAUTION: This is a potentially destructive operation. It will overwrite files on the server with the files from your local machine. " +
-    "This is NOT a turnkey deployment solution. It is intended for development purposes only.";
+    "This is NOT a turnkey deployment solution. It is intended for development purposes only.\n\n" +
+    sshUsageDocumentation;
   static args = {
     ...appInstallationArgs,
   };

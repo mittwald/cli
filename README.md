@@ -204,6 +204,7 @@ USAGE
 * [`mw mail address delete ID`](#mw-mail-address-delete-id)
 * [`mw mail address get ID`](#mw-mail-address-get-id)
 * [`mw mail address list`](#mw-mail-address-list)
+* [`mw mail address update MAILADDRESS-ID`](#mw-mail-address-update-mailaddress-id)
 * [`mw mail deliverybox get ID`](#mw-mail-deliverybox-get-id)
 * [`mw mail deliverybox list`](#mw-mail-deliverybox-list)
 * [`mw org delete [ORG-ID]`](#mw-org-delete-org-id)
@@ -562,27 +563,50 @@ Download the filesystem of an app within a project to your local machine
 
 ```
 USAGE
-  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--dry-run] [--delete]
+  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
+    [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  -q, --quiet             suppress process output and only display a machine-readable summary.
-      --delete            delete local files that are not present on the server
-      --dry-run           do not actually download the app installation
-      --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
-      --target=<value>    (required) target directory to download the app installation to
+  -q, --quiet           suppress process output and only display a machine-readable summary.
+      --delete          delete local files that are not present on the server
+      --dry-run         do not actually download the app installation
+      --target=<value>  (required) target directory to download the app installation to
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
 
 DESCRIPTION
   Download the filesystem of an app within a project to your local machine
+
+  This command downloads the filesystem of an app installation to your local machine via rsync.
+
+  For this, rsync needs to be installed on your system.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
 
   --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
@@ -1733,22 +1757,41 @@ Connect to an app via SSH
 
 ```
 USAGE
-  $ mw app ssh [INSTALLATION-ID] [--ssh-user <value>] [--cd] [--info] [--test]
+  $ mw app ssh [INSTALLATION-ID] [--ssh-user <value>] [--ssh-identity-file <value>] [--cd] [--info] [--test]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  --[no-]cd           change to installation path after connecting
-  --info              only print connection information, without actually connecting
-  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
-  --test              test connection and exit
+  --[no-]cd  change to installation path after connecting
+  --info     only print connection information, without actually connecting
+  --test     test connection and exit
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
 
 DESCRIPTION
   Connect to an app via SSH
 
+  Establishes an interactive SSH connection to an app installation.
+
+  This command is a wrapper around your systems SSH client, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
+
 FLAG DESCRIPTIONS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
   --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
     This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
@@ -1789,32 +1832,53 @@ Upload the filesystem of an app to a project
 
 ```
 USAGE
-  $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--dry-run] [--delete]
+  $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
+    [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  -q, --quiet             suppress process output and only display a machine-readable summary.
-      --delete            delete remote files that are not present locally
-      --dry-run           do not actually upload the app installation
-      --source=<value>    (required) source directory from which to upload the app installation
-      --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+  -q, --quiet           suppress process output and only display a machine-readable summary.
+      --delete          delete remote files that are not present locally
+      --dry-run         do not actually upload the app installation
+      --source=<value>  (required) source directory from which to upload the app installation
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
 
 DESCRIPTION
   Upload the filesystem of an app to a project
 
   Upload the filesystem of an app from your local machine to a project.
 
+  For this, rsync needs to be installed on your system.
+
   CAUTION: This is a potentially destructive operation. It will overwrite files on the server with the files from your
   local machine. This is NOT a turnkey deployment solution. It is intended for development purposes only.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
 
   --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
@@ -1868,7 +1932,7 @@ EXAMPLES
   $ mw autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.13/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.16/src/commands/autocomplete/index.ts)_
 
 ## `mw backup create`
 
@@ -2583,7 +2647,8 @@ Create a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>] [--gzip]
+  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>]
+    [--ssh-identity-file <value>] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
@@ -2593,8 +2658,24 @@ FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --gzip                    compress the dump with gzip
-      --ssh-user=<value>        override the SSH user to connect with; if omitted, your own user will be used
       --[no-]temporary-user     create a temporary user for the dump
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+DESCRIPTION
+  Create a dump of a MySQL database
+
+  This command creates a dump of a MySQL database via mysqldump and saves it to a local file.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
   -o, --output=<value>  the output file to write the dump to ("-" for stdout)
@@ -2620,6 +2701,13 @@ FLAG DESCRIPTIONS
 
     Compress the dump with gzip. This is useful for large databases, as it can significantly reduce the size of the
     dump.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
 
   --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
@@ -2662,7 +2750,8 @@ Imports a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql import DATABASE-ID -i <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>] [--gzip]
+  $ mw database mysql import DATABASE-ID -i <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>]
+    [--ssh-identity-file <value>] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
@@ -2672,8 +2761,24 @@ FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --gzip                    uncompress the dump with gzip
-      --ssh-user=<value>        override the SSH user to connect with; if omitted, your own user will be used
       --[no-]temporary-user     create a temporary user for the dump
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+DESCRIPTION
+  Imports a dump of a MySQL database
+
+  This command imports a mysqldump file from your local filesystem into a MySQL database.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
   -i, --input=<value>  the input file from which to read the dump ("-" for stdin)
@@ -2698,6 +2803,13 @@ FLAG DESCRIPTIONS
 
     Uncompress the dump with gzip while importing. This is useful for large databases, as it can significantly reduce
     the size of the dump.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
 
   --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
@@ -2764,21 +2876,45 @@ Forward the TCP port of a MySQL database to a local port
 
 ```
 USAGE
-  $ mw database mysql port-forward DATABASE-ID [-q] [--ssh-user <value>] [--port <value>]
+  $ mw database mysql port-forward DATABASE-ID [-q] [--ssh-user <value>] [--ssh-identity-file <value>] [--port <value>]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
 
 FLAGS
-  -q, --quiet             suppress process output and only display a machine-readable summary.
-      --port=<value>      [default: 3306] The local TCP port to forward to
-      --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+  -q, --quiet         suppress process output and only display a machine-readable summary.
+      --port=<value>  [default: 3306] The local TCP port to forward to
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+DESCRIPTION
+  Forward the TCP port of a MySQL database to a local port
+
+  This command forwards the TCP port of a MySQL database to a local port on your machine. This allows you to connect to
+  the database as if it were running on your local machine.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
 
   --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
 
@@ -2794,7 +2930,7 @@ Connect to a MySQL database via the MySQL shell
 
 ```
 USAGE
-  $ mw database mysql shell DATABASE-ID [-q] [-p <value>]
+  $ mw database mysql shell DATABASE-ID [-q] [--ssh-user <value>] [--ssh-identity-file <value>] [-p <value>]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
@@ -2802,6 +2938,23 @@ ARGUMENTS
 FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+DESCRIPTION
+  Connect to a MySQL database via the MySQL shell
+
+  This command opens an interactive mysql shell to a MySQL database.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
@@ -2816,6 +2969,20 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw database mysql user delete USER-ID`
@@ -3014,7 +3181,7 @@ Connect to a Redis database via the redis-cli
 
 ```
 USAGE
-  $ mw database redis shell DATABASE-ID [-q]
+  $ mw database redis shell DATABASE-ID [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
 
 ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
@@ -3022,11 +3189,42 @@ ARGUMENTS
 FLAGS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+DESCRIPTION
+  Connect to a Redis database via the redis-cli
+
+  This command opens an interactive redis-cli shell to a Redis database.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
+
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw database redis versions`
@@ -3493,7 +3691,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.20/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.21/src/commands/help.ts)_
 
 ## `mw login reset`
 
@@ -3550,7 +3748,7 @@ FLAGS
   -q, --quiet                        suppress process output and only display a machine-readable summary.
       --catch-all                    make this a catch-all mail address
       --[no-]enable-spam-protection  enable spam protection for this mailbox
-      --forward-to=<value>...        forward mail to another address
+      --forward-to=<value>...        forward mail to other addresses
       --password=<value>             mailbox password
       --quota=<value>                [default: 1024] mailbox quota in mebibytes
       --random-password              generate a random password
@@ -3597,11 +3795,12 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
-  --forward-to=<value>...  forward mail to another address
+  --forward-to=<value>...  forward mail to other addresses
 
-    This flag will cause the mailbox to forward all incoming mail to the given address.
+    This flag will cause the mailbox to forward all incoming mail to the given addresses. This will replace any
+    forwarding addresses, that have already been set.
 
-    Note: This flag is exclusive with --catch-all, --enable-spam-protection, --quota, --password and --random-password.
+    Note: This flag is exclusive with --catch-all, --quota, --password and --random-password.
 
   --password=<value>  mailbox password
 
@@ -3689,6 +3888,80 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw mail address update MAILADDRESS-ID`
+
+Update a mail address
+
+```
+USAGE
+  $ mw mail address update MAILADDRESS-ID [-q] [-a <value>] [--catch-all] [--quota <value>] [--password <value>]
+    [--random-password] [--forward-to <value>]
+
+ARGUMENTS
+  MAILADDRESS-ID  ID or mail address of a mailaddress
+
+FLAGS
+  -a, --address=<value>        mail address
+  -q, --quiet                  suppress process output and only display a machine-readable summary.
+      --[no-]catch-all         Change this from or to a catch-all mail address; omit to leave unchanged
+      --forward-to=<value>...  forward mail to other addresses
+      --password=<value>       mailbox password
+      --quota=<value>          mailbox quota in mebibytes
+      --random-password        generate a random password
+
+DESCRIPTION
+  Update a mail address
+
+  This command can be used to update a mail address in a project.
+
+  A mail address is either associated with a mailbox, or forwards to another address.
+
+  To set forwarding addresses, use the --forward-to flag.
+
+  Use the --catch-all flag to make the mailbox a catch-all mailbox.
+  Use the --no-catch-all flag to make the mailbox a regular mailbox.
+
+  When running this command with --generated-password the output will be the newly generated and set password.
+
+EXAMPLES
+  Update non-interactively with password
+
+    $ read -s PASSWORD && \
+      mw mail address update --password $PASSWORD --address foo@bar.example
+
+  Update non-interactively with random password
+
+    $ mw mail address update --random-password --address foo@bar.example
+
+  Set forwarding addresses
+
+    $ mw mail address update --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --forward-to=<value>...  forward mail to other addresses
+
+    This flag will cause the mailbox to forward all incoming mail to the given addresses. This will replace any
+    forwarding addresses, that have already been set.
+
+    Note: This flag is exclusive with --catch-all, --no-catch-all, --quota, --password and --random-password.
+
+  --password=<value>  mailbox password
+
+    If set, the mailbox will be updated to this password. If omitted, the password will remain unchanged.
+
+    CAUTION: providing this flag may log your password in your shell history!
+
+  --random-password  generate a random password
+
+    This flag will cause the command to generate a random 32-character password for the mailbox; when running with
+    --quiet, the password will be printed to stdout.
 ```
 
 ## `mw mail deliverybox get ID`
@@ -4634,13 +4907,41 @@ Connect to a project via SSH
 
 ```
 USAGE
-  $ mw project ssh [PROJECT-ID]
+  $ mw project ssh [PROJECT-ID] [--ssh-user <value>] [--ssh-identity-file <value>]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
 
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
 DESCRIPTION
   Connect to a project via SSH
+
+  Establishes an interactive SSH connection to a project.
+
+  This command is a wrapper around your systems SSH client, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
+
+FLAG DESCRIPTIONS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw project ssh-user list`
@@ -4887,7 +5188,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.4/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.8/src/commands/update.ts)_
 
 ## `mw user api-token create`
 

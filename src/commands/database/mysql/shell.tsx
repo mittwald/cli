@@ -12,14 +12,21 @@ import {
   withMySQLId,
 } from "../../../lib/database/mysql/flags.js";
 import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
+import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
+import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
+import { buildSSHClientFlags } from "../../../lib/ssh/connection.js";
 
 export class Shell extends ExecRenderBaseCommand<
   typeof Shell,
   Record<string, never>
 > {
   static summary = "Connect to a MySQL database via the MySQL shell";
+  static description =
+    "This command opens an interactive mysql shell to a MySQL database.\n\n" +
+    sshUsageDocumentation;
   static flags = {
     ...processFlags,
+    ...sshConnectionFlags,
     ...mysqlConnectionFlags,
   };
   static args = { ...mysqlArgs };
@@ -36,23 +43,16 @@ export class Shell extends ExecRenderBaseCommand<
         this.flags,
       );
 
-    p.complete(<Text>Starting MySQL shell -- get ready...</Text>);
+    await p.complete(<Text>Starting MySQL shell -- get ready...</Text>);
 
-    const sshArgs = [
-      "-t",
-      "-l",
-      sshUser,
-      sshHost,
-      "mysql",
-      "-h",
-      hostname,
-      "-u",
-      user,
-      "-p" + password,
-      database,
-    ];
+    const sshArgs = buildSSHClientFlags(sshUser, sshHost, this.flags, {
+      interactive: true,
+    });
+    const mysqlArgs = ["-h", hostname, "-u", user, "-p" + password, database];
 
-    cp.spawnSync("ssh", sshArgs, { stdio: "inherit" });
+    cp.spawnSync("ssh", [...sshArgs, "mysql", ...mysqlArgs], {
+      stdio: "inherit",
+    });
     return {};
   }
 

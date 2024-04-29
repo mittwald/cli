@@ -1,13 +1,11 @@
 {
-  "watch-extensions": [
-    "ts"
-  ],
-  "recursive": true,
-  "reporter": "spec",
-  "timeout": 60000,
   "node-option": [
     "import=tsx",
     "experimental-specifier-resolution=node",
     "no-warnings"
-  ]
+  ],
+  "recursive": true,
+  "reporter": "spec",
+  "timeout": 60000,
+  "watch-extensions": ["ts"]
 }

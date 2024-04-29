@@ -3,10 +3,15 @@ import { appInstallationArgs } from "../../lib/app/flags.js";
 import { Flags } from "@oclif/core";
 import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
-import { sshConnectionFlags } from "../../lib/ssh/flags.js";
+import { SSHConnectionFlags, sshConnectionFlags } from "../../lib/ssh/flags.js";
+import { sshWrapperDocumentation } from "../../lib/ssh/doc.js";
+import { buildSSHClientFlags } from "../../lib/ssh/connection.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
-  static description = "Connect to an app via SSH";
+  static summary = "Connect to an app via SSH";
+  static description =
+    "Establishes an interactive SSH connection to an app installation.\n\n" +
+    sshWrapperDocumentation;
 
   static args = { ...appInstallationArgs };
   static flags = {
@@ -43,23 +48,41 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
 
     this.log("connecting to %o as %o", host, user);
 
-    let cmd = "exec bash -l";
-    const args = ["-t", "-l", user];
+    const [cmd, args] = buildSSHCmdAndFlags(user, host, directory, this.flags);
 
-    if (flags.test) {
-      cmd = "/bin/true";
-      args.push("-q");
-    } else if (flags.cd) {
-      cmd = flags.cd ? `cd ${directory} && exec bash -l` : "bash -l";
+    this.debug("running ssh %o, with command %o", args, cmd);
 
+    if (flags.cd) {
       this.log(
         "changing to %o; use --no-cd to disable this behaviour",
         directory,
       );
     }
 
-    child_process.spawnSync("/usr/bin/ssh", [...args, host, cmd], {
+    child_process.spawnSync("/usr/bin/ssh", [...args, cmd], {
       stdio: "inherit",
     });
   }
+}
+
+function buildSSHCmdAndFlags(
+  user: string,
+  host: string,
+  directory: string,
+  flags: SSHConnectionFlags & { test: boolean; cd: boolean },
+): [string, string[]] {
+  const args = buildSSHClientFlags(user, host, flags, {
+    interactive: true,
+    additionalFlags: flags.test ? ["-q"] : [],
+  });
+
+  if (flags.test) {
+    return ["/bin/true", args];
+  }
+
+  if (flags.cd) {
+    return [`cd ${directory} && exec bash -l`, args];
+  }
+
+  return ["exec bash -l", args];
 }

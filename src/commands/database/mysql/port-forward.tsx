@@ -11,12 +11,17 @@ import { getConnectionDetails } from "../../../lib/database/mysql/connect.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { Flags } from "@oclif/core";
 import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
+import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
+import { buildSSHClientFlags } from "../../../lib/ssh/connection.js";
 
 export class PortForward extends ExecRenderBaseCommand<
   typeof PortForward,
   Record<string, never>
 > {
   static summary = "Forward the TCP port of a MySQL database to a local port";
+  static description =
+    "This command forwards the TCP port of a MySQL database to a local port on your machine. This allows you to connect to the database as if it were running on your local machine.\n\n" +
+    sshUsageDocumentation;
   static flags = {
     ...processFlags,
     ...sshConnectionFlags,
@@ -50,18 +55,12 @@ export class PortForward extends ExecRenderBaseCommand<
       </Text>,
     );
 
-    const sshArgs = [
-      "-T",
-      "-L",
-      `${port}:${hostname}:3306`,
-      "-l",
-      sshUser,
-      sshHost,
-      "cat",
-      "/dev/zero",
-    ];
+    const sshArgs = buildSSHClientFlags(sshUser, sshHost, this.flags, {
+      interactive: false,
+      additionalFlags: ["-L", `${port}:${hostname}:3306`],
+    });
 
-    cp.spawnSync("ssh", sshArgs, {
+    cp.spawnSync("ssh", [...sshArgs, "cat", "/dev/zero"], {
       stdio: ["ignore", process.stdout, process.stderr],
     });
     return {};

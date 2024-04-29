@@ -22,7 +22,7 @@ export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
   };
 
   protected async getData(): Promise<APIResponse> {
-    return await this.apiClient.mail.getMailAddress({
+    return this.apiClient.mail.getMailAddress({
       mailAddressId: this.args.id,
     } as Parameters<typeof this.apiClient.mail.getMailAddress>[0]);
   }

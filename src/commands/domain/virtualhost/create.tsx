@@ -126,7 +126,7 @@ export default class Create extends ExecRenderBaseCommand<
       },
     );
 
-    process.complete(
+    await process.complete(
       <Success>
         You virtual host for <Value>{hostname}</Value> was successfully created!
         🚀{" "}
