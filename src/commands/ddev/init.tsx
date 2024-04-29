@@ -27,6 +27,7 @@ import {
   assertDDEVIsInstalled,
   determineDDEVVersion,
 } from "../../lib/ddev/init_assert.js";
+import { determineProjectType } from "../../lib/ddev/init_projecttype.js";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
@@ -74,6 +75,12 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
 
     const ddevVersion = await determineDDEVVersion(r);
     const appInstallation = await this.getAppInstallation(r, appInstallationId);
+    const projectType = await determineProjectType(
+      r,
+      this.apiClient,
+      appInstallation,
+      this.flags["override-type"],
+    );
     const databaseId = await determineDDEVDatabaseId(
       r,
       this.apiClient,
@@ -85,6 +92,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       r,
       appInstallationId,
       databaseId,
+      projectType,
     );
     const projectName = await this.determineProjectName(r);
 
@@ -213,6 +221,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
     r: ProcessRenderer,
     appInstallationId: string,
     databaseId: string | undefined,
+    projectType: string,
   ) {
     const builder = new DDEVConfigBuilder(this.apiClient);
 
@@ -222,7 +231,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
         const config = await builder.build(
           appInstallationId,
           databaseId,
-          this.flags["override-type"],
+          projectType,
         );
         const configFile = path.join(".ddev", "config.mittwald.yaml");
 
