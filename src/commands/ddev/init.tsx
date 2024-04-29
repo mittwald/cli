@@ -27,7 +27,10 @@ import {
   assertDDEVIsInstalled,
   determineDDEVVersion,
 } from "../../lib/ddev/init_assert.js";
-import { determineProjectType } from "../../lib/ddev/init_projecttype.js";
+import {
+  DDEVProjectType,
+  determineProjectType,
+} from "../../lib/ddev/init_projecttype.js";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
@@ -79,7 +82,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       r,
       this.apiClient,
       appInstallation,
-      this.flags["override-type"],
+      this.flags["override-type"] as DDEVProjectType | "auto",
     );
     const databaseId = await determineDDEVDatabaseId(
       r,

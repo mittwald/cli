@@ -15,7 +15,7 @@ type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
  * A list of all known DDEV project types. Shamelessly stolen from
  * https://ddev.readthedocs.io/en/latest/users/configuration/config/#type
  */
-const knownDDEVProjectTypes = [
+export const knownDDEVProjectTypes = [
   "backdrop",
   "craftcms",
   "django4",
@@ -31,7 +31,9 @@ const knownDDEVProjectTypes = [
   "silverstripe",
   "typo3",
   "wordpress",
-];
+] as const;
+
+export type DDEVProjectType = (typeof knownDDEVProjectTypes)[number];
 
 async function getAppVersion(
   client: MittwaldAPIV2Client,
@@ -62,8 +64,8 @@ export async function determineProjectType(
   r: ProcessRenderer,
   client: MittwaldAPIV2Client,
   inst: AppInstallation,
-  typeOverride: string,
-): Promise<string> {
+  typeOverride: DDEVProjectType | "auto",
+): Promise<DDEVProjectType> {
   if (typeOverride !== "auto") {
     r.addInfo(<ProjectTypeInfoOverride type={typeOverride} />);
     return typeOverride;
@@ -86,7 +88,9 @@ export async function determineProjectType(
  *
  * The list of known project types is hardcoded in this module.
  */
-async function promptProjectTypeFromUser(r: ProcessRenderer): Promise<string> {
+async function promptProjectTypeFromUser(
+  r: ProcessRenderer,
+): Promise<DDEVProjectType> {
   return r.addSelect(
     "select the DDEV project type",
     knownDDEVProjectTypes.map((t) => ({ value: t, label: t })),
@@ -104,7 +108,7 @@ async function promptProjectTypeFromUser(r: ProcessRenderer): Promise<string> {
 export async function determineProjectTypeFromAppInstallation(
   client: MittwaldAPIV2Client,
   inst: AppInstallation,
-): Promise<string | null> {
+): Promise<DDEVProjectType | null> {
   switch (inst.appId) {
     case typo3Installer.appId:
       return "typo3";
@@ -120,14 +124,18 @@ export async function determineProjectTypeFromAppInstallation(
       );
 
       const [major] = version.externalVersion.split(".");
-      return `drupal${major}`;
+      if (major === "6" || major === "7") {
+        return `drupal${major}`;
+      }
+
+      return "drupal";
     }
     default:
       return null;
   }
 }
 
-function ProjectTypeInfoOverride({ type }: { type: string }) {
+function ProjectTypeInfoOverride({ type }: { type: DDEVProjectType }) {
   return (
     <Text>
       using DDEV project type: <Value>{type}</Value> (explicitly specified)
@@ -135,7 +143,7 @@ function ProjectTypeInfoOverride({ type }: { type: string }) {
   );
 }
 
-function ProjectTypeInfoAuto({ type }: { type: string }) {
+function ProjectTypeInfoAuto({ type }: { type: DDEVProjectType }) {
   return (
     <Text>
       using DDEV project type: <Value>{type}</Value> (derived from app

@@ -1,5 +1,6 @@
 import { Flags } from "@oclif/core";
 import { InferredFlags } from "@oclif/core/lib/interfaces/index.js";
+import { knownDDEVProjectTypes } from "./init_projecttype.js";
 
 const ddevDatabaseFlags = {
   "database-id": Flags.string({
@@ -24,6 +25,7 @@ export const ddevFlags = {
   "override-type": Flags.string({
     summary: "Override the type of the generated DDEV configuration",
     default: "auto",
+    options: [...knownDDEVProjectTypes, "auto"] as const,
     description:
       "The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which is also the default) for automatic discovery." +
       "\n\n" +
