@@ -26,6 +26,7 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { waitUntilAppIsUpgraded } from "../../lib/app/wait.js";
+import { assertStatus } from "@mittwald/api-client-commons";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
@@ -158,24 +159,28 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     } else {
       process.addInfo(
         <Text>
-          Commencing upgrade of {currentApp.name}
+          Commencing upgrade of {currentApp.name}{" "}
           {currentAppVersion.externalVersion} (
-          {currentAppInstallation.description}) to Version
+          {currentAppInstallation.description}) to Version{" "}
           {targetAppVersion.externalVersion}.
         </Text>,
       );
     }
 
-    this.apiClient.app.patchAppinstallation({
-      appInstallationId,
-      data: { appVersionId: targetAppVersion.id },
-    });
+    const patchAppTriggerResponse =
+      await this.apiClient.app.patchAppinstallation({
+        appInstallationId,
+        data: { appVersionId: targetAppVersion.id },
+      });
+
+    assertStatus(patchAppTriggerResponse, 204);
 
     let successText: string;
+
     if (this.flags.wait) {
       await waitUntilAppIsUpgraded(this.apiClient, process, appInstallationId);
       successText =
-        "The upgrade finished succesfully. Please check if everything is in its place. 🔎";
+        "The upgrade finished successfully. Please check if everything is in its place. 🔎";
     } else {
       successText = "The upgrade has been started. Buckle up! 🚀";
     }

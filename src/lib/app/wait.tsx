@@ -36,7 +36,7 @@ export async function waitUntilAppIsUpgraded(
   appInstallationId: string,
 ) {
   const stepWaiting = process.addStep(
-    <Text>waiting for app installation to be ready</Text>,
+    <Text>waiting for app upgrade to be done</Text>,
   );
 
   await waitUntil(async () => {
