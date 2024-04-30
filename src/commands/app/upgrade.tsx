@@ -25,7 +25,7 @@ import {
 import { Success } from "../../rendering/react/components/Success.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { waitUntilAppIsUpgraded } from "../../lib/app/wait.js";
+import { waitUntilAppStateHasNormalized } from "../../lib/app/wait.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
@@ -178,7 +178,12 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     let successText: string;
 
     if (this.flags.wait) {
-      await waitUntilAppIsUpgraded(this.apiClient, process, appInstallationId);
+      await waitUntilAppStateHasNormalized(
+        this.apiClient,
+        process,
+        appInstallationId,
+        "waiting for app upgrade to be done",
+      );
       successText =
         "The upgrade finished successfully. Please check if everything is in its place. 🔎";
     } else {
