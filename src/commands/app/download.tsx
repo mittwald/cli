@@ -16,6 +16,7 @@ import {
   filterFileToRsyncFlagsIfPresent,
   appInstallationSyncFlags,
   appInstallationSyncFlagsToRsyncFlags,
+  filterFileDocumentation,
 } from "../../lib/app/sync.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
@@ -24,7 +25,9 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static description =
     "This command downloads the filesystem of an app installation to your local machine via rsync.\n\n" +
     "For this, rsync needs to be installed on your system.\n\n" +
-    sshUsageDocumentation;
+    sshUsageDocumentation +
+    "\n\n" +
+    filterFileDocumentation;
   static args = {
     ...appInstallationArgs,
   };

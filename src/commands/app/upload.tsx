@@ -15,6 +15,7 @@ import { sshUsageDocumentation } from "../../lib/ssh/doc.js";
 import {
   appInstallationSyncFlags,
   appInstallationSyncFlagsToRsyncFlags,
+  filterFileDocumentation,
   filterFileToRsyncFlagsIfPresent,
 } from "../../lib/app/sync.js";
 
@@ -25,7 +26,9 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
     "For this, rsync needs to be installed on your system.\n\n" +
     "CAUTION: This is a potentially destructive operation. It will overwrite files on the server with the files from your local machine. " +
     "This is NOT a turnkey deployment solution. It is intended for development purposes only.\n\n" +
-    sshUsageDocumentation;
+    sshUsageDocumentation +
+    "\n\n" +
+    filterFileDocumentation;
   static args = {
     ...appInstallationArgs,
   };
