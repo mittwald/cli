@@ -33,7 +33,7 @@ type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
-  static description = "Upgrade target appinstallation to target version";
+  static description = "Upgrade app installation to target version";
   static args = {
     ...appInstallationArgs,
   };
