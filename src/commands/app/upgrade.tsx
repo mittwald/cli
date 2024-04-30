@@ -39,7 +39,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   };
   static flags = {
     "target-version": Flags.string({
-      description: "Target version to upgrade target app to.",
+      description: "target version to upgrade app to; if omitted, target version will be prompted interactively",
     }),
     wait: Flags.boolean({
       description: "wait for the upgrade process to finish",
