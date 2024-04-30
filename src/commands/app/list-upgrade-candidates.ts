@@ -44,7 +44,7 @@ export default class List extends ListBaseCommand<
       await getAppInstallationFromUuid(this.apiClient, appInstallationId);
 
     if (currentAppInstallation.appVersion.current === undefined) {
-      throw Error("current app version could not be determined");
+      throw new Error("current app version could not be determined");
     }
 
     return await this.apiClient.app.listUpdateCandidatesForAppversion({
