@@ -23,7 +23,7 @@ export default class List extends ListBaseCommand<
   ResponseItem,
   Response
 > {
-  static description = "List update candidates for an appInstallation.";
+  static description = "List upgrade candidates for an app installation.";
   static args = {
     ...appInstallationArgs,
   };
