@@ -16,6 +16,8 @@ type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["app"]["listAppversions"]>
 >;
 
+type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
+
 export default class List extends ListBaseCommand<
   typeof List,
   ResponseItem,
@@ -30,7 +32,7 @@ export default class List extends ListBaseCommand<
   };
 
   protected async getData(): Promise<Response> {
-    const appInstallationId = await withAppInstallationId(
+    const appInstallationId: string = await withAppInstallationId(
       this.apiClient,
       List,
       this.flags,
@@ -38,16 +40,16 @@ export default class List extends ListBaseCommand<
       this.config,
     );
 
-    const currentAppInstallation = await getAppInstallationFromUuid(
-      this.apiClient,
-      appInstallationId,
-    );
+    const currentAppInstallation: AppInstallation =
+      await getAppInstallationFromUuid(this.apiClient, appInstallationId);
+
+    if (currentAppInstallation.appVersion.current === undefined) {
+      throw Error("current app version could not be determined");
+    }
 
     return await this.apiClient.app.listUpdateCandidatesForAppversion({
       appId: currentAppInstallation.appId,
-      baseAppVersionId: (
-        currentAppInstallation.appVersion as { current: string }
-      ).current,
+      baseAppVersionId: currentAppInstallation.appVersion.current,
     });
   }
 
