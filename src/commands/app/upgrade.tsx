@@ -71,16 +71,22 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
         this.apiClient,
         currentAppInstallation.appId as string,
       ),
-      currentAppVersion: AppAppVersion = await getAppVersionFromUuid(
-        this.apiClient,
-        currentApp.id,
-        (currentAppInstallation.appVersion as { current: string }).current,
-      ),
       targetAppVersionCandidates: AppAppVersion[] =
         await getAllUpgradeCandidatesFromAppInstallationId(
           this.apiClient,
           currentAppInstallation.id,
         );
+
+    if (currentAppInstallation.appVersion.current === undefined) {
+      process.error("Current Version could not be determined properly.");
+      ux.exit(1);
+    }
+
+    const currentAppVersion: AppAppVersion = await getAppVersionFromUuid(
+      this.apiClient,
+      currentApp.id,
+      currentAppInstallation.appVersion.current,
+    );
 
     if (targetAppVersionCandidates.length == 0) {
       process.addInfo(
