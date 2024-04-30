@@ -12,6 +12,11 @@ import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js"
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { sshConnectionFlags } from "../../lib/ssh/flags.js";
 import { sshUsageDocumentation } from "../../lib/ssh/doc.js";
+import {
+  filterFileToRsyncFlagsIfPresent,
+  appInstallationSyncFlags,
+  appInstallationSyncFlagsToRsyncFlags,
+} from "../../lib/app/sync.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static summary =
@@ -26,14 +31,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static flags = {
     ...processFlags,
     ...sshConnectionFlags,
-    "dry-run": Flags.boolean({
-      description: "do not actually download the app installation",
-      default: false,
-    }),
-    delete: Flags.boolean({
-      description: "delete local files that are not present on the server",
-      default: false,
-    }),
+    ...appInstallationSyncFlags("download"),
     target: Flags.directory({
       description: "target directory to download the app installation to",
       required: true,
@@ -43,13 +41,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Download);
-    const {
-      "dry-run": dryRun,
-      target,
-      delete: deleteLocal,
-      "ssh-user": sshUser,
-      "ssh-identity-file": sshIdentityFile,
-    } = this.flags;
+    const { "dry-run": dryRun, target, "ssh-user": sshUser } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Downloading app installation");
 
@@ -71,21 +63,9 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
     });
 
     const rsyncOpts = [
-      "--archive",
-      "--recursive",
-      "--verbose",
-      "--progress",
-      "--exclude=typo3temp",
+      ...appInstallationSyncFlagsToRsyncFlags(this.flags),
+      ...(await filterFileToRsyncFlagsIfPresent()),
     ];
-    if (dryRun) {
-      rsyncOpts.push("--dry-run");
-    }
-    if (deleteLocal) {
-      rsyncOpts.push("--delete");
-    }
-    if (sshIdentityFile) {
-      rsyncOpts.push("--rsh", `ssh -i ${sshIdentityFile}`);
-    }
 
     await spawnInProcess(
       p,

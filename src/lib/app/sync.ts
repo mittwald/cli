@@ -1,0 +1,72 @@
+import { Flags } from "@oclif/core";
+import { SSHConnectionFlags } from "../ssh/flags.js";
+import { pathExists } from "../fsutil.js";
+
+export const defaultRsyncFilterFile = ".mw-rsync-filter";
+
+export interface AppInstallationSyncFlags {
+  exclude: string[];
+  "dry-run": boolean;
+  delete: boolean;
+}
+
+export const appInstallationSyncFlags = (direction: "upload" | "download") => ({
+  exclude: Flags.string({
+    multiple: true,
+    description: "exclude files matching the given pattern",
+    default: [],
+  }),
+  "dry-run": Flags.boolean({
+    description: `do not actually ${direction} the app installation`,
+    default: false,
+  }),
+  delete: Flags.boolean({
+    description:
+      direction === "download"
+        ? "delete local files that are not present on the server"
+        : "delete remote files that are not present locally",
+    default: false,
+  }),
+});
+
+export async function filterFileToRsyncFlagsIfPresent(
+  filterFile = defaultRsyncFilterFile,
+): Promise<string[]> {
+  if (await pathExists(filterFile)) {
+    return ["--filter", `. ${filterFile}`];
+  }
+
+  return [];
+}
+
+export function appInstallationSyncFlagsToRsyncFlags(
+  f: AppInstallationSyncFlags & SSHConnectionFlags,
+): string[] {
+  const {
+    "dry-run": dryRun,
+    "ssh-identity-file": sshIdentityFile,
+    exclude,
+  } = f;
+
+  const rsyncOpts = [
+    "--archive",
+    "--recursive",
+    "--verbose",
+    "--progress",
+    "--exclude=typo3temp",
+  ];
+  if (dryRun) {
+    rsyncOpts.push("--dry-run");
+  }
+  if (f.delete) {
+    rsyncOpts.push("--delete");
+  }
+  if (sshIdentityFile) {
+    rsyncOpts.push("--rsh", `ssh -i ${sshIdentityFile}`);
+  }
+  if (exclude?.length > 0) {
+    rsyncOpts.push(...exclude.map((e) => `--exclude=${e}`));
+  }
+
+  return rsyncOpts;
+}
