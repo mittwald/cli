@@ -69,7 +69,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
         await getAppInstallationFromUuid(this.apiClient, appInstallationId),
       currentApp: AppApp = await getAppFromUuid(
         this.apiClient,
-        currentAppInstallation.appId as string,
+        currentAppInstallation.appId,
       ),
       targetAppVersionCandidates: AppAppVersion[] =
         await getAllUpgradeCandidatesFromAppInstallationId(
