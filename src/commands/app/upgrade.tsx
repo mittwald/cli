@@ -78,7 +78,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
         );
 
     if (currentAppInstallation.appVersion.current === undefined) {
-      process.error("Current Version could not be determined properly.");
+      process.error("Current version could not be determined properly.");
       ux.exit(1);
     }
 
