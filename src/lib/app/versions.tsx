@@ -34,7 +34,7 @@ export async function normalizeToAppVersionUuid(
       `${await getAppNameFromUuid(
         apiClient,
         appUuid,
-      )} Version ${version} does not seem to exist for the mStudio.`,
+      )} version ${version} does not seem to exist for the mStudio.`,
     );
   }
 
