@@ -1,4 +1,3 @@
-import { isUuid } from "../../normalize_id.js";
 import {
   assertStatus,
   MittwaldAPIV2,
@@ -36,10 +35,6 @@ export async function getAppVersionFromUuid(
   appId: string,
   appVersionId: string,
 ): Promise<AppAppVersion> {
-  if (!isUuid(appId) && !isUuid(appVersionId)) {
-    throw new Error("Given UUID not valid.");
-  }
-
   const appVersion = await apiClient.app.getAppversion({
     appId: appId,
     appVersionId: appVersionId,
@@ -60,10 +55,6 @@ export async function getAppInstallationFromUuid(
   apiClient: MittwaldAPIV2Client,
   appInstallationId: string,
 ): Promise<AppAppInstallation> {
-  if (!isUuid(appInstallationId)) {
-    throw new Error("Given UUID not valid.");
-  }
-
   const appInstallation = await apiClient.app.getAppinstallation({
     appInstallationId: appInstallationId,
   });
