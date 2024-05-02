@@ -1755,7 +1755,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app list-upgrade-candidates [INSTALLATION-ID]`
 
-List update candidates for an appInstallation.
+List upgrade candidates for an app installation.
 
 ```
 USAGE
@@ -1777,7 +1777,7 @@ FLAGS
       --no-truncate        do not truncate output to fit screen
 
 DESCRIPTION
-  List update candidates for an appInstallation.
+  List upgrade candidates for an app installation.
 ```
 
 ## `mw app ssh [INSTALLATION-ID]`
@@ -1857,7 +1857,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app upgrade [INSTALLATION-ID]`
 
-Upgrade target appinstallation to target version
+Upgrade app installation to target version
 
 ```
 USAGE
@@ -1876,7 +1876,7 @@ FLAGS
       --target-version=<value>  Target version to upgrade target app to.
 
 DESCRIPTION
-  Upgrade target appinstallation to target version
+  Upgrade app installation to target version
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context

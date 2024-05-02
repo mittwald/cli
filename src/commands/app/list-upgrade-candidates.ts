@@ -7,6 +7,7 @@ import { ListBaseCommand } from "../../ListBaseCommand.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListColumns } from "../../Formatter.js";
 import { getAppInstallationFromUuid } from "../../lib/app/uuid.js";
+import { sortArrayByExternalVersion } from "../../lib/app/versions.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2AppsAppIdVersions.Get.Responses.$200.Content.ApplicationJson[number]
@@ -54,7 +55,7 @@ export default class List extends ListBaseCommand<
   }
 
   protected async mapData(data: ResponseItem[]): Promise<ResponseItem[]> {
-    return data;
+    return sortArrayByExternalVersion(data);
   }
 
   protected getColumns(): ListColumns<ResponseItem> {

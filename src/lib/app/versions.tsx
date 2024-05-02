@@ -6,6 +6,7 @@ import { ProcessRenderer } from "../../rendering/process/process.js";
 import { Text } from "ink";
 import React from "react";
 import { getAppInstallationFromUuid, getAppNameFromUuid } from "./uuid.js";
+import { compare } from "semver";
 
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
@@ -84,7 +85,7 @@ export async function getAllUpgradeCandidatesFromAppInstallationId(
       ).current,
     });
   assertStatus(updateCandidates, 200);
-  return updateCandidates.data;
+  return sortArrayByExternalVersion(updateCandidates.data);
 }
 
 export async function getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
@@ -145,5 +146,13 @@ export async function getAppVersionUuidFromAppVersion(
     (item: AppVersion) =>
       item.internalVersion === appVersion ||
       item.externalVersion === appVersion,
+  );
+}
+
+export function sortArrayByExternalVersion(
+  versions: AppVersion[],
+): AppVersion[] {
+  return versions.sort((a: AppVersion, b: AppVersion) =>
+    compare(b.externalVersion, a.externalVersion),
   );
 }

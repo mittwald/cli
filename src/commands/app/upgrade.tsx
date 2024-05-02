@@ -213,10 +213,6 @@ async function forceTargetVersionSelection(
   const targetAppVersionString = await process.addSelect(
     `Please select target upgrade for your ${currentApp.name} ${currentAppVersion.externalVersion} from one of the following`,
     [
-      {
-        value: "latest",
-        label: "latest",
-      },
       ...targetAppVersionCandidates.map((targetAppVersionCandidate) => ({
         value: targetAppVersionCandidate.externalVersion,
         label: `${targetAppVersionCandidate.externalVersion}`,
