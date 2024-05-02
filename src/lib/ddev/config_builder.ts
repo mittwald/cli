@@ -6,10 +6,7 @@ import {
   DDEVHook,
   DDEVHooks,
 } from "./config.js";
-import { typo3Installer } from "../../commands/app/install/typo3.js";
-import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
-import { shopware6Installer } from "../../commands/app/install/shopware6.js";
-import { drupalInstaller } from "../../commands/app/install/drupal.js";
+import { determineProjectTypeFromAppInstallation } from "./init_projecttype.js";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
@@ -102,27 +99,17 @@ export class DDEVConfigBuilder {
       return type;
     }
 
-    switch (inst.appId) {
-      case typo3Installer.appId:
-        return "typo3";
-      case wordpressInstaller.appId:
-        return "wordpress";
-      case shopware6Installer.appId:
-        return "shopware6";
-      case drupalInstaller.appId: {
-        const version = await this.getAppVersion(
-          inst.appId,
-          inst.appVersion.desired,
-        );
-
-        const [major] = version.externalVersion.split(".");
-        return `drupal${major}`;
-      }
-      default:
-        throw new Error(
-          "Automatic project type detection failed. Please specify the project type manually by setting the `--override-type` flag.",
-        );
+    const autoDetermined = await determineProjectTypeFromAppInstallation(
+      this.apiClient,
+      inst,
+    );
+    if (autoDetermined) {
+      return autoDetermined;
     }
+
+    throw new Error(
+      "Automatic project type detection failed. Please specify the project type manually by setting the `--override-type` flag.",
+    );
   }
 
   private async determineDatabaseVersion(

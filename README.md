@@ -3329,19 +3329,23 @@ Initialize a new ddev project in the current directory.
 
 ```
 USAGE
-  $ mw ddev init [INSTALLATION-ID] [-q] [--override-type <value>] [--without-database | --database-id <value>]
-    [--project-name <value>] [--override-mittwald-plugin <value>]
+  $ mw ddev init [INSTALLATION-ID] [-q] [--override-type
+    backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|python|shopware6|silverstripe|typo3|wo
+    rdpress|auto] [--without-database | --database-id <value>] [--project-name <value>] [--override-mittwald-plugin
+    <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  -q, --quiet                  suppress process output and only display a machine-readable summary.
-      --database-id=<value>    ID of the application database
-      --override-type=<value>  [default: auto] Override the type of the generated DDEV configuration
-      --project-name=<value>   DDEV project name
-      --without-database       Create a DDEV project without a database
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --database-id=<value>     ID of the application database
+      --override-type=<option>  [default: auto] Override the type of the generated DDEV configuration
+                                <options: backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|
+                                python|shopware6|silverstripe|typo3|wordpress|auto>
+      --project-name=<value>    DDEV project name
+      --without-database        Create a DDEV project without a database
 
 DEVELOPMENT FLAGS
   --override-mittwald-plugin=<value>  [default: mittwald/ddev] override the mittwald plugin
@@ -3381,7 +3385,9 @@ FLAG DESCRIPTIONS
     This flag allows you to override the mittwald plugin that should be installed by default; this is useful for testing
     purposes
 
-  --override-type=<value>  Override the type of the generated DDEV configuration
+  --override-type=backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|python|shopware6|silverstripe|typo3|wordpress|auto
+
+    Override the type of the generated DDEV configuration
 
     The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which
     is also the default) for automatic discovery.
@@ -3404,16 +3410,20 @@ Generate a DDEV configuration YAML file for the current app.
 
 ```
 USAGE
-  $ mw ddev render-config [INSTALLATION-ID] [--override-type <value>] [--without-database | --database-id <value>]
+  $ mw ddev render-config [INSTALLATION-ID] [--override-type
+    backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|python|shopware6|silverstripe|typo3|wo
+    rdpress|auto] [--without-database | --database-id <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  --database-id=<value>    ID of the application database
-  --override-type=<value>  [default: auto] Override the type of the generated DDEV configuration
-  --without-database       Create a DDEV project without a database
+  --database-id=<value>     ID of the application database
+  --override-type=<option>  [default: auto] Override the type of the generated DDEV configuration
+                            <options: backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|pyth
+                            on|shopware6|silverstripe|typo3|wordpress|auto>
+  --without-database        Create a DDEV project without a database
 
 DESCRIPTION
   Generate a DDEV configuration YAML file for the current app.
@@ -3429,7 +3439,9 @@ FLAG DESCRIPTIONS
     Setting a database ID (either automatically or manually) is required. To create a DDEV project without a database,
     set the --without-database flag.
 
-  --override-type=<value>  Override the type of the generated DDEV configuration
+  --override-type=backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|python|shopware6|silverstripe|typo3|wordpress|auto
+
+    Override the type of the generated DDEV configuration
 
     The type of the generated DDEV configuration; this can be any of the documented DDEV project types, or 'auto' (which
     is also the default) for automatic discovery.
@@ -5253,7 +5265,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.8/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.9/src/commands/update.ts)_
 
 ## `mw user api-token create`
 
