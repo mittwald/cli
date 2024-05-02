@@ -101,15 +101,13 @@ export async function getLatestAvailableTargetAppVersionForAppVersionUpgradeCand
   if (versions.data.length === 0) {
     return undefined;
   }
-  let latestVersion = "0.0.0";
+  let latestVersion: AppVersion|undefined;
   for (const version of versions.data) {
-    if (gt(version.internalVersion, latestVersion)) {
-      latestVersion = version.internalVersion;
+    if (gt(version.internalVersion, latestVersion?.internalVersion ?? "0.0.0")) {
+      latestVersion = version;
     }
   }
-  return versions.data.find(
-    (item: AppVersion) => item.internalVersion === latestVersion,
-  );
+  return latestVersion;
 }
 
 export async function getAvailableTargetAppVersionFromExternalVersion(
