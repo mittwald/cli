@@ -1625,13 +1625,13 @@ __metadata:
   linkType: hard
 
 "@oclif/test@npm:^3.1.16":
-  version: 3.2.11
-  resolution: "@oclif/test@npm:3.2.11"
+  version: 3.2.12
+  resolution: "@oclif/test@npm:3.2.12"
   dependencies:
     "@oclif/core": ^3.26.4
     chai: ^4.4.1
     fancy-test: ^3.0.14
-  checksum: 070d2e7b670cfd197735381e8df791f220198dc777de332ef19e9ad53d4227336eccde1ab71682bea9ad1b199fbea504cec2c61ed1a07142eec7b66b596cbeb0
+  checksum: 6ae42374bb5fe38525b4de05e5bbac052ec8a4a9ae5d6307f2be88a7c0b1119627eff8b646580de0d3c388644ddfddd9e6b9c7aa0b507b08f114c4c9ac4bf9d1
   languageName: node
   linkType: hard
 
