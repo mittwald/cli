@@ -1873,7 +1873,8 @@ FLAGS
                                 context
   -q, --quiet                   suppress process output and only display a machine-readable summary.
   -w, --wait                    wait for the upgrade process to finish
-      --target-version=<value>  Target version to upgrade target app to.
+      --target-version=<value>  target version to upgrade app to; if omitted, target version will be prompted
+                                interactively
 
 DESCRIPTION
   Upgrade app installation to target version
