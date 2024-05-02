@@ -40,7 +40,7 @@ export async function normalizeToAppVersionUuid(
 
   process.addInfo(
     <Text>
-      installing Version: <Value>{appVersion.externalVersion}</Value>
+      installing version: <Value>{appVersion.externalVersion}</Value>
     </Text>,
   );
 
