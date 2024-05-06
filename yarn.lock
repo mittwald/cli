@@ -1526,7 +1526,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.21.0, @oclif/core@npm:^3.26.0, @oclif/core@npm:^3.26.2, @oclif/core@npm:^3.26.4":
+"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.21.0, @oclif/core@npm:^3.26.0, @oclif/core@npm:^3.26.2, @oclif/core@npm:^3.26.4, @oclif/core@npm:^3.26.5":
   version: 3.26.5
   resolution: "@oclif/core@npm:3.26.5"
   dependencies:
@@ -1625,13 +1625,13 @@ __metadata:
   linkType: hard
 
 "@oclif/test@npm:^3.1.16":
-  version: 3.2.12
-  resolution: "@oclif/test@npm:3.2.12"
+  version: 3.2.13
+  resolution: "@oclif/test@npm:3.2.13"
   dependencies:
-    "@oclif/core": ^3.26.4
+    "@oclif/core": ^3.26.5
     chai: ^4.4.1
     fancy-test: ^3.0.14
-  checksum: 6ae42374bb5fe38525b4de05e5bbac052ec8a4a9ae5d6307f2be88a7c0b1119627eff8b646580de0d3c388644ddfddd9e6b9c7aa0b507b08f114c4c9ac4bf9d1
+  checksum: a342dbeee892b6a77c3a03c8c3aaf72c22d0bcce7565a60e0ed4d956ed2fb1d7786a2443e38f9f09a2891371e22107ceaa9c006294ccc2acd155a0a0bfcdec13
   languageName: node
   linkType: hard
 
