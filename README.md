@@ -136,8 +136,10 @@ USAGE
 * [`mw app install typo3`](#mw-app-install-typo3)
 * [`mw app install wordpress`](#mw-app-install-wordpress)
 * [`mw app list`](#mw-app-list)
+* [`mw app list-upgrade-candidates [INSTALLATION-ID]`](#mw-app-list-upgrade-candidates-installation-id)
 * [`mw app ssh [INSTALLATION-ID]`](#mw-app-ssh-installation-id)
 * [`mw app uninstall [INSTALLATION-ID]`](#mw-app-uninstall-installation-id)
+* [`mw app upgrade [INSTALLATION-ID]`](#mw-app-upgrade-installation-id)
 * [`mw app upload [INSTALLATION-ID]`](#mw-app-upload-installation-id)
 * [`mw app versions [APP]`](#mw-app-versions-app)
 * [`mw autocomplete [SHELL]`](#mw-autocomplete-shell)
@@ -1751,6 +1753,33 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
+## `mw app list-upgrade-candidates [INSTALLATION-ID]`
+
+List upgrade candidates for an app installation.
+
+```
+USAGE
+  $ mw app list-upgrade-candidates [INSTALLATION-ID] [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o
+    txt|json|yaml|csv |  | ] [--no-relative-dates]
+
+ARGUMENTS
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
+
+FLAGS
+  -o, --output=<option>    [default: txt] output in a more machine friendly format
+                           <options: txt|json|yaml|csv>
+  -x, --extended           show extra columns
+      --columns=<value>    only show provided columns (comma-separated)
+      --csv                output is csv format [alias: --output=csv]
+      --no-header          hide table header from output
+      --no-relative-dates  show dates in absolute format, not relative
+      --no-truncate        do not truncate output to fit screen
+
+DESCRIPTION
+  List upgrade candidates for an app installation.
+```
+
 ## `mw app ssh [INSTALLATION-ID]`
 
 Connect to an app via SSH
@@ -1820,6 +1849,42 @@ DESCRIPTION
   Uninstall an app
 
 FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw app upgrade [INSTALLATION-ID]`
+
+Upgrade app installation to target version
+
+```
+USAGE
+  $ mw app upgrade [INSTALLATION-ID] [--target-version <value>] [-w] [-f] [-p <value>] [-q]
+
+ARGUMENTS
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context
+
+FLAGS
+  -f, --force                   Do not ask for confirmation.
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -w, --wait                    wait for the upgrade process to finish
+      --target-version=<value>  target version to upgrade app to; if omitted, target version will be prompted
+                                interactively
+
+DESCRIPTION
+  Upgrade app installation to target version
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in

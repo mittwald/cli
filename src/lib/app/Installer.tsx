@@ -9,7 +9,7 @@ import {
 } from "./flags.js";
 import { normalizeToAppVersionUuid } from "./versions.js";
 import { triggerAppInstallation } from "./install.js";
-import { waitUntilAppIsInstalled } from "./wait.js";
+import { waitUntilAppStateHasNormalized } from "./wait.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import React from "react";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
@@ -97,7 +97,12 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
 
     let successText: string;
     if (flags.wait) {
-      await waitUntilAppIsInstalled(apiClient, process, appInstallationId);
+      await waitUntilAppStateHasNormalized(
+        apiClient,
+        process,
+        appInstallationId,
+        "waiting for app installation to be ready",
+      );
       successText = `Your ${this.appName} installation is now complete. Have fun! 🎉`;
     } else {
       successText = `Your ${this.appName} installation has started. Have fun when it's ready! 🎉`;
