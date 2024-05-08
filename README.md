@@ -168,6 +168,7 @@ USAGE
 * [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
 * [`mw cronjob get CRONJOB-ID`](#mw-cronjob-get-cronjob-id)
 * [`mw cronjob list`](#mw-cronjob-list)
+* [`mw cronjob update CRONJOB-ID`](#mw-cronjob-update-cronjob-id)
 * [`mw database mysql charsets`](#mw-database-mysql-charsets)
 * [`mw database mysql create`](#mw-database-mysql-create)
 * [`mw database mysql delete DATABASE-ID`](#mw-database-mysql-delete-database-id)
@@ -249,6 +250,7 @@ USAGE
 * [`mw server list`](#mw-server-list)
 * [`mw sftp-user delete SFTP-USER-ID`](#mw-sftp-user-delete-sftp-user-id)
 * [`mw sftp-user list`](#mw-sftp-user-list)
+* [`mw ssh-user create`](#mw-ssh-user-create)
 * [`mw ssh-user delete SSH-USER-ID`](#mw-ssh-user-delete-ssh-user-id)
 * [`mw ssh-user list`](#mw-ssh-user-list)
 * [`mw update [CHANNEL]`](#mw-update-channel)
@@ -1997,7 +1999,7 @@ EXAMPLES
   $ mw autocomplete --refresh-cache
 ```
 
-_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.17/src/commands/autocomplete/index.ts)_
+_See code: [@oclif/plugin-autocomplete](https://github.com/oclif/plugin-autocomplete/blob/v3.0.16/src/commands/autocomplete/index.ts)_
 
 ## `mw backup create`
 
@@ -2618,6 +2620,40 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw cronjob update CRONJOB-ID`
+
+Update a cron job
+
+```
+USAGE
+  $ mw cronjob update CRONJOB-ID [--description <value>] [--interval <value>] [--disable | --enable] [--email
+    <value>] [--url <value>] [--command <value>] [--interpreter /bin/bash|/usr/bin/php] [-q]
+
+ARGUMENTS
+  CRONJOB-ID  ID of the cronjob to be updated.
+
+FLAGS
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+      --command=<value>       Set command to execute on cron job execution
+      --description=<value>   Set cron job description
+      --disable               Disable cron job automated execution
+      --email=<value>         Set target email to send error messages to
+      --enable                Enable cron job automated execution
+      --interpreter=<option>  Set interpreter to use for execution
+                              <options: /bin/bash|/usr/bin/php>
+      --interval=<value>      Set cron job execution interval
+      --url=<value>           Set url to use on cron job execution
+
+DESCRIPTION
+  Update a cron job
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw database mysql charsets`
@@ -5171,6 +5207,42 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
+## `mw ssh-user create`
+
+Create a new cron job
+
+```
+USAGE
+  $ mw ssh-user create --description <value> --interval <value> [-i <value>] [-q] [--disable] [--email <value>]
+    [--url <value> | --command <value>] [--interpreter <value>]
+
+FLAGS
+  -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
+                                 installation is set in the context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+      --command=<value>          Command to execute for the cron job; either this or `--url` is required.
+      --description=<value>      (required) Description of the cron job
+      --disable                  Disable the cron job after creation
+      --email=<value>            Email address to send cron job output to
+      --interpreter=<value>      [default: /bin/sh] Interpreter to use for the cron job
+      --interval=<value>         (required) Interval of the cron job, in standard UNIX cron syntax
+      --url=<value>              URL to call for the cron job; either this or `--command` is required.
+
+FLAG DESCRIPTIONS
+  -i, --installation-id=<value>
+
+    ID or short ID of an app installation; this flag is optional if a default app installation is set in the context
+
+    May contain a short ID or a full ID of an app installation; you can also use the "mw context set
+    --installation-id=<VALUE>" command to persistently set a default app installation for all commands that accept this
+    flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 ## `mw ssh-user delete SSH-USER-ID`
 
 Delete an SSH user
@@ -5265,7 +5337,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.11/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.2.9/src/commands/update.ts)_
 
 ## `mw user api-token create`
 
