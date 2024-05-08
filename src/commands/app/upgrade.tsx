@@ -221,18 +221,10 @@ async function forceTargetVersionSelection(
     ],
   );
 
-  if (targetAppVersionString == "latest") {
-    return await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
-      apiClient,
-      currentApp.id,
-      currentAppVersion.id,
-    );
-  } else {
-    return await getAvailableTargetAppVersionFromExternalVersion(
-      apiClient,
-      currentApp.id,
-      currentAppVersion.id,
-      targetAppVersionString,
-    );
-  }
+  return await getAvailableTargetAppVersionFromExternalVersion(
+    apiClient,
+    currentApp.id,
+    currentAppVersion.id,
+    targetAppVersionString,
+  );
 }
