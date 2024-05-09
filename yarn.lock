@@ -1344,7 +1344,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.21.0, @oclif/core@npm:^3.26.0, @oclif/core@npm:^3.26.2, @oclif/core@npm:^3.26.5, @oclif/core@npm:^3.26.6":
+"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.26.0, @oclif/core@npm:^3.26.2, @oclif/core@npm:^3.26.5, @oclif/core@npm:^3.26.6":
   version: 3.26.6
   resolution: "@oclif/core@npm:3.26.6"
   dependencies:
@@ -1401,14 +1401,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-not-found@npm:^3.0.14":
-  version: 3.0.14
-  resolution: "@oclif/plugin-not-found@npm:3.0.14"
+"@oclif/plugin-not-found@npm:^3.1.8":
+  version: 3.1.8
+  resolution: "@oclif/plugin-not-found@npm:3.1.8"
   dependencies:
-    "@oclif/core": ^3.21.0
+    "@inquirer/confirm": ^3.1.6
+    "@oclif/core": ^3.26.5
     chalk: ^5.3.0
     fast-levenshtein: ^3.0.0
-  checksum: 25d6306c12eb568ced22917159e5351025fed6337553f9363e9b523a8e428274cd55d32a67cd99ce8019ca9055f7ae057fb87f674c92c9548e267d3bd5f8f55a
+  checksum: 8cdc1d299485f38d54e3f1c021a88ffa5141234d65749f819ac7230898575df71d386ce4f71f8fb2dc91f91b4b016c5c9875e198b1af1301679fe82492524545
   languageName: node
   linkType: hard
 
@@ -1429,7 +1430,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-warn-if-update-available@npm:^3.0.14, @oclif/plugin-warn-if-update-available@npm:^3.0.2":
+"@oclif/plugin-warn-if-update-available@npm:^3.0.17, @oclif/plugin-warn-if-update-available@npm:^3.0.2":
   version: 3.0.17
   resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.17"
   dependencies:
@@ -2211,15 +2212,6 @@ __metadata:
   dependencies:
     "@types/ms": "*"
   checksum: a9a9bb40a199e9724aa944e139a7659173a9b274798ea7efbc277cb084bc37d32fc4c00877c3496fac4fed70a23243d284adb75c00b5fdabb38a22154d18e5df
-  languageName: node
-  linkType: hard
-
-"@types/debug@npm:^4.1.12":
-  version: 4.1.12
-  resolution: "@types/debug@npm:4.1.12"
-  dependencies:
-    "@types/ms": "*"
-  checksum: 47876a852de8240bfdaf7481357af2b88cb660d30c72e73789abf00c499d6bc7cd5e52f41c915d1b9cd8ec9fef5b05688d7b7aef17f7f272c2d04679508d1053
   languageName: node
   linkType: hard
 
@@ -5406,13 +5398,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash._reinterpolate@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "lodash._reinterpolate@npm:3.0.0"
-  checksum: 06d2d5f33169604fa5e9f27b6067ed9fb85d51a84202a656901e5ffb63b426781a601508466f039c720af111b0c685d12f1a5c14ff8df5d5f27e491e562784b2
-  languageName: node
-  linkType: hard
-
 "lodash.clonedeep@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.clonedeep@npm:4.5.0"
@@ -5431,25 +5416,6 @@ __metadata:
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: ad580b4bdbb7ca1f7abf7e1bce63a9a0b98e370cf40194b03380a46b4ed799c9573029599caebc1b14e3f24b111aef72b96674a56cfa105e0f5ac70546cdc005
-  languageName: node
-  linkType: hard
-
-"lodash.template@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "lodash.template@npm:4.5.0"
-  dependencies:
-    lodash._reinterpolate: ^3.0.0
-    lodash.templatesettings: ^4.0.0
-  checksum: ca64e5f07b6646c9d3dbc0fe3aaa995cb227c4918abd1cef7a9024cd9c924f2fa389a0ec4296aa6634667e029bc81d4bbdb8efbfde11df76d66085e6c529b450
-  languageName: node
-  linkType: hard
-
-"lodash.templatesettings@npm:^4.0.0":
-  version: 4.2.0
-  resolution: "lodash.templatesettings@npm:4.2.0"
-  dependencies:
-    lodash._reinterpolate: ^3.0.0
-  checksum: 863e025478b092997e11a04e9d9e735875eeff1ffcd6c61742aa8272e3c2cddc89ce795eb9726c4e74cef5991f722897ff37df7738a125895f23fc7d12a7bb59
   languageName: node
   linkType: hard
 
@@ -6331,8 +6297,8 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.3.9":
-  version: 4.10.5
-  resolution: "oclif@npm:4.10.5"
+  version: 4.10.6
+  resolution: "oclif@npm:4.10.6"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.569.0
     "@aws-sdk/client-s3": ^3.569.0
@@ -6341,9 +6307,8 @@ __metadata:
     "@inquirer/select": ^2.3.2
     "@oclif/core": ^3.26.5
     "@oclif/plugin-help": ^6.0.21
-    "@oclif/plugin-not-found": ^3.0.14
-    "@oclif/plugin-warn-if-update-available": ^3.0.14
-    "@types/debug": ^4.1.12
+    "@oclif/plugin-not-found": ^3.1.8
+    "@oclif/plugin-warn-if-update-available": ^3.0.17
     async-retry: ^1.3.3
     chalk: ^4
     change-case: ^4
@@ -6360,7 +6325,7 @@ __metadata:
     validate-npm-package-name: ^5.0.0
   bin:
     oclif: bin/run.js
-  checksum: bb69e59d0927f105d0bae777d632c17f0858e7a3082f469139c917458b6f1ed317fe2d6dd8db236d624d8e0b1bb97f532831b17c6647466c75d5a62511ccf7c1
+  checksum: 037e064e5a9c7df8fe1ece0b41feef09c242bac33b5370bf2782a5245d4a49bfac3ec9931476e8caa391dd3ed1781b04860a2201c2e46d866bc1a1286b596861
   languageName: node
   linkType: hard
 
