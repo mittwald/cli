@@ -6297,8 +6297,8 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.3.9":
-  version: 4.10.6
-  resolution: "oclif@npm:4.10.6"
+  version: 4.10.7
+  resolution: "oclif@npm:4.10.7"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.569.0
     "@aws-sdk/client-s3": ^3.569.0
@@ -6322,10 +6322,11 @@ __metadata:
     normalize-package-data: ^6
     semver: ^7.6.0
     sort-package-json: ^2.10.0
+    tiny-jsonc: ^1.0.1
     validate-npm-package-name: ^5.0.0
   bin:
     oclif: bin/run.js
-  checksum: 037e064e5a9c7df8fe1ece0b41feef09c242bac33b5370bf2782a5245d4a49bfac3ec9931476e8caa391dd3ed1781b04860a2201c2e46d866bc1a1286b596861
+  checksum: ae4c9d9b68db5cf6d910d87c5a160ede00356ad26a99b2c44a3d0908fe67eecb84eaa82f16db7b24c640a3a56699f726ca546b7c69d30518eee20f30b75ae2a0
   languageName: node
   linkType: hard
 
@@ -7485,6 +7486,13 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: b6937a38c80c7f84d9c11dd75e49d5c44f71d95e810a3250bd1f1797fc7117c57698204adf676b71497acc205d769d65c16ae8fa10afad832ae1322630aef10a
+  languageName: node
+  linkType: hard
+
+"tiny-jsonc@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "tiny-jsonc@npm:1.0.1"
+  checksum: b345484a25a86d8a757a4fe02e52a4517290636988c25d84099d895a387205d3af74b3be7598bdbbfa13bbfdd5a5122198fe341877e239975e6622ff34465c20
   languageName: node
   linkType: hard
 
