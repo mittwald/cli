@@ -1444,13 +1444,13 @@ __metadata:
   linkType: hard
 
 "@oclif/test@npm:^3.1.16":
-  version: 3.2.13
-  resolution: "@oclif/test@npm:3.2.13"
+  version: 3.2.15
+  resolution: "@oclif/test@npm:3.2.15"
   dependencies:
-    "@oclif/core": ^3.26.5
+    "@oclif/core": ^3.26.6
     chai: ^4.4.1
-    fancy-test: ^3.0.14
-  checksum: a342dbeee892b6a77c3a03c8c3aaf72c22d0bcce7565a60e0ed4d956ed2fb1d7786a2443e38f9f09a2891371e22107ceaa9c006294ccc2acd155a0a0bfcdec13
+    fancy-test: ^3.0.15
+  checksum: fd395819665fb3b9d0fd057d80359e88eaec8359217c68b89681e0fc6970a82946110915c2058d4016b641ecbdd6106bca026b73342f7fefce363c0f12381600
   languageName: node
   linkType: hard
 
@@ -4142,9 +4142,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fancy-test@npm:^3.0.14":
-  version: 3.0.14
-  resolution: "fancy-test@npm:3.0.14"
+"fancy-test@npm:^3.0.15":
+  version: 3.0.15
+  resolution: "fancy-test@npm:3.0.15"
   dependencies:
     "@types/chai": "*"
     "@types/lodash": "*"
@@ -4155,7 +4155,7 @@ __metadata:
     nock: ^13.5.4
     sinon: ^16.1.3
     stdout-stderr: ^0.1.9
-  checksum: 9439b48814f79256ba04bd76bd3b7a41ebfcf62c6d006ad7cd596a2967b9a55aae1699ca1ff325f5c95115c661b58bb48787c3a9277a9607bb6dd817ae375bca
+  checksum: 34a27441906f754b0180a52a2bcec91f8af7af30d6c3945b5696f764b6aa2dbba4b9df5ee384bd0ec150d9548edc219a1eb1217647ccec1146c85bc01e2761ae
   languageName: node
   linkType: hard
 
