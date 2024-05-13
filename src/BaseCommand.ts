@@ -3,6 +3,7 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { configureAxiosRetry } from "./lib/api_retry.js";
 import { configureConsistencyHandling } from "./lib/api_consistency.js";
 import { getTokenFilename, readApiToken } from "./lib/auth/token.js";
+import { configureAxiosLogging } from "./lib/api_logging.js";
 
 export abstract class BaseCommand extends Command {
   protected authenticationRequired = true;
@@ -23,6 +24,7 @@ export abstract class BaseCommand extends Command {
       this.apiClient.axios.defaults.headers["User-Agent"] =
         `mittwald-cli/${this.config.version}`;
 
+      configureAxiosLogging(this.apiClient.axios);
       configureAxiosRetry(this.apiClient.axios);
       configureConsistencyHandling(this.apiClient.axios);
     }
