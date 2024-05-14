@@ -100,7 +100,7 @@ export default function APIError({
   withHTTPMessages,
 }: APIErrorProps) {
   return (
-    <>
+    <Box flexDirection="column">
       <ErrorBox>
         <ErrorText bold underline>
           API CLIENT ERROR
@@ -114,6 +114,6 @@ export default function APIError({
 
       {withHTTPMessages === "full" ? <HttpMessages err={err} /> : undefined}
       {withStack && "stack" in err ? <ErrorStack err={err} /> : undefined}
-    </>
+    </Box>
   );
 }
