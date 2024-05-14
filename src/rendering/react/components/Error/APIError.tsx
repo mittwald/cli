@@ -1,6 +1,7 @@
 import {
   ApiClientError,
   AxiosResponseHeaders,
+  AxiosError,
 } from "@mittwald/api-client-commons";
 import { Box, Text } from "ink";
 import { RawAxiosResponseHeaders } from "axios";
@@ -83,7 +84,7 @@ function HttpMessages({ err }: { err: ApiClientError }) {
 }
 
 interface APIErrorProps {
-  err: ApiClientError;
+  err: ApiClientError | AxiosError;
   withStack: boolean;
   withHTTPMessages: "no" | "body" | "full";
 }
