@@ -3,7 +3,7 @@ import {
   FailedFlagValidationError,
   RequiredArgsError,
 } from "@oclif/core/lib/parser/errors.js";
-import { ApiClientError } from "@mittwald/api-client-commons";
+import { AxiosError } from "@mittwald/api-client-commons";
 import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 import UnexpectedShortIDPassedError from "../../../lib/error/UnexpectedShortIDPassedError.js";
 import GenericError from "./Error/GenericError.js";
@@ -23,7 +23,7 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
     return <InvalidFlagsError err={err} />;
   } else if (err instanceof RequiredArgsError) {
     return <InvalidArgsError err={err} />;
-  } else if (err instanceof ApiClientError) {
+  } else if (err instanceof AxiosError) {
     return <APIError err={err} withStack withHTTPMessages="body" />;
   } else if (err instanceof InteractiveInputRequiredError) {
     return (
