@@ -1807,15 +1807,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-not-found@npm:^3.1.8":
-  version: 3.1.8
-  resolution: "@oclif/plugin-not-found@npm:3.1.8"
+"@oclif/plugin-not-found@npm:^3.1.9":
+  version: 3.1.9
+  resolution: "@oclif/plugin-not-found@npm:3.1.9"
   dependencies:
     "@inquirer/confirm": ^3.1.6
     "@oclif/core": ^3.26.5
     chalk: ^5.3.0
     fast-levenshtein: ^3.0.0
-  checksum: 8cdc1d299485f38d54e3f1c021a88ffa5141234d65749f819ac7230898575df71d386ce4f71f8fb2dc91f91b4b016c5c9875e198b1af1301679fe82492524545
+  checksum: 70f7225cc0b3bdb4e6aa218e29c2d7ccb23ae682d984c54b24c88e81ffd0958a07076687c52846268b641349ffac5b0b3a659ed011bf00314ca5888a235f8774
   languageName: node
   linkType: hard
 
@@ -7147,8 +7147,8 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.3.9":
-  version: 4.10.10
-  resolution: "oclif@npm:4.10.10"
+  version: 4.10.11
+  resolution: "oclif@npm:4.10.11"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.574.0
     "@aws-sdk/client-s3": ^3.569.0
@@ -7157,7 +7157,7 @@ __metadata:
     "@inquirer/select": ^2.3.2
     "@oclif/core": ^3.26.5
     "@oclif/plugin-help": ^6.0.21
-    "@oclif/plugin-not-found": ^3.1.8
+    "@oclif/plugin-not-found": ^3.1.9
     "@oclif/plugin-warn-if-update-available": ^3.0.18
     async-retry: ^1.3.3
     chalk: ^4
@@ -7176,7 +7176,7 @@ __metadata:
     validate-npm-package-name: ^5.0.0
   bin:
     oclif: bin/run.js
-  checksum: 3fc9911d34b8e1a2c6a9f8c9d970008ee42a7482b00a496e2bdfddfc9dc09b80bda033ee3402dc35458fb29c99475ce7abdb7327dac15f08ca8cc33e8be27b22
+  checksum: fbaeef8d85f39ce89d59877b1006687b342d3c964d7bfa3beed76e00e436d14406cf39802732e02ce1210a264cd611f0b476e0ac1b029f147facedb50837066a
   languageName: node
   linkType: hard
 
