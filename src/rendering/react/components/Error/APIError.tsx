@@ -8,6 +8,8 @@ import { RawAxiosResponseHeaders } from "axios";
 import ErrorStack from "./ErrorStack.js";
 import ErrorText from "./ErrorText.js";
 import ErrorBox from "./ErrorBox.js";
+import { SingleResultTable } from "../SingleResult.js";
+import { Value } from "../Value.js";
 
 function RequestHeaders({ headers }: { headers: string }) {
   const lines = headers.trim().split("\r\n");
@@ -89,6 +91,14 @@ interface APIErrorProps {
   withHTTPMessages: "no" | "body" | "full";
 }
 
+interface ErrorBody {
+  params?: {
+    traceId?: string;
+  };
+  message?: string;
+  type?: string;
+}
+
 /**
  * Render an API client error to the terminal. In the case of an API client
  * error, the error message will be displayed, as well as (when enabled) the
@@ -99,6 +109,8 @@ export default function APIError({
   withStack,
   withHTTPMessages,
 }: APIErrorProps) {
+  const errorBody = err.response?.data as ErrorBody | undefined;
+
   return (
     <Box flexDirection="column">
       <ErrorBox>
@@ -108,6 +120,24 @@ export default function APIError({
         <ErrorText>
           An error occurred while communicating with the API: {err.message}
         </ErrorText>
+
+        <SingleResultTable
+          rows={{
+            Request: (
+              <Value bold>
+                {err.config?.method?.toUpperCase()} {err.config?.url}
+              </Value>
+            ),
+            Response: (
+              <Value bold>
+                {err.response?.status} {err.response?.statusText}
+              </Value>
+            ),
+            "Error Type": <Value bold>{errorBody?.type}</Value>,
+            Message: <Value bold>{errorBody?.message}</Value>,
+            "Trace ID": <Value bold>{errorBody?.params?.["traceId"]}</Value>,
+          }}
+        />
 
         <Text>{JSON.stringify(err.response?.data, undefined, 2)}</Text>
       </ErrorBox>
