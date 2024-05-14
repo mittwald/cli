@@ -1,12 +1,11 @@
-import {
-  ApiClientError,
-  AxiosResponseHeaders,
-} from "@mittwald/api-client-commons";
+import { AxiosError, AxiosResponseHeaders } from "@mittwald/api-client-commons";
 import { Box, Text } from "ink";
 import { RawAxiosResponseHeaders } from "axios";
 import ErrorStack from "./ErrorStack.js";
 import ErrorText from "./ErrorText.js";
 import ErrorBox from "./ErrorBox.js";
+import { SingleResultTable } from "../SingleResult.js";
+import { Value } from "../Value.js";
 
 function RequestHeaders({ headers }: { headers: string }) {
   const lines = headers.trim().split("\r\n");
@@ -62,7 +61,7 @@ function Response({
   );
 }
 
-function HttpMessages({ err }: { err: ApiClientError }) {
+function HttpMessages({ err }: { err: AxiosError }) {
   const response = err.response ? (
     <Response
       status={err.response.status!}
@@ -82,10 +81,41 @@ function HttpMessages({ err }: { err: ApiClientError }) {
   );
 }
 
+function ErrorDetails({ err }: { err: AxiosError }) {
+  const errorBody = err.response?.data as ErrorBody | undefined;
+  return (
+    <SingleResultTable
+      rows={{
+        Request: (
+          <Value bold>
+            {err.config?.method?.toUpperCase()} {err.config?.url}
+          </Value>
+        ),
+        Response: (
+          <Value bold>
+            {err.response?.status} {err.response?.statusText}
+          </Value>
+        ),
+        "Error Type": <Value bold>{errorBody?.type}</Value>,
+        Message: <Value bold>{errorBody?.message}</Value>,
+        "Trace ID": <Value bold>{errorBody?.params?.["traceId"]}</Value>,
+      }}
+    />
+  );
+}
+
 interface APIErrorProps {
-  err: ApiClientError;
+  err: AxiosError;
   withStack: boolean;
   withHTTPMessages: "no" | "body" | "full";
+}
+
+interface ErrorBody {
+  params?: {
+    traceId?: string;
+  };
+  message?: string;
+  type?: string;
 }
 
 /**
@@ -99,7 +129,7 @@ export default function APIError({
   withHTTPMessages,
 }: APIErrorProps) {
   return (
-    <>
+    <Box flexDirection="column">
       <ErrorBox>
         <ErrorText bold underline>
           API CLIENT ERROR
@@ -108,11 +138,13 @@ export default function APIError({
           An error occurred while communicating with the API: {err.message}
         </ErrorText>
 
+        <ErrorDetails err={err} />
+
         <Text>{JSON.stringify(err.response?.data, undefined, 2)}</Text>
       </ErrorBox>
 
       {withHTTPMessages === "full" ? <HttpMessages err={err} /> : undefined}
       {withStack && "stack" in err ? <ErrorStack err={err} /> : undefined}
-    </>
+    </Box>
   );
 }

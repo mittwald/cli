@@ -1,10 +1,10 @@
-import { isUuid } from "../../normalize_id.js";
 import {
   assertStatus,
   MittwaldAPIV2,
   MittwaldAPIV2Client,
 } from "@mittwald/api-client";
 
+type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 
@@ -20,7 +20,6 @@ export async function getAppFromUuid(
 ): Promise<AppApp> {
   const result = await apiClient.app.getApp({ appId });
   assertStatus(result, 200);
-
   return result.data;
 }
 
@@ -36,10 +35,6 @@ export async function getAppVersionFromUuid(
   appId: string,
   appVersionId: string,
 ): Promise<AppAppVersion> {
-  if (!isUuid(appId) && !isUuid(appVersionId)) {
-    throw new Error("Given UUID not valid.");
-  }
-
   const appVersion = await apiClient.app.getAppversion({
     appId: appId,
     appVersionId: appVersionId,
@@ -48,6 +43,25 @@ export async function getAppVersionFromUuid(
   assertStatus(appVersion, 200);
 
   return appVersion.data;
+}
+
+/**
+ * Lookup an appInstallation by its UUID
+ *
+ * @param apiClient
+ * @param appInstallationId
+ */
+export async function getAppInstallationFromUuid(
+  apiClient: MittwaldAPIV2Client,
+  appInstallationId: string,
+): Promise<AppAppInstallation> {
+  const appInstallation = await apiClient.app.getAppinstallation({
+    appInstallationId: appInstallationId,
+  });
+
+  assertStatus(appInstallation, 200);
+
+  return appInstallation.data;
 }
 
 /**

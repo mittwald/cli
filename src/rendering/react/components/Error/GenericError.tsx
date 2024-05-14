@@ -23,7 +23,7 @@ export default function GenericError({
   title = "Error",
 }: GenericErrorProps) {
   return (
-    <>
+    <Box flexDirection="column">
       <ErrorBox>
         <ErrorText bold underline>
           {title.toUpperCase()}
@@ -40,6 +40,6 @@ export default function GenericError({
       </ErrorBox>
 
       {withStack && "stack" in err ? <ErrorStack err={err} /> : undefined}
-    </>
+    </Box>
   );
 }

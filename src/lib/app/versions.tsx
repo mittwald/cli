@@ -5,10 +5,10 @@ import { Value } from "../../rendering/react/components/Value.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { Text } from "ink";
 import React from "react";
-import { getAppNameFromUuid } from "./uuid.js";
+import { getAppInstallationFromUuid, getAppNameFromUuid } from "./uuid.js";
+import { compare } from "semver";
 
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
-
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 export async function normalizeToAppVersionUuid(
@@ -70,7 +70,64 @@ export async function getLatestAvailableAppVersionForApp(
   );
 }
 
-// App Version UUID from App Version irellevant if internal or external
+export async function getAllUpgradeCandidatesFromAppInstallationId(
+  apiClient: MittwaldAPIV2Client,
+  appInstallationId: string,
+): Promise<AppVersion[]> {
+  const currentAppInstallation = await getAppInstallationFromUuid(
+      apiClient,
+      appInstallationId,
+    ),
+    updateCandidates = await apiClient.app.listUpdateCandidatesForAppversion({
+      appId: currentAppInstallation.appId,
+      baseAppVersionId: (
+        currentAppInstallation.appVersion as { current: string }
+      ).current,
+    });
+  assertStatus(updateCandidates, 200);
+  return sortArrayByExternalVersion(updateCandidates.data);
+}
+
+export async function getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
+  apiClient: MittwaldAPIV2Client,
+  appId: string,
+  baseAppVersionId: string,
+): Promise<AppVersion | undefined> {
+  const versions = await apiClient.app.listUpdateCandidatesForAppversion({
+    appId,
+    baseAppVersionId,
+  });
+  assertStatus(versions, 200);
+  if (versions.data.length === 0) {
+    return undefined;
+  }
+  let latestVersion: AppVersion | undefined;
+  for (const version of versions.data) {
+    if (
+      gt(version.internalVersion, latestVersion?.internalVersion ?? "0.0.0")
+    ) {
+      latestVersion = version;
+    }
+  }
+  return latestVersion;
+}
+
+export async function getAvailableTargetAppVersionFromExternalVersion(
+  apiClient: MittwaldAPIV2Client,
+  appId: string,
+  baseAppVersionId: string,
+  targetExternalVersion: string,
+): Promise<AppVersion | undefined> {
+  const versions = await apiClient.app.listUpdateCandidatesForAppversion({
+    appId,
+    baseAppVersionId,
+  });
+  assertStatus(versions, 200);
+  return versions.data.find(
+    (item: AppVersion) => item.externalVersion === targetExternalVersion,
+  );
+}
+
 export async function getAppVersionUuidFromAppVersion(
   apiClient: MittwaldAPIV2Client,
   appId: string,
@@ -89,5 +146,13 @@ export async function getAppVersionUuidFromAppVersion(
     (item: AppVersion) =>
       item.internalVersion === appVersion ||
       item.externalVersion === appVersion,
+  );
+}
+
+export function sortArrayByExternalVersion(
+  versions: AppVersion[],
+): AppVersion[] {
+  return versions.sort((a: AppVersion, b: AppVersion) =>
+    compare(b.externalVersion, a.externalVersion),
   );
 }
