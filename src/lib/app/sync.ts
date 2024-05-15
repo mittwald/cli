@@ -30,7 +30,7 @@ export const appInstallationSyncFlags = (direction: "upload" | "download") => ({
 });
 
 export const filterFileDocumentation =
-  "This command will also look for a file named .mw-rsync-filter in the current " +
+  `This command will also look for a file named ${defaultRsyncFilterFile} in the current ` +
   "directory and use it as a filter file for rsync. Have a look at " +
   "https://manpages.ubuntu.com/manpages/noble/en/man1/rsync.1.html#filter%20rules " +
   "for more information on how to write filter rules.";
