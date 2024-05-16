@@ -5337,12 +5337,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-tsconfig@npm:^4.7.3":
-  version: 4.7.3
-  resolution: "get-tsconfig@npm:4.7.3"
+"get-tsconfig@npm:^4.7.5":
+  version: 4.7.5
+  resolution: "get-tsconfig@npm:4.7.5"
   dependencies:
     resolve-pkg-maps: ^1.0.0
-  checksum: d124e6900f8beb3b71f215941096075223158d0abb09fb5daa8d83299f6c17d5e95a97d12847b387e9e716bb9bd256a473f918fb8020f3b1acc0b1e5c2830bbf
+  checksum: e5b271fae2b4cd1869bbfc58db56983026cc4a08fdba988725a6edd55d04101507de154722503a22ee35920898ff9bdcba71f99d93b17df35dddb8e8a2ad91be
   languageName: node
   linkType: hard
 
@@ -8430,18 +8430,18 @@ __metadata:
   linkType: hard
 
 "tsx@npm:^4.7.1":
-  version: 4.10.2
-  resolution: "tsx@npm:4.10.2"
+  version: 4.10.3
+  resolution: "tsx@npm:4.10.3"
   dependencies:
     esbuild: ~0.20.2
     fsevents: ~2.3.3
-    get-tsconfig: ^4.7.3
+    get-tsconfig: ^4.7.5
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: 44c9afd11c8d14f2c0d2fafe3329d18098d991013c05a3b9a743c813df059dd30aa43a72958b5a0f0c09d5f31ae213406105b8bdbe366943c98360f43807d41e
+  checksum: f5f81a99b4dec2842986b4cf5b9209a4c10ea93f1148320b3c5ef57b87d590bd4b8e1057b0896bf560d55b3cd6008086959edcc8a5ccbf9031652676f879a5ef
   languageName: node
   linkType: hard
 
