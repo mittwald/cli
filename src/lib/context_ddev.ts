@@ -100,6 +100,6 @@ export class DDEVContextProvider implements ContextProvider {
 }
 
 async function findDDEVConfigFiles(dir: string): Promise<string[]> {
-  const configFilePattern = /^config\.*\.ya?ml$/;
+  const configFilePattern = /^config\..*\.ya?ml$/;
   return (await fs.readdir(dir)).filter((e) => configFilePattern.test(e));
 }
