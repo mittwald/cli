@@ -70,7 +70,7 @@
     "tempfile": "^5.0.0"
   },
   "devDependencies": {
-    "@oclif/test": "^3.1.16",
+    "@oclif/test": "^4.0.1",
     "@types/chalk": "^2.2.0",
     "@types/copyfiles": "^2.4.1",
     "@types/js-yaml": "^4.0.9",
