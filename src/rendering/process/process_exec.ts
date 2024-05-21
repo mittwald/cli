@@ -1,6 +1,9 @@
 import { spawn } from "child_process";
 import { ProcessRenderer } from "./process.js";
 import { ReactNode } from "react";
+import debug from "debug";
+
+const d = debug("mw:exec");
 
 export async function spawnInProcess(
   r: ProcessRenderer,
@@ -10,6 +13,7 @@ export async function spawnInProcess(
 ): Promise<void> {
   const step = r.addStep(title);
 
+  d("spawning %o with args %o", cmd, args);
   const child = spawn(cmd, args, {
     shell: false,
     stdio: ["inherit", "pipe", "pipe"],
