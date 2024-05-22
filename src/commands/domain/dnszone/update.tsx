@@ -9,8 +9,8 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import {
   dnsZoneArgs,
   withDnsZoneId,
-} from "../../../lib/domain/dnszone/flags.js";
-import { projectFlags } from "../../../lib/project/flags.js";
+} from "../../../lib/resources/domain/dnszone/flags.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../../rendering/process/process.js";

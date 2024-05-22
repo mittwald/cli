@@ -1,6 +1,6 @@
 import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { ReactNode } from "react";
-import { useProjectBackup } from "../../lib/projectbackup/hooks.js";
+import { useProjectBackup } from "../../lib/resources/projectbackup/hooks.js";
 import { Args } from "@oclif/core";
 import { ProjectBackupDetails } from "../../rendering/react/components/ProjectBackup/ProjectBackupDetails.js";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";

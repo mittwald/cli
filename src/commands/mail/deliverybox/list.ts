@@ -4,7 +4,7 @@ import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
-import { projectFlags } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdDeliveryBoxes.Get.Responses.$200.Content.ApplicationJson[number]

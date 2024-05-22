@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useAppVersion } from "../../../../lib/app/hooks.js";
+import { useAppVersion } from "../../../../lib/resources/app/hooks.js";
 import { Value } from "../Value.js";
 import { AppInstallationStatus } from "./AppInstallationStatus.js";
 import { SingleResult, SingleResultTable } from "../SingleResult.js";
@@ -8,10 +8,10 @@ import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Box, Text } from "ink";
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
-import { useProject } from "../../../../lib/project/hooks.js";
+import { useProject } from "../../../../lib/resources/project/hooks.js";
 import { IDAndShortID } from "../IDAndShortID.js";
 import path from "path";
-import { isCustomAppInstallation } from "../../../../lib/app/custom_installation.js";
+import { isCustomAppInstallation } from "../../../../lib/resources/app/custom_installation.js";
 
 export const AppInstallationDetails: FC<{
   appInstallation: AppAppInstallation;

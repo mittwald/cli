@@ -3,7 +3,7 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
-import { projectFlags } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdMysqlDatabases.Get.Responses.$200.Content.ApplicationJson[number]

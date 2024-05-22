@@ -6,7 +6,7 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import {
   getAppNameFromUuid,
   getAppUuidFromAppName,
-} from "../../lib/app/uuid.js";
+} from "../../lib/resources/app/uuid.js";
 
 export default class AppVersions extends BaseCommand {
   static description = "List supported Apps and Versions";

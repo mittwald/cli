@@ -6,11 +6,14 @@ import {
 } from "../../../rendering/process/process_flags.js";
 import * as cp from "child_process";
 import { Text } from "ink";
-import { getConnectionDetails } from "../../../lib/database/redis/connect.js";
-import { redisArgs, withRedisId } from "../../../lib/database/redis/flags.js";
-import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
-import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
-import { buildSSHClientFlags } from "../../../lib/ssh/connection.js";
+import { getConnectionDetails } from "../../../lib/resources/database/redis/connect.js";
+import {
+  redisArgs,
+  withRedisId,
+} from "../../../lib/resources/database/redis/flags.js";
+import { sshUsageDocumentation } from "../../../lib/resources/ssh/doc.js";
+import { sshConnectionFlags } from "../../../lib/resources/ssh/flags.js";
+import { buildSSHClientFlags } from "../../../lib/resources/ssh/connection.js";
 
 export class Shell extends ExecRenderBaseCommand<
   typeof Shell,

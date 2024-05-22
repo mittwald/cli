@@ -1,6 +1,9 @@
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import {
+  projectFlags,
+  withProjectId,
+} from "../../../lib/resources/project/flags.js";
 
 type APIResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["project"]["getSelfMembershipForProject"]>

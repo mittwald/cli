@@ -9,7 +9,10 @@ import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { mailAddressArgs, withMailAddressId } from "../../../lib/mail/flags.js";
+import {
+  mailAddressArgs,
+  withMailAddressId,
+} from "../../../lib/resources/mail/flags.js";
 import crypto from "crypto";
 
 type UpdateResult = {

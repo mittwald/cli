@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
-import { projectFlags } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
 import {
   makeProcessRenderer,
   processFlags,

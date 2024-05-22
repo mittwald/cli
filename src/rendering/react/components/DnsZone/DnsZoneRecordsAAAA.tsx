@@ -2,7 +2,7 @@ import { RecordComponent } from "./RecordComponent.js";
 import {
   isCustomARecord,
   isManagedARecord,
-} from "../../../../lib/domain/dnszone/records.js";
+} from "../../../../lib/resources/domain/dnszone/records.js";
 import { RecordSetManagedByMittwald } from "./RecordSetManagedByMittwald.js";
 import { RecordSetValues } from "./RecordSetValues.js";
 import { Value } from "../Value.js";

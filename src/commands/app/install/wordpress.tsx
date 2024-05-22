@@ -3,7 +3,7 @@ import React from "react";
 import {
   AppInstallationResult,
   AppInstaller,
-} from "../../../lib/app/Installer.js";
+} from "../../../lib/resources/app/Installer.js";
 
 export const wordpressInstaller = new AppInstaller(
   "da3aa3ae-4b6b-4398-a4a8-ee8def827876",

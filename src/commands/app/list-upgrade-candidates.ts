@@ -2,12 +2,12 @@ import { Simplify } from "@mittwald/api-client-commons";
 import {
   appInstallationArgs,
   withAppInstallationId,
-} from "../../lib/app/flags.js";
+} from "../../lib/resources/app/flags.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListColumns } from "../../Formatter.js";
-import { getAppInstallationFromUuid } from "../../lib/app/uuid.js";
-import { sortArrayByExternalVersion } from "../../lib/app/versions.js";
+import { getAppInstallationFromUuid } from "../../lib/resources/app/uuid.js";
+import { sortArrayByExternalVersion } from "../../lib/resources/app/versions.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2AppsAppIdVersions.Get.Responses.$200.Content.ApplicationJson[number]

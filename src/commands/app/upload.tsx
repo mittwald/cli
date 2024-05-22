@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
-import { appInstallationArgs } from "../../lib/app/flags.js";
+import { appInstallationArgs } from "../../lib/resources/app/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -8,16 +8,16 @@ import { Flags } from "@oclif/core";
 import { Success } from "../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { hasBinary } from "../../lib/hasbin.js";
-import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
+import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
-import { sshConnectionFlags } from "../../lib/ssh/flags.js";
-import { sshUsageDocumentation } from "../../lib/ssh/doc.js";
+import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
+import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import {
   appInstallationSyncFlags,
   appInstallationSyncFlagsToRsyncFlags,
   filterFileDocumentation,
   filterFileToRsyncFlagsIfPresent,
-} from "../../lib/app/sync.js";
+} from "../../lib/resources/app/sync.js";
 
 export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
   static summary = "Upload the filesystem of an app to a project";

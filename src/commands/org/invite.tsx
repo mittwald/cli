@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
-import { orgFlags, withOrgId } from "../../lib/org/flags.js";
+import { orgFlags, withOrgId } from "../../lib/resources/org/flags.js";
 import {
   makeProcessRenderer,
   processFlags,

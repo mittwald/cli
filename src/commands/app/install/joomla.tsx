@@ -3,7 +3,7 @@ import React from "react";
 import {
   AppInstallationResult,
   AppInstaller,
-} from "../../../lib/app/Installer.js";
+} from "../../../lib/resources/app/Installer.js";
 
 const installer = new AppInstaller(
   "8d404bff-6d75-4833-9eed-1b83b0552585",

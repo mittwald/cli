@@ -4,7 +4,7 @@ import { SuccessfulResponse } from "../../../types.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { Flags } from "@oclif/core";
 import { ListColumns } from "../../../Formatter.js";
-import { projectFlags } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Ingresses.Get.Responses.$200.Content.ApplicationJson[number]

@@ -2,8 +2,8 @@ import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseComm
 import {
   appInstallationArgs,
   withAppInstallationId,
-} from "../../lib/app/flags.js";
-import { projectFlags } from "../../lib/project/flags.js";
+} from "../../lib/resources/app/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 import { Flags, ux } from "@oclif/core";
 import React, { ReactNode } from "react";
 import { Text } from "ink";
@@ -11,12 +11,12 @@ import {
   getAppFromUuid,
   getAppInstallationFromUuid,
   getAppVersionFromUuid,
-} from "../../lib/app/uuid.js";
+} from "../../lib/resources/app/uuid.js";
 import {
   getAllUpgradeCandidatesFromAppInstallationId,
   getAvailableTargetAppVersionFromExternalVersion,
   getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates,
-} from "../../lib/app/versions.js";
+} from "../../lib/resources/app/versions.js";
 import {
   makeProcessRenderer,
   ProcessFlags,
@@ -25,7 +25,7 @@ import {
 import { Success } from "../../rendering/react/components/Success.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { waitUntilAppStateHasNormalized } from "../../lib/app/wait.js";
+import { waitUntilAppStateHasNormalized } from "../../lib/resources/app/wait.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;

@@ -1,5 +1,5 @@
 import { RecordComponent } from "./RecordComponent.js";
-import { isTXTRecord } from "../../../../lib/domain/dnszone/records.js";
+import { isTXTRecord } from "../../../../lib/resources/domain/dnszone/records.js";
 import { Value } from "../Value.js";
 import React from "react";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";

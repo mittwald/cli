@@ -5,7 +5,7 @@ import React from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { usePromise } from "@mittwald/react-use-promise";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
-import { domainArgs, withDomainId } from "../../lib/domain/flags.js";
+import { domainArgs, withDomainId } from "../../lib/resources/domain/flags.js";
 import { DomainDetails } from "../../rendering/react/components/Domain/DomainDetails.js";
 
 type DomainDomain = MittwaldAPIV2.Components.Schemas.DomainDomain;

@@ -4,7 +4,7 @@ import { RenderBaseCommand } from "../../../lib/basecommands/RenderBaseCommand.j
 import {
   dnsZoneArgs,
   withDnsZoneId,
-} from "../../../lib/domain/dnszone/flags.js";
+} from "../../../lib/resources/domain/dnszone/flags.js";
 import React from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { usePromise } from "@mittwald/react-use-promise";

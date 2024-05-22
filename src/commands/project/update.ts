@@ -1,4 +1,4 @@
-import { projectArgs } from "../../lib/project/flags.js";
+import { projectArgs } from "../../lib/resources/project/flags.js";
 import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
 
 export default class Update extends ExtendedBaseCommand<typeof Update> {

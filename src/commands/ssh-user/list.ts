@@ -3,7 +3,7 @@ import { Simplify } from "@mittwald/api-client-commons";
 import { SuccessfulResponse } from "../../types.js";
 import { ListColumns } from "../../Formatter.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
-import { projectFlags } from "../../lib/project/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 
 type SshUserResponse = Awaited<
   ReturnType<MittwaldAPIV2Client["sshsftpUser"]["sftpUserListSftpUsers"]>

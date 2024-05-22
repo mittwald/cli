@@ -1,7 +1,7 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
-import { projectFlags } from "../../lib/project/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 import { SuccessfulResponse } from "../../types.js";
 import { ListColumns } from "../../Formatter.js";
 

@@ -5,7 +5,7 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import {
   messageFlags,
   retrieveMessage,
-} from "../../lib/conversation/message_input.js";
+} from "../../lib/resources/conversation/message_input.js";
 
 export default class Reply extends BaseCommand {
   static description = "Reply to a conversation";

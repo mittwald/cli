@@ -3,7 +3,10 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import {
+  projectFlags,
+  withProjectId,
+} from "../../../lib/resources/project/flags.js";
 
 type BackupProjectBackupSchedule =
   MittwaldAPIV2.Components.Schemas.BackupProjectBackupSchedule;

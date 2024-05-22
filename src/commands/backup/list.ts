@@ -2,7 +2,7 @@ import { Response, Simplify } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
-import { projectFlags } from "../../lib/project/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 import { ListColumns } from "../../Formatter.js";
 import { optionalDateRenderer } from "../../lib/viewhelpers/date.js";
 import { makeDateRendererForFlags } from "../../lib/viewhelpers/list_column_date.js";

@@ -1,5 +1,5 @@
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { projectFlags } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { Simplify } from "@mittwald/api-client-commons";
 import { SuccessfulResponse } from "../../../types.js";
@@ -11,7 +11,7 @@ import {
   isManagedMXRecord,
   isSRVRecord,
   isTXTRecord,
-} from "../../../lib/domain/dnszone/records.js";
+} from "../../../lib/resources/domain/dnszone/records.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdDnsZones.Get.Responses.$200.Content.ApplicationJson[number]

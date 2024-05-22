@@ -3,7 +3,7 @@ import React from "react";
 import {
   AppInstallationResult,
   AppInstaller,
-} from "../../../lib/app/Installer.js";
+} from "../../../lib/resources/app/Installer.js";
 
 export const neosInstaller = new AppInstaller(
   "1f55f9fa-1902-409c-b305-7e428c5ed64d",

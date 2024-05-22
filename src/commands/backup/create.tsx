@@ -3,7 +3,7 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/process/process_flags.js";
-import { projectFlags } from "../../lib/project/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 import React, { ReactNode } from "react";
 import { Flags } from "@oclif/core";
 import {

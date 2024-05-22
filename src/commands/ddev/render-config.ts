@@ -1,4 +1,4 @@
-import { appInstallationArgs } from "../../lib/app/flags.js";
+import { appInstallationArgs } from "../../lib/resources/app/flags.js";
 import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
 import { DDEVConfigBuilder } from "../../lib/ddev/config_builder.js";
 import { renderDDEVConfig } from "../../lib/ddev/config_render.js";

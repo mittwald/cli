@@ -3,7 +3,7 @@ import React from "react";
 import {
   AppInstallationResult,
   AppInstaller,
-} from "../../../lib/app/Installer.js";
+} from "../../../lib/resources/app/Installer.js";
 
 export const moodleInstaller = new AppInstaller(
   "5ba3b4ea-9f79-460a-bbef-d901beca4cf1",

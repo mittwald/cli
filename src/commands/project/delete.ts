@@ -1,5 +1,5 @@
 import { DeleteBaseCommand } from "../../lib/basecommands/DeleteBaseCommand.js";
-import { projectArgs } from "../../lib/project/flags.js";
+import { projectArgs } from "../../lib/resources/project/flags.js";
 import assertSuccess from "../../lib/assert_success.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
