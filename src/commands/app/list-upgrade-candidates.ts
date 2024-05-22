@@ -3,7 +3,7 @@ import {
   appInstallationArgs,
   withAppInstallationId,
 } from "../../lib/app/flags.js";
-import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListColumns } from "../../Formatter.js";
 import { getAppInstallationFromUuid } from "../../lib/app/uuid.js";

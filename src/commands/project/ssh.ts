@@ -1,6 +1,6 @@
 import * as child_process from "child_process";
 import { projectArgs } from "../../lib/project/flags.js";
-import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
+import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
 import { sshConnectionFlags } from "../../lib/ssh/flags.js";
 import { getSSHConnectionForProject } from "../../lib/ssh/project.js";
 import { sshWrapperDocumentation } from "../../lib/ssh/doc.js";

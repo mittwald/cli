@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { Context } from "../../lib/context.js";
-import { BaseCommand } from "../../BaseCommand.js";
+import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import {
   normalizeAppInstallationId,
   normalizeCustomerId,

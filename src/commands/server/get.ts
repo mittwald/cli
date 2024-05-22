@@ -1,5 +1,5 @@
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import { serverArgs } from "../../lib/server/flags.js";
 
 type APIResponse = Awaited<

@@ -1,6 +1,6 @@
 import { assertStatus, Simplify } from "@mittwald/api-client-commons";
 import { projectFlags, withProjectId } from "../../lib/project/flags.js";
-import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
 import { ListColumns } from "../../Formatter.js";

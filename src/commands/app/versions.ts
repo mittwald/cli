@@ -1,4 +1,4 @@
-import { BaseCommand } from "../../BaseCommand.js";
+import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import { Args } from "@oclif/core";
 import { isUuid } from "../../normalize_id.js";
 import { assertStatus } from "@mittwald/api-client-commons";

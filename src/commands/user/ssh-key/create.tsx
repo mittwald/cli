@@ -3,7 +3,7 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import * as path from "path";
 import * as os from "os";
 import * as fs from "fs/promises";
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,

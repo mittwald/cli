@@ -1,4 +1,4 @@
-import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
+import { DeleteBaseCommand } from "../../lib/basecommands/DeleteBaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Args } from "@oclif/core";
 

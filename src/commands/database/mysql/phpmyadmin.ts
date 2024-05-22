@@ -1,4 +1,4 @@
-import { BaseCommand } from "../../../BaseCommand.js";
+import { BaseCommand } from "../../../lib/basecommands/BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import open from "open";
 import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";

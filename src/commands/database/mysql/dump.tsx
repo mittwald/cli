@@ -1,4 +1,4 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import { Flags } from "@oclif/core";
 import { ReactNode } from "react";
 import {

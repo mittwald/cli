@@ -1,5 +1,5 @@
 import { Response } from "@mittwald/api-client-commons";
-import { BaseCommand } from "./BaseCommand.js";
+import { BaseCommand } from "./lib/basecommands/BaseCommand.js";
 import { Interfaces } from "@oclif/core";
 
 export type SuccessfulResponse<

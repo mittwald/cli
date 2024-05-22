@@ -1,9 +1,9 @@
 import { BaseCommand } from "./BaseCommand.js";
-import { CommandArgs, CommandFlags } from "./types.js";
-import { withAppInstallationId } from "./lib/app/flags.js";
-import { CommandType } from "./lib/context_flags.js";
-import { withProjectId } from "./lib/project/flags.js";
-import { withServerId } from "./lib/server/flags.js";
+import { CommandArgs, CommandFlags } from "../../types.js";
+import { withAppInstallationId } from "../app/flags.js";
+import { CommandType } from "../context_flags.js";
+import { withProjectId } from "../project/flags.js";
+import { withServerId } from "../server/flags.js";
 
 export abstract class ExtendedBaseCommand<
   T extends typeof BaseCommand,

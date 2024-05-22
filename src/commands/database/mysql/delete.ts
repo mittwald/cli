@@ -1,5 +1,5 @@
 import { normalizeProjectId } from "../../../normalize_id.js";
-import { DeleteBaseCommand } from "../../../DeleteBaseCommand.js";
+import { DeleteBaseCommand } from "../../../lib/basecommands/DeleteBaseCommand.js";
 import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
 import assertSuccess from "../../../lib/assert_success.js";
 

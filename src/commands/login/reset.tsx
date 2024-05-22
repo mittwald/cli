@@ -1,5 +1,5 @@
 import * as fs from "fs/promises";
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import React from "react";
 import { Box, Text } from "ink";
 import { Note } from "../../rendering/react/components/Note.js";

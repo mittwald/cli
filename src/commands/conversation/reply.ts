@@ -1,4 +1,4 @@
-import { BaseCommand } from "../../BaseCommand.js";
+import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import { Args, ux } from "@oclif/core";
 import { normalizeConversationId } from "../../normalize_id.js";
 import { assertStatus } from "@mittwald/api-client-commons";

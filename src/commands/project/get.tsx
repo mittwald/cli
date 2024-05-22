@@ -1,4 +1,4 @@
-import { GetBaseCommand } from "../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { projectArgs } from "../../lib/project/flags.js";
 import { FC, ReactNode } from "react";
@@ -14,7 +14,7 @@ import { CreatedAt } from "../../rendering/react/components/CreatedAt.js";
 import { useRenderContext } from "../../rendering/react/context.js";
 import { usePromise } from "@mittwald/react-use-promise";
 import { ComponentPrinter } from "../../rendering/react/ComponentPrinter.js";
-import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
+import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { ByteFormat } from "../../rendering/react/components/ByteFormat.js";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";

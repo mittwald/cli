@@ -6,7 +6,7 @@ import {
   MittwaldAPIV2Client as MittwaldAPIClient,
 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../types.js";
-import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 
 type ProjectResponse = Awaited<
   ReturnType<MittwaldAPIClient["project"]["listProjects"]>

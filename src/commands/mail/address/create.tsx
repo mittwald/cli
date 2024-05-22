@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { projectFlags } from "../../../lib/project/flags.js";
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,

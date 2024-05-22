@@ -1,12 +1,12 @@
 import { Flags, ux } from "@oclif/core";
 import { BaseCommand } from "./BaseCommand.js";
-import { ExecRenderBaseCommand } from "./rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "./ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   ProcessFlags,
   processFlags,
-} from "./rendering/process/process_flags.js";
-import { Success } from "./rendering/react/components/Success.js";
+} from "../../rendering/process/process_flags.js";
+import { Success } from "../../rendering/react/components/Success.js";
 import { Text } from "ink";
 import React from "react";
 

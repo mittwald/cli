@@ -2,7 +2,7 @@ import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import parseDuration from "parse-duration";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,

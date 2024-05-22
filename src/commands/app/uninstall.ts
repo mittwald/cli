@@ -1,5 +1,5 @@
 import { assertStatus } from "@mittwald/api-client-commons";
-import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
+import { DeleteBaseCommand } from "../../lib/basecommands/DeleteBaseCommand.js";
 import { appInstallationArgs } from "../../lib/app/flags.js";
 
 export default class Uninstall extends DeleteBaseCommand<typeof Uninstall> {

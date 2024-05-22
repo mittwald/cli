@@ -1,13 +1,13 @@
 import { Command, Interfaces } from "@oclif/core";
 import { BaseCommand } from "./BaseCommand.js";
-import { ListColumns, ListFormatter } from "./Formatter.js";
+import { ListColumns, ListFormatter } from "../../Formatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
-import { SuccessfulResponse } from "./types.js";
+import { SuccessfulResponse } from "../../types.js";
 import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
 import {
   buildCreatedAtColumn,
   isResourceWithCreatedAt,
-} from "./lib/viewhelpers/list_column_date.js";
+} from "../viewhelpers/list_column_date.js";
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof ListBaseCommand)["baseFlags"] & T["flags"]

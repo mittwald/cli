@@ -1,5 +1,5 @@
 import { Flags, ux } from "@oclif/core";
-import { BaseCommand } from "../../BaseCommand.js";
+import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import * as fs from "fs/promises";
 import { getTokenFilename } from "../../lib/auth/token.js";
 import { isNotFound } from "../../lib/fsutil.js";

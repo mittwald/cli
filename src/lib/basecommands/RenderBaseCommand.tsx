@@ -1,17 +1,17 @@
-import { BaseCommand } from "../../BaseCommand.js";
+import { BaseCommand } from "./BaseCommand.js";
 import { ReactNode, Suspense } from "react";
 import { render } from "ink";
-import { RenderContextProvider } from "./context.js";
-import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
-import { JsonCollectionProvider } from "./json/JsonCollectionProvider.js";
+import { RenderContextProvider } from "../../rendering/react/context.js";
+import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
+import { JsonCollectionProvider } from "../../rendering/react/json/JsonCollectionProvider.js";
 import { Flags, Interfaces } from "@oclif/core";
 import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
-import { Render } from "./components/Render.js";
+import { Render } from "../../rendering/react/components/Render.js";
 import { CommandArgs, CommandFlags } from "../../types.js";
-import { useIncreaseInkStdoutColumns } from "./hooks/useIncreaseInkStdoutColumns.js";
+import { useIncreaseInkStdoutColumns } from "../../rendering/react/hooks/useIncreaseInkStdoutColumns.js";
 import { usePromise } from "@mittwald/react-use-promise";
-import { CommandType } from "../../lib/context_flags.js";
-import ErrorBoundary from "./components/ErrorBoundary.js";
+import { CommandType } from "../context_flags.js";
+import ErrorBoundary from "../../rendering/react/components/ErrorBoundary.js";
 
 const renderFlags = {
   output: Flags.string({

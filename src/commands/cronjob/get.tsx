@@ -1,7 +1,7 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import { Args } from "@oclif/core";
-import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
+import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { GetFormatter } from "../../Formatter.js";
 import { ComponentPrinter } from "../../rendering/react/ComponentPrinter.js";
 import { ReactNode } from "react";

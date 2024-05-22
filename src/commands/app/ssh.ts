@@ -1,7 +1,7 @@
 import * as child_process from "child_process";
 import { appInstallationArgs } from "../../lib/app/flags.js";
 import { Flags } from "@oclif/core";
-import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
+import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
 import { SSHConnectionFlags, sshConnectionFlags } from "../../lib/ssh/flags.js";
 import { sshWrapperDocumentation } from "../../lib/ssh/doc.js";

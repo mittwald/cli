@@ -1,4 +1,4 @@
-import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
+import { DeleteBaseCommand } from "../../lib/basecommands/DeleteBaseCommand.js";
 import assertSuccess from "../../lib/assert_success.js";
 import { Args } from "@oclif/core";
 

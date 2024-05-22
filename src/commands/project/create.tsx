@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { serverFlags } from "../../lib/server/flags.js";
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import { Text } from "ink";
 import React, { ReactNode } from "react";
 import { Success } from "../../rendering/react/components/Success.js";

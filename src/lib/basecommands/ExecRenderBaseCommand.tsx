@@ -1,8 +1,8 @@
-import { BaseCommand } from "../../BaseCommand.js";
+import { BaseCommand } from "./BaseCommand.js";
 import { FC, ReactNode, Suspense } from "react";
 import { render, Text } from "ink";
-import { RenderContextProvider } from "./context.js";
-import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
+import { RenderContextProvider } from "../../rendering/react/context.js";
+import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
 
 const RenderComponent: FC<{ render: () => ReactNode }> = (p) => (
   <>{p.render()}</>

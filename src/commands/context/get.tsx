@@ -1,4 +1,4 @@
-import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
+import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { FC, ReactNode } from "react";
 import {
   Context,
