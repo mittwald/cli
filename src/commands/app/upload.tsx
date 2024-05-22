@@ -68,7 +68,7 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
 
     const rsyncOpts = [
       ...appInstallationSyncFlagsToRsyncFlags(this.flags),
-      ...(await filterFileToRsyncFlagsIfPresent()),
+      ...(await filterFileToRsyncFlagsIfPresent(source)),
     ];
 
     await spawnInProcess(

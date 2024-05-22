@@ -67,7 +67,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
 
     const rsyncOpts = [
       ...appInstallationSyncFlagsToRsyncFlags(this.flags),
-      ...(await filterFileToRsyncFlagsIfPresent()),
+      ...(await filterFileToRsyncFlagsIfPresent(target)),
     ];
 
     await spawnInProcess(

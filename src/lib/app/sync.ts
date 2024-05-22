@@ -1,6 +1,7 @@
 import { Flags } from "@oclif/core";
 import { SSHConnectionFlags } from "../ssh/flags.js";
 import { pathExists } from "../fsutil.js";
+import path from "path";
 
 export const defaultRsyncFilterFile = ".mw-rsync-filter";
 
@@ -36,10 +37,13 @@ export const filterFileDocumentation =
   "for more information on how to write filter rules.";
 
 export async function filterFileToRsyncFlagsIfPresent(
+  targetDir: string,
   filterFile = defaultRsyncFilterFile,
 ): Promise<string[]> {
-  if (await pathExists(filterFile)) {
-    return ["--filter", `. ${filterFile}`];
+  const filterFilePath = path.join(targetDir, filterFile);
+
+  if (await pathExists(filterFilePath)) {
+    return ["--filter", `. ${filterFilePath}`];
   }
 
   return [];
