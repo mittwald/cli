@@ -1,7 +1,7 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { randomBytes } from "crypto";
-import assertSuccess from "../../../assert_success.js";
+import assertSuccess from "../../../apiutil/assert_success.js";
 import { ProcessRenderer } from "../../../../rendering/process/process.js";
 
 type DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;

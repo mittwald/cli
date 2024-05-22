@@ -1,9 +1,9 @@
 import { Command } from "@oclif/core";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { configureAxiosRetry } from "../api_retry.js";
-import { configureConsistencyHandling } from "../api_consistency.js";
+import { configureAxiosRetry } from "../apiutil/api_retry.js";
+import { configureConsistencyHandling } from "../apiutil/api_consistency.js";
 import { getTokenFilename, readApiToken } from "../auth/token.js";
-import { configureAxiosLogging } from "../api_logging.js";
+import { configureAxiosLogging } from "../apiutil/api_logging.js";
 
 export abstract class BaseCommand extends Command {
   protected authenticationRequired = true;

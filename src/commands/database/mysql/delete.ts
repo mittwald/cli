@@ -4,7 +4,7 @@ import {
   mysqlArgs,
   withMySQLId,
 } from "../../../lib/resources/database/mysql/flags.js";
-import assertSuccess from "../../../lib/assert_success.js";
+import assertSuccess from "../../../lib/apiutil/assert_success.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete a MySQL database";
