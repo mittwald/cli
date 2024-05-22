@@ -20,6 +20,7 @@ import { ByteFormat } from "../../rendering/react/components/ByteFormat.js";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import Link from "ink-link";
 import { ProjectStatus } from "../../rendering/react/components/Project/ProjectStatus.js";
+import ByteQuantity from "../../lib/units/ByteQuantity.js";
 
 type ProjectHardwareSpec = MittwaldAPIV2.Components.Schemas.ProjectHardwareSpec;
 type ProjectVisitorSpec = MittwaldAPIV2.Components.Schemas.ProjectVisitorSpec;
@@ -45,7 +46,7 @@ const ProjectSpecs: FC<{
         {" "}
         (
         <Value>
-          <ByteFormat bytes={usage.data?.usedBytes as number} />
+          {ByteQuantity.fromBytes(usage.data?.usedBytes as number).format()}
         </Value>{" "}
         used)
       </Text>

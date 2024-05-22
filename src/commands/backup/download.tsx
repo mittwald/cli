@@ -18,8 +18,10 @@ import {
 import { waitUntil } from "../../lib/wait.js";
 import axios from "axios";
 import * as fs from "fs";
-import { formatBytes } from "../../lib/viewhelpers/size.js";
 import { Success } from "../../rendering/react/components/Success.js";
+import ByteQuantity, {
+  ByteQuantityFormattingOptions,
+} from "../../lib/units/ByteQuantity.js";
 
 type Result = { outputFilename: string };
 
@@ -163,26 +165,27 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
 
     const downloadStep = p.addStep("downloading backup");
     const resp = await axios(backupExport.downloadURL, reqConfig);
-    const size = parseInt(resp.headers["content-length"] || "0", 10);
-    let downloaded = 0;
+    const size = ByteQuantity.fromBytes(
+      parseInt(resp.headers["content-length"] || "0", 10),
+    );
+    let downloaded = ByteQuantity.fromBytes(0);
 
     const outputFilename = this.getFilename(resp.headers);
     const outputStream = fs.createWriteStream(outputFilename, {
       flags: this.flags.resume ? "a" : undefined,
     });
 
+    const byteFormattingOpts: ByteQuantityFormattingOptions = {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    };
+
     resp.data.on("data", (chunk: { length: number }) => {
-      downloaded += chunk.length;
+      downloaded = downloaded.add(ByteQuantity.fromBytes(chunk.length));
       downloadStep.progress(
-        formatBytes(downloaded, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }) +
+        downloaded.format(byteFormattingOpts) +
           " of " +
-          formatBytes(size, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }),
+          size.format(byteFormattingOpts),
       );
       outputStream.write(chunk);
     });

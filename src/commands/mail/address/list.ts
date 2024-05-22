@@ -3,9 +3,9 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../types.js";
 import { ListColumns } from "../../../Formatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
-import { formatBytes } from "../../../lib/viewhelpers/size.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../../lib/resources/project/flags.js";
+import ByteQuantity from "../../../lib/units/ByteQuantity.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdMailAddresses.Get.Responses.$200.Content.ApplicationJson[number]
@@ -59,9 +59,11 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
             return "unknown";
           }
           return (
-            formatBytes(r.mailbox?.storageInBytes.current.value) +
+            ByteQuantity.fromBytes(
+              r.mailbox?.storageInBytes.current.value,
+            ).format() +
             " of " +
-            formatBytes(r.mailbox?.storageInBytes.limit)
+            ByteQuantity.fromBytes(r.mailbox?.storageInBytes.limit).format()
           );
         },
       },
