@@ -566,17 +566,18 @@ Download the filesystem of an app within a project to your local machine
 ```
 USAGE
   $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--dry-run] [--delete]
+    [--exclude <value>] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  -q, --quiet           suppress process output and only display a machine-readable summary.
-      --delete          delete local files that are not present on the server
-      --dry-run         do not actually download the app installation
-      --target=<value>  (required) target directory to download the app installation to
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+      --delete              delete local files that are not present on the server
+      --dry-run             do not actually download the app installation
+      --exclude=<value>...  [default: ] exclude files matching the given pattern
+      --target=<value>      (required) target directory to download the app installation to
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -596,6 +597,10 @@ DESCRIPTION
   authenticated mStudio user or the user specified with the --ssh-user flag.
 
   See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
+
+  This command will also look for a file named .mw-rsync-filter in the current directory and use it as a filter file for
+  rsync. Have a look at https://manpages.ubuntu.com/manpages/noble/en/man1/rsync.1.html#filter%20rules for more
+  information on how to write filter rules.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -1898,17 +1903,18 @@ Upload the filesystem of an app to a project
 ```
 USAGE
   $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--dry-run] [--delete]
+    [--exclude <value>] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context
 
 FLAGS
-  -q, --quiet           suppress process output and only display a machine-readable summary.
-      --delete          delete remote files that are not present locally
-      --dry-run         do not actually upload the app installation
-      --source=<value>  (required) source directory from which to upload the app installation
+  -q, --quiet               suppress process output and only display a machine-readable summary.
+      --delete              delete remote files that are not present locally
+      --dry-run             do not actually upload the app installation
+      --exclude=<value>...  [default: ] exclude files matching the given pattern
+      --source=<value>      (required) source directory from which to upload the app installation
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -1931,6 +1937,10 @@ DESCRIPTION
   authenticated mStudio user or the user specified with the --ssh-user flag.
 
   See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
+
+  This command will also look for a file named .mw-rsync-filter in the current directory and use it as a filter file for
+  rsync. Have a look at https://manpages.ubuntu.com/manpages/noble/en/man1/rsync.1.html#filter%20rules for more
+  information on how to write filter rules.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.

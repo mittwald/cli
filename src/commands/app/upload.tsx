@@ -12,6 +12,12 @@ import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js"
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { sshConnectionFlags } from "../../lib/ssh/flags.js";
 import { sshUsageDocumentation } from "../../lib/ssh/doc.js";
+import {
+  appInstallationSyncFlags,
+  appInstallationSyncFlagsToRsyncFlags,
+  filterFileDocumentation,
+  filterFileToRsyncFlagsIfPresent,
+} from "../../lib/app/sync.js";
 
 export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
   static summary = "Upload the filesystem of an app to a project";
@@ -20,21 +26,16 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
     "For this, rsync needs to be installed on your system.\n\n" +
     "CAUTION: This is a potentially destructive operation. It will overwrite files on the server with the files from your local machine. " +
     "This is NOT a turnkey deployment solution. It is intended for development purposes only.\n\n" +
-    sshUsageDocumentation;
+    sshUsageDocumentation +
+    "\n\n" +
+    filterFileDocumentation;
   static args = {
     ...appInstallationArgs,
   };
   static flags = {
     ...processFlags,
     ...sshConnectionFlags,
-    "dry-run": Flags.boolean({
-      description: "do not actually upload the app installation",
-      default: false,
-    }),
-    delete: Flags.boolean({
-      description: "delete remote files that are not present locally",
-      default: false,
-    }),
+    ...appInstallationSyncFlags("upload"),
     source: Flags.directory({
       description: "source directory from which to upload the app installation",
       required: true,
@@ -44,12 +45,7 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Upload);
-    const {
-      "dry-run": dryRun,
-      source,
-      delete: deleteRemote,
-      "ssh-user": sshUser,
-    } = this.flags;
+    const { "dry-run": dryRun, source, "ssh-user": sshUser } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Uploading app installation");
 
@@ -71,18 +67,9 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
     });
 
     const rsyncOpts = [
-      "--archive",
-      "--recursive",
-      "--verbose",
-      "--progress",
-      "--exclude=typo3temp",
+      ...appInstallationSyncFlagsToRsyncFlags(this.flags),
+      ...(await filterFileToRsyncFlagsIfPresent(source)),
     ];
-    if (dryRun) {
-      rsyncOpts.push("--dry-run");
-    }
-    if (deleteRemote) {
-      rsyncOpts.push("--delete");
-    }
 
     await spawnInProcess(
       p,
