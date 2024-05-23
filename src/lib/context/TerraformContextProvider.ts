@@ -39,7 +39,7 @@ function overrideIDFromState(
   return typeof id === "string" ? id : undefined;
 }
 
-export class TerraformContextProvider implements ContextProvider {
+export default class TerraformContextProvider implements ContextProvider {
   public readonly name = "terraform";
 
   public async getOverrides(): Promise<ContextMap> {

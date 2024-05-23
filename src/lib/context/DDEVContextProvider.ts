@@ -14,7 +14,7 @@ import ContextProvider from "./ContextProvider.js";
  * working directory or any of its parent directories and reads any
  * configuration yaml files from it.
  */
-export class DDEVContextProvider implements ContextProvider {
+export default class DDEVContextProvider implements ContextProvider {
   name = "ddev";
 
   private apiClient: MittwaldAPIV2Client;

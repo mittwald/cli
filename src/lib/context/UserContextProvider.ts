@@ -6,7 +6,7 @@ import ContextProvider from "./ContextProvider.js";
 import WritableContextProvider from "./WritableContextProvider.js";
 import { isNotFound } from "../fsutil.js";
 
-export class UserContextProvider
+export default class UserContextProvider
   implements ContextProvider, WritableContextProvider
 {
   public name = "user";
