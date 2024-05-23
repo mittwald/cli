@@ -4,10 +4,7 @@ import path from "path";
 import { Config } from "@oclif/core";
 import ContextProvider from "./ContextProvider.js";
 import WritableContextProvider from "./WritableContextProvider.js";
-
-function isNotExists(e: unknown): e is { code: "ENOENT" } {
-  return e instanceof Error && "code" in e && e.code === "ENOENT";
-}
+import { isNotFound } from "../fsutil.js";
 
 export class UserContextProvider
   implements ContextProvider, WritableContextProvider
@@ -30,7 +27,7 @@ export class UserContextProvider
         Object.entries(rawValues).map(([k, v]) => [k, { value: v, source }]),
       );
     } catch (e) {
-      if (isNotExists(e)) {
+      if (isNotFound(e)) {
         return {};
       }
       throw e;
@@ -41,7 +38,7 @@ export class UserContextProvider
     try {
       await fs.unlink(this.contextFile);
     } catch (e) {
-      if (isNotExists(e)) {
+      if (isNotFound(e)) {
         return;
       }
       throw e;
