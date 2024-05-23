@@ -1,5 +1,5 @@
 import { BaseCommand } from "./BaseCommand.js";
-import { CommandArgs, CommandFlags } from "../../types.js";
+import { CommandArgs, CommandFlags } from "./CommandFlags.js";
 import { withAppInstallationId } from "../resources/app/flags.js";
 import { CommandType } from "../context_flags.js";
 import { withProjectId } from "../resources/project/flags.js";

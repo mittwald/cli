@@ -7,7 +7,7 @@ import { JsonCollectionProvider } from "../../rendering/react/json/JsonCollectio
 import { Flags, Interfaces } from "@oclif/core";
 import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
 import { Render } from "../../rendering/react/components/Render.js";
-import { CommandArgs, CommandFlags } from "../../types.js";
+import { CommandArgs, CommandFlags } from "./CommandFlags.js";
 import { useIncreaseInkStdoutColumns } from "../../rendering/react/hooks/useIncreaseInkStdoutColumns.js";
 import { usePromise } from "@mittwald/react-use-promise";
 import { CommandType } from "../context_flags.js";
