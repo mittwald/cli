@@ -2,7 +2,7 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { projectFlags } from "../../../lib/resources/project/flags.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { Simplify } from "@mittwald/api-client-commons";
-import { SuccessfulResponse } from "../../../types.js";
+import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListColumns } from "../../../Formatter.js";
 import {
   isCustomARecord,
