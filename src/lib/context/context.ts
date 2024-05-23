@@ -3,6 +3,7 @@ import { TerraformContextProvider } from "./context_terraform.js";
 import { UserContextProvider } from "./context_user.js";
 import { DDEVContextProvider } from "./context_ddev.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import ContextProvider from "./ContextProvider.js";
 
 export type ContextNames =
   | "project"
@@ -17,12 +18,6 @@ export type ContextMap = Partial<Record<ContextKey, ContextValue>>;
 export type ContextMapUpdate = Partial<Record<ContextKey, string>>;
 export type ContextValueSource = { type: string; identifier: string };
 export type ContextValue = { value: string; source: ContextValueSource };
-
-export interface ContextProvider {
-  name: string;
-
-  getOverrides(): Promise<ContextMap>;
-}
 
 export interface WritableContextProvider extends ContextProvider {
   update(data: ContextMapUpdate): Promise<void>;

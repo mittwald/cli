@@ -1,12 +1,8 @@
-import {
-  ContextKey,
-  ContextMap,
-  ContextProvider,
-  WritableContextProvider,
-} from "./context.js";
+import { ContextKey, ContextMap, WritableContextProvider } from "./context.js";
 import fs from "fs/promises";
 import path from "path";
 import { Config } from "@oclif/core";
+import ContextProvider from "./ContextProvider.js";
 
 function isNotExists(e: unknown): e is { code: "ENOENT" } {
   return e instanceof Error && "code" in e && e.code === "ENOENT";
