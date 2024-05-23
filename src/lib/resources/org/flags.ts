@@ -1,8 +1,8 @@
-import { makeFlagSet } from "../../context/context_flags.js";
+import FlagSetBuilder from "../../context/FlagSetBuilder.js";
 import { normalizeCustomerId } from "../../../normalize_id.js";
 
 export const {
   flags: orgFlags,
   args: orgArgs,
   withId: withOrgId,
-} = makeFlagSet("org", "o", { normalize: normalizeCustomerId });
+} = new FlagSetBuilder("org", "o", { normalize: normalizeCustomerId }).build();

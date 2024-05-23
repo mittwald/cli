@@ -20,7 +20,7 @@ import {
 } from "@oclif/core/lib/interfaces/parser.js";
 import { generatePasswordWithSpecialChars } from "../../password.js";
 import { normalizeAppInstallationId } from "../../../normalize_id.js";
-import { makeFlagSet } from "../../context/context_flags.js";
+import { makeFlagSet } from "../../context/FlagSetBuilder.js";
 
 export const {
   flags: appInstallationFlags,

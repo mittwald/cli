@@ -1,30 +1,29 @@
 import { isUuid, normalizeProjectId } from "../../../normalize_id.js";
-import {
+import FlagSetBuilder, {
   CommandType,
   ContextArgs,
   ContextFlags,
-  FlagSet,
-  makeFlagSet,
   makeMissingContextInputError,
-} from "../../context/context_flags.js";
+} from "../../context/FlagSetBuilder.js";
 import { Context, ContextKey, ContextNames } from "../../context/context.js";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import { Args, Config, Flags } from "@oclif/core";
 import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { articleForWord } from "../../language.js";
+import FlagSet from "../../context/FlagSet.js";
 
 export const {
   flags: projectFlags,
   args: projectArgs,
   withId: withProjectId,
-} = makeFlagSet("project", "p", {
+} = new FlagSetBuilder("project", "p", {
   normalize: normalizeProjectId,
   expectedShortIDFormat: {
     pattern: /^p-.*/,
     display: "p-XXXXXX",
   },
-});
+}).build();
 
 export type SubNormalizeFn = (
   apiClient: MittwaldAPIV2Client,

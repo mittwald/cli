@@ -1,5 +1,5 @@
 import { normalizeServerId } from "../../../normalize_id.js";
-import { makeFlagSet } from "../../context/context_flags.js";
+import { makeFlagSet } from "../../context/FlagSetBuilder.js";
 
 export const {
   flags: serverFlags,
