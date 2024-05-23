@@ -1,4 +1,4 @@
-import { makeFlagSet } from "../../context_flags.js";
+import { makeFlagSet } from "../../context/context_flags.js";
 import { normalizeCustomerId } from "../../../normalize_id.js";
 
 export const {

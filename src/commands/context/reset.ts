@@ -1,4 +1,4 @@
-import { Context } from "../../lib/context.js";
+import { Context } from "../../lib/context/context.js";
 import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 
 export class Reset extends BaseCommand {

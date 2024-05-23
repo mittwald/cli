@@ -5,7 +5,7 @@ import {
   ContextKey,
   ContextValue,
   ContextValueSource,
-} from "../../lib/context.js";
+} from "../../lib/context/context.js";
 import { SingleResult } from "../../rendering/react/components/SingleResult.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { usePromise } from "@mittwald/react-use-promise";

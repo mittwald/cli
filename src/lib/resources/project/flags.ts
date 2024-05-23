@@ -6,8 +6,8 @@ import {
   FlagSet,
   makeFlagSet,
   makeMissingContextInputError,
-} from "../../context_flags.js";
-import { Context, ContextKey, ContextNames } from "../../context.js";
+} from "../../context/context_flags.js";
+import { Context, ContextKey, ContextNames } from "../../context/context.js";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import { Args, Config, Flags } from "@oclif/core";
 import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";

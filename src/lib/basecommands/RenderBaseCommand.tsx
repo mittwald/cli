@@ -10,7 +10,7 @@ import { Render } from "../../rendering/react/components/Render.js";
 import { CommandArgs, CommandFlags } from "./CommandFlags.js";
 import { useIncreaseInkStdoutColumns } from "../../rendering/react/hooks/useIncreaseInkStdoutColumns.js";
 import { usePromise } from "@mittwald/react-use-promise";
-import { CommandType } from "../context_flags.js";
+import { CommandType } from "../context/context_flags.js";
 import ErrorBoundary from "../../rendering/react/components/ErrorBoundary.js";
 
 const renderFlags = {
