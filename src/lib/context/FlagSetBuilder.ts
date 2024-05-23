@@ -7,7 +7,7 @@ import {
 } from "@oclif/core/lib/interfaces/parser.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
-import { Context, ContextKey, ContextNames } from "./context.js";
+import Context, { ContextKey, ContextNames } from "./Context.js";
 import UnexpectedShortIDPassedError from "../error/UnexpectedShortIDPassedError.js";
 import { isUuid } from "../../normalize_id.js";
 import { articleForWord } from "../language.js";

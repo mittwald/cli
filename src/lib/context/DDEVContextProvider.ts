@@ -1,4 +1,4 @@
-import { ContextMap, ContextValueSource } from "./context.js";
+import { ContextMap, ContextValueSource } from "./Context.js";
 import { cwd } from "process";
 import path from "path";
 import fs from "fs/promises";

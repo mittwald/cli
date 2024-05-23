@@ -1,4 +1,4 @@
-import { ContextMap } from "./context.js";
+import { ContextMap } from "./Context.js";
 
 export default interface ContextProvider {
   name: string;

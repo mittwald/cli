@@ -11,7 +11,7 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
-import { Context } from "../../lib/context/context.js";
+import Context from "../../lib/context/Context.js";
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,

@@ -1,4 +1,4 @@
-import { ContextKey, ContextMap } from "./context.js";
+import { ContextKey, ContextMap } from "./Context.js";
 import fs from "fs/promises";
 import path from "path";
 import { Config } from "@oclif/core";

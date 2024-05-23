@@ -1,4 +1,4 @@
-import { ContextNames } from "./context.js";
+import { ContextNames } from "./Context.js";
 import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import { Config } from "@oclif/core";
 import { CommandType, ContextArgs, ContextFlags } from "./FlagSetBuilder.js";

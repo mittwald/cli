@@ -1,5 +1,5 @@
 import ContextProvider from "./ContextProvider.js";
-import { ContextMapUpdate } from "./context.js";
+import { ContextMapUpdate } from "./Context.js";
 
 /**
  * WritableContextProvider is a specialized ContextProvider that allows

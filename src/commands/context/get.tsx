@@ -1,11 +1,5 @@
 import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { FC, ReactNode } from "react";
-import {
-  Context,
-  ContextKey,
-  ContextValue,
-  ContextValueSource,
-} from "../../lib/context/context.js";
 import { SingleResult } from "../../rendering/react/components/SingleResult.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { usePromise } from "@mittwald/react-use-promise";
@@ -15,6 +9,11 @@ import { Set } from "./set.js";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { useRenderContext } from "../../rendering/react/context.js";
 import { LocalFilename } from "../../rendering/react/components/LocalFilename.js";
+import Context, {
+  ContextKey,
+  ContextValue,
+  ContextValueSource,
+} from "../../lib/context/Context.js";
 
 const ContextSourceValue: FC<{ source: ContextValueSource }> = ({ source }) => {
   switch (source.type) {

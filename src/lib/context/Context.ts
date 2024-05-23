@@ -24,7 +24,7 @@ function isWritable(p: ContextProvider): p is WritableContextProvider {
   return "update" in p;
 }
 
-export class Context {
+export default class Context {
   private readonly contextData: Promise<ContextMap>;
 
   public readonly providers: ContextProvider[];
