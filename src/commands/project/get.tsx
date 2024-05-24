@@ -2,7 +2,6 @@ import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { projectArgs } from "../../lib/resources/project/flags.js";
 import { FC, ReactNode } from "react";
-import { GetFormatter } from "../../rendering/Formatter.js";
 import {
   SingleResult,
   SingleResultTable,
@@ -21,6 +20,7 @@ import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import Link from "ink-link";
 import { ProjectStatus } from "../../rendering/react/components/Project/ProjectStatus.js";
 import ByteQuantity from "../../lib/units/ByteQuantity.js";
+import { GetFormatter } from "../../rendering/GetFormatter.js";
 
 type ProjectHardwareSpec = MittwaldAPIV2.Components.Schemas.ProjectHardwareSpec;
 type ProjectVisitorSpec = MittwaldAPIV2.Components.Schemas.ProjectVisitorSpec;

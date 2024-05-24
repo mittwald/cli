@@ -2,13 +2,13 @@ import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import { Args } from "@oclif/core";
 import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
-import { GetFormatter } from "../../rendering/Formatter.js";
 import { ComponentPrinter } from "../../rendering/react/ComponentPrinter.js";
 import { ReactNode } from "react";
 import { usePromise } from "@mittwald/react-use-promise";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { CronJobDetails } from "../../rendering/react/components/CronJob/CronJobDetails.js";
+import { GetFormatter } from "../../rendering/GetFormatter.js";
 
 type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
 

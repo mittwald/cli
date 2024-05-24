@@ -1,40 +1,10 @@
-import {
-  BooleanFlag,
-  FlagInput,
-  FlagOutput,
-} from "@oclif/core/lib/interfaces/parser.js";
+import { BooleanFlag, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import { Flags, ux } from "@oclif/core";
-import { DefaultPrinter, Printer, PrinterFactory } from "./Printer.js";
-
-export interface GetOptions {
-  outputFormat: string;
-}
+import { PrinterFactory } from "./Printer.js";
 
 export type ListOptions = ux.Table.table.Options;
 export type ListColumns<TItem extends Record<string, unknown>> =
   ux.Table.table.Columns<TItem>;
-
-export class GetFormatter<T = unknown> {
-  public static get flags(): FlagInput {
-    return {
-      output: {
-        ...ux.table.flags().output,
-        options: ["json", "yaml"],
-        char: "o",
-      },
-    };
-  }
-
-  private defaultPrinter: Printer<T> = new DefaultPrinter();
-
-  public constructor(defaultPrinter: Printer<T> = new DefaultPrinter()) {
-    this.defaultPrinter = defaultPrinter;
-  }
-
-  public log(output: T, opts?: GetOptions): void {
-    PrinterFactory.build(opts?.outputFormat, this.defaultPrinter).log(output);
-  }
-}
 
 type RelevantTableBaseFlags = Partial<typeof ux.table.Flags> &
   Pick<typeof ux.table.Flags, "output">;

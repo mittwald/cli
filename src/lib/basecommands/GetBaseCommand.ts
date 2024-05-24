@@ -1,8 +1,8 @@
 import { Command, Interfaces } from "@oclif/core";
 import { BaseCommand } from "./BaseCommand.js";
-import { GetFormatter } from "../../rendering/Formatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
 import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
+import { GetFormatter } from "../../rendering/GetFormatter.js";
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof GetBaseCommand)["baseFlags"] & T["flags"]
