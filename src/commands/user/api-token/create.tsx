@@ -29,11 +29,11 @@ export default class Create extends ExecRenderBaseCommand<
     ...processFlags,
     ...expireFlags("API token", false),
     description: Flags.string({
-      description: "Description of the API token",
+      description: "description of the API token",
       required: true,
     }),
     roles: roleFlags({
-      description: "Roles of the API token",
+      description: "roles of the API token",
       required: true,
       multiple: true,
     }),

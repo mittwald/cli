@@ -24,7 +24,7 @@ export function expireFlags(
 ): { expires: OptionFlag<Date | undefined> } {
   return {
     expires: Duration.absoluteFlag({
-      description: `An interval after which the ${resourceName} expires (examples: 30m, 30d, 1y).`,
+      description: `an interval after which the ${resourceName} expires (examples: 30m, 30d, 1y).`,
       multiple: false,
       required,
     }),

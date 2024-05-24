@@ -2065,7 +2065,7 @@ FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary.
   -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
-      --expires=<value>       (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
+      --expires=<value>       (required) an interval after which the backup expires (examples: 30m, 30d, 1y).
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 
@@ -4206,7 +4206,7 @@ FLAGS
   -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
   -q, --quiet            suppress process output and only display a machine-readable summary.
       --email=<value>    (required) The email address of the user to invite.
-      --expires=<value>  An interval after which the invitation expires (examples: 30m, 30d, 1y).
+      --expires=<value>  an interval after which the invitation expires (examples: 30m, 30d, 1y).
       --message=<value>  A message to include in the invitation email.
       --role=<option>    [default: member] The role of the user to invite.
                          <options: owner|member|accountant>
@@ -4417,7 +4417,7 @@ FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary.
   -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
-      --expires=<value>       (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
+      --expires=<value>       (required) an interval after which the backup expires (examples: 30m, 30d, 1y).
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 
@@ -5333,13 +5333,13 @@ Create a new API token
 
 ```
 USAGE
-  $ mw user api-token create --description <value> --roles api_read|api_write [-q] [--expires-in <value>]
+  $ mw user api-token create --description <value> --roles api_read|api_write [-q] [--expires <value>]
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
-      --description=<value>  (required) Description of the API token
-      --expires-in=<value>   Expiration interval of the API token (example: 30d)
-      --roles=<option>...    (required) Roles of the API token
+      --description=<value>  (required) description of the API token
+      --expires=<value>      an interval after which the API token expires (examples: 30m, 30d, 1y).
+      --roles=<option>...    (required) roles of the API token
                              <options: api_read|api_write>
 
 DESCRIPTION
@@ -5492,7 +5492,7 @@ USAGE
 FLAGS
   -q, --quiet            suppress process output and only display a machine-readable summary.
       --comment=<value>  A comment for the SSH key.
-      --expires=<value>  An interval after which the SSH key expires (examples: 30m, 30d, 1y).
+      --expires=<value>  an interval after which the SSH key expires (examples: 30m, 30d, 1y).
       --no-passphrase    Use this flag to not set a passphrase for the SSH key.
       --output=<value>   [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
 
@@ -5560,7 +5560,7 @@ USAGE
 
 FLAGS
   -q, --quiet            suppress process output and only display a machine-readable summary.
-      --expires=<value>  An interval after which the SSH key expires (examples: 30m, 30d, 1y).
+      --expires=<value>  an interval after which the SSH key expires (examples: 30m, 30d, 1y).
       --input=<value>    [default: id_rsa.pub] A filename in your ~/.ssh directory containing the key to import.
 
 DESCRIPTION
