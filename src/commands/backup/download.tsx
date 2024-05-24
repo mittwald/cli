@@ -22,6 +22,7 @@ import { Success } from "../../rendering/react/components/Success.js";
 import ByteQuantity, {
   ByteQuantityFormattingOptions,
 } from "../../lib/units/ByteQuantity.js";
+import Duration from "../../lib/units/Duration.js";
 
 type Result = { outputFilename: string };
 
@@ -137,7 +138,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
           }
 
           return null;
-        }, 3600);
+        }, Duration.fromString("1h"));
       },
     );
 

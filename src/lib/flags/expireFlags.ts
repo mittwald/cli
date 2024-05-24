@@ -1,19 +1,5 @@
-import { Flags } from "@oclif/core";
-import parseDuration from "parse-duration";
 import { OptionFlag } from "@oclif/core/lib/interfaces/parser.js";
-
-const durationFlag = Flags.custom<Date>({
-  parse: async (input) => {
-    const d = new Date();
-    const i = parseDuration(input);
-
-    if (!i) {
-      throw new Error("could not parse duration: " + input);
-    }
-
-    return new Date(d.getTime() + i);
-  },
-});
+import Duration from "../units/Duration.js";
 
 export function expireFlags(
   resourceName: string,
@@ -37,7 +23,7 @@ export function expireFlags(
   required: boolean,
 ): { expires: OptionFlag<Date | undefined> } {
   return {
-    expires: durationFlag({
+    expires: Duration.absoluteFlag({
       description: `An interval after which the ${resourceName} expires (examples: 30m, 30d, 1y).`,
       multiple: false,
       required,

@@ -6,6 +6,10 @@ import prettyBytes, { Options } from "pretty-bytes";
  */
 export type ByteQuantityFormattingOptions = Options;
 
+/**
+ * Represents a quantity of bytes. Provides methods for parsing, formatting and
+ * manipulating byte quantities.
+ */
 export default class ByteQuantity {
   public readonly bytes: number;
 
