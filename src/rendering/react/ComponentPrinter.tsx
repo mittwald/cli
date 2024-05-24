@@ -1,5 +1,5 @@
 import { ReactElement, Suspense } from "react";
-import { Printer } from "../../Printer.js";
+import { Printer } from "../Printer.js";
 import { Render } from "./components/Render.js";
 import { render, Text } from "ink";
 

@@ -6,7 +6,7 @@ import {
   makeDateRendererForFormat,
 } from "./date.js";
 import { table } from "@oclif/core/lib/cli-ux/styled/table.js";
-import { isListFormatterFlags } from "../../Formatter.js";
+import { isListFormatterFlags } from "../../rendering/Formatter.js";
 import Column = table.Column;
 
 type ResourceWithCreatedAt = {

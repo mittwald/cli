@@ -2,7 +2,7 @@ import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
-import { ListColumns } from "../../../Formatter.js";
+import { ListColumns } from "../../../rendering/Formatter.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2MysqlCharsets.Get.Responses.$200.Content.ApplicationJson[number]
