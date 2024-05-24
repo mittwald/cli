@@ -7,7 +7,6 @@ import {
 import { Flags } from "@oclif/core";
 import { Success } from "../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
-import { hasBinary } from "../../lib/hasbin.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
@@ -18,6 +17,7 @@ import {
   filterFileDocumentation,
   filterFileToRsyncFlagsIfPresent,
 } from "../../lib/resources/app/sync.js";
+import { hasBinaryInPath } from "../../lib/util/hasBinaryInPath.js";
 
 export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
   static summary = "Upload the filesystem of an app to a project";
@@ -61,7 +61,7 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
     );
 
     await p.runStep("check if rsync is installed", async () => {
-      if (!(await hasBinary("rsync"))) {
+      if (!(await hasBinaryInPath("rsync"))) {
         throw new Error("this command requires rsync to be installed");
       }
     });
