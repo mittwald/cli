@@ -74,12 +74,16 @@ export default class Context {
     }
   }
 
-  private async setContextValue(key: ContextKey, value: string): Promise<void> {
+  private async setContextValue(
+    key: ContextKey,
+    value: string,
+  ): Promise<string> {
     if (key in contextIDNormalizers) {
       value = await contextIDNormalizers[key]!(this.apiClient, value);
     }
 
-    return await this.persist({ [key]: value });
+    await this.persist({ [key]: value });
+    return value;
   }
 
   public async getContextValue(

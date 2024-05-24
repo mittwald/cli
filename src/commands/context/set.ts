@@ -27,23 +27,25 @@ export class Set extends BaseCommand {
     const ctx = new Context(this.apiClient, this.config);
 
     if (flags["project-id"]) {
-      await ctx.setProjectId(flags["project-id"]);
-      this.log(`Set project ID to ${flags["project-id"]}`);
+      const projectId = await ctx.setProjectId(flags["project-id"]);
+      this.log(`Set project ID to ${projectId}`);
     }
 
     if (flags["server-id"]) {
-      await ctx.setServerId(flags["server-id"]);
-      this.log(`Set server ID to ${flags["server-id"]}`);
+      const serverId = await ctx.setServerId(flags["server-id"]);
+      this.log(`Set server ID to ${serverId}`);
     }
 
     if (flags["org-id"]) {
-      await ctx.setOrgId(flags["org-id"]);
-      this.log(`Set organization ID to ${flags["org-id"]}`);
+      const orgId = await ctx.setOrgId(flags["org-id"]);
+      this.log(`Set organization ID to ${orgId}`);
     }
 
     if (flags["installation-id"]) {
-      await ctx.setAppInstallationId(flags["installation-id"]);
-      this.log(`Set installation ID to ${flags["installation-id"]}`);
+      const installationId = await ctx.setAppInstallationId(
+        flags["installation-id"],
+      );
+      this.log(`Set installation ID to ${installationId}`);
     }
   }
 }
