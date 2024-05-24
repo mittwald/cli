@@ -1,6 +1,6 @@
 import { BooleanFlag, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import { Flags, ux } from "@oclif/core";
-import { PrinterFactory } from "./Printer.js";
+import { PrinterFactory } from "../Printer.js";
 
 export type ListOptions = ux.Table.table.Options;
 export type ListColumns<TItem extends Record<string, unknown>> =

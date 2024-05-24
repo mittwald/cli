@@ -8,7 +8,7 @@ import { usePromise } from "@mittwald/react-use-promise";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import { CronJobDetails } from "../../rendering/react/components/CronJob/CronJobDetails.js";
-import { GetFormatter } from "../../rendering/GetFormatter.js";
+import { GetFormatter } from "../../rendering/formatter/GetFormatter.js";
 
 type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
 

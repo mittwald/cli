@@ -1,6 +1,6 @@
 import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
 import { ux } from "@oclif/core";
-import { DefaultPrinter, Printer, PrinterFactory } from "./Printer.js";
+import { DefaultPrinter, Printer, PrinterFactory } from "../Printer.js";
 
 export interface GetOptions {
   outputFormat: string;

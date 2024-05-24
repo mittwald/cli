@@ -5,7 +5,7 @@ import {
 } from "../../lib/resources/app/flags.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { ListColumns } from "../../rendering/ListFormatter.js";
+import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
 import { getAppInstallationFromUuid } from "../../lib/resources/app/uuid.js";
 import { sortArrayByExternalVersion } from "../../lib/resources/app/versions.js";
 

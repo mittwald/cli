@@ -3,7 +3,7 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { orgFlags, withOrgId } from "../../../lib/resources/org/flags.js";
-import { ListColumns } from "../../../rendering/ListFormatter.js";
+import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
 import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
 
 type ResponseItem = Simplify<

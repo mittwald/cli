@@ -6,7 +6,7 @@ import {
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
-import { ListColumns } from "../../rendering/ListFormatter.js";
+import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
 import {
   getAppFromUuid,
   getAppVersionFromUuid,

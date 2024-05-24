@@ -3,7 +3,7 @@ import { projectFlags } from "../../../lib/resources/project/flags.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { Simplify } from "@mittwald/api-client-commons";
 import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
-import { ListColumns } from "../../../rendering/ListFormatter.js";
+import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
 import {
   isCustomARecord,
   isCustomMXRecord,
