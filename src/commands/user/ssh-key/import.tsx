@@ -23,7 +23,7 @@ export default class Import extends ExecRenderBaseCommand<
 
   static flags = {
     ...processFlags,
-    ...expireFlags("SSH key"),
+    ...expireFlags("SSH key", false),
     input: Flags.string({
       description:
         "A filename in your ~/.ssh directory containing the key to import.",

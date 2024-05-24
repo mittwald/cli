@@ -31,7 +31,7 @@ const inviteFlags = {
   message: Flags.string({
     description: "A message to include in the invitation email.",
   }),
-  ...expireFlags("invitation"),
+  ...expireFlags("invitation", false),
 };
 
 export class Invite extends ExecRenderBaseCommand<

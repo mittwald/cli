@@ -6,10 +6,7 @@ import {
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import React, { ReactNode } from "react";
 import { Flags } from "@oclif/core";
-import {
-  expirationDateFromFlags,
-  expireFlagsRequired,
-} from "../../lib/expires.js";
+import { expirationDateFromFlags, expireFlags } from "../../lib/expires.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
@@ -27,7 +24,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
     description: Flags.string({
       description: "a description for the backup.",
     }),
-    ...expireFlagsRequired("backup"),
+    ...expireFlags("backup", true),
     ...waitFlags,
   };
 

@@ -26,7 +26,7 @@ export default class Create extends ExecRenderBaseCommand<
 
   static flags = {
     ...processFlags,
-    ...expireFlags("SSH key"),
+    ...expireFlags("SSH key", false),
     output: Flags.string({
       description:
         "A filename in your ~/.ssh directory to write the SSH key to.",

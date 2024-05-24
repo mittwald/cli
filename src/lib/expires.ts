@@ -1,23 +1,26 @@
 import { Flags } from "@oclif/core";
 import parseDuration from "parse-duration";
+import { OptionFlag } from "@oclif/core/lib/interfaces/parser.js";
 
 export type ExpireFlags = {
   expires: string;
 };
 
-export function expireFlags(resourceName: string) {
-  return {
-    expires: Flags.string({
-      description: `An interval after which the ${resourceName} expires (examples: 30m, 30d, 1y).`,
-    }),
-  };
-}
+export function expireFlags(
+  resourceName: string,
+  required: false,
+): { expires: OptionFlag<string | undefined> };
 
-export function expireFlagsRequired(resourceName: string) {
+export function expireFlags(
+  resourceName: string,
+  required: true,
+): { expires: OptionFlag<string> };
+
+export function expireFlags(resourceName: string, required: boolean) {
   return {
     expires: Flags.string({
       description: `An interval after which the ${resourceName} expires (examples: 30m, 30d, 1y).`,
-      required: true,
+      required,
     }),
   };
 }
