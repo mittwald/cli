@@ -2,46 +2,46 @@ import { Flags } from "@oclif/core";
 import parseDuration from "parse-duration";
 import { OptionFlag } from "@oclif/core/lib/interfaces/parser.js";
 
-export type ExpireFlags = {
-  expires: string;
-};
+const durationFlag = Flags.custom<Date>({
+  parse: async (input) => {
+    const d = new Date();
+    const i = parseDuration(input);
+
+    if (!i) {
+      throw new Error("could not parse duration: " + input);
+    }
+
+    return new Date(d.getTime() + i);
+  },
+});
 
 export function expireFlags(
   resourceName: string,
   required: false,
-): { expires: OptionFlag<string | undefined> };
+): { expires: OptionFlag<Date | undefined> };
 
 export function expireFlags(
   resourceName: string,
   required: true,
-): { expires: OptionFlag<string> };
+): { expires: OptionFlag<Date> };
 
-export function expireFlags(resourceName: string, required: boolean) {
+/**
+ * Constructs a set of flags for specifying an expiration time for a resource.
+ *
+ * @param resourceName The name of the resource to expire.
+ * @param required Whether the expiration time is required. NOTE: This
+ *   function's overload signatures assert that if required, the flag will be of
+ *   type `Date`, otherwise `Date | undefined`.
+ */
+export function expireFlags(
+  resourceName: string,
+  required: boolean,
+): { expires: OptionFlag<Date | undefined> } {
   return {
-    expires: Flags.string({
+    expires: durationFlag({
       description: `An interval after which the ${resourceName} expires (examples: 30m, 30d, 1y).`,
+      multiple: false,
       required,
     }),
   };
-}
-
-export function expirationDateFromFlagsOptional(
-  flags: Partial<ExpireFlags>,
-): Date | undefined {
-  if (!flags.expires) {
-    return undefined;
-  }
-
-  return expirationDateFromFlags(flags as ExpireFlags);
-}
-
-export function expirationDateFromFlags(flags: ExpireFlags): Date {
-  const d = new Date();
-  const i = parseDuration(flags.expires);
-
-  if (!i) {
-    throw new Error("could not parse duration: " + flags.expires);
-  }
-
-  return new Date(d.getTime() + i);
 }

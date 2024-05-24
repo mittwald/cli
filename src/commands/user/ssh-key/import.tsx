@@ -10,10 +10,7 @@ import {
 } from "../../../rendering/process/process_flags.js";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Filename } from "../../../rendering/react/components/Filename.js";
-import {
-  expirationDateFromFlagsOptional,
-  expireFlags,
-} from "../../../lib/expires.js";
+import { expireFlags } from "../../../lib/expires.js";
 
 export default class Import extends ExecRenderBaseCommand<
   typeof Import,
@@ -36,7 +33,7 @@ export default class Import extends ExecRenderBaseCommand<
 
     const r = makeProcessRenderer(this.flags, "Importing an SSH key");
 
-    const expiresAt = expirationDateFromFlagsOptional(this.flags);
+    const { expires } = this.flags;
     const publicKey = await fs.readFile(inputFile, "utf-8");
     const publicKeyParts = publicKey.split(" ");
 
@@ -65,7 +62,7 @@ export default class Import extends ExecRenderBaseCommand<
       const response = await this.apiClient.user.createSshKey({
         data: {
           publicKey,
-          expiresAt: expiresAt?.toJSON(),
+          expiresAt: expires?.toJSON(),
         },
       });
 

@@ -6,7 +6,7 @@ import {
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import React, { ReactNode } from "react";
 import { Flags } from "@oclif/core";
-import { expirationDateFromFlags, expireFlags } from "../../lib/expires.js";
+import { expireFlags } from "../../lib/expires.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
@@ -34,15 +34,14 @@ export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
   protected async exec(): Promise<CreateResult> {
     const p = makeProcessRenderer(this.flags, "Creating backup");
     const projectId = await this.withProjectId(Create);
-    const { description } = this.flags;
-    const expirationTime = expirationDateFromFlags(this.flags);
+    const { description, expires } = this.flags;
 
     const backup = await p.runStep("creating backup", async () => {
       const r = await this.apiClient.backup.createProjectBackup({
         projectId,
         data: {
           description,
-          expirationTime: expirationTime.toJSON(),
+          expirationTime: expires.toJSON(),
         },
       });
 

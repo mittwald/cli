@@ -10,10 +10,7 @@ import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-import {
-  expirationDateFromFlagsOptional,
-  expireFlags,
-} from "../../lib/expires.js";
+import { expireFlags } from "../../lib/expires.js";
 
 type MembershipCustomerRoles =
   MittwaldAPIV2.Components.Schemas.MembershipCustomerRoles;
@@ -61,9 +58,7 @@ export class Invite extends ExecRenderBaseCommand<
           mailAddress: this.flags.email,
           role: this.flags.role as MembershipCustomerRoles,
           message: this.flags.message,
-          membershipExpiresAt: expirationDateFromFlagsOptional(
-            this.flags,
-          )?.toJSON(),
+          membershipExpiresAt: this.flags.expires?.toJSON(),
         },
       });
 

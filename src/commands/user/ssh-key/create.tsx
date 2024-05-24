@@ -12,10 +12,7 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import { Filename } from "../../../rendering/react/components/Filename.js";
 import { Text } from "ink";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import {
-  expirationDateFromFlagsOptional,
-  expireFlags,
-} from "../../../lib/expires.js";
+import { expireFlags } from "../../../lib/expires.js";
 import { spawnInProcess } from "../../../rendering/process/process_exec.js";
 
 export default class Create extends ExecRenderBaseCommand<
@@ -46,7 +43,7 @@ export default class Create extends ExecRenderBaseCommand<
 
     const r = makeProcessRenderer(this.flags, "Creating a new SSH key");
 
-    const expiresAt = expirationDateFromFlagsOptional(this.flags);
+    const { expires } = this.flags;
     const passphrase = await this.getPassphrase(r);
     const args = ["-t", "rsa", "-f", outputFile, "-N", passphrase];
 
@@ -63,7 +60,7 @@ export default class Create extends ExecRenderBaseCommand<
       const response = await this.apiClient.user.createSshKey({
         data: {
           publicKey,
-          expiresAt: expiresAt?.toJSON(),
+          expiresAt: expires?.toJSON(),
         },
       });
 
