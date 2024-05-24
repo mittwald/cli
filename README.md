@@ -153,11 +153,11 @@ USAGE
 * [`mw context reset`](#mw-context-reset)
 * [`mw context set`](#mw-context-set)
 * [`mw conversation categories`](#mw-conversation-categories)
-* [`mw conversation close ID`](#mw-conversation-close-id)
+* [`mw conversation close [CONVERSATION-ID]`](#mw-conversation-close-conversation-id)
 * [`mw conversation create`](#mw-conversation-create)
 * [`mw conversation list`](#mw-conversation-list)
-* [`mw conversation reply ID`](#mw-conversation-reply-id)
-* [`mw conversation show ID`](#mw-conversation-show-id)
+* [`mw conversation reply [CONVERSATION-ID]`](#mw-conversation-reply-conversation-id)
+* [`mw conversation show [CONVERSATION-ID]`](#mw-conversation-show-conversation-id)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
 * [`mw cronjob create`](#mw-cronjob-create)
 * [`mw cronjob delete CRONJOB-ID`](#mw-cronjob-delete-cronjob-id)
@@ -2021,10 +2021,11 @@ FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary.
-  -w, --wait                  Wait for the resource to be ready.
+  -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
       --expires=<value>       (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
-      --wait-timeout=<value>  [default: 600] The number of seconds to wait for the resource to be ready.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 ALIASES
   $ mw project backup create
@@ -2285,16 +2286,17 @@ DESCRIPTION
   Get all conversation categories.
 ```
 
-## `mw conversation close ID`
+## `mw conversation close [CONVERSATION-ID]`
 
 Close a conversation
 
 ```
 USAGE
-  $ mw conversation close ID
+  $ mw conversation close [CONVERSATION-ID]
 
 ARGUMENTS
-  ID  ID of the conversation to show
+  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
+                   context
 
 DESCRIPTION
   Close a conversation
@@ -2347,16 +2349,17 @@ DESCRIPTION
   Get all conversations the authenticated user has created or has access to.
 ```
 
-## `mw conversation reply ID`
+## `mw conversation reply [CONVERSATION-ID]`
 
 Reply to a conversation
 
 ```
 USAGE
-  $ mw conversation reply ID [--message <value> | --message-from <value>] [--editor <value>]
+  $ mw conversation reply [CONVERSATION-ID] [--message <value> | --message-from <value>] [--editor <value>]
 
 ARGUMENTS
-  ID  ID of the conversation to show
+  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
+                   context
 
 FLAGS
   --editor=<value>        [default: vim] The editor to use when opening the message for editing; will respect your
@@ -2370,16 +2373,17 @@ DESCRIPTION
   Reply to a conversation
 ```
 
-## `mw conversation show ID`
+## `mw conversation show [CONVERSATION-ID]`
 
 Show a conversation and message history
 
 ```
 USAGE
-  $ mw conversation show ID
+  $ mw conversation show [CONVERSATION-ID]
 
 ARGUMENTS
-  ID  ID of the conversation to show
+  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
+                   context
 
 DESCRIPTION
   Show a conversation and message history
@@ -4367,10 +4371,11 @@ FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary.
-  -w, --wait                  Wait for the resource to be ready.
+  -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
       --expires=<value>       (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
-      --wait-timeout=<value>  [default: 600] The number of seconds to wait for the resource to be ready.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 ALIASES
   $ mw project backup create
@@ -4566,9 +4571,10 @@ FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary.
   -s, --server-id=<value>     ID or short ID of a server; this flag is optional if a default server is set in the
                               context
-  -w, --wait                  Wait for the resource to be ready.
+  -w, --wait                  wait for the resource to be ready.
       --update-context        Update the CLI context to use the newly created project
-      --wait-timeout=<value>  [default: 600] The number of seconds to wait for the resource to be ready.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 DESCRIPTION
   Create a new project

@@ -4,10 +4,11 @@ import Duration from "./units/Duration.js";
 export const waitFlags = {
   wait: Flags.boolean({
     char: "w",
-    description: "Wait for the resource to be ready.",
+    description: "wait for the resource to be ready.",
   }),
   "wait-timeout": Duration.relativeFlag({
-    description: "The number of seconds to wait for the resource to be ready.",
+    description:
+      "the duration to wait for the resource to be ready (common units like 'ms', 's', 'm' are accepted).",
     default: Duration.fromSeconds(600),
   }),
 };
