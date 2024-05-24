@@ -1,7 +1,7 @@
 import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import { Args } from "@oclif/core";
-import { isUuid } from "../../normalize_id.js";
 import { assertStatus } from "@mittwald/api-client-commons";
+import { validate as validateUuid } from "uuid";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import {
   getAppNameFromUuid,
@@ -41,7 +41,7 @@ export default class AppVersions extends BaseCommand {
     appId: string,
   ): Promise<string[]> {
     let appUuid: string;
-    if (isUuid(appId)) {
+    if (validateUuid(appId)) {
       appUuid = appId;
     } else {
       appUuid = await getAppUuidFromAppName(apiClient, appId);

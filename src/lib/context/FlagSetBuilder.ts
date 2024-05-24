@@ -9,9 +9,9 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import Context, { ContextKey, ContextNames } from "./Context.js";
 import UnexpectedShortIDPassedError from "../error/UnexpectedShortIDPassedError.js";
-import { isUuid } from "../../normalize_id.js";
 import { articleForWord } from "../language.js";
 import FlagSet from "./FlagSet.js";
+import { validate as validateUuid } from "uuid";
 
 export type ContextFlags<
   N extends ContextNames,
@@ -175,7 +175,7 @@ export default class FlagSetBuilder<TName extends ContextNames> {
     if (this.opts.expectedShortIDFormat != null) {
       const format = this.opts.expectedShortIDFormat;
       return (id: string): void => {
-        if (!isUuid(id) && !format.pattern.test(id)) {
+        if (!validateUuid(id) && !format.pattern.test(id)) {
           throw new UnexpectedShortIDPassedError(
             this.displayName,
             format.display,

@@ -1,6 +1,6 @@
-import { isUuid } from "../../../../normalize_id.js";
 import { makeProjectFlagSet } from "../../project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
+import { validate as validateUuid } from "uuid";
 
 export const {
   flags: dnsZoneFlags,
@@ -8,7 +8,7 @@ export const {
   withId: withDnsZoneId,
 } = makeProjectFlagSet("dnszone", "z", {
   normalize: async (apiClient, projectId, id): Promise<string> => {
-    if (isUuid(id)) {
+    if (validateUuid(id)) {
       return id;
     }
 

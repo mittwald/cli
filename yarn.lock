@@ -1664,6 +1664,7 @@ __metadata:
     "@types/react": ^18
     "@types/semver": ^7.5.0
     "@types/shell-escape": ^0.2.3
+    "@types/uuid": ^9.0.8
     "@typescript-eslint/eslint-plugin": ^7.1.0
     "@typescript-eslint/parser": ^7.0.2
     "@yarnpkg/pnpify": ^4.0.0-rc.48
@@ -1702,6 +1703,7 @@ __metadata:
     tsx: ^4.7.1
     type-fest: ^4.6.0
     typescript: ^5.1.6
+    uuid: ^9.0.1
   bin:
     mw: bin/run.js
   languageName: unknown
@@ -2864,6 +2866,13 @@ __metadata:
   version: 3.0.2
   resolution: "@types/unist@npm:3.0.2"
   checksum: 3d04d0be69316e5f14599a0d993a208606c12818cf631fd399243d1dc7a9bd8a3917d6066baa6abc290814afbd744621484756803c80cba892c39cd4b4a85616
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:^9.0.8":
+  version: 9.0.8
+  resolution: "@types/uuid@npm:9.0.8"
+  checksum: b8c60b7ba8250356b5088302583d1704a4e1a13558d143c549c408bf8920535602ffc12394ede77f8a8083511b023704bc66d1345792714002bfa261b17c5275
   languageName: node
   linkType: hard
 
