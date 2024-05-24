@@ -40,11 +40,11 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
       description:
         "the file to write the backup to; if omitted, the filename will be determined by the server.",
     }),
-    format: Flags.string({
+    format: Flags.custom<"tar" | "zip">({
       description: "the file format to download the backup in.",
       options: ["tar", "zip"],
       default: "tar",
-    }),
+    })(),
     password: Flags.string({
       summary: "the password to encrypt the backup with.",
       description: `\
@@ -115,7 +115,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
         const r = await this.apiClient.backup.createProjectBackupExport({
           projectBackupId,
           data: {
-            format: format as "tar" | "zip",
+            format,
             password,
           },
         });
