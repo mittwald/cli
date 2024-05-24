@@ -1,5 +1,5 @@
 import { Simplify } from "@mittwald/api-client-commons";
-import { ListColumns } from "../../rendering/Formatter.js";
+import { ListColumns } from "../../rendering/ListFormatter.js";
 import {
   MittwaldAPIV2,
   MittwaldAPIV2Client,

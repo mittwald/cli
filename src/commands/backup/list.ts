@@ -3,7 +3,7 @@ import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
-import { ListColumns } from "../../rendering/Formatter.js";
+import { ListColumns } from "../../rendering/ListFormatter.js";
 import { optionalDateRenderer } from "../../lib/viewhelpers/date.js";
 import { makeDateRendererForFlags } from "../../lib/viewhelpers/list_column_date.js";
 
