@@ -1,5 +1,6 @@
 import { Flags } from "@oclif/core";
 import Duration from "./units/Duration.js";
+import { InferredFlags } from "@oclif/core/lib/interfaces/index.js";
 
 export const waitFlags = {
   wait: Flags.boolean({
@@ -12,6 +13,8 @@ export const waitFlags = {
     default: Duration.fromSeconds(600),
   }),
 };
+
+export type WaitFlags = InferredFlags<typeof waitFlags>;
 
 export async function waitUntil<T>(
   tester: () => Promise<T | null>,

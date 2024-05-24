@@ -17,6 +17,8 @@ import { Config } from "@oclif/core";
 
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
+type ImplicitDefaultFlag = "wait" | "wait-timeout";
+
 export interface AppInstallationResult {
   appInstallationId: string;
 }
@@ -28,7 +30,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
   public readonly description: string;
 
   public mutateFlags?: (
-    flags: RelevantFlagInput<readonly TFlagName[]>,
+    flags: RelevantFlagInput<readonly (TFlagName | ImplicitDefaultFlag)[]>,
   ) => unknown;
 
   private static makeDescription(appName: string): string {
@@ -46,8 +48,13 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
     this.description = AppInstaller.makeDescription(appName);
   }
 
-  public get flags(): RelevantFlagInput<readonly TFlagName[]> {
-    const flags = provideSupportedFlags(this.appSupportedFlags, this.appName);
+  public get flags(): RelevantFlagInput<
+    readonly (TFlagName | ImplicitDefaultFlag)[]
+  > {
+    const flags = provideSupportedFlags(
+      [...this.appSupportedFlags, "wait", "wait-timeout"],
+      this.appName,
+    );
 
     if (this.mutateFlags) {
       this.mutateFlags(flags);
@@ -59,7 +66,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
   public async exec(
     apiClient: MittwaldAPIV2Client,
     args: ArgOutput,
-    flags: OutputFlags<RelevantFlagInput<(TFlagName | "wait")[]>>,
+    flags: OutputFlags<RelevantFlagInput<(TFlagName | ImplicitDefaultFlag)[]>>,
     config: Config,
   ): Promise<AppInstallationResult> {
     const process = makeProcessRenderer(flags, `Installing ${this.appName}`);
@@ -102,6 +109,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
         process,
         appInstallationId,
         "waiting for app installation to be ready",
+        flags["wait-timeout"],
       );
       successText = `Your ${this.appName} installation is now complete. Have fun! 🎉`;
     } else {

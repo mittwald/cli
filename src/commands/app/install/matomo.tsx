@@ -15,7 +15,6 @@ const matomoInstaller = new AppInstaller(
     "admin-email",
     "admin-pass",
     "site-title",
-    "wait",
   ] as const,
 );
 

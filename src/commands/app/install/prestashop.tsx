@@ -17,7 +17,6 @@ export const prestashopInstaller = new AppInstaller(
     "admin-lastname",
     "site-title",
     "shop-lang",
-    "wait",
   ] as const,
 );
 

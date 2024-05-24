@@ -15,7 +15,6 @@ export const neosInstaller = new AppInstaller(
     "admin-firstname",
     "admin-lastname",
     "site-title",
-    "wait",
   ] as const,
 );
 

@@ -18,7 +18,6 @@ const installer = new AppInstaller(
     "admin-firstname",
     "admin-lastname",
     "site-title",
-    "wait",
   ] as const,
 );
 

@@ -27,6 +27,7 @@ import { ProcessRenderer } from "../../rendering/process/process.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { waitUntilAppStateHasNormalized } from "../../lib/resources/app/wait.js";
 import { assertStatus } from "@mittwald/api-client-commons";
+import { waitFlags } from "../../lib/wait.js";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
@@ -42,16 +43,13 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       description:
         "target version to upgrade app to; if omitted, target version will be prompted interactively",
     }),
-    wait: Flags.boolean({
-      description: "wait for the upgrade process to finish",
-      char: "w",
-    }),
     force: Flags.boolean({
       char: "f",
       description: "Do not ask for confirmation.",
     }),
     ...projectFlags,
     ...processFlags,
+    ...waitFlags,
   };
 
   protected async exec(): Promise<void> {
@@ -190,6 +188,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
         process,
         appInstallationId,
         "waiting for app upgrade to be done",
+        this.flags["wait-timeout"],
       );
       successText =
         "The upgrade finished successfully. Please check if everything is in its place. 🔎";

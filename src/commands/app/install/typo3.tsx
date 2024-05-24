@@ -16,7 +16,6 @@ export const typo3Installer = new AppInstaller(
     "admin-pass",
     "site-title",
     "install-mode",
-    "wait",
   ] as const,
 );
 

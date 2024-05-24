@@ -20,7 +20,6 @@ export const shopware6Installer = new AppInstaller(
     "shop-email",
     "shop-lang",
     "shop-currency",
-    "wait",
   ] as const,
 );
 

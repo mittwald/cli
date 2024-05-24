@@ -3,12 +3,14 @@ import React from "react";
 import { Text } from "ink";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
+import Duration from "../../units/Duration.js";
 
 export async function waitUntilAppStateHasNormalized(
   apiClient: MittwaldAPIV2Client,
   process: ProcessRenderer,
   appInstallationId: string,
   label: string,
+  timeout: Duration,
 ) {
   const stepWaiting = process.addStep(<Text>{label}</Text>);
 
@@ -23,7 +25,7 @@ export async function waitUntilAppStateHasNormalized(
     ) {
       return true;
     }
-  });
+  }, timeout);
 
   stepWaiting.complete();
 }

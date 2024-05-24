@@ -21,6 +21,7 @@ import {
 import FlagSetBuilder from "../../context/FlagSetBuilder.js";
 import { contextIDNormalizers } from "../../context/Context.js";
 import { generatePasswordWithSpecialChars } from "../../util/password/generatePasswordWithSpecialChars.js";
+import { WaitFlags, waitFlags } from "../../wait.js";
 
 async function normalize(
   apiClient: MittwaldAPIV2Client,
@@ -51,7 +52,7 @@ export const {
 
 export type AvailableFlagName = keyof AvailableFlags;
 
-interface AvailableFlags {
+type AvailableFlags = typeof waitFlags & {
   version: OptionFlag<string>;
   host: OptionFlag<string | undefined>;
   "admin-user": OptionFlag<string | undefined>;
@@ -65,9 +66,8 @@ interface AvailableFlags {
   "shop-currency": OptionFlag<string | undefined>;
   "install-mode": OptionFlag<string>;
   "document-root": OptionFlag<string>;
-  wait: BooleanFlag<boolean | undefined>;
   entrypoint: OptionFlag<string | undefined>;
-}
+};
 
 function buildFlagsWithDescription(appName: string): AvailableFlags {
   return {
@@ -172,10 +172,7 @@ function buildFlagsWithDescription(appName: string): AvailableFlags {
       required: false,
       default: undefined,
     }),
-    wait: Flags.boolean({
-      char: "w",
-      description: `wait for your ${appName} to be ready.`,
-    }),
+    ...waitFlags,
   };
 }
 
