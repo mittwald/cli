@@ -5,33 +5,31 @@ import {
 import { ApiClientError, AxiosResponse } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ExitError } from "@oclif/core/lib/errors/index.js";
-import { renderError } from "../rendering/react/error.js";
+import { renderError } from "../../rendering/react/error.js";
 
 type CommonsValidationErrors =
   MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
 
-export const handleError = (
+export default function handleError(
   error: Error &
     Partial<PrettyPrintableError> &
     Partial<OclifError> & {
       skipOclifErrorHandling?: boolean;
     },
-): void => {
+): void {
   if (!isUnexpectedError(error)) {
     process.exit(1);
-    return;
   }
 
   if (error instanceof ExitError) {
     process.exit(error.oclif.exit);
-    return;
   }
 
   renderError(error);
   process.exit(1);
-};
+}
 
-export function isUnexpectedError(err: unknown): boolean {
+function isUnexpectedError(err: unknown): boolean {
   return !isValidationError(err);
 }
 
