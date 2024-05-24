@@ -13,9 +13,9 @@ import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import { Args, Config, Flags } from "@oclif/core";
 import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import { MittwaldAPIV2Client, assertStatus } from "@mittwald/api-client";
-import { articleForWord } from "../../language.js";
 import FlagSet from "../../context/FlagSet.js";
 import { validate as validateUuid } from "uuid";
+import { articleForWord } from "../../util/language/articleForWord.js";
 
 async function normalize(
   apiClient: MittwaldAPIV2Client,

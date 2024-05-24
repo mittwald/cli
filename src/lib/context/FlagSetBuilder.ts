@@ -9,9 +9,9 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import Context, { ContextKey, ContextNames } from "./Context.js";
 import UnexpectedShortIDPassedError from "../error/UnexpectedShortIDPassedError.js";
-import { articleForWord } from "../language.js";
 import FlagSet from "./FlagSet.js";
 import { validate as validateUuid } from "uuid";
+import { articleForWord } from "../util/language/articleForWord.js";
 
 export type ContextFlags<
   N extends ContextNames,
