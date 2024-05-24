@@ -8,16 +8,6 @@ export function isUuid(id: string): boolean {
   return uuidRegex.test(id);
 }
 
-export async function normalizeCustomerId(
-  apiClient: MittwaldAPIV2Client,
-  customerId: string,
-): Promise<string> {
-  const customer = await apiClient.customer.getCustomer({ customerId });
-  assertStatus(customer, 200);
-
-  return customer.data.customerId;
-}
-
 export async function normalizeConversationId(
   apiClient: MittwaldAPIV2Client,
   conversationId: string,
