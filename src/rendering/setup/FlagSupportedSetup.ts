@@ -1,7 +1,7 @@
 import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
 import { InferredFlags } from "@oclif/core/lib/interfaces/index.js";
 import { Class } from "type-fest";
-import { mergeObjects } from "../../lib/mergeObjects.js";
+import { mergeObjects } from "../../lib/util/mergeObjects.js";
 
 export type InferredOutput<T> =
   T extends Class<
