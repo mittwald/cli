@@ -1,22 +1,24 @@
-import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
-import { Args, ux } from "@oclif/core";
-import { normalizeConversationId } from "../../normalize_id.js";
+import { ux } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
+import {
+  conversationArgs,
+  withConversationId,
+} from "../../lib/resources/conversation/flags.js";
+import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
 
-export default class Close extends BaseCommand {
+export default class Close extends ExtendedBaseCommand<typeof Close> {
   static description = "Close a conversation";
   static args = {
-    id: Args.string({
-      required: true,
-      description: "ID of the conversation to show",
-    }),
+    ...conversationArgs,
   };
 
   public async run(): Promise<void> {
-    const { args } = await this.parse(Close);
-    const conversationId = await normalizeConversationId(
+    const conversationId = await withConversationId(
       this.apiClient,
-      args.id,
+      Close,
+      this.flags,
+      this.args,
+      this.config,
     );
 
     ux.action.start(`closing conversation ${conversationId}`);

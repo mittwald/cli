@@ -13,7 +13,8 @@ export type ContextNames =
   | "installation"
   | "domain"
   | "dnszone"
-  | "mailaddress";
+  | "mailaddress"
+  | "conversation";
 export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
 export type ContextMap = Partial<Record<ContextKey, ContextValue>>;
 export type ContextMapUpdate = Partial<Record<ContextKey, string>>;
