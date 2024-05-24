@@ -19,15 +19,3 @@ export async function normalizeConversationId(
 
   return conversation.data.conversationId;
 }
-
-export async function normalizeAppInstallationId(
-  apiClient: MittwaldAPIV2Client,
-  appInstallationId: string,
-): Promise<string> {
-  const appInstallations = await apiClient.app.getAppinstallation({
-    appInstallationId,
-  });
-  assertStatus(appInstallations, 200);
-
-  return appInstallations.data.id;
-}

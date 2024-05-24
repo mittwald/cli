@@ -1,7 +1,6 @@
 import { Flags } from "@oclif/core";
 import Context from "../../lib/context/Context.js";
 import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
-import { normalizeAppInstallationId } from "../../normalize_id.js";
 
 export class Set extends BaseCommand {
   static summary = "Set context values for the current project, org or server";
@@ -43,12 +42,8 @@ export class Set extends BaseCommand {
     }
 
     if (flags["installation-id"]) {
-      const installationId = await normalizeAppInstallationId(
-        this.apiClient,
-        flags["installation-id"],
-      );
-      await ctx.setAppInstallationId(installationId);
-      this.log(`Set installation ID to ${installationId}`);
+      await ctx.setAppInstallationId(flags["installation-id"]);
+      this.log(`Set installation ID to ${flags["installation-id"]}`);
     }
   }
 }

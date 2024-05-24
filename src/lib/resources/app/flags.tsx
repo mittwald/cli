@@ -19,21 +19,36 @@ import {
   OutputFlags,
 } from "@oclif/core/lib/interfaces/parser.js";
 import { generatePasswordWithSpecialChars } from "../../password.js";
-import { normalizeAppInstallationId } from "../../../normalize_id.js";
-import { makeFlagSet } from "../../context/FlagSetBuilder.js";
+import FlagSetBuilder from "../../context/FlagSetBuilder.js";
+import { contextIDNormalizers } from "../../context/Context.js";
+
+async function normalize(
+  apiClient: MittwaldAPIV2Client,
+  appInstallationId: string,
+): Promise<string> {
+  const appInstallations = await apiClient.app.getAppinstallation({
+    appInstallationId,
+  });
+  assertStatus(appInstallations, 200);
+
+  return appInstallations.data.id;
+}
+
+contextIDNormalizers["installation-id"] = normalize;
 
 export const {
   flags: appInstallationFlags,
   args: appInstallationArgs,
   withId: withAppInstallationId,
-} = makeFlagSet("installation", "i", {
+} = new FlagSetBuilder("installation", "i", {
   displayName: "app installation",
-  normalize: normalizeAppInstallationId,
+  normalize,
   expectedShortIDFormat: {
     pattern: /^a-.*/,
     display: "a-XXXXXX",
   },
-});
+}).build();
+
 export type AvailableFlagName = keyof AvailableFlags;
 
 interface AvailableFlags {
