@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs/promises";
 import { Config } from "@oclif/core";
-import { isNotFound } from "../fsutil.js";
+import { isNotFound } from "../util/fsutil.js";
 
 /**
  * Gets the filename in which the CLI should store the API token.

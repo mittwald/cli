@@ -4,7 +4,7 @@ import path from "path";
 import { Config } from "@oclif/core";
 import ContextProvider from "./ContextProvider.js";
 import WritableContextProvider from "./WritableContextProvider.js";
-import { isNotFound } from "../fsutil.js";
+import { isNotFound } from "../util/fsutil.js";
 
 export default class UserContextProvider
   implements ContextProvider, WritableContextProvider

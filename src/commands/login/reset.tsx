@@ -6,7 +6,7 @@ import { Note } from "../../rendering/react/components/Note.js";
 import { FancyProcessRenderer } from "../../rendering/process/process_fancy.js";
 import { Filename } from "../../rendering/react/components/Filename.js";
 import { getTokenFilename } from "../../lib/auth/token.js";
-import { isNotFound } from "../../lib/fsutil.js";
+import { isNotFound } from "../../lib/util/fsutil.js";
 
 type ResetResult = { deleted: boolean };
 

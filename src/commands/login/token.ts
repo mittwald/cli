@@ -2,7 +2,7 @@ import { Flags, ux } from "@oclif/core";
 import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import * as fs from "fs/promises";
 import { getTokenFilename } from "../../lib/auth/token.js";
-import { isNotFound } from "../../lib/fsutil.js";
+import { isNotFound } from "../../lib/util/fsutil.js";
 
 export default class Token extends BaseCommand {
   static description = "Authenticate using an API token";
