@@ -3841,7 +3841,7 @@ FLAGS
       --[no-]enable-spam-protection  enable spam protection for this mailbox
       --forward-to=<value>...        forward mail to other addresses
       --password=<value>             mailbox password
-      --quota=<value>                [default: 1024] mailbox quota in mebibytes
+      --quota=<value>                [default: 1GiB] mailbox quota
       --random-password              generate a random password
 
 DESCRIPTION

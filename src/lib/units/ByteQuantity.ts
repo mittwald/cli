@@ -1,4 +1,5 @@
 import prettyBytes, { Options } from "pretty-bytes";
+import { Flags } from "@oclif/core";
 
 /**
  * Reexport of pretty-bytes Options type, as to not expose the pretty-bytes
@@ -13,6 +14,10 @@ export type ByteQuantityFormattingOptions = Options;
 export default class ByteQuantity {
   public readonly bytes: number;
 
+  public static flag = Flags.custom<ByteQuantity>({
+    parse: async (input) => ByteQuantity.fromString(input, true),
+  });
+
   private constructor(bytes: number) {
     this.bytes = bytes;
   }
@@ -21,28 +26,44 @@ export default class ByteQuantity {
     return new ByteQuantity(bytes);
   }
 
-  public static fromString(input: string): ByteQuantity {
+  public static fromString(
+    input: string,
+    requireQuantity = false,
+  ): ByteQuantity {
     const numeric = parseInt(input.replace(/[^0-9]/g, ""), 10);
 
-    if (`${numeric}` == input) {
+    if (
+      (!requireQuantity && `${numeric}` == input) ||
+      input.toLowerCase().match(/[0-9]b?$/)
+    ) {
       return new ByteQuantity(numeric);
     }
-
-    if (input.toLowerCase().endsWith("gi")) {
+    if (input.toLowerCase().match(/gi?b?$/)) {
       return new ByteQuantity(numeric * (1 << 30));
     }
-    if (input.toLowerCase().endsWith("mi")) {
+    if (input.toLowerCase().match(/mi?b?$/)) {
       return new ByteQuantity(numeric * (1 << 20));
     }
-    if (input.toLowerCase().endsWith("ki")) {
+    if (input.toLowerCase().match(/ki?b?$/)) {
       return new ByteQuantity(numeric * (1 << 10));
     }
 
-    throw new Error("unsupported byte unit; supported are 'gi', 'mi', 'ki'");
+    throw new Error(
+      "unsupported byte unit; supported are 'gi(b)', 'mi(b)', 'ki(b)' or 'b'",
+    );
   }
 
   public format(opts?: ByteQuantityFormattingOptions): string {
     return prettyBytes(this.bytes, { binary: true, ...opts });
+  }
+
+  public toString(): string {
+    return this.format({
+      locale: false,
+      binary: true,
+      space: false,
+      maximumFractionDigits: 0,
+    });
   }
 
   public add(other: ByteQuantity): ByteQuantity {
