@@ -1,8 +1,21 @@
-import { normalizeServerId } from "../../../normalize_id.js";
-import { makeFlagSet } from "../../context/FlagSetBuilder.js";
+import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
+import FlagSetBuilder from "../../context/FlagSetBuilder.js";
+import { contextIDNormalizers } from "../../context/Context.js";
+
+async function normalize(
+  apiClient: MittwaldAPIV2Client,
+  serverId: string,
+): Promise<string> {
+  const result = await apiClient.project.getServer({ serverId });
+  assertStatus(result, 200);
+
+  return result.data.id;
+}
+
+contextIDNormalizers["server-id"] = normalize;
 
 export const {
   flags: serverFlags,
   args: serverArgs,
   withId: withServerId,
-} = makeFlagSet("server", "s", { normalize: normalizeServerId });
+} = new FlagSetBuilder("server", "s", { normalize }).build();

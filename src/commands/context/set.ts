@@ -4,8 +4,6 @@ import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import {
   normalizeAppInstallationId,
   normalizeCustomerId,
-  normalizeProjectId,
-  normalizeServerId,
 } from "../../normalize_id.js";
 
 export class Set extends BaseCommand {
@@ -33,21 +31,13 @@ export class Set extends BaseCommand {
     const ctx = new Context(this.apiClient, this.config);
 
     if (flags["project-id"]) {
-      const projectId = await normalizeProjectId(
-        this.apiClient,
-        flags["project-id"],
-      );
-      await ctx.setProjectId(projectId);
-      this.log(`Set project ID to ${projectId}`);
+      await ctx.setProjectId(flags["project-id"]);
+      this.log(`Set project ID to ${flags["project-id"]}`);
     }
 
     if (flags["server-id"]) {
-      const serverId = await normalizeServerId(
-        this.apiClient,
-        flags["server-id"],
-      );
-      await ctx.setServerId(serverId);
-      this.log(`Set server ID to ${serverId}`);
+      await ctx.setServerId(flags["server-id"]);
+      this.log(`Set server ID to ${flags["server-id"]}`);
     }
 
     if (flags["org-id"]) {

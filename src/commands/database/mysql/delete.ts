@@ -1,4 +1,3 @@
-import { normalizeProjectId } from "../../../normalize_id.js";
 import { DeleteBaseCommand } from "../../../lib/basecommands/DeleteBaseCommand.js";
 import {
   mysqlArgs,
@@ -24,9 +23,5 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
     });
 
     assertSuccess(response);
-  }
-
-  protected mapResourceId(id: string): Promise<string> {
-    return normalizeProjectId(this.apiClient, id);
   }
 }

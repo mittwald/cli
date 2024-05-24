@@ -8,26 +8,6 @@ export function isUuid(id: string): boolean {
   return uuidRegex.test(id);
 }
 
-export async function normalizeProjectId(
-  apiClient: MittwaldAPIV2Client,
-  projectId: string,
-): Promise<string> {
-  const result = await apiClient.project.getProject({ projectId });
-  assertStatus(result, 200);
-
-  return result.data.id;
-}
-
-export async function normalizeServerId(
-  apiClient: MittwaldAPIV2Client,
-  serverId: string,
-): Promise<string> {
-  const result = await apiClient.project.getServer({ serverId });
-  assertStatus(result, 200);
-
-  return result.data.id;
-}
-
 export async function normalizeCustomerId(
   apiClient: MittwaldAPIV2Client,
   customerId: string,

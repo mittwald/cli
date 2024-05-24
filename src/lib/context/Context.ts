@@ -24,12 +24,21 @@ function isWritable(p: ContextProvider): p is WritableContextProvider {
   return "update" in p;
 }
 
+export const contextIDNormalizers: {
+  [k in ContextKey]?: (
+    apiClient: MittwaldAPIV2Client,
+    id: string,
+  ) => Promise<string>;
+} = {};
+
 export default class Context {
   private readonly contextData: Promise<ContextMap>;
+  private readonly apiClient: MittwaldAPIV2Client;
 
   public readonly providers: ContextProvider[];
 
   public constructor(apiClient: MittwaldAPIV2Client, config: Config) {
+    this.apiClient = apiClient;
     this.providers = [
       new UserContextProvider(config),
       new TerraformContextProvider(),
@@ -66,6 +75,10 @@ export default class Context {
   }
 
   private async setContextValue(key: ContextKey, value: string): Promise<void> {
+    if (key in contextIDNormalizers) {
+      value = await contextIDNormalizers[key]!(this.apiClient, value);
+    }
+
     return await this.persist({ [key]: value });
   }
 

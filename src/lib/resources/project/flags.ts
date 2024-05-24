@@ -1,24 +1,40 @@
-import { isUuid, normalizeProjectId } from "../../../normalize_id.js";
+import { isUuid } from "../../../normalize_id.js";
 import FlagSetBuilder, {
   CommandType,
   ContextArgs,
   ContextFlags,
   makeMissingContextInputError,
 } from "../../context/FlagSetBuilder.js";
-import Context, { ContextKey, ContextNames } from "../../context/Context.js";
+import Context, {
+  contextIDNormalizers,
+  ContextKey,
+  ContextNames,
+} from "../../context/Context.js";
 import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
 import { Args, Config, Flags } from "@oclif/core";
 import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
-import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { MittwaldAPIV2Client, assertStatus } from "@mittwald/api-client";
 import { articleForWord } from "../../language.js";
 import FlagSet from "../../context/FlagSet.js";
+
+async function normalize(
+  apiClient: MittwaldAPIV2Client,
+  projectId: string,
+): Promise<string> {
+  const result = await apiClient.project.getProject({ projectId });
+  assertStatus(result, 200);
+
+  return result.data.id;
+}
+
+contextIDNormalizers["project-id"] = normalize;
 
 export const {
   flags: projectFlags,
   args: projectArgs,
   withId: withProjectId,
 } = new FlagSetBuilder("project", "p", {
-  normalize: normalizeProjectId,
+  normalize,
   expectedShortIDFormat: {
     pattern: /^p-.*/,
     display: "p-XXXXXX",
