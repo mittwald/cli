@@ -1,7 +1,6 @@
-import crypto from "crypto";
+import { defaultPasswordLength, generatePassword } from "./generatePassword.js";
 
 const passwordAllowedSpecialChars: string[] = ["%", "_", "-", "+", "&"];
-const defaultPasswordLength = 32;
 
 function randomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - 1) + min);
@@ -13,12 +12,14 @@ function getRandomSpecialCharacter(): string {
   ];
 }
 
-export function generatePassword(
-  length: number = defaultPasswordLength,
-): string {
-  return crypto.randomBytes(length).toString("base64").substring(0, length);
-}
-
+/**
+ * Generates a random password of a given length with a specific amount of
+ * special characters.
+ *
+ * @param length The desired amount of characters
+ * @param amountSpecialChars The desired amount of special characters
+ * @returns The generated password
+ */
 export function generatePasswordWithSpecialChars(
   length: number = defaultPasswordLength,
   amountSpecialChars: number = Math.floor(length / 8),

@@ -18,9 +18,9 @@ import {
   OptionFlag,
   OutputFlags,
 } from "@oclif/core/lib/interfaces/parser.js";
-import { generatePasswordWithSpecialChars } from "../../password.js";
 import FlagSetBuilder from "../../context/FlagSetBuilder.js";
 import { contextIDNormalizers } from "../../context/Context.js";
+import { generatePasswordWithSpecialChars } from "../../util/password/generatePasswordWithSpecialChars.js";
 
 async function normalize(
   apiClient: MittwaldAPIV2Client,
