@@ -2451,7 +2451,7 @@ Create a new cron job
 ```
 USAGE
   $ mw cronjob create --description <value> --interval <value> [-i <value>] [-q] [--disable] [--email <value>]
-    [--url <value> | --command <value>] [--interpreter <value>]
+    [--url <value> | --command <value>] [--interpreter <value>] [--timeout <value>]
 
 FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
@@ -2463,6 +2463,8 @@ FLAGS
       --email=<value>            Email address to send cron job output to
       --interpreter=<value>      [default: /bin/sh] Interpreter to use for the cron job
       --interval=<value>         (required) Interval of the cron job, in standard UNIX cron syntax
+      --timeout=<value>          [default: 3600s] timeout for the cron job; common duration formats are supported (for
+                                 example, '1h', '30m', '30s')
       --url=<value>              URL to call for the cron job; either this or `--command` is required.
 
 FLAG DESCRIPTIONS
