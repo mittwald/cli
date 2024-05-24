@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import { SSHConnectionFlags } from "../ssh/flags.js";
-import { pathExists } from "../../util/fsutil.js";
 import path from "path";
+import { pathExists } from "../../util/fs/pathExists.js";
 
 export const defaultRsyncFilterFile = ".mw-rsync-filter";
 

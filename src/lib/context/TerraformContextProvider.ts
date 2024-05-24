@@ -2,8 +2,8 @@ import fs from "fs/promises";
 import { cwd } from "process";
 import path from "path";
 import { ContextMap } from "./Context.js";
-import { pathExists } from "../util/fsutil.js";
 import ContextProvider from "./ContextProvider.js";
+import { pathExists } from "../util/fs/pathExists.js";
 
 interface TerraformInstance {
   attributes: Record<string, unknown>;

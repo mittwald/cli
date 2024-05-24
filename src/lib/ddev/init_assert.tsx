@@ -3,7 +3,7 @@ import React from "react";
 import { promisify } from "util";
 import { exec } from "child_process";
 import { Value } from "../../rendering/react/components/Value.js";
-import { hasBinaryInPath } from "../util/hasBinaryInPath.js";
+import { hasBinaryInPath } from "../util/fs/hasBinaryInPath.js";
 
 const execAsync = promisify(exec);
 

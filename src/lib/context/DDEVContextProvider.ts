@@ -5,8 +5,8 @@ import fs from "fs/promises";
 import yaml from "js-yaml";
 import { DDEVConfig } from "../ddev/config.js";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { pathExists } from "../util/fsutil.js";
 import ContextProvider from "./ContextProvider.js";
+import { pathExists } from "../util/fs/pathExists.js";
 
 /**
  * DDEVContextProvider is a ContextProvider that reads context overrides from

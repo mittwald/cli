@@ -17,7 +17,7 @@ import {
   appInstallationSyncFlagsToRsyncFlags,
   filterFileDocumentation,
 } from "../../lib/resources/app/sync.js";
-import { hasBinaryInPath } from "../../lib/util/hasBinaryInPath.js";
+import { hasBinaryInPath } from "../../lib/util/fs/hasBinaryInPath.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static summary =

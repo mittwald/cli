@@ -17,7 +17,7 @@ import {
   filterFileDocumentation,
   filterFileToRsyncFlagsIfPresent,
 } from "../../lib/resources/app/sync.js";
-import { hasBinaryInPath } from "../../lib/util/hasBinaryInPath.js";
+import { hasBinaryInPath } from "../../lib/util/fs/hasBinaryInPath.js";
 
 export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
   static summary = "Upload the filesystem of an app to a project";
