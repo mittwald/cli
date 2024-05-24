@@ -12,8 +12,8 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import { Filename } from "../../../rendering/react/components/Filename.js";
 import { Text } from "ink";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { expireFlags } from "../../../lib/expires.js";
 import { spawnInProcess } from "../../../rendering/process/process_exec.js";
+import { expireFlags } from "../../../lib/flags/expireFlags.js";
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,

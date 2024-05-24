@@ -10,7 +10,8 @@ import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-import { expireFlags } from "../../lib/expires.js";
+
+import { expireFlags } from "../../lib/flags/expireFlags.js";
 
 type MembershipCustomerRoles =
   MittwaldAPIV2.Components.Schemas.MembershipCustomerRoles;

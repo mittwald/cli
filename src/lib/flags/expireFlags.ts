@@ -19,7 +19,6 @@ export function expireFlags(
   resourceName: string,
   required: false,
 ): { expires: OptionFlag<Date | undefined> };
-
 export function expireFlags(
   resourceName: string,
   required: true,

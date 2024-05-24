@@ -10,7 +10,8 @@ import {
 } from "../../../rendering/process/process_flags.js";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Filename } from "../../../rendering/react/components/Filename.js";
-import { expireFlags } from "../../../lib/expires.js";
+
+import { expireFlags } from "../../../lib/flags/expireFlags.js";
 
 export default class Import extends ExecRenderBaseCommand<
   typeof Import,

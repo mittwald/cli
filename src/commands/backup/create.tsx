@@ -6,11 +6,11 @@ import {
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import React, { ReactNode } from "react";
 import { Flags } from "@oclif/core";
-import { expireFlags } from "../../lib/expires.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
 import { Text } from "ink";
+import { expireFlags } from "../../lib/flags/expireFlags.js";
 
 type CreateResult = {
   backupId: string;
