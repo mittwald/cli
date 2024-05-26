@@ -12,7 +12,7 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
  * Typically, a FlagSet is created using the `makeFlagSet` function (or a
  * derivative of it).
  */
-export default interface FlagSet<TName extends ContextNames> {
+interface FlagSet<TName extends ContextNames> {
   name: TName;
   flags: ContextFlags<TName>;
   args: ContextArgs<TName>;
@@ -24,3 +24,5 @@ export default interface FlagSet<TName extends ContextNames> {
     cfg: Config,
   ) => Promise<string>;
 }
+
+export default FlagSet;

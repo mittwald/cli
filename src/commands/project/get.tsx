@@ -15,7 +15,6 @@ import { usePromise } from "@mittwald/react-use-promise";
 import { ComponentPrinter } from "../../rendering/react/ComponentPrinter.js";
 import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { ByteFormat } from "../../rendering/react/components/ByteFormat.js";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import Link from "ink-link";
 import { ProjectStatus } from "../../rendering/react/components/Project/ProjectStatus.js";

@@ -21,7 +21,7 @@ import {
 import FlagSetBuilder from "../../context/FlagSetBuilder.js";
 import { contextIDNormalizers } from "../../context/Context.js";
 import { generatePasswordWithSpecialChars } from "../../util/password/generatePasswordWithSpecialChars.js";
-import { WaitFlags, waitFlags } from "../../wait.js";
+import { waitFlags } from "../../wait.js";
 
 async function normalize(
   apiClient: MittwaldAPIV2Client,

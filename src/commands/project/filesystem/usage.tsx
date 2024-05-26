@@ -9,7 +9,6 @@ import { Box, Text } from "ink";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Flags } from "@oclif/core";
-import { ByteFormat } from "../../../rendering/react/components/ByteFormat.js";
 import { Note, noteColor } from "../../../rendering/react/components/Note.js";
 import { ListItem } from "../../../rendering/react/components/ListItem.js";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
