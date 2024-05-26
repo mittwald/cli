@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
-import { Args, Flags } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import {
   makeProcessRenderer,
   processFlags,
@@ -23,17 +23,13 @@ import ByteQuantity, {
   ByteQuantityFormattingOptions,
 } from "../../lib/units/ByteQuantity.js";
 import Duration from "../../lib/units/Duration.js";
+import { backupArgs, withBackupId } from "../../lib/resources/backup/flags.js";
 
 type Result = { outputFilename: string };
 
 export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
   static description = "Download a backup to your local disk";
-  static args = {
-    "backup-id": Args.string({
-      required: true,
-      description: "the ID of the Backup to download.",
-    }),
-  };
+  static args = { ...backupArgs };
   static flags = {
     ...processFlags,
     output: Flags.string({
@@ -96,7 +92,13 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Downloading backup");
-    const projectBackupId = this.args["backup-id"];
+    const projectBackupId = await withBackupId(
+      this.apiClient,
+      Download,
+      this.flags,
+      this.args,
+      this.config,
+    );
     const { format } = this.flags;
     const password = await this.getPassword(p);
 

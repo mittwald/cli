@@ -275,7 +275,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
@@ -514,7 +514,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
@@ -578,7 +578,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary.
@@ -641,7 +641,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -1808,7 +1808,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -o, --output=<option>    [default: txt] output in a more machine friendly format
@@ -1834,7 +1834,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   --[no-]cd  change to installation path after connecting
@@ -1883,7 +1883,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -1910,7 +1910,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -f, --force                   Do not ask for confirmation.
@@ -1949,7 +1949,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary.
@@ -2093,7 +2093,7 @@ USAGE
   $ mw backup delete BACKUP-ID [-q] [-f]
 
 ARGUMENTS
-  BACKUP-ID  The ID of the Backup to show.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -2122,7 +2122,7 @@ USAGE
     --prompt-password] [--resume --output <value>]
 
 ARGUMENTS
-  BACKUP-ID  the ID of the Backup to download.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -q, --quiet              suppress process output and only display a machine-readable summary.
@@ -2162,21 +2162,21 @@ FLAG DESCRIPTIONS
 
 ## `mw backup get BACKUP-ID`
 
-show details of a backup.
+Show details of a backup.
 
 ```
 USAGE
   $ mw backup get BACKUP-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  BACKUP-ID  The ID of the Backup to show.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  show details of a backup.
+  Show details of a backup.
 
 ALIASES
   $ mw project backup get
@@ -2338,7 +2338,7 @@ USAGE
 
 ARGUMENTS
   CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
-                   context
+                   context.
 
 DESCRIPTION
   Close a conversation
@@ -2401,7 +2401,7 @@ USAGE
 
 ARGUMENTS
   CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
-                   context
+                   context.
 
 FLAGS
   --editor=<value>        [default: vim] The editor to use when opening the message for editing; will respect your
@@ -2425,7 +2425,7 @@ USAGE
 
 ARGUMENTS
   CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
-                   context
+                   context.
 
 DESCRIPTION
   Show a conversation and message history
@@ -3394,7 +3394,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
@@ -3474,7 +3474,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   --database-id=<value>     ID of the application database
@@ -4158,7 +4158,7 @@ USAGE
   $ mw org delete [ORG-ID] [-q] [-f]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context
+  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -4183,7 +4183,7 @@ USAGE
   $ mw org get [ORG-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context
+  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -4445,7 +4445,7 @@ USAGE
   $ mw project backup delete BACKUP-ID [-q] [-f]
 
 ARGUMENTS
-  BACKUP-ID  The ID of the Backup to show.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -4474,7 +4474,7 @@ USAGE
     --prompt-password] [--resume --output <value>]
 
 ARGUMENTS
-  BACKUP-ID  the ID of the Backup to download.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -q, --quiet              suppress process output and only display a machine-readable summary.
@@ -4514,21 +4514,21 @@ FLAG DESCRIPTIONS
 
 ## `mw project backup get BACKUP-ID`
 
-show details of a backup.
+Show details of a backup.
 
 ```
 USAGE
   $ mw project backup get BACKUP-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  BACKUP-ID  The ID of the Backup to show.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  show details of a backup.
+  Show details of a backup.
 
 ALIASES
   $ mw project backup get
@@ -4756,7 +4756,7 @@ USAGE
   $ mw project delete [PROJECT-ID] [-q] [-f]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -4781,7 +4781,7 @@ USAGE
   $ mw project filesystem usage [PROJECT-ID] [-o json|yaml |  | ] [--human]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -4801,7 +4801,7 @@ USAGE
   $ mw project get [PROJECT-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -5047,7 +5047,7 @@ USAGE
   $ mw project ssh [PROJECT-ID] [--ssh-user <value>] [--ssh-identity-file <value>]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -5124,7 +5124,7 @@ USAGE
   $ mw project update [PROJECT-ID]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 DESCRIPTION
   Updates a project
@@ -5139,7 +5139,7 @@ USAGE
   $ mw server get [SERVER-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  SERVER-ID  ID or short ID of a server; this argument is optional if a default server is set in the context
+  SERVER-ID  ID or short ID of a server; this argument is optional if a default server is set in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format

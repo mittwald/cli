@@ -39,9 +39,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     );
     return await this.apiClient.backup.listProjectBackupSchedules({
       projectId,
-    } as Parameters<
-      typeof this.apiClient.backup.listProjectBackupSchedules
-    >[0]);
+    });
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

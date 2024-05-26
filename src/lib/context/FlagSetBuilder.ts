@@ -57,6 +57,7 @@ export class MissingArgError extends Error {
 export type FlagSetOptions = {
   normalize: NormalizeFn;
   displayName: string;
+  retrieveFromContext: boolean;
   expectedShortIDFormat: {
     pattern: RegExp;
     display: string;
@@ -148,13 +149,25 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   private buildFlags(): ContextFlags<TName> {
     const { displayName } = this;
     const article = articleForWord(displayName);
+    const { retrieveFromContext = true } = this.opts;
+
+    let summary = `ID or short ID of ${article} ${displayName}`;
+    let description = `May contain a short ID or a full ID of ${article} ${displayName}`;
+
+    if (retrieveFromContext) {
+      summary += `; this flag is optional if a default ${displayName} is set in the context`;
+      description += `; you can also use the "<%= config.bin %> context set --${this.flagName}=<VALUE>" command to persistently set a default ${displayName} for all commands that accept this flag.`;
+    } else {
+      summary += ".";
+      description += ".";
+    }
 
     return {
       [this.flagName]: Flags.string({
         char: this.char,
-        required: false,
-        summary: `ID or short ID of ${article} ${displayName}; this flag is optional if a default ${displayName} is set in the context`,
-        description: `May contain a short ID or a full ID of ${article} ${displayName}; you can also use the "<%= config.bin %> context set --${this.flagName}=<VALUE>" command to persistently set a default ${displayName} for all commands that accept this flag.`,
+        required: !retrieveFromContext,
+        summary,
+        description,
         default: undefined,
       }),
     } as ContextFlags<TName>;
@@ -163,10 +176,19 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   private buildArgs(): ContextArgs<TName> {
     const { displayName } = this;
     const article = articleForWord(displayName);
+    const { retrieveFromContext = true } = this.opts;
+
+    let description = `ID or short ID of ${article} ${displayName}`;
+    if (retrieveFromContext) {
+      description += `; this argument is optional if a default ${displayName} is set in the context.`;
+    } else {
+      description += ".";
+    }
 
     return {
       [this.flagName]: Args.string({
-        description: `ID or short ID of ${article} ${displayName}; this argument is optional if a default ${displayName} is set in the context`,
+        description,
+        required: !retrieveFromContext,
       }),
     } as ContextArgs<TName>;
   }
@@ -190,7 +212,7 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   private buildIDGetter() {
     const idInputSanityCheck = this.buildSanityCheck();
     const idFromArgsOrFlag = this.buildIDFromArgsOrFlag();
-    const { normalize = (_, id) => id } = this.opts;
+    const { normalize = (_, id) => id, retrieveFromContext = true } = this.opts;
 
     return async (
       apiClient: MittwaldAPIV2Client,
@@ -205,10 +227,12 @@ export default class FlagSetBuilder<TName extends ContextNames> {
         return normalize(apiClient, idInput);
       }
 
-      const context = new Context(apiClient, cfg);
-      const idFromContext = await context.getContextValue(this.flagName);
-      if (idFromContext) {
-        return idFromContext.value;
+      if (retrieveFromContext) {
+        const context = new Context(apiClient, cfg);
+        const idFromContext = await context.getContextValue(this.flagName);
+        if (idFromContext) {
+          return idFromContext.value;
+        }
       }
 
       throw makeMissingContextInputError<TName>(
