@@ -164,9 +164,28 @@ class MyCommand extends ExtendedBaseCommand<typeof MyCommand> {
 ### Inputs/Outputs
 
 Use flags and arguments to model inputs. Follow the following guidelines when
-defining flags and arguments:
+defining flags and arguments.
+
+#### Flags vs arguments
 
 - Use flags for optional inputs
 - Use arguments for required inputs; commands that affect an existing resource
   should accept that resource's ID as the first argument.
-- Both should be named in `kebab-case`
+
+#### Naming conventions
+
+Both flags and arguments should be named in `kebab-case`.
+
+#### Use specialized unit data types when possible
+
+When defining flags or arguments, use specialized unit data types when possible.
+Currently, the following specialized unit data types are available for defining
+flags:
+
+- `ByteQuantity.flag` can be used to define flags that accept byte quantities
+  (e.g. `--size=1G` or `--size=1024M`)
+- `Duration.relativeFlag` and `Duration.absoluteFlag` can be used to define
+  flags that accept durations (e.g. `--timeout=1h` or `--timeout=3600s`). The
+  difference between the two types is that `relativeFlag` will map to a
+  `Duration` type, whereas `absoluteFlag` will map to a `Date` type (with the
+  specified duration added to the current date).
