@@ -6,11 +6,10 @@ import {
 } from "../../rendering/formatter/ListFormatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
 import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
-import {
-  buildCreatedAtColumn,
-  isResourceWithCreatedAt,
-} from "../viewhelpers/list_column_date.js";
 import { SuccessfulResponse } from "../apiutil/SuccessfulResponse.js";
+import ListDateColumnFormatter, {
+  isResourceWithCreatedAt,
+} from "../../rendering/formatter/ListDateColumnFormatter.js";
 
 export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
   (typeof ListBaseCommand)["baseFlags"] & T["flags"]
@@ -97,7 +96,7 @@ export abstract class ListBaseCommand<
       };
     }
     if (isResourceWithCreatedAt(data[0])) {
-      const createdAt = buildCreatedAtColumn(this.flags);
+      const createdAt = new ListDateColumnFormatter(this.flags).buildColumn();
 
       columns = {
         ...columns,

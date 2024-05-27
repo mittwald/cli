@@ -14,7 +14,10 @@ export type OptionalFn<T> = T extends (i: infer TIn) => infer TOut
 export function maybe<TIn, TOut>(
   fn: (input: TIn) => TOut,
 ): OptionalFn<(input: TIn) => TOut> {
-  return (input: TIn | undefined) => (input ? fn(input) : undefined);
+  return (input: TIn | undefined) => {
+    console.log(input);
+    return input !== undefined ? fn(input) : undefined;
+  };
 }
 
 export default maybe;

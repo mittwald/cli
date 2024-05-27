@@ -3,7 +3,8 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
-import { buildCreatedAtColumn } from "../../../lib/viewhelpers/list_column_date.js";
+
+import ListDateColumnFormatter from "../../../rendering/formatter/ListDateColumnFormatter.js";
 
 type ResponseItem = Simplify<
   Required<MittwaldAPIV2.Paths.V2UsersSelfSshKeys.Get.Responses.$200.Content.ApplicationJson>["sshKeys"][number]
@@ -38,7 +39,7 @@ export default class List extends ListBaseCommand<
       },
       comment: {},
       fingerprint: {},
-      createdAt: buildCreatedAtColumn(this.flags),
+      createdAt: new ListDateColumnFormatter(this.flags).buildColumn(),
     };
   }
 }
