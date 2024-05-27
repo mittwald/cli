@@ -1,11 +1,11 @@
 import chalk from "chalk";
 
-export function printHeader(heading: string) {
-  console.log(chalk.bold.white(heading));
-  console.log(chalk.bold.white("─".repeat(heading.length)));
-  console.log();
-}
-
+/**
+ * Prints a list of key-value pairs.
+ *
+ * @deprecated Use React components instead!
+ * @param tableContents
+ */
 export function printKeyValues(tableContents: Record<string, string>) {
   const keys = Object.keys(tableContents);
   const l = Math.max(...keys.map((k) => k.length));

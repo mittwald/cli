@@ -3,13 +3,14 @@ import { formatRelativeDate } from "../../rendering/textformat/formatDate.js";
 import { marked, Renderer } from "marked";
 import TerminalRenderer from "marked-terminal";
 import chalk from "chalk";
-import { printHeader, printKeyValues } from "../../lib/viewhelpers/tui.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import {
   conversationArgs,
   withConversationId,
 } from "../../lib/resources/conversation/flags.js";
 import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
+import { printHeader } from "../../rendering/formatter/printHeader.js";
+import { printKeyValues } from "../../rendering/formatter/printKeyValues.js";
 
 type Conversation = MittwaldAPIV2.Components.Schemas.ConversationConversation;
 type Message = MittwaldAPIV2.Components.Schemas.ConversationMessage;
