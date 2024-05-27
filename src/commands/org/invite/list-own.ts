@@ -4,7 +4,7 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
-import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../rendering/textformat/formatDate.js";
 
 type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 type CustomerInvite = MittwaldAPIV2.Components.Schemas.MembershipCustomerInvite;

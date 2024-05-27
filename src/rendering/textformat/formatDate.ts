@@ -16,13 +16,7 @@ export const formatDateLocale: DateRenderer = (d) =>
   forceDateType(d).toLocaleString();
 
 export const formatRelativeDate: DateRenderer = (date) => {
-  if (!date) {
-    return "unknown";
-  }
-
-  if (typeof date === "string") {
-    date = new Date(date);
-  }
+  date = forceDateType(date);
 
   if (date.getTime() < new Date().getTime()) {
     return formatDistanceToNow(date) + " ago";

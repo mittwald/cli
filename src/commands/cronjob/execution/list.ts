@@ -4,7 +4,7 @@ import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { Flags } from "@oclif/core";
-import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../rendering/textformat/formatDate.js";
 import maybe from "../../../lib/util/maybe.js";
 
 type ResponseItem = Simplify<

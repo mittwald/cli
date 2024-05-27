@@ -1,5 +1,5 @@
 import { assertStatus } from "@mittwald/api-client-commons";
-import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../rendering/textformat/formatDate.js";
 import { marked, Renderer } from "marked";
 import TerminalRenderer from "marked-terminal";
 import chalk from "chalk";

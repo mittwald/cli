@@ -4,7 +4,7 @@ import {
   formatDateISO,
   formatRelativeDate,
   makeDateRendererForFormat,
-} from "./date.js";
+} from "../../rendering/textformat/formatDate.js";
 import { table } from "@oclif/core/lib/cli-ux/styled/table.js";
 import { isListFormatterFlags } from "../../rendering/formatter/ListFormatter.js";
 import Column = table.Column;

@@ -1,7 +1,7 @@
 import React, { FC, isValidElement } from "react";
 import { FormattedDate } from "../FormattedDate.js";
 import { JSONView } from "../JSONView.js";
-import { parseDate } from "../../../../lib/viewhelpers/date.js";
+import { parseDate } from "../../../textformat/formatDate.js";
 import { Value } from "../Value.js";
 
 interface Props {
