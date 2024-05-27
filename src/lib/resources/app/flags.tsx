@@ -13,7 +13,6 @@ import {
 } from "../../../rendering/process/process_flags.js";
 import { Flags } from "@oclif/core";
 import {
-  BooleanFlag,
   FlagInput,
   OptionFlag,
   OutputFlags,

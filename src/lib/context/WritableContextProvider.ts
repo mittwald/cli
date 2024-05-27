@@ -8,8 +8,10 @@ import { ContextMapUpdate } from "./Context.js";
  * Implementations of this interface need some way to persist the changes to the
  * context data.
  */
-export default interface WritableContextProvider extends ContextProvider {
+interface WritableContextProvider extends ContextProvider {
   update(data: ContextMapUpdate): Promise<void>;
 
   reset(): Promise<void>;
 }
+
+export default WritableContextProvider;
