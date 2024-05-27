@@ -12,6 +12,7 @@ import { Flags } from "@oclif/core";
 import { Note, noteColor } from "../../../rendering/react/components/Note.js";
 import { ListItem } from "../../../rendering/react/components/ListItem.js";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
+import maybe from "../../../lib/util/maybe.js";
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2ProjectsProjectIdFilesystemDiskUsage.Get.Parameters.Path;
@@ -72,12 +73,6 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
         </Text>
       );
     };
-
-    function maybe<TIn, TOut>(
-      fn: (input: TIn) => TOut,
-    ): (input: TIn | undefined) => TOut | undefined {
-      return (input: TIn | undefined) => (input ? fn(input) : undefined);
-    }
 
     const maybeQuantity = maybe(ByteQuantity.fromBytes);
 

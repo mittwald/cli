@@ -1,6 +1,8 @@
 import { formatDistanceToNow } from "date-fns";
+import { maybe, OptionalFn } from "../util/maybe.js";
 
 export type DateRenderer = (d: Date | string) => string;
+export type OptionalDateRenderer = OptionalFn<DateRenderer>;
 
 const forceDateType = (d: Date | string): Date => {
   if (typeof d === "string") {
@@ -9,26 +11,17 @@ const forceDateType = (d: Date | string): Date => {
   return d;
 };
 
-export function optionalDateRenderer(
-  r: DateRenderer,
-): (n: Date | string | undefined) => string | undefined {
-  return (d: Date | string | undefined): string | undefined => {
-    if (d === undefined) {
-      return undefined;
-    }
-    return r(d);
-  };
+export function optionalDateRenderer(r: DateRenderer): OptionalDateRenderer {
+  return maybe(r);
 }
 
-export const formatDateISO: DateRenderer = (d: Date | string) =>
+export const formatDateISO: DateRenderer = (d) =>
   forceDateType(d).toISOString();
 
-export const formatDateLocale: DateRenderer = (d: Date | string) =>
+export const formatDateLocale: DateRenderer = (d) =>
   forceDateType(d).toLocaleString();
 
-export const formatRelativeDate: DateRenderer = (
-  date: Date | string,
-): string => {
+export const formatRelativeDate: DateRenderer = (date) => {
   if (!date) {
     return "unknown";
   }
