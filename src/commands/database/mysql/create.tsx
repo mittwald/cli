@@ -53,11 +53,11 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       summary: "enable external access for default user",
       default: false,
     }),
-    "user-access-level": Flags.string({
+    "user-access-level": Flags.custom<"full" | "readonly">({
       summary: "the access level preset for the default user",
       options: ["full", "readonly"],
       default: "full",
-    }),
+    })(),
   };
 
   protected async exec(): Promise<Result> {
@@ -89,7 +89,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       {
         password,
         externalAccess,
-        accessLevel: accessLevel as "full" | "readonly",
+        accessLevel,
       },
     );
 
