@@ -1,8 +1,6 @@
 import { formatDistanceToNow } from "date-fns";
-import { maybe, OptionalFn } from "../util/maybe.js";
 
 export type DateRenderer = (d: Date | string) => string;
-export type OptionalDateRenderer = OptionalFn<DateRenderer>;
 
 const forceDateType = (d: Date | string): Date => {
   if (typeof d === "string") {
@@ -10,10 +8,6 @@ const forceDateType = (d: Date | string): Date => {
   }
   return d;
 };
-
-export function optionalDateRenderer(r: DateRenderer): OptionalDateRenderer {
-  return maybe(r);
-}
 
 export const formatDateISO: DateRenderer = (d) =>
   forceDateType(d).toISOString();

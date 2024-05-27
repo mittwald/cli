@@ -4,8 +4,8 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
-import { optionalDateRenderer } from "../../../lib/viewhelpers/date.js";
 import { makeDateRendererForFlags } from "../../../lib/viewhelpers/list_column_date.js";
+import maybe from "../../../lib/util/maybe.js";
 
 type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 type CustomerMembership =
@@ -56,9 +56,7 @@ export class ListOwn extends ListBaseCommand<
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
     const baseColumns = super.getColumns(data);
-    const dateRenderer = optionalDateRenderer(
-      makeDateRendererForFlags(this.flags),
-    );
+    const dateRenderer = maybe(makeDateRendererForFlags(this.flags));
     return {
       id: baseColumns.id,
       role: {},
