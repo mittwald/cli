@@ -4,7 +4,6 @@ import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
-import maybe from "../../../lib/util/maybe.js";
 import ListDateColumnFormatter from "../../../rendering/formatter/ListDateColumnFormatter.js";
 
 type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;

@@ -5,8 +5,6 @@ import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { orgFlags, withOrgId } from "../../../lib/resources/org/flags.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
-import maybe from "../../../lib/util/maybe.js";
-
 import ListDateColumnFormatter from "../../../rendering/formatter/ListDateColumnFormatter.js";
 
 type UserUser = MittwaldAPIV2.Components.Schemas.UserUser;

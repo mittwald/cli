@@ -4,8 +4,6 @@ import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
-import maybe from "../../lib/util/maybe.js";
-
 import ListDateColumnFormatter from "../../rendering/formatter/ListDateColumnFormatter.js";
 
 type BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
