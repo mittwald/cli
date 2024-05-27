@@ -6,13 +6,14 @@ import { SingleResult, SingleResultTable } from "../SingleResult.js";
 import { AppSystemSoftware } from "./AppSystemSoftware.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Box, Text } from "ink";
-type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
-type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 import { useProject } from "../../../../lib/resources/project/hooks.js";
 import { IDAndShortID } from "../IDAndShortID.js";
 import path from "path";
 import { isCustomAppInstallation } from "../../../../lib/resources/app/custom_installation.js";
 import maybe from "../../../../lib/util/maybe.js";
+import OptionalValue from "../OptionalValue.js";
+type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
+type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 
 export const AppInstallationDetails: FC<{
   appInstallation: AppAppInstallation;
@@ -52,11 +53,7 @@ export const AppInstallationDetails: FC<{
     ) : (
       <Value notSet />
     ),
-    "Installation Path": absoluteInstallPath ? (
-      <Value>{absoluteInstallPath}</Value>
-    ) : (
-      <Value notSet />
-    ),
+    "Installation Path": <OptionalValue value={absoluteInstallPath} />,
     "Document root (in installation path)": (
       <Value>{appInstallation.customDocumentRoot ?? "/"}</Value>
     ),
