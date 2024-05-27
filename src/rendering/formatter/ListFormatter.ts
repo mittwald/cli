@@ -13,7 +13,7 @@ type ListFormatterFlags = RelevantTableBaseFlags & {
 };
 
 type ListFormatterFlagsOutput = {
-  output: string;
+  output: "txt" | "json" | "yaml" | "csv";
   "no-relative-dates": boolean;
 };
 
