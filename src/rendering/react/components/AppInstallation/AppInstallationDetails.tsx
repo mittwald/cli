@@ -12,6 +12,7 @@ import { useProject } from "../../../../lib/resources/project/hooks.js";
 import { IDAndShortID } from "../IDAndShortID.js";
 import path from "path";
 import { isCustomAppInstallation } from "../../../../lib/resources/app/custom_installation.js";
+import maybe from "../../../../lib/util/maybe.js";
 
 export const AppInstallationDetails: FC<{
   appInstallation: AppAppInstallation;
@@ -21,12 +22,11 @@ export const AppInstallationDetails: FC<{
     app.id,
     appInstallation.appVersion.desired,
   );
-  const currentAppVersion = appInstallation.appVersion.current
-    ? useAppVersion(app.id, appInstallation.appVersion.current)
-    : undefined;
-  const project = appInstallation.projectId
-    ? useProject(appInstallation.projectId)
-    : null;
+  const currentAppVersion = maybe(useAppVersion)(
+    app.id,
+    appInstallation.appVersion.current,
+  );
+  const project = maybe(useProject)(appInstallation.projectId);
 
   const absoluteInstallPath = project
     ? path.join(project.directories["Web"], appInstallation.installationPath)

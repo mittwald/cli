@@ -1,5 +1,5 @@
-export type OptionalFn<T> = T extends (i: infer TIn) => infer TOut
-  ? (i: TIn | undefined) => TOut | undefined
+export type OptionalFn<T> = T extends (...i: infer TIn) => infer TOut
+  ? (...i: (TIn[number] | undefined)[]) => TOut | undefined
   : never;
 
 /**
@@ -12,11 +12,12 @@ export type OptionalFn<T> = T extends (i: infer TIn) => infer TOut
  *   if the input is undefined.
  */
 export function maybe<TIn, TOut>(
-  fn: (input: TIn) => TOut,
-): OptionalFn<(input: TIn) => TOut> {
-  return (input: TIn | undefined) => {
-    console.log(input);
-    return input !== undefined ? fn(input) : undefined;
+  fn: (...inputs: TIn[]) => TOut,
+): OptionalFn<(...inputs: TIn[]) => TOut> {
+  return (...args: (TIn | undefined)[]) => {
+    return !args.some((a) => a === undefined)
+      ? fn(...(args as TIn[]))
+      : undefined;
   };
 }
 
