@@ -1,15 +1,8 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
-import {
-  MittwaldAPIV2,
-  MittwaldAPIV2Client,
-  MittwaldAPIV2Client as MittwaldAPIClient,
-} from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 
-type ProjectResponse = Awaited<
-  ReturnType<MittwaldAPIClient["project"]["listProjects"]>
->;
 type ProjectResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Projects.Get.Responses.$200.Content.ApplicationJson[number]
 >;
