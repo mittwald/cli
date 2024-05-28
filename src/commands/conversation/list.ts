@@ -29,10 +29,6 @@ export default class List extends ListBaseCommand<
     return await this.apiClient.conversation.listConversations();
   }
 
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
-  }
-
   protected getColumns(): ListColumns<ResponseItem> {
     return {
       conversationId: {

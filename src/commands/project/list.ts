@@ -5,7 +5,6 @@ import {
   MittwaldAPIV2Client,
   MittwaldAPIV2Client as MittwaldAPIClient,
 } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 
 type ProjectResponse = Awaited<
@@ -33,12 +32,6 @@ export class List extends ListBaseCommand<
 
   public async getData(): Promise<Response> {
     return await this.apiClient.project.listProjects();
-  }
-
-  protected mapData(
-    data: SuccessfulResponse<ProjectResponse, 200>["data"],
-  ): ProjectResponseItem[] {
-    return data;
   }
 
   protected getColumns(

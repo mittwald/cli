@@ -21,6 +21,8 @@ export type ColumnOpts<TItem> = {
   outputFormat?: string;
 };
 
+export type SorterFunction<TItem> = (a: TItem, b: TItem) => number;
+
 export abstract class ListBaseCommand<
   T extends typeof BaseCommand,
   TItem extends Record<string, unknown>,
@@ -31,7 +33,7 @@ export abstract class ListBaseCommand<
   };
 
   protected formatter: ListFormatter = new ListFormatter();
-  protected sorter?: (a: TItem, b: TItem) => number;
+  protected sorter?: SorterFunction<TItem>;
 
   public async init(): Promise<void> {
     await super.init();

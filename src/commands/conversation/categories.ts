@@ -23,12 +23,8 @@ export default class Categories extends ListBaseCommand<
     ...ListBaseCommand.baseFlags,
   };
 
-  public async getData(): Promise<Response> {
-    return await this.apiClient.conversation.listCategories();
-  }
-
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
+  public getData(): Promise<Response> {
+    return this.apiClient.conversation.listCategories();
   }
 
   protected getColumns(): ListColumns<ResponseItem> {

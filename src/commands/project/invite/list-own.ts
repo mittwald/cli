@@ -1,6 +1,5 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
 import { formatRelativeDate } from "../../../rendering/textformat/formatDate.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
@@ -26,10 +25,6 @@ export default class List extends ListBaseCommand<
 
   public async getData(): Promise<Response> {
     return await this.apiClient.project.listProjectInvites();
-  }
-
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
   }
 
   protected getColumns(): ListColumns<ResponseItem> {

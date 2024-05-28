@@ -2,7 +2,6 @@ import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
-import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
 import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
 
 type ResponseItem = Simplify<
@@ -26,12 +25,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     return this.apiClient.domain.listDomains({
       queryParameters: { projectId },
     });
-  }
-
-  protected mapData(
-    data: SuccessfulResponse<Response, 200>["data"],
-  ): ResponseItem[] | Promise<ResponseItem[]> {
-    return data;
   }
 
   protected getColumns(): ListColumns<ResponseItem> {

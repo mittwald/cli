@@ -22,12 +22,6 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
   static aliases = ["project:backup:list"];
   static deprecateAliases = true;
 
-  protected mapData(
-    data: SuccessfulResponse<ListResponse, 200>["data"],
-  ): ListItem[] | Promise<ListItem[]> {
-    return data;
-  }
-
   public async getData(): Promise<ListResponse> {
     const projectId = await this.withProjectId(List);
     return await this.apiClient.backup.listProjectBackups({

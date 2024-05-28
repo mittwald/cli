@@ -39,13 +39,16 @@ export default class ListDateColumnFormatter {
     header = "Created at",
     fallback = "unknown",
     column = "createdAt" as const,
+    extended = false,
   }: {
     header?: string;
     fallback?: string;
     column?: TColumnName | "createdAt";
+    extended?: boolean;
   } = {}): Partial<Column<Record<string, unknown>>> {
     return {
       header,
+      extended,
       get: (row) =>
         row[column] ? this.renderDate(new Date(`${row[column]}`)) : fallback,
     };

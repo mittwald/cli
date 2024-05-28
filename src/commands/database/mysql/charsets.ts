@@ -24,13 +24,11 @@ export class Charsets extends ListBaseCommand<
     ...ListBaseCommand.baseFlags,
   };
 
+  protected sorter = (a: ResponseItem, b: ResponseItem) =>
+    a.name.localeCompare(b.name);
+
   public async getData(): Promise<Response> {
     return await this.apiClient.database.listMysqlCharsets({});
-  }
-
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    data.sort((a, b) => a.name.localeCompare(b.name));
-    return data;
   }
 
   protected getColumns(): ListColumns<ResponseItem> {

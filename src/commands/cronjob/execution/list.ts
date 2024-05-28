@@ -35,10 +35,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     return await this.apiClient.cronjob.listExecutions({ cronjobId });
   }
 
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
-  }
-
   protected getColumns(): ListColumns<ResponseItem> {
     return {
       id: {},

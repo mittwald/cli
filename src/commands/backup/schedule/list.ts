@@ -42,10 +42,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     });
   }
 
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
-  }
-
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
     const { id, createdAt } = super.getColumns(data);
     return {
