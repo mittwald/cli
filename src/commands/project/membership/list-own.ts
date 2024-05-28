@@ -1,7 +1,6 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
-import { formatRelativeDate } from "../../../rendering/textformat/formatDate.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import ListDateColumnFormatter from "../../../rendering/formatter/ListDateColumnFormatter.js";
 
