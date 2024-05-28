@@ -1,9 +1,9 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import React from "react";
 import {
   AppInstallationResult,
   AppInstaller,
-} from "../../../lib/app/Installer.js";
+} from "../../../lib/resources/app/Installer.js";
 
 const installer = new AppInstaller(
   "d3a465da-75a2-44ab-8e81-6960055f6255",
@@ -16,7 +16,6 @@ const installer = new AppInstaller(
     "admin-firstname",
     "admin-lastname",
     "site-title",
-    "wait",
   ] as const,
 );
 

@@ -1,5 +1,5 @@
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
-import { orgFlags, withOrgId } from "../../lib/org/flags.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
+import { orgFlags, withOrgId } from "../../lib/resources/org/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -10,10 +10,8 @@ import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-import {
-  expirationDateFromFlagsOptional,
-  expireFlags,
-} from "../../lib/expires.js";
+
+import { expireFlags } from "../../lib/flags/expireFlags.js";
 
 type MembershipCustomerRoles =
   MittwaldAPIV2.Components.Schemas.MembershipCustomerRoles;
@@ -31,7 +29,7 @@ const inviteFlags = {
   message: Flags.string({
     description: "A message to include in the invitation email.",
   }),
-  ...expireFlags("invitation"),
+  ...expireFlags("invitation", false),
 };
 
 export class Invite extends ExecRenderBaseCommand<
@@ -61,9 +59,7 @@ export class Invite extends ExecRenderBaseCommand<
           mailAddress: this.flags.email,
           role: this.flags.role as MembershipCustomerRoles,
           message: this.flags.message,
-          membershipExpiresAt: expirationDateFromFlagsOptional(
-            this.flags,
-          )?.toJSON(),
+          membershipExpiresAt: this.flags.expires?.toJSON(),
         },
       });
 

@@ -1,9 +1,9 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,
 } from "../../../rendering/process/process_flags.js";
-import { projectFlags } from "../../../lib/project/flags.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
 import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Flags } from "@oclif/core";

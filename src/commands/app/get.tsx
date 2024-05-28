@@ -1,10 +1,10 @@
-import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
+import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { ReactNode } from "react";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
-import { GetBaseCommand } from "../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import { AppInstallationDetails } from "../../rendering/react/components/AppInstallation/AppInstallationDetails.js";
-import { useApp, useAppInstallation } from "../../lib/app/hooks.js";
-import { appInstallationArgs } from "../../lib/app/flags.js";
+import { useApp, useAppInstallation } from "../../lib/resources/app/hooks.js";
+import { appInstallationArgs } from "../../lib/resources/app/flags.js";
 
 export default class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get details about an app installation";

@@ -1,6 +1,6 @@
 import { assertStatus } from "@mittwald/api-client-commons";
-import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
-import { orgArgs, withOrgId } from "../../lib/org/flags.js";
+import { DeleteBaseCommand } from "../../lib/basecommands/DeleteBaseCommand.js";
+import { orgArgs, withOrgId } from "../../lib/resources/org/flags.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete an organization";

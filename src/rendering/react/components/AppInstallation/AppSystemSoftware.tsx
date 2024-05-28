@@ -3,7 +3,7 @@ import { Header } from "../Header.js";
 import {
   useSystemSoftware,
   useSystemSoftwareVersion,
-} from "../../../../lib/app/hooks.js";
+} from "../../../../lib/resources/app/hooks.js";
 import { Value } from "../Value.js";
 import { SingleResult } from "../SingleResult.js";
 import { Text } from "ink";

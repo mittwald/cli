@@ -1,5 +1,5 @@
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
-import { appInstallationArgs } from "../../lib/app/flags.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
+import { appInstallationArgs } from "../../lib/resources/app/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -7,17 +7,17 @@ import {
 import { Flags } from "@oclif/core";
 import { Success } from "../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
-import { hasBinary } from "../../lib/hasbin.js";
-import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
+import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
-import { sshConnectionFlags } from "../../lib/ssh/flags.js";
-import { sshUsageDocumentation } from "../../lib/ssh/doc.js";
+import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
+import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import {
   filterFileToRsyncFlagsIfPresent,
   appInstallationSyncFlags,
   appInstallationSyncFlagsToRsyncFlags,
   filterFileDocumentation,
-} from "../../lib/app/sync.js";
+} from "../../lib/resources/app/sync.js";
+import { hasBinaryInPath } from "../../lib/util/fs/hasBinaryInPath.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static summary =
@@ -60,7 +60,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
     );
 
     await p.runStep("check if rsync is installed", async () => {
-      if (!(await hasBinary("rsync"))) {
+      if (!(await hasBinaryInPath("rsync"))) {
         throw new Error("this command requires rsync to be installed");
       }
     });

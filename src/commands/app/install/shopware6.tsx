@@ -1,9 +1,9 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import React from "react";
 import {
   AppInstallationResult,
   AppInstaller,
-} from "../../../lib/app/Installer.js";
+} from "../../../lib/resources/app/Installer.js";
 
 export const shopware6Installer = new AppInstaller(
   "12d54d05-7e55-4cf3-90c4-093516e0eaf8",
@@ -20,7 +20,6 @@ export const shopware6Installer = new AppInstaller(
     "shop-email",
     "shop-lang",
     "shop-currency",
-    "wait",
   ] as const,
 );
 

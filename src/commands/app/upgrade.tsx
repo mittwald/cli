@@ -1,9 +1,9 @@
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   appInstallationArgs,
   withAppInstallationId,
-} from "../../lib/app/flags.js";
-import { projectFlags } from "../../lib/project/flags.js";
+} from "../../lib/resources/app/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 import { Flags, ux } from "@oclif/core";
 import React, { ReactNode } from "react";
 import { Text } from "ink";
@@ -11,12 +11,12 @@ import {
   getAppFromUuid,
   getAppInstallationFromUuid,
   getAppVersionFromUuid,
-} from "../../lib/app/uuid.js";
+} from "../../lib/resources/app/uuid.js";
 import {
   getAllUpgradeCandidatesFromAppInstallationId,
   getAvailableTargetAppVersionFromExternalVersion,
   getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates,
-} from "../../lib/app/versions.js";
+} from "../../lib/resources/app/versions.js";
 import {
   makeProcessRenderer,
   ProcessFlags,
@@ -25,8 +25,9 @@ import {
 import { Success } from "../../rendering/react/components/Success.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { waitUntilAppStateHasNormalized } from "../../lib/app/wait.js";
+import { waitUntilAppStateHasNormalized } from "../../lib/resources/app/wait.js";
 import { assertStatus } from "@mittwald/api-client-commons";
+import { waitFlags } from "../../lib/wait.js";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
@@ -42,16 +43,13 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       description:
         "target version to upgrade app to; if omitted, target version will be prompted interactively",
     }),
-    wait: Flags.boolean({
-      description: "wait for the upgrade process to finish",
-      char: "w",
-    }),
     force: Flags.boolean({
       char: "f",
       description: "Do not ask for confirmation.",
     }),
     ...projectFlags,
     ...processFlags,
+    ...waitFlags,
   };
 
   protected async exec(): Promise<void> {
@@ -190,6 +188,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
         process,
         appInstallationId,
         "waiting for app upgrade to be done",
+        this.flags["wait-timeout"],
       );
       successText =
         "The upgrade finished successfully. Please check if everything is in its place. 🔎";

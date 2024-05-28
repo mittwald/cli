@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { projectFlags } from "../../../lib/project/flags.js";
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -13,6 +13,7 @@ import { ProcessRenderer } from "../../../rendering/process/process.js";
 import * as crypto from "crypto";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
+import ByteQuantity from "../../../lib/units/ByteQuantity.js";
 type CreateResult = {
   addressId: string;
   generatedPassword: string | null;
@@ -50,9 +51,9 @@ export default class Create extends ExecRenderBaseCommand<
       default: true,
       allowNo: true,
     }),
-    quota: Flags.integer({
-      description: "mailbox quota in mebibytes",
-      default: 1024,
+    quota: ByteQuantity.flag({
+      description: "mailbox quota",
+      default: ByteQuantity.fromString("1Gi"),
     }),
     password: Flags.string({
       summary: "mailbox password",

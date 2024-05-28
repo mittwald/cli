@@ -1,8 +1,7 @@
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
-import parseDuration from "parse-duration";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -11,9 +10,14 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import React from "react";
 import { Newline, Text } from "ink";
 import { Value } from "../../../rendering/react/components/Value.js";
+import { expireFlags } from "../../../lib/flags/expireFlags.js";
 
 type Roles =
   MittwaldAPIV2.Paths.V2UsersSelfApiTokens.Post.Parameters.RequestBody["roles"];
+
+const roleFlags = Flags.custom<Roles>({
+  options: ["api_read", "api_write"],
+});
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,
@@ -23,46 +27,29 @@ export default class Create extends ExecRenderBaseCommand<
 
   static flags = {
     ...processFlags,
+    ...expireFlags("API token", false),
     description: Flags.string({
-      description: "Description of the API token",
+      description: "description of the API token",
       required: true,
     }),
-    "expires-in": Flags.string({
-      description: "Expiration interval of the API token (example: 30d)",
-    }),
-    roles: Flags.string({
-      description: "Roles of the API token",
+    roles: roleFlags({
+      description: "roles of the API token",
       required: true,
       multiple: true,
-      options: ["api_read", "api_write"],
     }),
   };
 
-  private determineExpiration(input: string | undefined): Date | undefined {
-    if (input === undefined) {
-      return undefined;
-    }
-
-    const duration = parseDuration(input);
-    if (duration === undefined) {
-      throw new Error(`Could not parse duration ${input}`);
-    }
-
-    return new Date(Date.now() + duration);
-  }
-
   protected async exec(): Promise<{ token: string }> {
-    const { flags } = await this.parse(Create);
-    const process = makeProcessRenderer(flags, "Creating an API token");
-    const expiresAt = this.determineExpiration(flags["expires-in"]);
+    const process = makeProcessRenderer(this.flags, "Creating an API token");
+    const { description, roles, expires } = this.flags;
 
     const step = process.addStep("creating API token");
     try {
       const response = await this.apiClient.user.createApiToken({
         data: {
-          description: flags.description,
-          expiresAt: expiresAt?.toJSON(),
-          roles: flags.roles as Roles,
+          description,
+          expiresAt: expires?.toJSON(),
+          roles,
         },
       });
 

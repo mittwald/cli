@@ -1,4 +1,4 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 import { Args } from "@oclif/core";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
-import assertSuccess from "../../../lib/assert_success.js";
+import assertSuccess from "../../../lib/apiutil/assert_success.js";
 
 type Result = {
   executionId: string;

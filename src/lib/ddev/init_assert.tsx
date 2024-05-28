@@ -1,15 +1,15 @@
 import { ProcessRenderer } from "../../rendering/process/process.js";
-import { hasBinary } from "../hasbin.js";
 import React from "react";
 import { promisify } from "util";
 import { exec } from "child_process";
 import { Value } from "../../rendering/react/components/Value.js";
+import { hasBinaryInPath } from "../util/fs/hasBinaryInPath.js";
 
 const execAsync = promisify(exec);
 
 export async function assertDDEVIsInstalled(r: ProcessRenderer): Promise<void> {
   await r.runStep("check if DDEV is installed", async () => {
-    if (!(await hasBinary("ddev"))) {
+    if (!(await hasBinaryInPath("ddev"))) {
       throw new Error("this command requires DDEV to be installed");
     }
   });

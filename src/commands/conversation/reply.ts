@@ -1,20 +1,19 @@
-import { BaseCommand } from "../../BaseCommand.js";
-import { Args, ux } from "@oclif/core";
-import { normalizeConversationId } from "../../normalize_id.js";
+import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import {
   messageFlags,
   retrieveMessage,
-} from "../../lib/conversation/message_input.js";
+} from "../../lib/resources/conversation/message_input.js";
+import {
+  conversationArgs,
+  withConversationId,
+} from "../../lib/resources/conversation/flags.js";
+import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
+import { ux } from "@oclif/core";
 
-export default class Reply extends BaseCommand {
+export default class Reply extends ExtendedBaseCommand<typeof Reply> {
   static description = "Reply to a conversation";
-  static args = {
-    id: Args.string({
-      required: true,
-      description: "ID of the conversation to show",
-    }),
-  };
+  static args = { ...conversationArgs };
 
   static flags = {
     ...BaseCommand.baseFlags,
@@ -22,13 +21,15 @@ export default class Reply extends BaseCommand {
   };
 
   public async run(): Promise<void> {
-    const { args, flags } = await this.parse(Reply);
-    const conversationId = await normalizeConversationId(
+    const conversationId = await withConversationId(
       this.apiClient,
-      args.id,
+      Reply,
+      this.flags,
+      this.args,
+      this.config,
     );
 
-    const messageContent = await retrieveMessage(flags);
+    const messageContent = await retrieveMessage(this.flags);
 
     ux.action.start(`replying to ${conversationId}`);
 

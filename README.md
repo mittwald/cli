@@ -153,11 +153,11 @@ USAGE
 * [`mw context reset`](#mw-context-reset)
 * [`mw context set`](#mw-context-set)
 * [`mw conversation categories`](#mw-conversation-categories)
-* [`mw conversation close ID`](#mw-conversation-close-id)
+* [`mw conversation close [CONVERSATION-ID]`](#mw-conversation-close-conversation-id)
 * [`mw conversation create`](#mw-conversation-create)
 * [`mw conversation list`](#mw-conversation-list)
-* [`mw conversation reply ID`](#mw-conversation-reply-id)
-* [`mw conversation show ID`](#mw-conversation-show-id)
+* [`mw conversation reply [CONVERSATION-ID]`](#mw-conversation-reply-conversation-id)
+* [`mw conversation show [CONVERSATION-ID]`](#mw-conversation-show-conversation-id)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
 * [`mw cronjob create`](#mw-cronjob-create)
 * [`mw cronjob delete CRONJOB-ID`](#mw-cronjob-delete-cronjob-id)
@@ -275,7 +275,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
@@ -297,16 +297,18 @@ Creates new custom Node.js installation.
 
 ```
 USAGE
-  $ mw app create node [-p <value>] [-q] [--site-title <value>] [-w] [--entrypoint <value>]
+  $ mw app create node [-p <value>] [-q] [--site-title <value>] [-w] [--entrypoint <value>] [--wait-timeout <value>]
 
 FLAGS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
-  -w, --wait                wait for your custom Node.js to be ready.
-      --entrypoint=<value>  [default: yarn start] the command that should be used to start your custom Node.js
-                            application.
-      --site-title=<value>  site title for your custom Node.js installation.
+  -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
+                              context
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -w, --wait                  wait for the resource to be ready.
+      --entrypoint=<value>    [default: yarn start] the command that should be used to start your custom Node.js
+                              application.
+      --site-title=<value>    site title for your custom Node.js installation.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 DESCRIPTION
   Creates new custom Node.js installation.
@@ -341,16 +343,18 @@ Creates new custom PHP installation.
 
 ```
 USAGE
-  $ mw app create php --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w]
+  $ mw app create php --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
   -q, --quiet                  suppress process output and only display a machine-readable summary.
-  -w, --wait                   wait for your custom PHP to be ready.
+  -w, --wait                   wait for the resource to be ready.
       --document-root=<value>  (required) [default: /] the document root from which your custom PHP will be served
                                (relative to the installation path)
       --site-title=<value>     site title for your custom PHP installation.
+      --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
+                               'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new custom PHP installation.
@@ -387,16 +391,18 @@ Creates new custom python site installation.
 
 ```
 USAGE
-  $ mw app create python --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w]
+  $ mw app create python --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
   -q, --quiet                  suppress process output and only display a machine-readable summary.
-  -w, --wait                   wait for your custom python site to be ready.
+  -w, --wait                   wait for the resource to be ready.
       --document-root=<value>  (required) [default: /] the document root from which your custom python site will be
                                served (relative to the installation path)
       --site-title=<value>     site title for your custom python site installation.
+      --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
+                               'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new custom python site installation.
@@ -433,16 +439,18 @@ Creates new custom static site installation.
 
 ```
 USAGE
-  $ mw app create static --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w]
+  $ mw app create static --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
   -q, --quiet                  suppress process output and only display a machine-readable summary.
-  -w, --wait                   wait for your custom static site to be ready.
+  -w, --wait                   wait for the resource to be ready.
       --document-root=<value>  (required) [default: /] the document root from which your custom static site will be
                                served (relative to the installation path)
       --site-title=<value>     site title for your custom static site installation.
+      --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
+                               'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new custom static site installation.
@@ -506,7 +514,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
@@ -570,7 +578,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary.
@@ -633,7 +641,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -651,12 +659,13 @@ Creates new Contao installation.
 USAGE
   $ mw app install contao --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
     <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-  -w, --wait                     wait for your Contao to be ready.
+  -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
       --admin-lastname=<value>   Lastname of your administrator user.
@@ -666,6 +675,8 @@ FLAGS
                                  separately.
       --site-title=<value>       site title for your Contao installation.
       --version=<value>          (required) [default: latest] version of Contao to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new Contao installation.
@@ -738,19 +749,21 @@ Creates new Drupal installation.
 ```
 USAGE
   $ mw app install drupal --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 wait for your Drupal to be ready.
-      --admin-email=<value>  email address of your administrator user.
-      --admin-pass=<value>   password of your administrator user.
-      --admin-user=<value>   Username for your administrator user.
-      --host=<value>         host to initially configure your Drupal installation with; needs to be created separately.
-      --site-title=<value>   site title for your Drupal installation.
-      --version=<value>      (required) [default: latest] version of Drupal to be installed.
+  -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
+                              context
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -w, --wait                  wait for the resource to be ready.
+      --admin-email=<value>   email address of your administrator user.
+      --admin-pass=<value>    password of your administrator user.
+      --admin-user=<value>    Username for your administrator user.
+      --host=<value>          host to initially configure your Drupal installation with; needs to be created separately.
+      --site-title=<value>    site title for your Drupal installation.
+      --version=<value>       (required) [default: latest] version of Drupal to be installed.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 DESCRIPTION
   Creates new Drupal installation.
@@ -812,12 +825,13 @@ Creates new Grav installation.
 USAGE
   $ mw app install grav --version <value> [-p <value>] [-q] [--admin-user <value>] [--admin-email <value>]
     [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-  -w, --wait                     wait for your Grav to be ready.
+  -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
       --admin-lastname=<value>   Lastname of your administrator user.
@@ -825,6 +839,8 @@ FLAGS
       --admin-user=<value>       Username for your administrator user.
       --site-title=<value>       site title for your Grav installation.
       --version=<value>          (required) [default: latest] version of Grav to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new Grav installation.
@@ -891,12 +907,13 @@ Creates new Joomla! installation.
 USAGE
   $ mw app install joomla --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
     <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-  -w, --wait                     wait for your Joomla! to be ready.
+  -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
       --admin-lastname=<value>   Lastname of your administrator user.
@@ -906,6 +923,8 @@ FLAGS
                                  separately.
       --site-title=<value>       site title for your Joomla! installation.
       --version=<value>          (required) [default: latest] version of Joomla! to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new Joomla! installation.
@@ -978,19 +997,21 @@ Creates new Matomo installation.
 ```
 USAGE
   $ mw app install matomo --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 wait for your Matomo to be ready.
-      --admin-email=<value>  email address of your administrator user.
-      --admin-pass=<value>   password of your administrator user.
-      --admin-user=<value>   Username for your administrator user.
-      --host=<value>         host to initially configure your Matomo installation with; needs to be created separately.
-      --site-title=<value>   site title for your Matomo installation.
-      --version=<value>      (required) [default: latest] version of Matomo to be installed.
+  -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
+                              context
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -w, --wait                  wait for the resource to be ready.
+      --admin-email=<value>   email address of your administrator user.
+      --admin-pass=<value>    password of your administrator user.
+      --admin-user=<value>    Username for your administrator user.
+      --host=<value>          host to initially configure your Matomo installation with; needs to be created separately.
+      --site-title=<value>    site title for your Matomo installation.
+      --version=<value>       (required) [default: latest] version of Matomo to be installed.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 DESCRIPTION
   Creates new Matomo installation.
@@ -1051,19 +1072,21 @@ Creates new Moodle installation.
 ```
 USAGE
   $ mw app install moodle --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 wait for your Moodle to be ready.
-      --admin-email=<value>  email address of your administrator user.
-      --admin-pass=<value>   password of your administrator user.
-      --admin-user=<value>   Username for your administrator user.
-      --host=<value>         host to initially configure your Moodle installation with; needs to be created separately.
-      --site-title=<value>   site title for your Moodle installation.
-      --version=<value>      (required) [default: latest] version of Moodle to be installed.
+  -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
+                              context
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -w, --wait                  wait for the resource to be ready.
+      --admin-email=<value>   email address of your administrator user.
+      --admin-pass=<value>    password of your administrator user.
+      --admin-user=<value>    Username for your administrator user.
+      --host=<value>          host to initially configure your Moodle installation with; needs to be created separately.
+      --site-title=<value>    site title for your Moodle installation.
+      --version=<value>       (required) [default: latest] version of Moodle to be installed.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 DESCRIPTION
   Creates new Moodle installation.
@@ -1124,19 +1147,21 @@ Creates new NEOS installation.
 ```
 USAGE
   $ mw app install neos --version <value> [-p <value>] [-q] [--admin-user <value>] [--admin-pass <value>]
-    [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
+    [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-  -w, --wait                     wait for your NEOS to be ready.
+  -w, --wait                     wait for the resource to be ready.
       --admin-firstname=<value>  first name of your administrator user.
       --admin-lastname=<value>   Lastname of your administrator user.
       --admin-pass=<value>       password of your administrator user.
       --admin-user=<value>       Username for your administrator user.
       --site-title=<value>       site title for your NEOS installation.
       --version=<value>          (required) [default: latest] version of NEOS to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new NEOS installation.
@@ -1196,20 +1221,22 @@ Creates new Nextcloud installation.
 ```
 USAGE
   $ mw app install nextcloud --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 wait for your Nextcloud to be ready.
-      --admin-email=<value>  email address of your administrator user.
-      --admin-pass=<value>   password of your administrator user.
-      --admin-user=<value>   Username for your administrator user.
-      --host=<value>         host to initially configure your Nextcloud installation with; needs to be created
-                             separately.
-      --site-title=<value>   site title for your Nextcloud installation.
-      --version=<value>      (required) [default: latest] version of Nextcloud to be installed.
+  -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
+                              context
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -w, --wait                  wait for the resource to be ready.
+      --admin-email=<value>   email address of your administrator user.
+      --admin-pass=<value>    password of your administrator user.
+      --admin-user=<value>    Username for your administrator user.
+      --host=<value>          host to initially configure your Nextcloud installation with; needs to be created
+                              separately.
+      --site-title=<value>    site title for your Nextcloud installation.
+      --version=<value>       (required) [default: latest] version of Nextcloud to be installed.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 DESCRIPTION
   Creates new Nextcloud installation.
@@ -1271,12 +1298,13 @@ Creates new PrestaShop installation.
 USAGE
   $ mw app install prestashop --version <value> [-p <value>] [-q] [--host <value>] [--admin-email <value>] [--admin-pass
     <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [--shop-lang <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-  -w, --wait                     wait for your PrestaShop to be ready.
+  -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
       --admin-lastname=<value>   Lastname of your administrator user.
@@ -1286,6 +1314,8 @@ FLAGS
       --shop-lang=<value>        language your PrestaShop will be working with.
       --site-title=<value>       site title for your PrestaShop installation.
       --version=<value>          (required) [default: latest] version of PrestaShop to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new PrestaShop installation.
@@ -1360,13 +1390,13 @@ Creates new Shopware 5 installation.
 USAGE
   $ mw app install shopware5 --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
     <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>]
-    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w]
+    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-  -w, --wait                     wait for your Shopware 5 to be ready.
+  -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
       --admin-lastname=<value>   Lastname of your administrator user.
@@ -1379,6 +1409,8 @@ FLAGS
       --shop-lang=<value>        language your Shopware 5 will be working with.
       --site-title=<value>       site title for your Shopware 5 installation.
       --version=<value>          (required) [default: latest] version of Shopware 5 to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new Shopware 5 installation.
@@ -1470,13 +1502,13 @@ Creates new Shopware 6 installation.
 USAGE
   $ mw app install shopware6 --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
     <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>]
-    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w]
+    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-  -w, --wait                     wait for your Shopware 6 to be ready.
+  -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
       --admin-lastname=<value>   Lastname of your administrator user.
@@ -1489,6 +1521,8 @@ FLAGS
       --shop-lang=<value>        language your Shopware 6 will be working with.
       --site-title=<value>       site title for your Shopware 6 installation.
       --version=<value>          (required) [default: latest] version of Shopware 6 to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new Shopware 6 installation.
@@ -1579,13 +1613,14 @@ Creates new TYPO3 installation.
 ```
 USAGE
   $ mw app install typo3 --version <value> --install-mode composer|symlink [-p <value>] [-q] [--host <value>]
-    [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+    [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout
+    <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
   -q, --quiet                  suppress process output and only display a machine-readable summary.
-  -w, --wait                   wait for your TYPO3 to be ready.
+  -w, --wait                   wait for the resource to be ready.
       --admin-email=<value>    email address of your administrator user.
       --admin-pass=<value>     password of your administrator user.
       --admin-user=<value>     Username for your administrator user.
@@ -1594,6 +1629,8 @@ FLAGS
                                <options: composer|symlink>
       --site-title=<value>     site title for your TYPO3 installation.
       --version=<value>        (required) [default: latest] version of TYPO3 to be installed.
+      --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
+                               'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Creates new TYPO3 installation.
@@ -1660,20 +1697,22 @@ Creates new WordPress installation.
 ```
 USAGE
   $ mw app install wordpress --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-  -w, --wait                 wait for your WordPress to be ready.
-      --admin-email=<value>  email address of your administrator user.
-      --admin-pass=<value>   password of your administrator user.
-      --admin-user=<value>   Username for your administrator user.
-      --host=<value>         host to initially configure your WordPress installation with; needs to be created
-                             separately.
-      --site-title=<value>   site title for your WordPress installation.
-      --version=<value>      (required) [default: latest] version of WordPress to be installed.
+  -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
+                              context
+  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -w, --wait                  wait for the resource to be ready.
+      --admin-email=<value>   email address of your administrator user.
+      --admin-pass=<value>    password of your administrator user.
+      --admin-user=<value>    Username for your administrator user.
+      --host=<value>          host to initially configure your WordPress installation with; needs to be created
+                              separately.
+      --site-title=<value>    site title for your WordPress installation.
+      --version=<value>       (required) [default: latest] version of WordPress to be installed.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 DESCRIPTION
   Creates new WordPress installation.
@@ -1769,7 +1808,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -o, --output=<option>    [default: txt] output in a more machine friendly format
@@ -1795,7 +1834,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   --[no-]cd  change to installation path after connecting
@@ -1844,7 +1883,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -1866,20 +1905,23 @@ Upgrade app installation to target version
 
 ```
 USAGE
-  $ mw app upgrade [INSTALLATION-ID] [--target-version <value>] [-w] [-f] [-p <value>] [-q]
+  $ mw app upgrade [INSTALLATION-ID] [--target-version <value>] [-f] [-p <value>] [-q] [-w] [--wait-timeout
+    <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -f, --force                   Do not ask for confirmation.
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
                                 context
   -q, --quiet                   suppress process output and only display a machine-readable summary.
-  -w, --wait                    wait for the upgrade process to finish
+  -w, --wait                    wait for the resource to be ready.
       --target-version=<value>  target version to upgrade app to; if omitted, target version will be prompted
                                 interactively
+      --wait-timeout=<value>    [default: 600s] the duration to wait for the resource to be ready (common units like
+                                'ms', 's', 'm' are accepted).
 
 DESCRIPTION
   Upgrade app installation to target version
@@ -1907,7 +1949,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary.
@@ -2021,10 +2063,11 @@ FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary.
-  -w, --wait                  Wait for the resource to be ready.
+  -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
-      --expires=<value>       (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
-      --wait-timeout=<value>  [default: 600] The number of seconds to wait for the resource to be ready.
+      --expires=<value>       (required) an interval after which the backup expires (examples: 30m, 30d, 1y).
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 ALIASES
   $ mw project backup create
@@ -2050,7 +2093,7 @@ USAGE
   $ mw backup delete BACKUP-ID [-q] [-f]
 
 ARGUMENTS
-  BACKUP-ID  The ID of the Backup to show.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -2079,7 +2122,7 @@ USAGE
     --prompt-password] [--resume --output <value>]
 
 ARGUMENTS
-  BACKUP-ID  the ID of the Backup to download.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -q, --quiet              suppress process output and only display a machine-readable summary.
@@ -2119,21 +2162,21 @@ FLAG DESCRIPTIONS
 
 ## `mw backup get BACKUP-ID`
 
-show details of a backup.
+Show details of a backup.
 
 ```
 USAGE
   $ mw backup get BACKUP-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  BACKUP-ID  The ID of the Backup to show.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  show details of a backup.
+  Show details of a backup.
 
 ALIASES
   $ mw project backup get
@@ -2285,16 +2328,17 @@ DESCRIPTION
   Get all conversation categories.
 ```
 
-## `mw conversation close ID`
+## `mw conversation close [CONVERSATION-ID]`
 
 Close a conversation
 
 ```
 USAGE
-  $ mw conversation close ID
+  $ mw conversation close [CONVERSATION-ID]
 
 ARGUMENTS
-  ID  ID of the conversation to show
+  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
+                   context.
 
 DESCRIPTION
   Close a conversation
@@ -2347,16 +2391,17 @@ DESCRIPTION
   Get all conversations the authenticated user has created or has access to.
 ```
 
-## `mw conversation reply ID`
+## `mw conversation reply [CONVERSATION-ID]`
 
 Reply to a conversation
 
 ```
 USAGE
-  $ mw conversation reply ID [--message <value> | --message-from <value>] [--editor <value>]
+  $ mw conversation reply [CONVERSATION-ID] [--message <value> | --message-from <value>] [--editor <value>]
 
 ARGUMENTS
-  ID  ID of the conversation to show
+  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
+                   context.
 
 FLAGS
   --editor=<value>        [default: vim] The editor to use when opening the message for editing; will respect your
@@ -2370,16 +2415,17 @@ DESCRIPTION
   Reply to a conversation
 ```
 
-## `mw conversation show ID`
+## `mw conversation show [CONVERSATION-ID]`
 
 Show a conversation and message history
 
 ```
 USAGE
-  $ mw conversation show ID
+  $ mw conversation show [CONVERSATION-ID]
 
 ARGUMENTS
-  ID  ID of the conversation to show
+  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
+                   context.
 
 DESCRIPTION
   Show a conversation and message history
@@ -2405,7 +2451,7 @@ Create a new cron job
 ```
 USAGE
   $ mw cronjob create --description <value> --interval <value> [-i <value>] [-q] [--disable] [--email <value>]
-    [--url <value> | --command <value>] [--interpreter <value>]
+    [--url <value> | --command <value>] [--interpreter <value>] [--timeout <value>]
 
 FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
@@ -2417,6 +2463,8 @@ FLAGS
       --email=<value>            Email address to send cron job output to
       --interpreter=<value>      [default: /bin/sh] Interpreter to use for the cron job
       --interval=<value>         (required) Interval of the cron job, in standard UNIX cron syntax
+      --timeout=<value>          [default: 3600s] timeout for the cron job; common duration formats are supported (for
+                                 example, '1h', '30m', '30s')
       --url=<value>              URL to call for the cron job; either this or `--command` is required.
 
 FLAG DESCRIPTIONS
@@ -3346,7 +3394,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
@@ -3426,7 +3474,7 @@ USAGE
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context
+                   in the context.
 
 FLAGS
   --database-id=<value>     ID of the application database
@@ -3837,7 +3885,7 @@ FLAGS
       --[no-]enable-spam-protection  enable spam protection for this mailbox
       --forward-to=<value>...        forward mail to other addresses
       --password=<value>             mailbox password
-      --quota=<value>                [default: 1024] mailbox quota in mebibytes
+      --quota=<value>                [default: 1GiB] mailbox quota
       --random-password              generate a random password
 
 DESCRIPTION
@@ -4110,7 +4158,7 @@ USAGE
   $ mw org delete [ORG-ID] [-q] [-f]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context
+  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -4135,7 +4183,7 @@ USAGE
   $ mw org get [ORG-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context
+  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -4158,7 +4206,7 @@ FLAGS
   -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
   -q, --quiet            suppress process output and only display a machine-readable summary.
       --email=<value>    (required) The email address of the user to invite.
-      --expires=<value>  An interval after which the invitation expires (examples: 30m, 30d, 1y).
+      --expires=<value>  an interval after which the invitation expires (examples: 30m, 30d, 1y).
       --message=<value>  A message to include in the invitation email.
       --role=<option>    [default: member] The role of the user to invite.
                          <options: owner|member|accountant>
@@ -4367,10 +4415,11 @@ FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary.
-  -w, --wait                  Wait for the resource to be ready.
+  -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
-      --expires=<value>       (required) An interval after which the backup expires (examples: 30m, 30d, 1y).
-      --wait-timeout=<value>  [default: 600] The number of seconds to wait for the resource to be ready.
+      --expires=<value>       (required) an interval after which the backup expires (examples: 30m, 30d, 1y).
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 ALIASES
   $ mw project backup create
@@ -4396,7 +4445,7 @@ USAGE
   $ mw project backup delete BACKUP-ID [-q] [-f]
 
 ARGUMENTS
-  BACKUP-ID  The ID of the Backup to show.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -4425,7 +4474,7 @@ USAGE
     --prompt-password] [--resume --output <value>]
 
 ARGUMENTS
-  BACKUP-ID  the ID of the Backup to download.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -q, --quiet              suppress process output and only display a machine-readable summary.
@@ -4465,21 +4514,21 @@ FLAG DESCRIPTIONS
 
 ## `mw project backup get BACKUP-ID`
 
-show details of a backup.
+Show details of a backup.
 
 ```
 USAGE
   $ mw project backup get BACKUP-ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  BACKUP-ID  The ID of the Backup to show.
+  BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
                          <options: json|yaml>
 
 DESCRIPTION
-  show details of a backup.
+  Show details of a backup.
 
 ALIASES
   $ mw project backup get
@@ -4566,9 +4615,10 @@ FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary.
   -s, --server-id=<value>     ID or short ID of a server; this flag is optional if a default server is set in the
                               context
-  -w, --wait                  Wait for the resource to be ready.
+  -w, --wait                  wait for the resource to be ready.
       --update-context        Update the CLI context to use the newly created project
-      --wait-timeout=<value>  [default: 600] The number of seconds to wait for the resource to be ready.
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
 
 DESCRIPTION
   Create a new project
@@ -4706,7 +4756,7 @@ USAGE
   $ mw project delete [PROJECT-ID] [-q] [-f]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -4731,7 +4781,7 @@ USAGE
   $ mw project filesystem usage [PROJECT-ID] [-o json|yaml |  | ] [--human]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -4751,7 +4801,7 @@ USAGE
   $ mw project get [PROJECT-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -4997,7 +5047,7 @@ USAGE
   $ mw project ssh [PROJECT-ID] [--ssh-user <value>] [--ssh-identity-file <value>]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -5074,7 +5124,7 @@ USAGE
   $ mw project update [PROJECT-ID]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context
+  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 DESCRIPTION
   Updates a project
@@ -5089,7 +5139,7 @@ USAGE
   $ mw server get [SERVER-ID] [-o json|yaml |  | ]
 
 ARGUMENTS
-  SERVER-ID  ID or short ID of a server; this argument is optional if a default server is set in the context
+  SERVER-ID  ID or short ID of a server; this argument is optional if a default server is set in the context.
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -5283,13 +5333,13 @@ Create a new API token
 
 ```
 USAGE
-  $ mw user api-token create --description <value> --roles api_read|api_write [-q] [--expires-in <value>]
+  $ mw user api-token create --description <value> --roles api_read|api_write [-q] [--expires <value>]
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
-      --description=<value>  (required) Description of the API token
-      --expires-in=<value>   Expiration interval of the API token (example: 30d)
-      --roles=<option>...    (required) Roles of the API token
+      --description=<value>  (required) description of the API token
+      --expires=<value>      an interval after which the API token expires (examples: 30m, 30d, 1y).
+      --roles=<option>...    (required) roles of the API token
                              <options: api_read|api_write>
 
 DESCRIPTION
@@ -5442,7 +5492,7 @@ USAGE
 FLAGS
   -q, --quiet            suppress process output and only display a machine-readable summary.
       --comment=<value>  A comment for the SSH key.
-      --expires=<value>  An interval after which the SSH key expires (examples: 30m, 30d, 1y).
+      --expires=<value>  an interval after which the SSH key expires (examples: 30m, 30d, 1y).
       --no-passphrase    Use this flag to not set a passphrase for the SSH key.
       --output=<value>   [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
 
@@ -5510,7 +5560,7 @@ USAGE
 
 FLAGS
   -q, --quiet            suppress process output and only display a machine-readable summary.
-      --expires=<value>  An interval after which the SSH key expires (examples: 30m, 30d, 1y).
+      --expires=<value>  an interval after which the SSH key expires (examples: 30m, 30d, 1y).
       --input=<value>    [default: id_rsa.pub] A filename in your ~/.ssh directory containing the key to import.
 
 DESCRIPTION

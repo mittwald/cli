@@ -1,13 +1,11 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListColumns } from "../../../Formatter.js";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
+import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
+import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { Flags } from "@oclif/core";
-import {
-  formatRelativeDate,
-  optionalDateRenderer,
-} from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../../rendering/textformat/formatDate.js";
+import maybe from "../../../lib/util/maybe.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2CronjobsCronjobIdExecutions.Get.Responses.$200.Content.ApplicationJson[number]
@@ -52,10 +50,10 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
             : "",
       },
       started: {
-        get: (r) => optionalDateRenderer(formatRelativeDate)(r.executionStart),
+        get: (r) => maybe(formatRelativeDate)(r.executionStart),
       },
       ended: {
-        get: (r) => optionalDateRenderer(formatRelativeDate)(r.executionEnd),
+        get: (r) => maybe(formatRelativeDate)(r.executionEnd),
       },
     };
   }

@@ -1,9 +1,9 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import React from "react";
 import {
   AppInstallationResult,
   AppInstaller,
-} from "../../../lib/app/Installer.js";
+} from "../../../lib/resources/app/Installer.js";
 
 export const prestashopInstaller = new AppInstaller(
   "3a231de7-6fd2-4aab-9948-45906952752f",
@@ -17,7 +17,6 @@ export const prestashopInstaller = new AppInstaller(
     "admin-lastname",
     "site-title",
     "shop-lang",
-    "wait",
   ] as const,
 );
 

@@ -1,4 +1,4 @@
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -8,7 +8,8 @@ import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-import { appInstallationFlags } from "../../lib/app/flags.js";
+import { appInstallationFlags } from "../../lib/resources/app/flags.js";
+import Duration from "../../lib/units/Duration.js";
 
 type Result = {
   cronjobId: string;
@@ -57,14 +58,28 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       default: undefined,
       exclusive: ["url"],
     }),
+    timeout: Duration.relativeFlag({
+      summary:
+        "timeout for the cron job; common duration formats are supported (for example, '1h', '30m', '30s')",
+      default: Duration.fromString("1h"),
+      required: false,
+    }),
   };
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Creating a new cron job");
     const appInstallationId = await this.withAppInstallationId(Create);
 
-    const { description, interval, disable, email, url, interpreter, command } =
-      this.flags;
+    const {
+      description,
+      interval,
+      disable,
+      email,
+      url,
+      interpreter,
+      command,
+      timeout,
+    } = this.flags;
 
     if (!url && !command) {
       throw new Error("either `--url` or `--command` must be specified");
@@ -92,7 +107,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
           interval,
           email,
           destination: url ? { url } : { interpreter, path: command },
-          timeout: 3600,
+          timeout: timeout.seconds,
         },
       });
 

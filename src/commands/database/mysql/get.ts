@@ -1,6 +1,9 @@
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../../GetBaseCommand.js";
-import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
+import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
+import {
+  mysqlArgs,
+  withMySQLId,
+} from "../../../lib/resources/database/mysql/flags.js";
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2MysqlDatabasesMysqlDatabaseId.Get.Parameters.Path;

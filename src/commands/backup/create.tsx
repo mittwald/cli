@@ -1,19 +1,16 @@
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/process/process_flags.js";
-import { projectFlags } from "../../lib/project/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 import React, { ReactNode } from "react";
 import { Flags } from "@oclif/core";
-import {
-  expirationDateFromFlags,
-  expireFlagsRequired,
-} from "../../lib/expires.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
 import { Text } from "ink";
+import { expireFlags } from "../../lib/flags/expireFlags.js";
 
 type CreateResult = {
   backupId: string;
@@ -27,7 +24,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
     description: Flags.string({
       description: "a description for the backup.",
     }),
-    ...expireFlagsRequired("backup"),
+    ...expireFlags("backup", true),
     ...waitFlags,
   };
 
@@ -37,15 +34,14 @@ export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
   protected async exec(): Promise<CreateResult> {
     const p = makeProcessRenderer(this.flags, "Creating backup");
     const projectId = await this.withProjectId(Create);
-    const { description } = this.flags;
-    const expirationTime = expirationDateFromFlags(this.flags);
+    const { description, expires } = this.flags;
 
     const backup = await p.runStep("creating backup", async () => {
       const r = await this.apiClient.backup.createProjectBackup({
         projectId,
         data: {
           description,
-          expirationTime: expirationTime.toJSON(),
+          expirationTime: expires.toJSON(),
         },
       });
 

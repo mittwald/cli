@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { usePromise } from "@mittwald/react-use-promise";
-import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
+import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { useRenderContext } from "../../rendering/react/context.js";
 import { UsePromiseRenderSetup } from "../../rendering/setup/usePromiseSetup.js";
 import { Box } from "ink";

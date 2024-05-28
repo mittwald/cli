@@ -1,9 +1,12 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListColumns } from "../../../Formatter.js";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { projectFlags, withProjectId } from "../../../lib/project/flags.js";
+import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
+import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
+import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
+import {
+  projectFlags,
+  withProjectId,
+} from "../../../lib/resources/project/flags.js";
 
 type BackupProjectBackupSchedule =
   MittwaldAPIV2.Components.Schemas.BackupProjectBackupSchedule;
@@ -36,9 +39,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     );
     return await this.apiClient.backup.listProjectBackupSchedules({
       projectId,
-    } as Parameters<
-      typeof this.apiClient.backup.listProjectBackupSchedules
-    >[0]);
+    });
   }
 
   protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {

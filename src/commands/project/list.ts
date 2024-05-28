@@ -1,12 +1,12 @@
 import { Simplify } from "@mittwald/api-client-commons";
-import { ListColumns } from "../../Formatter.js";
+import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
 import {
   MittwaldAPIV2,
   MittwaldAPIV2Client,
   MittwaldAPIV2Client as MittwaldAPIClient,
 } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../types.js";
-import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
+import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 
 type ProjectResponse = Awaited<
   ReturnType<MittwaldAPIClient["project"]["listProjects"]>

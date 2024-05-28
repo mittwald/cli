@@ -1,11 +1,14 @@
 import * as child_process from "child_process";
-import { appInstallationArgs } from "../../lib/app/flags.js";
+import { appInstallationArgs } from "../../lib/resources/app/flags.js";
 import { Flags } from "@oclif/core";
-import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
-import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
-import { SSHConnectionFlags, sshConnectionFlags } from "../../lib/ssh/flags.js";
-import { sshWrapperDocumentation } from "../../lib/ssh/doc.js";
-import { buildSSHClientFlags } from "../../lib/ssh/connection.js";
+import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
+import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
+import {
+  SSHConnectionFlags,
+  sshConnectionFlags,
+} from "../../lib/resources/ssh/flags.js";
+import { sshWrapperDocumentation } from "../../lib/resources/ssh/doc.js";
+import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static summary = "Connect to an app via SSH";

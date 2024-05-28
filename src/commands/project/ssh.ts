@@ -1,9 +1,9 @@
 import * as child_process from "child_process";
-import { projectArgs } from "../../lib/project/flags.js";
-import { ExtendedBaseCommand } from "../../ExtendedBaseCommand.js";
-import { sshConnectionFlags } from "../../lib/ssh/flags.js";
-import { getSSHConnectionForProject } from "../../lib/ssh/project.js";
-import { sshWrapperDocumentation } from "../../lib/ssh/doc.js";
+import { projectArgs } from "../../lib/resources/project/flags.js";
+import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
+import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
+import { getSSHConnectionForProject } from "../../lib/resources/ssh/project.js";
+import { sshWrapperDocumentation } from "../../lib/resources/ssh/doc.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static summary = "Connect to a project via SSH";

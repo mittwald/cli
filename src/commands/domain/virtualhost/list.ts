@@ -1,10 +1,10 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
+import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { Flags } from "@oclif/core";
-import { ListColumns } from "../../../Formatter.js";
-import { projectFlags } from "../../../lib/project/flags.js";
+import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Ingresses.Get.Responses.$200.Content.ApplicationJson[number]

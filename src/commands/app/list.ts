@@ -1,11 +1,17 @@
 import { assertStatus, Simplify } from "@mittwald/api-client-commons";
-import { projectFlags, withProjectId } from "../../lib/project/flags.js";
-import { ListBaseCommand } from "../../ListBaseCommand.js";
+import {
+  projectFlags,
+  withProjectId,
+} from "../../lib/resources/project/flags.js";
+import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../types.js";
-import { ListColumns } from "../../Formatter.js";
-import { getAppFromUuid, getAppVersionFromUuid } from "../../lib/app/uuid.js";
-import { isCustomAppInstallation } from "../../lib/app/custom_installation.js";
+import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
+import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
+import {
+  getAppFromUuid,
+  getAppVersionFromUuid,
+} from "../../lib/resources/app/uuid.js";
+import { isCustomAppInstallation } from "../../lib/resources/app/custom_installation.js";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;

@@ -1,5 +1,5 @@
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
-import { appInstallationArgs } from "../../lib/app/flags.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
+import { appInstallationArgs } from "../../lib/resources/app/flags.js";
 import React from "react";
 import {
   makeProcessRenderer,
@@ -20,7 +20,6 @@ import { ddevFlags } from "../../lib/ddev/flags.js";
 import { compareSemVer } from "semver-parser";
 import { assertStatus, type MittwaldAPIV2 } from "@mittwald/api-client";
 import { readApiToken } from "../../lib/auth/token.js";
-import { isNotFound } from "../../lib/fsutil.js";
 import { dump, load } from "js-yaml";
 import { determineDDEVDatabaseId } from "../../lib/ddev/init_database.js";
 import {
@@ -31,6 +30,7 @@ import {
   DDEVProjectType,
   determineProjectType,
 } from "../../lib/ddev/init_projecttype.js";
+import { isNotFound } from "../../lib/util/fs/isNotFound.js";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 

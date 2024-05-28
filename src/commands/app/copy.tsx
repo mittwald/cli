@@ -1,5 +1,5 @@
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
-import { appInstallationArgs } from "../../lib/app/flags.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
+import { appInstallationArgs } from "../../lib/resources/app/flags.js";
 import {
   makeProcessRenderer,
   processFlags,

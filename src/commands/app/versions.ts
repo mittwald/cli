@@ -1,12 +1,12 @@
-import { BaseCommand } from "../../BaseCommand.js";
+import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import { Args } from "@oclif/core";
-import { isUuid } from "../../normalize_id.js";
 import { assertStatus } from "@mittwald/api-client-commons";
+import { validate as validateUuid } from "uuid";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import {
   getAppNameFromUuid,
   getAppUuidFromAppName,
-} from "../../lib/app/uuid.js";
+} from "../../lib/resources/app/uuid.js";
 
 export default class AppVersions extends BaseCommand {
   static description = "List supported Apps and Versions";
@@ -20,11 +20,11 @@ export default class AppVersions extends BaseCommand {
   async run(): Promise<void> {
     const { args } = await this.parse(AppVersions);
 
-    const AppUuidsToGetVersionsFor = args.app
-      ? await this.getApp(this.apiClient, args.app)
+    const appUuidsToGetVersionsFor = args.app
+      ? [await this.getApp(this.apiClient, args.app)]
       : await this.getAllApps(this.apiClient);
 
-    for (const appUuid of AppUuidsToGetVersionsFor) {
+    for (const appUuid of appUuidsToGetVersionsFor) {
       console.log(
         `Available ${await getAppNameFromUuid(
           this.apiClient,
@@ -39,14 +39,10 @@ export default class AppVersions extends BaseCommand {
   protected async getApp(
     apiClient: MittwaldAPIV2Client,
     appId: string,
-  ): Promise<string[]> {
-    let appUuid: string;
-    if (isUuid(appId)) {
-      appUuid = appId;
-    } else {
-      appUuid = await getAppUuidFromAppName(apiClient, appId);
-    }
-    return [appUuid];
+  ): Promise<string> {
+    return validateUuid(appId)
+      ? appId
+      : await getAppUuidFromAppName(apiClient, appId);
   }
 
   protected async getAllApps(
@@ -55,13 +51,7 @@ export default class AppVersions extends BaseCommand {
     const apps = await apiClient.app.listApps();
     assertStatus(apps, 200);
 
-    const appUuids: string[] = [];
-
-    for (const app of apps.data) {
-      appUuids.push(app.id);
-    }
-
-    return appUuids;
+    return apps.data.map((app) => app.id);
   }
 
   protected async outputVersionsForAppUuid(

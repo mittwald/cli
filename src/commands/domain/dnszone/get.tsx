@@ -1,10 +1,10 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../../GetBaseCommand.js";
-import { RenderBaseCommand } from "../../../rendering/react/RenderBaseCommand.js";
+import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
+import { RenderBaseCommand } from "../../../lib/basecommands/RenderBaseCommand.js";
 import {
   dnsZoneArgs,
   withDnsZoneId,
-} from "../../../lib/domain/dnszone/flags.js";
+} from "../../../lib/resources/domain/dnszone/flags.js";
 import React from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { usePromise } from "@mittwald/react-use-promise";

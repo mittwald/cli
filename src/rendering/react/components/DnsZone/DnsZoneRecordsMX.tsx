@@ -2,7 +2,7 @@ import { RecordComponent } from "./RecordComponent.js";
 import {
   isCustomMXRecord,
   isManagedMXRecord,
-} from "../../../../lib/domain/dnszone/records.js";
+} from "../../../../lib/resources/domain/dnszone/records.js";
 import { RecordSetManagedByMittwald } from "./RecordSetManagedByMittwald.js";
 import { Value } from "../Value.js";
 import React from "react";

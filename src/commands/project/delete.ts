@@ -1,6 +1,6 @@
-import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
-import { projectArgs } from "../../lib/project/flags.js";
-import assertSuccess from "../../lib/assert_success.js";
+import { DeleteBaseCommand } from "../../lib/basecommands/DeleteBaseCommand.js";
+import { projectArgs } from "../../lib/resources/project/flags.js";
+import assertSuccess from "../../lib/apiutil/assert_success.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete a project";
