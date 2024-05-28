@@ -56,9 +56,11 @@ export abstract class ListBaseCommand<
 
   protected abstract getData(): Promise<TAPIResponse>;
 
-  protected abstract mapData(
+  protected mapData(
     data: SuccessfulResponse<TAPIResponse, 200>["data"],
-  ): TItem[] | Promise<TItem[]>;
+  ): TItem[] | Promise<TItem[]> {
+    return data as TItem[];
+  }
 
   protected getColumns(
     data: TItem[],
