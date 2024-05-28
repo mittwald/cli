@@ -37,7 +37,8 @@ export default class List extends ListBaseCommand<
       tokenId: { header: "ID", minWidth: 36 },
       device: {
         header: "Device",
-        get: (row) => `${row.device.browser} on ${row.device.os}`,
+        get: (row) =>
+          `${row.device.browser ?? "unknown browser"} on ${row.device.os ?? "unknown OS"}`,
       },
       location: {
         header: "Location",
