@@ -31,6 +31,7 @@ export abstract class ListBaseCommand<
   };
 
   protected formatter: ListFormatter = new ListFormatter();
+  protected sorter?: (a: TItem, b: TItem) => number;
 
   public async init(): Promise<void> {
     await super.init();
@@ -59,6 +60,10 @@ export abstract class ListBaseCommand<
   protected mapData(
     data: SuccessfulResponse<TAPIResponse, 200>["data"],
   ): TItem[] | Promise<TItem[]> {
+    if (this.sorter !== undefined) {
+      (data as TItem[]).sort(this.sorter);
+    }
+
     return data as TItem[];
   }
 
