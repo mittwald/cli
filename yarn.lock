@@ -1672,7 +1672,7 @@ __metadata:
     date-fns: ^3.2.0
     eslint: ^8.44.0
     eslint-config-prettier: ^9.1.0
-    eslint-plugin-json: ^3.1.0
+    eslint-plugin-json: ^4.0.0
     eslint-plugin-prettier: ^5.1.3
     humanize-string: ^3.0.0
     ink: ^4.2.0
@@ -4431,13 +4431,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-json@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "eslint-plugin-json@npm:3.1.0"
+"eslint-plugin-json@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "eslint-plugin-json@npm:4.0.0"
   dependencies:
     lodash: ^4.17.21
     vscode-json-languageservice: ^4.1.6
-  checksum: bc7fa4c2e1fdac4365e499bd24ecdf6cddeb6bb647ea9543f214fd811559345a3c1a944b78ff1d3e4b6a49980bcea592f0d58b26a41e05e451e222bb43322cac
+  checksum: 364ff43d202ac952cd2ef1244f60881c8ac002108fe675e295407f9fdf97440d1a7a72aa28dfca4257d6a5b4e0dc695328ede60cfd678b57af796d118e76d435
   languageName: node
   linkType: hard
 
