@@ -55,7 +55,11 @@ export const AppInstallationDetails: FC<{
     ),
     "Installation Path": <OptionalValue value={absoluteInstallPath} />,
     "Document root (in installation path)": (
-      <Value>{appInstallation.customDocumentRoot ?? "/"}</Value>
+      <Value>
+        {desiredAppVersion.docRootUserEditable
+          ? appInstallation.customDocumentRoot
+          : desiredAppVersion.docRoot}
+      </Value>
     ),
     Description: <Value>{appInstallation.description}</Value>,
     Status: isCustomAppInstallation(appInstallation.appId) ? (
