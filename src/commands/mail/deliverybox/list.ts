@@ -1,6 +1,5 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
 import { formatRelativeDate } from "../../../rendering/textformat/formatDate.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
@@ -27,10 +26,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   public async getData(): Promise<Response> {
     const projectId = await this.withProjectId(List);
     return this.apiClient.mail.listDeliveryBoxes({ projectId });
-  }
-
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {

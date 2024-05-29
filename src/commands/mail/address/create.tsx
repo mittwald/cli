@@ -14,6 +14,7 @@ import * as crypto from "crypto";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
+
 type CreateResult = {
   addressId: string;
   generatedPassword: string | null;

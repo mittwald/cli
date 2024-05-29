@@ -1,6 +1,5 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../../lib/resources/project/flags.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
@@ -30,10 +29,6 @@ export default class Versions extends ListBaseCommand<
     return await this.apiClient.database.listRedisVersions({
       queryParameters: { projectId },
     });
-  }
-
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
   }
 
   protected getColumns(): ListColumns<ResponseItem> {

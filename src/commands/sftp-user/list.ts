@@ -1,13 +1,9 @@
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Simplify } from "@mittwald/api-client-commons";
-import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
 import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 
-type SftpUserResponse = Awaited<
-  ReturnType<MittwaldAPIV2Client["sshsftpUser"]["sftpUserListSftpUsers"]>
->;
 type SftpUserResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdSftpUsers.Get.Responses.$200.Content.ApplicationJson[number]
 >;
@@ -36,12 +32,6 @@ export default class List extends ListBaseCommand<
     return await this.apiClient.sshsftpUser.sftpUserListSftpUsers({
       projectId,
     });
-  }
-
-  protected mapData(
-    data: SuccessfulResponse<SftpUserResponse, 200>["data"],
-  ): SftpUserResponseItem[] {
-    return data;
   }
 
   protected getColumns(

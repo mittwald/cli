@@ -12,10 +12,10 @@ import { spawnInProcess } from "../../rendering/process/process_exec.js";
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
 import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import {
-  filterFileToRsyncFlagsIfPresent,
   appInstallationSyncFlags,
   appInstallationSyncFlagsToRsyncFlags,
   filterFileDocumentation,
+  filterFileToRsyncFlagsIfPresent,
 } from "../../lib/resources/app/sync.js";
 import { hasBinaryInPath } from "../../lib/util/fs/hasBinaryInPath.js";
 

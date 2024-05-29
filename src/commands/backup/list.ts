@@ -1,6 +1,5 @@
 import { Response, Simplify } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
@@ -21,12 +20,6 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
   };
   static aliases = ["project:backup:list"];
   static deprecateAliases = true;
-
-  protected mapData(
-    data: SuccessfulResponse<ListResponse, 200>["data"],
-  ): ListItem[] | Promise<ListItem[]> {
-    return data;
-  }
 
   public async getData(): Promise<ListResponse> {
     const projectId = await this.withProjectId(List);

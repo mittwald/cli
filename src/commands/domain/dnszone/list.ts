@@ -2,7 +2,6 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { projectFlags } from "../../../lib/resources/project/flags.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { Simplify } from "@mittwald/api-client-commons";
-import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
 import {
   isCustomARecord,
@@ -36,12 +35,6 @@ export default class List extends ListBaseCommand<
   public async getData(): Promise<Response> {
     const projectId = await this.withProjectId(List);
     return this.apiClient.domain.dnsListDnsZones({ projectId });
-  }
-
-  protected mapData(
-    data: SuccessfulResponse<Response, 200>["data"],
-  ): ResponseItem[] | Promise<ResponseItem[]> {
-    return data;
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {

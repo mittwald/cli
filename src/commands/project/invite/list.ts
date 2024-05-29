@@ -1,10 +1,9 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
-import { formatRelativeDate } from "../../../rendering/textformat/formatDate.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../../lib/resources/project/flags.js";
+import ListDateColumnFormatter from "../../../rendering/formatter/ListDateColumnFormatter.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdInvites.Get.Responses.$200.Content.ApplicationJson[number]
@@ -31,27 +30,23 @@ export default class List extends ListBaseCommand<
     return await this.apiClient.project.listInvitesForProject({ projectId });
   }
 
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
-  }
-
   protected getColumns(): ListColumns<ResponseItem> {
+    const dateColumnBuilder = new ListDateColumnFormatter(this.flags);
+    const expires = {
+      ...dateColumnBuilder.buildColumn({
+        header: "Expires",
+        fallback: "(never)",
+        column: "membershipExpiresAt",
+      }),
+      extended: true,
+    };
+
     return {
       id: {
         header: "ID",
         minWidth: 36,
       },
-      expires: {
-        header: "Expires",
-        extended: true,
-        get: (row) => {
-          if (!row.membershipExpiresAt) {
-            return "never";
-          }
-
-          return formatRelativeDate(new Date(row.membershipExpiresAt));
-        },
-      },
+      expires,
       mailAddress: { header: "Email" },
       role: { header: "Role" },
     };

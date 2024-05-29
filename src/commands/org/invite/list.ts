@@ -1,17 +1,14 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
 import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { orgFlags, withOrgId } from "../../../lib/resources/org/flags.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
-import { formatRelativeDate } from "../../../rendering/textformat/formatDate.js";
+import ListDateColumnFormatter from "../../../rendering/formatter/ListDateColumnFormatter.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2CustomersCustomerIdInvites.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export type PathParams =
-  MittwaldAPIV2.Paths.V2CustomersCustomerIdInvites.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["customer"]["listInvitesForCustomer"]>
 >;
 
@@ -39,27 +36,23 @@ export abstract class List extends ListBaseCommand<
 
     return await this.apiClient.customer.listInvitesForCustomer({
       customerId,
-    } as Parameters<typeof this.apiClient.customer.listInvitesForCustomer>[0]);
-  }
-
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
+    });
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
+    const dateColumnBuilder = new ListDateColumnFormatter(this.flags);
+    const expiresAt = dateColumnBuilder.buildColumn({
+      header: "Expires",
+      column: "membershipExpiresAt",
+      fallback: "(never)",
+    });
     return {
       id: super.getColumns(data).id,
       role: {},
       email: {
         get: (item) => item.mailAddress,
       },
-      expiresAt: {
-        header: "Expires",
-        get: (item) =>
-          item.membershipExpiresAt
-            ? formatRelativeDate(item.membershipExpiresAt)
-            : "(never)",
-      },
+      expiresAt,
     };
   }
 }

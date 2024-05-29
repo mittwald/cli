@@ -21,6 +21,8 @@ export type ColumnOpts<TItem> = {
   outputFormat?: string;
 };
 
+export type SorterFunction<TItem> = (a: TItem, b: TItem) => number;
+
 export abstract class ListBaseCommand<
   T extends typeof BaseCommand,
   TItem extends Record<string, unknown>,
@@ -31,6 +33,7 @@ export abstract class ListBaseCommand<
   };
 
   protected formatter: ListFormatter = new ListFormatter();
+  protected sorter?: SorterFunction<TItem>;
 
   public async init(): Promise<void> {
     await super.init();
@@ -56,9 +59,15 @@ export abstract class ListBaseCommand<
 
   protected abstract getData(): Promise<TAPIResponse>;
 
-  protected abstract mapData(
+  protected mapData(
     data: SuccessfulResponse<TAPIResponse, 200>["data"],
-  ): TItem[] | Promise<TItem[]>;
+  ): TItem[] | Promise<TItem[]> {
+    if (this.sorter !== undefined) {
+      (data as TItem[]).sort(this.sorter);
+    }
+
+    return data as TItem[];
+  }
 
   protected getColumns(
     data: TItem[],
