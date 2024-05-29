@@ -9,7 +9,7 @@ import { FlagDefault } from "@oclif/core/lib/interfaces/parser.js";
 export const nodeInstaller = new AppInstaller(
   "3e7f920b-a711-4d2f-9871-661e1b41a2f0",
   "custom Node.js",
-  ["site-title", "wait", "entrypoint"] as const,
+  ["site-title", "entrypoint"] as const,
 );
 
 nodeInstaller.mutateFlags = (flags) => {
