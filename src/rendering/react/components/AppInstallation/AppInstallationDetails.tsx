@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { useAppVersion } from "../../../../lib/resources/app/hooks.js";
 import { Value } from "../Value.js";
 import { AppInstallationStatus } from "./AppInstallationStatus.js";
@@ -33,7 +33,7 @@ export const AppInstallationDetails: FC<{
     ? path.join(project.directories["Web"], appInstallation.installationPath)
     : null;
 
-  const rows = {
+  const rows: Record<string, ReactNode> = {
     "Installation ID": <Value>{appInstallation.id}</Value>,
     App: (
       <SingleResultTable
@@ -72,6 +72,14 @@ export const AppInstallationDetails: FC<{
       />
     ),
   };
+
+  const entrypoint = appInstallation.userInputs?.find(
+    (i) => i.name === "entrypoint",
+  )?.value;
+  if (entrypoint) {
+    rows["Entrypoint"] = <Value>{entrypoint}</Value>;
+  }
+
   const title = (
     <>
       APP INSTALLATION: <Value>{app.name}</Value> in{" "}
