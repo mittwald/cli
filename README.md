@@ -3823,7 +3823,7 @@ DESCRIPTION
   Display help for mw.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.0.22/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.1.0/src/commands/help.ts)_
 
 ## `mw login reset`
 
