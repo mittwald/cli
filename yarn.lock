@@ -1870,7 +1870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^4.0.0-beta.13":
+"@oclif/core@npm:^4.0.0-beat.13, @oclif/core@npm:^4.0.0-beta.13":
   version: 4.0.0-beta.13
   resolution: "@oclif/core@npm:4.0.0-beta.13"
   dependencies:
@@ -1946,15 +1946,15 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.19, @oclif/plugin-warn-if-update-available@npm:^3.0.2":
-  version: 3.0.19
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.0.19"
+  version: 3.1.1
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.1"
   dependencies:
-    "@oclif/core": ^3.26.6
-    chalk: ^5.3.0
-    debug: ^4.1.0
+    "@oclif/core": ^4.0.0-beat.13
+    ansis: ^3.2.0
+    debug: ^4.3.5
     http-call: ^5.2.2
     lodash: ^4.17.21
-  checksum: 7f3cb9de6b86541c54d3567b7c9f74c77e3f81253a25cfbc1434561a1ebcbc39d34e9f2d5fa66a959ff2a39b0dfe78144291c58e2ae23806f1f65ac5f92ffd71
+  checksum: a8eaa3015f7edd577455ff822988f772709757ec3566a28030491159c2a85994222d775764e6d10f57ced4f78b33c10230e054166e2e2f871488bfb5bd11a158
   languageName: node
   linkType: hard
 
