@@ -1847,7 +1847,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^4.0.0-beta.12, @oclif/core@npm:^4.0.0-beta.13":
+"@oclif/core@npm:^4.0.0-beta.13":
   version: 4.0.0-beta.14
   resolution: "@oclif/core@npm:4.0.0-beta.14"
   dependencies:
@@ -7532,15 +7532,15 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.3.9":
-  version: 4.12.3
-  resolution: "oclif@npm:4.12.3"
+  version: 4.13.0
+  resolution: "oclif@npm:4.13.0"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.574.0
     "@aws-sdk/client-s3": ^3.583.0
     "@inquirer/confirm": ^3.1.6
     "@inquirer/input": ^2.1.9
     "@inquirer/select": ^2.3.5
-    "@oclif/core": ^4.0.0-beta.12
+    "@oclif/core": ^4
     "@oclif/plugin-help": ^6.0.21
     "@oclif/plugin-not-found": ^3.2.1
     "@oclif/plugin-warn-if-update-available": ^3.0.19
@@ -7561,7 +7561,7 @@ __metadata:
     validate-npm-package-name: ^5.0.0
   bin:
     oclif: bin/run.js
-  checksum: f3c2baae9d78171393152a660ef6bcc56044b305945edef776daf62be77efae323d599b6c3bb50bbb5cc016eb7f12d5a01b4c7e7a371bca00b39a4b3ed3cb13b
+  checksum: 796ca2ec1dc5827c39549ba94b24238df15a422a3d1d9e6fb19e503e7ecaa98d607a6ce5076b8fb3a3b2d10b85781f79ac6752b2fbe0d1c08e98e5c9388e5caa
   languageName: node
   linkType: hard
 
