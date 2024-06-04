@@ -1822,6 +1822,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^4":
+  version: 4.0.0
+  resolution: "@oclif/core@npm:4.0.0"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansis: ^3.1.1
+    clean-stack: ^3.0.1
+    cli-spinners: ^2.9.2
+    cosmiconfig: ^9.0.0
+    debug: ^4.3.5
+    ejs: ^3.1.10
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    minimatch: ^9.0.4
+    string-width: ^4.2.3
+    supports-color: ^8
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 943de2b07bd880c07b5333e609379126e730aab1c3ab4e3b44ef689688255fd90fa6b420298a2491314c8f7a3790deb63710f3c41bf4d4c05e54648e4775dcd6
+  languageName: node
+  linkType: hard
+
 "@oclif/core@npm:^4.0.0-beta.12, @oclif/core@npm:^4.0.0-beta.13":
   version: 4.0.0-beta.14
   resolution: "@oclif/core@npm:4.0.0-beta.14"
@@ -1873,14 +1898,14 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.1.1
-  resolution: "@oclif/plugin-autocomplete@npm:3.1.1"
+  version: 3.1.2
+  resolution: "@oclif/plugin-autocomplete@npm:3.1.2"
   dependencies:
-    "@oclif/core": ^4.0.0-beta.13
+    "@oclif/core": ^4
     ansis: ^3.2.0
     debug: ^4.3.5
     ejs: ^3.1.10
-  checksum: 5e85d1b26977ae36b3363c46533c49697f9a43892b33bd6d1cdfffc6852a7471c3d4b73416b8550fd1cf9d3fac4141d13c1e6891803abc896038601f65346669
+  checksum: 5c74dc6462c4d1c438970877c94feec1f0e333e240c24c8b22af0f7be6f8ac1347b3419024a117430d1a35db44ee984ba25950ab86f8b62b87573955d5fc70fc
   languageName: node
   linkType: hard
 
