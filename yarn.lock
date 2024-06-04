@@ -1822,6 +1822,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^4":
+  version: 4.0.0
+  resolution: "@oclif/core@npm:4.0.0"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansis: ^3.1.1
+    clean-stack: ^3.0.1
+    cli-spinners: ^2.9.2
+    cosmiconfig: ^9.0.0
+    debug: ^4.3.5
+    ejs: ^3.1.10
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    minimatch: ^9.0.4
+    string-width: ^4.2.3
+    supports-color: ^8
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 943de2b07bd880c07b5333e609379126e730aab1c3ab4e3b44ef689688255fd90fa6b420298a2491314c8f7a3790deb63710f3c41bf4d4c05e54648e4775dcd6
+  languageName: node
+  linkType: hard
+
 "@oclif/core@npm:^4.0.0-beta.12, @oclif/core@npm:^4.0.0-beta.13":
   version: 4.0.0-beta.14
   resolution: "@oclif/core@npm:4.0.0-beta.14"
@@ -1906,11 +1931,11 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.3.2
-  resolution: "@oclif/plugin-update@npm:4.3.2"
+  version: 4.3.3
+  resolution: "@oclif/plugin-update@npm:4.3.3"
   dependencies:
     "@inquirer/select": ^2.3.5
-    "@oclif/core": ^4.0.0-beta.13
+    "@oclif/core": ^4
     chalk: ^5
     debug: ^4.3.5
     filesize: ^6.1.0
@@ -1918,7 +1943,7 @@ __metadata:
     semver: ^7.6.0
     tar-fs: ^2.1.1
     tty-table: ^4.2.3
-  checksum: 507034048179bd5a4c55f5fc35d3c1478d3e520e8c93fa96a59a1ffa5c3327c8c65218f4aecc900f8749b773897fd9bcf5d8a4f6a2e416a1ed2d600d423ef34c
+  checksum: 82c6be86b9a84e43bbcd0074152b88a51b56c417bcdcced6982926a39bbba9588f0f4044359628566eaac836772367791f1575b40909bd8e2e4f070227980235
   languageName: node
   linkType: hard
 
