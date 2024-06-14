@@ -125,6 +125,7 @@ USAGE
 * [`mw app install contao`](#mw-app-install-contao)
 * [`mw app install drupal`](#mw-app-install-drupal)
 * [`mw app install grav`](#mw-app-install-grav)
+* [`mw app install humhub`](#mw-app-install-humhub)
 * [`mw app install joomla`](#mw-app-install-joomla)
 * [`mw app install matomo`](#mw-app-install-matomo)
 * [`mw app install moodle`](#mw-app-install-moodle)
@@ -314,9 +315,7 @@ DESCRIPTION
   Creates new custom Node.js installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -362,9 +361,7 @@ DESCRIPTION
   Creates new custom PHP installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -411,9 +408,7 @@ DESCRIPTION
   Creates new custom python site installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -459,9 +454,7 @@ DESCRIPTION
   Creates new custom static site installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -687,9 +680,7 @@ DESCRIPTION
   Creates new Contao installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -776,9 +767,7 @@ DESCRIPTION
   Creates new Drupal installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -855,9 +844,7 @@ DESCRIPTION
   Creates new Grav installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -910,6 +897,97 @@ FLAG DESCRIPTIONS
     If unspecified, the Grav will be installed in the latest available version.
 ```
 
+## `mw app install humhub`
+
+Creates new HumHub installation.
+
+```
+USAGE
+  $ mw app install humhub --version <value> [-p <value>] [-q] [--host <value>] [--site-title <value>] [--admin-user
+    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [-w]
+    [--wait-timeout <value>]
+
+FLAGS
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     wait for the resource to be ready.
+      --admin-email=<value>      email address of your administrator user.
+      --admin-firstname=<value>  first name of your administrator user.
+      --admin-lastname=<value>   Lastname of your administrator user.
+      --admin-pass=<value>       password of your administrator user.
+      --admin-user=<value>       Username for your administrator user.
+      --host=<value>             host to initially configure your HumHub installation with; needs to be created
+                                 separately.
+      --site-title=<value>       site title for your HumHub installation.
+      --version=<value>          (required) [default: latest] version of HumHub to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
+
+DESCRIPTION
+  Creates new HumHub installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  email address of your administrator user.
+
+    email address that will be used for the first administrator user that is created during the HumHub installation.
+    If unspecified, email address of your mStudio account will be used. This email address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  first name of your administrator user.
+
+    The first name that will be used for the first administrator user that is created during the HumHub installation.
+    If unspecified, the first name of your mStudio user will be used. This value can be changed after the installation
+    is finished.
+
+  --admin-lastname=<value>  Lastname of your administrator user.
+
+    The last name that will be used for the first administrator user that is created during the HumHub installation.
+    If unspecified, the last name of your mStudio user will be used. This value can be changed after the installation is
+    finished.
+
+  --admin-pass=<value>  password of your administrator user.
+
+    The password that will be used for the first administrator user that is created during the HumHub installation.
+    If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
+    the installation is finished
+
+  --admin-user=<value>  Username for your administrator user.
+
+    Username of the first administrator user which will be created during the HumHub installation.
+    If unspecified, an adequate username will be generated.
+    After the installation is finished, the username can be changed and additional administrator users can be created.
+
+  --host=<value>  host to initially configure your HumHub installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the HumHub configuration.
+    If unspecified, the default host for the given project will be used.
+    This does not change the target of the used host and can be changed later by configuring the host and your HumHub
+    installation.
+
+  --site-title=<value>  site title for your HumHub installation.
+
+    The site title for this HumHub installation. It is also the title shown in the app overview in the mStudio and the
+    CLI.
+    If unspecified, the application name and the given project ID will be used. The title can be changed after the
+    installation is finished
+
+  --version=<value>  version of HumHub to be installed.
+
+    Specify the version in which your HumHub will be installed.
+    If unspecified, the HumHub will be installed in the latest available version.
+```
+
 ## `mw app install joomla`
 
 Creates new Joomla! installation.
@@ -941,9 +1019,7 @@ DESCRIPTION
   Creates new Joomla! installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1030,9 +1106,7 @@ DESCRIPTION
   Creates new Matomo installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1107,9 +1181,7 @@ DESCRIPTION
   Creates new Moodle installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1184,9 +1256,7 @@ DESCRIPTION
   Creates new NEOS installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1261,9 +1331,7 @@ DESCRIPTION
   Creates new Nextcloud installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1342,9 +1410,7 @@ DESCRIPTION
   Creates new PrestaShop installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1439,9 +1505,7 @@ DESCRIPTION
   Creates new Shopware 5 installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1553,9 +1617,7 @@ DESCRIPTION
   Creates new Shopware 6 installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1663,9 +1725,7 @@ DESCRIPTION
   Creates new TYPO3 installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1747,9 +1807,7 @@ DESCRIPTION
   Creates new WordPress installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1822,9 +1880,7 @@ DESCRIPTION
   List installed apps in a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1960,9 +2016,7 @@ DESCRIPTION
   Upgrade app installation to target version
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -2108,9 +2162,7 @@ ALIASES
   $ mw project backup create
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -2247,9 +2299,7 @@ ALIASES
   $ mw project backup list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -2283,9 +2333,7 @@ ALIASES
   $ mw project backupschedule list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -2713,9 +2761,7 @@ ALIASES
   $ mw project cronjob list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -2767,9 +2813,7 @@ FLAGS
       --version=<value>             (required) the MySQL version to use
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3020,9 +3064,7 @@ DESCRIPTION
   List MySQLDatabases belonging to a Project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3269,9 +3311,7 @@ FLAGS
       --version=<value>             (required) the Redis version to use
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3341,9 +3381,7 @@ DESCRIPTION
   List Redis databases belonging to a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3426,9 +3464,7 @@ DESCRIPTION
   List available Redis versions.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3609,9 +3645,7 @@ DESCRIPTION
   list all DNS zones by project ID
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3653,9 +3687,7 @@ EXAMPLES
       mail2.domain.example"
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3721,9 +3753,7 @@ DESCRIPTION
   List domains belonging to a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3764,9 +3794,7 @@ EXAMPLES
     $ mw domain virtualhost create --hostname mw.example --path-to-url /:https://redirect.example
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3863,9 +3891,7 @@ DESCRIPTION
   List virtualhosts for a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3983,9 +4009,7 @@ EXAMPLES
     $ mw mail address create --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4084,9 +4108,7 @@ DESCRIPTION
   Get all mail addresses for a project ID
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4210,9 +4232,7 @@ DESCRIPTION
   Get all deliveryboxes by project ID
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4494,9 +4514,7 @@ ALIASES
   $ mw project backup create
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4633,9 +4651,7 @@ ALIASES
   $ mw project backup list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4669,9 +4685,7 @@ ALIASES
   $ mw project backupschedule list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4704,9 +4718,7 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
-  -s, --server-id=<value>
-
-    ID or short ID of a server; this flag is optional if a default server is set in the context
+  -s, --server-id=<value>  ID or short ID of a server; this flag is optional if a default server is set in the context
 
     May contain a short ID or a full ID of a server; you can also use the "mw context set --server-id=<VALUE>" command
     to persistently set a default server for all commands that accept this flag.
@@ -4818,9 +4830,7 @@ ALIASES
   $ mw project cronjob list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4934,9 +4944,7 @@ DESCRIPTION
   List all invites belonging to a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5025,9 +5033,7 @@ DESCRIPTION
   Get the executing user's membership in a Project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5058,9 +5064,7 @@ DESCRIPTION
   List all memberships for a Project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5117,9 +5121,7 @@ ALIASES
   $ mw project sftp-user list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5196,9 +5198,7 @@ ALIASES
   $ mw project ssh-user list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5314,9 +5314,7 @@ ALIASES
   $ mw project sftp-user list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5375,9 +5373,7 @@ ALIASES
   $ mw project ssh-user list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
