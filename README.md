@@ -515,7 +515,8 @@ Update the dependencies of an app
 
 ```
 USAGE
-  $ mw app dependency update [INSTALLATION-ID] --set <value> [-q] [--update-policy none|inheritedFromApp|patchLevel|all]
+  $ mw app dependency update [INSTALLATION-ID] --set <value>... [-q] [--update-policy
+  none|inheritedFromApp|patchLevel|all]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -579,7 +580,7 @@ Download the filesystem of an app within a project to your local machine
 ```
 USAGE
   $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>] [--dry-run] [--delete]
+    [--exclude <value>...] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1980,7 +1981,7 @@ Upload the filesystem of an app to a project
 ```
 USAGE
   $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>] [--dry-run] [--delete]
+    [--exclude <value>...] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -3623,7 +3624,7 @@ Updates a record set of a DNS zone
 
 ```
 USAGE
-  $ mw domain dnszone update DNSZONE-ID RECORD-SET [-q] [-p <value>] [--record <value> | --managed | --unset] [--ttl
+  $ mw domain dnszone update DNSZONE-ID RECORD-SET [-q] [-p <value>] [--record <value>... | --managed | --unset] [--ttl
     <value>]
 
 ARGUMENTS
@@ -3735,8 +3736,8 @@ Create a new ingress
 
 ```
 USAGE
-  $ mw domain virtualhost create --hostname <value> [-q] [-p <value>] [--path-to-dir <value>] [--path-to-app <value>]
-    [--path-to-url <value>]
+  $ mw domain virtualhost create --hostname <value> [-q] [-p <value>] [--path-to-dir <value>...] [--path-to-app <value>...]
+    [--path-to-url <value>...]
 
 FLAGS
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -3937,7 +3938,7 @@ Create a new mail address
 ```
 USAGE
   $ mw mail address create -a <value> [-p <value>] [-q] [--catch-all] [--enable-spam-protection] [--quota <value>]
-    [--password <value>] [--random-password] [--forward-to <value>]
+    [--password <value>] [--random-password] [--forward-to <value>...]
 
 FLAGS
   -a, --address=<value>              (required) mail address
@@ -4099,7 +4100,7 @@ Update a mail address
 ```
 USAGE
   $ mw mail address update MAILADDRESS-ID [-q] [-a <value>] [--catch-all] [--quota <value>] [--password <value>]
-    [--random-password] [--forward-to <value>]
+    [--random-password] [--forward-to <value>...]
 
 ARGUMENTS
   MAILADDRESS-ID  ID or mail address of a mailaddress
@@ -5389,7 +5390,7 @@ update the mw CLI
 
 ```
 USAGE
-  $ mw update [CHANNEL] [-a] [--force] [-i | -v <value>]
+  $ mw update [CHANNEL] [--force |  | [-a | -v <value> | -i]]
 
 FLAGS
   -a, --available        See available versions.
@@ -5418,7 +5419,7 @@ EXAMPLES
     $ mw update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.3.3/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v4.4.2/src/commands/update.ts)_
 
 ## `mw user api-token create`
 
@@ -5426,7 +5427,7 @@ Create a new API token
 
 ```
 USAGE
-  $ mw user api-token create --description <value> --roles api_read|api_write [-q] [--expires <value>]
+  $ mw user api-token create --description <value> --roles api_read|api_write... [-q] [--expires <value>]
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
