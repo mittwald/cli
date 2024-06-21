@@ -67,7 +67,7 @@
     "semver-parser": "^4.1.6",
     "shell-escape": "^0.2.0",
     "tempfile": "^5.0.0",
-    "uuid": "^9.0.1"
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@oclif/test": "^3.1.16",
