@@ -68,7 +68,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
     }
   }
 
-  public addInfo(title: ReactElement) {
+  public addInfo(title: ReactNode) {
     this.start();
 
     if (this.currentHandler !== null) {

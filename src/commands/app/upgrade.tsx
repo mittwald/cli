@@ -3,7 +3,6 @@ import {
   appInstallationArgs,
   withAppInstallationId,
 } from "../../lib/resources/app/flags.js";
-import { projectFlags } from "../../lib/resources/project/flags.js";
 import { Flags, ux } from "@oclif/core";
 import React, { ReactNode } from "react";
 import { Text } from "ink";
@@ -19,7 +18,6 @@ import {
 } from "../../lib/resources/app/versions.js";
 import {
   makeProcessRenderer,
-  ProcessFlags,
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
@@ -47,16 +45,12 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       char: "f",
       description: "Do not ask for confirmation.",
     }),
-    ...projectFlags,
     ...processFlags,
     ...waitFlags,
   };
 
   protected async exec(): Promise<void> {
-    const process = makeProcessRenderer(
-      this.flags as ProcessFlags,
-      "App upgrade",
-    );
+    const process = makeProcessRenderer(this.flags, "App upgrade");
     const appInstallationId: string = await withAppInstallationId(
         this.apiClient,
         UpgradeApp,
