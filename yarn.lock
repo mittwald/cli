@@ -1584,6 +1584,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@inquirer/core@npm:^8.2.3":
+  version: 8.2.3
+  resolution: "@inquirer/core@npm:8.2.3"
+  dependencies:
+    "@inquirer/figures": ^1.0.3
+    "@inquirer/type": ^1.3.3
+    "@types/mute-stream": ^0.0.4
+    "@types/node": ^20.14.6
+    "@types/wrap-ansi": ^3.0.0
+    ansi-escapes: ^4.3.2
+    chalk: ^4.1.2
+    cli-spinners: ^2.9.2
+    cli-width: ^4.1.0
+    mute-stream: ^1.0.0
+    signal-exit: ^4.1.0
+    strip-ansi: ^6.0.1
+    wrap-ansi: ^6.2.0
+  checksum: a723d136a82f2edccee32c9bc2a4421c0f04ae0ef300bc1cc67c99f26792282d0b65b5080b42e954752c6f64ea0eb3f22754e94e9e33776848a1bfa2ef79045e
+  languageName: node
+  linkType: hard
+
 "@inquirer/figures@npm:^1.0.1":
   version: 1.0.1
   resolution: "@inquirer/figures@npm:1.0.1"
@@ -1618,6 +1639,19 @@ __metadata:
     ansi-escapes: ^4.3.2
     chalk: ^4.1.2
   checksum: 1f4208a40d693c577e3175002b2affda1e7113889769311f79d9a70d22ae597fdcfbd7f0f8db88783b3c6c306a3dbb4aeaf6c808aaef7a95f21fc0198a80e7c6
+  languageName: node
+  linkType: hard
+
+"@inquirer/select@npm:^2.3.6":
+  version: 2.3.6
+  resolution: "@inquirer/select@npm:2.3.6"
+  dependencies:
+    "@inquirer/core": ^8.2.3
+    "@inquirer/figures": ^1.0.3
+    "@inquirer/type": ^1.3.3
+    ansi-escapes: ^4.3.2
+    chalk: ^4.1.2
+  checksum: ba74c5e674c6fef5c7bb9ae442639339f940053078d6f72779b4e8842da0bd7fb9ab72b7f416bcc3b1b606f79e48a97fe97c420714de7c08a145208a7681e8ab
   languageName: node
   linkType: hard
 
@@ -1938,10 +1972,10 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.4.2
-  resolution: "@oclif/plugin-update@npm:4.4.2"
+  version: 4.4.3
+  resolution: "@oclif/plugin-update@npm:4.4.3"
   dependencies:
-    "@inquirer/select": ^2.3.5
+    "@inquirer/select": ^2.3.6
     "@oclif/core": ^4
     ansis: ^3.2.0
     debug: ^4.3.5
@@ -1950,7 +1984,7 @@ __metadata:
     semver: ^7.6.0
     tar-fs: ^2.1.1
     tty-table: ^4.2.3
-  checksum: 786ac960f92facad8b2820a2d978c66ace9ec273d2bc228a364bc40338d1ecec5f0e5d905faa091250cc62611dde6819a78b9272fbe09a70d72966532b161585
+  checksum: 91bfc6505f934b43aed09f7c58a78f4f0aa45c5221161954fc783a7f1b3cd9d898936cc2270b23be42fbc82f448e782fe4337511ca7e5734a279275cef19c250
   languageName: node
   linkType: hard
 
@@ -3247,6 +3281,15 @@ __metadata:
   dependencies:
     undici-types: ~5.26.4
   checksum: 1a2c052e4eccb9f41bb6535b2278a2a6bf33b1e76450ca35a586110d84439ac0111f7889749662330236e15a0e938c6af3a6a8b2f594aee007a7675467c16039
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.14.6":
+  version: 20.14.8
+  resolution: "@types/node@npm:20.14.8"
+  dependencies:
+    undici-types: ~5.26.4
+  checksum: a9128840005d4a0aba68826e22ac0fdd86bb9073f1d274217d3509b52f969d1aab83415c85a8461259f33cf34f9eee02fb13dca059865bed2ba2e728bc936a76
   languageName: node
   linkType: hard
 
