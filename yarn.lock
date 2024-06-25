@@ -1241,7 +1241,7 @@ __metadata:
   dependencies:
     "@mittwald/api-client": ^4.9.0
     "@mittwald/react-use-promise": ^2.1.2
-    "@oclif/core": ^3.18.1
+    "@oclif/core": ^4.0.6
     "@oclif/plugin-autocomplete": ^3.0.3
     "@oclif/plugin-help": ^6.0.5
     "@oclif/plugin-update": ^4.1.3
@@ -1370,7 +1370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.26.6":
+"@oclif/core@npm:^3.26.6":
   version: 3.26.8
   resolution: "@oclif/core@npm:3.26.8"
   dependencies:
@@ -1428,6 +1428,31 @@ __metadata:
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
   checksum: 943de2b07bd880c07b5333e609379126e730aab1c3ab4e3b44ef689688255fd90fa6b420298a2491314c8f7a3790deb63710f3c41bf4d4c05e54648e4775dcd6
+  languageName: node
+  linkType: hard
+
+"@oclif/core@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "@oclif/core@npm:4.0.6"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansis: ^3.1.1
+    clean-stack: ^3.0.1
+    cli-spinners: ^2.9.2
+    debug: ^4.3.5
+    ejs: ^3.1.10
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    lilconfig: ^3.1.2
+    minimatch: ^9.0.4
+    string-width: ^4.2.3
+    supports-color: ^8
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: e8026b7c7dafb216523dbe4917d606b24b401c5c3ba2ce85d141dac55e5ae8e69b2879b78ff414d87a43779b33f82f93f6443046992356ec0143fca159046ebf
   languageName: node
   linkType: hard
 
@@ -6141,6 +6166,13 @@ __metadata:
   bin:
     license-checker-rseidelsohn: bin/license-checker-rseidelsohn
   checksum: dbd94f66c75233b79f851c42b113068ce5b52e9e92a8840b36879d3197aa53b0880c732ffd75022d9d1eaaf35bfa26ca5466daf03b4c65aa3a55cc834dff4265
+  languageName: node
+  linkType: hard
+
+"lilconfig@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "lilconfig@npm:3.1.2"
+  checksum: 4e8b83ddd1d0ad722600994e6ba5d858ddca14f0587aa6b9c8185e17548149b5e13d4d583d811e9e9323157fa8c6a527e827739794c7502b59243c58e210b8c3
   languageName: node
   linkType: hard
 
