@@ -1112,6 +1112,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@inquirer/core@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "@inquirer/core@npm:9.0.0"
+  dependencies:
+    "@inquirer/figures": ^1.0.3
+    "@inquirer/type": ^1.4.0
+    "@types/mute-stream": ^0.0.4
+    "@types/node": ^20.14.9
+    "@types/wrap-ansi": ^3.0.0
+    ansi-escapes: ^4.3.2
+    cli-spinners: ^2.9.2
+    cli-width: ^4.1.0
+    mute-stream: ^1.0.0
+    signal-exit: ^4.1.0
+    strip-ansi: ^6.0.1
+    wrap-ansi: ^6.2.0
+    yoctocolors-cjs: ^2.1.1
+  checksum: 7a7054221aabeb43fcf0a0cb64576dc2c4fc6f44c8c4e97cfb310de672dbfdd5a9a8466f02c262ddd32ed1e8de2de585e57d1ec85c6c63f2ac7f3c367e4038f5
+  languageName: node
+  linkType: hard
+
 "@inquirer/figures@npm:^1.0.3":
   version: 1.0.3
   resolution: "@inquirer/figures@npm:1.0.3"
@@ -1142,16 +1163,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/select@npm:^2.3.6":
-  version: 2.3.6
-  resolution: "@inquirer/select@npm:2.3.6"
+"@inquirer/select@npm:^2.3.7":
+  version: 2.3.8
+  resolution: "@inquirer/select@npm:2.3.8"
   dependencies:
-    "@inquirer/core": ^8.2.3
+    "@inquirer/core": ^9.0.0
     "@inquirer/figures": ^1.0.3
-    "@inquirer/type": ^1.3.3
+    "@inquirer/type": ^1.4.0
     ansi-escapes: ^4.3.2
-    chalk: ^4.1.2
-  checksum: ba74c5e674c6fef5c7bb9ae442639339f940053078d6f72779b4e8842da0bd7fb9ab72b7f416bcc3b1b606f79e48a97fe97c420714de7c08a145208a7681e8ab
+    yoctocolors-cjs: ^2.1.1
+  checksum: 023d7c2f162539d38f19494528bfbd9eaf4deeed3e313614a513ed7f77ce5dd647a730a25e289441a3a1378b58feca4ec6aed751ef64e54720a2437a477ffaff
   languageName: node
   linkType: hard
 
@@ -1159,6 +1180,15 @@ __metadata:
   version: 1.3.3
   resolution: "@inquirer/type@npm:1.3.3"
   checksum: 1de6fed6bca013d1d84c6f280c5cb5d1ac7788aed1bbdb3315977abda33dcea234e1e9b7d917fcad573192af9de12b1363c4ea4bf81318f6c45299e3521dbee6
+  languageName: node
+  linkType: hard
+
+"@inquirer/type@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "@inquirer/type@npm:1.4.0"
+  dependencies:
+    mute-stream: ^1.0.0
+  checksum: 3b1be73ca418ad721d7527aea0bd83f21825484d6829fd4dbc830372b4aad68cf030486f8100d0f3883db8924fadcfaac1aa041ef6c51124f808f25825b22d85
   languageName: node
   linkType: hard
 
@@ -1465,10 +1495,10 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.4.4
-  resolution: "@oclif/plugin-update@npm:4.4.4"
+  version: 4.4.6
+  resolution: "@oclif/plugin-update@npm:4.4.6"
   dependencies:
-    "@inquirer/select": ^2.3.6
+    "@inquirer/select": ^2.3.7
     "@oclif/core": ^4
     ansis: ^3.2.0
     debug: ^4.3.5
@@ -1477,7 +1507,7 @@ __metadata:
     semver: ^7.6.0
     tar-fs: ^2.1.1
     tty-table: ^4.2.3
-  checksum: e1ed66d17167800c5bcf0bf4935e12f238f75603934c53d43635eda2332b5717c32f4bc62e082a797a78a0717f2971aab54200fe0aea9c9ff6a56108b023d7da
+  checksum: 8e1936c2eb426d89de771c46cc0c9a25f12df4084150fd97af4ba190ae4d75707f237e7f9ce7eb340b59abff3cfaccf21e5ac45fdbacbb6096e0a0f240df29bc
   languageName: node
   linkType: hard
 
@@ -2397,7 +2427,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.12.13, @types/node@npm:^20.14.6, @types/node@npm:^20.3.3":
+"@types/node@npm:*, @types/node@npm:^20.12.13, @types/node@npm:^20.14.6, @types/node@npm:^20.14.9, @types/node@npm:^20.3.3":
   version: 20.14.9
   resolution: "@types/node@npm:20.14.9"
   dependencies:
@@ -9168,6 +9198,13 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"yoctocolors-cjs@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "yoctocolors-cjs@npm:2.1.1"
+  checksum: e286a6651f7863316552dacc4cec89e028e8bfd3d2fd9ea60dcf03068c2325bd440df67cc566a4b252dbf348481e644a411be2736a990fc3cbd684f00f1f8349
   languageName: node
   linkType: hard
 
