@@ -5620,14 +5620,14 @@ __metadata:
   linkType: hard
 
 "ink-link@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "ink-link@npm:4.0.0"
+  version: 4.1.0
+  resolution: "ink-link@npm:4.1.0"
   dependencies:
     prop-types: ^15.8.1
     terminal-link: ^3.0.0
   peerDependencies:
     ink: ">=4"
-  checksum: bb587cf040ee2b3ad2c6f316a92a80c7765449701480751ba7a39e8182190b92330634df362fc2938f941200c7d53972e8b7c0155deb7a1238f27732783a5445
+  checksum: 94ead37ae72088e9dfc5a6fc4c6b86f7ec6367cb99045c2374b73feef5b5262a818c9abec4e615ee3ed7df47d4b5439bb0f579e4f92beb623da79e50efe6e2e1
   languageName: node
   linkType: hard
 
