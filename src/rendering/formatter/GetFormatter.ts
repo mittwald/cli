@@ -1,19 +1,25 @@
 import { FlagInput } from "@oclif/core/interfaces";
-import { ux } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import { Printer, PrinterFactory, YamlPrinter } from "../Printer.js";
 
+const outputFormats = ["txt", "json", "yaml"] as const;
+type OutputFormat = (typeof outputFormats)[number];
+
 export interface GetOptions {
-  outputFormat: string;
+  outputFormat: OutputFormat;
 }
 
 export class GetFormatter<T = unknown> {
   public static get flags(): FlagInput {
     return {
-      output: {
-        ...ux.table.flags().output,
-        options: ["json", "yaml"],
+      output: Flags.option({
+        required: true,
+        description: "output in a more machine friendly format",
+        options: outputFormats,
         char: "o",
-      },
+        default: "txt",
+        multiple: false,
+      })(),
     };
   }
 
