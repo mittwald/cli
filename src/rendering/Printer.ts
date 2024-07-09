@@ -1,5 +1,4 @@
 import * as yaml from "js-yaml";
-import { ux } from "@oclif/core";
 import { stdout } from "@oclif/core/ux";
 
 export interface Printer<T> {
@@ -9,7 +8,7 @@ export interface Printer<T> {
 export class PrinterFactory {
   public static build<T = unknown>(
     outputFormat: string | undefined,
-    defaultPrinter: Printer<T> = new DefaultPrinter(),
+    defaultPrinter: Printer<T> = new YamlPrinter(),
   ): Printer<T> {
     switch (outputFormat) {
       case "yaml":
@@ -33,13 +32,5 @@ export class YamlPrinter implements Printer<unknown> {
 export class JsonPrinter implements Printer<unknown> {
   public log(content: unknown): void {
     stdout(JSON.stringify(content, undefined, 2));
-  }
-}
-
-// csvn't
-
-export class DefaultPrinter implements Printer<unknown> {
-  public log(content: unknown): void {
-    ux.styledObject(content);
   }
 }
