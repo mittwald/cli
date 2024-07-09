@@ -3,6 +3,7 @@ import { BaseCommand } from "./BaseCommand.js";
 import {
   ListColumns,
   ListFormatter,
+  ListOptions,
 } from "../../rendering/formatter/ListFormatter.js";
 import { assertStatus, Response } from "@mittwald/api-client-commons";
 import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
@@ -54,7 +55,7 @@ export abstract class ListBaseCommand<
 
     const data = await this.mapData(response.data);
 
-    this.formatter.log(data, this.getColumns(data), { ...this.flags });
+    this.formatter.log(data, this.getColumns(data), this.flags as ListOptions);
   }
 
   protected abstract getData(): Promise<TAPIResponse>;

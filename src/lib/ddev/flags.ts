@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import { InferredFlags } from "@oclif/core/lib/interfaces/index.js";
+import { InferredFlags } from "@oclif/core/interfaces";
 import { knownDDEVProjectTypes } from "./init_projecttype.js";
 
 const ddevDatabaseFlags = {

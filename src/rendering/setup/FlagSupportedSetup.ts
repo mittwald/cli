@@ -1,5 +1,4 @@
-import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
-import { InferredFlags } from "@oclif/core/lib/interfaces/index.js";
+import { FlagInput, InferredFlags } from "@oclif/core/interfaces";
 import { Class } from "type-fest";
 import { mergeObjects } from "../../lib/util/mergeObjects.js";
 

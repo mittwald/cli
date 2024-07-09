@@ -1,4 +1,4 @@
-import { OptionFlag } from "@oclif/core/lib/interfaces/parser.js";
+import { OptionFlag } from "@oclif/core/interfaces";
 import Duration from "../units/Duration.js";
 
 export function expireFlags(

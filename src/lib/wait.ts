@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import Duration from "./units/Duration.js";
-import { InferredFlags } from "@oclif/core/lib/interfaces/index.js";
+import { InferredFlags } from "@oclif/core/interfaces";
 
 export const waitFlags = {
   wait: Flags.boolean({

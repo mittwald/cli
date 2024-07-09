@@ -2,7 +2,7 @@ import { ProcessRenderer } from "./process.js";
 import { FancyProcessRenderer } from "./process_fancy.js";
 import { Flags } from "@oclif/core";
 import { SilentProcessRenderer } from "./process_quiet.js";
-import { InferredFlags } from "@oclif/core/lib/interfaces/index.js";
+import { InferredFlags } from "@oclif/core/interfaces";
 
 export const processFlags = {
   quiet: Flags.boolean({

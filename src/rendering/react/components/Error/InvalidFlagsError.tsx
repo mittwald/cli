@@ -1,14 +1,13 @@
 import React from "react";
-import { FailedFlagValidationError } from "@oclif/core/lib/parser/errors.js";
 import { Text } from "ink";
 import ErrorBox from "./ErrorBox.js";
 
+interface Props {
+  err: Error;
+}
+
 /** Render an error for invalid command flags. */
-export default function InvalidFlagsError({
-  err,
-}: {
-  err: FailedFlagValidationError;
-}) {
+export default function InvalidFlagsError({ err }: Props) {
   const color = "yellow";
   return (
     <ErrorBox borderColor={color}>

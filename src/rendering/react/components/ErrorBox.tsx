@@ -1,8 +1,4 @@
 import React, { FC } from "react";
-import {
-  FailedFlagValidationError,
-  RequiredArgsError,
-} from "@oclif/core/lib/parser/errors.js";
 import { AxiosError } from "@mittwald/api-client-commons";
 import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 import UnexpectedShortIDPassedError from "../../../lib/error/UnexpectedShortIDPassedError.js";
@@ -19,11 +15,13 @@ import UnexpectedShortIDPassedErrorBox from "./Error/UnexpectedShortIDPassedErro
  *   will be rendered differently.
  */
 export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
-  if (err instanceof FailedFlagValidationError) {
-    return <InvalidFlagsError err={err} />;
-  } else if (err instanceof RequiredArgsError) {
-    return <InvalidArgsError err={err} />;
-  } else if (err instanceof AxiosError) {
+  // TODO
+  // if (err instanceof FailedFlagValidationError) {
+  //   return <InvalidFlagsError err={err} />;
+  // } else if (err instanceof RequiredArgsError) {
+  //   return <InvalidArgsError err={err} />;
+  // } else if (err instanceof AxiosError) {
+  if (err instanceof AxiosError) {
     return <APIError err={err} withStack withHTTPMessages="body" />;
   } else if (err instanceof InteractiveInputRequiredError) {
     return (

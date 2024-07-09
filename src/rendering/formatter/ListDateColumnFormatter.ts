@@ -1,12 +1,9 @@
-import { FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import {
   DateRenderer,
   formatDateISO,
   makeDateRendererForFormat,
 } from "../textformat/formatDate.js";
-import { isListFormatterFlags } from "./ListFormatter.js";
-import { table } from "@oclif/core/lib/cli-ux/styled/table.js";
-import Column = table.Column;
+import { isListFormatterFlags, ListColumn } from "./ListFormatter.js";
 
 type ResourceWithCreatedAt = {
   createdAt: string;
@@ -23,7 +20,7 @@ export function isResourceWithCreatedAt(
  * formatter that can handle date formatting.
  */
 export default class ListDateColumnFormatter {
-  public constructor(private readonly flags: FlagOutput) {}
+  public constructor(private readonly flags: { [k: string]: unknown }) {}
 
   public get renderDate(): DateRenderer {
     if (isListFormatterFlags(this.flags)) {
@@ -45,7 +42,7 @@ export default class ListDateColumnFormatter {
     fallback?: string;
     column?: TColumnName | "createdAt";
     extended?: boolean;
-  } = {}): Partial<Column<Record<string, unknown>>> {
+  } = {}): ListColumn<{ [k: string]: unknown }> {
     return {
       header,
       extended,

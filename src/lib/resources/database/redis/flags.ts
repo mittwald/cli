@@ -1,6 +1,5 @@
 import { Args, Config } from "@oclif/core";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import { withProjectId } from "../../project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { validate as validateUuid } from "uuid";
@@ -13,13 +12,16 @@ export const redisArgs = {
   }),
 };
 
-function getIdCandidate(flags: FlagOutput, args: ArgOutput): string {
-  if (args["database-id"]) {
-    return args["database-id"];
+function getIdCandidate(
+  flags: { [k: string]: unknown },
+  args: { [k: string]: unknown },
+): string {
+  if (args["database-id"] && typeof args["database-id"] === "string") {
+    return args["database-id"] as string;
   }
 
-  if (flags["database-id"]) {
-    return flags["database-id"];
+  if (flags["database-id"] && typeof flags["database-id"] === "string") {
+    return flags["database-id"] as string;
   }
 
   throw new Error("No ID given");
@@ -27,8 +29,8 @@ function getIdCandidate(flags: FlagOutput, args: ArgOutput): string {
 
 export async function withRedisId(
   apiClient: MittwaldAPIV2Client,
-  flags: FlagOutput,
-  args: ArgOutput,
+  flags: { [k: string]: unknown },
+  args: { [k: string]: unknown },
   cfg: Config,
 ): Promise<string> {
   const candidate = getIdCandidate(flags, args);

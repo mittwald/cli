@@ -1,12 +1,7 @@
 import { Args, Config, Flags } from "@oclif/core";
-import {
-  Arg,
-  ArgOutput,
-  FlagOutput,
-  OptionFlag,
-} from "@oclif/core/lib/interfaces/parser.js";
+import { Arg, OptionFlag } from "@oclif/core/interfaces";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
+import { AlphabetLowercase } from "@oclif/core/interfaces";
 import Context, { ContextKey, ContextNames } from "./Context.js";
 import UnexpectedShortIDPassedError from "../error/UnexpectedShortIDPassedError.js";
 import FlagSet from "./FlagSet.js";
@@ -130,16 +125,16 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   }
 
   private buildIDFromArgsOrFlag(): (
-    flags: FlagOutput,
-    args: ArgOutput,
+    flags: { [key: string]: unknown },
+    args: { [key: string]: unknown },
   ) => string | undefined {
-    return (flags, args) => {
-      if (args[this.flagName]) {
-        return args[this.flagName];
+    return (flags, args): string | undefined => {
+      if (args[this.flagName] && typeof args[this.flagName] === "string") {
+        return args[this.flagName] as string;
       }
 
-      if (flags[this.flagName]) {
-        return flags[this.flagName];
+      if (flags[this.flagName] && typeof flags[this.flagName] === "string") {
+        return flags[this.flagName] as string;
       }
 
       return undefined;
@@ -217,8 +212,8 @@ export default class FlagSetBuilder<TName extends ContextNames> {
     return async (
       apiClient: MittwaldAPIV2Client,
       commandType: CommandType<TName> | "flag" | "arg",
-      flags: FlagOutput,
-      args: ArgOutput,
+      flags: { [key: string]: unknown },
+      args: { [key: string]: unknown },
       cfg: Config,
     ): Promise<string> => {
       const idInput = idFromArgsOrFlag(flags, args);

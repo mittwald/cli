@@ -1,4 +1,4 @@
-import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
+import { FlagInput } from "@oclif/core/interfaces";
 import { ux } from "@oclif/core";
 import { DefaultPrinter, Printer, PrinterFactory } from "../Printer.js";
 
