@@ -82,8 +82,12 @@ export default class List extends ListBaseCommand<
     );
   }
 
-  protected getColumns(
-    rows: ResponseItem[],
+  protected getColumns(data: ExtendedResponseItem[]) {
+    return this.getColumnsExtended(data) as ListColumns<ResponseItem>;
+  }
+
+  protected getColumnsExtended(
+    rows: ExtendedResponseItem[],
   ): ListColumns<ExtendedResponseItem> {
     const { id, shortId } = super.getColumns(rows);
     return {
