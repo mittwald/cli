@@ -2,10 +2,6 @@ import { BooleanFlag, OptionFlag } from "@oclif/core/interfaces";
 import { Flags, ux } from "@oclif/core";
 import { PrinterFactory } from "../Printer.js";
 
-// export type ListOptions = ux.Table.table.Options;
-// export type ListColumns<TItem extends Record<string, unknown>> =
-//   ux.Table.table.Columns<TItem>;
-
 export type ListColumn<TItem> = {
   header?: string;
   extended?: boolean;
@@ -17,8 +13,6 @@ export type ListColumns<TItem> = {
   [key: string]: ListColumn<TItem>;
 };
 
-// type RelevantTableBaseFlags = Partial<typeof ux.table.Flags> &
-//   Pick<typeof ux.table.Flags, "output">;
 type ListFormatterFlags = {
   output: OptionFlag<OutputFormat>;
   extended: BooleanFlag<boolean>;
@@ -27,13 +21,7 @@ type ListFormatterFlags = {
   "no-relative-dates": BooleanFlag<boolean>;
 };
 
-// TODO: What was the difference between ListOptions and ListFormatterFlagsOutput?
-export type ListOptions = ListFormatterFlagsOutput;
-
-const outputFormats = ["txt", "json", "yaml", "csv"] as const;
-type OutputFormat = (typeof outputFormats)[number];
-
-type ListFormatterFlagsOutput = {
+export type ListOptions = {
   output: OutputFormat;
   extended: boolean;
   "no-header": boolean;
@@ -41,9 +29,12 @@ type ListFormatterFlagsOutput = {
   "no-relative-dates": boolean;
 };
 
+const outputFormats = ["txt", "json", "yaml", "csv"] as const;
+type OutputFormat = (typeof outputFormats)[number];
+
 export function isListFormatterFlags(flags: {
   [k: string]: unknown;
-}): flags is ListFormatterFlagsOutput {
+}): flags is ListOptions {
   return "output" in flags;
 }
 
