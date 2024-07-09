@@ -32,7 +32,7 @@ export class YamlPrinter implements Printer<unknown> {
 
 export class JsonPrinter implements Printer<unknown> {
   public log(content: unknown): void {
-    ux.styledJSON(content);
+    stdout(JSON.stringify(content, undefined, 2));
   }
 }
 
