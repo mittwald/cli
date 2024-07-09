@@ -1,5 +1,6 @@
 import * as yaml from "js-yaml";
-import { stdout, ux } from "@oclif/core";
+import { ux } from "@oclif/core";
+import { stdout } from "@oclif/core/ux";
 
 export interface Printer<T> {
   log(content: T): void;
@@ -25,7 +26,7 @@ export class PrinterFactory {
 
 export class YamlPrinter implements Printer<unknown> {
   public log(content: unknown): void {
-    stdout.write(yaml.dump(content));
+    stdout(yaml.dump(content));
   }
 }
 
