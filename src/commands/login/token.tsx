@@ -4,7 +4,10 @@ import { getTokenFilename } from "../../lib/auth/token.js";
 
 import { isNotFound } from "../../lib/util/fs/isNotFound.js";
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
-import { makeProcessRenderer, processFlags } from "../../rendering/process/process_flags.js";
+import {
+  makeProcessRenderer,
+  processFlags,
+} from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Filename } from "../../rendering/react/components/Filename.js";
 import { ReactNode } from "react";
@@ -25,9 +28,13 @@ export default class Token extends ExecRenderBaseCommand<typeof Token, string> {
     const tokenFilename = getTokenFilename(this.config);
 
     if ((await this.tokenFileExists()) && !this.flags.overwrite) {
-      const confirmed = await r.addConfirmation("Token file already exists. Overwrite?");
+      const confirmed = await r.addConfirmation(
+        "Token file already exists. Overwrite?",
+      );
       if (!confirmed) {
-        throw new Error(`cancelling authentication; token file already exists at ${tokenFilename}`);
+        throw new Error(
+          `cancelling authentication; token file already exists at ${tokenFilename}`,
+        );
       }
     }
 
@@ -40,7 +47,11 @@ export default class Token extends ExecRenderBaseCommand<typeof Token, string> {
   }
 
   protected render(tokenFilename: string): ReactNode {
-    return <Success>Token file saved at <Filename filename={tokenFilename} /></Success>;
+    return (
+      <Success>
+        Token file saved at <Filename filename={tokenFilename} />
+      </Success>
+    );
   }
 
   private async tokenFileExists(): Promise<boolean> {

@@ -81,15 +81,12 @@ export class ListFormatter {
       return;
     }
 
-    const table = new Table(
-      columns,
-      {
-        extended: opts?.extended,
-        truncate: !opts?.["no-truncate"],
-        header: !opts?.["no-header"],
-        maxWidth: getTerminalWidth(),
-      }
-    );
+    const table = new Table(columns, {
+      extended: opts?.extended,
+      truncate: !opts?.["no-truncate"],
+      header: !opts?.["no-header"],
+      maxWidth: getTerminalWidth(),
+    });
 
     stdout(table.render(output));
   }
