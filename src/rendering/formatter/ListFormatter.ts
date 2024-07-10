@@ -85,6 +85,7 @@ export class ListFormatter {
       {
         extended: opts?.extended,
         truncate: !opts?.["no-truncate"],
+        header: !opts?.["no-header"],
       }
     );
 

@@ -40,6 +40,7 @@ export class List extends ListBaseCommand<
       },
       description: {
         header: "Description",
+        expand: true,
       },
       status: {
         header: "Status",

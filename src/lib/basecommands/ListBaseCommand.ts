@@ -80,7 +80,7 @@ export abstract class ListBaseCommand<
       return {
         id: {
           header: "ID",
-          minWidth: 36,
+          exactWidth: 36,
         },
       };
     }
@@ -88,9 +88,10 @@ export abstract class ListBaseCommand<
     let columns: ListColumns<TItem> = {
       id: {
         header: "ID",
-        minWidth: 36,
+        exactWidth: 36,
       },
     };
+
     if (shortIdKey in data[0]) {
       // If there's a short ID in the data, the actual UUID becomes less useful,
       // so we hide it by default.
@@ -101,10 +102,11 @@ export abstract class ListBaseCommand<
         ...columns,
         [shortIdKey]: {
           header: "ID",
-          minWidth: 8,
+          exactWidth: 8,
         },
       };
     }
+
     if (isResourceWithCreatedAt(data[0])) {
       const createdAt = new ListDateColumnFormatter(this.flags).buildColumn();
 
