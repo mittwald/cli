@@ -3,10 +3,10 @@ import * as fs from "fs/promises";
 import { getTokenFilename } from "../../lib/auth/token.js";
 
 import { isNotFound } from "../../lib/util/fs/isNotFound.js";
-import { ExecRenderBaseCommand } from "src/lib/basecommands/ExecRenderBaseCommand.js";
-import { makeProcessRenderer, processFlags } from "src/rendering/process/process_flags.js";
-import { Success } from "src/rendering/react/components/Success.js";
-import { Filename } from "src/rendering/react/components/Filename.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
+import { makeProcessRenderer, processFlags } from "../../rendering/process/process_flags.js";
+import { Success } from "../../rendering/react/components/Success.js";
+import { Filename } from "../../rendering/react/components/Filename.js";
 import { ReactNode } from "react";
 
 export default class Token extends ExecRenderBaseCommand<typeof Token, string> {

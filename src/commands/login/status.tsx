@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from "date-fns";
-import { RenderBaseCommand } from "src/lib/basecommands/RenderBaseCommand.js";
-import { SingleResult, SingleResultTable } from "src/rendering/react/components/SingleResult.js";
-import useOwnAccount from "src/lib/resources/login/useOwnAccount.js";
+import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
+import { SingleResult, SingleResultTable } from "../../rendering/react/components/SingleResult.js";
+import useOwnAccount from "../../lib/resources/login/useOwnAccount.js";
 import { ReactNode } from "react";
 
 export default class Status extends RenderBaseCommand<typeof Status> {
