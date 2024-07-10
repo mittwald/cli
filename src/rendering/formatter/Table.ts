@@ -80,23 +80,7 @@ export default class Table<TItem> {
       renderedItems.push(rendered);
     }
 
-    const requiredWidth = sum(dynamicWidths);
-    const reservedWidthSum = sum(reservedWidths);
-
-    const definiteColWidths = colList.map(([, spec], idx) => {
-      if (spec.exactWidth) {
-        return spec.exactWidth;
-      }
-
-      if (availableWidth) {
-        const allocatable = availableWidth - reservedWidthSum - reservedForColumnGaps;
-        const fractionalWidth = dynamicWidths[idx] / (requiredWidth);
-
-        return reservedWidths[idx] + Math.floor(allocatable * fractionalWidth);
-      }
-
-      return dynamicWidths[idx];
-    });
+    const definiteColWidths = [...reservedWidths];
 
     if (availableWidth) {
       const remaining = availableWidth - sum(definiteColWidths) - reservedForColumnGaps;
@@ -104,17 +88,18 @@ export default class Table<TItem> {
 
       if (expandingColumn >= 0) {
         definiteColWidths[expandingColumn] += remaining;
+      } else {
+        const growableRequestedWidth = sum(colList.map(([_, spec], idx) => spec.exactWidth === undefined ? dynamicWidths[idx] : 0));
+        const growableProportions = colList.map(([_, spec], idx) => spec.exactWidth === undefined ? dynamicWidths[idx] / growableRequestedWidth : 0);
+        const growableChars = growableProportions.map(p => Math.floor(p * remaining));
+
+        growableChars.forEach((chars, idx) => {
+          definiteColWidths[idx] += chars;
+        });
       }
     }
 
     let output = "";
-
-    /*
-    console.log("available ", availableWidth);
-    console.log("reserved widths ", reservedWidths, sum(reservedWidths));
-    console.log("dynamic widths ", dynamicWidths, sum(dynamicWidths));
-    console.log("definite widths ", definiteColWidths, sum(definiteColWidths));
-    */
 
     const headerColumns = colList.map(([key, value]) => (value.header ?? key).toUpperCase());
     const truncatedHeaderColumns = headerColumns.map((val, idx) => val.substring(0, definiteColWidths[idx]));
@@ -128,7 +113,6 @@ export default class Table<TItem> {
     }
 
     for (let idx = 0; idx < renderedItems.length; idx++) {
-      //const truncatedRows = renderedItems[idx].map((val, colIdx) => val.substring(0, definiteColWidths[colIdx]));
       const truncatedRows = renderedItems[idx].map((val, colIdx) => smartTruncate(val, definiteColWidths[colIdx]));
       const paddedRows = truncatedRows.map((val, colIdx) => val + " ".repeat(Math.max(0, definiteColWidths[colIdx] - stringWidth(val))));
 
