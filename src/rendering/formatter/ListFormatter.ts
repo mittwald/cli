@@ -3,6 +3,7 @@ import { Flags } from "@oclif/core";
 import { PrinterFactory } from "../Printer.js";
 import { stdout } from "@oclif/core/ux";
 import Table, { ListColumns } from "./Table.js";
+import { getTerminalWidth } from "../lib/getTerminalWidth.js";
 
 export { ListColumn, ListColumns } from "./Table.js";
 
@@ -86,6 +87,7 @@ export class ListFormatter {
         extended: opts?.extended,
         truncate: !opts?.["no-truncate"],
         header: !opts?.["no-header"],
+        maxWidth: getTerminalWidth(),
       }
     );
 

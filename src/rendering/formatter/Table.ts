@@ -20,6 +20,7 @@ export interface TableOptions {
   truncate: boolean;
   header: boolean;
   gap: number;
+  maxWidth: number | undefined;
 }
 
 function minWidthForColumn<T = unknown>(key: string, c: ListColumn<T>): number {
@@ -51,12 +52,13 @@ export default class Table<TItem> {
       truncate: true,
       header: true,
       gap: 2,
+      maxWidth: undefined,
       ...opts,
     }
   }
 
   public render(data: TItem[]): string {
-    const availableWidth = getTerminalWidth();
+    const availableWidth = this.opts.maxWidth;
     const renderedItems: string[][] = [];
 
     const colList = Object.entries(this.columns).filter(([, spec]) => this.opts.extended ? true : !spec.extended);
