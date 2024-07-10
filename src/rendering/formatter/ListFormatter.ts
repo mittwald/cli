@@ -1,24 +1,10 @@
 import { BooleanFlag, OptionFlag } from "@oclif/core/interfaces";
-import { Flags, ux } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import { PrinterFactory } from "../Printer.js";
-import { render } from "ink";
-import { Table } from "../react/components/Table/Table.js";
-import { TableRenderSetup } from "../setup/TableRenderSetup.js";
-import { ColumnOptionsInput } from "../react/components/Table/model/ColumnOptions.js";
-import { TableContextProvider } from "../react/components/Table/context.js";
-import { RenderContextProvider } from "../react/context.js";
-import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { stdout } from "@oclif/core/ux";
+import Table, { ListColumns } from "./Table.js";
 
-export type ListColumn<TItem> = {
-  header?: string;
-  extended?: boolean;
-  get?: (row: TItem) => string | undefined;
-  minWidth?: number;
-};
-
-export type ListColumns<TItem> = {
-  [key: string]: ListColumn<TItem>;
-};
+export { ListColumn, ListColumns } from "./Table.js";
 
 type ListFormatterFlags = {
   output: OptionFlag<OutputFormat>;
@@ -94,32 +80,14 @@ export class ListFormatter {
       return;
     }
 
-    const setup = new TableRenderSetup().getSetup({
-      columns: undefined,
-      noTruncate: opts?.["no-truncate"] ?? false,
-      extended: opts?.extended ?? false,
-      json: false,
-    });
-
-    const reactColumns = Object.fromEntries(Object.keys(columns).map((key): [string, ColumnOptionsInput<T>] => {
-      const col = columns[key];
-      return [key, {
-        header: col.header ?? key,
-        minWidth: col.minWidth,
-        extended: col.extended,
-        render(data) {
-          if (col.get) {
-            return col.get(data);
-          }
-          return (data as any)[key];
-        }
-      }]
-    }));
-
-    render(
-      <RenderContextProvider value={{renderAsJson: false, apiClient: null as unknown as MittwaldAPIV2Client }}>
-        <Table data={output} setup={setup} columns={reactColumns} />
-      </RenderContextProvider>
+    const table = new Table(
+      columns,
+      {
+        extended: opts?.extended,
+        truncate: !opts?.["no-truncate"],
+      }
     );
+
+    stdout(table.render(output));
   }
 }
