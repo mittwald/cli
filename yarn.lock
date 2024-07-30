@@ -1553,7 +1553,7 @@ __metadata:
   dependencies:
     "@mittwald/api-client": ^4.9.0
     "@mittwald/react-use-promise": ^2.1.2
-    "@oclif/core": ^3.18.1
+    "@oclif/core": ^4.0.17
     "@oclif/plugin-autocomplete": ^3.0.3
     "@oclif/plugin-help": ^6.0.5
     "@oclif/plugin-update": ^4.1.3
@@ -1682,7 +1682,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^3.18.1, @oclif/core@npm:^3.26.6":
+"@oclif/core@npm:^3.26.6":
   version: 3.26.8
   resolution: "@oclif/core@npm:3.26.8"
   dependencies:
@@ -1740,6 +1740,31 @@ __metadata:
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
   checksum: 943de2b07bd880c07b5333e609379126e730aab1c3ab4e3b44ef689688255fd90fa6b420298a2491314c8f7a3790deb63710f3c41bf4d4c05e54648e4775dcd6
+  languageName: node
+  linkType: hard
+
+"@oclif/core@npm:^4.0.17":
+  version: 4.0.17
+  resolution: "@oclif/core@npm:4.0.17"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansis: ^3.3.2
+    clean-stack: ^3.0.1
+    cli-spinners: ^2.9.2
+    debug: ^4.3.5
+    ejs: ^3.1.10
+    get-package-type: ^0.1.0
+    globby: ^11.1.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    lilconfig: ^3.1.2
+    minimatch: ^9.0.5
+    string-width: ^4.2.3
+    supports-color: ^8
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 6ea9df6710f0109c2d8285d979cea32f62b16928f4eea1a1a1d7b323183c547a15876ba35def64ac9bd5e8569a5740713e4be5ec751e62bdd6fe3f18c9f199a7
   languageName: node
   linkType: hard
 
@@ -3489,6 +3514,13 @@ __metadata:
   version: 3.3.0
   resolution: "ansis@npm:3.3.0"
   checksum: 9db5ee7fed92ff2e9596536ca3f537a24d45aa265fd99d0b7f923c7ae284bd8f30c48955681e91d0e78b463f907dccc632f0a51a43f780f7fefc4f75fe5b8790
+  languageName: node
+  linkType: hard
+
+"ansis@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "ansis@npm:3.3.2"
+  checksum: 6d3e8a68a93b03a1e7166cbe63cb6831780a7a9b0bc6c3bf0a33c7237d528d00558af84a54827322a85667d4b52d21f796b884f6120ec203b5ed3f9404ec0d05
   languageName: node
   linkType: hard
 
@@ -6637,6 +6669,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lilconfig@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "lilconfig@npm:3.1.2"
+  checksum: 4e8b83ddd1d0ad722600994e6ba5d858ddca14f0587aa6b9c8185e17548149b5e13d4d583d811e9e9323157fa8c6a527e827739794c7502b59243c58e210b8c3
+  languageName: node
+  linkType: hard
+
 "lines-and-columns@npm:^1.1.6":
   version: 1.2.4
   resolution: "lines-and-columns@npm:1.2.4"
@@ -7190,6 +7229,15 @@ __metadata:
   dependencies:
     brace-expansion: ^2.0.1
   checksum: cf717f597ec3eed7dabc33153482a2e8d49f4fd3c26e58fd9c71a94c5029a0838728841b93f46bf1263b65a8010e2ee800d0dc9b004ab8ba8b6d1ec07cc115b5
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:^9.0.5":
+  version: 9.0.5
+  resolution: "minimatch@npm:9.0.5"
+  dependencies:
+    brace-expansion: ^2.0.1
+  checksum: 2c035575eda1e50623c731ec6c14f65a85296268f749b9337005210bb2b34e2705f8ef1a358b188f69892286ab99dc42c8fb98a57bde55c8d81b3023c19cea28
   languageName: node
   linkType: hard
 
