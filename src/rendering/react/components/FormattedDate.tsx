@@ -1,9 +1,6 @@
 import { Text } from "ink";
 import { FC } from "react";
-import {
-  formatRelativeDate,
-  parseDate,
-} from "../../../lib/viewhelpers/date.js";
+import { formatRelativeDate, parseDate } from "../../textformat/formatDate.js";
 
 interface Props {
   date: Date | string;

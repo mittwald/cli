@@ -1,14 +1,13 @@
 import { FC } from "react";
+import ByteQuantity from "../../../lib/units/ByteQuantity.js";
 
-export const ByteFormat: FC<{ bytes: number }> = ({ bytes }) => {
-  if (bytes > 1 << 30) {
-    return Math.round(bytes / (1 << 30)) + "Gi";
-  }
-  if (bytes > 1 << 20) {
-    return Math.round(bytes / (1 << 20)) + "Mi";
-  }
-  if (bytes > 1 << 10) {
-    return Math.round(bytes / (1 << 10)) + "Ki";
-  }
-  return bytes + "B";
+/**
+ * Renders a byte quantity in a human-readable format.
+ *
+ * @deprecated Use `ByteQuantity.format()` instead.
+ * @class
+ * @param bytes
+ */
+export const ByteFormat: FC<{ bytes: ByteQuantity }> = ({ bytes }) => {
+  return <>{bytes.format()}</>;
 };

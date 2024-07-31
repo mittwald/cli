@@ -1,4 +1,4 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import { ReactNode } from "react";
 import {
   makeProcessRenderer,
@@ -10,11 +10,11 @@ import {
   mysqlArgs,
   mysqlConnectionFlags,
   withMySQLId,
-} from "../../../lib/database/mysql/flags.js";
-import { getConnectionDetailsWithPassword } from "../../../lib/database/mysql/connect.js";
-import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
-import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
-import { buildSSHClientFlags } from "../../../lib/ssh/connection.js";
+} from "../../../lib/resources/database/mysql/flags.js";
+import { getConnectionDetailsWithPassword } from "../../../lib/resources/database/mysql/connect.js";
+import { sshUsageDocumentation } from "../../../lib/resources/ssh/doc.js";
+import { sshConnectionFlags } from "../../../lib/resources/ssh/flags.js";
+import { buildSSHClientFlags } from "../../../lib/resources/ssh/connection.js";
 
 export class Shell extends ExecRenderBaseCommand<
   typeof Shell,

@@ -1,5 +1,5 @@
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
-import { appInstallationArgs } from "../../lib/app/flags.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
+import { appInstallationArgs } from "../../lib/resources/app/flags.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -7,11 +7,17 @@ import {
 import { Flags } from "@oclif/core";
 import { Success } from "../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
-import { hasBinary } from "../../lib/hasbin.js";
-import { getSSHConnectionForAppInstallation } from "../../lib/ssh/appinstall.js";
+import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
 import { spawnInProcess } from "../../rendering/process/process_exec.js";
-import { sshConnectionFlags } from "../../lib/ssh/flags.js";
-import { sshUsageDocumentation } from "../../lib/ssh/doc.js";
+import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
+import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
+import {
+  appInstallationSyncFlags,
+  appInstallationSyncFlagsToRsyncFlags,
+  filterFileDocumentation,
+  filterFileToRsyncFlagsIfPresent,
+} from "../../lib/resources/app/sync.js";
+import { hasBinaryInPath } from "../../lib/util/fs/hasBinaryInPath.js";
 
 export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static summary =
@@ -19,21 +25,16 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static description =
     "This command downloads the filesystem of an app installation to your local machine via rsync.\n\n" +
     "For this, rsync needs to be installed on your system.\n\n" +
-    sshUsageDocumentation;
+    sshUsageDocumentation +
+    "\n\n" +
+    filterFileDocumentation;
   static args = {
     ...appInstallationArgs,
   };
   static flags = {
     ...processFlags,
     ...sshConnectionFlags,
-    "dry-run": Flags.boolean({
-      description: "do not actually download the app installation",
-      default: false,
-    }),
-    delete: Flags.boolean({
-      description: "delete local files that are not present on the server",
-      default: false,
-    }),
+    ...appInstallationSyncFlags("download"),
     target: Flags.directory({
       description: "target directory to download the app installation to",
       required: true,
@@ -43,13 +44,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Download);
-    const {
-      "dry-run": dryRun,
-      target,
-      delete: deleteLocal,
-      "ssh-user": sshUser,
-      "ssh-identity-file": sshIdentityFile,
-    } = this.flags;
+    const { "dry-run": dryRun, target, "ssh-user": sshUser } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Downloading app installation");
 
@@ -65,27 +60,15 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
     );
 
     await p.runStep("check if rsync is installed", async () => {
-      if (!(await hasBinary("rsync"))) {
+      if (!(await hasBinaryInPath("rsync"))) {
         throw new Error("this command requires rsync to be installed");
       }
     });
 
     const rsyncOpts = [
-      "--archive",
-      "--recursive",
-      "--verbose",
-      "--progress",
-      "--exclude=typo3temp",
+      ...appInstallationSyncFlagsToRsyncFlags(this.flags),
+      ...(await filterFileToRsyncFlagsIfPresent(target)),
     ];
-    if (dryRun) {
-      rsyncOpts.push("--dry-run");
-    }
-    if (deleteLocal) {
-      rsyncOpts.push("--delete");
-    }
-    if (sshIdentityFile) {
-      rsyncOpts.push("--rsh", `ssh -i ${sshIdentityFile}`);
-    }
 
     await spawnInProcess(
       p,

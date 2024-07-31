@@ -4,10 +4,10 @@ type BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
 import { SingleResult, SingleResultTable } from "../SingleResult.js";
 import { Text } from "ink";
 import { Value } from "../Value.js";
-import { useProjectBackupSchedule } from "../../../../lib/projectbackup/hooks.js";
+import { useProjectBackupSchedule } from "../../../../lib/resources/projectbackup/hooks.js";
 import { FormattedDate } from "../FormattedDate.js";
 import { ProjectBackupStatus } from "./ProjectBackupStatus.js";
-import { useProject } from "../../../../lib/project/hooks.js";
+import { useProject } from "../../../../lib/resources/project/hooks.js";
 import { IDAndShortID } from "../IDAndShortID.js";
 
 export const ProjectBackupDetails: FC<{

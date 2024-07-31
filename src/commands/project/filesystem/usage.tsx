@@ -1,7 +1,7 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../../GetBaseCommand.js";
-import { projectArgs } from "../../../lib/project/flags.js";
-import { RenderBaseCommand } from "../../../rendering/react/RenderBaseCommand.js";
+import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
+import { projectArgs } from "../../../lib/resources/project/flags.js";
+import { RenderBaseCommand } from "../../../lib/basecommands/RenderBaseCommand.js";
 import { ReactNode } from "react";
 import { usePromise } from "@mittwald/react-use-promise";
 import { SingleResult } from "../../../rendering/react/components/SingleResult.js";
@@ -9,10 +9,10 @@ import { Box, Text } from "ink";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Flags } from "@oclif/core";
-import { ByteFormat } from "../../../rendering/react/components/ByteFormat.js";
-import { parseBytes } from "../../../lib/bytes.js";
 import { Note, noteColor } from "../../../rendering/react/components/Note.js";
 import { ListItem } from "../../../rendering/react/components/ListItem.js";
+import ByteQuantity from "../../../lib/units/ByteQuantity.js";
+import maybe from "../../../lib/util/maybe.js";
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2ProjectsProjectIdFilesystemDiskUsage.Get.Parameters.Path;
@@ -46,21 +46,19 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
     assertStatus(projectDiskUsage, 200);
 
     const planLimitStr = project.data.spec?.storage ?? undefined;
-    const planLimit = planLimitStr ? parseBytes(planLimitStr) : undefined;
+    const planLimit = planLimitStr
+      ? ByteQuantity.fromString(planLimitStr)
+      : undefined;
 
     const formatSize = this.flags.human
-      ? (bytes: number) => (
-          <Value>
-            <ByteFormat bytes={bytes} />
-          </Value>
-        )
-      : (bytes: number) => <Value>{bytes}</Value>;
-    const formatMaybe = (bytes: number | undefined) => (
+      ? (bytes: ByteQuantity) => <Value>{bytes.format()}</Value>
+      : (bytes: ByteQuantity) => <Value>{bytes.bytes}</Value>;
+    const formatMaybe = (bytes: ByteQuantity | undefined) => (
       <Text>{bytes ? formatSize(bytes) : <Value notSet />}</Text>
     );
     const usageRelative =
       planLimit && projectDiskUsage.data.usedBytes
-        ? projectDiskUsage.data.usedBytes / planLimit
+        ? projectDiskUsage.data.usedBytes / planLimit.bytes
         : undefined;
 
     const UsageRelative = () => {
@@ -76,6 +74,11 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
       );
     };
 
+    const maybeQuantity = maybe(ByteQuantity.fromBytes);
+
+    const total = maybeQuantity(projectDiskUsage.data.totalBytes);
+    const used = maybeQuantity(projectDiskUsage.data.usedBytes);
+
     return (
       <Box flexDirection="column">
         <SingleResult
@@ -87,10 +90,10 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
           }
           rows={{
             "Provisioned storage": formatMaybe(planLimit),
-            "Hard limit": formatMaybe(projectDiskUsage.data.totalBytes),
+            "Hard limit": formatMaybe(total),
             Usage: (
               <Text>
-                {formatMaybe(projectDiskUsage.data.usedBytes)}
+                {formatMaybe(used)}
                 <UsageRelative />
               </Text>
             ),

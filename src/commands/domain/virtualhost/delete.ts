@@ -1,5 +1,5 @@
 import { assertStatus } from "@mittwald/api-client-commons";
-import { DeleteBaseCommand } from "../../../DeleteBaseCommand.js";
+import { DeleteBaseCommand } from "../../../lib/basecommands/DeleteBaseCommand.js";
 import { Args } from "@oclif/core";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {

@@ -1,13 +1,16 @@
-import { BaseCommand } from "../../BaseCommand.js";
-import { Args } from "@oclif/core";
-import { normalizeConversationId } from "../../normalize_id.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
+import { formatRelativeDate } from "../../rendering/textformat/formatDate.js";
 import { marked, Renderer } from "marked";
 import TerminalRenderer from "marked-terminal";
 import chalk from "chalk";
-import { printHeader, printKeyValues } from "../../lib/viewhelpers/tui.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import {
+  conversationArgs,
+  withConversationId,
+} from "../../lib/resources/conversation/flags.js";
+import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
+import { printHeader } from "../../rendering/formatter/printHeader.js";
+import { printKeyValues } from "../../rendering/formatter/printKeyValues.js";
 
 type Conversation = MittwaldAPIV2.Components.Schemas.ConversationConversation;
 type Message = MittwaldAPIV2.Components.Schemas.ConversationMessage;
@@ -105,20 +108,17 @@ async function printConversationMessages(responseItems: ResponseItem[]) {
   }
 }
 
-export default class Show extends BaseCommand {
+export default class Show extends ExtendedBaseCommand<typeof Show> {
   static description = "Show a conversation and message history";
-  static args = {
-    id: Args.string({
-      required: true,
-      description: "ID of the conversation to show",
-    }),
-  };
+  static args = { ...conversationArgs };
 
   public async run(): Promise<void> {
-    const { args } = await this.parse(Show);
-    const conversationId = await normalizeConversationId(
+    const conversationId = await withConversationId(
       this.apiClient,
-      args.id,
+      Show,
+      this.flags,
+      this.args,
+      this.config,
     );
 
     const [conversation, responseItems] =

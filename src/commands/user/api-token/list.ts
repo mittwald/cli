@@ -1,10 +1,9 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListColumns } from "../../../Formatter.js";
-import { formatRelativeDate } from "../../../lib/viewhelpers/date.js";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { buildCreatedAtColumn } from "../../../lib/viewhelpers/list_column_date.js";
+import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
+import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
+
+import ListDateColumnFormatter from "../../../rendering/formatter/ListDateColumnFormatter.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2UsersSelfApiTokens.Get.Responses.$200.Content.ApplicationJson[number]
@@ -29,23 +28,20 @@ export default class List extends ListBaseCommand<
     return await this.apiClient.user.listApiTokens();
   }
 
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
-  }
-
   protected getColumns(): ListColumns<ResponseItem> {
-    const createdAt = buildCreatedAtColumn(this.flags);
+    const dateColumnBuilder = new ListDateColumnFormatter(this.flags);
+    const createdAt = dateColumnBuilder.buildColumn();
+    const expiresAt = dateColumnBuilder.buildColumn({
+      header: "Expires at",
+      column: "expiresAt",
+      fallback: "never",
+    });
+
     return {
       apiTokenId: { header: "ID", minWidth: 36 },
       description: {},
       createdAt,
-      expiresAt: {
-        header: "Expires at",
-        get: (r) =>
-          r.expiresAt
-            ? formatRelativeDate(new Date(`${r.expiresAt}`))
-            : "never",
-      },
+      expiresAt,
     };
   }
 }

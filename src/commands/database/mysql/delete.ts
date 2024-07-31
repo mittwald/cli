@@ -1,7 +1,9 @@
-import { normalizeProjectId } from "../../../normalize_id.js";
-import { DeleteBaseCommand } from "../../../DeleteBaseCommand.js";
-import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
-import assertSuccess from "../../../lib/assert_success.js";
+import { DeleteBaseCommand } from "../../../lib/basecommands/DeleteBaseCommand.js";
+import {
+  mysqlArgs,
+  withMySQLId,
+} from "../../../lib/resources/database/mysql/flags.js";
+import assertSuccess from "../../../lib/apiutil/assert_success.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete a MySQL database";
@@ -21,9 +23,5 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
     });
 
     assertSuccess(response);
-  }
-
-  protected mapResourceId(id: string): Promise<string> {
-    return normalizeProjectId(this.apiClient, id);
   }
 }

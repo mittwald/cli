@@ -1,5 +1,5 @@
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import { Args } from "@oclif/core";
 
 export type PathParams = MittwaldAPIV2.Paths.V2UsersUserId.Get.Parameters.Path;

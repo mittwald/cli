@@ -1,12 +1,13 @@
 import * as fs from "fs/promises";
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import React from "react";
 import { Box, Text } from "ink";
 import { Note } from "../../rendering/react/components/Note.js";
 import { FancyProcessRenderer } from "../../rendering/process/process_fancy.js";
 import { Filename } from "../../rendering/react/components/Filename.js";
 import { getTokenFilename } from "../../lib/auth/token.js";
-import { isNotFound } from "../../lib/fsutil.js";
+
+import { isNotFound } from "../../lib/util/fs/isNotFound.js";
 
 type ResetResult = { deleted: boolean };
 

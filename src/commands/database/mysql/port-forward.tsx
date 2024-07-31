@@ -1,4 +1,4 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import { ReactNode } from "react";
 import {
   makeProcessRenderer,
@@ -6,13 +6,16 @@ import {
 } from "../../../rendering/process/process_flags.js";
 import * as cp from "child_process";
 import { Text } from "ink";
-import { mysqlArgs, withMySQLId } from "../../../lib/database/mysql/flags.js";
-import { getConnectionDetails } from "../../../lib/database/mysql/connect.js";
+import {
+  mysqlArgs,
+  withMySQLId,
+} from "../../../lib/resources/database/mysql/flags.js";
+import { getConnectionDetails } from "../../../lib/resources/database/mysql/connect.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { Flags } from "@oclif/core";
-import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
-import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
-import { buildSSHClientFlags } from "../../../lib/ssh/connection.js";
+import { sshConnectionFlags } from "../../../lib/resources/ssh/flags.js";
+import { sshUsageDocumentation } from "../../../lib/resources/ssh/doc.js";
+import { buildSSHClientFlags } from "../../../lib/resources/ssh/connection.js";
 
 export class PortForward extends ExecRenderBaseCommand<
   typeof PortForward,

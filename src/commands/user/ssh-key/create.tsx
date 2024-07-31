@@ -3,7 +3,7 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import * as path from "path";
 import * as os from "os";
 import * as fs from "fs/promises";
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -12,11 +12,8 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import { Filename } from "../../../rendering/react/components/Filename.js";
 import { Text } from "ink";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import {
-  expirationDateFromFlagsOptional,
-  expireFlags,
-} from "../../../lib/expires.js";
 import { spawnInProcess } from "../../../rendering/process/process_exec.js";
+import { expireFlags } from "../../../lib/flags/expireFlags.js";
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,
@@ -26,7 +23,7 @@ export default class Create extends ExecRenderBaseCommand<
 
   static flags = {
     ...processFlags,
-    ...expireFlags("SSH key"),
+    ...expireFlags("SSH key", false),
     output: Flags.string({
       description:
         "A filename in your ~/.ssh directory to write the SSH key to.",
@@ -46,7 +43,7 @@ export default class Create extends ExecRenderBaseCommand<
 
     const r = makeProcessRenderer(this.flags, "Creating a new SSH key");
 
-    const expiresAt = expirationDateFromFlagsOptional(this.flags);
+    const { expires } = this.flags;
     const passphrase = await this.getPassphrase(r);
     const args = ["-t", "rsa", "-f", outputFile, "-N", passphrase];
 
@@ -63,7 +60,7 @@ export default class Create extends ExecRenderBaseCommand<
       const response = await this.apiClient.user.createSshKey({
         data: {
           publicKey,
-          expiresAt: expiresAt?.toJSON(),
+          expiresAt: expires?.toJSON(),
         },
       });
 

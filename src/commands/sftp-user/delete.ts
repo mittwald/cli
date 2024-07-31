@@ -1,5 +1,5 @@
-import { DeleteBaseCommand } from "../../DeleteBaseCommand.js";
-import assertSuccess from "../../lib/assert_success.js";
+import { DeleteBaseCommand } from "../../lib/basecommands/DeleteBaseCommand.js";
+import assertSuccess from "../../lib/apiutil/assert_success.js";
 import { Args } from "@oclif/core";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {

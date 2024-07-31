@@ -2,9 +2,9 @@
 /* prettier-ignore */
 /* This file is auto-generated with acg (@mittwald/api-code-generator) */
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
-import { BaseCommand } from "../../../BaseCommand.js";
+import { BaseCommand } from "../../../lib/basecommands/BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import * as cp from "child_process";
 import * as fs from "fs";

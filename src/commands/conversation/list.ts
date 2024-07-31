@@ -1,9 +1,8 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../types.js";
-import { ListColumns } from "../../Formatter.js";
-import { formatRelativeDate } from "../../lib/viewhelpers/date.js";
-import { ListBaseCommand } from "../../ListBaseCommand.js";
+import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
+import { formatRelativeDate } from "../../rendering/textformat/formatDate.js";
+import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Conversations.Get.Responses.$200.Content.ApplicationJson[number]
@@ -27,10 +26,6 @@ export default class List extends ListBaseCommand<
 
   public async getData(): Promise<Response> {
     return await this.apiClient.conversation.listConversations();
-  }
-
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
   }
 
   protected getColumns(): ListColumns<ResponseItem> {

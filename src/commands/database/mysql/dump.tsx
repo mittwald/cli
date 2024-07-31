@@ -1,4 +1,4 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import { Flags } from "@oclif/core";
 import { ReactNode } from "react";
 import {
@@ -13,12 +13,12 @@ import {
   mysqlArgs,
   mysqlConnectionFlagsWithTempUser,
   withMySQLId,
-} from "../../../lib/database/mysql/flags.js";
-import { runWithConnectionDetails } from "../../../lib/database/mysql/connect.js";
-import { executeViaSSH, RunCommand } from "../../../lib/ssh/exec.js";
+} from "../../../lib/resources/database/mysql/flags.js";
+import { runWithConnectionDetails } from "../../../lib/resources/database/mysql/connect.js";
+import { executeViaSSH, RunCommand } from "../../../lib/resources/ssh/exec.js";
 import shellEscape from "shell-escape";
-import { sshConnectionFlags } from "../../../lib/ssh/flags.js";
-import { sshUsageDocumentation } from "../../../lib/ssh/doc.js";
+import { sshConnectionFlags } from "../../../lib/resources/ssh/flags.js";
+import { sshUsageDocumentation } from "../../../lib/resources/ssh/doc.js";
 
 export class Dump extends ExecRenderBaseCommand<
   typeof Dump,

@@ -1,6 +1,6 @@
 import { Args } from "@oclif/core";
-import { DeleteBaseCommand } from "../../../../DeleteBaseCommand.js";
-import assertSuccess from "../../../../lib/assert_success.js";
+import { DeleteBaseCommand } from "../../../../lib/basecommands/DeleteBaseCommand.js";
+import assertSuccess from "../../../../lib/apiutil/assert_success.js";
 
 export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete a MySQL user";

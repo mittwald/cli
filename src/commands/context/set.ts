@@ -1,12 +1,6 @@
 import { Flags } from "@oclif/core";
-import { Context } from "../../lib/context.js";
-import { BaseCommand } from "../../BaseCommand.js";
-import {
-  normalizeAppInstallationId,
-  normalizeCustomerId,
-  normalizeProjectId,
-  normalizeServerId,
-} from "../../normalize_id.js";
+import Context from "../../lib/context/Context.js";
+import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 
 export class Set extends BaseCommand {
   static summary = "Set context values for the current project, org or server";
@@ -33,35 +27,24 @@ export class Set extends BaseCommand {
     const ctx = new Context(this.apiClient, this.config);
 
     if (flags["project-id"]) {
-      const projectId = await normalizeProjectId(
-        this.apiClient,
-        flags["project-id"],
-      );
-      await ctx.setProjectId(projectId);
+      const projectId = await ctx.setProjectId(flags["project-id"]);
       this.log(`Set project ID to ${projectId}`);
     }
 
     if (flags["server-id"]) {
-      const serverId = await normalizeServerId(
-        this.apiClient,
-        flags["server-id"],
-      );
-      await ctx.setServerId(serverId);
+      const serverId = await ctx.setServerId(flags["server-id"]);
       this.log(`Set server ID to ${serverId}`);
     }
 
     if (flags["org-id"]) {
-      const orgId = await normalizeCustomerId(this.apiClient, flags["org-id"]);
-      await ctx.setOrgId(orgId);
+      const orgId = await ctx.setOrgId(flags["org-id"]);
       this.log(`Set organization ID to ${orgId}`);
     }
 
     if (flags["installation-id"]) {
-      const installationId = await normalizeAppInstallationId(
-        this.apiClient,
+      const installationId = await ctx.setAppInstallationId(
         flags["installation-id"],
       );
-      await ctx.setAppInstallationId(installationId);
       this.log(`Set installation ID to ${installationId}`);
     }
   }

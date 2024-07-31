@@ -1,9 +1,8 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../../types.js";
-import { ListBaseCommand } from "../../../../ListBaseCommand.js";
+import { ListBaseCommand } from "../../../../lib/basecommands/ListBaseCommand.js";
 import { Flags } from "@oclif/core";
-import { ListColumns } from "../../../../Formatter.js";
+import { ListColumns } from "../../../../rendering/formatter/ListFormatter.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2MysqlDatabasesMysqlDatabaseIdUsers.Get.Responses.$200.Content.ApplicationJson[number]
@@ -28,10 +27,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     return await this.apiClient.database.listMysqlUsers({
       mysqlDatabaseId: this.flags["database-id"],
     });
-  }
-
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    return data;
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {

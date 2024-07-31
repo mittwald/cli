@@ -1,7 +1,7 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
 import { Args } from "@oclif/core";
-import { RenderBaseCommand } from "../../../rendering/react/RenderBaseCommand.js";
+import { RenderBaseCommand } from "../../../lib/basecommands/RenderBaseCommand.js";
 import { FC, ReactNode } from "react";
 import { usePromise } from "@mittwald/react-use-promise";
 import { assertStatus } from "@mittwald/api-client-commons";

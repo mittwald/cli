@@ -1,5 +1,5 @@
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
-import { Args, Flags } from "@oclif/core";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
+import { Flags } from "@oclif/core";
 import {
   makeProcessRenderer,
   processFlags,
@@ -18,30 +18,29 @@ import {
 import { waitUntil } from "../../lib/wait.js";
 import axios from "axios";
 import * as fs from "fs";
-import { formatBytes } from "../../lib/viewhelpers/size.js";
 import { Success } from "../../rendering/react/components/Success.js";
+import ByteQuantity, {
+  ByteQuantityFormattingOptions,
+} from "../../lib/units/ByteQuantity.js";
+import Duration from "../../lib/units/Duration.js";
+import { backupArgs, withBackupId } from "../../lib/resources/backup/flags.js";
 
 type Result = { outputFilename: string };
 
 export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
   static description = "Download a backup to your local disk";
-  static args = {
-    "backup-id": Args.string({
-      required: true,
-      description: "the ID of the Backup to download.",
-    }),
-  };
+  static args = { ...backupArgs };
   static flags = {
     ...processFlags,
     output: Flags.string({
       description:
         "the file to write the backup to; if omitted, the filename will be determined by the server.",
     }),
-    format: Flags.string({
+    format: Flags.custom<"tar" | "zip">({
       description: "the file format to download the backup in.",
       options: ["tar", "zip"],
       default: "tar",
-    }),
+    })(),
     password: Flags.string({
       summary: "the password to encrypt the backup with.",
       description: `\
@@ -93,7 +92,13 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Downloading backup");
-    const projectBackupId = this.args["backup-id"];
+    const projectBackupId = await withBackupId(
+      this.apiClient,
+      Download,
+      this.flags,
+      this.args,
+      this.config,
+    );
     const { format } = this.flags;
     const password = await this.getPassword(p);
 
@@ -112,7 +117,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
         const r = await this.apiClient.backup.createProjectBackupExport({
           projectBackupId,
           data: {
-            format: format as "tar" | "zip",
+            format,
             password,
           },
         });
@@ -135,7 +140,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
           }
 
           return null;
-        }, 3600);
+        }, Duration.fromString("1h"));
       },
     );
 
@@ -163,26 +168,27 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
 
     const downloadStep = p.addStep("downloading backup");
     const resp = await axios(backupExport.downloadURL, reqConfig);
-    const size = parseInt(resp.headers["content-length"] || "0", 10);
-    let downloaded = 0;
+    const size = ByteQuantity.fromBytes(
+      parseInt(resp.headers["content-length"] || "0", 10),
+    );
+    let downloaded = ByteQuantity.fromBytes(0);
 
     const outputFilename = this.getFilename(resp.headers);
     const outputStream = fs.createWriteStream(outputFilename, {
       flags: this.flags.resume ? "a" : undefined,
     });
 
+    const byteFormattingOpts: ByteQuantityFormattingOptions = {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    };
+
     resp.data.on("data", (chunk: { length: number }) => {
-      downloaded += chunk.length;
+      downloaded = downloaded.add(ByteQuantity.fromBytes(chunk.length));
       downloadStep.progress(
-        formatBytes(downloaded, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }) +
+        downloaded.format(byteFormattingOpts) +
           " of " +
-          formatBytes(size, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          }),
+          size.format(byteFormattingOpts),
       );
       outputStream.write(chunk);
     });

@@ -1,14 +1,14 @@
-import { ExecRenderBaseCommand } from "../../../rendering/react/ExecRenderBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
 import React from "react";
 import {
   AppInstallationResult,
   AppInstaller,
-} from "../../../lib/app/Installer.js";
+} from "../../../lib/resources/app/Installer.js";
 
 export const staticInstaller = new AppInstaller(
   "d20baefd-81d2-42aa-bfba-9a3220ae839b",
   "custom static site",
-  ["document-root", "site-title", "wait"] as const,
+  ["document-root", "site-title"] as const,
 );
 
 export default class InstallStatic extends ExecRenderBaseCommand<

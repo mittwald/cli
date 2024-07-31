@@ -1,11 +1,9 @@
 import { Response, Simplify } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../types.js";
-import { ListBaseCommand } from "../../ListBaseCommand.js";
-import { projectFlags } from "../../lib/project/flags.js";
-import { ListColumns } from "../../Formatter.js";
-import { optionalDateRenderer } from "../../lib/viewhelpers/date.js";
-import { makeDateRendererForFlags } from "../../lib/viewhelpers/list_column_date.js";
+import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
+import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
+import ListDateColumnFormatter from "../../rendering/formatter/ListDateColumnFormatter.js";
 
 type BackupProjectBackup = MittwaldAPIV2.Components.Schemas.BackupProjectBackup;
 
@@ -23,12 +21,6 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
   static aliases = ["project:backup:list"];
   static deprecateAliases = true;
 
-  protected mapData(
-    data: SuccessfulResponse<ListResponse, 200>["data"],
-  ): ListItem[] | Promise<ListItem[]> {
-    return data;
-  }
-
   public async getData(): Promise<ListResponse> {
     const projectId = await this.withProjectId(List);
     return await this.apiClient.backup.listProjectBackups({
@@ -38,17 +30,16 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
 
   protected getColumns(data: ListItem[]): ListColumns<ListItem> {
     const { id, createdAt } = super.getColumns(data);
-    const dateRenderer = optionalDateRenderer(
-      makeDateRendererForFlags(this.flags),
-    );
+    const dateColumnBuilder = new ListDateColumnFormatter(this.flags);
     return {
       id,
       status: {},
       createdAt,
-      expiresIn: {
+      expiresIn: dateColumnBuilder.buildColumn({
         header: "Expires in",
-        get: (r) => dateRenderer(r.expiresAt),
-      },
+        column: "expiresAt",
+        fallback: "never",
+      }),
     };
   }
 }

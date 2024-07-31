@@ -1,8 +1,10 @@
 import { assertStatus, Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListColumns } from "../../../Formatter.js";
+import {
+  ListBaseCommand,
+  SorterFunction,
+} from "../../../lib/basecommands/ListBaseCommand.js";
+import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
 import { SemVer } from "semver";
 import { Args } from "@oclif/core";
 
@@ -30,6 +32,9 @@ export class Versions extends ListBaseCommand<
     ...ListBaseCommand.baseFlags,
   };
 
+  sorter: SorterFunction<ResponseItem> = (a, b) =>
+    new SemVer(a.externalVersion).compare(b.externalVersion);
+
   public async getData(): Promise<Response> {
     const systemSoftwareName = this.args["systemsoftware"];
 
@@ -47,13 +52,6 @@ export class Versions extends ListBaseCommand<
     return await this.apiClient.app.listSystemsoftwareversions({
       systemSoftwareId: systemSoftware.id,
     } as Parameters<typeof this.apiClient.app.listSystemsoftwareversions>[0]);
-  }
-
-  protected mapData(data: SuccessfulResponse<Response, 200>["data"]) {
-    data.sort((a, b) =>
-      new SemVer(a.externalVersion).compare(b.externalVersion),
-    );
-    return data;
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {

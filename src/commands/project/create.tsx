@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { serverFlags } from "../../lib/server/flags.js";
-import { ExecRenderBaseCommand } from "../../rendering/react/ExecRenderBaseCommand.js";
+import { serverFlags } from "../../lib/resources/server/flags.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import { Text } from "ink";
 import React, { ReactNode } from "react";
 import { Success } from "../../rendering/react/components/Success.js";
@@ -11,7 +11,7 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
-import { Context } from "../../lib/context.js";
+import Context from "../../lib/context/Context.js";
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,

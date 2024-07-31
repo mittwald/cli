@@ -1,4 +1,4 @@
-import { articleForWord } from "../language.js";
+import { articleForWord } from "../util/language/articleForWord.js";
 
 export default class UnexpectedShortIDPassedError extends Error {
   public readonly resourceName: string;

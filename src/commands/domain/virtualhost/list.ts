@@ -1,10 +1,9 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
+import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
 import { Flags } from "@oclif/core";
-import { ListColumns } from "../../../Formatter.js";
-import { projectFlags } from "../../../lib/project/flags.js";
+import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
+import { projectFlags } from "../../../lib/resources/project/flags.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Ingresses.Get.Responses.$200.Content.ApplicationJson[number]
@@ -38,12 +37,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     return await this.apiClient.domain.ingressListIngresses({
       queryParameters: { projectId },
     });
-  }
-
-  protected mapData(
-    data: SuccessfulResponse<Response, 200>["data"],
-  ): ResponseItem[] | Promise<ResponseItem[]> {
-    return data;
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {

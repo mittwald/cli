@@ -1,8 +1,7 @@
-import { GetBaseCommand } from "../../GetBaseCommand.js";
+import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { projectArgs } from "../../lib/project/flags.js";
+import { projectArgs } from "../../lib/resources/project/flags.js";
 import { FC, ReactNode } from "react";
-import { GetFormatter } from "../../Formatter.js";
 import {
   SingleResult,
   SingleResultTable,
@@ -14,12 +13,13 @@ import { CreatedAt } from "../../rendering/react/components/CreatedAt.js";
 import { useRenderContext } from "../../rendering/react/context.js";
 import { usePromise } from "@mittwald/react-use-promise";
 import { ComponentPrinter } from "../../rendering/react/ComponentPrinter.js";
-import { RenderBaseCommand } from "../../rendering/react/RenderBaseCommand.js";
+import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { ByteFormat } from "../../rendering/react/components/ByteFormat.js";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import Link from "ink-link";
 import { ProjectStatus } from "../../rendering/react/components/Project/ProjectStatus.js";
+import ByteQuantity from "../../lib/units/ByteQuantity.js";
+import { GetFormatter } from "../../rendering/formatter/GetFormatter.js";
 
 type ProjectHardwareSpec = MittwaldAPIV2.Components.Schemas.ProjectHardwareSpec;
 type ProjectVisitorSpec = MittwaldAPIV2.Components.Schemas.ProjectVisitorSpec;
@@ -45,7 +45,7 @@ const ProjectSpecs: FC<{
         {" "}
         (
         <Value>
-          <ByteFormat bytes={usage.data?.usedBytes as number} />
+          {ByteQuantity.fromBytes(usage.data?.usedBytes as number).format()}
         </Value>{" "}
         used)
       </Text>

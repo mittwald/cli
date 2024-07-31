@@ -1,12 +1,11 @@
 import { Simplify } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { SuccessfulResponse } from "../../../types.js";
-import { ListBaseCommand } from "../../../ListBaseCommand.js";
-import { orgFlags, withOrgId } from "../../../lib/org/flags.js";
-import { ListColumns } from "../../../Formatter.js";
-import { optionalDateRenderer } from "../../../lib/viewhelpers/date.js";
-import { makeDateRendererForFlags } from "../../../lib/viewhelpers/list_column_date.js";
+import { SuccessfulResponse } from "../../../lib/apiutil/SuccessfulResponse.js";
+import { ListBaseCommand } from "../../../lib/basecommands/ListBaseCommand.js";
+import { orgFlags, withOrgId } from "../../../lib/resources/org/flags.js";
+import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
+import ListDateColumnFormatter from "../../../rendering/formatter/ListDateColumnFormatter.js";
 
 type UserUser = MittwaldAPIV2.Components.Schemas.UserUser;
 type CustomerMembership =
@@ -67,19 +66,17 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
     const baseColumns = super.getColumns(data);
-    const dateRenderer = optionalDateRenderer(
-      makeDateRendererForFlags(this.flags),
-    );
+    const dateColumnBuilder = new ListDateColumnFormatter(this.flags);
     return {
       id: baseColumns.id,
       role: {},
       user: {
         get: (item) => item.user?.email ?? "(unknown user)",
       },
-      memberSince: {
+      memberSince: dateColumnBuilder.buildColumn({
         header: "Member since",
-        get: (item) => dateRenderer(item.memberSince),
-      },
+        column: "memberSince",
+      }),
     };
   }
 }
