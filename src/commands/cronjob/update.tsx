@@ -7,9 +7,7 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
-import { table } from "@oclif/core/lib/cli-ux/styled/table.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
-import flags = table.flags;
 
 type UpdateResult = void;
 
@@ -145,8 +143,7 @@ export default class Update extends ExecRenderBaseCommand<
       assertSuccess(response);
     });
 
-    var successText: string = "Your cron job has successfully been updated.";
-
+    const successText: string = "Your cron job has successfully been updated.";
     await process.complete(<Success>{successText}</Success>);
   }
 
