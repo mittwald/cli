@@ -7,8 +7,6 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
-
 type UpdateResult = void;
 
 export default class Update extends ExecRenderBaseCommand<
@@ -57,21 +55,7 @@ export default class Update extends ExecRenderBaseCommand<
   };
 
   protected async exec(): Promise<void> {
-    type destinationType =
-      | MittwaldAPIV2.Components.Schemas.CronjobCronjobCommand
-      | MittwaldAPIV2.Components.Schemas.CronjobCronjobUrl;
-
-    type cronjobUpdatePayload = {
-      active: boolean;
-      description: string;
-      destination: destinationType;
-      email: string;
-      timeout: number;
-      interval: string;
-    };
-
     const process = makeProcessRenderer(this.flags, "Updating cron job");
-
     const { "cronjob-id": cronjobId } = this.args;
     const currentCronjob = await this.apiClient.cronjob.getCronjob({
       cronjobId,
@@ -90,22 +74,32 @@ export default class Update extends ExecRenderBaseCommand<
       enable,
     } = this.flags;
 
-    let cronjobActive: boolean;
+    const updateCronjobPayload: {
+      active?: boolean | undefined;
+      description?: string | undefined;
+      destination?:
+        | {
+            interpreter: string;
+            path: string;
+            parameters?: string | undefined;
+          }
+        | {
+            url: string;
+          }
+        | undefined;
+      email?: string | undefined;
+      interval?: string | undefined;
+      timeout?: number | undefined;
+    } = {};
+
     if (enable) {
-      cronjobActive = true;
+      updateCronjobPayload.active = true;
     } else if (disable) {
-      cronjobActive = false;
-    } else {
-      cronjobActive = currentCronjob.data.active as boolean;
+      updateCronjobPayload.active = false;
     }
 
-    let destination: destinationType = currentCronjob.data
-      .destination as destinationType;
-
     if (url) {
-      destination = {
-        url,
-      };
+      updateCronjobPayload.destination = { url };
     } else if (interpreter) {
       let destinationInterpreter = interpreter;
       if (interpreter == "bash") {
@@ -114,37 +108,39 @@ export default class Update extends ExecRenderBaseCommand<
         destinationInterpreter = "/usr/bin/php";
       }
 
-      if (url) {
-        destination = { url };
-      } else if (interpreter) {
-        destination = {
-          interpreter: destinationInterpreter,
-          path: command as string,
-        };
-      }
+      updateCronjobPayload.destination = {
+        interpreter: destinationInterpreter,
+        path: command as string,
+      };
     }
 
-    const data: cronjobUpdatePayload = {
-      active: cronjobActive,
-      description: description
-        ? description
-        : (currentCronjob.data.description as string),
-      destination: destination,
-      email: email ? email : (currentCronjob.data.email as string),
-      timeout: timeout ? timeout : (currentCronjob.data.timeout as number),
-      interval: interval ? interval : (currentCronjob.data.interval as string),
-    };
+    if (description) {
+      updateCronjobPayload.description = description;
+    }
+
+    if (timeout) {
+      updateCronjobPayload.timeout = timeout;
+    }
+
+    if (email) {
+      updateCronjobPayload.email = email;
+    }
+
+    if (interval) {
+      updateCronjobPayload.interval = interval;
+    }
 
     await process.runStep("Updating cron job", async () => {
       const response = await this.apiClient.cronjob.updateCronjob({
         cronjobId,
-        data,
+        data: updateCronjobPayload,
       });
       assertSuccess(response);
     });
 
-    const successText: string = "Your cron job has successfully been updated.";
-    await process.complete(<Success>{successText}</Success>);
+    await process.complete(
+      <Success>Your cron job has successfully been updated.</Success>,
+    );
   }
 
   protected render(): ReactNode {
