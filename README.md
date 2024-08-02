@@ -248,10 +248,14 @@ USAGE
 * [`mw project update [PROJECT-ID]`](#mw-project-update-project-id)
 * [`mw server get [SERVER-ID]`](#mw-server-get-server-id)
 * [`mw server list`](#mw-server-list)
+* [`mw sftp-user create`](#mw-sftp-user-create)
 * [`mw sftp-user delete SFTP-USER-ID`](#mw-sftp-user-delete-sftp-user-id)
 * [`mw sftp-user list`](#mw-sftp-user-list)
+* [`mw sftp-user update SFTP-USER-ID`](#mw-sftp-user-update-sftp-user-id)
+* [`mw ssh-user create`](#mw-ssh-user-create)
 * [`mw ssh-user delete SSH-USER-ID`](#mw-ssh-user-delete-ssh-user-id)
 * [`mw ssh-user list`](#mw-ssh-user-list)
+* [`mw ssh-user update SSH-USER-ID`](#mw-ssh-user-update-ssh-user-id)
 * [`mw update [CHANNEL]`](#mw-update-channel)
 * [`mw user api-token create`](#mw-user-api-token-create)
 * [`mw user api-token get TOKEN-ID`](#mw-user-api-token-get-token-id)
@@ -5206,6 +5210,39 @@ DESCRIPTION
   List servers for an organization or user.
 ```
 
+## `mw sftp-user create`
+
+Create a new sftp user
+
+```
+USAGE
+  $ mw sftp-user create --description <value> --directories <value>... [-p <value>] [-q] [--public-key <value>]
+    [--password <value>] [--expires <value>] [--access-level read|full]
+
+FLAGS
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --access-level=<option>   Set access level privileges for the sftp user
+                                <options: read|full>
+      --description=<value>     (required) Description of sftp user
+      --directories=<value>...  (required) Set directories to restrict the sftp users access to
+      --expires=<value>         Date at wich the sftp user get disabled automatically
+      --password=<value>        Password used for authentication
+      --public-key=<value>      Public Key used for authentication
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 ## `mw sftp-user delete SFTP-USER-ID`
 
 Delete an SFTP user
@@ -5265,6 +5302,70 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
+## `mw sftp-user update SFTP-USER-ID`
+
+Update an existing sftp user
+
+```
+USAGE
+  $ mw sftp-user update SFTP-USER-ID [-q] [--description <value>] [--public-key <value> | --password <value>]
+    [--expires <value>] [--access-level read|full] [--directories <value>...] [--disable | --enable]
+
+ARGUMENTS
+  SFTP-USER-ID  The ID of the sftp user to update
+
+FLAGS
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --access-level=<option>   Set access level privileges for the sftp user
+                                <options: read|full>
+      --description=<value>     Set the sftp users description
+      --directories=<value>...  Set directories to restrict the sftp users access to
+      --disable                 Disable sftp user
+      --enable                  Enable sftp user
+      --expires=<value>         Date at wich the sftp user will be disabled automatically
+      --password=<value>        Password used for authentication
+      --public-key=<value>      Public Key used for authentication
+
+DESCRIPTION
+  Update an existing sftp user
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw ssh-user create`
+
+Create a new ssh user
+
+```
+USAGE
+  $ mw ssh-user create --description <value> [-p <value>] [-q] [--expires <value>] [--public-key <value>] [--password
+    <value>]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  (required) Description of ssh user
+      --expires=<value>      Date at wich the ssh user get disabled automatically
+      --password=<value>     Password used for authentication
+      --public-key=<value>   Public Key used for authentication
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 ## `mw ssh-user delete SSH-USER-ID`
 
 Delete an SSH user
@@ -5322,6 +5423,37 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw ssh-user update SSH-USER-ID`
+
+Update an existing cron job
+
+```
+USAGE
+  $ mw ssh-user update SSH-USER-ID [-q] [--description <value>] [--public-key <value>] [--password <value>]
+    [--expires <value>] [--disable | --enable]
+
+ARGUMENTS
+  SSH-USER-ID  The ID of the SSH user to update
+
+FLAGS
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  Set cron job description
+      --disable              Disable ssh user
+      --enable               Enable ssh user
+      --expires=<value>      Date at wich the User get disabled automatically
+      --password=<value>     Password used for authentication
+      --public-key=<value>   Public Key used for authentication
+
+DESCRIPTION
+  Update an existing cron job
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw update [CHANNEL]`
