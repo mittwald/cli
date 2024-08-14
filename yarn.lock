@@ -1512,15 +1512,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.15.0":
-  version: 4.15.0
-  resolution: "@mittwald/api-client-commons@npm:4.15.0"
+"@mittwald/api-client-commons@npm:^4.47.2":
+  version: 4.47.2
+  resolution: "@mittwald/api-client-commons@npm:4.47.2"
   dependencies:
     "@types/parse-path": ^7.0.3
-    axios: ^1.6.7
+    axios: ^1.7.4
     parse-path: ^7.0.0
-    path-to-regexp: ^6.2.1
-    type-fest: ^4.12.0
+    path-to-regexp: ^6.2.2
+    type-fest: ^4.23.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.1.0
   peerDependenciesMeta:
@@ -1528,22 +1528,22 @@ __metadata:
       optional: true
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 26685da6953cfeef29f42c8060d22604143490cc783e9c2e35ebe7fc132fd6c01716c2de319a4b0c64939381ff846d1aea90c1a4e1be3fd1db5f04d9e5df23e4
+  checksum: 17d73771a97c2ab11c27b72c7975dd72899c2df99c8aae75df4bf6971f6021ec936e064d6f4a781f2518716865fabab83cede1ded99c594ba27c893c45c1f9a5
   languageName: node
   linkType: hard
 
 "@mittwald/api-client@npm:^4.9.0":
-  version: 4.35.0
-  resolution: "@mittwald/api-client@npm:4.35.0"
+  version: 4.47.2
+  resolution: "@mittwald/api-client@npm:4.47.2"
   dependencies:
-    "@mittwald/api-client-commons": ^4.15.0
-    browser-or-node: ^3.0.0-pre.0
+    "@mittwald/api-client-commons": ^4.47.2
+    browser-or-node: ^3.0.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.3.12
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: a1e02e6889e70c0702d296451b30eb67ca12c8a6c44ec930c9ffdca9415ee22b773ad7134e631cb5d334d2e0c2669f6ea95a59ccc34baa578e4332230de7e988
+  checksum: 253b5f58b7d0d1174ccdeeb997e5091160bbed3eea8ee23e076627316181346e2bbe6774e4f8b197e51e0007878cc0b714fa0553fd0a152eec3b102853014c15
   languageName: node
   linkType: hard
 
@@ -3641,7 +3641,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.6.7":
+"axios@npm:^1.7.4":
   version: 1.7.4
   resolution: "axios@npm:1.7.4"
   dependencies:
@@ -3732,6 +3732,13 @@ __metadata:
   dependencies:
     wcwidth: ^1.0.1
   checksum: e8a3f308c0214986e1b768ca4460a798ffe4bbe08c375576de526431a01a9738318710cc05e309486ac5809d77d9f33d957f80939a890e07be5e89baad9816f8
+  languageName: node
+  linkType: hard
+
+"browser-or-node@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "browser-or-node@npm:3.0.0"
+  checksum: 51d74cc5d0139da3d37e83ff3906fcca20d02c42aa8b81a48d9ea01806f36df1a4b55006670071b1d7423967777275920054ec8b723410534b580b0232c5093d
   languageName: node
   linkType: hard
 
@@ -7849,6 +7856,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"path-to-regexp@npm:^6.2.2":
+  version: 6.2.2
+  resolution: "path-to-regexp@npm:6.2.2"
+  checksum: b7b0005c36f5099f9ed1fb20a820d2e4ed1297ffe683ea1d678f5e976eb9544f01debb281369dabdc26da82e6453901bf71acf2c7ed14b9243536c2a45286c33
+  languageName: node
+  linkType: hard
+
 "path-type@npm:^4.0.0":
   version: 4.0.0
   resolution: "path-type@npm:4.0.0"
@@ -9128,7 +9142,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.12.0, type-fest@npm:^4.6.0":
+"type-fest@npm:^4.23.0":
+  version: 4.24.0
+  resolution: "type-fest@npm:4.24.0"
+  checksum: f02e28bb12ce290f9880937b3c65d3cc4f0fdd89776b4b78d392aece0eb031c7ea9c1d6c536011c63bb8d0a6c72359336287f23f940204508a42a442c98c4d25
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.6.0":
   version: 4.21.0
   resolution: "type-fest@npm:4.21.0"
   checksum: 32d3536acac388cc32a3c0e31966d36e44124ffd6cb7d6f6c846602ffdeda68b723f5fdcd13d136f9d855b166e5c1d529bcdfac9d5d0ed4e96cff4867710adae
