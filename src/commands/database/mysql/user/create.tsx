@@ -4,21 +4,29 @@ import {
   processFlags,
 } from "../../../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
-import { Flags } from "@oclif/core";
+import { Flags, Args } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../../rendering/react/components/Success.js";
 import { Value } from "../../../../rendering/react/components/Value.js";
-import { withMySQLId } from "../../../../lib/resources/database/mysql/flags.js";
 
 type Result = {
-  sftpUserId: string;
+  mysqlUserId: string;
 };
 
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static description = "Create a new mysql user";
+  static args = {
+    "database-id": Args.string({
+      description: "ID of the MySQL Database to create a user for",
+    }),
+  };
   static flags = {
     ...processFlags,
-    accessLevel: Flags.string({
+    "database-id": Flags.string({
+      required: true,
+      description: "ID of the MySQL Database to create a user for",
+    }),
+    "access-level": Flags.string({
       required: true,
       description: "Access level for this mysql user",
       options: ["readonly", "full"],
@@ -32,10 +40,10 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       description: "Password used for authentication",
       exactlyOne: ["public-key", "password"],
     }),
-    accessIpMask: Flags.string({
+    "access-ip-mask": Flags.string({
       description: "IP from wich external access will be exclusively allowed",
     }),
-    externalAccess: Flags.boolean({
+    "external-access": Flags.boolean({
       description: "Enable/Disable external access for this user.",
     }),
   };
@@ -45,13 +53,27 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       this.flags,
       "Creating a new mysql User",
     );
-    const mysqlDatabaseId = await withMySQLId(
-      this.apiClient,
-      this.flags,
-      this.args,
-    );
-    const { accessLevel, description, password, accessIpMask, externalAccess } =
-      this.flags;
+
+    // TODO: implement withMySQLId
+
+    let mysqlDatabaseId: string = "";
+    if (this.flags["database-id"]) {
+      mysqlDatabaseId = this.flags["database-id"];
+    } else if (this.args["database-id"]) {
+      mysqlDatabaseId = this.args["database-id"];
+    } else {
+      await process.error(
+        "Please provide a backup schedule id as flag or argument",
+      );
+    }
+
+    const {
+      "access-level": accessLevel,
+      description,
+      password,
+      "access-ip-mask": accessIpMask,
+      "external-access": externalAccess,
+    } = this.flags;
 
     const createMysqlUserPayload: {
       accessLevel: "full" | "readonly";
@@ -61,11 +83,17 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       accessIpMask?: string | undefined;
       externalAccess?: boolean | undefined;
     } = {
-      accessLevel,
+      accessLevel: accessLevel == "full" ? "full" : "readonly",
       databaseId: mysqlDatabaseId,
       description,
       password,
     };
+
+    if (password.length < 12) {
+      throw new Error(
+        "Your chosen password is too short. Please choose a secure password with at least 12 characters.",
+      );
+    }
 
     if (accessIpMask) {
       createMysqlUserPayload.accessIpMask = accessIpMask;

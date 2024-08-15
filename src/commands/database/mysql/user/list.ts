@@ -23,6 +23,8 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     }),
   };
 
+  // TODO: implement withMySQLId
+
   public async getData(): Promise<Response> {
     return await this.apiClient.database.listMysqlUsers({
       mysqlDatabaseId: this.flags["database-id"],
