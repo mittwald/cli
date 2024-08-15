@@ -10,26 +10,26 @@ export class Delete extends DeleteBaseCommand<typeof Delete> {
   static description = "Delete a backup schedule";
   static resourceName = "backupSchedule";
   static args = {
-    backupScheduleId: Args.string({
+    "backup-schedule-id": Args.string({
       description: "ID of schedule to delete",
     }),
   };
   static flags = {
     ...processFlags,
-    backupScheduleId: Flags.string({
+    "backup-schedule-id": Flags.string({
       description: "ID of backup schedule to delete",
     }),
   };
 
   protected async deleteResource(): Promise<void> {
-    // TODO: implement withBackupScheduleId()
-
     const process = makeProcessRenderer(this.flags, "Updating backup schedule");
+
+    // TODO: implement withBackupScheduleId
     let projectBackupScheduleId: string = "";
-    if (this.flags.backupScheduleId) {
-      projectBackupScheduleId = this.flags.backupScheduleId;
-    } else if (this.args.backupScheduleId) {
-      projectBackupScheduleId = this.args.backupScheduleId;
+    if (this.flags["backup-schedule-id"]) {
+      projectBackupScheduleId = this.flags["backup-schedule-id"];
+    } else if (this.args["backup-schedule-id"]) {
+      projectBackupScheduleId = this.args["backup-schedule-id"];
     } else {
       await process.error(
         "Please provide a backup schedule id as flag or argument",

@@ -16,13 +16,13 @@ export default class Create extends ExecRenderBaseCommand<
 > {
   static description = "Update an existing backup schedule";
   static args = {
-    scheduleId: Args.string({
+    "backup-schedule-id": Args.string({
       description: "Define the backup schedule that is to be updated",
     }),
   };
   static flags = {
     ...processFlags,
-    scheduleId: Flags.string({
+    "backup-schedule-id": Flags.string({
       description: "Define the backup schedule that is to be updated",
     }),
     description: Flags.string({
@@ -42,10 +42,10 @@ export default class Create extends ExecRenderBaseCommand<
 
     // TODO: implement withBackupScheduleId()
     let projectBackupScheduleId: string = "";
-    if (this.flags.scheduleId) {
-      projectBackupScheduleId = this.flags.scheduleId;
-    } else if (this.args.scheduleId) {
-      projectBackupScheduleId = this.args.scheduleId;
+    if (this.flags["backup-schedule-id"]) {
+      projectBackupScheduleId = this.flags["backup-schedule-id"];
+    } else if (this.args["backup-schedule-id"]) {
+      projectBackupScheduleId = this.args["backup-schedule-id"];
     } else {
       await process.error(
         "Please provide a backup schedule id as flag or argument",
