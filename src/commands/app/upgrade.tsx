@@ -3,6 +3,7 @@ import {
   appInstallationArgs,
   withAppInstallationId,
 } from "../../lib/resources/app/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 import { Flags, ux } from "@oclif/core";
 import React, { ReactNode } from "react";
 import { Text } from "ink";
@@ -26,10 +27,17 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { waitUntilAppStateHasNormalized } from "../../lib/resources/app/wait.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { waitFlags } from "../../lib/wait.js";
+import assertSuccess from "../../lib/apiutil/assert_success.js";
+import { ProcessFlags } from "../../rendering/process/process_flags.js";
+import semver from "semver/preload.js";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+type AppSystemSoftwareVersion =
+  MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
+type AppSystemSoftwareDependency =
+  MittwaldAPIV2.Components.Schemas.AppSystemSoftwareDependency;
 
 export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   static description = "Upgrade app installation to target version";
@@ -45,30 +53,34 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       char: "f",
       description: "Do not ask for confirmation.",
     }),
+    ...projectFlags,
     ...processFlags,
     ...waitFlags,
   };
 
   protected async exec(): Promise<void> {
-    const process = makeProcessRenderer(this.flags, "App upgrade");
+    const process = makeProcessRenderer(
+      this.flags as ProcessFlags,
+      "App upgrade",
+    );
     const appInstallationId: string = await withAppInstallationId(
-        this.apiClient,
-        UpgradeApp,
-        this.flags,
-        this.args,
-        this.config,
-      ),
-      currentAppInstallation: AppAppInstallation =
+      this.apiClient,
+      UpgradeApp,
+      this.flags,
+      this.args,
+      this.config,
+    );
+    const currentAppInstallation: AppAppInstallation =
         await getAppInstallationFromUuid(this.apiClient, appInstallationId),
       currentApp: AppApp = await getAppFromUuid(
         this.apiClient,
         currentAppInstallation.appId,
-      ),
-      targetAppVersionCandidates: AppAppVersion[] =
-        await getAllUpgradeCandidatesFromAppInstallationId(
-          this.apiClient,
-          currentAppInstallation.id,
-        );
+      );
+    const targetAppVersionCandidates: AppAppVersion[] =
+      await getAllUpgradeCandidatesFromAppInstallationId(
+        this.apiClient,
+        currentAppInstallation.id,
+      );
 
     if (currentAppInstallation.appVersion.current === undefined) {
       process.error("Current version could not be determined properly.");
@@ -82,25 +94,24 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     );
 
     if (targetAppVersionCandidates.length == 0) {
-      process.addInfo(
+      process.complete(
         <Text>
           Your {currentApp.name} {currentAppVersion.externalVersion} is already
           Up-To-Date. ✅
         </Text>,
       );
-      process.complete(<></>);
       ux.exit(0);
     }
 
-    let targetAppVersion;
+    let targetAppVersion: AppAppVersion;
 
     if (this.flags["target-version"] == "latest") {
       targetAppVersion =
-        await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
+        (await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
           this.apiClient,
           currentApp.id,
           currentAppVersion.id,
-        );
+        )) as AppAppVersion;
     } else if (this.flags["target-version"]) {
       const targetVersionMatchFromCandidates: AppAppVersion | undefined =
         targetAppVersionCandidates.find(
@@ -118,22 +129,22 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
             candidate.
           </Text>,
         );
-        targetAppVersion = await forceTargetVersionSelection(
+        targetAppVersion = (await forceTargetVersionSelection(
           process,
           this.apiClient,
           targetAppVersionCandidates,
           currentApp,
           currentAppVersion,
-        );
+        )) as AppAppVersion;
       }
     } else {
-      targetAppVersion = await forceTargetVersionSelection(
+      targetAppVersion = (await forceTargetVersionSelection(
         process,
         this.apiClient,
         targetAppVersionCandidates,
         currentApp,
         currentAppVersion,
-      );
+      )) as AppAppVersion;
     }
 
     if (!targetAppVersion) {
@@ -164,6 +175,34 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
           {targetAppVersion.externalVersion}.
         </Text>,
       );
+    }
+
+    const missingDependencies =
+      await this.apiClient.app.getMissingDependenciesForAppinstallation({
+        queryParameters: {
+          targetAppVersionID: targetAppVersion.id,
+        },
+        appInstallationId,
+      });
+
+    if (missingDependencies.data.missingSystemSoftwareDependencies) {
+      process.addInfo(
+        <Text>
+          In order to update your {currentApp.name} to Version
+          {targetAppVersion.externalVersion} some dependencies need to be
+          updated too.
+        </Text>,
+      );
+      for (const missingSystemSoftwareDependency of missingDependencies.data
+        .missingSystemSoftwareDependencies as AppSystemSoftwareDependency[]) {
+        await updateMissingSystemSoftwareDependency(
+          process,
+          this.apiClient,
+          appInstallationId,
+          missingSystemSoftwareDependency,
+          this.flags.force,
+        );
+      }
     }
 
     const patchAppTriggerResponse =
@@ -220,4 +259,81 @@ async function forceTargetVersionSelection(
     currentAppVersion.id,
     targetAppVersionString,
   );
+}
+
+async function updateMissingSystemSoftwareDependency(
+  process: ProcessRenderer,
+  apiClient: MittwaldAPIV2Client,
+  appInstallationId: string,
+  dependency: AppSystemSoftwareDependency,
+  force: boolean,
+) {
+  const dependencySoftware = await apiClient.app.getSystemsoftware({
+    systemSoftwareId: dependency.systemSoftwareId,
+  });
+  assertSuccess(dependencySoftware);
+
+  const dependencyVersionList = await apiClient.app.listSystemsoftwareversions({
+    systemSoftwareId: dependency.systemSoftwareId,
+  });
+  assertSuccess(dependencyVersionList);
+
+  let dependencyTargetVersion: AppSystemSoftwareVersion = {
+    id: "not yet set",
+    externalVersion: "0.0.0",
+    internalVersion: "0.0.0",
+  };
+  for (const dependencyVersion of dependencyVersionList.data) {
+    if (
+      semver.satisfies(
+        dependencyVersion.internalVersion,
+        dependency.versionRange,
+      ) &&
+      semver.gt(
+        dependencyVersion.internalVersion,
+        dependencyTargetVersion.internalVersion,
+      )
+    ) {
+      dependencyTargetVersion = dependencyVersion;
+    }
+  }
+
+  if (!force) {
+    const confirmed: boolean = await process.addConfirmation(
+      <Text>
+        {dependencySoftware.data.name as string} will be updated to Version{" "}
+        {dependencyTargetVersion.externalVersion} - Continue?
+      </Text>,
+    );
+    if (!confirmed) {
+      process.addInfo(<Text>Upgrade will not be triggered.</Text>);
+      process.complete(<></>);
+      ux.exit(1);
+    }
+  } else {
+    process.addInfo(
+      <Text>
+        Commencing upgrade of {dependencySoftware.data.name as string} to{" "}
+        Version {dependencyTargetVersion.externalVersion}.
+      </Text>,
+    );
+  }
+
+  const systemSoftware: {
+    [x: string]: {
+      systemSoftwareVersion: string | undefined;
+    };
+  } = {};
+  systemSoftware[dependencySoftware.data.id as string] = {
+    systemSoftwareVersion: dependencyTargetVersion.id,
+  };
+
+  const data = { systemSoftware };
+
+  const dependencyUpgradeResponse = await apiClient.app.patchAppinstallation({
+    appInstallationId,
+    data,
+  });
+
+  assertSuccess(dependencyUpgradeResponse);
 }
