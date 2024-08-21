@@ -88,8 +88,8 @@ export default class Update extends ExecRenderBaseCommand<
     const updateMysqlUserPayload: {
       accessLevel: "full" | "readonly";
       description: string;
-      accessIpMask?: string | undefined;
-      externalAccess?: boolean | undefined;
+      accessIpMask: string;
+      externalAccess: boolean;
     } = {
       accessLevel:
         accessLevel == "full" || accessLevel == "readonly"
@@ -99,17 +99,13 @@ export default class Update extends ExecRenderBaseCommand<
         typeof description === "string"
           ? description
           : (currentMysqlUserData.data.description as string),
+      accessIpMask: accessIpMask
+        ? accessIpMask
+        : (currentMysqlUserData.data.accessIpMask as string),
+      externalAccess: externalAccess
+        ? externalAccess
+        : (currentMysqlUserData.data.externalAccess as boolean),
     };
-
-    if (accessIpMask) {
-      updateMysqlUserPayload.accessIpMask = accessIpMask;
-    }
-
-    if (externalAccess) {
-      updateMysqlUserPayload.externalAccess = true;
-    } else if (externalAccess != undefined && !externalAccess) {
-      updateMysqlUserPayload.externalAccess = false;
-    }
 
     if (Object.keys(updateMysqlUserPayload).length == 1) {
       await process.complete(
