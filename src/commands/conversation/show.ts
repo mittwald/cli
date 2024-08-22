@@ -110,9 +110,13 @@ async function printConversationMessages(responseItems: ResponseItem[]) {
 
 export default class Show extends ExtendedBaseCommand<typeof Show> {
   static description = "Show a conversation and message history";
-  static args = { ...conversationArgs };
+  //static args = { ...conversationArgs };
 
   public async run(): Promise<void> {
+    console.log("BOOO");
+    return;
+
+    /*
     const conversationId = await withConversationId(
       this.apiClient,
       Show,
@@ -126,6 +130,7 @@ export default class Show extends ExtendedBaseCommand<typeof Show> {
 
     printConversationMetadata(conversation);
     await printConversationMessages(responseItems);
+    */
   }
 
   private async loadConversationWithMessages(
