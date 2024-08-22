@@ -53,7 +53,7 @@
     "chalk": "^5.3.0",
     "date-fns": "^3.2.0",
     "humanize-string": "^3.0.0",
-    "ink": "^4.2.0",
+    "ink": "^5.0.1",
     "ink-link": "^4.0.0",
     "ink-text-input": "^5.0.1",
     "js-yaml": "^4.1.0",
