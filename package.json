@@ -22,7 +22,7 @@
     "clean": "(rimraf --glob dist tsconfig.*.tsbuildinfo) | true",
     "compile": "tsc --build tsconfig.json",
     "format": "prettier --write $@ '**/*.{ts,tsx,yaml,yml,json,md,mdx}'",
-    "generate:readme": "oclif readme < /dev/null > /dev/null",
+    "generate:readme": "oclif readme < /dev/null",
     "license-check": "yarn pnpify license-checker-rseidelsohn ",
     "lint": "eslint . --cache",
     "package": "yarn package:tarballs && yarn package:windows && yarn package:macos",
