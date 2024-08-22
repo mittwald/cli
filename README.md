@@ -149,10 +149,7 @@ USAGE
 * [`mw backup download BACKUP-ID`](#mw-backup-download-backup-id)
 * [`mw backup get BACKUP-ID`](#mw-backup-get-backup-id)
 * [`mw backup list`](#mw-backup-list)
-* [`mw backup schedule create`](#mw-backup-schedule-create)
-* [`mw backup schedule delete [BACKUP-SCHEDULE-ID]`](#mw-backup-schedule-delete-backup-schedule-id)
 * [`mw backup schedule list`](#mw-backup-schedule-list)
-* [`mw backup schedule update [BACKUP-SCHEDULE-ID]`](#mw-backup-schedule-update-backup-schedule-id)
 * [`mw context get`](#mw-context-get)
 * [`mw context reset`](#mw-context-reset)
 * [`mw context set`](#mw-context-set)
@@ -172,7 +169,6 @@ USAGE
 * [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
 * [`mw cronjob get CRONJOB-ID`](#mw-cronjob-get-cronjob-id)
 * [`mw cronjob list`](#mw-cronjob-list)
-* [`mw cronjob update CRONJOB-ID`](#mw-cronjob-update-cronjob-id)
 * [`mw database mysql charsets`](#mw-database-mysql-charsets)
 * [`mw database mysql create`](#mw-database-mysql-create)
 * [`mw database mysql delete DATABASE-ID`](#mw-database-mysql-delete-database-id)
@@ -183,11 +179,9 @@ USAGE
 * [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
 * [`mw database mysql shell DATABASE-ID`](#mw-database-mysql-shell-database-id)
-* [`mw database mysql user create [DATABASE-ID]`](#mw-database-mysql-user-create-database-id)
 * [`mw database mysql user delete USER-ID`](#mw-database-mysql-user-delete-user-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
-* [`mw database mysql user update [DATABASE-ID]`](#mw-database-mysql-user-update-database-id)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
 * [`mw database redis create`](#mw-database-redis-create)
 * [`mw database redis get ID`](#mw-database-redis-get-id)
@@ -254,14 +248,10 @@ USAGE
 * [`mw project update [PROJECT-ID]`](#mw-project-update-project-id)
 * [`mw server get [SERVER-ID]`](#mw-server-get-server-id)
 * [`mw server list`](#mw-server-list)
-* [`mw sftp-user create`](#mw-sftp-user-create)
 * [`mw sftp-user delete SFTP-USER-ID`](#mw-sftp-user-delete-sftp-user-id)
 * [`mw sftp-user list`](#mw-sftp-user-list)
-* [`mw sftp-user update SFTP-USER-ID`](#mw-sftp-user-update-sftp-user-id)
-* [`mw ssh-user create`](#mw-ssh-user-create)
 * [`mw ssh-user delete SSH-USER-ID`](#mw-ssh-user-delete-ssh-user-id)
 * [`mw ssh-user list`](#mw-ssh-user-list)
-* [`mw ssh-user update SSH-USER-ID`](#mw-ssh-user-update-ssh-user-id)
 * [`mw update [CHANNEL]`](#mw-update-channel)
 * [`mw user api-token create`](#mw-user-api-token-create)
 * [`mw user api-token get TOKEN-ID`](#mw-user-api-token-get-token-id)
@@ -325,7 +315,9 @@ DESCRIPTION
   Creates new custom Node.js installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -371,7 +363,9 @@ DESCRIPTION
   Creates new custom PHP installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -418,7 +412,9 @@ DESCRIPTION
   Creates new custom python site installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -464,7 +460,9 @@ DESCRIPTION
   Creates new custom static site installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -518,7 +516,8 @@ Update the dependencies of an app
 
 ```
 USAGE
-  $ mw app dependency update [INSTALLATION-ID] --set <value> [-q] [--update-policy none|inheritedFromApp|patchLevel|all]
+  $ mw app dependency update [INSTALLATION-ID] --set <value>... [-q] [--update-policy
+  none|inheritedFromApp|patchLevel|all]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -582,7 +581,7 @@ Download the filesystem of an app within a project to your local machine
 ```
 USAGE
   $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>] [--dry-run] [--delete]
+    [--exclude <value>...] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -690,7 +689,9 @@ DESCRIPTION
   Creates new Contao installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -777,7 +778,9 @@ DESCRIPTION
   Creates new Drupal installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -854,7 +857,9 @@ DESCRIPTION
   Creates new Grav installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -938,7 +943,9 @@ DESCRIPTION
   Creates new Joomla! installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1025,7 +1032,9 @@ DESCRIPTION
   Creates new Matomo installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1100,7 +1109,9 @@ DESCRIPTION
   Creates new Moodle installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1175,7 +1186,9 @@ DESCRIPTION
   Creates new NEOS installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1250,7 +1263,9 @@ DESCRIPTION
   Creates new Nextcloud installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1329,7 +1344,9 @@ DESCRIPTION
   Creates new PrestaShop installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1424,7 +1441,9 @@ DESCRIPTION
   Creates new Shopware 5 installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1536,7 +1555,9 @@ DESCRIPTION
   Creates new Shopware 6 installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1644,7 +1665,9 @@ DESCRIPTION
   Creates new TYPO3 installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1726,7 +1749,9 @@ DESCRIPTION
   Creates new WordPress installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1799,7 +1824,9 @@ DESCRIPTION
   List installed apps in a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1974,7 +2001,9 @@ DESCRIPTION
   Upgrade app installation to target version
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1992,7 +2021,7 @@ Upload the filesystem of an app to a project
 ```
 USAGE
   $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>] [--dry-run] [--delete]
+    [--exclude <value>...] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -2120,7 +2149,9 @@ ALIASES
   $ mw project backup create
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -2257,65 +2288,12 @@ ALIASES
   $ mw project backup list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-```
-
-## `mw backup schedule create`
-
-Create a new backup schedule
-
-```
-USAGE
-  $ mw backup schedule create --schedule <value> --ttl <value> [-p <value>] [-q] [--description <value>]
-
-FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-      --description=<value>  Set the description for the backup schedule
-      --schedule=<value>     (required) Define the schedule itself
-      --ttl=<value>          (required) Define the backup storage period in days, for through this schedule created
-                             backups
-
-FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
-
-    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
-    to persistently set a default project for all commands that accept this flag.
-
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
-```
-
-## `mw backup schedule delete [BACKUP-SCHEDULE-ID]`
-
-Delete a backup schedule
-
-```
-USAGE
-  $ mw backup schedule delete [BACKUP-SCHEDULE-ID] [-q] [-f] [--backup-schedule-id <value>]
-
-ARGUMENTS
-  BACKUP-SCHEDULE-ID  ID of schedule to delete
-
-FLAGS
-  -f, --force                       Do not ask for confirmation
-  -q, --quiet                       suppress process output and only display a machine-readable summary.
-      --backup-schedule-id=<value>  ID of backup schedule to delete
-
-DESCRIPTION
-  Delete a backup schedule
-
-FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw backup schedule list`
@@ -2346,39 +2324,12 @@ ALIASES
   $ mw project backupschedule list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-```
-
-## `mw backup schedule update [BACKUP-SCHEDULE-ID]`
-
-Update an existing backup schedule
-
-```
-USAGE
-  $ mw backup schedule update [BACKUP-SCHEDULE-ID] [-q] [--backup-schedule-id <value>] [--description <value>] [--schedule
-    <value>] [--ttl <value>]
-
-ARGUMENTS
-  BACKUP-SCHEDULE-ID  Define the backup schedule that is to be updated
-
-FLAGS
-  -q, --quiet                       suppress process output and only display a machine-readable summary.
-      --backup-schedule-id=<value>  Define the backup schedule that is to be updated
-      --description=<value>         Set the description for the backup schedule
-      --schedule=<value>            Define the schedule itself
-      --ttl=<value>                 Define the backup storage period in days, for through this schedule created backups
-
-DESCRIPTION
-  Update an existing backup schedule
-
-FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw context get`
@@ -2803,45 +2754,12 @@ ALIASES
   $ mw project cronjob list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-```
-
-## `mw cronjob update CRONJOB-ID`
-
-Update an existing cron job
-
-```
-USAGE
-  $ mw cronjob update CRONJOB-ID [--description <value>] [--interval <value>] [--disable | --enable] [--email
-    <value>] [--timeout <value>] [--url <value>] [--command <value>] [--interpreter bash|php] [-q]
-
-ARGUMENTS
-  CRONJOB-ID  ID of the cron job to be updated.
-
-FLAGS
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
-      --command=<value>       Set file and parameters to execute on cron job execution
-      --description=<value>   Set cron job description
-      --disable               Disable cron job automated execution
-      --email=<value>         Set target email to send error messages to
-      --enable                Enable cron job automated execution
-      --interpreter=<option>  Set interpreter to use for execution
-                              <options: bash|php>
-      --interval=<value>      Set cron job execution interval
-      --timeout=<value>       Set timeout in seconds after wich the process is killed
-      --url=<value>           Set url to use on cron job execution
-
-DESCRIPTION
-  Update an existing cron job
-
-FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw database mysql charsets`
@@ -2890,7 +2808,9 @@ FLAGS
       --version=<value>             (required) the MySQL version to use
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3141,7 +3061,9 @@ DESCRIPTION
   List MySQLDatabases belonging to a Project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3274,38 +3196,6 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
-## `mw database mysql user create [DATABASE-ID]`
-
-Create a new mysql user
-
-```
-USAGE
-  $ mw database mysql user create [DATABASE-ID] --database-id <value> --access-level readonly|full --description <value>
-    --password <value> [-q] [--access-ip-mask <value>] [--external-access]
-
-ARGUMENTS
-  DATABASE-ID  ID of the MySQL Database to create a user for
-
-FLAGS
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
-      --access-ip-mask=<value>  IP from wich external access will be exclusively allowed
-      --access-level=<option>   (required) Access level for this mysql user
-                                <options: readonly|full>
-      --database-id=<value>     (required) ID of the MySQL Database to create a user for
-      --description=<value>     (required) Description of the mysql user
-      --external-access         Enable/Disable external access for this user.
-      --password=<value>        (required) Password used for authentication
-
-DESCRIPTION
-  Create a new mysql user
-
-FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
-```
-
 ## `mw database mysql user delete USER-ID`
 
 Delete a MySQL user
@@ -3374,38 +3264,6 @@ DESCRIPTION
   List MySQL users belonging to a database.
 ```
 
-## `mw database mysql user update [DATABASE-ID]`
-
-Create a new mysql user
-
-```
-USAGE
-  $ mw database mysql user update [DATABASE-ID] [-q] [--database-id <value>] [--access-level readonly|full] [--description
-    <value>] [--password <value>] [--access-ip-mask <value>] [--external-access]
-
-ARGUMENTS
-  DATABASE-ID  MySQL User ID of the user to be updated
-
-FLAGS
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
-      --access-ip-mask=<value>  IP from wich external access will be exclusively allowed
-      --access-level=<option>   Access level for this mysql user
-                                <options: readonly|full>
-      --database-id=<value>     MySQL User ID of the user to be updated
-      --description=<value>     Description of the mysql user
-      --external-access         Enable/Disable external access for this user.
-      --password=<value>        Password used for authentication
-
-DESCRIPTION
-  Create a new mysql user
-
-FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
-```
-
 ## `mw database mysql versions`
 
 List available MySQL versions.
@@ -3452,7 +3310,9 @@ FLAGS
       --version=<value>             (required) the Redis version to use
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3522,7 +3382,9 @@ DESCRIPTION
   List Redis databases belonging to a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3605,7 +3467,9 @@ DESCRIPTION
   List available Redis versions.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3786,7 +3650,9 @@ DESCRIPTION
   list all DNS zones by project ID
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3798,7 +3664,7 @@ Updates a record set of a DNS zone
 
 ```
 USAGE
-  $ mw domain dnszone update DNSZONE-ID RECORD-SET [-q] [-p <value>] [--record <value> | --managed | --unset] [--ttl
+  $ mw domain dnszone update DNSZONE-ID RECORD-SET [-q] [-p <value>] [--record <value>... | --managed | --unset] [--ttl
     <value>]
 
 ARGUMENTS
@@ -3828,7 +3694,9 @@ EXAMPLES
       mail2.domain.example"
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3894,7 +3762,9 @@ DESCRIPTION
   List domains belonging to a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -3906,8 +3776,8 @@ Create a new ingress
 
 ```
 USAGE
-  $ mw domain virtualhost create --hostname <value> [-q] [-p <value>] [--path-to-dir <value>] [--path-to-app <value>]
-    [--path-to-url <value>]
+  $ mw domain virtualhost create --hostname <value> [-q] [-p <value>] [--path-to-dir <value>...] [--path-to-app <value>...]
+    [--path-to-url <value>...]
 
 FLAGS
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -3935,7 +3805,9 @@ EXAMPLES
     $ mw domain virtualhost create --hostname mw.example --path-to-url /:https://redirect.example
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4032,7 +3904,9 @@ DESCRIPTION
   List virtualhosts for a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4104,7 +3978,7 @@ Create a new mail address
 ```
 USAGE
   $ mw mail address create -a <value> [-p <value>] [-q] [--catch-all] [--enable-spam-protection] [--quota <value>]
-    [--password <value>] [--random-password] [--forward-to <value>]
+    [--password <value>] [--random-password] [--forward-to <value>...]
 
 FLAGS
   -a, --address=<value>              (required) mail address
@@ -4150,7 +4024,9 @@ EXAMPLES
     $ mw mail address create --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4249,7 +4125,9 @@ DESCRIPTION
   Get all mail addresses for a project ID
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4262,7 +4140,7 @@ Update a mail address
 ```
 USAGE
   $ mw mail address update MAILADDRESS-ID [-q] [-a <value>] [--catch-all] [--quota <value>] [--password <value>]
-    [--random-password] [--forward-to <value>]
+    [--random-password] [--forward-to <value>...]
 
 ARGUMENTS
   MAILADDRESS-ID  ID or mail address of a mailaddress
@@ -4373,7 +4251,9 @@ DESCRIPTION
   Get all deliveryboxes by project ID
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4655,7 +4535,9 @@ ALIASES
   $ mw project backup create
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4792,7 +4674,9 @@ ALIASES
   $ mw project backup list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4826,7 +4710,9 @@ ALIASES
   $ mw project backupschedule list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -4859,7 +4745,9 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
-  -s, --server-id=<value>  ID or short ID of a server; this flag is optional if a default server is set in the context
+  -s, --server-id=<value>
+
+    ID or short ID of a server; this flag is optional if a default server is set in the context
 
     May contain a short ID or a full ID of a server; you can also use the "mw context set --server-id=<VALUE>" command
     to persistently set a default server for all commands that accept this flag.
@@ -4971,7 +4859,9 @@ ALIASES
   $ mw project cronjob list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5085,7 +4975,9 @@ DESCRIPTION
   List all invites belonging to a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5174,7 +5066,9 @@ DESCRIPTION
   Get the executing user's membership in a Project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5205,7 +5099,9 @@ DESCRIPTION
   List all memberships for a Project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5262,7 +5158,9 @@ ALIASES
   $ mw project sftp-user list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5339,7 +5237,9 @@ ALIASES
   $ mw project ssh-user list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -5402,39 +5302,6 @@ DESCRIPTION
   List servers for an organization or user.
 ```
 
-## `mw sftp-user create`
-
-Create a new sftp user
-
-```
-USAGE
-  $ mw sftp-user create --description <value> --directories <value> [-p <value>] [-q] [--public-key <value>]
-    [--password <value>] [--expires <value>] [--access-level read|full]
-
-FLAGS
-  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
-                                context
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
-      --access-level=<option>   Set access level privileges for the sftp user
-                                <options: read|full>
-      --description=<value>     (required) Description of sftp user
-      --directories=<value>...  (required) Set directories to restrict the sftp users access to
-      --expires=<value>         Date at wich the sftp user get disabled automatically
-      --password=<value>        Password used for authentication
-      --public-key=<value>      Public Key used for authentication
-
-FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
-
-    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
-    to persistently set a default project for all commands that accept this flag.
-
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
-```
-
 ## `mw sftp-user delete SFTP-USER-ID`
 
 Delete an SFTP user
@@ -5488,74 +5355,12 @@ ALIASES
   $ mw project sftp-user list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-```
-
-## `mw sftp-user update SFTP-USER-ID`
-
-Update an existing sftp user
-
-```
-USAGE
-  $ mw sftp-user update SFTP-USER-ID [-q] [--description <value>] [--public-key <value> | --password <value>]
-    [--expires <value>] [--access-level read|full] [--directories <value>] [--disable | --enable]
-
-ARGUMENTS
-  SFTP-USER-ID  The ID of the sftp user to update
-
-FLAGS
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
-      --access-level=<option>   Set access level privileges for the sftp user
-                                <options: read|full>
-      --description=<value>     Set the sftp users description
-      --directories=<value>...  Set directories to restrict the sftp users access to
-      --disable                 Disable sftp user
-      --enable                  Enable sftp user
-      --expires=<value>         Date at wich the sftp user will be disabled automatically
-      --password=<value>        Password used for authentication
-      --public-key=<value>      Public Key used for authentication
-
-DESCRIPTION
-  Update an existing sftp user
-
-FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
-```
-
-## `mw ssh-user create`
-
-Create a new ssh user
-
-```
-USAGE
-  $ mw ssh-user create --description <value> [-p <value>] [-q] [--expires <value>] [--public-key <value>] [--password
-    <value>]
-
-FLAGS
-  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
-                             context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-      --description=<value>  (required) Description of ssh user
-      --expires=<value>      Date at wich the ssh user get disabled automatically
-      --password=<value>     Password used for authentication
-      --public-key=<value>   Public Key used for authentication
-
-FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
-
-    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
-    to persistently set a default project for all commands that accept this flag.
-
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw ssh-user delete SSH-USER-ID`
@@ -5611,41 +5416,12 @@ ALIASES
   $ mw project ssh-user list
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-```
-
-## `mw ssh-user update SSH-USER-ID`
-
-Update an existing cron job
-
-```
-USAGE
-  $ mw ssh-user update SSH-USER-ID [-q] [--description <value>] [--public-key <value>] [--password <value>]
-    [--expires <value>] [--disable | --enable]
-
-ARGUMENTS
-  SSH-USER-ID  The ID of the SSH user to update
-
-FLAGS
-  -q, --quiet                suppress process output and only display a machine-readable summary.
-      --description=<value>  Set cron job description
-      --disable              Disable ssh user
-      --enable               Enable ssh user
-      --expires=<value>      Date at wich the User get disabled automatically
-      --password=<value>     Password used for authentication
-      --public-key=<value>   Public Key used for authentication
-
-DESCRIPTION
-  Update an existing cron job
-
-FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw update [CHANNEL]`
@@ -5691,7 +5467,7 @@ Create a new API token
 
 ```
 USAGE
-  $ mw user api-token create --description <value> --roles api_read|api_write [-q] [--expires <value>]
+  $ mw user api-token create --description <value> --roles api_read|api_write... [-q] [--expires <value>]
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
