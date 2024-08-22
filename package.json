@@ -86,7 +86,7 @@
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.0.2",
     "@yarnpkg/pnpify": "^4.0.0-rc.48",
-    "eslint": "^8.44.0",
+    "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-json": "^4.0.0",
     "eslint-plugin-prettier": "^5.1.3",
