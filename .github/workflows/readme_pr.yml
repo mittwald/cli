@@ -6,6 +6,7 @@ on:
     types:
       - opened
       - ready_for_review
+      - synchronize
 
 jobs:
   update-readme:
