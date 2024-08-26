@@ -7,7 +7,12 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
+import type { MittwaldAPIV2Client } from "@mittwald/api-client";
+
 type UpdateResult = void;
+type CronjobUpdateData = Parameters<
+  MittwaldAPIV2Client["cronjob"]["updateCronjob"]
+>[0]["data"];
 
 export default class Update extends ExecRenderBaseCommand<
   typeof Update,
@@ -74,23 +79,7 @@ export default class Update extends ExecRenderBaseCommand<
       enable,
     } = this.flags;
 
-    const updateCronjobPayload: {
-      active?: boolean | undefined;
-      description?: string | undefined;
-      destination?:
-        | {
-            interpreter: string;
-            path: string;
-            parameters?: string | undefined;
-          }
-        | {
-            url: string;
-          }
-        | undefined;
-      email?: string | undefined;
-      interval?: string | undefined;
-      timeout?: number | undefined;
-    } = {};
+    const updateCronjobPayload: CronjobUpdateData = {};
 
     if (enable) {
       updateCronjobPayload.active = true;
