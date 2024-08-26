@@ -4,22 +4,22 @@ import {
   processFlags,
 } from "../../../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
-import { Flags, Args } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../../rendering/react/components/Success.js";
 import { Value } from "../../../../rendering/react/components/Value.js";
+import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 
 type Result = {
   mysqlUserId: string;
 };
 
+type MyQSLUserCreationData = Parameters<
+  MittwaldAPIV2Client["database"]["createMysqlUser"]
+>[0]["data"];
+
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
-  static description = "Create a new mysql user";
-  static args = {
-    "database-id": Args.string({
-      description: "ID of the MySQL Database to create a user for",
-    }),
-  };
+  static description = "Create a new MySQL user";
   static flags = {
     ...processFlags,
     "database-id": Flags.string({
@@ -28,12 +28,12 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     }),
     "access-level": Flags.string({
       required: true,
-      description: "Access level for this mysql user",
+      description: "Access level for this MySQL user",
       options: ["readonly", "full"],
     }),
     description: Flags.string({
       required: true,
-      description: "Description of the mysql user",
+      description: "Description of the MySQL user",
     }),
     password: Flags.string({
       required: true,
@@ -51,23 +51,11 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   protected async exec(): Promise<Result> {
     const process = makeProcessRenderer(
       this.flags,
-      "Creating a new mysql User",
+      "Creating a new MySQL User",
     );
 
-    // TODO: implement withMySQLId
-
-    let mysqlDatabaseId: string = "";
-    if (this.flags["database-id"]) {
-      mysqlDatabaseId = this.flags["database-id"];
-    } else if (this.args["database-id"]) {
-      mysqlDatabaseId = this.args["database-id"];
-    } else {
-      await process.error(
-        "Please provide a backup schedule id as flag or argument",
-      );
-    }
-
     const {
+      "database-id": mysqlDatabaseId,
       "access-level": accessLevel,
       description,
       password,
@@ -75,25 +63,12 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       "external-access": externalAccess,
     } = this.flags;
 
-    const createMysqlUserPayload: {
-      accessLevel: "full" | "readonly";
-      databaseId: string;
-      description: string;
-      password: string;
-      accessIpMask?: string | undefined;
-      externalAccess?: boolean | undefined;
-    } = {
+    const createMysqlUserPayload: MyQSLUserCreationData = {
       accessLevel: accessLevel == "full" ? "full" : "readonly",
       databaseId: mysqlDatabaseId,
       description,
       password,
     };
-
-    if (password.length < 12) {
-      throw new Error(
-        "Your chosen password is too short. Please choose a secure password with at least 12 characters.",
-      );
-    }
 
     if (accessIpMask) {
       createMysqlUserPayload.accessIpMask = accessIpMask;
@@ -106,7 +81,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     }
 
     const { id: mysqlUserId } = await process.runStep(
-      "creating mysql user",
+      "creating MySQL user",
       async () => {
         const r = await this.apiClient.database.createMysqlUser({
           mysqlDatabaseId,
@@ -118,7 +93,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     );
 
     const mysqlUser = await process.runStep(
-      "checking newly created mysql user",
+      "checking newly created MySQL user",
       async () => {
         const r = await this.apiClient.database.getMysqlUser({
           mysqlUserId,
