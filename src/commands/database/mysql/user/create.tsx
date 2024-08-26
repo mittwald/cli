@@ -38,7 +38,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     password: Flags.string({
       required: true,
       description: "Password used for authentication",
-      exactlyOne: ["public-key", "password"],
     }),
     "access-ip-mask": Flags.string({
       description: "IP from wich external access will be exclusively allowed",
@@ -103,7 +102,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       },
     );
 
-    process.complete(
+    await process.complete(
       <Success>
         The mysql user "<Value>{mysqlUser.description}</Value>" was successfully
         created.
