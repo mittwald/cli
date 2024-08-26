@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../../../lib/basecommands/ExecRenderBaseCommand.js";
-import { Flags, Args } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import { ReactNode } from "react";
 import {
   makeProcessRenderer,
@@ -7,33 +7,32 @@ import {
 } from "../../../../rendering/process/process_flags.js";
 import { Success } from "../../../../rendering/react/components/Success.js";
 import assertSuccess from "../../../../lib/apiutil/assert_success.js";
+import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 type UpdateResult = void;
+type MyQSLUserUpdateData = Parameters<
+  MittwaldAPIV2Client["database"]["updateMysqlUser"]
+>[0]["data"];
 
 export default class Update extends ExecRenderBaseCommand<
   typeof Update,
   UpdateResult
 > {
   static description = "Create a new mysql user";
-  static args = {
-    "database-id": Args.string({
-      description: "MySQL User ID of the user to be updated",
-    }),
-  };
   static flags = {
     ...processFlags,
-    "database-id": Flags.string({
+    "mysql-user-id": Flags.string({
+      required: true,
       description: "MySQL User ID of the user to be updated",
     }),
     "access-level": Flags.string({
-      description: "Access level for this mysql user",
+      description: "Access level for this MySQL user",
       options: ["readonly", "full"],
     }),
     description: Flags.string({
-      description: "Description of the mysql user",
+      description: "Description of the MySQL user",
     }),
     password: Flags.string({
       description: "Password used for authentication",
-      exactlyOne: ["public-key", "password"],
     }),
     "access-ip-mask": Flags.string({
       description: "IP from wich external access will be exclusively allowed",
@@ -46,38 +45,11 @@ export default class Update extends ExecRenderBaseCommand<
   protected async exec(): Promise<void> {
     const process = makeProcessRenderer(
       this.flags,
-      "Creating a new mysql User",
+      "Creating a new MySQL User",
     );
 
-    // TODO: Implement withMySQLUserId
-
-    let mysqlUserId: string = "";
-    if (this.args["database-id"]) {
-      mysqlUserId = this.args["database-id"];
-    } else if (this.flags["database-id"]) {
-      mysqlUserId = this.flags["database-id"];
-    }
-
-    const currentMysqlUserData = await this.apiClient.database.getMysqlUser({
-      mysqlUserId,
-    });
-    assertSuccess(currentMysqlUserData);
-
-    let currentAccessLevel: "full" | "readonly";
-
-    if (currentMysqlUserData.data.accessLevel == "full") {
-      currentAccessLevel = "full";
-    } else if (currentMysqlUserData.data.accessLevel == "readonly") {
-      currentAccessLevel = "readonly";
-    } else {
-      // This is more or less only a way to please the compiler
-      // Not ever should it come to this or should this be used without
-      // something way more critical being out of the order
-      // TODO: no workaround
-      currentAccessLevel = "readonly";
-    }
-
     const {
+      "mysql-user-id": mysqlUserId,
       "access-level": accessLevel,
       description,
       password,
@@ -85,12 +57,19 @@ export default class Update extends ExecRenderBaseCommand<
       "external-access": externalAccess,
     } = this.flags;
 
-    const updateMysqlUserPayload: {
-      accessLevel: "full" | "readonly";
-      description: string;
-      accessIpMask: string;
-      externalAccess: boolean;
-    } = {
+    const currentMysqlUserData = await this.apiClient.database.getMysqlUser({
+      mysqlUserId,
+    });
+    assertSuccess(currentMysqlUserData);
+
+    let currentAccessLevel: "full" | "readonly";
+    if (currentMysqlUserData.data.accessLevel == "full") {
+      currentAccessLevel = "full";
+    } else {
+      currentAccessLevel = "readonly";
+    }
+
+    const updateMysqlUserPayload: Required<MyQSLUserUpdateData> = {
       accessLevel:
         accessLevel == "full" || accessLevel == "readonly"
           ? accessLevel
@@ -114,7 +93,7 @@ export default class Update extends ExecRenderBaseCommand<
     }
 
     if (password) {
-      await process.runStep("Updating mysql user password", async () => {
+      await process.runStep("Updating MySQL user password", async () => {
         const updatePasswordResponse =
           await this.apiClient.database.updateMysqlUserPassword({
             mysqlUserId,
@@ -126,7 +105,7 @@ export default class Update extends ExecRenderBaseCommand<
       });
 
       if (accessLevel || description || accessIpMask || externalAccess) {
-        await process.runStep("Updating mysql user", async () => {
+        await process.runStep("Updating MySQL user", async () => {
           const updateResponse = await this.apiClient.database.updateMysqlUser({
             mysqlUserId,
             data: updateMysqlUserPayload,
