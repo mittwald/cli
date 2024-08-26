@@ -179,7 +179,7 @@ USAGE
 * [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
 * [`mw database mysql shell DATABASE-ID`](#mw-database-mysql-shell-database-id)
-* [`mw database mysql user create [DATABASE-ID]`](#mw-database-mysql-user-create-database-id)
+* [`mw database mysql user create`](#mw-database-mysql-user-create)
 * [`mw database mysql user delete USER-ID`](#mw-database-mysql-user-delete-user-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
@@ -3252,30 +3252,27 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
-## `mw database mysql user create [DATABASE-ID]`
+## `mw database mysql user create`
 
-Create a new mysql user
+Create a new MySQL user
 
 ```
 USAGE
-  $ mw database mysql user create [DATABASE-ID] --database-id <value> --access-level readonly|full --description <value>
-    --password <value> [-q] [--access-ip-mask <value>] [--external-access]
-
-ARGUMENTS
-  DATABASE-ID  ID of the MySQL Database to create a user for
+  $ mw database mysql user create --database-id <value> --access-level readonly|full --description <value> --password <value>
+    [-q] [--access-ip-mask <value>] [--external-access]
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --access-ip-mask=<value>  IP from wich external access will be exclusively allowed
-      --access-level=<option>   (required) Access level for this mysql user
+      --access-level=<option>   (required) Access level for this MySQL user
                                 <options: readonly|full>
       --database-id=<value>     (required) ID of the MySQL Database to create a user for
-      --description=<value>     (required) Description of the mysql user
+      --description=<value>     (required) Description of the MySQL user
       --external-access         Enable/Disable external access for this user.
       --password=<value>        (required) Password used for authentication
 
 DESCRIPTION
-  Create a new mysql user
+  Create a new MySQL user
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
