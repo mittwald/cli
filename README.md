@@ -4177,7 +4177,7 @@ USAGE
   $ mw mail deliverybox create -d <value> [-p <value>] [-q] [--password <value>] [--random-password]
 
 FLAGS
-  -d, --description=<value>  (required) mail devliverybox description
+  -d, --description=<value>  (required) mail deliverybox description
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary.
@@ -4197,11 +4197,11 @@ EXAMPLES
   Create non-interactively with password
 
     $ read -s PASSWORD && \
-      mw mail deliverybox create --password $PASSWORD --description my personal deliverybox
+      mw mail deliverybox create --password $PASSWORD --description 'my personal deliverybox'
 
   Create non-interactively with random password
 
-    $ mw mail deliverybox create --random-password --description my personal deliverybox
+    $ mw mail deliverybox create --random-password --description 'my personal deliverybox'
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>
