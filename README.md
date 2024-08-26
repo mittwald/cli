@@ -5308,8 +5308,8 @@ Create a new SFTP user
 
 ```
 USAGE
-  $ mw sftp-user create --description <value> --directories <value>... [-p <value>] [-q] [--public-key <value>]
-    [--password <value>] [--expires <value>] [--access-level read|full]
+  $ mw sftp-user create --description <value> --directories <value>... [-p <value>] [-q] [--expires <value>]
+    [--public-key <value>] [--password <value>] [--access-level read|full]
 
 FLAGS
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -5319,7 +5319,7 @@ FLAGS
                                 <options: read|full>
       --description=<value>     (required) Description of SFTP user
       --directories=<value>...  (required) Set directories to restrict the SFTP users access to
-      --expires=<value>         Date at which the SFTP user get disabled automatically
+      --expires=<value>         an interval after which the SFTP User expires (examples: 30m, 30d, 1y).
       --password=<value>        Password used for authentication
       --public-key=<value>      Public Key used for authentication
 
@@ -5404,8 +5404,8 @@ Update an existing sftp user
 
 ```
 USAGE
-  $ mw sftp-user update SFTP-USER-ID [-q] [--description <value>] [--public-key <value> | --password <value>]
-    [--expires <value>] [--access-level read|full] [--directories <value>...] [--disable | --enable]
+  $ mw sftp-user update SFTP-USER-ID [-q] [--expires <value>] [--description <value>] [--public-key <value> |
+    --password <value>] [--access-level read|full] [--directories <value>...] [--disable | --enable]
 
 ARGUMENTS
   SFTP-USER-ID  The ID of the SFTP user to update
@@ -5418,7 +5418,7 @@ FLAGS
       --directories=<value>...  Set directories to restrict the sftp users access to
       --disable                 Disable SFTP user
       --enable                  Enable SFTP user
-      --expires=<value>         Date at wich the SFTP user will be disabled automatically
+      --expires=<value>         an interval after which the SFTP user expires (examples: 30m, 30d, 1y).
       --password=<value>        Password used for authentication
       --public-key=<value>      Public Key used for authentication
 
@@ -5446,7 +5446,7 @@ FLAGS
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary.
       --description=<value>  (required) Description of SSH user
-      --expires=<value>      Date at wich the SSH user get disabled automatically
+      --expires=<value>      an interval after which the SSH user expires (examples: 30m, 30d, 1y).
       --password=<value>     Password used for authentication
       --public-key=<value>   Public Key used for authentication
 
@@ -5531,8 +5531,8 @@ Update an existing SSH user
 
 ```
 USAGE
-  $ mw ssh-user update SSH-USER-ID [-q] [--description <value>] [--public-key <value>] [--password <value>]
-    [--expires <value>] [--disable | --enable]
+  $ mw ssh-user update SSH-USER-ID [-q] [--expires <value>] [--description <value>] [--public-key <value>]
+    [--password <value>] [--disable | --enable]
 
 ARGUMENTS
   SSH-USER-ID  The ID of the SSH user to update
@@ -5542,7 +5542,7 @@ FLAGS
       --description=<value>  Set SSH user description
       --disable              Disable SSH user
       --enable               Enable SSH user
-      --expires=<value>      Date at which the user will be disabled automatically
+      --expires=<value>      an interval after which the SSH user expires (examples: 30m, 30d, 1y).
       --password=<value>     Password used for authentication
       --public-key=<value>   Public Key used for authentication
 
