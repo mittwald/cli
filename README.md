@@ -3360,7 +3360,7 @@ USAGE
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
-      --access-ip-mask=<value>  IP from wich external access will be exclusively allowed
+      --access-ip-mask=<value>  IP from which external access will be exclusively allowed
       --access-level=<option>   Access level for this MySQL user
                                 <options: readonly|full>
       --description=<value>     Description of the MySQL user
