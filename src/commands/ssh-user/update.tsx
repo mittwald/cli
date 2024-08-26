@@ -15,7 +15,7 @@ export default class Update extends ExecRenderBaseCommand<
   typeof Update,
   UpdateResult
 > {
-  static description = "Update an existing cron job";
+  static description = "Update an existing SSH user";
   static args = {
     "ssh-user-id": Args.string({
       description: "The ID of the SSH user to update",
@@ -25,7 +25,7 @@ export default class Update extends ExecRenderBaseCommand<
   static flags = {
     ...processFlags,
     description: Flags.string({
-      description: "Set cron job description",
+      description: "Set SSH user description",
     }),
     "public-key": Flags.string({
       summary: "Public Key used for authentication",
@@ -36,20 +36,20 @@ export default class Update extends ExecRenderBaseCommand<
       exactlyOne: ["public-key", "password"],
     }),
     expires: Flags.string({
-      summary: "Date at wich the User get disabled automatically",
+      summary: "Date at which the user will be disabled automatically",
     }),
     disable: Flags.boolean({
-      description: "Disable ssh user",
+      description: "Disable SSH user",
       exclusive: ["enable"],
     }),
     enable: Flags.boolean({
-      description: "Enable ssh user",
+      description: "Enable SSH user",
       exclusive: ["disable"],
     }),
   };
 
   protected async exec(): Promise<void> {
-    const process = makeProcessRenderer(this.flags, "Updating ssh user");
+    const process = makeProcessRenderer(this.flags, "Updating SSH user");
     const sshUserId = this.args["ssh-user-id"];
 
     const currentSshUser = await this.apiClient.sshsftpUser.sshUserGetSshUser({
@@ -97,7 +97,7 @@ export default class Update extends ExecRenderBaseCommand<
     if (publicKey) {
       updateSshUserPayload.publicKeys = [
         {
-          comment: "Public key set through cli",
+          comment: "Public key set through CLI",
           key: publicKey,
         },
       ];
@@ -108,7 +108,7 @@ export default class Update extends ExecRenderBaseCommand<
         <Success>Nothing to change. Have a good day!</Success>,
       );
     } else {
-      await process.runStep("Updating ssh user", async () => {
+      await process.runStep("Updating SSH user", async () => {
         const response = await this.apiClient.sshsftpUser.sshUserUpdateSshUser({
           sshUserId,
           data: updateSshUserPayload,
@@ -117,7 +117,7 @@ export default class Update extends ExecRenderBaseCommand<
       });
 
       await process.complete(
-        <Success>Your ssh user has successfully been updated.</Success>,
+        <Success>Your SSH user has successfully been updated.</Success>,
       );
     }
   }

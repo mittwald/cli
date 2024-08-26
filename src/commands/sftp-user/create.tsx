@@ -17,13 +17,13 @@ type Result = {
 };
 
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
-  static summary = "Create a new sftp user";
+  static summary = "Create a new SFTP user";
   static flags = {
     ...projectFlags,
     ...processFlags,
     description: Flags.string({
       required: true,
-      summary: "Description of sftp user",
+      summary: "Description of SFTP user",
     }),
     "public-key": Flags.string({
       summary: "Public Key used for authentication",
@@ -34,21 +34,21 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       exactlyOne: ["public-key", "password"],
     }),
     expires: Flags.string({
-      summary: "Date at wich the sftp user get disabled automatically",
+      summary: "Date at which the SFTP user get disabled automatically",
     }),
     "access-level": Flags.string({
-      description: "Set access level privileges for the sftp user",
+      description: "Set access level privileges for the SFTP user",
       options: ["read", "full"],
     }),
     directories: Flags.directory({
       required: true,
-      description: "Set directories to restrict the sftp users access to",
+      description: "Set directories to restrict the SFTP users access to",
       multiple: true,
     }),
   };
 
   protected async exec(): Promise<Result> {
-    const process = makeProcessRenderer(this.flags, "Creating a new sftp User");
+    const process = makeProcessRenderer(this.flags, "Creating a new SFTP User");
     const projectId = await this.withProjectId(Create);
     const {
       description,
@@ -73,7 +73,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
         : {
             publicKeys: [
               {
-                comment: "Public key set through cli",
+                comment: "Public key set through CLI",
                 key: publicKey ? publicKey : "",
               },
             ],
@@ -85,7 +85,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     if (expires) {
       createSftpUserPayload.expiresAt = expires;
     }
-
     if (accessLevel == "read" || accessLevel == "full") {
       createSftpUserPayload.accessLevel = accessLevel;
     } else {
@@ -93,7 +92,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     }
 
     const { id: sftpUserId } = await process.runStep(
-      "creating SHH user",
+      "creating SFTP user",
       async () => {
         const r = await this.apiClient.sshsftpUser.sftpUserCreateSftpUser({
           projectId,
@@ -105,7 +104,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     );
 
     const sftpUser = await process.runStep(
-      "checking newly created sftp user",
+      "checking newly created SFTP user",
       async () => {
         const r = await this.apiClient.sshsftpUser.sftpUserGetSftpUser({
           sftpUserId,
@@ -117,8 +116,11 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     process.complete(
       <Success>
-        The sftp user "<Value>{sftpUser.description}</Value>" was successfully
-        created.
+        The sftp user "
+        <Value>
+          {sftpUser.userName} ({sftpUser.description})
+        </Value>
+        " was successfully created.
       </Success>,
     );
 

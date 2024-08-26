@@ -17,14 +17,14 @@ export default class Update extends ExecRenderBaseCommand<
   static description = "Update an existing sftp user";
   static args = {
     "sftp-user-id": Args.string({
-      description: "The ID of the sftp user to update",
+      description: "The ID of the SFTP user to update",
       required: true,
     }),
   };
   static flags = {
     ...processFlags,
     description: Flags.string({
-      description: "Set the sftp users description",
+      description: "Set the SFTP users description",
     }),
     "public-key": Flags.string({
       description: "Public Key used for authentication",
@@ -35,10 +35,10 @@ export default class Update extends ExecRenderBaseCommand<
       exclusive: ["public-key"],
     }),
     expires: Flags.string({
-      description: "Date at wich the sftp user will be disabled automatically",
+      description: "Date at wich the SFTP user will be disabled automatically",
     }),
     "access-level": Flags.string({
-      description: "Set access level privileges for the sftp user",
+      description: "Set access level privileges for the SFTP user",
       options: ["read", "full"],
     }),
     directories: Flags.directory({
@@ -46,17 +46,17 @@ export default class Update extends ExecRenderBaseCommand<
       multiple: true,
     }),
     disable: Flags.boolean({
-      description: "Disable sftp user",
+      description: "Disable SFTP user",
       exclusive: ["enable"],
     }),
     enable: Flags.boolean({
-      description: "Enable sftp user",
+      description: "Enable SFTP user",
       exclusive: ["disable"],
     }),
   };
 
   protected async exec(): Promise<void> {
-    const process = makeProcessRenderer(this.flags, "Updating sftp user");
+    const process = makeProcessRenderer(this.flags, "Updating SFTP user");
     const sftpUserId = this.args["sftp-user-id"];
 
     const {
@@ -127,7 +127,7 @@ export default class Update extends ExecRenderBaseCommand<
         <Success>Nothing to change. Have a good day!</Success>,
       );
     } else {
-      await process.runStep("Updating sftp user", async () => {
+      await process.runStep("Updating SFTP user", async () => {
         const response =
           await this.apiClient.sshsftpUser.sftpUserUpdateSftpUser({
             sftpUserId,
@@ -137,7 +137,7 @@ export default class Update extends ExecRenderBaseCommand<
       });
 
       await process.complete(
-        <Success>Your sftp user has successfully been updated.</Success>,
+        <Success>Your SFTP user has successfully been updated.</Success>,
       );
     }
   }

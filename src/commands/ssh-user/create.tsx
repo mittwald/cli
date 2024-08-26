@@ -17,16 +17,16 @@ type Result = {
 };
 
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
-  static summary = "Create a new ssh user";
+  static summary = "Create a new SSH user";
   static flags = {
     ...projectFlags,
     ...processFlags,
     description: Flags.string({
       required: true,
-      summary: "Description of ssh user",
+      summary: "Description of SSH user",
     }),
     expires: Flags.string({
-      summary: "Date at wich the ssh user get disabled automatically",
+      summary: "Date at wich the SSH user get disabled automatically",
     }),
     "public-key": Flags.string({
       summary: "Public Key used for authentication",
@@ -39,7 +39,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   };
 
   protected async exec(): Promise<Result> {
-    const process = makeProcessRenderer(this.flags, "Creating a new ssh user");
+    const process = makeProcessRenderer(this.flags, "Creating a new SSH user");
     const projectId = await this.withProjectId(Create);
     const {
       description,
@@ -60,7 +60,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
         : {
             publicKeys: [
               {
-                comment: "Public key set through cli",
+                comment: "Public key set through CLI",
                 key: publicKey ? publicKey : "",
               },
             ],
@@ -73,7 +73,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     }
 
     const { id: sshUserId } = await process.runStep(
-      "creating ssh user",
+      "creating SSH user",
       async () => {
         const r = await this.apiClient.sshsftpUser.sshUserCreateSshUser({
           projectId,
@@ -85,7 +85,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     );
 
     const sshUser = await process.runStep(
-      "checking newly created ssh user",
+      "checking newly created SSH user",
       async () => {
         const r = await this.apiClient.sshsftpUser.sshUserGetSshUser({
           sshUserId,
@@ -97,8 +97,11 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     process.complete(
       <Success>
-        The ssh user "<Value>{sshUser.description}</Value>" was successfully
-        created.
+        The ssh user "
+        <Value>
+          {sshUser.userName} ({sshUser.description})
+        </Value>
+        " was successfully created.
       </Success>,
     );
 
