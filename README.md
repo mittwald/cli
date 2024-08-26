@@ -183,7 +183,7 @@ USAGE
 * [`mw database mysql user delete USER-ID`](#mw-database-mysql-user-delete-user-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
-* [`mw database mysql user update [DATABASE-ID]`](#mw-database-mysql-user-update-database-id)
+* [`mw database mysql user update`](#mw-database-mysql-user-update)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
 * [`mw database redis create`](#mw-database-redis-create)
 * [`mw database redis get ID`](#mw-database-redis-get-id)
@@ -3349,26 +3349,23 @@ DESCRIPTION
   List MySQL users belonging to a database.
 ```
 
-## `mw database mysql user update [DATABASE-ID]`
+## `mw database mysql user update`
 
 Create a new mysql user
 
 ```
 USAGE
-  $ mw database mysql user update [DATABASE-ID] [-q] [--database-id <value>] [--access-level readonly|full] [--description
-    <value>] [--password <value>] [--access-ip-mask <value>] [--external-access]
-
-ARGUMENTS
-  DATABASE-ID  MySQL User ID of the user to be updated
+  $ mw database mysql user update --mysql-user-id <value> [-q] [--access-level readonly|full] [--description <value>]
+    [--password <value>] [--access-ip-mask <value>] [--external-access]
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --access-ip-mask=<value>  IP from wich external access will be exclusively allowed
-      --access-level=<option>   Access level for this mysql user
+      --access-level=<option>   Access level for this MySQL user
                                 <options: readonly|full>
-      --database-id=<value>     MySQL User ID of the user to be updated
-      --description=<value>     Description of the mysql user
+      --description=<value>     Description of the MySQL user
       --external-access         Enable/Disable external access for this user.
+      --mysql-user-id=<value>   (required) MySQL User ID of the user to be updated
       --password=<value>        Password used for authentication
 
 DESCRIPTION
