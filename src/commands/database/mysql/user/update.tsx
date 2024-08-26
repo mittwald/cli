@@ -35,7 +35,7 @@ export default class Update extends ExecRenderBaseCommand<
       description: "Password used for authentication",
     }),
     "access-ip-mask": Flags.string({
-      description: "IP from wich external access will be exclusively allowed",
+      description: "IP from which external access will be exclusively allowed",
     }),
     "external-access": Flags.boolean({
       description: "Enable/Disable external access for this user.",
@@ -103,16 +103,16 @@ export default class Update extends ExecRenderBaseCommand<
           });
         assertSuccess(updatePasswordResponse);
       });
+    }
 
-      if (accessLevel || description || accessIpMask || externalAccess) {
-        await process.runStep("Updating MySQL user", async () => {
-          const updateResponse = await this.apiClient.database.updateMysqlUser({
-            mysqlUserId,
-            data: updateMysqlUserPayload,
-          });
-          assertSuccess(updateResponse);
+    if (accessLevel || description || accessIpMask || externalAccess) {
+      await process.runStep("Updating MySQL user", async () => {
+        const updateResponse = await this.apiClient.database.updateMysqlUser({
+          mysqlUserId,
+          data: updateMysqlUserPayload,
         });
-      }
+        assertSuccess(updateResponse);
+      });
 
       await process.complete(
         <Success>Your mysql user has successfully been updated.</Success>,
