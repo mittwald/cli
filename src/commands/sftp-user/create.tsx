@@ -10,17 +10,23 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 
 import { projectFlags } from "../../lib/resources/project/flags.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { expireFlags } from "../../lib/flags/expireFlags.js";
 
 type Result = {
   sftpUserId: string;
 };
+
+type SftpUserCreationPayload = Parameters<
+  MittwaldAPIV2Client["sshsftpUser"]["sftpUserCreateSftpUser"]
+>[0]["data"];
 
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static summary = "Create a new SFTP user";
   static flags = {
     ...projectFlags,
     ...processFlags,
+    ...expireFlags("SFTP User", false),
     description: Flags.string({
       required: true,
       summary: "Description of SFTP user",
@@ -32,9 +38,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     password: Flags.string({
       summary: "Password used for authentication",
       exactlyOne: ["public-key", "password"],
-    }),
-    expires: Flags.string({
-      summary: "Date at which the SFTP user get disabled automatically",
     }),
     "access-level": Flags.string({
       description: "Set access level privileges for the SFTP user",
@@ -59,15 +62,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       directories,
     } = this.flags;
 
-    const createSftpUserPayload: {
-      authentication:
-        | { password: string }
-        | { publicKeys: MittwaldAPIV2.Components.Schemas.SshuserPublicKey[] };
-      description: string;
-      directories: [string, ...string[]];
-      accessLevel?: "read" | "full" | undefined;
-      expiresAt?: string | undefined;
-    } = {
+    const sftpUserCreationPayload: SftpUserCreationPayload = {
       authentication: password
         ? { password }
         : {
@@ -78,17 +73,18 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
               },
             ],
           },
+      // TODO: simplify or infer
       description,
       directories: [directories[0], ...directories.slice(1)],
     };
 
     if (expires) {
-      createSftpUserPayload.expiresAt = expires;
+      sftpUserCreationPayload.expiresAt = expires.toString();
     }
     if (accessLevel == "read" || accessLevel == "full") {
-      createSftpUserPayload.accessLevel = accessLevel;
+      sftpUserCreationPayload.accessLevel = accessLevel;
     } else {
-      createSftpUserPayload.accessLevel = undefined;
+      sftpUserCreationPayload.accessLevel = undefined;
     }
 
     const { id: sftpUserId } = await process.runStep(
@@ -96,7 +92,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       async () => {
         const r = await this.apiClient.sshsftpUser.sftpUserCreateSftpUser({
           projectId,
-          data: createSftpUserPayload,
+          data: sftpUserCreationPayload,
         });
         assertStatus(r, 201);
         return r.data;
@@ -114,7 +110,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       },
     );
 
-    process.complete(
+    await process.complete(
       <Success>
         The sftp user "
         <Value>

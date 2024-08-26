@@ -7,9 +7,13 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { expireFlags } from "../../lib/flags/expireFlags.js";
 
 type UpdateResult = void;
+type SshUserUpdatePayload = Parameters<
+  MittwaldAPIV2Client["sshsftpUser"]["sshUserUpdateSshUser"]
+>[0]["data"];
 
 export default class Update extends ExecRenderBaseCommand<
   typeof Update,
@@ -24,6 +28,7 @@ export default class Update extends ExecRenderBaseCommand<
   };
   static flags = {
     ...processFlags,
+    ...expireFlags("SSH user", false),
     description: Flags.string({
       description: "Set SSH user description",
     }),
@@ -34,9 +39,6 @@ export default class Update extends ExecRenderBaseCommand<
     password: Flags.string({
       summary: "Password used for authentication",
       exactlyOne: ["public-key", "password"],
-    }),
-    expires: Flags.string({
-      summary: "Date at which the user will be disabled automatically",
     }),
     disable: Flags.boolean({
       description: "Disable SSH user",
@@ -66,36 +68,28 @@ export default class Update extends ExecRenderBaseCommand<
       enable,
     } = this.flags;
 
-    const updateSshUserPayload: {
-      active?: boolean | undefined;
-      description?: string | undefined;
-      expiresAt?: string | undefined;
-      password?: string | undefined;
-      publicKeys?:
-        | MittwaldAPIV2.Components.Schemas.SshuserPublicKey[]
-        | undefined;
-    } = {};
+    const sshUserUpdatePayload: SshUserUpdatePayload = {};
 
     if (enable) {
-      updateSshUserPayload.active = true;
+      sshUserUpdatePayload.active = true;
     } else if (disable) {
-      updateSshUserPayload.active = false;
+      sshUserUpdatePayload.active = false;
     }
 
     if (description) {
-      updateSshUserPayload.description = description;
+      sshUserUpdatePayload.description = description;
     }
 
     if (expires) {
-      updateSshUserPayload.expiresAt = expires;
+      sshUserUpdatePayload.expiresAt = expires.toString();
     }
 
     if (password) {
-      updateSshUserPayload.password = password;
+      sshUserUpdatePayload.password = password;
     }
 
     if (publicKey) {
-      updateSshUserPayload.publicKeys = [
+      sshUserUpdatePayload.publicKeys = [
         {
           comment: "Public key set through CLI",
           key: publicKey,
@@ -103,7 +97,7 @@ export default class Update extends ExecRenderBaseCommand<
       ];
     }
 
-    if (Object.keys(updateSshUserPayload).length == 1) {
+    if (Object.keys(sshUserUpdatePayload).length == 1) {
       await process.complete(
         <Success>Nothing to change. Have a good day!</Success>,
       );
@@ -111,7 +105,7 @@ export default class Update extends ExecRenderBaseCommand<
       await process.runStep("Updating SSH user", async () => {
         const response = await this.apiClient.sshsftpUser.sshUserUpdateSshUser({
           sshUserId,
-          data: updateSshUserPayload,
+          data: sshUserUpdatePayload,
         });
         assertSuccess(response);
       });

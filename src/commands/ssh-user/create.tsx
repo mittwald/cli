@@ -10,23 +10,26 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 
 import { projectFlags } from "../../lib/resources/project/flags.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { expireFlags } from "../../lib/flags/expireFlags.js";
 
 type Result = {
   sshUserId: string;
 };
+
+type SshUserCreationPayload = Parameters<
+  MittwaldAPIV2Client["sshsftpUser"]["sshUserCreateSshUser"]
+>[0]["data"];
 
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static summary = "Create a new SSH user";
   static flags = {
     ...projectFlags,
     ...processFlags,
+    ...expireFlags("SSH user", false),
     description: Flags.string({
       required: true,
       summary: "Description of SSH user",
-    }),
-    expires: Flags.string({
-      summary: "Date at wich the SSH user get disabled automatically",
     }),
     "public-key": Flags.string({
       summary: "Public Key used for authentication",
@@ -48,13 +51,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       expires,
     } = this.flags;
 
-    const createSshUserPayload: {
-      authentication:
-        | { password: string }
-        | { publicKeys: MittwaldAPIV2.Components.Schemas.SshuserPublicKey[] };
-      description: string;
-      expiresAt?: string;
-    } = {
+    const sshUserCreationPayload: SshUserCreationPayload = {
       authentication: password
         ? { password }
         : {
@@ -65,11 +62,12 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
               },
             ],
           },
+      // TODO: simplify or infer
       description,
     };
 
     if (expires) {
-      createSshUserPayload.expiresAt = expires;
+      sshUserCreationPayload.expiresAt = expires.toString();
     }
 
     const { id: sshUserId } = await process.runStep(
@@ -77,7 +75,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       async () => {
         const r = await this.apiClient.sshsftpUser.sshUserCreateSshUser({
           projectId,
-          data: createSshUserPayload,
+          data: sshUserCreationPayload,
         });
         assertStatus(r, 201);
         return r.data;

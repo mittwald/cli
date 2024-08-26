@@ -7,8 +7,13 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
-import { MittwaldAPIV2 } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { expireFlags } from "../../lib/flags/expireFlags.js";
+
 type UpdateResult = void;
+type SftpUserUpdatePayload = Parameters<
+  MittwaldAPIV2Client["sshsftpUser"]["sftpUserUpdateSftpUser"]
+>[0]["data"];
 
 export default class Update extends ExecRenderBaseCommand<
   typeof Update,
@@ -23,6 +28,7 @@ export default class Update extends ExecRenderBaseCommand<
   };
   static flags = {
     ...processFlags,
+    ...expireFlags("SFTP user", false),
     description: Flags.string({
       description: "Set the SFTP users description",
     }),
@@ -33,9 +39,6 @@ export default class Update extends ExecRenderBaseCommand<
     password: Flags.string({
       description: "Password used for authentication",
       exclusive: ["public-key"],
-    }),
-    expires: Flags.string({
-      description: "Date at wich the SFTP user will be disabled automatically",
     }),
     "access-level": Flags.string({
       description: "Set access level privileges for the SFTP user",
@@ -70,38 +73,28 @@ export default class Update extends ExecRenderBaseCommand<
       enable,
     } = this.flags;
 
-    const updateSftpUserPayload: {
-      accessLevel?: "read" | "full" | undefined;
-      active?: boolean | undefined;
-      description?: string | undefined;
-      directories?: [string, ...string[]] | undefined;
-      expiresAt?: string | undefined;
-      password?: string | undefined;
-      publicKeys?:
-        | MittwaldAPIV2.Components.Schemas.SshuserPublicKey[]
-        | undefined;
-    } = {};
+    const sftpUserUpdatePayload: SftpUserUpdatePayload = {};
 
     if (enable) {
-      updateSftpUserPayload.active = true;
+      sftpUserUpdatePayload.active = true;
     } else if (disable) {
-      updateSftpUserPayload.active = false;
+      sftpUserUpdatePayload.active = false;
     }
 
     if (description) {
-      updateSftpUserPayload.description = description;
+      sftpUserUpdatePayload.description = description;
     }
 
     if (expires) {
-      updateSftpUserPayload.expiresAt = expires;
+      sftpUserUpdatePayload.expiresAt = expires.toString();
     }
 
     if (password) {
-      updateSftpUserPayload.password = password;
+      sftpUserUpdatePayload.password = password;
     }
 
     if (publicKey) {
-      updateSftpUserPayload.publicKeys = [
+      sftpUserUpdatePayload.publicKeys = [
         {
           comment: "Public key set through cli",
           key: publicKey,
@@ -110,19 +103,17 @@ export default class Update extends ExecRenderBaseCommand<
     }
 
     if (accessLevel == "read" || accessLevel == "full") {
-      updateSftpUserPayload.accessLevel = accessLevel;
-    } else {
-      updateSftpUserPayload.accessLevel = undefined;
+      sftpUserUpdatePayload.accessLevel = accessLevel;
     }
 
     if (directories) {
-      updateSftpUserPayload.directories = [
+      sftpUserUpdatePayload.directories = [
         directories[0],
         ...directories.slice(1),
       ];
     }
 
-    if (Object.keys(updateSftpUserPayload).length == 1) {
+    if (Object.keys(sftpUserUpdatePayload).length == 1) {
       await process.complete(
         <Success>Nothing to change. Have a good day!</Success>,
       );
@@ -131,7 +122,7 @@ export default class Update extends ExecRenderBaseCommand<
         const response =
           await this.apiClient.sshsftpUser.sftpUserUpdateSftpUser({
             sftpUserId,
-            data: updateSftpUserPayload,
+            data: sftpUserUpdatePayload,
           });
         assertSuccess(response);
       });
