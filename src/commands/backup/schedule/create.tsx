@@ -10,10 +10,14 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 
 import { projectFlags } from "../../../lib/resources/project/flags.js";
+import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 
 type Result = {
   projectBackupScheduleId: string;
 };
+type BackupScheduleCreationData = Parameters<
+  MittwaldAPIV2Client["backup"]["createProjectBackupSchedule"]
+>[0]["data"];
 
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static summary = "Create a new backup schedule";
@@ -35,21 +39,20 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   };
 
   protected async exec(): Promise<Result> {
-    const process = makeProcessRenderer(this.flags, "Creating a new sftp User");
+    const process = makeProcessRenderer(
+      this.flags,
+      "Creating a new backup schedule",
+    );
     const projectId = await this.withProjectId(Create);
     const { description, schedule, ttl } = this.flags;
 
-    const createBackupSchedulePayload: {
-      description?: string | undefined;
-      schedule: string;
-      ttl: string;
-    } = {
+    const backupScheduleCreationPayload: BackupScheduleCreationData = {
       schedule,
       ttl,
     };
 
     if (description) {
-      createBackupSchedulePayload.description = description;
+      backupScheduleCreationPayload.description = description;
     }
 
     const { id: projectBackupScheduleId } = await process.runStep(
@@ -57,7 +60,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       async () => {
         const r = await this.apiClient.backup.createProjectBackupSchedule({
           projectId,
-          data: createBackupSchedulePayload,
+          data: backupScheduleCreationPayload,
         });
         assertStatus(r, 201);
         return r.data;
@@ -76,7 +79,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     );
 
     if (description) {
-      process.complete(
+      await process.complete(
         <Success>
           The backup schedule "
           <Value>{projectBackupSchedule.description}</Value>" was successfully
@@ -84,7 +87,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
         </Success>,
       );
     } else {
-      process.complete(
+      await process.complete(
         <Success>The backup schedule was successfully created.</Success>,
       );
     }
