@@ -3939,7 +3939,7 @@ Create a new mail address
 ```
 USAGE
   $ mw mail address create -a <value> [-p <value>] [-q] [--catch-all] [--enable-spam-protection] [--quota <value>]
-    [--password <value>] [--random-password] [--forward-to <value>...]
+    [--password <value> | --random-password] [--forward-to <value>...]
 
 FLAGS
   -a, --address=<value>              (required) mail address
@@ -4174,7 +4174,7 @@ Create a new mail deliverybox
 
 ```
 USAGE
-  $ mw mail deliverybox create -d <value> [-p <value>] [-q] [--password <value>] [--random-password]
+  $ mw mail deliverybox create -d <value> [-p <value>] [-q] [--password <value> | --random-password]
 
 FLAGS
   -d, --description=<value>  (required) mail deliverybox description
