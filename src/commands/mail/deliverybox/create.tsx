@@ -34,7 +34,7 @@ export default class Create extends ExecRenderBaseCommand<
     ...processFlags,
     description: Flags.string({
       char: "d",
-      summary: "mail devliverybox description",
+      summary: "mail deliverybox description",
       required: true,
     }),
     password: Flags.string({
@@ -53,12 +53,12 @@ export default class Create extends ExecRenderBaseCommand<
     {
       description: "Create non-interactively with password",
       command:
-        "$ read -s PASSWORD &&\n <%= config.bin %> <%= command.id %> --password $PASSWORD --description my personal deliverybox",
+        "$ read -s PASSWORD &&\n <%= config.bin %> <%= command.id %> --password $PASSWORD --description 'my personal deliverybox'",
     },
     {
       description: "Create non-interactively with random password",
       command:
-        "<%= config.bin %> <%= command.id %> --random-password --description my personal deliverybox",
+        "<%= config.bin %> <%= command.id %> --random-password --description 'my personal deliverybox'",
     },
   ];
 
