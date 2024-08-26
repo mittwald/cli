@@ -5304,7 +5304,7 @@ DESCRIPTION
 
 ## `mw sftp-user create`
 
-Create a new sftp user
+Create a new SFTP user
 
 ```
 USAGE
@@ -5315,11 +5315,11 @@ FLAGS
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
                                 context
   -q, --quiet                   suppress process output and only display a machine-readable summary.
-      --access-level=<option>   Set access level privileges for the sftp user
+      --access-level=<option>   Set access level privileges for the SFTP user
                                 <options: read|full>
-      --description=<value>     (required) Description of sftp user
-      --directories=<value>...  (required) Set directories to restrict the sftp users access to
-      --expires=<value>         Date at wich the sftp user get disabled automatically
+      --description=<value>     (required) Description of SFTP user
+      --directories=<value>...  (required) Set directories to restrict the SFTP users access to
+      --expires=<value>         Date at which the SFTP user get disabled automatically
       --password=<value>        Password used for authentication
       --public-key=<value>      Public Key used for authentication
 
@@ -5408,17 +5408,17 @@ USAGE
     [--expires <value>] [--access-level read|full] [--directories <value>...] [--disable | --enable]
 
 ARGUMENTS
-  SFTP-USER-ID  The ID of the sftp user to update
+  SFTP-USER-ID  The ID of the SFTP user to update
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
-      --access-level=<option>   Set access level privileges for the sftp user
+      --access-level=<option>   Set access level privileges for the SFTP user
                                 <options: read|full>
-      --description=<value>     Set the sftp users description
+      --description=<value>     Set the SFTP users description
       --directories=<value>...  Set directories to restrict the sftp users access to
-      --disable                 Disable sftp user
-      --enable                  Enable sftp user
-      --expires=<value>         Date at wich the sftp user will be disabled automatically
+      --disable                 Disable SFTP user
+      --enable                  Enable SFTP user
+      --expires=<value>         Date at wich the SFTP user will be disabled automatically
       --password=<value>        Password used for authentication
       --public-key=<value>      Public Key used for authentication
 
@@ -5434,7 +5434,7 @@ FLAG DESCRIPTIONS
 
 ## `mw ssh-user create`
 
-Create a new ssh user
+Create a new SSH user
 
 ```
 USAGE
@@ -5445,8 +5445,8 @@ FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary.
-      --description=<value>  (required) Description of ssh user
-      --expires=<value>      Date at wich the ssh user get disabled automatically
+      --description=<value>  (required) Description of SSH user
+      --expires=<value>      Date at wich the SSH user get disabled automatically
       --password=<value>     Password used for authentication
       --public-key=<value>   Public Key used for authentication
 
@@ -5527,7 +5527,7 @@ FLAG DESCRIPTIONS
 
 ## `mw ssh-user update SSH-USER-ID`
 
-Update an existing cron job
+Update an existing SSH user
 
 ```
 USAGE
@@ -5539,15 +5539,15 @@ ARGUMENTS
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
-      --description=<value>  Set cron job description
-      --disable              Disable ssh user
-      --enable               Enable ssh user
-      --expires=<value>      Date at wich the User get disabled automatically
+      --description=<value>  Set SSH user description
+      --disable              Disable SSH user
+      --enable               Enable SSH user
+      --expires=<value>      Date at which the user will be disabled automatically
       --password=<value>     Password used for authentication
       --public-key=<value>   Public Key used for authentication
 
 DESCRIPTION
-  Update an existing cron job
+  Update an existing SSH user
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
