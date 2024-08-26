@@ -39,11 +39,13 @@ export default class Create extends ExecRenderBaseCommand<
     }),
     password: Flags.string({
       summary: "deliverybox password",
+      exclusive: ["random-password"],
       description:
         "This is the password that should be used for the deliverybox; if omitted, the command will prompt interactively for a password.\n\nCAUTION: providing this flag may log your password in your shell history!",
     }),
     "random-password": Flags.boolean({
       summary: "generate a random password",
+      exclusive: ["password"],
       description:
         "This flag will cause the command to generate a random 32-character password for the deliverybox; when running with --quiet, the devliverybox ID and the password will be printed to stdout, separated by a tab character.",
     }),
