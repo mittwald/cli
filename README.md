@@ -151,7 +151,7 @@ USAGE
 * [`mw backup schedule create`](#mw-backup-schedule-create)
 * [`mw backup schedule delete [BACKUP-SCHEDULE-ID]`](#mw-backup-schedule-delete-backup-schedule-id)
 * [`mw backup schedule list`](#mw-backup-schedule-list)
-* [`mw backup schedule update [BACKUP-SCHEDULE-ID]`](#mw-backup-schedule-update-backup-schedule-id)
+* [`mw backup schedule update`](#mw-backup-schedule-update)
 * [`mw context get`](#mw-context-get)
 * [`mw context reset`](#mw-context-reset)
 * [`mw context set`](#mw-context-set)
@@ -2352,21 +2352,18 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-## `mw backup schedule update [BACKUP-SCHEDULE-ID]`
+## `mw backup schedule update`
 
 Update an existing backup schedule
 
 ```
 USAGE
-  $ mw backup schedule update [BACKUP-SCHEDULE-ID] [-q] [--backup-schedule-id <value>] [--description <value>] [--schedule
-    <value>] [--ttl <value>]
-
-ARGUMENTS
-  BACKUP-SCHEDULE-ID  Define the backup schedule that is to be updated
+  $ mw backup schedule update --backup-schedule-id <value> [-q] [--description <value>] [--schedule <value>] [--ttl
+  <value>]
 
 FLAGS
   -q, --quiet                       suppress process output and only display a machine-readable summary.
-      --backup-schedule-id=<value>  Define the backup schedule that is to be updated
+      --backup-schedule-id=<value>  (required) Define the backup schedule that is to be updated
       --description=<value>         Set the description for the backup schedule
       --schedule=<value>            Define the schedule itself
       --ttl=<value>                 Define the backup storage period in days, for through this schedule created backups
