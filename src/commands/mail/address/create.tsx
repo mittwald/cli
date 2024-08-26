@@ -10,10 +10,10 @@ import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import * as crypto from "crypto";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
+import { generatePassword } from "../../../lib/util/password/generatePassword.js";
 
 type CreateResult = {
   addressId: string;
@@ -117,9 +117,7 @@ export default class Create extends ExecRenderBaseCommand<
     if (this.flags["random-password"]) {
       const generated = await process.runStep(
         "generating random password",
-        async () => {
-          return crypto.randomBytes(32).toString("base64").substring(0, 32);
-        },
+        async () => generatePassword(32),
       );
 
       process.addInfo(
