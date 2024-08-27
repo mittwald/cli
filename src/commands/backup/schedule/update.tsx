@@ -64,6 +64,7 @@ export default class Create extends ExecRenderBaseCommand<
       await process.complete(
         <Success>Nothing to change. Have a good day!</Success>,
       );
+      return;
     } else {
       await process.runStep("Updating backup schedule", async () => {
         const response =
@@ -77,6 +78,7 @@ export default class Create extends ExecRenderBaseCommand<
       await process.complete(
         <Success>Your backup schedule has successfully been updated.</Success>,
       );
+      return;
     }
   }
 
