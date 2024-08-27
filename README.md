@@ -2493,22 +2493,22 @@ Create a new cron job
 
 ```
 USAGE
-  $ mw cronjob create --description <value> --interval <value> [-i <value>] [-q] [--disable] [--email <value>]
-    [--url <value> | --command <value>] [--interpreter <value>] [--timeout <value>]
+  $ mw cronjob create --description <value> --interval <value> --timeout <value> --active <value> [-i <value>] [-q]
+    [--email <value>] [--url <value>] [--command <value>] [--interpreter bash|php]
 
 FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
                                  installation is set in the context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-      --command=<value>          Command to execute for the cron job; either this or `--url` is required.
-      --description=<value>      (required) Description of the cron job
-      --disable                  Disable the cron job after creation
-      --email=<value>            Email address to send cron job output to
-      --interpreter=<value>      [default: /bin/sh] Interpreter to use for the cron job
-      --interval=<value>         (required) Interval of the cron job, in standard UNIX cron syntax
-      --timeout=<value>          [default: 3600s] timeout for the cron job; common duration formats are supported (for
-                                 example, '1h', '30m', '30s')
-      --url=<value>              URL to call for the cron job; either this or `--command` is required.
+      --active=<value>           (required) Set whether automatic execution is active
+      --command=<value>          Set file and parameters to execute on cron job execution
+      --description=<value>      (required) Set cron job description
+      --email=<value>            Set target email to send error messages to
+      --interpreter=<option>     Set interpreter to use for execution
+                                 <options: bash|php>
+      --interval=<value>         (required) Set cron job execution interval
+      --timeout=<value>          (required) Set timeout in seconds after wich the process is killed
+      --url=<value>              Set url to use on cron job execution
 
 FLAG DESCRIPTIONS
   -i, --installation-id=<value>
@@ -2729,19 +2729,18 @@ Update an existing cron job
 
 ```
 USAGE
-  $ mw cronjob update CRONJOB-ID [--description <value>] [--interval <value>] [--disable | --enable] [--email
-    <value>] [--timeout <value>] [--url <value>] [--command <value>] [--interpreter bash|php] [-q]
+  $ mw cronjob update CRONJOB-ID [-q] [--description <value>] [--interval <value>] [--email <value>] [--timeout
+    <value>] [--url <value>] [--interpreter bash|php] [--command <value>] [--active <value>]
 
 ARGUMENTS
   CRONJOB-ID  ID of the cron job to be updated.
 
 FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary.
+      --active=<value>        Set whether automatic execution is active
       --command=<value>       Set file and parameters to execute on cron job execution
       --description=<value>   Set cron job description
-      --disable               Disable cron job automated execution
       --email=<value>         Set target email to send error messages to
-      --enable                Enable cron job automated execution
       --interpreter=<option>  Set interpreter to use for execution
                               <options: bash|php>
       --interval=<value>      Set cron job execution interval
