@@ -168,7 +168,6 @@ USAGE
 * [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
 * [`mw cronjob get CRONJOB-ID`](#mw-cronjob-get-cronjob-id)
 * [`mw cronjob list`](#mw-cronjob-list)
-* [`mw cronjob update CRONJOB-ID`](#mw-cronjob-update-cronjob-id)
 * [`mw database mysql charsets`](#mw-database-mysql-charsets)
 * [`mw database mysql create`](#mw-database-mysql-create)
 * [`mw database mysql delete DATABASE-ID`](#mw-database-mysql-delete-database-id)
@@ -2725,41 +2724,6 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-```
-
-## `mw cronjob update CRONJOB-ID`
-
-Update an existing cron job
-
-```
-USAGE
-  $ mw cronjob update CRONJOB-ID [--description <value>] [--interval <value>] [--disable | --enable] [--email
-    <value>] [--timeout <value>] [--url <value>] [--command <value>] [--interpreter bash|php] [-q]
-
-ARGUMENTS
-  CRONJOB-ID  ID of the cron job to be updated.
-
-FLAGS
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
-      --command=<value>       Set file and parameters to execute on cron job execution
-      --description=<value>   Set cron job description
-      --disable               Disable cron job automated execution
-      --email=<value>         Set target email to send error messages to
-      --enable                Enable cron job automated execution
-      --interpreter=<option>  Set interpreter to use for execution
-                              <options: bash|php>
-      --interval=<value>      Set cron job execution interval
-      --timeout=<value>       Set timeout in seconds after wich the process is killed
-      --url=<value>           Set url to use on cron job execution
-
-DESCRIPTION
-  Update an existing cron job
-
-FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw database mysql charsets`
