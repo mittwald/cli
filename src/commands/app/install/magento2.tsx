@@ -23,6 +23,7 @@ export const magento2Installer = new AppInstaller(
     "opensearch-host",
     "opensearch-port",
   ] as const,
+  { "shop-lang": "de_DE" },
 );
 
 export default class InstallMagento2 extends ExecRenderBaseCommand<

@@ -229,6 +229,7 @@ export async function autofillFlags(
   flags: Partial<OutputFlags<RelevantFlagInput<AvailableFlagName[]>>>,
   projectId: string,
   appName: string,
+  defaults: Partial<Record<AvailableFlagName, string>>,
 ): Promise<void> {
   const ownUser = await apiClient.user.getOwnAccount();
   assertStatus(ownUser, 200);
@@ -338,12 +339,10 @@ export async function autofillFlags(
 
   // Shop Language Code
   if (necessaryFlags.includes("shop-lang") && !flags["shop-lang"]) {
-    if (appName.toLowerCase().includes("magento")) {
-      flags["shop-lang"] = "de_DE";
-    } else {
-      flags["shop-lang"] = "de-DE";
-    }
-    process.addInfo(<Text>Using default shop language 'de_DE'.</Text>);
+    flags["shop-lang"] = defaults["shop-lang"] ?? "de-DE";
+    process.addInfo(
+      <Text>Using default shop language '{flags["shop-lang"]}'.</Text>,
+    );
   }
 
   // Shop Currency
