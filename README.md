@@ -2594,15 +2594,15 @@ FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
                                  installation is set in the context
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-      --active=<value>           (required) Set whether automatic execution is active
-      --command=<value>          Set file and parameters to execute on cron job execution
-      --description=<value>      (required) Set cron job description
-      --email=<value>            Set target email to send error messages to
-      --interpreter=<option>     Set interpreter to use for execution
+      --active=<value>           (required) Specify whether automatic execution is active.
+      --command=<value>          Specify the file and arguments to be executed when the cron job is run.
+      --description=<value>      (required) Set cron job description.
+      --email=<value>            Set the target email to which error messages will be sent.
+      --interpreter=<option>     Set the interpreter to be used for execution.
                                  <options: bash|php>
-      --interval=<value>         (required) Set cron job execution interval
-      --timeout=<value>          (required) Set timeout in seconds after wich the process is killed
-      --url=<value>              Set url to use on cron job execution
+      --interval=<value>         (required) Set the interval for cron jobs to run.
+      --timeout=<value>          (required) Set the timeout after which the process will be killed.
+      --url=<value>              Set the URL to use when running a cron job.
 
 FLAG DESCRIPTIONS
   -i, --installation-id=<value>
@@ -2617,6 +2617,42 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --active=<value>  Specify whether automatic execution is active.
+
+    Requires a boolean value (true/false) to enable or disable automatic execution for the cron job.
+
+  --command=<value>  Specify the file and arguments to be executed when the cron job is run.
+
+    Specifies a file to be executed with the specified interpreter. Additional arguments can be appended to the command
+    to be passed to the script. Not required if a URL is given.
+
+  --description=<value>  Set cron job description.
+
+    This will be displayed as the cron jobs 'name' of the cron job in mStudio.
+
+  --email=<value>  Set the target email to which error messages will be sent.
+
+    If a cron job fails, a detailed error message will be sent to this email address.
+
+  --interpreter=bash|php  Set the interpreter to be used for execution.
+
+    Must be either 'bash' or 'php'. Define the interpreter to be used to execute the previously defined command. The
+    interpreter should match the corresponding command or script.
+
+  --interval=<value>  Set the interval for cron jobs to run.
+
+    Must be specified as a cron schedule expression. Defines the interval at which the cron job will be executed.
+
+  --timeout=<value>  Set the timeout after which the process will be killed.
+
+    The timeout, given in seconds, defines the amount of time after which a running cron job will be killed. If defined
+    an email address is defined, an error message will be sent to the specified email address.
+
+  --url=<value>  Set the URL to use when running a cron job.
+
+    Define a URL with protocol to which a request will be dispatched when the cron job is executed. For example:
+    'https://my-website.com/cron-job'. Not required if a command and interpreter is defined.
 ```
 
 ## `mw cronjob delete CRONJOB-ID`
@@ -2831,15 +2867,15 @@ ARGUMENTS
 
 FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary.
-      --active=<value>        Set whether automatic execution is active
-      --command=<value>       Set file and parameters to execute on cron job execution
-      --description=<value>   Set cron job description
-      --email=<value>         Set target email to send error messages to
-      --interpreter=<option>  Set interpreter to use for execution
+      --active=<value>        Specify whether automatic execution is active.
+      --command=<value>       Specify the file and arguments to be executed when the cron job is run.
+      --description=<value>   Set cron job description.
+      --email=<value>         Set the target email to which error messages will be sent.
+      --interpreter=<option>  Set the interpreter to be used for execution.
                               <options: bash|php>
-      --interval=<value>      Set cron job execution interval
-      --timeout=<value>       Set timeout in seconds after wich the process is killed
-      --url=<value>           Set url to use on cron job execution
+      --interval=<value>      Set the interval for cron jobs to run.
+      --timeout=<value>       Set the timeout after which the process will be killed.
+      --url=<value>           Set the URL to use when running a cron job.
 
 DESCRIPTION
   Update an existing cron job
@@ -2849,6 +2885,42 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --active=<value>  Specify whether automatic execution is active.
+
+    Requires a boolean value (true/false) to enable or disable automatic execution for the cron job.
+
+  --command=<value>  Specify the file and arguments to be executed when the cron job is run.
+
+    Specifies a file to be executed with the specified interpreter. Additional arguments can be appended to the command
+    to be passed to the script. Not required if a URL is given.
+
+  --description=<value>  Set cron job description.
+
+    This will be displayed as the cron jobs 'name' of the cron job in mStudio.
+
+  --email=<value>  Set the target email to which error messages will be sent.
+
+    If a cron job fails, a detailed error message will be sent to this email address.
+
+  --interpreter=bash|php  Set the interpreter to be used for execution.
+
+    Must be either 'bash' or 'php'. Define the interpreter to be used to execute the previously defined command. The
+    interpreter should match the corresponding command or script.
+
+  --interval=<value>  Set the interval for cron jobs to run.
+
+    Must be specified as a cron schedule expression. Defines the interval at which the cron job will be executed.
+
+  --timeout=<value>  Set the timeout after which the process will be killed.
+
+    The timeout, given in seconds, defines the amount of time after which a running cron job will be killed. If defined
+    an email address is defined, an error message will be sent to the specified email address.
+
+  --url=<value>  Set the URL to use when running a cron job.
+
+    Define a URL with protocol to which a request will be dispatched when the cron job is executed. For example:
+    'https://my-website.com/cron-job'. Not required if a command and interpreter is defined.
 ```
 
 ## `mw database mysql charsets`
