@@ -4,12 +4,11 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
-import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { appInstallationFlags } from "../../lib/resources/app/flags.js";
-import Duration from "../../lib/units/Duration.js";
+import { cronjobFlags } from "../../lib/resources/cronjob/flags.js";
 
 type Result = {
   cronjobId: string;
@@ -20,50 +19,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static flags = {
     ...appInstallationFlags,
     ...processFlags,
-    description: Flags.string({
-      required: true,
-      summary: "Description of the cron job",
-      default: undefined,
-    }),
-    interval: Flags.string({
-      required: true,
-      summary: "Interval of the cron job, in standard UNIX cron syntax",
-      default: undefined,
-    }),
-    disable: Flags.boolean({
-      summary: "Disable the cron job after creation",
-      default: false,
-    }),
-    email: Flags.string({
-      required: false,
-      summary: "Email address to send cron job output to",
-      default: undefined,
-    }),
-    url: Flags.string({
-      required: false,
-      summary:
-        "URL to call for the cron job; either this or `--command` is required.",
-      default: undefined,
-      exclusive: ["command"],
-    }),
-    interpreter: Flags.string({
-      required: false,
-      summary: "Interpreter to use for the cron job",
-      default: "/bin/sh",
-    }),
-    command: Flags.string({
-      required: false,
-      summary:
-        "Command to execute for the cron job; either this or `--url` is required.",
-      default: undefined,
-      exclusive: ["url"],
-    }),
-    timeout: Duration.relativeFlag({
-      summary:
-        "timeout for the cron job; common duration formats are supported (for example, '1h', '30m', '30s')",
-      default: Duration.fromString("1h"),
-      required: false,
-    }),
+    ...cronjobFlags,
   };
 
   protected async exec(): Promise<Result> {
