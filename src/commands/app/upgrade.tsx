@@ -38,6 +38,9 @@ type AppSystemSoftwareVersion =
   MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
 type AppSystemSoftwareDependency =
   MittwaldAPIV2.Components.Schemas.AppSystemSoftwareDependency;
+type AppUpgradePayload = Parameters<
+  MittwaldAPIV2Client["app"]["patchAppinstallation"]
+>[0]["data"];
 
 export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   static description = "Upgrade app installation to target version";
@@ -100,7 +103,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
           Up-To-Date. ✅
         </Text>,
       );
-      ux.exit(0);
+      return;
     }
 
     let targetAppVersion: AppAppVersion;
@@ -149,7 +152,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
 
     if (!targetAppVersion) {
       process.error("Target app version could not be determined properly.");
-      return;
+      ux.exit(1);
     }
 
     if (!this.flags.force) {
@@ -177,6 +180,10 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       );
     }
 
+    const appUpgradePayload: AppUpgradePayload = {
+      appVersionId: targetAppVersion.id,
+    };
+
     const missingDependencies =
       await this.apiClient.app.getMissingDependenciesForAppinstallation({
         queryParameters: {
@@ -186,29 +193,36 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       });
 
     if (missingDependencies.data.missingSystemSoftwareDependencies) {
+      appUpgradePayload.systemSoftware = {};
       process.addInfo(
         <Text>
-          In order to update your {currentApp.name} to Version
+          In order to upgrade your {currentApp.name} to Version
           {targetAppVersion.externalVersion} some dependencies need to be
-          updated too.
+          upgraded too.
         </Text>,
       );
       for (const missingSystemSoftwareDependency of missingDependencies.data
         .missingSystemSoftwareDependencies as AppSystemSoftwareDependency[]) {
-        await updateMissingSystemSoftwareDependency(
-          process,
-          this.apiClient,
-          appInstallationId,
-          missingSystemSoftwareDependency,
-          this.flags.force,
-        );
+        const dependencyUpdateData =
+          await updateMissingSystemSoftwareDependency(
+            process,
+            this.apiClient,
+            appInstallationId,
+            missingSystemSoftwareDependency,
+            this.flags.force,
+          );
+        appUpgradePayload.systemSoftware[
+          dependencyUpdateData.dependencySoftwareId
+        ] = {
+          systemSoftwareVersion: dependencyUpdateData.dependencyTargetVersionId,
+        };
       }
     }
 
     const patchAppTriggerResponse =
       await this.apiClient.app.patchAppinstallation({
         appInstallationId,
-        data: { appVersionId: targetAppVersion.id },
+        data: appUpgradePayload,
       });
 
     assertStatus(patchAppTriggerResponse, 204);
@@ -283,6 +297,7 @@ async function updateMissingSystemSoftwareDependency(
     externalVersion: "0.0.0",
     internalVersion: "0.0.0",
   };
+
   for (const dependencyVersion of dependencyVersionList.data) {
     if (
       semver.satisfies(
@@ -301,7 +316,7 @@ async function updateMissingSystemSoftwareDependency(
   if (!force) {
     const confirmed: boolean = await process.addConfirmation(
       <Text>
-        {dependencySoftware.data.name as string} will be updated to Version{" "}
+        {dependencySoftware.data.name as string} will be upgraded to Version{" "}
         {dependencyTargetVersion.externalVersion} - Continue?
       </Text>,
     );
@@ -310,30 +325,10 @@ async function updateMissingSystemSoftwareDependency(
       process.complete(<></>);
       ux.exit(1);
     }
-  } else {
-    process.addInfo(
-      <Text>
-        Commencing upgrade of {dependencySoftware.data.name as string} to{" "}
-        Version {dependencyTargetVersion.externalVersion}.
-      </Text>,
-    );
   }
 
-  const systemSoftware: {
-    [x: string]: {
-      systemSoftwareVersion: string | undefined;
-    };
-  } = {};
-  systemSoftware[dependencySoftware.data.id as string] = {
-    systemSoftwareVersion: dependencyTargetVersion.id,
+  return {
+    dependencySoftwareId: dependencySoftware.data.id as string,
+    dependencyTargetVersionId: dependencyTargetVersion.id,
   };
-
-  const data = { systemSoftware };
-
-  const dependencyUpgradeResponse = await apiClient.app.patchAppinstallation({
-    appInstallationId,
-    data,
-  });
-
-  assertSuccess(dependencyUpgradeResponse);
 }
