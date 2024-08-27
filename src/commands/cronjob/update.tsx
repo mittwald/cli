@@ -8,7 +8,7 @@ import {
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { cronjobFlags } from "../../lib/resources/cronjob/flags.js";
+import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
 
 type UpdateResult = void;
 type CronjobUpdateData = Parameters<
@@ -28,7 +28,14 @@ export default class Update extends ExecRenderBaseCommand<
   };
   static flags = {
     ...processFlags,
-    ...cronjobFlags,
+    description: cronjobFlagDefinitions.description(),
+    interval: cronjobFlagDefinitions.interval(),
+    email: cronjobFlagDefinitions.email(),
+    timeout: cronjobFlagDefinitions.timeout(),
+    url: cronjobFlagDefinitions.url(),
+    interpreter: cronjobFlagDefinitions.interpreter(),
+    command: cronjobFlagDefinitions.command(),
+    active: cronjobFlagDefinitions.active(),
   };
 
   protected async exec(): Promise<void> {
@@ -47,25 +54,18 @@ export default class Update extends ExecRenderBaseCommand<
       url,
       interpreter,
       command,
-      disable,
-      enable,
+      active,
     } = this.flags;
 
     const updateCronjobPayload: CronjobUpdateData = {};
 
-    if (enable) {
-      updateCronjobPayload.active = true;
-    } else if (disable) {
-      updateCronjobPayload.active = false;
-    }
-
     if (url) {
       updateCronjobPayload.destination = { url };
     } else if (interpreter) {
-      let destinationInterpreter = interpreter;
+      let destinationInterpreter;
       if (interpreter == "bash") {
         destinationInterpreter = "/bin/bash";
-      } else if (interpreter == "php") {
+      } else {
         destinationInterpreter = "/usr/bin/php";
       }
 
@@ -73,6 +73,10 @@ export default class Update extends ExecRenderBaseCommand<
         interpreter: destinationInterpreter,
         path: command as string,
       };
+    }
+
+    if (active) {
+      updateCronjobPayload.active = active;
     }
 
     if (description) {
