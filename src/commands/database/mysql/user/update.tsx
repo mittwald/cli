@@ -90,6 +90,7 @@ export default class Update extends ExecRenderBaseCommand<
       await process.complete(
         <Success>Nothing to change. Have a good day!</Success>,
       );
+      return;
     }
 
     if (password) {
@@ -117,6 +118,7 @@ export default class Update extends ExecRenderBaseCommand<
       await process.complete(
         <Success>Your mysql user has successfully been updated.</Success>,
       );
+      return;
     }
   }
 
