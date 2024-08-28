@@ -183,7 +183,7 @@ USAGE
 * [`mw database mysql user delete USER-ID`](#mw-database-mysql-user-delete-user-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
-* [`mw database mysql user update`](#mw-database-mysql-user-update)
+* [`mw database mysql user update MYSQL-USER-ID`](#mw-database-mysql-user-update-mysql-user-id)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
 * [`mw database redis create`](#mw-database-redis-create)
 * [`mw database redis get ID`](#mw-database-redis-get-id)
@@ -3349,14 +3349,17 @@ DESCRIPTION
   List MySQL users belonging to a database.
 ```
 
-## `mw database mysql user update`
+## `mw database mysql user update MYSQL-USER-ID`
 
 Create a new mysql user
 
 ```
 USAGE
-  $ mw database mysql user update --mysql-user-id <value> [-q] [--access-level readonly|full] [--description <value>]
-    [--password <value>] [--access-ip-mask <value>] [--external-access]
+  $ mw database mysql user update MYSQL-USER-ID [-q] [--access-level readonly|full] [--description <value>] [--password <value>]
+    [--access-ip-mask <value>] [--external-access]
+
+ARGUMENTS
+  MYSQL-USER-ID  MySQL User ID of the user to be updated
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
@@ -3365,7 +3368,6 @@ FLAGS
                                 <options: readonly|full>
       --description=<value>     Description of the MySQL user
       --external-access         Enable/Disable external access for this user.
-      --mysql-user-id=<value>   (required) MySQL User ID of the user to be updated
       --password=<value>        Password used for authentication
 
 DESCRIPTION
