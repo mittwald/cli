@@ -15,7 +15,7 @@ export type Response = Awaited<
 >;
 
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
-  static description = "Get all deliveryboxes by project ID";
+  static description = "Get all delivery boxes by project ID";
 
   static args = {};
   static flags = {

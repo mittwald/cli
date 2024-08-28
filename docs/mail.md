@@ -8,8 +8,11 @@ Manage mailboxes and mail addresses in your projects
 * [`mw mail address get ID`](#mw-mail-address-get-id)
 * [`mw mail address list`](#mw-mail-address-list)
 * [`mw mail address update MAILADDRESS-ID`](#mw-mail-address-update-mailaddress-id)
+* [`mw mail deliverybox create`](#mw-mail-deliverybox-create)
+* [`mw mail deliverybox delete ID`](#mw-mail-deliverybox-delete-id)
 * [`mw mail deliverybox get ID`](#mw-mail-deliverybox-get-id)
 * [`mw mail deliverybox list`](#mw-mail-deliverybox-list)
+* [`mw mail deliverybox update MAILDELIVERYBOX-ID`](#mw-mail-deliverybox-update-maildeliverybox-id)
 
 ## `mw mail address create`
 
@@ -18,7 +21,7 @@ Create a new mail address
 ```
 USAGE
   $ mw mail address create -a <value> [-p <value>] [-q] [--catch-all] [--enable-spam-protection] [--quota <value>]
-    [--password <value>] [--random-password] [--forward-to <value>...]
+    [--password <value> | --random-password] [--forward-to <value>...]
 
 FLAGS
   -a, --address=<value>              (required) mail address
@@ -247,6 +250,92 @@ FLAG DESCRIPTIONS
     --quiet, the password will be printed to stdout.
 ```
 
+## `mw mail deliverybox create`
+
+Create a new mail delivery box
+
+```
+USAGE
+  $ mw mail deliverybox create -d <value> [-p <value>] [-q] [--password <value> | --random-password]
+
+FLAGS
+  -d, --description=<value>  (required) mail delivery box description
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --password=<value>     delivery box password
+      --random-password      generate a random password
+
+DESCRIPTION
+  Create a new mail delivery box
+
+  This command can be used to create a new mail delivery box in a project.
+
+  When running this command with the --quiet flag, the output will contain the ID of the newly created delivery box.
+  In addition, when run with --generated-password the output will be the ID of the newly created delivery box, followed
+  by a tab character and the generated password.
+
+EXAMPLES
+  Create non-interactively with password
+
+    $ read -s PASSWORD && \
+      mw mail deliverybox create --password $PASSWORD --description 'my personal delivery box'
+
+  Create non-interactively with random password
+
+    $ mw mail deliverybox create --random-password --description 'my personal delivery box'
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --password=<value>  delivery box password
+
+    This is the password that should be used for the delivery box; if omitted, the command will prompt interactively for
+    a password.
+
+    CAUTION: providing this flag may log your password in your shell history!
+
+  --random-password  generate a random password
+
+    This flag will cause the command to generate a random 32-character password for the delivery box; when running with
+    --quiet, the delivery box ID and the password will be printed to stdout, separated by a tab character.
+```
+
+## `mw mail deliverybox delete ID`
+
+Delete a mail delivery box
+
+```
+USAGE
+  $ mw mail deliverybox delete ID [-q] [-f]
+
+ARGUMENTS
+  ID  Mail delivery box ID
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a mail delivery box
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 ## `mw mail deliverybox get ID`
 
 Get a specific delivery box
@@ -256,7 +345,7 @@ USAGE
   $ mw mail deliverybox get ID [-o json|yaml |  | ]
 
 ARGUMENTS
-  ID  ID of the deliverybox you want to retrieve
+  ID  ID of the delivery box you want to retrieve
 
 FLAGS
   -o, --output=<option>  output in a more machine friendly format
@@ -268,7 +357,7 @@ DESCRIPTION
 
 ## `mw mail deliverybox list`
 
-Get all deliveryboxes by project ID
+Get all delivery boxes by project ID
 
 ```
 USAGE
@@ -288,7 +377,7 @@ FLAGS
       --no-truncate         do not truncate output to fit screen
 
 DESCRIPTION
-  Get all deliveryboxes by project ID
+  Get all delivery boxes by project ID
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>
@@ -297,4 +386,63 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw mail deliverybox update MAILDELIVERYBOX-ID`
+
+Update a mail delivery box
+
+```
+USAGE
+  $ mw mail deliverybox update MAILDELIVERYBOX-ID [-q] [--description <value>] [--password <value>] [--random-password]
+
+ARGUMENTS
+  MAILDELIVERYBOX-ID  ID or short ID of a maildeliverybox.
+
+FLAGS
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  delivery box description
+      --password=<value>     delivery box password
+      --random-password      generate a random password
+
+DESCRIPTION
+  Update a mail delivery box
+
+  This command can be used to update a mail delivery box in a project.
+
+  A mail delivery box is either associated with a mailbox, or forwards to another address.
+
+  When running this command with --generated-password the output will be the newly generated and set password.
+
+EXAMPLES
+  Update non-interactively with password
+
+    $ read -s PASSWORD && \
+      mw mail deliverybox update --password $PASSWORD --description 'my personal delivery box'
+
+  Update non-interactively with random password
+
+    $ mw mail deliverybox update --random-password --description 'my personal delivery box'
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --description=<value>  delivery box description
+
+    If set, the delivery description will be updated to this password. If omitted, the description will remain
+    unchanged.
+
+  --password=<value>  delivery box password
+
+    If set, the delivery box will be updated to this password. If omitted, the password will remain unchanged.
+
+    CAUTION: providing this flag may log your password in your shell history!
+
+  --random-password  generate a random password
+
+    This flag will cause the command to generate a random 32-character password for the delivery box; when running with
+    --quiet, the password will be printed to stdout.
 ```

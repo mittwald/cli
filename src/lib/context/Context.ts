@@ -14,6 +14,7 @@ export type ContextNames =
   | "domain"
   | "dnszone"
   | "mailaddress"
+  | "maildeliverybox"
   | "conversation"
   | "backup";
 export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
