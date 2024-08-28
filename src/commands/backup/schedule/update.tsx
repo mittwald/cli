@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { ReactNode } from "react";
 import {
   makeProcessRenderer,
@@ -8,6 +8,7 @@ import {
 import { Success } from "../../../rendering/react/components/Success.js";
 import assertSuccess from "../../../lib/apiutil/assert_success.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { backupScheduleFlagDefinitions } from "../../../lib/resources/backup/schedule/flags.js";
 
 type UpdateResult = void;
 type backupScheduleUpdatePayload = Parameters<
@@ -19,32 +20,23 @@ export default class Create extends ExecRenderBaseCommand<
   UpdateResult
 > {
   static description = "Update an existing backup schedule";
-  static flags = {
-    ...processFlags,
-    "backup-schedule-id": Flags.string({
+  static args = {
+    "backup-schedule-id": Args.string({
       description: "Define the backup schedule that is to be updated",
       required: true,
     }),
-    description: Flags.string({
-      description: "Set the description for the backup schedule",
-    }),
-    schedule: Flags.string({
-      description: "Define the schedule itself",
-    }),
-    ttl: Flags.string({
-      description:
-        "Define the backup storage period in days, for through this schedule created backups",
-    }),
+  };
+  static flags = {
+    ...processFlags,
+    description: backupScheduleFlagDefinitions.description(),
+    schedule: backupScheduleFlagDefinitions.schedule(),
+    ttl: backupScheduleFlagDefinitions.ttl(),
   };
 
   protected async exec(): Promise<void> {
     const process = makeProcessRenderer(this.flags, "Updating backup schedule");
-    const {
-      "backup-schedule-id": projectBackupScheduleId,
-      description,
-      schedule,
-      ttl,
-    } = this.flags;
+    const projectBackupScheduleId = this.args["backup-schedule-id"];
+    const { description, schedule, ttl } = this.flags;
 
     const backupScheduleUpdatePayload: backupScheduleUpdatePayload = {};
 

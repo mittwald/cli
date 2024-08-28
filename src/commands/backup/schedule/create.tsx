@@ -4,13 +4,13 @@ import {
   processFlags,
 } from "../../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
-import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 
 import { projectFlags } from "../../../lib/resources/project/flags.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { backupScheduleFlagDefinitions } from "../../../lib/resources/backup/schedule/flags.js";
 
 type Result = {
   projectBackupScheduleId: string;
@@ -24,18 +24,9 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static flags = {
     ...projectFlags,
     ...processFlags,
-    description: Flags.string({
-      description: "Set the description for the backup schedule",
-    }),
-    schedule: Flags.string({
-      required: true,
-      description: "Define the schedule itself",
-    }),
-    ttl: Flags.string({
-      required: true,
-      description:
-        "Define the backup storage period in days, for through this schedule created backups",
-    }),
+    description: backupScheduleFlagDefinitions.description(),
+    schedule: backupScheduleFlagDefinitions.schedule({ required: true }),
+    ttl: backupScheduleFlagDefinitions.ttl({ required: true }),
   };
 
   protected async exec(): Promise<Result> {
