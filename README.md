@@ -5396,7 +5396,7 @@ USAGE
     --password <value>] [--access-level read|full] [--directories <value>...] [--enable | --disable]
 
 ARGUMENTS
-  SFTP-USER-ID  The ID of the SFTP user to delete
+  SFTP-USER-ID  The ID of the SFTP user to update
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
