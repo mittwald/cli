@@ -5434,11 +5434,11 @@ FLAG DESCRIPTIONS
 
   --disable  Disable the SFTP user.
 
-    Set the status of the user to active. Access by this user will be enabled.
+    Set the status of the SFTP user to active. Access by this user will be enabled.
 
   --enable  Enable the SFTP user.
 
-    Set the status of the user to inactive. Access by this user will be disabled.
+    Set the status of the SFTP user to inactive. Access by this user will be disabled.
 
   --password=<value>  Password used for authentication
 
@@ -5552,16 +5552,16 @@ Update an existing SSH user
 ```
 USAGE
   $ mw ssh-user update SSH-USER-ID [-q] [--expires <value>] [--description <value>] [--public-key <value>]
-    [--password <value>] [--disable | --enable]
+    [--password <value>] [--enable | --disable]
 
 ARGUMENTS
   SSH-USER-ID  The ID of the SSH user to update
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.
-      --description=<value>  Set SSH user description
-      --disable              Disable SSH user
-      --enable               Enable SSH user
+      --description=<value>  Description of SSH user
+      --disable              Disable the SSH user.
+      --enable               Enable the SSH user.
       --expires=<value>      an interval after which the SSH user expires (examples: 30m, 30d, 1y).
       --password=<value>     Password used for authentication
       --public-key=<value>   Public Key used for authentication
@@ -5574,6 +5574,14 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --disable  Disable the SSH user.
+
+    Set the status of the SSH user to active. Access by this user will be enabled.
+
+  --enable  Enable the SSH user.
+
+    Set the status of the SSH user to inactive. Access by this user will be disabled.
 ```
 
 ## `mw update [CHANNEL]`
