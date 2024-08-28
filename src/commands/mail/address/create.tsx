@@ -12,7 +12,7 @@ import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
-import { generateRandomPassword } from "../commons.js";
+import { generateRandomPassword } from "../../../lib/resources/mail/commons.js";
 
 type CreateResult = {
   addressId: string;

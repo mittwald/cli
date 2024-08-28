@@ -1,6 +1,6 @@
-import { generatePassword } from "../../lib/util/password/generatePassword.js";
-import { Value } from "../../rendering/react/components/Value.js";
-import { ProcessRenderer } from "../../rendering/process/process.js";
+import { generatePassword } from "../../util/password/generatePassword.js";
+import { Value } from "../../../rendering/react/components/Value.js";
+import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { Text } from "ink";
 
 export async function generateRandomPassword(

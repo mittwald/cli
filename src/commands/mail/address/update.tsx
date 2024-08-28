@@ -13,7 +13,7 @@ import {
   mailAddressArgs,
   withMailAddressId,
 } from "../../../lib/resources/mail/flags.js";
-import { generateRandomPassword } from "../commons.js";
+import { generateRandomPassword } from "../../../lib/resources/mail/commons.js";
 
 type UpdateResult = {
   generatedPassword: string | null;
