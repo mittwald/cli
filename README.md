@@ -149,9 +149,9 @@ USAGE
 * [`mw backup get BACKUP-ID`](#mw-backup-get-backup-id)
 * [`mw backup list`](#mw-backup-list)
 * [`mw backup schedule create`](#mw-backup-schedule-create)
-* [`mw backup schedule delete [BACKUP-SCHEDULE-ID]`](#mw-backup-schedule-delete-backup-schedule-id)
+* [`mw backup schedule delete BACKUP-SCHEDULE-ID`](#mw-backup-schedule-delete-backup-schedule-id)
 * [`mw backup schedule list`](#mw-backup-schedule-list)
-* [`mw backup schedule update`](#mw-backup-schedule-update)
+* [`mw backup schedule update BACKUP-SCHEDULE-ID`](#mw-backup-schedule-update-backup-schedule-id)
 * [`mw context get`](#mw-context-get)
 * [`mw context reset`](#mw-context-reset)
 * [`mw context set`](#mw-context-set)
@@ -2290,21 +2290,20 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw backup schedule delete [BACKUP-SCHEDULE-ID]`
+## `mw backup schedule delete BACKUP-SCHEDULE-ID`
 
 Delete a backup schedule
 
 ```
 USAGE
-  $ mw backup schedule delete [BACKUP-SCHEDULE-ID] [-q] [-f] [--backup-schedule-id <value>]
+  $ mw backup schedule delete BACKUP-SCHEDULE-ID [-q] [-f]
 
 ARGUMENTS
   BACKUP-SCHEDULE-ID  ID of schedule to delete
 
 FLAGS
-  -f, --force                       Do not ask for confirmation
-  -q, --quiet                       suppress process output and only display a machine-readable summary.
-      --backup-schedule-id=<value>  ID of backup schedule to delete
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
 
 DESCRIPTION
   Delete a backup schedule
@@ -2352,21 +2351,22 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-## `mw backup schedule update`
+## `mw backup schedule update BACKUP-SCHEDULE-ID`
 
 Update an existing backup schedule
 
 ```
 USAGE
-  $ mw backup schedule update --backup-schedule-id <value> [-q] [--description <value>] [--schedule <value>] [--ttl
-  <value>]
+  $ mw backup schedule update BACKUP-SCHEDULE-ID [-q] [--description <value>] [--schedule <value>] [--ttl <value>]
+
+ARGUMENTS
+  BACKUP-SCHEDULE-ID  Define the backup schedule that is to be updated
 
 FLAGS
-  -q, --quiet                       suppress process output and only display a machine-readable summary.
-      --backup-schedule-id=<value>  (required) Define the backup schedule that is to be updated
-      --description=<value>         Set the description for the backup schedule
-      --schedule=<value>            Define the schedule itself
-      --ttl=<value>                 Define the backup storage period in days, for through this schedule created backups
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  Set the description for the backup schedule
+      --schedule=<value>     Define the schedule itself
+      --ttl=<value>          Define the backup storage period in days, for through this schedule created backups
 
 DESCRIPTION
   Update an existing backup schedule
