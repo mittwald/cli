@@ -127,6 +127,7 @@ USAGE
 * [`mw app install grav`](#mw-app-install-grav)
 * [`mw app install humhub`](#mw-app-install-humhub)
 * [`mw app install joomla`](#mw-app-install-joomla)
+* [`mw app install magento2`](#mw-app-install-magento2)
 * [`mw app install matomo`](#mw-app-install-matomo)
 * [`mw app install moodle`](#mw-app-install-moodle)
 * [`mw app install neos`](#mw-app-install-neos)
@@ -1100,6 +1101,132 @@ FLAG DESCRIPTIONS
 
     Specify the version in which your Joomla! will be installed.
     If unspecified, the Joomla! will be installed in the latest available version.
+```
+
+## `mw app install magento2`
+
+Creates new Magento 2 installation.
+
+```
+USAGE
+  $ mw app install magento2 --version <value> --opensearch-host <value> --opensearch-port <value> [-p <value>] [-q]
+    [--host <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>]
+    [--admin-lastname <value>] [--site-title <value>] [--shop-email <value>] [--shop-lang <value>] [--shop-currency
+    <value>] [-w] [--wait-timeout <value>]
+
+FLAGS
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     wait for the resource to be ready.
+      --admin-email=<value>      email address of your administrator user.
+      --admin-firstname=<value>  first name of your administrator user.
+      --admin-lastname=<value>   Lastname of your administrator user.
+      --admin-pass=<value>       password of your administrator user.
+      --admin-user=<value>       Username for your administrator user.
+      --host=<value>             host to initially configure your Magento 2 installation with; needs to be created
+                                 separately.
+      --opensearch-host=<value>  (required) the OpenSearch instance host which your Magento 2 will try to connect to
+      --opensearch-port=<value>  (required) the OpenSearch instance port which your Magento 2 will try to connect to
+      --shop-currency=<value>    Currency your Magento 2 will be working with.
+      --shop-email=<value>       email address your Magento 2 will be working with.
+      --shop-lang=<value>        language your Magento 2 will be working with.
+      --site-title=<value>       site title for your Magento 2 installation.
+      --version=<value>          (required) [default: latest] version of Magento 2 to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
+
+DESCRIPTION
+  Creates new Magento 2 installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  email address of your administrator user.
+
+    email address that will be used for the first administrator user that is created during the Magento 2 installation.
+    If unspecified, email address of your mStudio account will be used. This email address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  first name of your administrator user.
+
+    The first name that will be used for the first administrator user that is created during the Magento 2 installation.
+    If unspecified, the first name of your mStudio user will be used. This value can be changed after the installation
+    is finished.
+
+  --admin-lastname=<value>  Lastname of your administrator user.
+
+    The last name that will be used for the first administrator user that is created during the Magento 2 installation.
+    If unspecified, the last name of your mStudio user will be used. This value can be changed after the installation is
+    finished.
+
+  --admin-pass=<value>  password of your administrator user.
+
+    The password that will be used for the first administrator user that is created during the Magento 2 installation.
+    If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
+    the installation is finished
+
+  --admin-user=<value>  Username for your administrator user.
+
+    Username of the first administrator user which will be created during the Magento 2 installation.
+    If unspecified, an adequate username will be generated.
+    After the installation is finished, the username can be changed and additional administrator users can be created.
+
+  --host=<value>  host to initially configure your Magento 2 installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Magento 2 configuration.
+    If unspecified, the default host for the given project will be used.
+    This does not change the target of the used host and can be changed later by configuring the host and your Magento 2
+    installation.
+
+  --opensearch-host=<value>  the OpenSearch instance host which your Magento 2 will try to connect to
+
+    This is the host of an existing OpenSearch instance which your application will have to connect to during
+    installation.This has to be a valid connection otherwise the installation will fail.
+
+  --opensearch-port=<value>  the OpenSearch instance port which your Magento 2 will try to connect to
+
+    This is the port of an existing OpenSearch instance which your application will have to connect to during
+    installation.This has to be a valid connection otherwise the installation will fail.
+
+  --shop-currency=<value>  Currency your Magento 2 will be working with.
+
+    The default currency your Magento 2 shop communicates prices and calculates transactions with.
+    If unspecified, this will default to EUR(€). The currency can be changed after the installation is finished.
+
+  --shop-email=<value>  email address your Magento 2 will be working with.
+
+    The email address your Magento 2 installation will be using for correspondence with end users.
+    If unspecified, your mStudio account email will be used. This email address can be changed after the installation is
+    finished.
+
+  --shop-lang=<value>  language your Magento 2 will be working with.
+
+    The default language your Magento 2 installation will be using. The front- and back end will be displayed using the
+    given language.
+    If unspecified, this will default to German (de_DE). The language can be changed after the installation is finished.
+
+  --site-title=<value>  site title for your Magento 2 installation.
+
+    The site title for this Magento 2 installation. It is also the title shown in the app overview in the mStudio and
+    the CLI.
+    If unspecified, the application name and the given project ID will be used. The title can be changed after the
+    installation is finished
+
+  --version=<value>  version of Magento 2 to be installed.
+
+    Specify the version in which your Magento 2 will be installed.
+    If unspecified, the Magento 2 will be installed in the latest available version.
 ```
 
 ## `mw app install matomo`
