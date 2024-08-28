@@ -194,9 +194,9 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
 
     if (missingDependencies.data.missingSystemSoftwareDependencies) {
       appUpgradePayload.systemSoftware = {};
-      process.addInfo(
+      process.addStep(
         <Text>
-          In order to upgrade your {currentApp.name} to Version
+          In order to upgrade your {currentApp.name} to Version{" "}
           {targetAppVersion.externalVersion} some dependencies need to be
           upgraded too.
         </Text>,
@@ -209,13 +209,23 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
             this.apiClient,
             appInstallationId,
             missingSystemSoftwareDependency,
-            this.flags.force,
           );
         appUpgradePayload.systemSoftware[
           dependencyUpdateData.dependencySoftwareId
         ] = {
           systemSoftwareVersion: dependencyUpdateData.dependencyTargetVersionId,
         };
+      }
+
+      if (!this.flags.force) {
+        const confirmed: boolean = await process.addConfirmation(
+          <Text>Do you want to continue?</Text>,
+        );
+        if (!confirmed) {
+          process.addInfo(<Text>Upgrade will not be triggered.</Text>);
+          process.complete(<></>);
+          ux.exit(1);
+        }
       }
     }
 
@@ -280,7 +290,6 @@ async function updateMissingSystemSoftwareDependency(
   apiClient: MittwaldAPIV2Client,
   appInstallationId: string,
   dependency: AppSystemSoftwareDependency,
-  force: boolean,
 ) {
   const dependencySoftware = await apiClient.app.getSystemsoftware({
     systemSoftwareId: dependency.systemSoftwareId,
@@ -289,8 +298,13 @@ async function updateMissingSystemSoftwareDependency(
 
   const dependencyVersionList = await apiClient.app.listSystemsoftwareversions({
     systemSoftwareId: dependency.systemSoftwareId,
+    queryParameters: {
+      versionRange: dependency.versionRange,
+      recommended: true,
+    },
   });
   assertSuccess(dependencyVersionList);
+  console.log(dependencyVersionList);
 
   let dependencyTargetVersion: AppSystemSoftwareVersion = {
     id: "not yet set",
@@ -300,10 +314,6 @@ async function updateMissingSystemSoftwareDependency(
 
   for (const dependencyVersion of dependencyVersionList.data) {
     if (
-      semver.satisfies(
-        dependencyVersion.internalVersion,
-        dependency.versionRange,
-      ) &&
       semver.gt(
         dependencyVersion.internalVersion,
         dependencyTargetVersion.internalVersion,
@@ -313,22 +323,23 @@ async function updateMissingSystemSoftwareDependency(
     }
   }
 
-  if (!force) {
-    const confirmed: boolean = await process.addConfirmation(
+  if (dependencyTargetVersion.internalVersion == "0.0.0") {
+    throw new Error(
+      "Dependency Target Version for " +
+        dependencySoftware.data.name +
+        " could not be determined",
+    );
+  } else {
+    process.addInfo(
       <Text>
         {dependencySoftware.data.name as string} will be upgraded to Version{" "}
-        {dependencyTargetVersion.externalVersion} - Continue?
+        {dependencyTargetVersion.externalVersion}.
       </Text>,
     );
-    if (!confirmed) {
-      process.addInfo(<Text>Upgrade will not be triggered.</Text>);
-      process.complete(<></>);
-      ux.exit(1);
-    }
-  }
 
-  return {
-    dependencySoftwareId: dependencySoftware.data.id as string,
-    dependencyTargetVersionId: dependencyTargetVersion.id,
-  };
+    return {
+      dependencySoftwareId: dependencySoftware.data.id as string,
+      dependencyTargetVersionId: dependencyTargetVersion.id,
+    };
+  }
 }
