@@ -9,11 +9,11 @@ import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
+import { generateRandomPassword } from "../../../lib/resources/mail/commons.js";
 import {
   mailDeliveryBoxArgs,
   withDeliveryBoxId,
 } from "../../../lib/resources/mail/flags.js";
-import { generateRandomPassword } from "../../../lib/resources/mail/commons.js";
 
 type UpdateResult = {
   generatedPassword: string | null;

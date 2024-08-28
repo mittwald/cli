@@ -1,6 +1,7 @@
 import { makeProjectFlagSet } from "../project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { validate as validateUuid } from "uuid";
+import FlagSetBuilder from "../../context/FlagSetBuilder.js";
 
 export const {
   flags: mailAddressFlags,
@@ -29,22 +30,6 @@ export const {
   flags: mailDeliveryBoxFlags,
   args: mailDeliveryBoxArgs,
   withId: withDeliveryBoxId,
-} = makeProjectFlagSet("maildeliverybox", "d", {
-  normalize: async (apiClient, projectId, id): Promise<string> => {
-    if (validateUuid(id)) {
-      return id;
-    }
-
-    const response = await apiClient.mail.listDeliveryBoxes({ projectId });
-    assertStatus(response, 200);
-
-    const deliveryBox = response.data.find(
-      (deliveryBox) => deliveryBox.id === id,
-    );
-    if (!deliveryBox) {
-      throw new Error(`mail delivery box with id "${id}" not found`);
-    }
-
-    return deliveryBox.id;
-  },
-});
+} = new FlagSetBuilder("maildeliverybox", "d", {
+  retrieveFromContext: false,
+}).build();
