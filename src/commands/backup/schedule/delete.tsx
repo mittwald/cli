@@ -20,7 +20,7 @@ export class Delete extends DeleteBaseCommand<typeof Delete> {
   };
 
   protected async deleteResource(): Promise<void> {
-    const process = makeProcessRenderer(this.flags, "Updating backup schedule");
+    const process = makeProcessRenderer(this.flags, "Deleting backup schedule");
     const projectBackupScheduleId = this.args["backup-schedule-id"];
 
     const currentBackupSchedule =
