@@ -4,7 +4,6 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
-import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
@@ -12,6 +11,7 @@ import { Value } from "../../rendering/react/components/Value.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { expireFlags } from "../../lib/flags/expireFlags.js";
+import { sshUserFlagDefinitions } from "../../lib/resources/ssh/flags.js";
 
 type Result = {
   sshUserId: string;
@@ -27,18 +27,9 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     ...projectFlags,
     ...processFlags,
     ...expireFlags("SSH user", false),
-    description: Flags.string({
-      required: true,
-      summary: "Description of SSH user",
-    }),
-    "public-key": Flags.string({
-      summary: "Public Key used for authentication",
-      exactlyOne: ["public-key", "password"],
-    }),
-    password: Flags.string({
-      summary: "Password used for authentication",
-      exactlyOne: ["public-key", "password"],
-    }),
+    description: sshUserFlagDefinitions.description({ required: true }),
+    "public-key": sshUserFlagDefinitions["public-key"](),
+    password: sshUserFlagDefinitions.password(),
   };
 
   protected async exec(): Promise<Result> {
@@ -51,18 +42,19 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       expires,
     } = this.flags;
 
+    let authentication: SshUserCreationPayload["authentication"];
+    if (password) {
+      authentication = { password };
+    } else if (publicKey) {
+      authentication = {
+        publicKeys: [{ comment: "Public key set through CLI", key: publicKey }],
+      };
+    } else {
+      throw new Error("The authentication method could not be set correctly.");
+    }
+
     const sshUserCreationPayload: SshUserCreationPayload = {
-      authentication: password
-        ? { password }
-        : {
-            publicKeys: [
-              {
-                comment: "Public key set through CLI",
-                key: publicKey ? publicKey : "",
-              },
-            ],
-          },
-      // TODO: simplify or infer
+      authentication,
       description,
     };
 
@@ -95,7 +87,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     process.complete(
       <Success>
-        The ssh user "
+        The SSH user "
         <Value>
           {sshUser.userName} ({sshUser.description})
         </Value>

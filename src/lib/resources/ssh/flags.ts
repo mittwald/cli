@@ -32,3 +32,17 @@ export type SSHConnectionFlags = {
   "ssh-user": string | undefined;
   "ssh-identity-file": string | undefined;
 };
+
+export const sshUserFlagDefinitions = {
+  description: Flags.custom<string>({
+    summary: "Description of SSH user",
+  }),
+  "public-key": Flags.custom<string>({
+    summary: "Public Key used for authentication",
+    exactlyOne: ["public-key", "password"],
+  }),
+  password: Flags.custom<string>({
+    summary: "Password used for authentication",
+    exactlyOne: ["public-key", "password"],
+  }),
+};
