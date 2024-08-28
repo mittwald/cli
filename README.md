@@ -208,6 +208,7 @@ USAGE
 * [`mw mail address list`](#mw-mail-address-list)
 * [`mw mail address update MAILADDRESS-ID`](#mw-mail-address-update-mailaddress-id)
 * [`mw mail deliverybox create`](#mw-mail-deliverybox-create)
+* [`mw mail deliverybox delete ID`](#mw-mail-deliverybox-delete-id)
 * [`mw mail deliverybox get ID`](#mw-mail-deliverybox-get-id)
 * [`mw mail deliverybox list`](#mw-mail-deliverybox-list)
 * [`mw mail deliverybox update MAILDELIVERYBOX-ID`](#mw-mail-deliverybox-update-maildeliverybox-id)
@@ -4228,6 +4229,31 @@ FLAG DESCRIPTIONS
 
     This flag will cause the command to generate a random 32-character password for the delivery box; when running with
     --quiet, the delivery box ID and the password will be printed to stdout, separated by a tab character.
+```
+
+## `mw mail deliverybox delete ID`
+
+Delete a mail delivery box
+
+```
+USAGE
+  $ mw mail deliverybox delete ID [-q] [-f]
+
+ARGUMENTS
+  ID  Mail delivery box ID
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a mail delivery box
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw mail deliverybox get ID`
