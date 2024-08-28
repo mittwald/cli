@@ -304,7 +304,6 @@ async function updateMissingSystemSoftwareDependency(
     },
   });
   assertSuccess(dependencyVersionList);
-  console.log(dependencyVersionList);
 
   let dependencyTargetVersion: AppSystemSoftwareVersion = {
     id: "not yet set",
