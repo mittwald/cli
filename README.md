@@ -109,8 +109,6 @@ USAGE
 ...
 ```
 
-## Commands
-
 <!-- commands -->
 # Command Topics
 
