@@ -59,10 +59,11 @@ export default [
 
       semi: ["error", "always"],
 
+      "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
-          varsIgnorePattern: "[iI]gnored",
+          varsIgnorePattern: "([iI]gnored|_)",
           argsIgnorePattern: "([iI]gnored|_)",
           caughtErrorsIgnorePattern: "[iI]gnored",
         },
