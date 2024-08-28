@@ -5364,22 +5364,22 @@ FLAG DESCRIPTIONS
 
 ## `mw sftp-user update SFTP-USER-ID`
 
-Update an existing sftp user
+Update an existing SFTP user
 
 ```
 USAGE
   $ mw sftp-user update SFTP-USER-ID [-q] [--expires <value>] [--description <value>] [--public-key <value> |
-    --password <value>] [--access-level read|full] [--directories <value>...] [--disable | --enable]
+    --password <value>] [--access-level read|full] [--directories <value>...] [--enable | --disable]
 
 ARGUMENTS
-  SFTP-USER-ID  The ID of the SFTP user to update
+  SFTP-USER-ID  The ID of the SFTP user to delete
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --access-level=<option>   Set access level privileges for the SFTP user
                                 <options: read|full>
-      --description=<value>     Set the SFTP users description
-      --directories=<value>...  Set directories to restrict the sftp users access to
+      --description=<value>     Description of SFTP user
+      --directories=<value>...  Set directories to restrict the SFTP users access to
       --disable                 Disable SFTP user
       --enable                  Enable SFTP user
       --expires=<value>         an interval after which the SFTP user expires (examples: 30m, 30d, 1y).
@@ -5387,7 +5387,7 @@ FLAGS
       --public-key=<value>      Public Key used for authentication
 
 DESCRIPTION
-  Update an existing sftp user
+  Update an existing SFTP user
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
