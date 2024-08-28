@@ -14,7 +14,7 @@ import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
 import { generateRandomPassword } from "../commons.js";
 
 type CreateResult = {
-  deliveryboxId: string;
+  deliveryBoxId: string;
   generatedPassword: string | null;
 };
 
@@ -75,12 +75,12 @@ export default class Create extends ExecRenderBaseCommand<
     }
 
     return [
-      await process.addInput(<Text>Deliverybox password</Text>, true),
+      await process.addInput(<Text>enter delivery box password</Text>, true),
       false,
     ];
   }
 
-  protected async createMailDeliverybox(
+  protected async createMailDeliveryBox(
     projectId: string,
     process: ProcessRenderer,
     flags: OutputFlags<FlagInput<typeof Create.flags>>,
@@ -104,11 +104,11 @@ export default class Create extends ExecRenderBaseCommand<
     );
 
     await process.complete(
-      <Success>Your mail deliverybox was successfully created.</Success>,
+      <Success>Your mail delivery box was successfully created.</Success>,
     );
 
     return {
-      deliveryboxId: response.data.id,
+      deliveryBoxId: response.data.id,
       generatedPassword: passwordGenerated ? password : null,
     };
   }
@@ -122,7 +122,7 @@ export default class Create extends ExecRenderBaseCommand<
       "Creating a new mail delivery box",
     );
 
-    return this.createMailDeliverybox(projectId, process, flags);
+    return this.createMailDeliveryBox(projectId, process, flags);
   }
 
   protected render(executionResult: CreateResult): ReactNode {
@@ -130,13 +130,13 @@ export default class Create extends ExecRenderBaseCommand<
       if (executionResult.generatedPassword) {
         return (
           <Text>
-            {executionResult.deliveryboxId}
+            {executionResult.deliveryBoxId}
             {"\t"}
             {executionResult.generatedPassword}
           </Text>
         );
       }
-      return <Text>{executionResult.deliveryboxId}</Text>;
+      return <Text>{executionResult.deliveryBoxId}</Text>;
     }
   }
 }
