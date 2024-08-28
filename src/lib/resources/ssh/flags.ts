@@ -32,3 +32,26 @@ export type SSHConnectionFlags = {
   "ssh-user": string | undefined;
   "ssh-identity-file": string | undefined;
 };
+
+export const sshUserFlagDefinitions = {
+  description: Flags.custom<string>({
+    summary: "Set description for SSH user.",
+    description:
+      "Set the description for the given SSH user, which will be displayed in the mStudio as well as with the list command.",
+  }),
+  "public-key": Flags.custom<string>({
+    exactlyOne: ["public-key", "password"],
+    summary: "Public key used for authentication",
+    description:
+      "Specifies the public key to use for authentication. " +
+      "The corresponding private key is required locally to connect through this user. " +
+      "Using a public key for authentication prevents this user from also using a password for authentication.",
+  }),
+  password: Flags.custom<string>({
+    exactlyOne: ["public-key", "password"],
+    summary: "Password used for authentication",
+    description:
+      "Specify an authentication password. " +
+      "Using a password for authentication prevents this user from also using a public key for authentication.",
+  }),
+};

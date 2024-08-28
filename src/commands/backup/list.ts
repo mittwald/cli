@@ -1,5 +1,5 @@
 import { Response, Simplify } from "@mittwald/api-client-commons";
-import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { assertStatus, type MittwaldAPIV2 } from "@mittwald/api-client";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
@@ -23,9 +23,12 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
 
   public async getData(): Promise<ListResponse> {
     const projectId = await this.withProjectId(List);
-    return await this.apiClient.backup.listProjectBackups({
+    const response = await this.apiClient.backup.listProjectBackups({
       projectId,
     } as Parameters<typeof this.apiClient.backup.listProjectBackups>[0]);
+
+    assertStatus(response, 200);
+    return response;
   }
 
   protected getColumns(data: ListItem[]): ListColumns<ListItem> {
