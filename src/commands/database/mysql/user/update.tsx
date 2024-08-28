@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../../../lib/basecommands/ExecRenderBaseCommand.js";
-import { Flags } from "@oclif/core";
+import { Flags, Args } from "@oclif/core";
 import { ReactNode } from "react";
 import {
   makeProcessRenderer,
@@ -18,12 +18,14 @@ export default class Update extends ExecRenderBaseCommand<
   UpdateResult
 > {
   static description = "Create a new mysql user";
-  static flags = {
-    ...processFlags,
-    "mysql-user-id": Flags.string({
+  static args = {
+    "mysql-user-id": Args.string({
       required: true,
       description: "MySQL User ID of the user to be updated",
     }),
+  };
+  static flags = {
+    ...processFlags,
     "access-level": Flags.string({
       description: "Access level for this MySQL user",
       options: ["readonly", "full"],
@@ -48,8 +50,9 @@ export default class Update extends ExecRenderBaseCommand<
       "Creating a new MySQL User",
     );
 
+    const mysqlUserId = this.args["mysql-user-id"];
+
     const {
-      "mysql-user-id": mysqlUserId,
       "access-level": accessLevel,
       description,
       password,
