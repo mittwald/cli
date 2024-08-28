@@ -9,7 +9,6 @@ import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import crypto from "crypto";
 import {
   mailDeliveryBoxArgs,
   withDeliveryBoxId,

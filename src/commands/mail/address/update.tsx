@@ -13,7 +13,6 @@ import {
   mailAddressArgs,
   withMailAddressId,
 } from "../../../lib/resources/mail/flags.js";
-import crypto from "crypto";
 import { generateRandomPassword } from "../commons.js";
 
 type UpdateResult = {
