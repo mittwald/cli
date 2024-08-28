@@ -23,7 +23,7 @@ export default class Update extends ExecRenderBaseCommand<
   static description = "Update an existing SFTP user";
   static args = {
     "sftp-user-id": Args.string({
-      description: "The ID of the SFTP user to delete",
+      description: "The ID of the SFTP user to update",
       required: true,
     }),
   };
