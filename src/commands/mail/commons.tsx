@@ -3,7 +3,7 @@ import { Value } from "../../rendering/react/components/Value.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { Text } from "ink";
 
-export async function randomPassword(
+export async function generateRandomPassword(
   process: ProcessRenderer,
 ): Promise<string> {
   const generated = await process.runStep(

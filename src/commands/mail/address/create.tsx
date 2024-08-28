@@ -12,7 +12,7 @@ import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
-import { randomPassword } from "../commons.js";
+import { generateRandomPassword } from "../commons.js";
 
 type CreateResult = {
   addressId: string;
@@ -114,7 +114,7 @@ export default class Create extends ExecRenderBaseCommand<
     }
 
     if (this.flags["random-password"]) {
-      return [await randomPassword(process), true];
+      return [await generateRandomPassword(process), true];
     }
 
     return [await process.addInput(<Text>Mailbox password</Text>, true), false];

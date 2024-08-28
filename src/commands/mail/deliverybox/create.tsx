@@ -11,7 +11,7 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
-import { randomPassword } from "../commons.js";
+import { generateRandomPassword } from "../commons.js";
 
 type CreateResult = {
   deliveryboxId: string;
@@ -71,7 +71,7 @@ export default class Create extends ExecRenderBaseCommand<
     }
 
     if (this.flags["random-password"]) {
-      return [await randomPassword(process), true];
+      return [await generateRandomPassword(process), true];
     }
 
     return [

@@ -14,6 +14,7 @@ import {
   withMailAddressId,
 } from "../../../lib/resources/mail/flags.js";
 import crypto from "crypto";
+import { generateRandomPassword } from "../commons.js";
 
 type UpdateResult = {
   generatedPassword: string | null;
@@ -220,12 +221,7 @@ export default class Update extends ExecRenderBaseCommand<
     if (this.flags.password) {
       await this.setPassword(mailAddressId, this.flags.password, process);
     } else if (this.flags["random-password"]) {
-      password = await process.runStep(
-        "generating random password",
-        async () => {
-          return crypto.randomBytes(32).toString("base64").substring(0, 32);
-        },
-      );
+      password = await generateRandomPassword(process);
 
       await this.setPassword(mailAddressId, password, process);
     }
