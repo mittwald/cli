@@ -7,7 +7,6 @@ import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { expireFlags } from "../../lib/flags/expireFlags.js";

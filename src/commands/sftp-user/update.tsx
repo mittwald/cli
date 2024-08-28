@@ -40,12 +40,16 @@ export default class Update extends ExecRenderBaseCommand<
     "access-level": sftpUserFlagDefinitions["access-level"](),
     directories: sftpUserFlagDefinitions.directories(),
     enable: Flags.boolean({
-      description: "Enable SFTP user",
       exclusive: ["disable"],
+      summary: "Enable the SFTP user.",
+      description:
+        "Set the status of the user to inactive. Access by this user will be disabled.",
     }),
     disable: Flags.boolean({
-      description: "Disable SFTP user",
       exclusive: ["enable"],
+      summary: "Disable the SFTP user.",
+      description:
+        "Set the status of the user to active. Access by this user will be enabled.",
     }),
   };
 
