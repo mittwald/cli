@@ -22,31 +22,31 @@ export default class Create extends ExecRenderBaseCommand<
   typeof Create,
   CreateResult
 > {
-  static summary = "Create a new mail deliverybox";
+  static summary = "Create a new mail delivery box";
   static description = `\
-    This command can be used to create a new mail deliverybox in a project.
+    This command can be used to create a new mail delivery box in a project.
   
-    When running this command with the --quiet flag, the output will contain the ID of the newly created deliverybox.
-    In addition, when run with --generated-password the output will be the ID of the newly created deliverybox, followed by a tab character and the generated password.`;
+    When running this command with the --quiet flag, the output will contain the ID of the newly created delivery box.
+    In addition, when run with --generated-password the output will be the ID of the newly created delivery box, followed by a tab character and the generated password.`;
   static flags = {
     ...projectFlags,
     ...processFlags,
     description: Flags.string({
       char: "d",
-      summary: "mail deliverybox description",
+      summary: "mail delivery box description",
       required: true,
     }),
     password: Flags.string({
-      summary: "deliverybox password",
+      summary: "delivery box password",
       exclusive: ["random-password"],
       description:
-        "This is the password that should be used for the deliverybox; if omitted, the command will prompt interactively for a password.\n\nCAUTION: providing this flag may log your password in your shell history!",
+        "This is the password that should be used for the delivery box; if omitted, the command will prompt interactively for a password.\n\nCAUTION: providing this flag may log your password in your shell history!",
     }),
     "random-password": Flags.boolean({
       summary: "generate a random password",
       exclusive: ["password"],
       description:
-        "This flag will cause the command to generate a random 32-character password for the deliverybox; when running with --quiet, the devliverybox ID and the password will be printed to stdout, separated by a tab character.",
+        "This flag will cause the command to generate a random 32-character password for the delivery box; when running with --quiet, the delivery box ID and the password will be printed to stdout, separated by a tab character.",
     }),
   };
 
@@ -54,12 +54,12 @@ export default class Create extends ExecRenderBaseCommand<
     {
       description: "Create non-interactively with password",
       command:
-        "$ read -s PASSWORD &&\n <%= config.bin %> <%= command.id %> --password $PASSWORD --description 'my personal deliverybox'",
+        "$ read -s PASSWORD &&\n <%= config.bin %> <%= command.id %> --password $PASSWORD --description 'my personal delivery box'",
     },
     {
       description: "Create non-interactively with random password",
       command:
-        "<%= config.bin %> <%= command.id %> --random-password --description 'my personal deliverybox'",
+        "<%= config.bin %> <%= command.id %> --random-password --description 'my personal delivery box'",
     },
   ];
 
@@ -88,7 +88,7 @@ export default class Create extends ExecRenderBaseCommand<
     const [password, passwordGenerated] = await this.getPassword(process);
 
     const response = await process.runStep(
-      "creating mail deliverybox",
+      "creating mail delivery box",
       async () => {
         const response = await this.apiClient.mail.createDeliverybox({
           projectId,
@@ -119,7 +119,7 @@ export default class Create extends ExecRenderBaseCommand<
 
     const process = makeProcessRenderer(
       flags,
-      "Creating a new mail deliverybox",
+      "Creating a new mail delivery box",
     );
 
     return this.createMailDeliverybox(projectId, process, flags);
