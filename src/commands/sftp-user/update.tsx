@@ -9,6 +9,7 @@ import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { expireFlags } from "../../lib/flags/expireFlags.js";
+import { sftpUserFlagDefinitions } from "../../lib/resources/sftp/flags.js";
 
 type UpdateResult = void;
 type SftpUserUpdatePayload = Parameters<
@@ -19,48 +20,38 @@ export default class Update extends ExecRenderBaseCommand<
   typeof Update,
   UpdateResult
 > {
-  static description = "Update an existing sftp user";
+  static description = "Update an existing SFTP user";
   static args = {
     "sftp-user-id": Args.string({
-      description: "The ID of the SFTP user to update",
+      description: "The ID of the SFTP user to delete",
       required: true,
     }),
   };
   static flags = {
     ...processFlags,
     ...expireFlags("SFTP user", false),
-    description: Flags.string({
-      description: "Set the SFTP users description",
-    }),
-    "public-key": Flags.string({
-      description: "Public Key used for authentication",
+    description: sftpUserFlagDefinitions.description(),
+    "public-key": sftpUserFlagDefinitions["public-key"]({
       exclusive: ["password"],
     }),
-    password: Flags.string({
-      description: "Password used for authentication",
+    password: sftpUserFlagDefinitions.password({
       exclusive: ["public-key"],
     }),
-    "access-level": Flags.string({
-      description: "Set access level privileges for the SFTP user",
-      options: ["read", "full"],
-    }),
-    directories: Flags.directory({
-      description: "Set directories to restrict the sftp users access to",
-      multiple: true,
+    "access-level": sftpUserFlagDefinitions["access-level"](),
+    directories: sftpUserFlagDefinitions.directories(),
+    enable: Flags.boolean({
+      description: "Enable SFTP user",
+      exclusive: ["disable"],
     }),
     disable: Flags.boolean({
       description: "Disable SFTP user",
       exclusive: ["enable"],
     }),
-    enable: Flags.boolean({
-      description: "Enable SFTP user",
-      exclusive: ["disable"],
-    }),
   };
 
   protected async exec(): Promise<void> {
-    const process = makeProcessRenderer(this.flags, "Updating SFTP user");
     const sftpUserId = this.args["sftp-user-id"];
+    const process = makeProcessRenderer(this.flags, "Updating SFTP user");
 
     const {
       description,
@@ -69,8 +60,8 @@ export default class Update extends ExecRenderBaseCommand<
       expires,
       "access-level": accessLevel,
       directories,
-      disable,
       enable,
+      disable,
     } = this.flags;
 
     const sftpUserUpdatePayload: SftpUserUpdatePayload = {};
@@ -96,7 +87,7 @@ export default class Update extends ExecRenderBaseCommand<
     if (publicKey) {
       sftpUserUpdatePayload.publicKeys = [
         {
-          comment: "Public key set through cli",
+          comment: "Public key set through CLI",
           key: publicKey,
         },
       ];
@@ -113,10 +104,11 @@ export default class Update extends ExecRenderBaseCommand<
       ];
     }
 
-    if (Object.keys(sftpUserUpdatePayload).length == 1) {
+    if (Object.keys(sftpUserUpdatePayload).length == 0) {
       await process.complete(
         <Success>Nothing to change. Have a good day!</Success>,
       );
+      return;
     } else {
       await process.runStep("Updating SFTP user", async () => {
         const response =
@@ -130,6 +122,7 @@ export default class Update extends ExecRenderBaseCommand<
       await process.complete(
         <Success>Your SFTP user has successfully been updated.</Success>,
       );
+      return;
     }
   }
 

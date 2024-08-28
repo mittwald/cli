@@ -4,7 +4,6 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
-import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
@@ -12,6 +11,7 @@ import { Value } from "../../rendering/react/components/Value.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { expireFlags } from "../../lib/flags/expireFlags.js";
+import { sftpUserFlagDefinitions } from "../../lib/resources/sftp/flags.js";
 
 type Result = {
   sftpUserId: string;
@@ -27,27 +27,15 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     ...projectFlags,
     ...processFlags,
     ...expireFlags("SFTP User", false),
-    description: Flags.string({
-      required: true,
-      summary: "Description of SFTP user",
-    }),
-    "public-key": Flags.string({
-      summary: "Public Key used for authentication",
+    description: sftpUserFlagDefinitions.description({ required: true }),
+    "public-key": sftpUserFlagDefinitions["public-key"]({
       exactlyOne: ["public-key", "password"],
     }),
-    password: Flags.string({
-      summary: "Password used for authentication",
+    password: sftpUserFlagDefinitions.password({
       exactlyOne: ["public-key", "password"],
     }),
-    "access-level": Flags.string({
-      description: "Set access level privileges for the SFTP user",
-      options: ["read", "full"],
-    }),
-    directories: Flags.directory({
-      required: true,
-      description: "Set directories to restrict the SFTP users access to",
-      multiple: true,
-    }),
+    "access-level": sftpUserFlagDefinitions["access-level"](),
+    directories: sftpUserFlagDefinitions.directories({ required: true }),
   };
 
   protected async exec(): Promise<Result> {
@@ -62,18 +50,19 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       directories,
     } = this.flags;
 
+    let authentication: SftpUserCreationPayload["authentication"];
+    if (password) {
+      authentication = { password };
+    } else if (publicKey) {
+      authentication = {
+        publicKeys: [{ comment: "Public key set through CLI", key: publicKey }],
+      };
+    } else {
+      throw new Error("The authentication method could not be set correctly.");
+    }
+
     const sftpUserCreationPayload: SftpUserCreationPayload = {
-      authentication: password
-        ? { password }
-        : {
-            publicKeys: [
-              {
-                comment: "Public key set through CLI",
-                key: publicKey ? publicKey : "",
-              },
-            ],
-          },
-      // TODO: simplify or infer
+      authentication,
       description,
       directories: [directories[0], ...directories.slice(1)],
     };
@@ -112,7 +101,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     await process.complete(
       <Success>
-        The sftp user "
+        The SFTP user "
         <Value>
           {sftpUser.userName} ({sftpUser.description})
         </Value>
