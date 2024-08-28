@@ -127,6 +127,7 @@ USAGE
 * [`mw app install grav`](#mw-app-install-grav)
 * [`mw app install humhub`](#mw-app-install-humhub)
 * [`mw app install joomla`](#mw-app-install-joomla)
+* [`mw app install magento2`](#mw-app-install-magento2)
 * [`mw app install matomo`](#mw-app-install-matomo)
 * [`mw app install moodle`](#mw-app-install-moodle)
 * [`mw app install neos`](#mw-app-install-neos)
@@ -249,10 +250,14 @@ USAGE
 * [`mw project update [PROJECT-ID]`](#mw-project-update-project-id)
 * [`mw server get [SERVER-ID]`](#mw-server-get-server-id)
 * [`mw server list`](#mw-server-list)
+* [`mw sftp-user create`](#mw-sftp-user-create)
 * [`mw sftp-user delete SFTP-USER-ID`](#mw-sftp-user-delete-sftp-user-id)
 * [`mw sftp-user list`](#mw-sftp-user-list)
+* [`mw sftp-user update SFTP-USER-ID`](#mw-sftp-user-update-sftp-user-id)
+* [`mw ssh-user create`](#mw-ssh-user-create)
 * [`mw ssh-user delete SSH-USER-ID`](#mw-ssh-user-delete-ssh-user-id)
 * [`mw ssh-user list`](#mw-ssh-user-list)
+* [`mw ssh-user update SSH-USER-ID`](#mw-ssh-user-update-ssh-user-id)
 * [`mw update [CHANNEL]`](#mw-update-channel)
 * [`mw user api-token create`](#mw-user-api-token-create)
 * [`mw user api-token get TOKEN-ID`](#mw-user-api-token-get-token-id)
@@ -1097,6 +1102,132 @@ FLAG DESCRIPTIONS
 
     Specify the version in which your Joomla! will be installed.
     If unspecified, the Joomla! will be installed in the latest available version.
+```
+
+## `mw app install magento2`
+
+Creates new Magento 2 installation.
+
+```
+USAGE
+  $ mw app install magento2 --version <value> --opensearch-host <value> --opensearch-port <value> [-p <value>] [-q]
+    [--host <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>]
+    [--admin-lastname <value>] [--site-title <value>] [--shop-email <value>] [--shop-lang <value>] [--shop-currency
+    <value>] [-w] [--wait-timeout <value>]
+
+FLAGS
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -w, --wait                     wait for the resource to be ready.
+      --admin-email=<value>      email address of your administrator user.
+      --admin-firstname=<value>  first name of your administrator user.
+      --admin-lastname=<value>   Lastname of your administrator user.
+      --admin-pass=<value>       password of your administrator user.
+      --admin-user=<value>       Username for your administrator user.
+      --host=<value>             host to initially configure your Magento 2 installation with; needs to be created
+                                 separately.
+      --opensearch-host=<value>  (required) the OpenSearch instance host which your Magento 2 will try to connect to
+      --opensearch-port=<value>  (required) the OpenSearch instance port which your Magento 2 will try to connect to
+      --shop-currency=<value>    Currency your Magento 2 will be working with.
+      --shop-email=<value>       email address your Magento 2 will be working with.
+      --shop-lang=<value>        language your Magento 2 will be working with.
+      --site-title=<value>       site title for your Magento 2 installation.
+      --version=<value>          (required) [default: latest] version of Magento 2 to be installed.
+      --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
+                                 'ms', 's', 'm' are accepted).
+
+DESCRIPTION
+  Creates new Magento 2 installation.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-email=<value>  email address of your administrator user.
+
+    email address that will be used for the first administrator user that is created during the Magento 2 installation.
+    If unspecified, email address of your mStudio account will be used. This email address can be changed after the
+    installation is finished.
+
+  --admin-firstname=<value>  first name of your administrator user.
+
+    The first name that will be used for the first administrator user that is created during the Magento 2 installation.
+    If unspecified, the first name of your mStudio user will be used. This value can be changed after the installation
+    is finished.
+
+  --admin-lastname=<value>  Lastname of your administrator user.
+
+    The last name that will be used for the first administrator user that is created during the Magento 2 installation.
+    If unspecified, the last name of your mStudio user will be used. This value can be changed after the installation is
+    finished.
+
+  --admin-pass=<value>  password of your administrator user.
+
+    The password that will be used for the first administrator user that is created during the Magento 2 installation.
+    If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
+    the installation is finished
+
+  --admin-user=<value>  Username for your administrator user.
+
+    Username of the first administrator user which will be created during the Magento 2 installation.
+    If unspecified, an adequate username will be generated.
+    After the installation is finished, the username can be changed and additional administrator users can be created.
+
+  --host=<value>  host to initially configure your Magento 2 installation with; needs to be created separately.
+
+    Specify a host which will be used during the installation and as an initial host for the Magento 2 configuration.
+    If unspecified, the default host for the given project will be used.
+    This does not change the target of the used host and can be changed later by configuring the host and your Magento 2
+    installation.
+
+  --opensearch-host=<value>  the OpenSearch instance host which your Magento 2 will try to connect to
+
+    This is the host of an existing OpenSearch instance which your application will have to connect to during
+    installation.This has to be a valid connection otherwise the installation will fail.
+
+  --opensearch-port=<value>  the OpenSearch instance port which your Magento 2 will try to connect to
+
+    This is the port of an existing OpenSearch instance which your application will have to connect to during
+    installation.This has to be a valid connection otherwise the installation will fail.
+
+  --shop-currency=<value>  Currency your Magento 2 will be working with.
+
+    The default currency your Magento 2 shop communicates prices and calculates transactions with.
+    If unspecified, this will default to EUR(€). The currency can be changed after the installation is finished.
+
+  --shop-email=<value>  email address your Magento 2 will be working with.
+
+    The email address your Magento 2 installation will be using for correspondence with end users.
+    If unspecified, your mStudio account email will be used. This email address can be changed after the installation is
+    finished.
+
+  --shop-lang=<value>  language your Magento 2 will be working with.
+
+    The default language your Magento 2 installation will be using. The front- and back end will be displayed using the
+    given language.
+    If unspecified, this will default to German (de_DE). The language can be changed after the installation is finished.
+
+  --site-title=<value>  site title for your Magento 2 installation.
+
+    The site title for this Magento 2 installation. It is also the title shown in the app overview in the mStudio and
+    the CLI.
+    If unspecified, the application name and the given project ID will be used. The title can be changed after the
+    installation is finished
+
+  --version=<value>  version of Magento 2 to be installed.
+
+    Specify the version in which your Magento 2 will be installed.
+    If unspecified, the Magento 2 will be installed in the latest available version.
 ```
 
 ## `mw app install matomo`
@@ -5482,6 +5613,65 @@ DESCRIPTION
   List servers for an organization or user.
 ```
 
+## `mw sftp-user create`
+
+Create a new SFTP user
+
+```
+USAGE
+  $ mw sftp-user create --description <value> --directories <value>... [-p <value>] [-q] [--expires <value>]
+    [--public-key <value>] [--password <value>] [--access-level read|full]
+
+FLAGS
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --access-level=<option>   Set access level permissions for the SFTP user.
+                                <options: read|full>
+      --description=<value>     (required) Set description for SFTP user.
+      --directories=<value>...  (required) Specify directories to restrict this SFTP users access to.
+      --expires=<value>         an interval after which the SFTP User expires (examples: 30m, 30d, 1y).
+      --password=<value>        Password used for authentication
+      --public-key=<value>      Public key used for authentication
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --access-level=read|full  Set access level permissions for the SFTP user.
+
+    Must be specified as either read or full. Grant the user either read-only or full file read and write privileges.
+
+  --description=<value>  Set description for SFTP user.
+
+    Set the description for the given SFTP user, which will be displayed in the mStudio as well as with the list
+    command.
+
+  --directories=<value>...  Specify directories to restrict this SFTP users access to.
+
+    Specified as a list of directories, will restrict access for this user to the specified directories.
+
+  --password=<value>  Password used for authentication
+
+    Specify an authentication password. Using a password for authentication prevents this user from also using a public
+    key for authentication.
+
+  --public-key=<value>  Public key used for authentication
+
+    Specifies the public key to use for authentication. The corresponding private key is required locally to connect
+    through this user. Using a public key for authentication prevents this user from also using a password for
+    authentication.
+```
+
 ## `mw sftp-user delete SFTP-USER-ID`
 
 Delete an SFTP user
@@ -5543,6 +5733,119 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
+## `mw sftp-user update SFTP-USER-ID`
+
+Update an existing SFTP user
+
+```
+USAGE
+  $ mw sftp-user update SFTP-USER-ID [-q] [--expires <value>] [--description <value>] [--public-key <value> |
+    --password <value>] [--access-level read|full] [--directories <value>...] [--enable | --disable]
+
+ARGUMENTS
+  SFTP-USER-ID  The ID of the SFTP user to update
+
+FLAGS
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --access-level=<option>   Set access level permissions for the SFTP user.
+                                <options: read|full>
+      --description=<value>     Set description for SFTP user.
+      --directories=<value>...  Specify directories to restrict this SFTP users access to.
+      --disable                 Disable the SFTP user.
+      --enable                  Enable the SFTP user.
+      --expires=<value>         an interval after which the SFTP user expires (examples: 30m, 30d, 1y).
+      --password=<value>        Password used for authentication
+      --public-key=<value>      Public key used for authentication
+
+DESCRIPTION
+  Update an existing SFTP user
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --access-level=read|full  Set access level permissions for the SFTP user.
+
+    Must be specified as either read or full. Grant the user either read-only or full file read and write privileges.
+
+  --description=<value>  Set description for SFTP user.
+
+    Set the description for the given SFTP user, which will be displayed in the mStudio as well as with the list
+    command.
+
+  --directories=<value>...  Specify directories to restrict this SFTP users access to.
+
+    Specified as a list of directories, will restrict access for this user to the specified directories.
+
+  --disable  Disable the SFTP user.
+
+    Set the status of the SFTP user to active. Access by this user will be enabled.
+
+  --enable  Enable the SFTP user.
+
+    Set the status of the SFTP user to inactive. Access by this user will be disabled.
+
+  --password=<value>  Password used for authentication
+
+    Specify an authentication password. Using a password for authentication prevents this user from also using a public
+    key for authentication.
+
+  --public-key=<value>  Public key used for authentication
+
+    Specifies the public key to use for authentication. The corresponding private key is required locally to connect
+    through this user. Using a public key for authentication prevents this user from also using a password for
+    authentication.
+```
+
+## `mw ssh-user create`
+
+Create a new SSH user
+
+```
+USAGE
+  $ mw ssh-user create --description <value> [-p <value>] [-q] [--expires <value>] [--public-key <value>] [--password
+    <value>]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  (required) Set description for SSH user.
+      --expires=<value>      an interval after which the SSH user expires (examples: 30m, 30d, 1y).
+      --password=<value>     Password used for authentication
+      --public-key=<value>   Public key used for authentication
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --description=<value>  Set description for SSH user.
+
+    Set the description for the given SSH user, which will be displayed in the mStudio as well as with the list command.
+
+  --password=<value>  Password used for authentication
+
+    Specify an authentication password. Using a password for authentication prevents this user from also using a public
+    key for authentication.
+
+  --public-key=<value>  Public key used for authentication
+
+    Specifies the public key to use for authentication. The corresponding private key is required locally to connect
+    through this user. Using a public key for authentication prevents this user from also using a password for
+    authentication.
+```
+
 ## `mw ssh-user delete SSH-USER-ID`
 
 Delete an SSH user
@@ -5602,6 +5905,60 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw ssh-user update SSH-USER-ID`
+
+Update an existing SSH user
+
+```
+USAGE
+  $ mw ssh-user update SSH-USER-ID [-q] [--expires <value>] [--description <value>] [--public-key <value>]
+    [--password <value>] [--enable | --disable]
+
+ARGUMENTS
+  SSH-USER-ID  The ID of the SSH user to update
+
+FLAGS
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  Set description for SSH user.
+      --disable              Disable the SSH user.
+      --enable               Enable the SSH user.
+      --expires=<value>      an interval after which the SSH user expires (examples: 30m, 30d, 1y).
+      --password=<value>     Password used for authentication
+      --public-key=<value>   Public key used for authentication
+
+DESCRIPTION
+  Update an existing SSH user
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --description=<value>  Set description for SSH user.
+
+    Set the description for the given SSH user, which will be displayed in the mStudio as well as with the list command.
+
+  --disable  Disable the SSH user.
+
+    Set the status of the SSH user to active. Access by this user will be enabled.
+
+  --enable  Enable the SSH user.
+
+    Set the status of the SSH user to inactive. Access by this user will be disabled.
+
+  --password=<value>  Password used for authentication
+
+    Specify an authentication password. Using a password for authentication prevents this user from also using a public
+    key for authentication.
+
+  --public-key=<value>  Public key used for authentication
+
+    Specifies the public key to use for authentication. The corresponding private key is required locally to connect
+    through this user. Using a public key for authentication prevents this user from also using a password for
+    authentication.
 ```
 
 ## `mw update [CHANNEL]`
