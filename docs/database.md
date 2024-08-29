@@ -13,9 +13,11 @@ Manage databases (like MySQL and Redis) in your projects
 * [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
 * [`mw database mysql shell DATABASE-ID`](#mw-database-mysql-shell-database-id)
+* [`mw database mysql user create`](#mw-database-mysql-user-create)
 * [`mw database mysql user delete USER-ID`](#mw-database-mysql-user-delete-user-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
+* [`mw database mysql user update USER-ID`](#mw-database-mysql-user-update-user-id)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
 * [`mw database redis create`](#mw-database-redis-create)
 * [`mw database redis get ID`](#mw-database-redis-get-id)
@@ -457,6 +459,63 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+## `mw database mysql user create`
+
+Create a new MySQL user
+
+```
+USAGE
+  $ mw database mysql user create --database-id <value> --access-level readonly|full --description <value> --password <value>
+    [-q] [--access-ip-mask <value> --enable-external-access]
+
+FLAGS
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --access-ip-mask=<value>  IP to restrict external access to.
+      --access-level=<option>   (required) Set the access level permissions for the SFTP user.
+                                <options: readonly|full>
+      --database-id=<value>     (required) MySQL database ID to create a user for.
+      --description=<value>     (required) Set the description for the MySQL user.
+      --enable-external-access  Enable external access for this MySQL user.
+      --password=<value>        (required) Password used for authentication
+
+DESCRIPTION
+  Create a new MySQL user
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --access-ip-mask=<value>  IP to restrict external access to.
+
+    If specified as IPv4, external access will be restricted to only the specified IP addresses when external access is
+    enabled.
+
+  --access-level=readonly|full  Set the access level permissions for the SFTP user.
+
+    Must be specified as either readonly or full. Grant the user either read-only or full file read and write access to
+    files.
+
+  --database-id=<value>  MySQL database ID to create a user for.
+
+    Can be specified as UUID or shortId. The user will be created for the specified database.
+
+  --description=<value>  Set the description for the MySQL user.
+
+    Set the description for the specified MySQL user to be displayed in mStudio and with the list command.
+
+  --enable-external-access  Enable external access for this MySQL user.
+
+    By default, external access is disabled for newly created MySQL users. Using this flag will enable external access
+    for this user on creation. External access can be restricted to specific IP addresses using the 'access-ip-mask'
+    flag.
+
+  --password=<value>  Password used for authentication
+
+    Specify a password to use for authentication when connecting to the database with this user.
+```
+
 ## `mw database mysql user delete USER-ID`
 
 Delete a MySQL user
@@ -523,6 +582,65 @@ FLAGS
 
 DESCRIPTION
   List MySQL users belonging to a database.
+```
+
+## `mw database mysql user update USER-ID`
+
+Update an existing MySQL user
+
+```
+USAGE
+  $ mw database mysql user update USER-ID [-q] [--access-level readonly|full] [--description <value>] [--password <value>]
+    [--access-ip-mask <value>] [--enable-external-access | --disable-external-access]
+
+ARGUMENTS
+  USER-ID  ID of the MySQL user to update.
+
+FLAGS
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+      --access-ip-mask=<value>   IP to restrict external access to.
+      --access-level=<option>    Set the access level permissions for the SFTP user.
+                                 <options: readonly|full>
+      --description=<value>      Set the description for the MySQL user.
+      --disable-external-access  Disable external access.
+      --enable-external-access   Enable external access.
+      --password=<value>         Password used for authentication
+
+DESCRIPTION
+  Update an existing MySQL user
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --access-ip-mask=<value>  IP to restrict external access to.
+
+    If specified as IPv4, external access will be restricted to only the specified IP addresses when external access is
+    enabled.
+
+  --access-level=readonly|full  Set the access level permissions for the SFTP user.
+
+    Must be specified as either readonly or full. Grant the user either read-only or full file read and write access to
+    files.
+
+  --description=<value>  Set the description for the MySQL user.
+
+    Set the description for the specified MySQL user to be displayed in mStudio and with the list command.
+
+  --disable-external-access  Disable external access.
+
+    Set external access for this MySQL user to disabled. External access will not be possible for this user.
+
+  --enable-external-access  Enable external access.
+
+    Set external access for this MySQL user to enabled. External access by this user will be possible. External access
+    can be restricted to certain IP addresses using the 'access-ip-mask' flag.
+
+  --password=<value>  Password used for authentication
+
+    Specify a password to use for authentication when connecting to the database with this user.
 ```
 
 ## `mw database mysql versions`
