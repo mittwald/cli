@@ -207,7 +207,6 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
           await updateMissingSystemSoftwareDependency(
             process,
             this.apiClient,
-            appInstallationId,
             missingSystemSoftwareDependency,
           );
         appUpgradePayload.systemSoftware[
@@ -288,7 +287,6 @@ async function forceTargetVersionSelection(
 async function updateMissingSystemSoftwareDependency(
   process: ProcessRenderer,
   apiClient: MittwaldAPIV2Client,
-  appInstallationId: string,
   dependency: AppSystemSoftwareDependency,
 ) {
   const dependencySoftware = await apiClient.app.getSystemsoftware({
