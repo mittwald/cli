@@ -4,11 +4,11 @@ import {
   processFlags,
 } from "../../../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
-import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../../rendering/react/components/Success.js";
 import { Value } from "../../../../rendering/react/components/Value.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { mysqlUserFlagDefinitions } from "../../../../lib/resources/database/mysql/user/flags.js";
 
 type Result = {
   mysqlUserId: string;
@@ -22,29 +22,14 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static description = "Create a new MySQL user";
   static flags = {
     ...processFlags,
-    "database-id": Flags.string({
+    "database-id": mysqlUserFlagDefinitions["database-id"]({ required: true }),
+    "access-level": mysqlUserFlagDefinitions["access-level"]({
       required: true,
-      description: "ID of the MySQL Database to create a user for",
     }),
-    "access-level": Flags.string({
-      required: true,
-      description: "Access level for this MySQL user",
-      options: ["readonly", "full"],
-    }),
-    description: Flags.string({
-      required: true,
-      description: "Description of the MySQL user",
-    }),
-    password: Flags.string({
-      required: true,
-      description: "Password used for authentication",
-    }),
-    "access-ip-mask": Flags.string({
-      description: "IP from wich external access will be exclusively allowed",
-    }),
-    "external-access": Flags.boolean({
-      description: "Enable/Disable external access for this user.",
-    }),
+    description: mysqlUserFlagDefinitions.description({ required: true }),
+    password: mysqlUserFlagDefinitions.password({ required: true }),
+    "access-ip-mask": mysqlUserFlagDefinitions["access-ip-mask"](),
+    "external-access": mysqlUserFlagDefinitions["external-access"](),
   };
 
   protected async exec(): Promise<Result> {

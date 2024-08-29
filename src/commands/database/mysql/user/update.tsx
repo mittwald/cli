@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../../../lib/basecommands/ExecRenderBaseCommand.js";
-import { Flags, Args } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { ReactNode } from "react";
 import {
   makeProcessRenderer,
@@ -8,6 +8,7 @@ import {
 import { Success } from "../../../../rendering/react/components/Success.js";
 import assertSuccess from "../../../../lib/apiutil/assert_success.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { mysqlUserFlagDefinitions } from "../../../../lib/resources/database/mysql/user/flags.js";
 type UpdateResult = void;
 type MyQSLUserUpdateData = Parameters<
   MittwaldAPIV2Client["database"]["updateMysqlUser"]
@@ -17,40 +18,25 @@ export default class Update extends ExecRenderBaseCommand<
   typeof Update,
   UpdateResult
 > {
-  static description = "Create a new mysql user";
+  static description = "Updates an existing MySQL user";
   static args = {
-    "mysql-user-id": Args.string({
+    "user-id": Args.string({
       required: true,
-      description: "MySQL User ID of the user to be updated",
+      description: "ID of the MySQL user to update.",
     }),
   };
   static flags = {
     ...processFlags,
-    "access-level": Flags.string({
-      description: "Access level for this MySQL user",
-      options: ["readonly", "full"],
-    }),
-    description: Flags.string({
-      description: "Description of the MySQL user",
-    }),
-    password: Flags.string({
-      description: "Password used for authentication",
-    }),
-    "access-ip-mask": Flags.string({
-      description: "IP from which external access will be exclusively allowed",
-    }),
-    "external-access": Flags.boolean({
-      description: "Enable/Disable external access for this user.",
-    }),
+    "access-level": mysqlUserFlagDefinitions["access-level"](),
+    description: mysqlUserFlagDefinitions.description(),
+    password: mysqlUserFlagDefinitions.password(),
+    "access-ip-mask": mysqlUserFlagDefinitions["access-ip-mask"](),
+    "external-access": mysqlUserFlagDefinitions["external-access"](),
   };
 
   protected async exec(): Promise<void> {
-    const process = makeProcessRenderer(
-      this.flags,
-      "Creating a new MySQL User",
-    );
-
-    const mysqlUserId = this.args["mysql-user-id"];
+    const process = makeProcessRenderer(this.flags, "Updating MySQL user");
+    const mysqlUserId = this.args["user-id"];
 
     const {
       "access-level": accessLevel,
