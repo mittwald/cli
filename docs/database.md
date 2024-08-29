@@ -17,7 +17,7 @@ Manage databases (like MySQL and Redis) in your projects
 * [`mw database mysql user delete USER-ID`](#mw-database-mysql-user-delete-user-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
-* [`mw database mysql user update MYSQL-USER-ID`](#mw-database-mysql-user-update-mysql-user-id)
+* [`mw database mysql user update USER-ID`](#mw-database-mysql-user-update-user-id)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
 * [`mw database redis create`](#mw-database-redis-create)
 * [`mw database redis get ID`](#mw-database-redis-get-id)
@@ -466,17 +466,17 @@ Create a new MySQL user
 ```
 USAGE
   $ mw database mysql user create --database-id <value> --access-level readonly|full --description <value> --password <value>
-    [-q] [--access-ip-mask <value>] [--external-access]
+    [-q] [--access-ip-mask <value>] [--external-access <value>]
 
 FLAGS
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
-      --access-ip-mask=<value>  IP from wich external access will be exclusively allowed
-      --access-level=<option>   (required) Access level for this MySQL user
-                                <options: readonly|full>
-      --database-id=<value>     (required) ID of the MySQL Database to create a user for
-      --description=<value>     (required) Description of the MySQL user
-      --external-access         Enable/Disable external access for this user.
-      --password=<value>        (required) Password used for authentication
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+      --access-ip-mask=<value>   IP from wich external access will be exclusively allowed
+      --access-level=<option>    (required) Access level for this MySQL user
+                                 <options: readonly|full>
+      --database-id=<value>      (required) ID of the MySQL Database to create a user for
+      --description=<value>      (required) Description of the MySQL user
+      --external-access=<value>  Enable/Disable external access for this user.
+      --password=<value>         (required) Password used for authentication
 
 DESCRIPTION
   Create a new MySQL user
@@ -556,29 +556,29 @@ DESCRIPTION
   List MySQL users belonging to a database.
 ```
 
-## `mw database mysql user update MYSQL-USER-ID`
+## `mw database mysql user update USER-ID`
 
-Create a new mysql user
+Updates an existing MySQL user
 
 ```
 USAGE
-  $ mw database mysql user update MYSQL-USER-ID [-q] [--access-level readonly|full] [--description <value>] [--password <value>]
-    [--access-ip-mask <value>] [--external-access]
+  $ mw database mysql user update USER-ID [-q] [--access-level readonly|full] [--description <value>] [--password <value>]
+    [--access-ip-mask <value>] [--external-access <value>]
 
 ARGUMENTS
-  MYSQL-USER-ID  MySQL User ID of the user to be updated
+  USER-ID  ID of the MySQL user to update.
 
 FLAGS
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
-      --access-ip-mask=<value>  IP from which external access will be exclusively allowed
-      --access-level=<option>   Access level for this MySQL user
-                                <options: readonly|full>
-      --description=<value>     Description of the MySQL user
-      --external-access         Enable/Disable external access for this user.
-      --password=<value>        Password used for authentication
+  -q, --quiet                    suppress process output and only display a machine-readable summary.
+      --access-ip-mask=<value>   IP from wich external access will be exclusively allowed
+      --access-level=<option>    Access level for this MySQL user
+                                 <options: readonly|full>
+      --description=<value>      Description of the MySQL user
+      --external-access=<value>  Enable/Disable external access for this user.
+      --password=<value>         Password used for authentication
 
 DESCRIPTION
-  Create a new mysql user
+  Updates an existing MySQL user
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
