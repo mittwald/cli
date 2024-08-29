@@ -27,7 +27,6 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { waitUntilAppStateHasNormalized } from "../../lib/resources/app/wait.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { waitFlags } from "../../lib/wait.js";
-import assertSuccess from "../../lib/apiutil/assert_success.js";
 import { ProcessFlags } from "../../rendering/process/process_flags.js";
 import semver from "semver/preload.js";
 
