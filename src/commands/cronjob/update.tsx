@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
-import { Args } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { ReactNode } from "react";
 import {
   makeProcessRenderer,
@@ -35,7 +35,18 @@ export default class Update extends ExecRenderBaseCommand<
     url: cronjobFlagDefinitions.url(),
     interpreter: cronjobFlagDefinitions.interpreter(),
     command: cronjobFlagDefinitions.command(),
-    active: cronjobFlagDefinitions.active(),
+    enable: Flags.boolean({
+      exclusive: ["disable"],
+      summary: "Enable the cron job.",
+      description:
+        "Set the status of the cron job to inactive. Automatic execution will be disabled.",
+    }),
+    disable: Flags.boolean({
+      exclusive: ["enable"],
+      summary: "Disable the cron job.",
+      description:
+        "Set the status of the cron job to active. Automatic execution will be enabled.",
+    }),
   };
 
   protected async exec(): Promise<void> {
@@ -54,7 +65,8 @@ export default class Update extends ExecRenderBaseCommand<
       url,
       interpreter,
       command,
-      active,
+      enable,
+      disable,
     } = this.flags;
 
     const updateCronjobPayload: CronjobUpdateData = {};
@@ -75,8 +87,10 @@ export default class Update extends ExecRenderBaseCommand<
       };
     }
 
-    if (active) {
-      updateCronjobPayload.active = active;
+    if (enable) {
+      updateCronjobPayload.active = true;
+    } else if (disable) {
+      updateCronjobPayload.active = false;
     }
 
     if (description) {
@@ -95,17 +109,25 @@ export default class Update extends ExecRenderBaseCommand<
       updateCronjobPayload.interval = interval;
     }
 
-    await process.runStep("Updating cron job", async () => {
-      const response = await this.apiClient.cronjob.updateCronjob({
-        cronjobId,
-        data: updateCronjobPayload,
+    if (Object.keys(updateCronjobPayload).length == 0) {
+      await process.complete(
+        <Success>Nothing to change. Have a good day!</Success>,
+      );
+      return;
+    } else {
+      await process.runStep("Updating cron job", async () => {
+        const response = await this.apiClient.cronjob.updateCronjob({
+          cronjobId,
+          data: updateCronjobPayload,
+        });
+        assertSuccess(response);
       });
-      assertSuccess(response);
-    });
 
-    await process.complete(
-      <Success>Your cron job has successfully been updated.</Success>,
-    );
+      await process.complete(
+        <Success>Your cron job has successfully been updated.</Success>,
+      );
+      return;
+    }
   }
 
   protected render(): ReactNode {

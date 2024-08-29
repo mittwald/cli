@@ -11,11 +11,6 @@ export const cronjobFlagDefinitions = {
     description:
       "Must be specified as a cron schedule expression. Defines the interval at which the cron job will be executed.",
   }),
-  active: Flags.custom<boolean>({
-    summary: "Specify whether automatic execution is active.",
-    description:
-      "Requires a boolean value (true/false) to enable or disable automatic execution for the cron job.",
-  }),
   email: Flags.custom<string>({
     summary: "Set the target email to which error messages will be sent.",
     description:

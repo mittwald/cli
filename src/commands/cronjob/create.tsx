@@ -11,6 +11,7 @@ import { appInstallationFlags } from "../../lib/resources/app/flags.js";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
 
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { Flags } from "@oclif/core";
 
 type Result = {
   cronjobId: string;
@@ -32,7 +33,13 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     url: cronjobFlagDefinitions.url(),
     command: cronjobFlagDefinitions.command(),
     interpreter: cronjobFlagDefinitions.interpreter(),
-    active: cronjobFlagDefinitions.active({ required: true }),
+    disable: Flags.boolean({
+      summary: "Disable the cron job.",
+      description:
+        "When creating a cron job it is enabled by default. " +
+        "This flag can be used to set the status of the cron job to inactive when creating one. " +
+        "Automatic execution will then be disabled until enabled manually.",
+    }),
   };
 
   protected async exec(): Promise<Result> {
@@ -42,7 +49,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     const {
       description,
       interval,
-      active,
+      disable,
       email,
       url,
       interpreter,
@@ -62,11 +69,26 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       throw new Error("no project found for app installation");
     }
 
+    let active: boolean = true;
+    if (disable) {
+      active = false;
+    }
+
     let destination: CronjobCreationData["destination"];
     if (url) {
       destination = { url };
     } else if (command && interpreter) {
-      destination = { interpreter, path: command };
+      let destinationInterpreter;
+      if (interpreter == "bash") {
+        destinationInterpreter = "/bin/bash";
+      } else {
+        destinationInterpreter = "/usr/bin/php";
+      }
+
+      destination = {
+        interpreter: destinationInterpreter,
+        path: command as string,
+      };
     } else if (!url && !command) {
       throw new Error("either `--url` or `--command` must be specified");
     } else if (command && !interpreter) {
