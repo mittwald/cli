@@ -18,7 +18,7 @@ export default class Update extends ExecRenderBaseCommand<
   typeof Update,
   UpdateResult
 > {
-  static description = "Updates an existing MySQL user";
+  static description = "Update an existing MySQL user";
   static args = {
     "user-id": Args.string({
       required: true,
