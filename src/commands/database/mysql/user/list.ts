@@ -23,8 +23,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     }),
   };
 
-  // TODO: implement withMySQLId
-
   public async getData(): Promise<Response> {
     return await this.apiClient.database.listMysqlUsers({
       mysqlDatabaseId: this.flags["database-id"],
@@ -32,12 +30,18 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
-    const { id, name, createdAt } = super.getColumns(data, {
+    const { createdAt } = super.getColumns(data, {
       shortIdKey: "name",
     });
     return {
-      id,
-      name,
+      id: {
+        header: "ID",
+        get: (i) => i.id,
+      },
+      name: {
+        header: "Username",
+        get: (i) => i.name,
+      },
       description: {},
       mainUser: {
         header: "Main user",
