@@ -18,7 +18,7 @@ export async function hasBinaryInPath(name: string): Promise<boolean> {
     try {
       fs.statSync(fullPath);
       return true;
-    } catch (e) {
+    } catch (ignoredError) {
       // ignore
     }
   }
