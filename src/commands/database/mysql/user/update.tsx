@@ -35,14 +35,14 @@ export default class Update extends ExecRenderBaseCommand<
       exclusive: ["disable-external-access"],
       summary: "Enable external access.",
       description:
-        "Set the external access for this MySQL user to enabled. External access by this user will possible. " +
-        "External access can be restricted to certain IP addresses through the 'access-ip-mask'-flag.",
+        "Set external access for this MySQL user to enabled. External access by this user will be possible. " +
+        "External access can be restricted to certain IP addresses using the 'access-ip-mask' flag.",
     }),
     "disable-external-access": Flags.boolean({
       exclusive: ["enable-external-access"],
       summary: "Disable external access.",
       description:
-        "Set the external access for this MySQL user to disabled. External access by this user will not be possible. ",
+        "Set external access for this MySQL user to disabled. External access will not be possible for this user.",
     }),
   };
 

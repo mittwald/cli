@@ -33,9 +33,9 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     "enable-external-access": Flags.boolean({
       summary: "Enable external access for this MySQL user.",
       description:
-        "By default external access is deactivated for newly creates MySQL users. " +
-        "Using this flag will enable external access by this user on creation. " +
-        "External access can be restricted to certain IP addresses through the 'access-ip-mask'-flag.",
+        "By default, external access is disabled for newly created MySQL users. " +
+        "Using this flag will enable external access for this user on creation. " +
+        "External access can be restricted to specific IP addresses using the 'access-ip-mask' flag.",
     }),
   };
 
