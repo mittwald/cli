@@ -29,7 +29,9 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     }),
     description: mysqlUserFlagDefinitions.description({ required: true }),
     password: mysqlUserFlagDefinitions.password({ required: true }),
-    "access-ip-mask": mysqlUserFlagDefinitions["access-ip-mask"](),
+    "access-ip-mask": mysqlUserFlagDefinitions["access-ip-mask"]({
+      dependsOn: ["enable-external-access"]
+    }),
     "enable-external-access": Flags.boolean({
       summary: "Enable external access for this MySQL user.",
       description:
