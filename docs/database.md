@@ -13,9 +13,11 @@ Manage databases (like MySQL and Redis) in your projects
 * [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
 * [`mw database mysql shell DATABASE-ID`](#mw-database-mysql-shell-database-id)
+* [`mw database mysql user create`](#mw-database-mysql-user-create)
 * [`mw database mysql user delete USER-ID`](#mw-database-mysql-user-delete-user-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
 * [`mw database mysql user list`](#mw-database-mysql-user-list)
+* [`mw database mysql user update MYSQL-USER-ID`](#mw-database-mysql-user-update-mysql-user-id)
 * [`mw database mysql versions`](#mw-database-mysql-versions)
 * [`mw database redis create`](#mw-database-redis-create)
 * [`mw database redis get ID`](#mw-database-redis-get-id)
@@ -457,6 +459,35 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+## `mw database mysql user create`
+
+Create a new MySQL user
+
+```
+USAGE
+  $ mw database mysql user create --database-id <value> --access-level readonly|full --description <value> --password <value>
+    [-q] [--access-ip-mask <value>] [--external-access]
+
+FLAGS
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --access-ip-mask=<value>  IP from wich external access will be exclusively allowed
+      --access-level=<option>   (required) Access level for this MySQL user
+                                <options: readonly|full>
+      --database-id=<value>     (required) ID of the MySQL Database to create a user for
+      --description=<value>     (required) Description of the MySQL user
+      --external-access         Enable/Disable external access for this user.
+      --password=<value>        (required) Password used for authentication
+
+DESCRIPTION
+  Create a new MySQL user
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 ## `mw database mysql user delete USER-ID`
 
 Delete a MySQL user
@@ -523,6 +554,37 @@ FLAGS
 
 DESCRIPTION
   List MySQL users belonging to a database.
+```
+
+## `mw database mysql user update MYSQL-USER-ID`
+
+Create a new mysql user
+
+```
+USAGE
+  $ mw database mysql user update MYSQL-USER-ID [-q] [--access-level readonly|full] [--description <value>] [--password <value>]
+    [--access-ip-mask <value>] [--external-access]
+
+ARGUMENTS
+  MYSQL-USER-ID  MySQL User ID of the user to be updated
+
+FLAGS
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --access-ip-mask=<value>  IP from which external access will be exclusively allowed
+      --access-level=<option>   Access level for this MySQL user
+                                <options: readonly|full>
+      --description=<value>     Description of the MySQL user
+      --external-access         Enable/Disable external access for this user.
+      --password=<value>        Password used for authentication
+
+DESCRIPTION
+  Create a new mysql user
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw database mysql versions`
