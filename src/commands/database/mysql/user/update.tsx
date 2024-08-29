@@ -37,6 +37,7 @@ export default class Update extends ExecRenderBaseCommand<
   protected async exec(): Promise<void> {
     const process = makeProcessRenderer(this.flags, "Updating MySQL user");
     const mysqlUserId = this.args["user-id"];
+    let changesNecessary: boolean = false;
 
     const {
       "access-level": accessLevel,
@@ -75,14 +76,8 @@ export default class Update extends ExecRenderBaseCommand<
         : (currentMysqlUserData.data.externalAccess as boolean),
     };
 
-    if (Object.keys(updateMysqlUserPayload).length == 1) {
-      await process.complete(
-        <Success>Nothing to change. Have a good day!</Success>,
-      );
-      return;
-    }
-
     if (password) {
+      changesNecessary = true;
       await process.runStep("Updating MySQL user password", async () => {
         const updatePasswordResponse =
           await this.apiClient.database.updateMysqlUserPassword({
@@ -96,6 +91,7 @@ export default class Update extends ExecRenderBaseCommand<
     }
 
     if (accessLevel || description || accessIpMask || externalAccess) {
+      changesNecessary = true;
       await process.runStep("Updating MySQL user", async () => {
         const updateResponse = await this.apiClient.database.updateMysqlUser({
           mysqlUserId,
@@ -103,9 +99,16 @@ export default class Update extends ExecRenderBaseCommand<
         });
         assertSuccess(updateResponse);
       });
+    }
 
+    if (changesNecessary) {
       await process.complete(
         <Success>Your mysql user has successfully been updated.</Success>,
+      );
+      return;
+    } else {
+      await process.complete(
+        <Success>Nothing to change. Have a good day!</Success>,
       );
       return;
     }
