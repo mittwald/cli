@@ -466,7 +466,7 @@ Create a new MySQL user
 ```
 USAGE
   $ mw database mysql user create --database-id <value> --access-level readonly|full --description <value> --password <value>
-    [-q] [--access-ip-mask <value>] [--enable-external-access]
+    [-q] [--access-ip-mask <value> --enable-external-access]
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
