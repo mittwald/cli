@@ -470,12 +470,12 @@ USAGE
 
 FLAGS
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-      --access-ip-mask=<value>   IP from wich external access will be exclusively allowed
-      --access-level=<option>    (required) Access level for this MySQL user
+      --access-ip-mask=<value>   IP to restrict external access to.
+      --access-level=<option>    (required) Set the access level permissions for the SFTP user.
                                  <options: readonly|full>
-      --database-id=<value>      (required) ID of the MySQL Database to create a user for
-      --description=<value>      (required) Description of the MySQL user
-      --external-access=<value>  Enable/Disable external access for this user.
+      --database-id=<value>      (required) MySQL database ID to create a user for.
+      --description=<value>      (required) Set the description for the MySQL user.
+      --external-access=<value>  Enable or disable external access.
       --password=<value>         (required) Password used for authentication
 
 DESCRIPTION
@@ -486,6 +486,32 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --access-ip-mask=<value>  IP to restrict external access to.
+
+    If specified as IPv4, external access will be restricted to only the specified IP addresses when external access is
+    enabled.
+
+  --access-level=readonly|full  Set the access level permissions for the SFTP user.
+
+    Must be specified as either readonly or full. Grant the user either read-only or full file read and write
+    privileges.
+
+  --database-id=<value>  MySQL database ID to create a user for.
+
+    Can be specified as UUID or shortId. The user will be created for the specified database.
+
+  --description=<value>  Set the description for the MySQL user.
+
+    Set the description for the given MySQL user, which will be displayed in mStudio and with the list command.
+
+  --external-access=<value>  Enable or disable external access.
+
+    Specified as a boolean value will enable (true) or disable (false) external access to the database by this user.
+
+  --password=<value>  Password used for authentication
+
+    Specify an authentication password to use when connecting to the database with this user.
 ```
 
 ## `mw database mysql user delete USER-ID`
@@ -570,11 +596,11 @@ ARGUMENTS
 
 FLAGS
   -q, --quiet                    suppress process output and only display a machine-readable summary.
-      --access-ip-mask=<value>   IP from wich external access will be exclusively allowed
-      --access-level=<option>    Access level for this MySQL user
+      --access-ip-mask=<value>   IP to restrict external access to.
+      --access-level=<option>    Set the access level permissions for the SFTP user.
                                  <options: readonly|full>
-      --description=<value>      Description of the MySQL user
-      --external-access=<value>  Enable/Disable external access for this user.
+      --description=<value>      Set the description for the MySQL user.
+      --external-access=<value>  Enable or disable external access.
       --password=<value>         Password used for authentication
 
 DESCRIPTION
@@ -585,6 +611,28 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --access-ip-mask=<value>  IP to restrict external access to.
+
+    If specified as IPv4, external access will be restricted to only the specified IP addresses when external access is
+    enabled.
+
+  --access-level=readonly|full  Set the access level permissions for the SFTP user.
+
+    Must be specified as either readonly or full. Grant the user either read-only or full file read and write
+    privileges.
+
+  --description=<value>  Set the description for the MySQL user.
+
+    Set the description for the given MySQL user, which will be displayed in mStudio and with the list command.
+
+  --external-access=<value>  Enable or disable external access.
+
+    Specified as a boolean value will enable (true) or disable (false) external access to the database by this user.
+
+  --password=<value>  Password used for authentication
+
+    Specify an authentication password to use when connecting to the database with this user.
 ```
 
 ## `mw database mysql versions`
