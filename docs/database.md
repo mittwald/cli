@@ -466,17 +466,17 @@ Create a new MySQL user
 ```
 USAGE
   $ mw database mysql user create --database-id <value> --access-level readonly|full --description <value> --password <value>
-    [-q] [--access-ip-mask <value>] [--external-access <value>]
+    [-q] [--access-ip-mask <value>] [--enable-external-access]
 
 FLAGS
-  -q, --quiet                    suppress process output and only display a machine-readable summary.
-      --access-ip-mask=<value>   IP to restrict external access to.
-      --access-level=<option>    (required) Set the access level permissions for the SFTP user.
-                                 <options: readonly|full>
-      --database-id=<value>      (required) MySQL database ID to create a user for.
-      --description=<value>      (required) Set the description for the MySQL user.
-      --external-access=<value>  Enable or disable external access.
-      --password=<value>         (required) Password used for authentication
+  -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --access-ip-mask=<value>  IP to restrict external access to.
+      --access-level=<option>   (required) Set the access level permissions for the SFTP user.
+                                <options: readonly|full>
+      --database-id=<value>     (required) MySQL database ID to create a user for.
+      --description=<value>     (required) Set the description for the MySQL user.
+      --enable-external-access  Enable external access for this MySQL user.
+      --password=<value>        (required) Password used for authentication
 
 DESCRIPTION
   Create a new MySQL user
@@ -505,9 +505,11 @@ FLAG DESCRIPTIONS
 
     Set the description for the given MySQL user, which will be displayed in mStudio and with the list command.
 
-  --external-access=<value>  Enable or disable external access.
+  --enable-external-access  Enable external access for this MySQL user.
 
-    Specified as a boolean value will enable (true) or disable (false) external access to the database by this user.
+    By default external access is deactivated for newly creates MySQL users. Using this flag will enable external access
+    by this user on creation. External access can be restricted to certain IP addresses through the
+    'access-ip-mask'-flag.
 
   --password=<value>  Password used for authentication
 
@@ -589,7 +591,7 @@ Updates an existing MySQL user
 ```
 USAGE
   $ mw database mysql user update USER-ID [-q] [--access-level readonly|full] [--description <value>] [--password <value>]
-    [--access-ip-mask <value>] [--external-access <value>]
+    [--access-ip-mask <value>] [--enable-external-access | --disable-external-access]
 
 ARGUMENTS
   USER-ID  ID of the MySQL user to update.
@@ -600,7 +602,8 @@ FLAGS
       --access-level=<option>    Set the access level permissions for the SFTP user.
                                  <options: readonly|full>
       --description=<value>      Set the description for the MySQL user.
-      --external-access=<value>  Enable or disable external access.
+      --disable-external-access  Disable external access.
+      --enable-external-access   Enable external access.
       --password=<value>         Password used for authentication
 
 DESCRIPTION
@@ -626,9 +629,14 @@ FLAG DESCRIPTIONS
 
     Set the description for the given MySQL user, which will be displayed in mStudio and with the list command.
 
-  --external-access=<value>  Enable or disable external access.
+  --disable-external-access  Disable external access.
 
-    Specified as a boolean value will enable (true) or disable (false) external access to the database by this user.
+    Set the external access for this MySQL user to disabled. External access by this user will not be possible.
+
+  --enable-external-access  Enable external access.
+
+    Set the external access for this MySQL user to enabled. External access by this user will possible. External access
+    can be restricted to certain IP addresses through the 'access-ip-mask'-flag.
 
   --password=<value>  Password used for authentication
 
