@@ -19,7 +19,6 @@ import {
 } from "../../lib/resources/app/versions.js";
 import {
   makeProcessRenderer,
-  ProcessFlags,
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
@@ -28,10 +27,19 @@ import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { waitUntilAppStateHasNormalized } from "../../lib/resources/app/wait.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { waitFlags } from "../../lib/wait.js";
+import { ProcessFlags } from "../../rendering/process/process_flags.js";
+import semver from "semver/preload.js";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+type AppSystemSoftwareVersion =
+  MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
+type AppSystemSoftwareDependency =
+  MittwaldAPIV2.Components.Schemas.AppSystemSoftwareDependency;
+type AppUpgradePayload = Parameters<
+  MittwaldAPIV2Client["app"]["patchAppinstallation"]
+>[0]["data"];
 
 export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   static description = "Upgrade app installation to target version";
@@ -58,23 +66,23 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       "App upgrade",
     );
     const appInstallationId: string = await withAppInstallationId(
-        this.apiClient,
-        UpgradeApp,
-        this.flags,
-        this.args,
-        this.config,
-      ),
-      currentAppInstallation: AppAppInstallation =
+      this.apiClient,
+      UpgradeApp,
+      this.flags,
+      this.args,
+      this.config,
+    );
+    const currentAppInstallation: AppAppInstallation =
         await getAppInstallationFromUuid(this.apiClient, appInstallationId),
       currentApp: AppApp = await getAppFromUuid(
         this.apiClient,
         currentAppInstallation.appId,
-      ),
-      targetAppVersionCandidates: AppAppVersion[] =
-        await getAllUpgradeCandidatesFromAppInstallationId(
-          this.apiClient,
-          currentAppInstallation.id,
-        );
+      );
+    const targetAppVersionCandidates: AppAppVersion[] =
+      await getAllUpgradeCandidatesFromAppInstallationId(
+        this.apiClient,
+        currentAppInstallation.id,
+      );
 
     if (currentAppInstallation.appVersion.current === undefined) {
       process.error("Current version could not be determined properly.");
@@ -88,25 +96,24 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     );
 
     if (targetAppVersionCandidates.length == 0) {
-      process.addInfo(
+      process.complete(
         <Text>
           Your {currentApp.name} {currentAppVersion.externalVersion} is already
           Up-To-Date. ✅
         </Text>,
       );
-      process.complete(<></>);
-      ux.exit(0);
+      return;
     }
 
-    let targetAppVersion;
+    let targetAppVersion: AppAppVersion;
 
     if (this.flags["target-version"] == "latest") {
       targetAppVersion =
-        await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
+        (await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
           this.apiClient,
           currentApp.id,
           currentAppVersion.id,
-        );
+        )) as AppAppVersion;
     } else if (this.flags["target-version"]) {
       const targetVersionMatchFromCandidates: AppAppVersion | undefined =
         targetAppVersionCandidates.find(
@@ -124,27 +131,27 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
             candidate.
           </Text>,
         );
-        targetAppVersion = await forceTargetVersionSelection(
+        targetAppVersion = (await forceTargetVersionSelection(
           process,
           this.apiClient,
           targetAppVersionCandidates,
           currentApp,
           currentAppVersion,
-        );
+        )) as AppAppVersion;
       }
     } else {
-      targetAppVersion = await forceTargetVersionSelection(
+      targetAppVersion = (await forceTargetVersionSelection(
         process,
         this.apiClient,
         targetAppVersionCandidates,
         currentApp,
         currentAppVersion,
-      );
+      )) as AppAppVersion;
     }
 
     if (!targetAppVersion) {
       process.error("Target app version could not be determined properly.");
-      return;
+      ux.exit(1);
     }
 
     if (!this.flags.force) {
@@ -172,10 +179,58 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       );
     }
 
+    const appUpgradePayload: AppUpgradePayload = {
+      appVersionId: targetAppVersion.id,
+    };
+
+    const missingDependencies =
+      await this.apiClient.app.getMissingDependenciesForAppinstallation({
+        queryParameters: {
+          targetAppVersionID: targetAppVersion.id,
+        },
+        appInstallationId,
+      });
+
+    if (missingDependencies.data.missingSystemSoftwareDependencies) {
+      appUpgradePayload.systemSoftware = {};
+      process.addStep(
+        <Text>
+          In order to upgrade your {currentApp.name} to Version{" "}
+          {targetAppVersion.externalVersion} some dependencies need to be
+          upgraded too.
+        </Text>,
+      );
+      for (const missingSystemSoftwareDependency of missingDependencies.data
+        .missingSystemSoftwareDependencies as AppSystemSoftwareDependency[]) {
+        const dependencyUpdateData =
+          await updateMissingSystemSoftwareDependency(
+            process,
+            this.apiClient,
+            missingSystemSoftwareDependency,
+          );
+        appUpgradePayload.systemSoftware[
+          dependencyUpdateData.dependencySoftwareId
+        ] = {
+          systemSoftwareVersion: dependencyUpdateData.dependencyTargetVersionId,
+        };
+      }
+
+      if (!this.flags.force) {
+        const confirmed: boolean = await process.addConfirmation(
+          <Text>Do you want to continue?</Text>,
+        );
+        if (!confirmed) {
+          process.addInfo(<Text>Upgrade will not be triggered.</Text>);
+          process.complete(<></>);
+          ux.exit(1);
+        }
+      }
+    }
+
     const patchAppTriggerResponse =
       await this.apiClient.app.patchAppinstallation({
         appInstallationId,
-        data: { appVersionId: targetAppVersion.id },
+        data: appUpgradePayload,
       });
 
     assertStatus(patchAppTriggerResponse, 204);
@@ -226,4 +281,61 @@ async function forceTargetVersionSelection(
     currentAppVersion.id,
     targetAppVersionString,
   );
+}
+
+async function updateMissingSystemSoftwareDependency(
+  process: ProcessRenderer,
+  apiClient: MittwaldAPIV2Client,
+  dependency: AppSystemSoftwareDependency,
+) {
+  const dependencySoftware = await apiClient.app.getSystemsoftware({
+    systemSoftwareId: dependency.systemSoftwareId,
+  });
+  assertStatus(dependencySoftware, 200);
+
+  const dependencyVersionList = await apiClient.app.listSystemsoftwareversions({
+    systemSoftwareId: dependency.systemSoftwareId,
+    queryParameters: {
+      versionRange: dependency.versionRange,
+      recommended: true,
+    },
+  });
+  assertStatus(dependencyVersionList, 200);
+
+  let dependencyTargetVersion: AppSystemSoftwareVersion = {
+    id: "not yet set",
+    externalVersion: "0.0.0",
+    internalVersion: "0.0.0",
+  };
+
+  for (const dependencyVersion of dependencyVersionList.data) {
+    if (
+      semver.gt(
+        dependencyVersion.internalVersion,
+        dependencyTargetVersion.internalVersion,
+      )
+    ) {
+      dependencyTargetVersion = dependencyVersion;
+    }
+  }
+
+  if (dependencyTargetVersion.internalVersion == "0.0.0") {
+    throw new Error(
+      "Dependency Target Version for " +
+        dependencySoftware.data.name +
+        " could not be determined",
+    );
+  } else {
+    process.addInfo(
+      <Text>
+        {dependencySoftware.data.name as string} will be upgraded to Version{" "}
+        {dependencyTargetVersion.externalVersion}.
+      </Text>,
+    );
+
+    return {
+      dependencySoftwareId: dependencySoftware.data.id as string,
+      dependencyTargetVersionId: dependencyTargetVersion.id,
+    };
+  }
 }
