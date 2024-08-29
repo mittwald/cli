@@ -9,6 +9,7 @@ import { Success } from "../../../../rendering/react/components/Success.js";
 import { Value } from "../../../../rendering/react/components/Value.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { mysqlUserFlagDefinitions } from "../../../../lib/resources/database/mysql/user/flags.js";
+import { Flags } from "@oclif/core";
 
 type Result = {
   mysqlUserId: string;
@@ -29,7 +30,13 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     description: mysqlUserFlagDefinitions.description({ required: true }),
     password: mysqlUserFlagDefinitions.password({ required: true }),
     "access-ip-mask": mysqlUserFlagDefinitions["access-ip-mask"](),
-    "external-access": mysqlUserFlagDefinitions["external-access"](),
+    "enable-external-access": Flags.boolean({
+      summary: "Enable external access for this MySQL user.",
+      description:
+        "By default external access is deactivated for newly creates MySQL users. " +
+        "Using this flag will enable external access by this user on creation. " +
+        "External access can be restricted to certain IP addresses through the 'access-ip-mask'-flag.",
+    }),
   };
 
   protected async exec(): Promise<Result> {
@@ -44,7 +51,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       description,
       password,
       "access-ip-mask": accessIpMask,
-      "external-access": externalAccess,
+      "enable-external-access": enableExternalAccess,
     } = this.flags;
 
     const createMysqlUserPayload: MyQSLUserCreationData = {
@@ -58,10 +65,8 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       createMysqlUserPayload.accessIpMask = accessIpMask;
     }
 
-    if (externalAccess) {
+    if (enableExternalAccess) {
       createMysqlUserPayload.externalAccess = true;
-    } else if (externalAccess != undefined && !externalAccess) {
-      createMysqlUserPayload.externalAccess = false;
     }
 
     const { id: mysqlUserId } = await process.runStep(

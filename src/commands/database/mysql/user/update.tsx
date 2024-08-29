@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../../../lib/basecommands/ExecRenderBaseCommand.js";
-import { Args } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { ReactNode } from "react";
 import {
   makeProcessRenderer,
@@ -31,7 +31,19 @@ export default class Update extends ExecRenderBaseCommand<
     description: mysqlUserFlagDefinitions.description(),
     password: mysqlUserFlagDefinitions.password(),
     "access-ip-mask": mysqlUserFlagDefinitions["access-ip-mask"](),
-    "external-access": mysqlUserFlagDefinitions["external-access"](),
+    "enable-external-access": Flags.boolean({
+      exclusive: ["disable-external-access"],
+      summary: "Enable external access.",
+      description:
+        "Set the external access for this MySQL user to enabled. External access by this user will possible. " +
+        "External access can be restricted to certain IP addresses through the 'access-ip-mask'-flag.",
+    }),
+    "disable-external-access": Flags.boolean({
+      exclusive: ["enable-external-access"],
+      summary: "Disable external access.",
+      description:
+        "Set the external access for this MySQL user to disabled. External access by this user will not be possible. ",
+    }),
   };
 
   protected async exec(): Promise<void> {
@@ -44,7 +56,8 @@ export default class Update extends ExecRenderBaseCommand<
       description,
       password,
       "access-ip-mask": accessIpMask,
-      "external-access": externalAccess,
+      "enable-external-access": enableExternalAccess,
+      "disable-external-access": disableExternalAccess,
     } = this.flags;
 
     const currentMysqlUserData = await this.apiClient.database.getMysqlUser({
@@ -59,6 +72,16 @@ export default class Update extends ExecRenderBaseCommand<
       currentAccessLevel = "readonly";
     }
 
+    let externalAccessActive: boolean;
+    if (enableExternalAccess) {
+      externalAccessActive = true;
+    } else if (disableExternalAccess) {
+      externalAccessActive = false;
+    } else {
+      externalAccessActive = currentMysqlUserData.data
+        .externalAccess as boolean;
+    }
+
     const updateMysqlUserPayload: Required<MyQSLUserUpdateData> = {
       accessLevel:
         accessLevel == "full" || accessLevel == "readonly"
@@ -71,9 +94,7 @@ export default class Update extends ExecRenderBaseCommand<
       accessIpMask: accessIpMask
         ? accessIpMask
         : (currentMysqlUserData.data.accessIpMask as string),
-      externalAccess: externalAccess
-        ? externalAccess
-        : (currentMysqlUserData.data.externalAccess as boolean),
+      externalAccess: externalAccessActive,
     };
 
     if (password) {
@@ -90,7 +111,13 @@ export default class Update extends ExecRenderBaseCommand<
       });
     }
 
-    if (accessLevel || description || accessIpMask || externalAccess) {
+    if (
+      accessLevel ||
+      description ||
+      accessIpMask ||
+      enableExternalAccess ||
+      disableExternalAccess
+    ) {
       changesNecessary = true;
       await process.runStep("Updating MySQL user", async () => {
         const updateResponse = await this.apiClient.database.updateMysqlUser({

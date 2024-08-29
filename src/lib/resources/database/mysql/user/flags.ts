@@ -28,9 +28,4 @@ export const mysqlUserFlagDefinitions = {
     description:
       "If specified as IPv4, external access will be restricted to only the specified IP addresses when external access is enabled.",
   }),
-  "external-access": Flags.custom<boolean>({
-    summary: "Enable or disable external access.",
-    description:
-      "Specified as a boolean value will enable (true) or disable (false) external access to the database by this user.",
-  }),
 };
