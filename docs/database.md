@@ -494,8 +494,8 @@ FLAG DESCRIPTIONS
 
   --access-level=readonly|full  Set the access level permissions for the SFTP user.
 
-    Must be specified as either readonly or full. Grant the user either read-only or full file read and write
-    privileges.
+    Must be specified as either readonly or full. Grant the user either read-only or full file read and write access to
+    files.
 
   --database-id=<value>  MySQL database ID to create a user for.
 
@@ -503,17 +503,17 @@ FLAG DESCRIPTIONS
 
   --description=<value>  Set the description for the MySQL user.
 
-    Set the description for the given MySQL user, which will be displayed in mStudio and with the list command.
+    Set the description for the specified MySQL user to be displayed in mStudio and with the list command.
 
   --enable-external-access  Enable external access for this MySQL user.
 
-    By default external access is deactivated for newly creates MySQL users. Using this flag will enable external access
-    by this user on creation. External access can be restricted to certain IP addresses through the
-    'access-ip-mask'-flag.
+    By default, external access is disabled for newly created MySQL users. Using this flag will enable external access
+    for this user on creation. External access can be restricted to specific IP addresses using the 'access-ip-mask'
+    flag.
 
   --password=<value>  Password used for authentication
 
-    Specify an authentication password to use when connecting to the database with this user.
+    Specify a password to use for authentication when connecting to the database with this user.
 ```
 
 ## `mw database mysql user delete USER-ID`
@@ -586,7 +586,7 @@ DESCRIPTION
 
 ## `mw database mysql user update USER-ID`
 
-Updates an existing MySQL user
+Update an existing MySQL user
 
 ```
 USAGE
@@ -607,7 +607,7 @@ FLAGS
       --password=<value>         Password used for authentication
 
 DESCRIPTION
-  Updates an existing MySQL user
+  Update an existing MySQL user
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
@@ -622,25 +622,25 @@ FLAG DESCRIPTIONS
 
   --access-level=readonly|full  Set the access level permissions for the SFTP user.
 
-    Must be specified as either readonly or full. Grant the user either read-only or full file read and write
-    privileges.
+    Must be specified as either readonly or full. Grant the user either read-only or full file read and write access to
+    files.
 
   --description=<value>  Set the description for the MySQL user.
 
-    Set the description for the given MySQL user, which will be displayed in mStudio and with the list command.
+    Set the description for the specified MySQL user to be displayed in mStudio and with the list command.
 
   --disable-external-access  Disable external access.
 
-    Set the external access for this MySQL user to disabled. External access by this user will not be possible.
+    Set external access for this MySQL user to disabled. External access will not be possible for this user.
 
   --enable-external-access  Enable external access.
 
-    Set the external access for this MySQL user to enabled. External access by this user will possible. External access
-    can be restricted to certain IP addresses through the 'access-ip-mask'-flag.
+    Set external access for this MySQL user to enabled. External access by this user will be possible. External access
+    can be restricted to certain IP addresses using the 'access-ip-mask' flag.
 
   --password=<value>  Password used for authentication
 
-    Specify an authentication password to use when connecting to the database with this user.
+    Specify a password to use for authentication when connecting to the database with this user.
 ```
 
 ## `mw database mysql versions`
