@@ -176,11 +176,11 @@ FLAG DESCRIPTIONS
 
   --disable  Disable the SFTP user.
 
-    Set the status of the SFTP user to active. Access by this user will be enabled.
+    Set the status of the SFTP user to inactive. Access by this user will be disable.
 
   --enable  Enable the SFTP user.
 
-    Set the status of the SFTP user to inactive. Access by this user will be disabled.
+    Set the status of the SFTP user to active. Access by this user will be enabled.
 
   --password=<value>  Password used for authentication
 
