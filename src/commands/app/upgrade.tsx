@@ -294,7 +294,7 @@ async function updateMissingSystemSoftwareDependency(
   const dependencySoftware = await apiClient.app.getSystemsoftware({
     systemSoftwareId: dependency.systemSoftwareId,
   });
-  assertSuccess(dependencySoftware);
+  assertStatus(dependencySoftware, 200);
 
   const dependencyVersionList = await apiClient.app.listSystemsoftwareversions({
     systemSoftwareId: dependency.systemSoftwareId,
@@ -303,7 +303,7 @@ async function updateMissingSystemSoftwareDependency(
       recommended: true,
     },
   });
-  assertSuccess(dependencyVersionList);
+  assertStatus(dependencyVersionList, 200);
 
   let dependencyTargetVersion: AppSystemSoftwareVersion = {
     id: "not yet set",
