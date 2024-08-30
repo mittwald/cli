@@ -6102,8 +6102,8 @@ __metadata:
   linkType: hard
 
 "license-checker-rseidelsohn@npm:^4.2.6":
-  version: 4.3.0
-  resolution: "license-checker-rseidelsohn@npm:4.3.0"
+  version: 4.4.1
+  resolution: "license-checker-rseidelsohn@npm:4.4.1"
   dependencies:
     chalk: 4.1.2
     debug: ^4.3.4
@@ -6118,7 +6118,7 @@ __metadata:
     treeify: ^1.1.0
   bin:
     license-checker-rseidelsohn: bin/license-checker-rseidelsohn
-  checksum: dbd94f66c75233b79f851c42b113068ce5b52e9e92a8840b36879d3197aa53b0880c732ffd75022d9d1eaaf35bfa26ca5466daf03b4c65aa3a55cc834dff4265
+  checksum: afc2792e51019f240f3706790e19fb38ca051154a783f2272c65cc57bdeebda6de0633e4b5e3ea85e927c4b0913c51ccf56de1d0f19ad25a449d65289a0cf0fc
   languageName: node
   linkType: hard
 
