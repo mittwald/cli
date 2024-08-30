@@ -1493,29 +1493,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-warn-if-update-available@npm:^3.0.2":
-  version: 3.1.9
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.9"
-  dependencies:
-    "@oclif/core": ^4
-    ansis: ^3.2.0
-    debug: ^4.3.5
-    http-call: ^5.2.2
-    lodash: ^4.17.21
-  checksum: 8e3657af62e81ecec05c4f0fa80ead4324a59fd39b540377f81334dfbf05c4b9af5a67b613db19beffc8c6d46fb1e3212cb06234d2c8977df5406e1ec3f4cab7
-  languageName: node
-  linkType: hard
-
-"@oclif/plugin-warn-if-update-available@npm:^3.1.11":
-  version: 3.1.11
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.11"
+"@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.11":
+  version: 3.1.13
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.13"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.3.1
     debug: ^4.3.5
     http-call: ^5.2.2
     lodash: ^4.17.21
-  checksum: c621ac827e39645c63f2074f97038e2f9bf1cc55006a012aa956a54d1caab53b84ef790a425e98e89a278a114a0d76a52c1ab49ba661313edc4c778c29aacf61
+  checksum: 2030286828d7c11e6b27abb137341b115b080e00da7b83d2e22b9a8ddd6e5814483e39436f5d0f707c4fdc1390b9f8fb9c23a3f317e54b718f52585e5251100b
   languageName: node
   linkType: hard
 
@@ -2956,7 +2943,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansis@npm:^3.1.1, ansis@npm:^3.2.0":
+"ansis@npm:^3.1.1":
   version: 3.2.0
   resolution: "ansis@npm:3.2.0"
   checksum: ed161ec20f4764893db801dd3dee95fd6dced0e9adec67e403c256b6f0632ec9300374f075aca533100ce60f68d3f969cac52f1c56237a1fae344262bced36eb
