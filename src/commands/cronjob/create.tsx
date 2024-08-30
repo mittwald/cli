@@ -9,6 +9,7 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { appInstallationFlags } from "../../lib/resources/app/flags.js";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
+import { buildCronjobDestination } from "../../lib/resources/cronjob/destination.js";
 
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Flags } from "@oclif/core";
@@ -30,9 +31,16 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     interval: cronjobFlagDefinitions.interval({ required: true }),
     email: cronjobFlagDefinitions.email(),
     timeout: cronjobFlagDefinitions.timeout({ required: true }),
-    url: cronjobFlagDefinitions.url(),
-    command: cronjobFlagDefinitions.command(),
-    interpreter: cronjobFlagDefinitions.interpreter(),
+    url: cronjobFlagDefinitions.url({
+      exactlyOne: ["url", "command"],
+    }),
+    command: cronjobFlagDefinitions.command({
+      exactlyOne: ["url", "command"],
+      dependsOn: ["interpreter"],
+    }),
+    interpreter: cronjobFlagDefinitions.interpreter({
+      dependsOn: ["command"],
+    }),
     disable: Flags.boolean({
       summary: "Disable the cron job.",
       description:
@@ -74,30 +82,13 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       active = false;
     }
 
-    let destination: CronjobCreationData["destination"];
-    if (url) {
-      destination = { url };
-    } else if (command && interpreter) {
-      let destinationInterpreter;
-      if (interpreter == "bash") {
-        destinationInterpreter = "/bin/bash";
-      } else {
-        destinationInterpreter = "/usr/bin/php";
-      }
-
-      destination = {
-        interpreter: destinationInterpreter,
-        path: command as string,
-      };
-    } else if (!url && !command) {
-      throw new Error("either `--url` or `--command` must be specified");
-    } else if (command && !interpreter) {
-      throw new Error("--interpreter flag is required when command is given");
-    } else if (interpreter && !command) {
-      throw new Error("--command flag is required when interpreter is given");
-    } else {
-      throw new Error("something went wrong trying to digest destination.");
-    }
+    const destination: CronjobCreationData["destination"] =
+      buildCronjobDestination(url, command, interpreter) ??
+      (() => {
+        throw new Error(
+          "Url or command and interpreter combination could not be parsed.",
+        );
+      })();
 
     const cronjobCreationData: CronjobCreationData = {
       appId: appInstallationId,

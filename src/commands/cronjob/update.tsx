@@ -9,6 +9,7 @@ import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
+import { buildCronjobDestination } from "../../lib/resources/cronjob/destination.js";
 
 type UpdateResult = void;
 type CronjobUpdateData = Parameters<
@@ -32,9 +33,16 @@ export default class Update extends ExecRenderBaseCommand<
     interval: cronjobFlagDefinitions.interval(),
     email: cronjobFlagDefinitions.email(),
     timeout: cronjobFlagDefinitions.timeout(),
-    url: cronjobFlagDefinitions.url(),
-    interpreter: cronjobFlagDefinitions.interpreter(),
-    command: cronjobFlagDefinitions.command(),
+    url: cronjobFlagDefinitions.url({
+      exclusive: ["command"],
+    }),
+    command: cronjobFlagDefinitions.command({
+      exclusive: ["url"],
+      dependsOn: ["interpreter"],
+    }),
+    interpreter: cronjobFlagDefinitions.interpreter({
+      dependsOn: ["command"],
+    }),
     enable: Flags.boolean({
       exclusive: ["disable"],
       summary: "Enable the cron job.",
@@ -71,20 +79,9 @@ export default class Update extends ExecRenderBaseCommand<
 
     const updateCronjobPayload: CronjobUpdateData = {};
 
-    if (url) {
-      updateCronjobPayload.destination = { url };
-    } else if (interpreter) {
-      let destinationInterpreter;
-      if (interpreter == "bash") {
-        destinationInterpreter = "/bin/bash";
-      } else {
-        destinationInterpreter = "/usr/bin/php";
-      }
-
-      updateCronjobPayload.destination = {
-        interpreter: destinationInterpreter,
-        path: command as string,
-      };
+    const destination = buildCronjobDestination(url, command, interpreter);
+    if (destination !== undefined) {
+      updateCronjobPayload.destination = destination;
     }
 
     if (enable) {
