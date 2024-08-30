@@ -21,7 +21,7 @@ Create a new cron job
 ```
 USAGE
   $ mw cronjob create --description <value> --interval <value> --timeout <value> [-i <value>] [-q] [--email <value>]
-    [--url <value>] [--command <value>] [--interpreter bash|php] [--disable]
+    [--url <value>] [--command <value> --interpreter bash|php] [--disable]
 
 FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
@@ -294,7 +294,7 @@ Update an existing cron job
 ```
 USAGE
   $ mw cronjob update CRONJOB-ID [-q] [--description <value>] [--interval <value>] [--email <value>] [--timeout
-    <value>] [--url <value>] [--interpreter bash|php] [--command <value>] [--enable | --disable]
+    <value>] [--url <value> | --command <value>] [--interpreter bash|php ] [--enable | --disable]
 
 ARGUMENTS
   CRONJOB-ID  ID of the cron job to be updated.
