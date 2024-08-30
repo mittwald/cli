@@ -4450,12 +4450,12 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-json@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "eslint-plugin-json@npm:4.0.0"
+  version: 4.0.1
+  resolution: "eslint-plugin-json@npm:4.0.1"
   dependencies:
     lodash: ^4.17.21
     vscode-json-languageservice: ^4.1.6
-  checksum: 364ff43d202ac952cd2ef1244f60881c8ac002108fe675e295407f9fdf97440d1a7a72aa28dfca4257d6a5b4e0dc695328ede60cfd678b57af796d118e76d435
+  checksum: f65e94ab73fccced9b662268ed73830e6d49290f6d6c2ea78fdc55ed13ccdc456095db3ee47b4f622668d183b1d01698139a73ab7713445ef15cf66a7637e8d6
   languageName: node
   linkType: hard
 
