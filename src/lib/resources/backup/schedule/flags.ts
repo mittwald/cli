@@ -16,6 +16,7 @@ export const backupScheduleFlagDefinitions = {
   ttl: Flags.custom<string>({
     summary: "Define the backup retention period in days for backups created.",
     description:
-      "Must be specified as a natural number between 7 and 400, representing the number of days the backup will be kept.",
+      "Must be specified as an amount of days between 7 and 400 in the format [amount]d - e.g. '7d' for 7 days. " +
+      "This will define the number of days the backup will be kept.",
   }),
 };

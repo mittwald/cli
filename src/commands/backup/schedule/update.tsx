@@ -15,8 +15,8 @@ type backupScheduleUpdatePayload = Parameters<
   MittwaldAPIV2Client["backup"]["updateProjectBackupSchedule"]
 >[0]["data"];
 
-export default class Create extends ExecRenderBaseCommand<
-  typeof Create,
+export default class Update extends ExecRenderBaseCommand<
+  typeof Update,
   UpdateResult
 > {
   static description = "Update an existing backup schedule";
