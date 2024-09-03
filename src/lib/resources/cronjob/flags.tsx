@@ -16,11 +16,6 @@ export const cronjobFlagDefinitions = {
     description:
       "If a cron job fails, a detailed error message will be sent to this email address.",
   }),
-  timeout: Flags.custom<number>({
-    summary: "Set the timeout after which the process will be killed.",
-    description:
-      "The timeout, given in seconds, defines the amount of time after which a running cron job will be killed. If defined an email address is defined, an error message will be sent to the specified email address.",
-  }),
   url: Flags.custom<string>({
     summary: "Set the URL to use when running a cron job.",
     description:
