@@ -37,13 +37,13 @@ export default class Update extends ExecRenderBaseCommand<
       exclusive: ["disable"],
       summary: "Enable the SSH user.",
       description:
-        "Set the status of the SSH user to inactive. Access by this user will be disabled.",
+        "Set the status of the SSH user to active. Access by this user will be enabled.",
     }),
     disable: Flags.boolean({
       exclusive: ["enable"],
       summary: "Disable the SSH user.",
       description:
-        "Set the status of the SSH user to active. Access by this user will be enabled.",
+        "Set the status of the SSH user to inactive. Access by this user will be disabled.",
     }),
   };
 

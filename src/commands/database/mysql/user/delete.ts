@@ -9,17 +9,26 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static flags = { ...DeleteBaseCommand.baseFlags };
   static args = {
     "user-id": Args.string({
-      description: "ID of the MySQL user to delete.",
       required: true,
+      description: "ID of the MySQL user to delete.",
     }),
   };
 
   protected async deleteResource(): Promise<void> {
     const mysqlUserId = this.args["user-id"];
-    const response = await this.apiClient.database.deleteMysqlUser({
+    const currentMysqlUserData = await this.apiClient.database.getMysqlUser({
       mysqlUserId,
     });
-
-    assertSuccess(response);
+    assertSuccess(currentMysqlUserData);
+    if (currentMysqlUserData.data.mainUser) {
+      throw new Error(
+        "The main MySQL user can not be deleted manually. It's deleted only if its database is deleted.",
+      );
+    } else {
+      const response = await this.apiClient.database.deleteMysqlUser({
+        mysqlUserId,
+      });
+      assertSuccess(response);
+    }
   }
 }
