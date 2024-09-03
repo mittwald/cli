@@ -10,6 +10,8 @@ import assertSuccess from "../../lib/apiutil/assert_success.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
 import { buildCronjobDestination } from "../../lib/resources/cronjob/destination.js";
+import Duration from "../../lib/units/Duration.js";
+import { checkTimeout } from "../../lib/resources/cronjob/timeout.js";
 
 type UpdateResult = void;
 type CronjobUpdateData = Parameters<
@@ -32,7 +34,6 @@ export default class Update extends ExecRenderBaseCommand<
     description: cronjobFlagDefinitions.description(),
     interval: cronjobFlagDefinitions.interval(),
     email: cronjobFlagDefinitions.email(),
-    timeout: cronjobFlagDefinitions.timeout(),
     url: cronjobFlagDefinitions.url({
       exclusive: ["command"],
     }),
@@ -54,6 +55,14 @@ export default class Update extends ExecRenderBaseCommand<
       summary: "Disable the cron job.",
       description:
         "Set the status of the cron job to active. Automatic execution will be enabled.",
+    }),
+    timeout: Duration.relativeFlag({
+      summary: "Timeout after which the process will be killed.",
+      description:
+        "Common duration formats are supported (for example, '1h', '30m', '30s'). " +
+        "Defines the amount of time after which a running cron job will be killed. " +
+        "If an email address is defined, an error message will be sent.",
+      required: false,
     }),
   };
 
@@ -77,54 +86,39 @@ export default class Update extends ExecRenderBaseCommand<
       disable,
     } = this.flags;
 
-    const updateCronjobPayload: CronjobUpdateData = {};
+    timeout && checkTimeout(timeout.seconds);
 
     const destination = buildCronjobDestination(url, command, interpreter);
-    if (destination !== undefined) {
-      updateCronjobPayload.destination = destination;
-    }
-
-    if (enable) {
-      updateCronjobPayload.active = true;
-    } else if (disable) {
-      updateCronjobPayload.active = false;
-    }
-
-    if (description) {
-      updateCronjobPayload.description = description;
-    }
-
-    if (timeout) {
-      updateCronjobPayload.timeout = timeout;
-    }
-
-    if (email) {
-      updateCronjobPayload.email = email;
-    }
-
-    if (interval) {
-      updateCronjobPayload.interval = interval;
-    }
+    const updateCronjobPayload: CronjobUpdateData = {
+      ...(destination !== undefined && {
+        destination,
+      }),
+      ...(enable && { active: true }),
+      ...(disable && { active: false }),
+      ...(description && { description }),
+      ...(timeout && { timeout: timeout.seconds }),
+      ...(email && { email }),
+      ...(interval && { interval }),
+    };
 
     if (Object.keys(updateCronjobPayload).length == 0) {
       await process.complete(
         <Success>Nothing to change. Have a good day!</Success>,
       );
       return;
-    } else {
-      await process.runStep("Updating cron job", async () => {
-        const response = await this.apiClient.cronjob.updateCronjob({
-          cronjobId,
-          data: updateCronjobPayload,
-        });
-        assertSuccess(response);
-      });
-
-      await process.complete(
-        <Success>Your cron job has successfully been updated.</Success>,
-      );
-      return;
     }
+
+    await process.runStep("Updating cron job", async () => {
+      const response = await this.apiClient.cronjob.updateCronjob({
+        cronjobId,
+        data: updateCronjobPayload,
+      });
+      assertSuccess(response);
+    });
+
+    await process.complete(
+      <Success>Your cron job has successfully been updated.</Success>,
+    );
   }
 
   protected render(): ReactNode {

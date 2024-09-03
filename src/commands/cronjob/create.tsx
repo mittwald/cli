@@ -10,9 +10,10 @@ import { Value } from "../../rendering/react/components/Value.js";
 import { appInstallationFlags } from "../../lib/resources/app/flags.js";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
 import { buildCronjobDestination } from "../../lib/resources/cronjob/destination.js";
-
+import Duration from "../../lib/units/Duration.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Flags } from "@oclif/core";
+import { checkTimeout } from "../../lib/resources/cronjob/timeout.js";
 
 type Result = {
   cronjobId: string;
@@ -30,7 +31,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     description: cronjobFlagDefinitions.description({ required: true }),
     interval: cronjobFlagDefinitions.interval({ required: true }),
     email: cronjobFlagDefinitions.email(),
-    timeout: cronjobFlagDefinitions.timeout({ required: true }),
     url: cronjobFlagDefinitions.url({
       exactlyOne: ["url", "command"],
     }),
@@ -48,12 +48,20 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
         "This flag can be used to set the status of the cron job to inactive when creating one. " +
         "Automatic execution will then be disabled until enabled manually.",
     }),
+    timeout: Duration.relativeFlag({
+      summary: "Timeout after which the process will be killed.",
+      description:
+        "Common duration formats are supported (for example, '1h', '30m', '30s'). " +
+        "Defines the amount of time after which a running cron job will be killed. " +
+        "If an email address is defined, an error message will be sent.",
+      default: Duration.fromString("1h"),
+      required: false,
+    }),
   };
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Creating a new cron job");
     const appInstallationId = await this.withAppInstallationId(Create);
-
     const {
       description,
       interval,
@@ -64,6 +72,8 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       command,
       timeout,
     } = this.flags;
+
+    checkTimeout(timeout.seconds);
 
     const { projectId } = await p.runStep("fetching project", async () => {
       const r = await this.apiClient.app.getAppinstallation({
@@ -77,11 +87,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       throw new Error("no project found for app installation");
     }
 
-    let active: boolean = true;
-    if (disable) {
-      active = false;
-    }
-
     const destination: CronjobCreationData["destination"] =
       buildCronjobDestination(url, command, interpreter) ??
       (() => {
@@ -92,12 +97,12 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
     const cronjobCreationData: CronjobCreationData = {
       appId: appInstallationId,
-      active,
+      active: !disable,
       description,
       interval,
       email,
       destination,
-      timeout: timeout,
+      timeout: timeout.seconds,
     };
 
     const { id: cronjobId } = await p.runStep("creating cron job", async () => {

@@ -9,24 +9,28 @@ export function buildCronjobDestination(
   command: string | undefined,
   interpreter: string | undefined,
 ): CronjobCreationData["destination"] | undefined {
-  let destination: CronjobCreationData["destination"];
-
   if (url) {
-    destination = { url };
-  } else if (command && interpreter) {
-    let destinationInterpreter;
-    if (interpreter == "bash") {
-      destinationInterpreter = "/bin/bash";
-    } else {
-      destinationInterpreter = "/usr/bin/php";
-    }
+    return { url };
+  }
 
-    destination = {
-      interpreter: destinationInterpreter,
+  if (command && interpreter) {
+    return {
+      interpreter: mapInterpreterToFullPath(interpreter),
       path: command as string,
     };
-  } else {
-    return undefined;
   }
-  return destination;
+  return undefined;
+}
+
+function mapInterpreterToFullPath(interpreter: string): string {
+  switch (interpreter) {
+    case "bash":
+      return "/bin/bash";
+    case "php":
+      return "/usr/bin/php";
+    default:
+      throw new Error(
+        "Interpreter shorthand '" + interpreter + "' could not be mapped.",
+      );
+  }
 }
