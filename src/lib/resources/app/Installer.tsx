@@ -27,6 +27,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
   public readonly appId: string;
   public readonly appName: string;
   public readonly appSupportedFlags: readonly TFlagName[];
+  public readonly defaultFlagValues: Partial<Record<AvailableFlagName, string>>;
   public readonly description: string;
 
   public mutateFlags?: (
@@ -41,10 +42,12 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
     appId: string,
     appName: string,
     appSupportedFlags: readonly TFlagName[],
+    defaultFlagValues: Partial<Record<AvailableFlagName, string>> = {},
   ) {
     this.appId = appId;
     this.appName = appName;
     this.appSupportedFlags = appSupportedFlags;
+    this.defaultFlagValues = defaultFlagValues;
     this.description = AppInstaller.makeDescription(appName);
   }
 
@@ -85,6 +88,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
       flags,
       projectId,
       this.appName,
+      this.defaultFlagValues,
     );
 
     const appVersion: AppAppVersion = await normalizeToAppVersionUuid(

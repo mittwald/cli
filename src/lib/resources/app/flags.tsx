@@ -65,6 +65,8 @@ type AvailableFlags = typeof waitFlags & {
   "shop-currency": OptionFlag<string | undefined>;
   "install-mode": OptionFlag<string>;
   "document-root": OptionFlag<string>;
+  "opensearch-host": OptionFlag<string>;
+  "opensearch-port": OptionFlag<string>;
   entrypoint: OptionFlag<string | undefined>;
 };
 
@@ -164,6 +166,20 @@ function buildFlagsWithDescription(appName: string): AvailableFlags {
         "This is the document root from which the files of your application will be served by the web server. This directory is specified relative to the installation path.",
       default: "/",
     }),
+    "opensearch-host": Flags.string({
+      required: true,
+      summary: `the OpenSearch instance host which your ${appName} will try to connect to`,
+      description:
+        "This is the host of an existing OpenSearch instance which your application will have to connect to during installation." +
+        "This has to be a valid connection otherwise the installation will fail.",
+    }),
+    "opensearch-port": Flags.string({
+      required: true,
+      summary: `the OpenSearch instance port which your ${appName} will try to connect to`,
+      description:
+        "This is the port of an existing OpenSearch instance which your application will have to connect to during installation." +
+        "This has to be a valid connection otherwise the installation will fail.",
+    }),
     entrypoint: Flags.string({
       summary: `the command that should be used to start your ${appName} application.`,
       description:
@@ -213,6 +229,7 @@ export async function autofillFlags(
   flags: Partial<OutputFlags<RelevantFlagInput<AvailableFlagName[]>>>,
   projectId: string,
   appName: string,
+  defaults: Partial<Record<AvailableFlagName, string>>,
 ): Promise<void> {
   const ownUser = await apiClient.user.getOwnAccount();
   assertStatus(ownUser, 200);
@@ -322,8 +339,10 @@ export async function autofillFlags(
 
   // Shop Language Code
   if (necessaryFlags.includes("shop-lang") && !flags["shop-lang"]) {
-    flags["shop-lang"] = "de-DE";
-    process.addInfo(<Text>Using default shop language 'de_DE'.</Text>);
+    flags["shop-lang"] = defaults["shop-lang"] ?? "de-DE";
+    process.addInfo(
+      <Text>Using default shop language '{flags["shop-lang"]}'.</Text>,
+    );
   }
 
   // Shop Currency
