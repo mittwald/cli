@@ -1,5 +1,5 @@
 import { DeleteBaseCommand } from "../../../lib/basecommands/DeleteBaseCommand.js";
-import { assertStatus } from "@mittwald/api-client-commons";
+import assertSuccess from "../../../lib/apiutil/assert_success.js";
 import { Args } from "@oclif/core";
 import {
   makeProcessRenderer,
@@ -39,6 +39,6 @@ export class Delete extends DeleteBaseCommand<typeof Delete> {
       projectBackupScheduleId,
     });
 
-    assertStatus(response, 204);
+    assertSuccess(response);
   }
 }
