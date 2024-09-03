@@ -10,10 +10,9 @@ import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import * as crypto from "crypto";
-import { Value } from "../../../rendering/react/components/Value.js";
 import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
+import { generateRandomPassword } from "../../../lib/resources/mail/commons.js";
 
 type CreateResult = {
   addressId: string;
@@ -58,11 +57,13 @@ export default class Create extends ExecRenderBaseCommand<
     }),
     password: Flags.string({
       summary: "mailbox password",
+      exclusive: ["random-password"],
       description:
         "This is the password that should be used for the mailbox; if omitted, the command will prompt interactively for a password.\n\nCAUTION: providing this flag may log your password in your shell history!",
     }),
     "random-password": Flags.boolean({
       summary: "generate a random password",
+      exclusive: ["password"],
       description:
         "This flag will cause the command to generate a random 32-character password for the mailbox; when running with --quiet, the address ID and the password will be printed to stdout, separated by a tab character.",
     }),
@@ -113,22 +114,13 @@ export default class Create extends ExecRenderBaseCommand<
     }
 
     if (this.flags["random-password"]) {
-      const generated = await process.runStep(
-        "generating random password",
-        async () => {
-          return crypto.randomBytes(32).toString("base64").substring(0, 32);
-        },
-      );
-
-      process.addInfo(
-        <Text>
-          generated password: <Value>{generated}</Value>
-        </Text>,
-      );
-      return [generated, true];
+      return [await generateRandomPassword(process), true];
     }
 
-    return [await process.addInput(<Text>Mailbox password</Text>, true), false];
+    return [
+      await process.addInput(<Text>enter mailbox password</Text>, true),
+      false,
+    ];
   }
 
   protected async createForwardAddress(
