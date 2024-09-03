@@ -2715,7 +2715,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.0.3, @yarnpkg/core@npm:^4.0.5":
+"@yarnpkg/core@npm:^4.0.3":
   version: 4.0.5
   resolution: "@yarnpkg/core@npm:4.0.5"
   dependencies:
@@ -2749,6 +2749,40 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/core@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@yarnpkg/core@npm:4.1.2"
+  dependencies:
+    "@arcanis/slice-ansi": ^1.1.1
+    "@types/semver": ^7.1.0
+    "@types/treeify": ^1.0.0
+    "@yarnpkg/fslib": ^3.1.0
+    "@yarnpkg/libzip": ^3.1.0
+    "@yarnpkg/parsers": ^3.0.2
+    "@yarnpkg/shell": ^4.0.2
+    camelcase: ^5.3.1
+    chalk: ^3.0.0
+    ci-info: ^4.0.0
+    clipanion: ^4.0.0-rc.2
+    cross-spawn: 7.0.3
+    diff: ^5.1.0
+    dotenv: ^16.3.1
+    fast-glob: ^3.2.2
+    got: ^11.7.0
+    lodash: ^4.17.15
+    micromatch: ^4.0.2
+    p-limit: ^2.2.0
+    semver: ^7.1.2
+    strip-ansi: ^6.0.0
+    tar: ^6.0.5
+    tinylogic: ^2.0.0
+    treeify: ^1.1.0
+    tslib: ^2.4.0
+    tunnel: ^0.0.6
+  checksum: f84919298e63ac6e6c6febf23835c294d079d7f8cbfd562f22cb2d85c7cbfce23fdc341f8b3d527a08dc3e11201658953e945ebb7936c8c14ef0c3433b0f60af
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/fslib@npm:^3.0.2, @yarnpkg/fslib@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/fslib@npm:3.1.0"
@@ -2758,7 +2792,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/libzip@npm:^3.0.1":
+"@yarnpkg/libzip@npm:^3.0.1, @yarnpkg/libzip@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/libzip@npm:3.1.0"
   dependencies:
@@ -2803,17 +2837,17 @@ __metadata:
   linkType: hard
 
 "@yarnpkg/pnpify@npm:^4.0.0-rc.48":
-  version: 4.1.0
-  resolution: "@yarnpkg/pnpify@npm:4.1.0"
+  version: 4.1.1
+  resolution: "@yarnpkg/pnpify@npm:4.1.1"
   dependencies:
-    "@yarnpkg/core": ^4.0.5
+    "@yarnpkg/core": ^4.1.2
     "@yarnpkg/fslib": ^3.1.0
     "@yarnpkg/nm": ^4.0.2
     clipanion: ^4.0.0-rc.2
     tslib: ^2.4.0
   bin:
     pnpify: ./lib/cli.js
-  checksum: 341fc55f8c3ba99187497bd9d0974bb9542a1b6e6f4bd47a4d0d98a4bebbd3fe8d50277bece1c8cba72bb322fdd956f2ea48b75a80ff546764dd3f0d805b79db
+  checksum: 96d146ec8df6c0266ebd6046e1287c0ed449fa56cfa34ff1e38414a8fdf139378c7d0128f997e5e202b8d9068ba764efc5ae280b82945c206ff18785bd907cc0
   languageName: node
   linkType: hard
 
@@ -3564,6 +3598,13 @@ __metadata:
   version: 3.8.0
   resolution: "ci-info@npm:3.8.0"
   checksum: d0a4d3160497cae54294974a7246202244fff031b0a6ea20dd57b10ec510aa17399c41a1b0982142c105f3255aff2173e5c0dd7302ee1b2f28ba3debda375098
+  languageName: node
+  linkType: hard
+
+"ci-info@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "ci-info@npm:4.0.0"
+  checksum: 122fe41c5eb8d0b5fa0ab6fd674c5ddcf2dc59766528b062a0144ff0d913cfb210ef925ec52110e7c2a7f4e603d5f0e8b91cfe68867e196e9212fa0b94d0a08a
   languageName: node
   linkType: hard
 
