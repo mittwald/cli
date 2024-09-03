@@ -20,8 +20,8 @@ Create a new cron job
 
 ```
 USAGE
-  $ mw cronjob create --description <value> --interval <value> --timeout <value> [-i <value>] [-q] [--email <value>]
-    [--url <value>] [--command <value> --interpreter bash|php] [--disable]
+  $ mw cronjob create --description <value> --interval <value> [-i <value>] [-q] [--email <value>] [--url <value>]
+    [--command <value> --interpreter bash|php] [--disable] [--timeout <value>]
 
 FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
@@ -34,7 +34,7 @@ FLAGS
       --interpreter=<option>     Set the interpreter to be used for execution.
                                  <options: bash|php>
       --interval=<value>         (required) Set the interval for cron jobs to run.
-      --timeout=<value>          (required) Set the timeout after which the process will be killed.
+      --timeout=<value>          [default: 3600s] Timeout after which the process will be killed.
       --url=<value>              Set the URL to use when running a cron job.
 
 FLAG DESCRIPTIONS
@@ -78,10 +78,10 @@ FLAG DESCRIPTIONS
 
     Must be specified as a cron schedule expression. Defines the interval at which the cron job will be executed.
 
-  --timeout=<value>  Set the timeout after which the process will be killed.
+  --timeout=<value>  Timeout after which the process will be killed.
 
-    The timeout, given in seconds, defines the amount of time after which a running cron job will be killed. If defined
-    an email address is defined, an error message will be sent to the specified email address.
+    Common duration formats are supported (for example, '1h', '30m', '30s'). Defines the amount of time after which a
+    running cron job will be killed. If an email address is defined, an error message will be sent.
 
   --url=<value>  Set the URL to use when running a cron job.
 
@@ -293,8 +293,8 @@ Update an existing cron job
 
 ```
 USAGE
-  $ mw cronjob update CRONJOB-ID [-q] [--description <value>] [--interval <value>] [--email <value>] [--timeout
-    <value>] [--url <value> | --command <value>] [--interpreter bash|php ] [--enable | --disable]
+  $ mw cronjob update CRONJOB-ID [-q] [--description <value>] [--interval <value>] [--email <value>] [--url <value>
+    | --command <value>] [--interpreter bash|php ] [--enable | --disable] [--timeout <value>]
 
 ARGUMENTS
   CRONJOB-ID  ID of the cron job to be updated.
@@ -309,7 +309,7 @@ FLAGS
       --interpreter=<option>  Set the interpreter to be used for execution.
                               <options: bash|php>
       --interval=<value>      Set the interval for cron jobs to run.
-      --timeout=<value>       Set the timeout after which the process will be killed.
+      --timeout=<value>       Timeout after which the process will be killed.
       --url=<value>           Set the URL to use when running a cron job.
 
 DESCRIPTION
@@ -351,10 +351,10 @@ FLAG DESCRIPTIONS
 
     Must be specified as a cron schedule expression. Defines the interval at which the cron job will be executed.
 
-  --timeout=<value>  Set the timeout after which the process will be killed.
+  --timeout=<value>  Timeout after which the process will be killed.
 
-    The timeout, given in seconds, defines the amount of time after which a running cron job will be killed. If defined
-    an email address is defined, an error message will be sent to the specified email address.
+    Common duration formats are supported (for example, '1h', '30m', '30s'). Defines the amount of time after which a
+    running cron job will be killed. If an email address is defined, an error message will be sent.
 
   --url=<value>  Set the URL to use when running a cron job.
 
