@@ -69,7 +69,9 @@ export function ProcessSelect<TVal>({
   if (step.selected === undefined) {
     if (!isRawModeSupported) {
       useEffect(() => {
-        onError && onError(new InteractiveInputRequiredError());
+        if (onError) {
+          onError(new InteractiveInputRequiredError());
+        }
       });
       return (
         <Box flexDirection="column">

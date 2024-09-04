@@ -30,12 +30,18 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
-    const { id, name, createdAt } = super.getColumns(data, {
+    const { createdAt } = super.getColumns(data, {
       shortIdKey: "name",
     });
     return {
-      id,
-      name,
+      id: {
+        header: "ID",
+        get: (i) => i.id,
+      },
+      name: {
+        header: "Username",
+        get: (i) => i.name,
+      },
       description: {},
       mainUser: {
         header: "Main user",
