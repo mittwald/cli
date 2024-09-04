@@ -11,7 +11,7 @@ Manage apps, and app installations in your projects
 * [`mw app dependency list`](#mw-app-dependency-list)
 * [`mw app dependency update [INSTALLATION-ID]`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
-* [`mw app download [INSTALLATION-ID]`](#mw-app-download-installation-id)
+* [`mw app download [INSTALLATION-ID] TARGET`](#mw-app-download-installation-id-target)
 * [`mw app get [INSTALLATION-ID]`](#mw-app-get-installation-id)
 * [`mw app install contao`](#mw-app-install-contao)
 * [`mw app install drupal`](#mw-app-install-drupal)
@@ -34,7 +34,7 @@ Manage apps, and app installations in your projects
 * [`mw app uninstall [INSTALLATION-ID]`](#mw-app-uninstall-installation-id)
 * [`mw app update [INSTALLATION-ID]`](#mw-app-update-installation-id)
 * [`mw app upgrade [INSTALLATION-ID]`](#mw-app-upgrade-installation-id)
-* [`mw app upload [INSTALLATION-ID]`](#mw-app-upload-installation-id)
+* [`mw app upload [INSTALLATION-ID] SOURCE`](#mw-app-upload-installation-id-source)
 * [`mw app versions [APP]`](#mw-app-versions-app)
 
 ## `mw app copy [INSTALLATION-ID]`
@@ -345,25 +345,25 @@ DESCRIPTION
   Get all available versions of a particular dependency
 ```
 
-## `mw app download [INSTALLATION-ID]`
+## `mw app download [INSTALLATION-ID] TARGET`
 
 Download the filesystem of an app within a project to your local machine
 
 ```
 USAGE
-  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>...] [--dry-run] [--delete]
+  $ mw app download [INSTALLATION-ID] TARGET [-q] [--ssh-user <value>] [--ssh-identity-file <value>] [--exclude
+    <value>...] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
+  TARGET           target directory to download the app installation to
 
 FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary.
       --delete              delete local files that are not present on the server
       --dry-run             do not actually download the app installation
       --exclude=<value>...  [default: ] exclude files matching the given pattern
-      --target=<value>      (required) target directory to download the app installation to
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -2004,25 +2004,25 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw app upload [INSTALLATION-ID]`
+## `mw app upload [INSTALLATION-ID] SOURCE`
 
 Upload the filesystem of an app to a project
 
 ```
 USAGE
-  $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>...] [--dry-run] [--delete]
+  $ mw app upload [INSTALLATION-ID] SOURCE [-q] [--ssh-user <value>] [--ssh-identity-file <value>] [--exclude
+    <value>...] [--dry-run] [--delete]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
+  SOURCE           source directory from which to upload the app installation
 
 FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary.
       --delete              delete remote files that are not present locally
       --dry-run             do not actually upload the app installation
       --exclude=<value>...  [default: ] exclude files matching the given pattern
-      --source=<value>      (required) source directory from which to upload the app installation
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
