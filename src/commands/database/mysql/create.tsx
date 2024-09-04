@@ -11,10 +11,14 @@ import { Text } from "ink";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
-import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import type { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 
 type Database = MittwaldAPIV2.Components.Schemas.DatabaseMySqlDatabase;
 type User = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
+
+type CreateParam = Parameters<
+  MittwaldAPIV2Client["database"]["createMysqlDatabase"]
+>[0]["data"];
 
 type Result = {
   databaseId: string;
@@ -117,19 +121,8 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   private async createMySQLDatabase(
     p: ProcessRenderer,
     projectId: string,
-    database: {
-      description: string;
-      version: string;
-      characterSettings: {
-        collation: string;
-        characterSet: string;
-      };
-    },
-    user: {
-      password: string;
-      externalAccess: boolean;
-      accessLevel: "full" | "readonly";
-    },
+    database: Omit<CreateParam["database"], "projectId">,
+    user: CreateParam["user"],
   ) {
     return await p.runStep("creating MySQL database", async () => {
       const r = await this.apiClient.database.createMysqlDatabase({
