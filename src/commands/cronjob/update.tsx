@@ -86,9 +86,15 @@ export default class Update extends ExecRenderBaseCommand<
       disable,
     } = this.flags;
 
-    timeout && checkTimeout(timeout.seconds);
+    if (timeout) {
+      checkTimeout(timeout);
+    }
 
-    const destination = buildCronjobDestination(url, command, interpreter);
+    let destination = undefined;
+    if (url || command) {
+      destination = buildCronjobDestination(url, command, interpreter);
+    }
+
     const updateCronjobPayload: CronjobUpdateData = {
       ...(destination !== undefined && {
         destination,

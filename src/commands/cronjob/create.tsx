@@ -73,7 +73,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       timeout,
     } = this.flags;
 
-    checkTimeout(timeout.seconds);
+    checkTimeout(timeout);
 
     const { projectId } = await p.runStep("fetching project", async () => {
       const r = await this.apiClient.app.getAppinstallation({
@@ -88,12 +88,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     }
 
     const destination: CronjobCreationData["destination"] =
-      buildCronjobDestination(url, command, interpreter) ??
-      (() => {
-        throw new Error(
-          "Url or command and interpreter combination could not be parsed.",
-        );
-      })();
+      buildCronjobDestination(url, command, interpreter);
 
     const cronjobCreationData: CronjobCreationData = {
       appId: appInstallationId,

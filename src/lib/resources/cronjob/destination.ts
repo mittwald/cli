@@ -8,7 +8,7 @@ export function buildCronjobDestination(
   url: string | undefined,
   command: string | undefined,
   interpreter: string | undefined,
-): CronjobCreationData["destination"] | undefined {
+): CronjobCreationData["destination"] {
   if (url) {
     return { url };
   }
@@ -19,7 +19,10 @@ export function buildCronjobDestination(
       path: command as string,
     };
   }
-  return undefined;
+
+  throw new Error(
+    "Url or command and interpreter combination could not be parsed.",
+  );
 }
 
 function mapInterpreterToFullPath(interpreter: string): string {
