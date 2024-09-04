@@ -8,7 +8,10 @@ Manage backups of your projects
 * [`mw backup download BACKUP-ID`](#mw-backup-download-backup-id)
 * [`mw backup get BACKUP-ID`](#mw-backup-get-backup-id)
 * [`mw backup list`](#mw-backup-list)
+* [`mw backup schedule create`](#mw-backup-schedule-create)
+* [`mw backup schedule delete BACKUP-SCHEDULE-ID`](#mw-backup-schedule-delete-backup-schedule-id)
 * [`mw backup schedule list`](#mw-backup-schedule-list)
+* [`mw backup schedule update BACKUP-SCHEDULE-ID`](#mw-backup-schedule-update-backup-schedule-id)
 
 ## `mw backup create`
 
@@ -179,6 +182,75 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
+## `mw backup schedule create`
+
+Create a new backup schedule
+
+```
+USAGE
+  $ mw backup schedule create --schedule <value> --ttl <value> [-p <value>] [-q] [--description <value>]
+
+FLAGS
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  Set the description for the backup schedule.
+      --schedule=<value>     (required) Set the interval at which the backup should be scheduled.
+      --ttl=<value>          (required) Define the backup retention period in days for backups created.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --description=<value>  Set the description for the backup schedule.
+
+    Set the description for the given backup schedule to be displayed in mStudio and with the list command.
+
+  --schedule=<value>  Set the interval at which the backup should be scheduled.
+
+    Must be specified as a cron schedule expression. Cannot be scheduled more often than once per hour. Defines the
+    interval at which the backup creation will be executed.
+
+  --ttl=<value>  Define the backup retention period in days for backups created.
+
+    Must be specified as an amount of days between 7 and 400 in the format [amount]d - e.g. '7d' for 7 days. This will
+    define the number of days the backup will be kept.
+```
+
+## `mw backup schedule delete BACKUP-SCHEDULE-ID`
+
+Delete a backup schedule
+
+```
+USAGE
+  $ mw backup schedule delete BACKUP-SCHEDULE-ID [-q] [-f]
+
+ARGUMENTS
+  BACKUP-SCHEDULE-ID  ID of schedule to delete
+
+FLAGS
+  -f, --force  Do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+DESCRIPTION
+  Delete a backup schedule
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 ## `mw backup schedule list`
 
 List backup schedules belonging to a given project.
@@ -213,4 +285,45 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw backup schedule update BACKUP-SCHEDULE-ID`
+
+Update an existing backup schedule
+
+```
+USAGE
+  $ mw backup schedule update BACKUP-SCHEDULE-ID [-q] [--description <value>] [--schedule <value>] [--ttl <value>]
+
+ARGUMENTS
+  BACKUP-SCHEDULE-ID  Define the backup schedule that is to be updated
+
+FLAGS
+  -q, --quiet                suppress process output and only display a machine-readable summary.
+      --description=<value>  Set the description for the backup schedule.
+      --schedule=<value>     Set the interval at which the backup should be scheduled.
+      --ttl=<value>          Define the backup retention period in days for backups created.
+
+DESCRIPTION
+  Update an existing backup schedule
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary.
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --description=<value>  Set the description for the backup schedule.
+
+    Set the description for the given backup schedule to be displayed in mStudio and with the list command.
+
+  --schedule=<value>  Set the interval at which the backup should be scheduled.
+
+    Must be specified as a cron schedule expression. Cannot be scheduled more often than once per hour. Defines the
+    interval at which the backup creation will be executed.
+
+  --ttl=<value>  Define the backup retention period in days for backups created.
+
+    Must be specified as an amount of days between 7 and 400 in the format [amount]d - e.g. '7d' for 7 days. This will
+    define the number of days the backup will be kept.
 ```
