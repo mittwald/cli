@@ -58,12 +58,22 @@ export async function filterFileToRsyncFlagsIfPresent(
   return [];
 }
 
+/**
+ * Build the rsync connection string for the given SSH connection data and flag
+ * inputs.
+ *
+ * @param host Remote SSH hostname
+ * @param directory Remove base directory of the app installation
+ * @param user Remote SSH user
+ * @param subDirectory Optional sub-directory within the app installation to
+ *   sync
+ */
 export function buildRsyncConnectionString(
   { host, directory, user }: SSHConnectionData,
-  flags: AppInstallationSyncFlags,
+  { "sub-directory": subDirectory }: AppInstallationSyncFlags,
 ): string {
-  if (flags["sub-directory"]) {
-    directory = path.join(directory, flags["sub-directory"]).replace(/\/$/, "");
+  if (subDirectory) {
+    directory = path.join(directory, subDirectory).replace(/\/$/, "");
   }
 
   return `${user}@${host}:${directory}/`;
