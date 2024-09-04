@@ -63,7 +63,7 @@ export function buildRsyncConnectionString(
   flags: AppInstallationSyncFlags,
 ): string {
   if (flags["sub-directory"]) {
-    directory = path.join(directory, flags["sub-directory"]);
+    directory = path.join(directory, flags["sub-directory"]).replace(/\/$/, "");
   }
 
   return `${user}@${host}:${directory}/`;
