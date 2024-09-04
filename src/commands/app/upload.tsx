@@ -4,7 +4,7 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/process/process_flags.js";
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { Success } from "../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
@@ -31,21 +31,22 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
     filterFileDocumentation;
   static args = {
     ...appInstallationArgs,
-  };
-  static flags = {
-    ...processFlags,
-    ...sshConnectionFlags,
-    ...appInstallationSyncFlags("upload"),
-    source: Flags.directory({
+    source: Args.directory({
       description: "source directory from which to upload the app installation",
       required: true,
       exists: true,
     }),
   };
+  static flags = {
+    ...processFlags,
+    ...sshConnectionFlags,
+    ...appInstallationSyncFlags("upload"),
+  };
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Upload);
-    const { "dry-run": dryRun, source, "ssh-user": sshUser } = this.flags;
+    const { "dry-run": dryRun, "ssh-user": sshUser } = this.flags;
+    const { source } = this.args;
 
     const p = makeProcessRenderer(this.flags, "Uploading app installation");
 

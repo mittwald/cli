@@ -4,7 +4,7 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/process/process_flags.js";
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { Success } from "../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
@@ -30,21 +30,22 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
     filterFileDocumentation;
   static args = {
     ...appInstallationArgs,
-  };
-  static flags = {
-    ...processFlags,
-    ...sshConnectionFlags,
-    ...appInstallationSyncFlags("download"),
-    target: Flags.directory({
+    target: Args.directory({
       description: "target directory to download the app installation to",
       required: true,
       exists: false,
     }),
   };
+  static flags = {
+    ...processFlags,
+    ...sshConnectionFlags,
+    ...appInstallationSyncFlags("download"),
+  };
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Download);
-    const { "dry-run": dryRun, target, "ssh-user": sshUser } = this.flags;
+    const { "dry-run": dryRun, "ssh-user": sshUser } = this.flags;
+    const { target } = this.args;
 
     const p = makeProcessRenderer(this.flags, "Downloading app installation");
 
