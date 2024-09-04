@@ -11,17 +11,11 @@ import { appInstallationFlags } from "../../lib/resources/app/flags.js";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
 import { buildCronjobDestination } from "../../lib/resources/cronjob/destination.js";
 import Duration from "../../lib/units/Duration.js";
-import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Flags } from "@oclif/core";
-import { checkTimeout } from "../../lib/resources/cronjob/timeout.js";
 
 type Result = {
   cronjobId: string;
 };
-
-type CronjobCreationData = Parameters<
-  MittwaldAPIV2Client["cronjob"]["createCronjob"]
->[0]["data"];
 
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static summary = "Create a new cron job";
@@ -73,8 +67,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       timeout,
     } = this.flags;
 
-    checkTimeout(timeout);
-
     const { projectId } = await p.runStep("fetching project", async () => {
       const r = await this.apiClient.app.getAppinstallation({
         appInstallationId,
@@ -87,23 +79,18 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       throw new Error("no project found for app installation");
     }
 
-    const destination: CronjobCreationData["destination"] =
-      buildCronjobDestination(url, command, interpreter);
-
-    const cronjobCreationData: CronjobCreationData = {
-      appId: appInstallationId,
-      active: !disable,
-      description,
-      interval,
-      email,
-      destination,
-      timeout: timeout.seconds,
-    };
-
     const { id: cronjobId } = await p.runStep("creating cron job", async () => {
       const r = await this.apiClient.cronjob.createCronjob({
         projectId,
-        data: cronjobCreationData,
+        data: {
+          appId: appInstallationId,
+          active: !disable,
+          description,
+          interval,
+          email,
+          destination: buildCronjobDestination(url, command, interpreter),
+          timeout: timeout.seconds,
+        },
       });
 
       assertStatus(r, 201);

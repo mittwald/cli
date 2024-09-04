@@ -7,16 +7,11 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
-import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
 import { buildCronjobDestination } from "../../lib/resources/cronjob/destination.js";
 import Duration from "../../lib/units/Duration.js";
-import { checkTimeout } from "../../lib/resources/cronjob/timeout.js";
 
 type UpdateResult = void;
-type CronjobUpdateData = Parameters<
-  MittwaldAPIV2Client["cronjob"]["updateCronjob"]
->[0]["data"];
 
 export default class Update extends ExecRenderBaseCommand<
   typeof Update,
@@ -86,28 +81,7 @@ export default class Update extends ExecRenderBaseCommand<
       disable,
     } = this.flags;
 
-    if (timeout) {
-      checkTimeout(timeout);
-    }
-
-    let destination = undefined;
-    if (url || command) {
-      destination = buildCronjobDestination(url, command, interpreter);
-    }
-
-    const updateCronjobPayload: CronjobUpdateData = {
-      ...(destination !== undefined && {
-        destination,
-      }),
-      ...(enable && { active: true }),
-      ...(disable && { active: false }),
-      ...(description && { description }),
-      ...(timeout && { timeout: timeout.seconds }),
-      ...(email && { email }),
-      ...(interval && { interval }),
-    };
-
-    if (Object.keys(updateCronjobPayload).length == 0) {
+    if (Object.keys(this.flags).length == 0) {
       await process.complete(
         <Success>Nothing to change. Have a good day!</Success>,
       );
@@ -117,7 +91,17 @@ export default class Update extends ExecRenderBaseCommand<
     await process.runStep("Updating cron job", async () => {
       const response = await this.apiClient.cronjob.updateCronjob({
         cronjobId,
-        data: updateCronjobPayload,
+        data: {
+          destination:
+            url || command
+              ? buildCronjobDestination(url, command, interpreter)
+              : undefined,
+          active: enable ? true : disable ? false : undefined,
+          description,
+          timeout: timeout?.seconds,
+          email,
+          interval,
+        },
       });
       assertSuccess(response);
     });
