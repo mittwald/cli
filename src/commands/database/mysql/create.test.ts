@@ -1,5 +1,6 @@
-/*
-import { expect, test } from "@oclif/test";
+import nock from "nock";
+import { runCommand } from "@oclif/test";
+import { expect } from "@jest/globals";
 
 describe("database:mysql:create", () => {
   const projectId = "339d6458-839f-4809-a03d-78700069690c";
@@ -9,7 +10,6 @@ describe("database:mysql:create", () => {
   const description = "Test";
 
   const createFlags = [
-    "database mysql create",
     "--project-id",
     projectId,
     "--version",
@@ -20,92 +20,121 @@ describe("database:mysql:create", () => {
     password,
   ];
 
-  test
-    .nock("https://api.mittwald.de", (api) => {
-      api.get(`/v2/projects/${projectId}`).reply(200, {
-        id: projectId,
-      });
-      api
-        .post(`/v2/projects/${projectId}/mysql-databases`, {
-          database: {
-            projectId,
-            description,
-            version: "8.0",
-            characterSettings: {
-              collation: "utf8mb4_unicode_ci",
-              characterSet: "utf8mb4",
-            },
-          },
-          user: {
-            password,
-            externalAccess: false,
-            accessLevel: "full",
-          },
-        })
-        .reply(201, { id: databaseId, userId });
+  let originalEnv: NodeJS.ProcessEnv;
 
-      api.get(`/v2/mysql-databases/${databaseId}`).reply(200, {
-        id: databaseId,
-        name: "mysql_xxxxxx",
-      });
+  beforeEach(() => {
+    originalEnv = { ...process.env };
+    process.env["MITTWALD_API_TOKEN"] = "foo";
 
-      api.get(`/v2/mysql-users/${userId}`).reply(200, {
-        id: userId,
-        name: "dbu_xxxxxx",
-      });
-    })
-    .env({ MITTWALD_API_TOKEN: "foo" })
-    .stdout()
-    .command(createFlags)
-    .it("creates a database and prints database and user name", (ctx) => {
-      // cannot match on exact output, because linebreaks
-      expect(ctx.stdout).to.contain("The database mysql_xxxxxx");
-      expect(ctx.stdout).to.contain("the user dbu_xxxxxx");
+    nock.disableNetConnect();
+  });
+
+  afterEach(() => {
+    process.env = originalEnv;
+    nock.cleanAll();
+  });
+
+  // Skipped, to be fixed later
+  it.skip("creates a database and prints database and user name", async () => {
+    const scope = nock("https://api.mittwald.de");
+
+    scope.get(`/v2/projects/${projectId}`).reply(200, {
+      id: projectId,
+    });
+    scope
+      .post(`/v2/projects/${projectId}/mysql-databases`, {
+        database: {
+          projectId,
+          description,
+          version: "8.0",
+          characterSettings: {
+            collation: "utf8mb4_unicode_ci",
+            characterSet: "utf8mb4",
+          },
+        },
+        user: {
+          password,
+          externalAccess: false,
+          accessLevel: "full",
+        },
+      })
+      .reply(201, { id: databaseId, userId });
+
+    scope.get(`/v2/mysql-databases/${databaseId}`).reply(200, {
+      id: databaseId,
+      name: "mysql_xxxxxx",
     });
 
-  test
-    .nock("https://api.mittwald.de", (api) => {
-      api.get(`/v2/projects/${projectId}`).reply(200, {
-        id: projectId,
-      });
-      api
-        .post(`/v2/projects/${projectId}/mysql-databases`, {
-          database: {
-            projectId,
-            description: "Test",
-            version: "8.0",
-            characterSettings: {
-              collation: "utf8mb4_unicode_ci",
-              characterSet: "utf8mb4",
-            },
-          },
-          user: {
-            password: "secret",
-            externalAccess: false,
-            accessLevel: "full",
-          },
-        })
-        .reply(201, { id: databaseId, userId });
-
-      api.get(`/v2/mysql-databases/${databaseId}`).reply(200, {
-        id: databaseId,
-        name: "mysql_xxxxxx",
-      });
-
-      api.get(`/v2/mysql-users/${userId}`).times(3).reply(403);
-
-      api.get(`/v2/mysql-users/${userId}`).reply(200, {
-        id: userId,
-        name: "dbu_xxxxxx",
-      });
-    })
-    .env({ MITTWALD_API_TOKEN: "foo" })
-    .stdout()
-    .command(createFlags)
-    .it("retries fetching user until successful", (ctx) => {
-      // cannot match on exact output, because linebreaks
-      expect(ctx.stdout).to.contain("The database mysql_xxxxxx");
-      expect(ctx.stdout).to.contain("the user dbu_xxxxxx");
+    scope.get(`/v2/mysql-users/${userId}`).reply(200, {
+      id: userId,
+      name: "dbu_xxxxxx",
     });
+
+    const { stdout, stderr, error } = await runCommand([
+      "database:mysql:create",
+      ...createFlags,
+    ]);
+
+    console.log("foo");
+
+    setTimeout(() => scope.done(), 5000);
+
+    expect(stdout).toContain("The database mysql_xxxxxx");
+    expect(stdout).toContain("the user dbu_xxxxxx");
+    expect(stderr).toEqual("");
+    expect(error).toBeUndefined();
+  });
+
+  // Skipped, to be fixed later
+  it.skip("retries fetching user until successful", async () => {
+    const scope = nock("https://api.mittwald.de");
+
+    scope.get(`/v2/projects/${projectId}`).reply(200, {
+      id: projectId,
+    });
+    scope
+      .post(`/v2/projects/${projectId}/mysql-databases`, {
+        database: {
+          projectId,
+          description,
+          version: "8.0",
+          characterSettings: {
+            collation: "utf8mb4_unicode_ci",
+            characterSet: "utf8mb4",
+          },
+        },
+        user: {
+          password,
+          externalAccess: false,
+          accessLevel: "full",
+        },
+      })
+      .reply(201, { id: databaseId, userId });
+
+    scope.get(`/v2/mysql-databases/${databaseId}`).reply(200, {
+      id: databaseId,
+      name: "mysql_xxxxxx",
+    });
+
+    scope.get(`/v2/mysql-users/${userId}`).times(3).reply(403);
+
+    scope.get(`/v2/mysql-users/${userId}`).reply(200, {
+      id: userId,
+      name: "dbu_xxxxxx",
+    });
+
+    const { stdout, stderr, error } = await runCommand([
+      "database:mysql:create",
+      ...createFlags,
+    ]);
+
+    console.log("foo");
+
+    setTimeout(() => scope.done(), 5000);
+
+    expect(stdout).toContain("The database mysql_xxxxxx");
+    expect(stdout).toContain("the user dbu_xxxxxx");
+    expect(stderr).toEqual("");
+    expect(error).toBeUndefined();
+  });
 });
-*/
