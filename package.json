@@ -34,7 +34,7 @@
     "test:format": "yarn lint && yarn format --check",
     "test:licenses": "yarn license-check --summary --unknown --failOn 'UNLICENSED;UNKNOWN'",
     "test:readme": "yarn generate:readme && git diff --exit-code README.md docs/*.md",
-    "test:unit": "mocha --forbid-only \"src/**/*.test.ts\""
+    "test:unit": "NODE_NO_WARNINGS=1 mocha --forbid-only \"src/**/*.test.ts\""
   },
   "files": [
     ".deps",
