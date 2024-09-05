@@ -4,12 +4,14 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { ReactNode } from "react";
-import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { appInstallationFlags } from "../../lib/resources/app/flags.js";
+import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
+import { buildCronjobDestination } from "../../lib/resources/cronjob/destination.js";
 import Duration from "../../lib/units/Duration.js";
+import { Flags } from "@oclif/core";
 
 type Result = {
   cronjobId: string;
@@ -20,47 +22,32 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static flags = {
     ...appInstallationFlags,
     ...processFlags,
-    description: Flags.string({
-      required: true,
-      summary: "Description of the cron job",
-      default: undefined,
+    description: cronjobFlagDefinitions.description({ required: true }),
+    interval: cronjobFlagDefinitions.interval({ required: true }),
+    email: cronjobFlagDefinitions.email(),
+    url: cronjobFlagDefinitions.url({
+      exactlyOne: ["url", "command"],
     }),
-    interval: Flags.string({
-      required: true,
-      summary: "Interval of the cron job, in standard UNIX cron syntax",
-      default: undefined,
+    command: cronjobFlagDefinitions.command({
+      exactlyOne: ["url", "command"],
+      dependsOn: ["interpreter"],
+    }),
+    interpreter: cronjobFlagDefinitions.interpreter({
+      dependsOn: ["command"],
     }),
     disable: Flags.boolean({
-      summary: "Disable the cron job after creation",
-      default: false,
-    }),
-    email: Flags.string({
-      required: false,
-      summary: "Email address to send cron job output to",
-      default: undefined,
-    }),
-    url: Flags.string({
-      required: false,
-      summary:
-        "URL to call for the cron job; either this or `--command` is required.",
-      default: undefined,
-      exclusive: ["command"],
-    }),
-    interpreter: Flags.string({
-      required: false,
-      summary: "Interpreter to use for the cron job",
-      default: "/bin/sh",
-    }),
-    command: Flags.string({
-      required: false,
-      summary:
-        "Command to execute for the cron job; either this or `--url` is required.",
-      default: undefined,
-      exclusive: ["url"],
+      summary: "Disable the cron job.",
+      description:
+        "When creating a cron job it is enabled by default. " +
+        "This flag can be used to set the status of the cron job to inactive when creating one. " +
+        "Automatic execution will then be disabled until enabled manually.",
     }),
     timeout: Duration.relativeFlag({
-      summary:
-        "timeout for the cron job; common duration formats are supported (for example, '1h', '30m', '30s')",
+      summary: "Timeout after which the process will be killed.",
+      description:
+        "Common duration formats are supported (for example, '1h', '30m', '30s'). " +
+        "Defines the amount of time after which a running cron job will be killed. " +
+        "If an email address is defined, an error message will be sent.",
       default: Duration.fromString("1h"),
       required: false,
     }),
@@ -69,7 +56,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Creating a new cron job");
     const appInstallationId = await this.withAppInstallationId(Create);
-
     const {
       description,
       interval,
@@ -80,10 +66,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       command,
       timeout,
     } = this.flags;
-
-    if (!url && !command) {
-      throw new Error("either `--url` or `--command` must be specified");
-    }
 
     const { projectId } = await p.runStep("fetching project", async () => {
       const r = await this.apiClient.app.getAppinstallation({
@@ -106,7 +88,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
           description,
           interval,
           email,
-          destination: url ? { url } : { interpreter, path: command },
+          destination: buildCronjobDestination(url, command, interpreter),
           timeout: timeout.seconds,
         },
       });
