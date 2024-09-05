@@ -23,7 +23,7 @@ describe("Table", () => {
     expect(rendered.split("\n")[0].length).toBe(20);
   });
 
-  it("should truncate too long values using backspaces", () => {
+  it("should truncate too long values", () => {
     const t = new Table(
       {
         a: {

@@ -8,10 +8,10 @@ Bar
 "
 `;
 
-exports[`Table should truncate too long values using backspaces 1`] = `
+exports[`Table should truncate too long values 1`] = `
 "A                   
 ────────────────────
-FooFooFooFooFooFooFooFooFooFoo…          
-BarBarBarBarBarBarBarBarBarBar…          
+FooFooFooFooFooFooF…
+BarBarBarBarBarBarB…
 "
 `;

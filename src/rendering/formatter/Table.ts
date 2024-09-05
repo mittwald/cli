@@ -1,6 +1,7 @@
 import { Chalk, ChalkInstance, Options as ChalkOptions } from "chalk";
 import stringWidth from "string-width";
 import debug from "debug";
+import smartTruncate from "./smartTruncate.js";
 
 const d = debug("@mittwald/cli:table");
 
@@ -32,22 +33,6 @@ function minWidthForColumn<T = unknown>(key: string, c: ListColumn<T>): number {
 
 function sum(x: number[]): number {
   return x.reduce((a, b) => a + b, 0);
-}
-
-function smartTruncate(str: string, length: number): string {
-  const overlength = stringWidth(str) - length;
-
-  if (overlength <= 0) {
-    return str;
-  }
-
-  return (
-    str +
-    "\b".repeat(overlength + 1) +
-    "…" +
-    " ".repeat(overlength) +
-    "\b".repeat(overlength)
-  );
 }
 
 export default class Table<TItem> {
