@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Table should give expanding columns the remaining space 1`] = `
+"A    B           C  
+───  ──────────  ───
+aaa  bbbbbbbbb…  ccc
+aaa  bbbbbbbbb…  ccc
+"
+`;
+
+exports[`Table should respect the minimum column width 1`] = `
+"A                B 
+───────────────  ──
+a                b…
+a                b…
+"
+`;
+
 exports[`Table should spread a single column across the max width 1`] = `
 "A                   
 ────────────────────
@@ -8,10 +24,26 @@ Bar
 "
 `;
 
+exports[`Table should still give non-expanding columns a bit more space if available 1`] = `
+"A    B                               C  
+───  ──────────────────────────────  ───
+aaa  bbbbbbbbbbbbbbbbbbbbbbbbbbbbb…  ccc
+aaa  bbbbbbbbbbbbbbbbbbbbbbbbbbbbb…  ccc
+"
+`;
+
 exports[`Table should truncate too long values 1`] = `
 "A                   
 ────────────────────
 FooFooFooFooFooFooF…
 BarBarBarBarBarBarB…
+"
+`;
+
+exports[`Table without max width should give each column the maximum content width when no max width  1`] = `
+"A    B                                         C  
+───  ────────────────────────────────────────  ───
+aaa  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb  ccc
+aaa  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb  ccc
 "
 `;

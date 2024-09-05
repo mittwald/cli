@@ -6,11 +6,38 @@ import smartTruncate from "./smartTruncate.js";
 const d = debug("@mittwald/cli:table");
 
 export type ListColumn<TItem> = {
+  /** The header to display for this column. */
   header?: string;
+
+  /**
+   * Whether this column counts as an extended column. Extended columns are only
+   * displayed when the `extended` option is set to `true`.
+   */
   extended?: boolean;
+
+  /**
+   * A function to extract the value to display for this column from the item.
+   * If not set, the column will be extracted from the item by its key.
+   */
   get?: (row: TItem) => string | undefined;
+
+  /**
+   * The minimum width of this column. If the content is smaller, the column
+   * will be padded with spaces. If the content is larger, the column might be
+   * expanded based on the available remaining space, or truncated.
+   */
   minWidth?: number;
+
+  /**
+   * The exact width of this column. If set, the column will be exactly this
+   * wide, regardless of the content.
+   */
   exactWidth?: number;
+
+  /**
+   * Whether this column should expand to fill the remaining space. Currently,
+   * only one column can be set to expand.
+   */
   expand?: boolean;
 };
 
@@ -19,13 +46,48 @@ export type ListColumns<TItem> = {
 };
 
 export interface TableOptions {
+  /** Whether to include extended columns in the output. */
   extended: boolean;
+
+  /** Whether to truncate columns that exceed the maximum width. */
   truncate: boolean;
+
+  /** Whether to include a header row in the output. */
   header: boolean;
+
+  /** The gap between columns in characters. */
   gap: number;
+
+  /**
+   * The maximum width of the table in characters. If columns exceed this width,
+   * they will be truncated. If omitted, the table will be as wide as necessary
+   * (but not wider).
+   */
   maxWidth: number | undefined;
+
+  /** Options to pass to the Chalk instance used for rendering. */
   chalkOptions: ChalkOptions;
+
+  /**
+   * When columns were truncated and some space is still left, the remaining
+   * space is distributed among the columns. This factor determines how much
+   * smaller columns are favored over larger columns.
+   *
+   * Default is 0.2.
+   */
+  favorSmallColumnsFactor: number;
 }
+
+/** Default options for the table formatter. */
+const defaultOptions: Readonly<TableOptions> = {
+  extended: false,
+  truncate: true,
+  header: true,
+  gap: 2,
+  maxWidth: undefined,
+  chalkOptions: {},
+  favorSmallColumnsFactor: 0.2,
+};
 
 function minWidthForColumn<T = unknown>(key: string, c: ListColumn<T>): number {
   return c.minWidth ?? c.exactWidth ?? c.header?.length ?? key.length;
@@ -36,20 +98,15 @@ function sum(x: number[]): number {
 }
 
 export default class Table<TItem> {
-  private columns: ListColumns<TItem>;
-  private opts: TableOptions;
-  private chalk: ChalkInstance;
+  private readonly columns: ListColumns<TItem>;
+  private readonly opts: TableOptions;
+  private readonly chalk: ChalkInstance;
 
   public constructor(columns: ListColumns<TItem>, opts: Partial<TableOptions>) {
     this.columns = columns;
     this.chalk = new Chalk(opts.chalkOptions);
     this.opts = {
-      extended: false,
-      truncate: true,
-      header: true,
-      gap: 2,
-      maxWidth: undefined,
-      chalkOptions: {},
+      ...defaultOptions,
       ...opts,
     };
   }
@@ -89,11 +146,42 @@ export default class Table<TItem> {
     }
 
     const definiteColWidths = [...reservedWidths];
+    const truncatedWidths = dynamicWidths.map(
+      (w, idx) => w - definiteColWidths[idx],
+    );
 
     if (availableWidth) {
-      const remaining =
+      let remaining =
         availableWidth - sum(definiteColWidths) - reservedForColumnGaps;
       const expandingColumn = colList.findIndex(([_, spec]) => spec.expand);
+      const totalTruncated = sum(truncatedWidths);
+
+      if (totalTruncated < remaining) {
+        for (let i = 0; i < definiteColWidths.length; i++) {
+          definiteColWidths[i] += truncatedWidths[i];
+        }
+      } else {
+        const { favorSmallColumnsFactor } = this.opts;
+        const [a, b] = [1 - favorSmallColumnsFactor, favorSmallColumnsFactor];
+        const availableForTruncatedContent = remaining / 2;
+        const additionalSpaceForTruncatedWeights = truncatedWidths
+          .map((w) => w / totalTruncated)
+          .map((w) => w * a + b); // slightly favor smaller columns
+        const additionalSpaceForTruncated =
+          additionalSpaceForTruncatedWeights.map((w, idx) =>
+            Math.min(
+              truncatedWidths[idx],
+              Math.floor(w * availableForTruncatedContent),
+            ),
+          );
+
+        for (let i = 0; i < definiteColWidths.length; i++) {
+          definiteColWidths[i] += additionalSpaceForTruncated[i];
+        }
+      }
+
+      remaining =
+        availableWidth - sum(definiteColWidths) - reservedForColumnGaps;
 
       if (expandingColumn >= 0) {
         definiteColWidths[expandingColumn] += remaining;
@@ -116,6 +204,11 @@ export default class Table<TItem> {
           definiteColWidths[idx] += chars;
         });
       }
+    } else {
+      // when no maximum width is given, just use the maximum content width
+      definiteColWidths.forEach((width, idx) => {
+        definiteColWidths[idx] = Math.max(width, dynamicWidths[idx]);
+      });
     }
 
     d("table options: %o", this.opts);
