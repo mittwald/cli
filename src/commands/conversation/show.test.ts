@@ -1,7 +1,7 @@
 import { runCommand } from "@oclif/test";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import nock from "nock";
-import { expect } from "chai";
+import { expect } from "@jest/globals";
 
 type Conversation = MittwaldAPIV2.Components.Schemas.ConversationConversation;
 type Message = MittwaldAPIV2.Components.Schemas.ConversationMessage;
@@ -29,7 +29,11 @@ describe("conversation:show", () => {
   afterEach(() => {
     process.env = originalEnv;
     nock.cleanAll();
-  })
+  });
+
+  it("should test", () => {
+    expect(true).toBeTruthy();
+  });
 
   it("shows a conversation and its messages", async () => {
     const scope = nock("https://api.mittwald.de")
@@ -69,15 +73,21 @@ describe("conversation:show", () => {
         },
       ] satisfies Array<Message | StatusUpdate>);
 
-    const { stdout, stderr, error } = await runCommand(["conversation:show", conversationId]);
+    console.log("foo");
+
+    const { stdout, stderr, error } = await runCommand([
+      "conversation:show",
+      conversationId,
+    ]);
+
+    console.log("foo");
 
     setTimeout(() => scope.done(), 5000);
 
-    expect(stdout).to.equal("");
-    expect(stderr).to.equal("");
-    expect(error).to.be.undefined;
+    expect(stdout).toEqual("");
+    expect(stderr).toEqual("");
+    expect(error).toBeUndefined();
   });
-
 });
 
 /*
