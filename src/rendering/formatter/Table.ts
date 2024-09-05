@@ -111,39 +111,61 @@ export default class Table<TItem> {
     };
   }
 
-  public render(data: TItem[]): string {
-    const availableWidth = this.opts.maxWidth;
+  private get columnsWithNames(): [string, ListColumn<TItem>][] {
+    let columns = Object.entries(this.columns);
+
+    if (!this.opts.extended) {
+      columns = columns.filter(([, spec]) => !spec.extended);
+    }
+
+    return columns;
+  }
+
+  private renderItems(
+    columns: [string, ListColumn<TItem>][],
+    columnWidths: number[],
+    data: TItem[],
+  ): [string[][], number[]] {
     const renderedItems: string[][] = [];
 
-    const colList = Object.entries(this.columns).filter(([, spec]) =>
-      this.opts.extended ? true : !spec.extended,
-    );
-
-    const reservedWidths = colList.map(([key, spec]) =>
-      minWidthForColumn(key, spec),
-    );
-    const dynamicWidths = colList.map(
-      ([, spec]) => spec.minWidth || spec.header?.length || 0,
-    );
-    const reservedForColumnGaps = (colList.length - 1) * this.opts.gap;
-
     for (let idx = 0; idx < data.length; idx++) {
-      const rendered = colList.map(([key, spec]) => {
+      const rendered = columns.map(([key, spec]) => {
         if (spec.get) {
-          return spec.get(data[idx]);
+          return spec.get(data[idx]) ?? "";
         }
-        return (data[idx] as any)[key];
-      });
 
-      rendered.forEach((val, idx) => {
-        dynamicWidths[idx] = Math.max(
-          dynamicWidths[idx],
-          colList[idx][1].minWidth ? 0 : stringWidth(val),
-        );
+        const value = (data[idx] as any)[key] ?? "";
+        return String(value);
       });
 
       renderedItems.push(rendered);
     }
+
+    const newColumnWidths = columnWidths.map((w, idx) => {
+      const renderedWidths = renderedItems.map((r) => stringWidth(r[idx]));
+      return Math.max(w, ...renderedWidths);
+    });
+
+    return [renderedItems, newColumnWidths];
+  }
+
+  public render(data: TItem[]): string {
+    const availableWidth = this.opts.maxWidth;
+    const colList = this.columnsWithNames;
+
+    const reservedWidths = colList.map(([key, spec]) =>
+      minWidthForColumn(key, spec),
+    );
+    const initialDynamicWidths = colList.map(
+      ([, spec]) => spec.minWidth || spec.header?.length || 0,
+    );
+    const reservedForColumnGaps = (colList.length - 1) * this.opts.gap;
+
+    const [renderedItems, dynamicWidths] = this.renderItems(
+      colList,
+      initialDynamicWidths,
+      data,
+    );
 
     const definiteColWidths = [...reservedWidths];
     const truncatedWidths = dynamicWidths.map(
