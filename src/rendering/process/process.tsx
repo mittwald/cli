@@ -110,7 +110,7 @@ export interface ProcessRenderer {
   start(): void;
   addStep(title: ReactNode): RunnableHandler;
   runStep<TRes>(title: ReactNode, fn: () => Promise<TRes>): Promise<TRes>;
-  addInfo(title: ReactElement): void;
+  addInfo(title: ReactNode): void;
   addConfirmation(question: ReactNode): Promise<boolean>;
   addInput(question: ReactNode, mask?: boolean): Promise<string>;
   addSelect<TVal>(

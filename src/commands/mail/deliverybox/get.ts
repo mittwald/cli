@@ -16,7 +16,7 @@ export default class Get extends GetBaseCommand<typeof Get, APIResponse> {
   };
   static args = {
     id: Args.string({
-      description: "ID of the deliverybox you want to retrieve",
+      description: "ID of the delivery box you want to retrieve",
       required: true,
     }),
   };

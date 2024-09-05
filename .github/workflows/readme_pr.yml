@@ -1,0 +1,33 @@
+name: Update README for pull requests
+on:
+  pull_request_target:
+    branches:
+      - master
+    types:
+      - opened
+      - ready_for_review
+      - synchronize
+
+jobs:
+  update-readme:
+    name: Re-generate README
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MACHINE_USER_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: gh pr checkout ${{ github.event.pull_request.number }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - run: yarn
+      - run: yarn compile
+      - run: yarn generate:readme
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: re-generate README"
+          file_pattern: README.md docs/*.md
