@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import stringWidth from "string-width";
-import { getTerminalWidth } from "../lib/getTerminalWidth.js";
 
 export type ListColumn<TItem> = {
   header?: string;

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table should spread a single column across the max width 1`] = `
+"[1mA                   [22m
+[1m────────────────────[22m
+Foo                 
+Bar                 
+"
+`;
