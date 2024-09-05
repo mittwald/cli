@@ -1,5 +1,8 @@
-import chalk from "chalk";
+import { Chalk, ChalkInstance, Options as ChalkOptions } from "chalk";
 import stringWidth from "string-width";
+import debug from "debug";
+
+const d = debug("@mittwald/cli:table");
 
 export type ListColumn<TItem> = {
   header?: string;
@@ -20,6 +23,7 @@ export interface TableOptions {
   header: boolean;
   gap: number;
   maxWidth: number | undefined;
+  chalkOptions: ChalkOptions;
 }
 
 function minWidthForColumn<T = unknown>(key: string, c: ListColumn<T>): number {
@@ -49,15 +53,18 @@ function smartTruncate(str: string, length: number): string {
 export default class Table<TItem> {
   private columns: ListColumns<TItem>;
   private opts: TableOptions;
+  private chalk: ChalkInstance;
 
   public constructor(columns: ListColumns<TItem>, opts: Partial<TableOptions>) {
     this.columns = columns;
+    this.chalk = new Chalk(opts.chalkOptions);
     this.opts = {
       extended: false,
       truncate: true,
       header: true,
       gap: 2,
       maxWidth: undefined,
+      chalkOptions: {},
       ...opts,
     };
   }
@@ -126,6 +133,14 @@ export default class Table<TItem> {
       }
     }
 
+    d("table options: %o", this.opts);
+
+    d(
+      "definite column widths: %o (sum: %o)",
+      definiteColWidths,
+      sum(definiteColWidths),
+    );
+
     let output = "";
 
     const headerColumns = colList.map(([key, value]) =>
@@ -141,9 +156,9 @@ export default class Table<TItem> {
     const gap = " ".repeat(this.opts.gap);
 
     if (this.opts.header) {
-      output += chalk.bold(paddedHeaderColumns.join(gap)) + "\n";
+      output += this.chalk.bold(paddedHeaderColumns.join(gap)) + "\n";
       output +=
-        chalk.bold(
+        this.chalk.bold(
           paddedHeaderColumns.map((v) => "─".repeat(v.length)).join(gap),
         ) + "\n";
     }
