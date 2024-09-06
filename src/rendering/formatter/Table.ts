@@ -1,8 +1,6 @@
 import { Chalk, ChalkInstance, Options as ChalkOptions } from "chalk";
 import stringWidth from "string-width";
 import debug from "debug";
-import smartTruncate from "./smartTruncate.js";
-import smartPad from "./smartPad.js";
 import smartPadOrTruncate from "./smartPadOrTruncate.js";
 
 const d = debug("@mittwald/cli:table");
@@ -108,6 +106,13 @@ function sum(x: number[]): number {
   return x.reduce((a, b) => a + b, 0);
 }
 
+function addColumWidths(x: number[], y: number[]): number[] {
+  if (x.length !== y.length) {
+    throw new Error("Column width arrays must have the same length");
+  }
+  return x.map((v, idx) => v + y[idx]);
+}
+
 export default class Table<TItem> {
   private readonly columns: ListColumns<TItem>;
   private readonly opts: TableOptions;
@@ -181,66 +186,42 @@ export default class Table<TItem> {
       data,
     );
 
-    const definiteColWidths = [...reservedWidths];
-    const truncatedWidths = dynamicWidths.map(
-      (w, idx) => w - definiteColWidths[idx],
-    );
+    let definiteColWidths = [...reservedWidths];
 
     if (availableWidth) {
-      let remaining =
+      const computeRemainingWidth = () =>
         availableWidth - sum(definiteColWidths) - totalColumnGapReservation;
+      const remainingInitially = computeRemainingWidth();
       const expandingColumn = columnsWithNames.findIndex(
         ([_, spec]) => spec.expand,
       );
-      const totalTruncated = sum(truncatedWidths);
+      const hasExpandingColumn = expandingColumn >= 0;
 
-      if (totalTruncated < remaining) {
-        for (let i = 0; i < definiteColWidths.length; i++) {
-          definiteColWidths[i] += truncatedWidths[i];
-        }
+      definiteColWidths = addColumWidths(
+        definiteColWidths,
+        this.widenColumnsToFitTruncatedContent(
+          remainingInitially,
+          definiteColWidths,
+          dynamicWidths,
+        ),
+      );
+
+      const remainingAfterExpansionForTruncated = computeRemainingWidth();
+
+      // If a column is set to expand, give it all the remaining space; otherwise,
+      // distribute it proportionally to requested content width among all columns
+      if (hasExpandingColumn) {
+        definiteColWidths[expandingColumn] +=
+          remainingAfterExpansionForTruncated;
       } else {
-        const { favorSmallColumnsFactor } = this.opts;
-        const [a, b] = [1 - favorSmallColumnsFactor, favorSmallColumnsFactor];
-        const availableForTruncatedContent = remaining / 2;
-        const additionalSpaceForTruncatedWeights = truncatedWidths
-          .map((w) => w / totalTruncated)
-          .map((w) => w * a + b); // slightly favor smaller columns
-        const additionalSpaceForTruncated =
-          additionalSpaceForTruncatedWeights.map((w, idx) =>
-            Math.min(
-              truncatedWidths[idx],
-              Math.floor(w * availableForTruncatedContent),
-            ),
-          );
-
-        for (let i = 0; i < definiteColWidths.length; i++) {
-          definiteColWidths[i] += additionalSpaceForTruncated[i];
-        }
-      }
-
-      remaining =
-        availableWidth - sum(definiteColWidths) - totalColumnGapReservation;
-
-      if (expandingColumn >= 0) {
-        definiteColWidths[expandingColumn] += remaining;
-      } else {
-        const growableRequestedWidth = sum(
-          columnsWithNames.map(([_, spec], idx) =>
-            spec.exactWidth === undefined ? dynamicWidths[idx] : 0,
+        definiteColWidths = addColumWidths(
+          definiteColWidths,
+          this.widenColumnsProportionallyToFitAvailableSpace(
+            remainingAfterExpansionForTruncated,
+            columnsWithNames,
+            definiteColWidths,
           ),
         );
-        const growableProportions = columnsWithNames.map(([_, spec], idx) =>
-          spec.exactWidth === undefined
-            ? dynamicWidths[idx] / growableRequestedWidth
-            : 0,
-        );
-        const growableChars = growableProportions.map((p) =>
-          Math.floor(p * remaining),
-        );
-
-        growableChars.forEach((chars, idx) => {
-          definiteColWidths[idx] += chars;
-        });
       }
     } else {
       // when no maximum width is given, just use the maximum content width
@@ -294,6 +275,54 @@ export default class Table<TItem> {
         this.chalk.bold(truncatedHeaderColumns.join(gap)),
         this.chalk.bold(dividerColumns.join(gap)),
       ].join("\n") + "\n"
+    );
+  }
+
+  private widenColumnsProportionallyToFitAvailableSpace(
+    remaining: number,
+    columnsWithNames: [string, ListColumn<TItem>][],
+    maximumColWidths: number[],
+  ): number[] {
+    const growableRequestedWidth = sum(
+      columnsWithNames.map(([_, spec], idx) =>
+        spec.exactWidth === undefined ? maximumColWidths[idx] : 0,
+      ),
+    );
+    const growableProportions = columnsWithNames.map(([_, spec], idx) =>
+      spec.exactWidth === undefined
+        ? maximumColWidths[idx] / growableRequestedWidth
+        : 0,
+    );
+
+    return growableProportions.map((p) => Math.floor(p * remaining));
+  }
+
+  private widenColumnsToFitTruncatedContent(
+    remaining: number,
+    definiteColWidths: number[],
+    maximumColWidths: number[],
+  ): number[] {
+    const truncatedWidths = maximumColWidths.map(
+      (w, idx) => w - definiteColWidths[idx],
+    );
+    const totalTruncated = sum(truncatedWidths);
+
+    if (totalTruncated < remaining) {
+      return truncatedWidths;
+    }
+
+    const { favorSmallColumnsFactor } = this.opts;
+    const [a, b] = [1 - favorSmallColumnsFactor, favorSmallColumnsFactor];
+    const availableForTruncatedContent = remaining / 2;
+    const additionalSpaceForTruncatedWeights = truncatedWidths
+      .map((w) => w / totalTruncated)
+      .map((w) => w * a + b); // slightly favor smaller columns
+
+    return additionalSpaceForTruncatedWeights.map((w, idx) =>
+      Math.min(
+        truncatedWidths[idx],
+        Math.floor(w * availableForTruncatedContent),
+      ),
     );
   }
 }
