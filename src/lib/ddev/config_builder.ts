@@ -10,7 +10,6 @@ import { determineProjectTypeFromAppInstallation } from "./init_projecttype.js";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
-type LinkedDatabase = MittwaldAPIV2.Components.Schemas.AppLinkedDatabase;
 type SystemSoftware = MittwaldAPIV2.Components.Schemas.AppSystemSoftware;
 type SystemSoftwareVersion =
   MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
@@ -142,19 +141,6 @@ export class DDEVConfigBuilder {
       type: "mysql",
       version: r.data.version,
     };
-  }
-
-  private async determineDatabaseVersionFromInstallation(
-    inst: AppInstallation,
-  ): Promise<DDEVDatabaseConfig | undefined> {
-    const isPrimary = (db: LinkedDatabase) => db.purpose === "primary";
-    const primary = (inst.linkedDatabases || []).find(isPrimary);
-
-    if (primary?.kind === "mysql") {
-      return this.determineMySQLDatabaseVersion(primary.databaseId);
-    }
-
-    return undefined;
   }
 
   private determinePHPVersion(

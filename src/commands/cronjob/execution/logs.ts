@@ -1,7 +1,4 @@
-/* eslint-disable */
-/* prettier-ignore */
-/* This file is auto-generated with acg (@mittwald/api-code-generator) */
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
 import { BaseCommand } from "../../../lib/basecommands/BaseCommand.js";
@@ -12,9 +9,6 @@ import tempfile from "tempfile";
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2CronjobsCronjobIdExecutionsExecutionId.Get.Parameters.Path;
-type APIResponse = Awaited<
-  ReturnType<MittwaldAPIV2Client["cronjob"]["getExecution"]>
->;
 
 export class Logs extends BaseCommand {
   static summary = "Get the log output of a cronjob execution.";

@@ -9,7 +9,6 @@ Manage your support cases
 * [`mw conversation list`](#mw-conversation-list)
 * [`mw conversation reply [CONVERSATION-ID]`](#mw-conversation-reply-conversation-id)
 * [`mw conversation show [CONVERSATION-ID]`](#mw-conversation-show-conversation-id)
-* [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
 
 ## `mw conversation categories`
 
@@ -135,17 +134,4 @@ ARGUMENTS
 
 DESCRIPTION
   Show a conversation and message history
-```
-
-## `mw conversation show2 CONVERSATIONID`
-
-```
-USAGE
-  $ mw conversation show2 CONVERSATIONID [--wait] [-o txt|json]
-
-FLAGS
-  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
-                         and 'json' for a machine-readable JSON representation.
-                         <options: txt|json>
-  --wait
 ```
