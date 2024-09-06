@@ -1,5 +1,6 @@
 import Table from "./Table.js";
 import { expect } from "@jest/globals";
+import TableColumnRenderer from "./TableColumnRenderer.js";
 
 function effectiveStringLength(str: string) {
   const backspaceCount = (str.match(/[\b]/g) ?? []).length;
@@ -14,7 +15,7 @@ describe("Table", () => {
           header: "A",
         },
       },
-      { maxWidth: 20, chalkOptions: { level: 0 } },
+      new TableColumnRenderer({ maxWidth: 20, chalkOptions: { level: 0 } }),
     );
 
     const rendered = t.render([{ a: "Foo" }, { a: "Bar" }]);
@@ -30,7 +31,7 @@ describe("Table", () => {
           header: "A",
         },
       },
-      { maxWidth: 20, chalkOptions: { level: 0 } },
+      new TableColumnRenderer({ maxWidth: 20, chalkOptions: { level: 0 } }),
     );
 
     const rendered = t.render([
@@ -52,7 +53,11 @@ describe("Table", () => {
           header: "A",
         },
       },
-      { maxWidth: 20, chalkOptions: { level: 0 }, truncate: false },
+      new TableColumnRenderer({
+        maxWidth: 20,
+        chalkOptions: { level: 0 },
+        truncate: false,
+      }),
     );
 
     const rendered = t.render([
@@ -73,7 +78,7 @@ describe("Table", () => {
         a: { minWidth: 15 },
         b: {},
       },
-      { maxWidth: 20, chalkOptions: { level: 0 } },
+      new TableColumnRenderer({ maxWidth: 20, chalkOptions: { level: 0 } }),
     );
 
     const rendered = t.render([
@@ -91,7 +96,7 @@ describe("Table", () => {
         b: { expand: true },
         c: { minWidth: 3 },
       },
-      { maxWidth: 20, chalkOptions: { level: 0 } },
+      new TableColumnRenderer({ maxWidth: 20, chalkOptions: { level: 0 } }),
     );
 
     const rendered = t.render([
@@ -109,7 +114,7 @@ describe("Table", () => {
         b: { expand: true },
         c: {},
       },
-      { maxWidth: 40, chalkOptions: { level: 0 } },
+      new TableColumnRenderer({ maxWidth: 40, chalkOptions: { level: 0 } }),
     );
 
     const rendered = t.render([
@@ -128,7 +133,10 @@ describe("Table", () => {
           b: { expand: true },
           c: {},
         },
-        { maxWidth: undefined, chalkOptions: { level: 0 } },
+        new TableColumnRenderer({
+          maxWidth: undefined,
+          chalkOptions: { level: 0 },
+        }),
       );
 
       const rendered = t.render([

@@ -4,6 +4,7 @@ import { PrinterFactory } from "../Printer.js";
 import { stdout } from "@oclif/core/ux";
 import Table, { ListColumns } from "./Table.js";
 import { getTerminalWidth } from "../lib/getTerminalWidth.js";
+import TableColumnRenderer from "./TableColumnRenderer.js";
 
 export { ListColumn, ListColumns } from "./Table.js";
 
@@ -81,11 +82,14 @@ export class ListFormatter {
       return;
     }
 
-    const table = new Table(columns, {
-      extended: opts?.extended,
+    const tableRenderer = new TableColumnRenderer<T>({
+      maxWidth: getTerminalWidth(),
       truncate: !opts?.["no-truncate"],
       header: !opts?.["no-header"],
-      maxWidth: getTerminalWidth(),
+    });
+
+    const table = new Table(columns, tableRenderer, {
+      extended: opts?.extended,
     });
 
     stdout(table.render(output));
