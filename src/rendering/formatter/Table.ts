@@ -3,7 +3,7 @@ import stringWidth from "string-width";
 import debug from "debug";
 import smartPadOrTruncate from "./smartPadOrTruncate.js";
 
-const d = debug("@mittwald/cli:table");
+const d = debug("mw:renderer:table");
 
 export type ListColumn<TItem> = {
   /** The header to display for this column. */
