@@ -52,7 +52,6 @@
     "axios-retry": "^4.0.0",
     "chalk": "^5.3.0",
     "date-fns": "^3.2.0",
-    "humanize-string": "^3.0.0",
     "ink": "^5.0.1",
     "ink-link": "^4.0.0",
     "ink-text-input": "^6.0.0",
@@ -74,12 +73,9 @@
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@oclif/test": "^4.0.4",
-    "@types/chai": "^4.3.16",
     "@types/chalk": "^2.2.0",
-    "@types/copyfiles": "^2.4.1",
     "@types/js-yaml": "^4.0.9",
     "@types/marked-terminal": "^3.1.3",
-    "@types/mocha": "^10.0.7",
     "@types/node": "^20.3.3",
     "@types/parse-duration": "^0.3.0",
     "@types/pretty-bytes": "^5.2.0",
@@ -107,7 +103,6 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.1",
-    "type-fest": "^4.6.0",
     "typescript": "^5.1.6"
   },
   "oclif": {

@@ -1,5 +1,5 @@
 import smartTruncate from "./smartTruncate.js";
-import { expect } from "@jest/globals";
+import { expect, describe, it } from "@jest/globals";
 
 describe("smartTruncate", () => {
   it("leaves short strings as is", () => {
