@@ -7,6 +7,10 @@ import InvalidFlagsError from "./Error/InvalidFlagsError.js";
 import InvalidArgsError from "./Error/InvalidArgsError.js";
 import APIError from "./Error/APIError.js";
 import UnexpectedShortIDPassedErrorBox from "./Error/UnexpectedShortIDPassedErrorBox.js";
+import {
+  MissingArgError,
+  MissingFlagError,
+} from "../../../lib/context/FlagSetBuilder.js";
 
 /**
  * Render an error to the terminal.
@@ -23,7 +27,11 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
   // } else if (err instanceof AxiosError) {
   if (err instanceof AxiosError) {
     return <APIError err={err} withStack withHTTPMessages="body" />;
-  } else if (err instanceof InteractiveInputRequiredError) {
+  } else if (
+    err instanceof InteractiveInputRequiredError ||
+    err instanceof MissingArgError ||
+    err instanceof MissingFlagError
+  ) {
     return (
       <GenericError
         err={err}
