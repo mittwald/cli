@@ -8,6 +8,14 @@ aaa  bbbbbbbbb…  ccc
 "
 `;
 
+exports[`Table should not truncate too long values when truncation is disabled 1`] = `
+"A                                                           
+────────────────────────────────────────────────────────────
+FooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo
+BarBarBarBarBarBarBarBarBarBarBarBarBarBarBarBarBarBarBarBar
+"
+`;
+
 exports[`Table should respect the minimum column width 1`] = `
 "A                B 
 ───────────────  ──

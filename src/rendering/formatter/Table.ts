@@ -190,7 +190,7 @@ export default class Table<TItem> {
 
     let definiteColWidths = [...reservedWidths];
 
-    if (availableWidth) {
+    if (availableWidth && this.opts.truncate) {
       definiteColWidths = addColumWidths(
         definiteColWidths,
         this.widenColumnsToFitAvailableSpace(

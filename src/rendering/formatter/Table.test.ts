@@ -45,6 +45,28 @@ describe("Table", () => {
     expect(effectiveStringLength(lines[2])).toBe(20);
   });
 
+  it("should not truncate too long values when truncation is disabled", () => {
+    const t = new Table(
+      {
+        a: {
+          header: "A",
+        },
+      },
+      { maxWidth: 20, chalkOptions: { level: 0 }, truncate: false },
+    );
+
+    const rendered = t.render([
+      { a: "Foo".repeat(20) },
+      { a: "Bar".repeat(20) },
+    ]);
+
+    const lines = rendered.split("\n");
+
+    expect(rendered).toMatchSnapshot();
+    expect(lines[0].length).toBeGreaterThan(20);
+    expect(effectiveStringLength(lines[2])).toBeGreaterThan(20);
+  });
+
   it("should respect the minimum column width", () => {
     const t = new Table(
       {
