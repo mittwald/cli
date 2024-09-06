@@ -1,7 +1,7 @@
 import { runCommand } from "@oclif/test";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import nock from "nock";
-import { expect } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it } from "@jest/globals";
 
 type Conversation = MittwaldAPIV2.Components.Schemas.ConversationConversation;
 type Message = MittwaldAPIV2.Components.Schemas.ConversationMessage;

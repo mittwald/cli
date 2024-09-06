@@ -1,5 +1,5 @@
 import Table from "./Table.js";
-import { expect } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 import TableColumnRenderer from "./TableColumnRenderer.js";
 
 function effectiveStringLength(str: string) {
