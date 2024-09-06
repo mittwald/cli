@@ -144,19 +144,6 @@ export class DDEVConfigBuilder {
     };
   }
 
-  private async determineDatabaseVersionFromInstallation(
-    inst: AppInstallation,
-  ): Promise<DDEVDatabaseConfig | undefined> {
-    const isPrimary = (db: LinkedDatabase) => db.purpose === "primary";
-    const primary = (inst.linkedDatabases || []).find(isPrimary);
-
-    if (primary?.kind === "mysql") {
-      return this.determineMySQLDatabaseVersion(primary.databaseId);
-    }
-
-    return undefined;
-  }
-
   private determinePHPVersion(
     systemSoftwareVersions: SystemSoftwareVersions,
   ): string | undefined {
