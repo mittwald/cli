@@ -8,7 +8,7 @@ Manage your support cases
 * [`mw conversation create`](#mw-conversation-create)
 * [`mw conversation list`](#mw-conversation-list)
 * [`mw conversation reply [CONVERSATION-ID]`](#mw-conversation-reply-conversation-id)
-* [`mw conversation show`](#mw-conversation-show)
+* [`mw conversation show [CONVERSATION-ID]`](#mw-conversation-show-conversation-id)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
 
 ## `mw conversation categories`
@@ -121,13 +121,17 @@ DESCRIPTION
   Reply to a conversation
 ```
 
-## `mw conversation show`
+## `mw conversation show [CONVERSATION-ID]`
 
 Show a conversation and message history
 
 ```
 USAGE
-  $ mw conversation show
+  $ mw conversation show [CONVERSATION-ID]
+
+ARGUMENTS
+  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
+                   context.
 
 DESCRIPTION
   Show a conversation and message history
