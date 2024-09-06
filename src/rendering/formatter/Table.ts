@@ -2,6 +2,8 @@ import { Chalk, ChalkInstance, Options as ChalkOptions } from "chalk";
 import stringWidth from "string-width";
 import debug from "debug";
 import smartTruncate from "./smartTruncate.js";
+import smartPad from "./smartPad.js";
+import smartPadOrTruncate from "./smartPadOrTruncate.js";
 
 const d = debug("@mittwald/cli:table");
 
@@ -76,6 +78,14 @@ export interface TableOptions {
    * Default is 0.2.
    */
   favorSmallColumnsFactor: number;
+
+  /**
+   * Renderer function for the header labels. By default, the labels are
+   * uppercased.
+   *
+   * @param label
+   */
+  headerRenderer: (label: string) => string;
 }
 
 /** Default options for the table formatter. */
@@ -87,6 +97,7 @@ const defaultOptions: Readonly<TableOptions> = {
   maxWidth: undefined,
   chalkOptions: {},
   favorSmallColumnsFactor: 0.2,
+  headerRenderer: (label: string) => label.toUpperCase(),
 };
 
 function minWidthForColumn<T = unknown>(key: string, c: ListColumn<T>): number {
@@ -121,6 +132,10 @@ export default class Table<TItem> {
     return columns;
   }
 
+  private get totalColumnGapReservation(): number {
+    return (this.columnsWithNames.length - 1) * this.opts.gap;
+  }
+
   private renderItems(
     columns: [string, ListColumn<TItem>][],
     columnWidths: number[],
@@ -151,18 +166,17 @@ export default class Table<TItem> {
 
   public render(data: TItem[]): string {
     const availableWidth = this.opts.maxWidth;
-    const colList = this.columnsWithNames;
+    const { totalColumnGapReservation, columnsWithNames } = this;
 
-    const reservedWidths = colList.map(([key, spec]) =>
+    const reservedWidths = columnsWithNames.map(([key, spec]) =>
       minWidthForColumn(key, spec),
     );
-    const initialDynamicWidths = colList.map(
+    const initialDynamicWidths = columnsWithNames.map(
       ([, spec]) => spec.minWidth || spec.header?.length || 0,
     );
-    const reservedForColumnGaps = (colList.length - 1) * this.opts.gap;
 
     const [renderedItems, dynamicWidths] = this.renderItems(
-      colList,
+      columnsWithNames,
       initialDynamicWidths,
       data,
     );
@@ -174,8 +188,10 @@ export default class Table<TItem> {
 
     if (availableWidth) {
       let remaining =
-        availableWidth - sum(definiteColWidths) - reservedForColumnGaps;
-      const expandingColumn = colList.findIndex(([_, spec]) => spec.expand);
+        availableWidth - sum(definiteColWidths) - totalColumnGapReservation;
+      const expandingColumn = columnsWithNames.findIndex(
+        ([_, spec]) => spec.expand,
+      );
       const totalTruncated = sum(truncatedWidths);
 
       if (totalTruncated < remaining) {
@@ -203,17 +219,17 @@ export default class Table<TItem> {
       }
 
       remaining =
-        availableWidth - sum(definiteColWidths) - reservedForColumnGaps;
+        availableWidth - sum(definiteColWidths) - totalColumnGapReservation;
 
       if (expandingColumn >= 0) {
         definiteColWidths[expandingColumn] += remaining;
       } else {
         const growableRequestedWidth = sum(
-          colList.map(([_, spec], idx) =>
+          columnsWithNames.map(([_, spec], idx) =>
             spec.exactWidth === undefined ? dynamicWidths[idx] : 0,
           ),
         );
-        const growableProportions = colList.map(([_, spec], idx) =>
+        const growableProportions = columnsWithNames.map(([_, spec], idx) =>
           spec.exactWidth === undefined
             ? dynamicWidths[idx] / growableRequestedWidth
             : 0,
@@ -243,39 +259,41 @@ export default class Table<TItem> {
 
     let output = "";
 
-    const headerColumns = colList.map(([key, value]) =>
-      (value.header ?? key).toUpperCase(),
-    );
-    const truncatedHeaderColumns = headerColumns.map((val, idx) =>
-      val.substring(0, definiteColWidths[idx]),
-    );
-    const paddedHeaderColumns = truncatedHeaderColumns.map(
-      (val, idx) => val + " ".repeat(definiteColWidths[idx] - stringWidth(val)),
-    );
-
     const gap = " ".repeat(this.opts.gap);
 
     if (this.opts.header) {
-      output += this.chalk.bold(paddedHeaderColumns.join(gap)) + "\n";
-      output +=
-        this.chalk.bold(
-          paddedHeaderColumns.map((v) => "─".repeat(v.length)).join(gap),
-        ) + "\n";
+      output += this.renderHeader(columnsWithNames, definiteColWidths);
     }
 
     for (let idx = 0; idx < renderedItems.length; idx++) {
-      const truncatedRows = renderedItems[idx].map((val, colIdx) =>
-        smartTruncate(val, definiteColWidths[colIdx]),
-      );
-      const paddedRows = truncatedRows.map(
-        (val, colIdx) =>
-          val +
-          " ".repeat(Math.max(0, definiteColWidths[colIdx] - stringWidth(val))),
+      const truncatedRows = renderedItems[idx].map((val, idx) =>
+        smartPadOrTruncate(val, definiteColWidths[idx]),
       );
 
-      output += paddedRows.join(gap) + "\n";
+      output += truncatedRows.join(gap) + "\n";
     }
 
     return output;
+  }
+
+  private renderHeader(
+    columns: [string, ListColumn<TItem>][],
+    columnWidths: number[],
+  ): string {
+    const headerNames = columns.map(([key, value]) => value.header ?? key);
+    const renderedHeaderTitles = headerNames.map(this.opts.headerRenderer);
+    const truncatedHeaderColumns = renderedHeaderTitles.map((val, idx) =>
+      smartPadOrTruncate(val, columnWidths[idx]),
+    );
+    const dividerColumns = columnWidths.map((w) => "─".repeat(w));
+
+    const gap = " ".repeat(this.opts.gap);
+
+    return (
+      [
+        this.chalk.bold(truncatedHeaderColumns.join(gap)),
+        this.chalk.bold(dividerColumns.join(gap)),
+      ].join("\n") + "\n"
+    );
   }
 }
