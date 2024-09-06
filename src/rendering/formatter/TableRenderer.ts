@@ -13,6 +13,6 @@ export interface TableRendererOptions {
   header: boolean;
 }
 
-export default interface TableRenderer<TItem> {
+export interface TableRenderer<TItem> {
   render(table: Table<TItem>, items: TItem[]): string;
 }

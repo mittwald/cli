@@ -5,7 +5,7 @@ import { stdout } from "@oclif/core/ux";
 import Table, { ListColumns } from "./Table.js";
 import { getTerminalWidth } from "../lib/getTerminalWidth.js";
 import TableColumnRenderer from "./TableColumnRenderer.js";
-import TableRenderer, { TableRendererOptions } from "./TableRenderer.js";
+import { TableRenderer } from "./TableRenderer.js";
 import TableCSVRenderer from "./TableCSVRenderer.js";
 
 export { ListColumn, ListColumns } from "./Table.js";

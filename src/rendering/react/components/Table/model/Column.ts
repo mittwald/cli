@@ -1,4 +1,3 @@
-import { stdout } from "@oclif/core/ux";
 import { ObservableValue } from "../../../lib/observable-value/ObservableValue.js";
 import { Table } from "./Table.js";
 import { Dimension } from "../../../measure/context.js";

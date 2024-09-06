@@ -1,7 +1,4 @@
-import debug from "debug";
-import TableRenderer, { TableRendererOptions } from "./TableRenderer.js";
-
-const d = debug("mw:renderer:table");
+import { TableRenderer } from "./TableRenderer.js";
 
 export type ListColumn<TItem> = {
   /** The header to display for this column. */
@@ -96,6 +93,7 @@ export default class Table<TItem> {
           return spec.get(data[idx]) ?? "";
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const value = (data[idx] as any)[key] ?? "";
         return String(value);
       });

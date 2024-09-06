@@ -1,4 +1,4 @@
-import TableRenderer, { TableRendererOptions } from "./TableRenderer.js";
+import { TableRenderer, TableRendererOptions } from "./TableRenderer.js";
 import smartPadOrTruncate from "./smartPadOrTruncate.js";
 import Table, { ListColumn } from "./Table.js";
 import debug from "debug";
@@ -159,7 +159,7 @@ export default class TableColumnRenderer<TItem>
   }
 
   private widenColumnsToFitAvailableSpace(
-    table: Table<any>,
+    table: Table<TItem>,
     availableWidth: number,
     columnsWithNames: [string, ListColumn<TItem>][],
     definiteColWidths: number[],
@@ -255,7 +255,7 @@ export default class TableColumnRenderer<TItem>
   }
 
   /** The total width reserved for column gaps. */
-  private totalColumnGapReservation(table: Table<any>): number {
+  private totalColumnGapReservation(table: Table<TItem>): number {
     return (table.columnsWithNames.length - 1) * this.opts.gap;
   }
 }

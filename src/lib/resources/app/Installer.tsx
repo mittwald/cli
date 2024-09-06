@@ -1,5 +1,5 @@
 import { makeProcessRenderer } from "../../../rendering/process/process_flags.js";
-import { OutputArgs, OutputFlags } from "@oclif/core/interfaces";
+import { OutputFlags } from "@oclif/core/interfaces";
 import { withProjectId } from "../project/flags.js";
 import {
   autofillFlags,

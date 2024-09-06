@@ -3,8 +3,6 @@ import { AxiosError } from "@mittwald/api-client-commons";
 import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 import UnexpectedShortIDPassedError from "../../../lib/error/UnexpectedShortIDPassedError.js";
 import GenericError from "./Error/GenericError.js";
-import InvalidFlagsError from "./Error/InvalidFlagsError.js";
-import InvalidArgsError from "./Error/InvalidArgsError.js";
 import APIError from "./Error/APIError.js";
 import UnexpectedShortIDPassedErrorBox from "./Error/UnexpectedShortIDPassedErrorBox.js";
 import {

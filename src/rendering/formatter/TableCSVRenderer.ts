@@ -1,4 +1,4 @@
-import TableRenderer, { TableRendererOptions } from "./TableRenderer.js";
+import { TableRenderer, TableRendererOptions } from "./TableRenderer.js";
 import Table from "./Table.js";
 
 export interface TableCSVRendererOptions extends TableRendererOptions {
