@@ -130,14 +130,14 @@ Show details of a backup.
 
 ```
 USAGE
-  $ mw backup get BACKUP-ID [-o json|yaml |  | ]
+  $ mw backup get BACKUP-ID -o txt|json|yaml
 
 ARGUMENTS
   BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Show details of a backup.
@@ -152,20 +152,20 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw backup list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw backup list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List Backups for a given Project.
@@ -257,20 +257,20 @@ List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw backup schedule list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw backup schedule list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List backup schedules belonging to a given project.

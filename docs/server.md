@@ -12,14 +12,14 @@ Get a server.
 
 ```
 USAGE
-  $ mw server get [SERVER-ID] [-o json|yaml |  | ]
+  $ mw server get [SERVER-ID] -o txt|json|yaml
 
 ARGUMENTS
   SERVER-ID  ID or short ID of a server; this argument is optional if a default server is set in the context.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a server.
@@ -31,18 +31,18 @@ List servers for an organization or user.
 
 ```
 USAGE
-  $ mw server list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw server list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List servers for an organization or user.

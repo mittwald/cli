@@ -31,18 +31,18 @@ List available MySQL character sets and collations, optionally filtered by a MyS
 
 ```
 USAGE
-  $ mw database mysql charsets [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw database mysql charsets -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List available MySQL character sets and collations, optionally filtered by a MySQLVersion.
@@ -203,14 +203,14 @@ Get a MySQLDatabase.
 
 ```
 USAGE
-  $ mw database mysql get DATABASE-ID [-o json|yaml |  | ]
+  $ mw database mysql get DATABASE-ID -o txt|json|yaml
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a MySQLDatabase.
@@ -305,20 +305,20 @@ List MySQLDatabases belonging to a Project.
 
 ```
 USAGE
-  $ mw database mysql list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw database mysql list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List MySQLDatabases belonging to a Project.
@@ -547,14 +547,14 @@ Get a MySQL user.
 
 ```
 USAGE
-  $ mw database mysql user get ID [-o json|yaml |  | ]
+  $ mw database mysql user get ID -o txt|json|yaml
 
 ARGUMENTS
   ID  ID of the MySQL user to be retrieved.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a MySQL user.
@@ -566,19 +566,19 @@ List MySQL users belonging to a database.
 
 ```
 USAGE
-  $ mw database mysql user list --database-id <value> [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o
-    txt|json|yaml|csv |  | ] [--no-relative-dates]
+  $ mw database mysql user list -o txt|json|yaml|csv|tsv --database-id <value> [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>      [default: txt] output in a more machine friendly format
-                             <options: txt|json|yaml|csv>
-  -x, --extended             show extra columns
-      --columns=<value>      only show provided columns (comma-separated)
-      --csv                  output is csv format [alias: --output=csv]
-      --database-id=<value>  (required) ID of the MySQL database to list users for.
-      --no-header            hide table header from output
-      --no-relative-dates    show dates in absolute format, not relative
-      --no-truncate          do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --database-id=<value>     (required) ID of the MySQL database to list users for.
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List MySQL users belonging to a database.
@@ -649,18 +649,18 @@ List available MySQL versions.
 
 ```
 USAGE
-  $ mw database mysql versions [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw database mysql versions -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List available MySQL versions.
@@ -723,14 +723,14 @@ Get a Redis database.
 
 ```
 USAGE
-  $ mw database redis get ID [-o json|yaml |  | ]
+  $ mw database redis get ID -o txt|json|yaml
 
 ARGUMENTS
   ID  ID of the Redis database to retrieve.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a Redis database.
@@ -742,20 +742,20 @@ List Redis databases belonging to a project.
 
 ```
 USAGE
-  $ mw database redis list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw database redis list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List Redis databases belonging to a project.
@@ -827,20 +827,20 @@ List available Redis versions.
 
 ```
 USAGE
-  $ mw database redis versions [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw database redis versions -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List available Redis versions.

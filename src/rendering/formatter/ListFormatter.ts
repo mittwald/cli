@@ -1,49 +1,106 @@
-import { BooleanFlag, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
-import { Flags, ux } from "@oclif/core";
+import { BooleanFlag, OptionFlag } from "@oclif/core/interfaces";
+import { Flags } from "@oclif/core";
 import { PrinterFactory } from "../Printer.js";
+import { stdout } from "@oclif/core/ux";
+import Table, { ListColumns } from "./Table.js";
+import { getTerminalWidth } from "../lib/getTerminalWidth.js";
+import TableColumnRenderer from "./TableColumnRenderer.js";
+import { TableRenderer } from "./TableRenderer.js";
+import TableCSVRenderer from "./TableCSVRenderer.js";
 
-export type ListOptions = ux.Table.table.Options;
-export type ListColumns<TItem extends Record<string, unknown>> =
-  ux.Table.table.Columns<TItem>;
+export { ListColumn, ListColumns } from "./Table.js";
 
-type RelevantTableBaseFlags = Partial<typeof ux.table.Flags> &
-  Pick<typeof ux.table.Flags, "output">;
-type ListFormatterFlags = RelevantTableBaseFlags & {
+type ListFormatterFlags = {
+  output: OptionFlag<OutputFormat>;
+  extended: BooleanFlag<boolean>;
+  "no-header": BooleanFlag<boolean>;
+  "no-truncate": BooleanFlag<boolean>;
   "no-relative-dates": BooleanFlag<boolean>;
+  "csv-separator": OptionFlag<"," | ";">;
 };
 
-type ListFormatterFlagsOutput = {
-  output: "txt" | "json" | "yaml" | "csv";
+export type ListOptions = {
+  output: OutputFormat;
+  extended: boolean;
+  "no-header": boolean;
+  "no-truncate": boolean;
   "no-relative-dates": boolean;
+  "csv-separator": "," | ";";
 };
 
-export function isListFormatterFlags(
-  flags: FlagOutput,
-): flags is ListFormatterFlagsOutput {
+const outputFormats = ["txt", "json", "yaml", "csv", "tsv"] as const;
+type OutputFormat = (typeof outputFormats)[number];
+
+export function isListFormatterFlags(flags: {
+  [k: string]: unknown;
+}): flags is ListOptions {
   return "output" in flags;
 }
 
 export class ListFormatter {
   public static get flags(): ListFormatterFlags {
-    const tableFlags: RelevantTableBaseFlags = ux.table.flags();
-
-    delete tableFlags.sort;
-    delete tableFlags.filter;
-
     return {
-      ...tableFlags,
-      output: {
-        ...tableFlags.output,
-        options: ["txt", "json", "yaml", "csv"],
+      output: Flags.option({
+        required: true,
+        description: "output in a more machine friendly format",
+        options: outputFormats,
         char: "o",
         default: "txt",
-      },
-      "no-relative-dates": Flags.boolean({
-        description: "show dates in absolute format, not relative",
+        multiple: false,
+      })(),
+      extended: Flags.boolean({
+        description: "show extended information",
+        char: "x",
         required: false,
         default: false,
       }),
+      "no-header": Flags.boolean({
+        description: "hide table header",
+        required: false,
+        default: false,
+      }),
+      "no-truncate": Flags.boolean({
+        description: "do not truncate output (only relevant for txt output)",
+        required: false,
+        default: false,
+      }),
+      "no-relative-dates": Flags.boolean({
+        description:
+          "show dates in absolute format, not relative (only relevant for txt output)",
+        required: false,
+        default: false,
+      }),
+      "csv-separator": Flags.custom<"," | ";">({
+        description: "separator for CSV output (only relevant for CSV output)",
+        required: false,
+        default: ",",
+        options: [",", ";"],
+      })(),
     };
+  }
+
+  private buildTableRenderer<T>(
+    opts: ListOptions | undefined,
+  ): TableRenderer<T> {
+    if (opts?.output === "csv") {
+      return new TableCSVRenderer({
+        header: !opts?.["no-header"],
+        columnSeparator: opts?.["csv-separator"],
+      });
+    }
+
+    if (opts?.output === "tsv") {
+      return new TableCSVRenderer({
+        header: !opts?.["no-header"],
+        columnSeparator: "\t",
+      });
+    }
+
+    return new TableColumnRenderer<T>({
+      maxWidth: getTerminalWidth(),
+      truncate: !opts?.["no-truncate"],
+      header: !opts?.["no-header"],
+    });
   }
 
   public log<T extends Record<string, unknown>>(
@@ -60,9 +117,12 @@ export class ListFormatter {
       return;
     }
 
-    ux.table(output, columns, {
-      printLine: console.log,
-      ...opts,
+    const tableRenderer = this.buildTableRenderer(opts);
+
+    const table = new Table(columns, tableRenderer, {
+      extended: opts?.extended,
     });
+
+    stdout(table.render(output));
   }
 }

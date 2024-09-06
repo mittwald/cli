@@ -1,5 +1,5 @@
 import parseDuration from "parse-duration";
-import { FlagDefinition } from "@oclif/core/lib/interfaces/index.js";
+import { FlagDefinition } from "@oclif/core/interfaces";
 import { Flags } from "@oclif/core";
 
 /**

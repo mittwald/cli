@@ -8,7 +8,9 @@ export async function triggerAppInstallation(
   apiClient: MittwaldAPIV2Client,
   process: ProcessRenderer,
   projectId: string,
-  flags: Record<string, string>,
+  flags: { "site-title": string; "document-root"?: string } & {
+    [k: string]: unknown;
+  },
   appVersion: AppAppVersion,
 ): Promise<string> {
   const appInstallationId = await process.runStep(
@@ -22,7 +24,7 @@ export async function triggerAppInstallation(
           updatePolicy: "none",
           userInputs: Object.keys(flags).map((k) => ({
             name: k.replace("-", "_"),
-            value: flags[k],
+            value: flags[k] as string,
           })),
         },
       });
@@ -53,7 +55,7 @@ export async function triggerAppInstallation(
       const result = await apiClient.app.patchAppinstallation({
         appInstallationId,
         data: {
-          customDocumentRoot: flags["document-root"],
+          customDocumentRoot: flags["document-root"] as string,
         },
       });
 

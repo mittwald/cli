@@ -1,10 +1,7 @@
-import {
-  OclifError,
-  PrettyPrintableError,
-} from "@oclif/core/lib/interfaces/index.js";
+import { OclifError, PrettyPrintableError } from "@oclif/core/interfaces";
 import { ApiClientError, AxiosResponse } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { ExitError } from "@oclif/core/lib/errors/index.js";
+import { ExitError } from "@oclif/core/errors";
 import { renderError } from "../../rendering/react/error.js";
 
 type CommonsValidationErrors =

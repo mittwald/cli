@@ -25,7 +25,8 @@ export function Table<TData>(props: Props<TData>): ReactNode {
     return <RenderJson name="data" data={data} />;
   }
 
-  const table = useRef(new Model.Table(data, setup, columns)).current;
+  const tableModel = new Model.Table(data, setup, columns);
+  const table = useRef(tableModel).current;
 
   return (
     <TableContextProvider

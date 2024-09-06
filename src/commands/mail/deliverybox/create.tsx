@@ -10,7 +10,7 @@ import { Text } from "ink";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { FlagInput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
+import { FlagInput, OutputFlags } from "@oclif/core/interfaces";
 import { generateRandomPassword } from "../../../lib/resources/mail/commons.js";
 
 type CreateResult = {

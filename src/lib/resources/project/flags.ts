@@ -9,9 +9,8 @@ import Context, {
   ContextKey,
   ContextNames,
 } from "../../context/Context.js";
-import { AlphabetLowercase } from "@oclif/core/lib/interfaces/index.js";
+import { AlphabetLowercase } from "@oclif/core/interfaces";
 import { Args, Config, Flags } from "@oclif/core";
-import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import { MittwaldAPIV2Client, assertStatus } from "@mittwald/api-client";
 import FlagSet from "../../context/FlagSet.js";
 import { validate as validateUuid } from "uuid";
@@ -96,15 +95,15 @@ export function makeProjectFlagSet<TName extends ContextNames>(
   }
 
   const idFromArgsOrFlag = (
-    flags: FlagOutput,
-    args: ArgOutput,
+    flags: { [k: string]: unknown },
+    args: { [k: string]: unknown },
   ): string | undefined => {
-    if (args[flagName]) {
-      return args[flagName];
+    if (args[flagName] && typeof args[flagName] === "string") {
+      return args[flagName] as string;
     }
 
-    if (flags[flagName]) {
-      return flags[flagName];
+    if (flags[flagName] && typeof flags[flagName] === "string") {
+      return flags[flagName] as string;
     }
 
     return undefined;
@@ -113,8 +112,8 @@ export function makeProjectFlagSet<TName extends ContextNames>(
   const withId = async (
     apiClient: MittwaldAPIV2Client,
     commandType: CommandType<TName | "project"> | "flag" | "arg",
-    flags: FlagOutput,
-    args: ArgOutput,
+    flags: { [k: string]: unknown },
+    args: { [k: string]: unknown },
     cfg: Config,
   ): Promise<string> => {
     const idInput = idFromArgsOrFlag(flags, args);

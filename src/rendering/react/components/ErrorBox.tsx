@@ -1,16 +1,14 @@
 import React, { FC } from "react";
-import {
-  FailedFlagValidationError,
-  RequiredArgsError,
-} from "@oclif/core/lib/parser/errors.js";
 import { AxiosError } from "@mittwald/api-client-commons";
 import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 import UnexpectedShortIDPassedError from "../../../lib/error/UnexpectedShortIDPassedError.js";
 import GenericError from "./Error/GenericError.js";
-import InvalidFlagsError from "./Error/InvalidFlagsError.js";
-import InvalidArgsError from "./Error/InvalidArgsError.js";
 import APIError from "./Error/APIError.js";
 import UnexpectedShortIDPassedErrorBox from "./Error/UnexpectedShortIDPassedErrorBox.js";
+import {
+  MissingArgError,
+  MissingFlagError,
+} from "../../../lib/context/FlagSetBuilder.js";
 
 /**
  * Render an error to the terminal.
@@ -19,13 +17,19 @@ import UnexpectedShortIDPassedErrorBox from "./Error/UnexpectedShortIDPassedErro
  *   will be rendered differently.
  */
 export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
-  if (err instanceof FailedFlagValidationError) {
-    return <InvalidFlagsError err={err} />;
-  } else if (err instanceof RequiredArgsError) {
-    return <InvalidArgsError err={err} />;
-  } else if (err instanceof AxiosError) {
+  // TODO
+  // if (err instanceof FailedFlagValidationError) {
+  //   return <InvalidFlagsError err={err} />;
+  // } else if (err instanceof RequiredArgsError) {
+  //   return <InvalidArgsError err={err} />;
+  // } else if (err instanceof AxiosError) {
+  if (err instanceof AxiosError) {
     return <APIError err={err} withStack withHTTPMessages="body" />;
-  } else if (err instanceof InteractiveInputRequiredError) {
+  } else if (
+    err instanceof InteractiveInputRequiredError ||
+    err instanceof MissingArgError ||
+    err instanceof MissingFlagError
+  ) {
     return (
       <GenericError
         err={err}

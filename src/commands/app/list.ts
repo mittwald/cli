@@ -12,6 +12,7 @@ import {
   getAppVersionFromUuid,
 } from "../../lib/resources/app/uuid.js";
 import { isCustomAppInstallation } from "../../lib/resources/app/custom_installation.js";
+import chalk from "chalk";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
@@ -82,8 +83,12 @@ export default class List extends ListBaseCommand<
     );
   }
 
-  protected getColumns(
-    rows: ResponseItem[],
+  protected getColumns(data: ExtendedResponseItem[]) {
+    return this.getColumnsExtended(data) as ListColumns<ResponseItem>;
+  }
+
+  protected getColumnsExtended(
+    rows: ExtendedResponseItem[],
   ): ListColumns<ExtendedResponseItem> {
     const { id, shortId } = super.getColumns(rows);
     return {
@@ -99,7 +104,7 @@ export default class List extends ListBaseCommand<
         header: "Version",
         get: (i) => {
           if (isCustomAppInstallation(i.appId)) {
-            return "n/a";
+            return chalk.dim("n/a");
           }
 
           if (i.appVersionCurrent?.id === i.appVersionDesired.id) {

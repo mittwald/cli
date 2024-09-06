@@ -12,11 +12,7 @@ import {
   processFlags,
 } from "../../../rendering/process/process_flags.js";
 import { Flags } from "@oclif/core";
-import {
-  FlagInput,
-  OptionFlag,
-  OutputFlags,
-} from "@oclif/core/lib/interfaces/parser.js";
+import { FlagInput, OptionFlag, OutputFlags } from "@oclif/core/interfaces";
 import FlagSetBuilder from "../../context/FlagSetBuilder.js";
 import { contextIDNormalizers } from "../../context/Context.js";
 import { generatePasswordWithSpecialChars } from "../../util/password/generatePasswordWithSpecialChars.js";

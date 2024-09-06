@@ -13,11 +13,11 @@ Print an overview of currently set context parameters
 
 ```
 USAGE
-  $ mw context get -o txt|json
+  $ mw context get [-o txt|json]
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] The output format to use; use 'txt' for a human readable text
-                         representation, and 'json' for a machine-readable JSON representation.
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
 
 DESCRIPTION

@@ -1,5 +1,4 @@
 import { ContextNames } from "./Context.js";
-import { ArgOutput, FlagOutput } from "@oclif/core/lib/interfaces/parser.js";
 import { Config } from "@oclif/core";
 import { CommandType, ContextArgs, ContextFlags } from "./FlagSetBuilder.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
@@ -19,8 +18,8 @@ interface FlagSet<TName extends ContextNames> {
   withId: (
     apiClient: MittwaldAPIV2Client,
     command: CommandType<TName> | "flag" | "arg",
-    flags: FlagOutput,
-    args: ArgOutput,
+    flags: { [k: string]: unknown },
+    args: { [k: string]: unknown },
     cfg: Config,
   ) => Promise<string>;
 }

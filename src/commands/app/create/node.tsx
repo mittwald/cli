@@ -4,7 +4,6 @@ import {
   AppInstallationResult,
   AppInstaller,
 } from "../../../lib/resources/app/Installer.js";
-import { FlagDefault } from "@oclif/core/lib/interfaces/parser.js";
 
 export const nodeInstaller = new AppInstaller(
   "3e7f920b-a711-4d2f-9871-661e1b41a2f0",
@@ -13,8 +12,7 @@ export const nodeInstaller = new AppInstaller(
 );
 
 nodeInstaller.mutateFlags = (flags) => {
-  (flags["entrypoint"].default as unknown as FlagDefault<string>) =
-    "yarn start";
+  (flags["entrypoint"].default as unknown) = "yarn start";
 };
 
 export default class InstallNode extends ExecRenderBaseCommand<

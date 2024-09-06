@@ -1,5 +1,5 @@
 import { makeProcessRenderer } from "../../../rendering/process/process_flags.js";
-import { ArgOutput, OutputFlags } from "@oclif/core/lib/interfaces/parser.js";
+import { OutputFlags } from "@oclif/core/interfaces";
 import { withProjectId } from "../project/flags.js";
 import {
   autofillFlags,
@@ -17,7 +17,7 @@ import { Config } from "@oclif/core";
 
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
-type ImplicitDefaultFlag = "wait" | "wait-timeout";
+type ImplicitDefaultFlag = "wait" | "wait-timeout" | "site-title";
 
 export interface AppInstallationResult {
   appInstallationId: string;
@@ -55,7 +55,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
     readonly (TFlagName | ImplicitDefaultFlag)[]
   > {
     const flags = provideSupportedFlags(
-      [...this.appSupportedFlags, "wait", "wait-timeout"],
+      [...this.appSupportedFlags, "wait", "wait-timeout", "site-title"],
       this.appName,
     );
 
@@ -68,7 +68,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
 
   public async exec(
     apiClient: MittwaldAPIV2Client,
-    args: ArgOutput,
+    args: { [k: string]: unknown },
     flags: OutputFlags<RelevantFlagInput<(TFlagName | ImplicitDefaultFlag)[]>>,
     config: Config,
   ): Promise<AppInstallationResult> {

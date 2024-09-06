@@ -147,14 +147,14 @@ Show details of a backup.
 
 ```
 USAGE
-  $ mw project backup get BACKUP-ID [-o json|yaml |  | ]
+  $ mw project backup get BACKUP-ID -o txt|json|yaml
 
 ARGUMENTS
   BACKUP-ID  ID or short ID of a backup.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Show details of a backup.
@@ -169,20 +169,20 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw project backup list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw project backup list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List Backups for a given Project.
@@ -205,20 +205,20 @@ List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw project backupschedule list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw project backupschedule list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List backup schedules belonging to a given project.
@@ -276,15 +276,15 @@ Get a cron job execution.
 
 ```
 USAGE
-  $ mw project cronjob execution get CRONJOB-ID EXECUTION-ID [-o json|yaml |  | ]
+  $ mw project cronjob execution get CRONJOB-ID EXECUTION-ID -o txt|json|yaml
 
 ARGUMENTS
   CRONJOB-ID    ID of the cronjob the execution belongs to
   EXECUTION-ID  ID of the cronjob execution to be retrieved.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a cron job execution.
@@ -299,19 +299,19 @@ List CronjobExecutions belonging to a Cronjob.
 
 ```
 USAGE
-  $ mw project cronjob execution list --cronjob-id <value> [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o
-    txt|json|yaml|csv |  | ] [--no-relative-dates]
+  $ mw project cronjob execution list -o txt|json|yaml|csv|tsv --cronjob-id <value> [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --cronjob-id=<value>  (required) ID of the cron job for which to list executions for.
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --cronjob-id=<value>      (required) ID of the cron job for which to list executions for.
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
@@ -326,15 +326,15 @@ Get the log output of a cronjob execution.
 
 ```
 USAGE
-  $ mw project cronjob execution logs CRONJOB-ID EXECUTION-ID [-o json|yaml |  | ] [--no-pager]
+  $ mw project cronjob execution logs CRONJOB-ID EXECUTION-ID -o txt|json|yaml [--no-pager]
 
 ARGUMENTS
   CRONJOB-ID    ID of the cronjob the execution belongs to
   EXECUTION-ID  ID of the cronjob execution to be retrieved.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
       --no-pager         Disable pager for output.
 
 DESCRIPTION
@@ -354,20 +354,20 @@ List cron jobs belonging to a project.
 
 ```
 USAGE
-  $ mw project cronjob list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw project cronjob list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List cron jobs belonging to a project.
@@ -415,14 +415,14 @@ Get a project directory filesystem usage.
 
 ```
 USAGE
-  $ mw project filesystem usage [PROJECT-ID] [-o json|yaml |  | ] [--human]
+  $ mw project filesystem usage [PROJECT-ID] -o txt|json|yaml [--human]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
       --human            Display human readable sizes.
 
 DESCRIPTION
@@ -435,14 +435,14 @@ Get details of a project
 
 ```
 USAGE
-  $ mw project get [PROJECT-ID] [-o json|yaml |  | ]
+  $ mw project get [PROJECT-ID] -o txt|json|yaml
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get details of a project
@@ -454,14 +454,14 @@ Get a ProjectInvite.
 
 ```
 USAGE
-  $ mw project invite get INVITE-ID [-o json|yaml |  | ]
+  $ mw project invite get INVITE-ID -o txt|json|yaml
 
 ARGUMENTS
   INVITE-ID  ID of the ProjectInvite to be retrieved.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a ProjectInvite.
@@ -473,20 +473,20 @@ List all invites belonging to a project.
 
 ```
 USAGE
-  $ mw project invite list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw project invite list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all invites belonging to a project.
@@ -506,18 +506,18 @@ List all project invites for the executing user.
 
 ```
 USAGE
-  $ mw project invite list-own [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw project invite list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all project invites for the executing user.
@@ -529,18 +529,18 @@ List all projects that you have access to
 
 ```
 USAGE
-  $ mw project list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw project list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all projects that you have access to
@@ -552,14 +552,14 @@ Get a ProjectMembership
 
 ```
 USAGE
-  $ mw project membership get MEMBERSHIP-ID [-o json|yaml |  | ]
+  $ mw project membership get MEMBERSHIP-ID -o txt|json|yaml
 
 ARGUMENTS
   MEMBERSHIP-ID  ID of the ProjectMembership to be retrieved.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a ProjectMembership
@@ -571,11 +571,11 @@ Get the executing user's membership in a Project.
 
 ```
 USAGE
-  $ mw project membership get-own [-o json|yaml |  | ] [-p <value>]
+  $ mw project membership get-own -o txt|json|yaml [-p <value>]
 
 FLAGS
-  -o, --output=<option>     output in a more machine friendly format
-                            <options: json|yaml>
+  -o, --output=<option>     (required) [default: txt] output in a more machine friendly format
+                            <options: txt|json|yaml>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
 
@@ -597,20 +597,20 @@ List all memberships for a Project.
 
 ```
 USAGE
-  $ mw project membership list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw project membership list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all memberships for a Project.
@@ -630,18 +630,18 @@ List ProjectMemberships belonging to the executing user.
 
 ```
 USAGE
-  $ mw project membership list-own [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw project membership list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List ProjectMemberships belonging to the executing user.
@@ -653,20 +653,20 @@ List all SFTP users for a project.
 
 ```
 USAGE
-  $ mw project sftp-user list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw project sftp-user list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all SFTP users for a project.
@@ -732,20 +732,20 @@ List all SSH users for a project.
 
 ```
 USAGE
-  $ mw project ssh-user list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw project ssh-user list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all SSH users for a project.

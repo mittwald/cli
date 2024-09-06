@@ -5,7 +5,7 @@ import { RenderContextProvider } from "../../rendering/react/context.js";
 import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
 import { JsonCollectionProvider } from "../../rendering/react/json/JsonCollectionProvider.js";
 import { Flags, Interfaces } from "@oclif/core";
-import { FlagInput } from "@oclif/core/lib/interfaces/parser.js";
+import { FlagInput } from "@oclif/core/interfaces";
 import { Render } from "../../rendering/react/components/Render.js";
 import { CommandArgs, CommandFlags } from "./CommandFlags.js";
 import { useIncreaseInkStdoutColumns } from "../../rendering/react/hooks/useIncreaseInkStdoutColumns.js";
@@ -18,7 +18,6 @@ const renderFlags = {
     description:
       "The output format to use; use 'txt' for a human readable text representation, and 'json' for a machine-readable JSON representation.",
     char: "o",
-    required: true,
     default: "txt",
     options: ["txt", "json"],
   }),
