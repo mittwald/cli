@@ -45,14 +45,14 @@ Get an organization profile.
 
 ```
 USAGE
-  $ mw org get [ORG-ID] [-o json|yaml |  | ]
+  $ mw org get [ORG-ID] -o txt|json|yaml
 
 ARGUMENTS
   ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get an organization profile.
@@ -97,19 +97,19 @@ List all invites for an organization.
 
 ```
 USAGE
-  $ mw org invite list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-o <value>]
+  $ mw org invite list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-o <value>]
 
 FLAGS
-  -o, --org-id=<value>     ID or short ID of an org; this flag is optional if a default org is set in the context
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --org-id=<value>          ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all invites for an organization.
@@ -127,18 +127,18 @@ List all organization invites for the executing user.
 
 ```
 USAGE
-  $ mw org invite list-own [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw org invite list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all organization invites for the executing user.
@@ -174,18 +174,18 @@ Get all organizations the authenticated user has access to.
 
 ```
 USAGE
-  $ mw org list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw org list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   Get all organizations the authenticated user has access to.
@@ -197,19 +197,19 @@ List all memberships belonging to an organization.
 
 ```
 USAGE
-  $ mw org membership list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-o <value>]
+  $ mw org membership list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-o <value>]
 
 FLAGS
-  -o, --org-id=<value>     ID or short ID of an org; this flag is optional if a default org is set in the context
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --org-id=<value>          ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all memberships belonging to an organization.
@@ -227,18 +227,18 @@ List all organization memberships for the executing user.
 
 ```
 USAGE
-  $ mw org membership list-own [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw org membership list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all organization memberships for the executing user.

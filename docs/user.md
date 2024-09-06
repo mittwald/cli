@@ -47,14 +47,14 @@ Get a specific API token
 
 ```
 USAGE
-  $ mw user api-token get TOKEN-ID [-o json|yaml |  | ]
+  $ mw user api-token get TOKEN-ID -o txt|json|yaml
 
 ARGUMENTS
   TOKEN-ID  The ID of an API token
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a specific API token
@@ -66,18 +66,18 @@ List all API tokens of the user
 
 ```
 USAGE
-  $ mw user api-token list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw user api-token list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all API tokens of the user
@@ -114,15 +114,15 @@ Get profile information for a user.
 
 ```
 USAGE
-  $ mw user get USER-ID [-o json|yaml |  | ]
+  $ mw user get USER-ID -o txt|json|yaml
 
 ARGUMENTS
   USER-ID  [default: self] The user ID to get information for; defaults to the special value 'self', which references to
            the currently authenticated user.
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get profile information for a user.
@@ -134,14 +134,14 @@ Get a specific session
 
 ```
 USAGE
-  $ mw user session get TOKEN-ID [-o json|yaml |  | ]
+  $ mw user session get TOKEN-ID -o txt|json|yaml
 
 ARGUMENTS
   TOKEN-ID  Token ID to identify the specific session
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a specific session
@@ -153,18 +153,18 @@ List all active sessions
 
 ```
 USAGE
-  $ mw user session list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw user session list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   List all active sessions
@@ -226,14 +226,14 @@ Get a specific SSH key
 
 ```
 USAGE
-  $ mw user ssh-key get KEY-ID [-o json|yaml |  | ]
+  $ mw user ssh-key get KEY-ID -o txt|json|yaml
 
 ARGUMENTS
   KEY-ID  The ID of an SSH key
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a specific SSH key
@@ -268,18 +268,18 @@ Get your stored ssh keys
 
 ```
 USAGE
-  $ mw user ssh-key list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw user ssh-key list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   Get your stored ssh keys

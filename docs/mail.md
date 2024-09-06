@@ -130,14 +130,14 @@ Get a specific mail address
 
 ```
 USAGE
-  $ mw mail address get ID [-o json|yaml |  | ]
+  $ mw mail address get ID -o txt|json|yaml
 
 ARGUMENTS
   ID  id of the address you want to get
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a specific mail address
@@ -149,20 +149,20 @@ Get all mail addresses for a project ID
 
 ```
 USAGE
-  $ mw mail address list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw mail address list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   Get all mail addresses for a project ID
@@ -342,14 +342,14 @@ Get a specific delivery box
 
 ```
 USAGE
-  $ mw mail deliverybox get ID [-o json|yaml |  | ]
+  $ mw mail deliverybox get ID -o txt|json|yaml
 
 ARGUMENTS
   ID  ID of the delivery box you want to retrieve
 
 FLAGS
-  -o, --output=<option>  output in a more machine friendly format
-                         <options: json|yaml>
+  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
+                         <options: txt|json|yaml>
 
 DESCRIPTION
   Get a specific delivery box
@@ -361,20 +361,20 @@ Get all delivery boxes by project ID
 
 ```
 USAGE
-  $ mw mail deliverybox list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates] [-p <value>]
+  $ mw mail deliverybox list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;] [-p <value>]
 
 FLAGS
-  -o, --output=<option>     [default: txt] output in a more machine friendly format
-                            <options: txt|json|yaml|csv>
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -x, --extended            show extra columns
-      --columns=<value>     only show provided columns (comma-separated)
-      --csv                 output is csv format [alias: --output=csv]
-      --no-header           hide table header from output
-      --no-relative-dates   show dates in absolute format, not relative
-      --no-truncate         do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
+                                context
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   Get all delivery boxes by project ID

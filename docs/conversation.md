@@ -8,7 +8,7 @@ Manage your support cases
 * [`mw conversation create`](#mw-conversation-create)
 * [`mw conversation list`](#mw-conversation-list)
 * [`mw conversation reply [CONVERSATION-ID]`](#mw-conversation-reply-conversation-id)
-* [`mw conversation show [CONVERSATION-ID]`](#mw-conversation-show-conversation-id)
+* [`mw conversation show`](#mw-conversation-show)
 * [`mw conversation show2 CONVERSATIONID`](#mw-conversation-show2-conversationid)
 
 ## `mw conversation categories`
@@ -17,18 +17,18 @@ Get all conversation categories.
 
 ```
 USAGE
-  $ mw conversation categories [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw conversation categories -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   Get all conversation categories.
@@ -80,18 +80,18 @@ Get all conversations the authenticated user has created or has access to.
 
 ```
 USAGE
-  $ mw conversation list [--columns <value> | -x] [--no-header | [--csv | --no-truncate]] [-o txt|json|yaml|csv |  | ]
-    [--no-relative-dates]
+  $ mw conversation list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+    [--csv-separator ,|;]
 
 FLAGS
-  -o, --output=<option>    [default: txt] output in a more machine friendly format
-                           <options: txt|json|yaml|csv>
-  -x, --extended           show extra columns
-      --columns=<value>    only show provided columns (comma-separated)
-      --csv                output is csv format [alias: --output=csv]
-      --no-header          hide table header from output
-      --no-relative-dates  show dates in absolute format, not relative
-      --no-truncate        do not truncate output to fit screen
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
 
 DESCRIPTION
   Get all conversations the authenticated user has created or has access to.
@@ -121,17 +121,13 @@ DESCRIPTION
   Reply to a conversation
 ```
 
-## `mw conversation show [CONVERSATION-ID]`
+## `mw conversation show`
 
 Show a conversation and message history
 
 ```
 USAGE
-  $ mw conversation show [CONVERSATION-ID]
-
-ARGUMENTS
-  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
-                   context.
+  $ mw conversation show
 
 DESCRIPTION
   Show a conversation and message history
@@ -141,11 +137,11 @@ DESCRIPTION
 
 ```
 USAGE
-  $ mw conversation show2 CONVERSATIONID -o txt|json [--wait]
+  $ mw conversation show2 CONVERSATIONID [--wait] [-o txt|json]
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] The output format to use; use 'txt' for a human readable text
-                         representation, and 'json' for a machine-readable JSON representation.
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
   --wait
 ```
