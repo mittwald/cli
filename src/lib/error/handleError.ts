@@ -7,6 +7,7 @@ import { renderError } from "../../rendering/react/error.js";
 type CommonsValidationErrors =
   MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
 
+// noinspection JSUnusedGlobalSymbols
 export default function handleError(
   error: Error &
     Partial<PrettyPrintableError> &
