@@ -127,6 +127,7 @@ export default class Table<TItem> {
     };
   }
 
+  /** The columns with their names as an array of tuples. */
   private get columnsWithNames(): [string, ListColumn<TItem>][] {
     let columns = Object.entries(this.columns);
 
@@ -137,6 +138,7 @@ export default class Table<TItem> {
     return columns;
   }
 
+  /** The total width reserved for column gaps. */
   private get totalColumnGapReservation(): number {
     return (this.columnsWithNames.length - 1) * this.opts.gap;
   }
@@ -171,7 +173,7 @@ export default class Table<TItem> {
 
   public render(data: TItem[]): string {
     const availableWidth = this.opts.maxWidth;
-    const { totalColumnGapReservation, columnsWithNames } = this;
+    const { columnsWithNames } = this;
 
     const reservedWidths = columnsWithNames.map(([key, spec]) =>
       minWidthForColumn(key, spec),
@@ -189,40 +191,15 @@ export default class Table<TItem> {
     let definiteColWidths = [...reservedWidths];
 
     if (availableWidth) {
-      const computeRemainingWidth = () =>
-        availableWidth - sum(definiteColWidths) - totalColumnGapReservation;
-      const remainingInitially = computeRemainingWidth();
-      const expandingColumn = columnsWithNames.findIndex(
-        ([_, spec]) => spec.expand,
-      );
-      const hasExpandingColumn = expandingColumn >= 0;
-
       definiteColWidths = addColumWidths(
         definiteColWidths,
-        this.widenColumnsToFitTruncatedContent(
-          remainingInitially,
+        this.widenColumnsToFitAvailableSpace(
+          availableWidth,
+          columnsWithNames,
           definiteColWidths,
           dynamicWidths,
         ),
       );
-
-      const remainingAfterExpansionForTruncated = computeRemainingWidth();
-
-      // If a column is set to expand, give it all the remaining space; otherwise,
-      // distribute it proportionally to requested content width among all columns
-      if (hasExpandingColumn) {
-        definiteColWidths[expandingColumn] +=
-          remainingAfterExpansionForTruncated;
-      } else {
-        definiteColWidths = addColumWidths(
-          definiteColWidths,
-          this.widenColumnsProportionallyToFitAvailableSpace(
-            remainingAfterExpansionForTruncated,
-            columnsWithNames,
-            definiteColWidths,
-          ),
-        );
-      }
     } else {
       // when no maximum width is given, just use the maximum content width
       definiteColWidths.forEach((width, idx) => {
@@ -278,7 +255,54 @@ export default class Table<TItem> {
     );
   }
 
-  private widenColumnsProportionallyToFitAvailableSpace(
+  private widenColumnsToFitAvailableSpace(
+    availableWidth: number,
+    columnsWithNames: [string, ListColumn<TItem>][],
+    definiteColWidths: number[],
+    maximumColWidths: number[],
+  ): number[] {
+    const { totalColumnGapReservation } = this;
+
+    const computeRemainingWidth = () =>
+      availableWidth - sum(definiteColWidths) - totalColumnGapReservation;
+    const remainingInitially = computeRemainingWidth();
+    const expandingColumn = columnsWithNames.findIndex(
+      ([_, spec]) => spec.expand,
+    );
+    const hasExpandingColumn = expandingColumn >= 0;
+
+    const additionalColumnWidths = this.widenColumnsToFitTruncatedContent(
+      remainingInitially,
+      definiteColWidths,
+      maximumColWidths,
+    );
+
+    definiteColWidths = addColumWidths(
+      definiteColWidths,
+      additionalColumnWidths,
+    );
+
+    const remainingAfterExpansionForTruncated = computeRemainingWidth();
+
+    // If a column is set to expand, give it all the remaining space; otherwise,
+    // distribute it proportionally to requested content width among all columns
+    if (hasExpandingColumn) {
+      additionalColumnWidths[expandingColumn] +=
+        remainingAfterExpansionForTruncated;
+      return additionalColumnWidths;
+    }
+
+    return addColumWidths(
+      additionalColumnWidths,
+      this.widenColumnsProportionally(
+        remainingAfterExpansionForTruncated,
+        columnsWithNames,
+        definiteColWidths,
+      ),
+    );
+  }
+
+  private widenColumnsProportionally(
     remaining: number,
     columnsWithNames: [string, ListColumn<TItem>][],
     maximumColWidths: number[],
