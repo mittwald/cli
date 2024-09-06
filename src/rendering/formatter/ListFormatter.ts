@@ -5,6 +5,8 @@ import { stdout } from "@oclif/core/ux";
 import Table, { ListColumns } from "./Table.js";
 import { getTerminalWidth } from "../lib/getTerminalWidth.js";
 import TableColumnRenderer from "./TableColumnRenderer.js";
+import TableRenderer, { TableRendererOptions } from "./TableRenderer.js";
+import TableCSVRenderer from "./TableCSVRenderer.js";
 
 export { ListColumn, ListColumns } from "./Table.js";
 
@@ -14,6 +16,7 @@ type ListFormatterFlags = {
   "no-header": BooleanFlag<boolean>;
   "no-truncate": BooleanFlag<boolean>;
   "no-relative-dates": BooleanFlag<boolean>;
+  "csv-separator": OptionFlag<"," | ";">;
 };
 
 export type ListOptions = {
@@ -22,9 +25,10 @@ export type ListOptions = {
   "no-header": boolean;
   "no-truncate": boolean;
   "no-relative-dates": boolean;
+  "csv-separator": "," | ";";
 };
 
-const outputFormats = ["txt", "json", "yaml", "csv"] as const;
+const outputFormats = ["txt", "json", "yaml", "csv", "tsv"] as const;
 type OutputFormat = (typeof outputFormats)[number];
 
 export function isListFormatterFlags(flags: {
@@ -56,16 +60,47 @@ export class ListFormatter {
         default: false,
       }),
       "no-truncate": Flags.boolean({
-        description: "do not truncate output",
+        description: "do not truncate output (only relevant for txt output)",
         required: false,
         default: false,
       }),
       "no-relative-dates": Flags.boolean({
-        description: "show dates in absolute format, not relative",
+        description:
+          "show dates in absolute format, not relative (only relevant for txt output)",
         required: false,
         default: false,
       }),
+      "csv-separator": Flags.custom<"," | ";">({
+        description: "separator for CSV output (only relevant for CSV output)",
+        required: false,
+        default: ",",
+        options: [",", ";"],
+      })(),
     };
+  }
+
+  private buildTableRenderer<T>(
+    opts: ListOptions | undefined,
+  ): TableRenderer<T> {
+    if (opts?.output === "csv") {
+      return new TableCSVRenderer({
+        header: !opts?.["no-header"],
+        columnSeparator: opts?.["csv-separator"],
+      });
+    }
+
+    if (opts?.output === "tsv") {
+      return new TableCSVRenderer({
+        header: !opts?.["no-header"],
+        columnSeparator: "\t",
+      });
+    }
+
+    return new TableColumnRenderer<T>({
+      maxWidth: getTerminalWidth(),
+      truncate: !opts?.["no-truncate"],
+      header: !opts?.["no-header"],
+    });
   }
 
   public log<T extends Record<string, unknown>>(
@@ -82,11 +117,7 @@ export class ListFormatter {
       return;
     }
 
-    const tableRenderer = new TableColumnRenderer<T>({
-      maxWidth: getTerminalWidth(),
-      truncate: !opts?.["no-truncate"],
-      header: !opts?.["no-header"],
-    });
+    const tableRenderer = this.buildTableRenderer(opts);
 
     const table = new Table(columns, tableRenderer, {
       extended: opts?.extended,
