@@ -1,4 +1,4 @@
-import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
+import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
 import { BaseCommand } from "../../../lib/basecommands/BaseCommand.js";
