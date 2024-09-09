@@ -35,8 +35,7 @@ describe("conversation:show", () => {
     expect(true).toBeTruthy();
   });
 
-  // skipped, to be fixed later
-  it.skip("shows a conversation and its messages", async () => {
+  it("shows a conversation and its messages", async () => {
     const scope = nock("https://api.mittwald.de")
       .get(`/v2/conversations/${conversationId}`)
       .reply(200, {
@@ -90,29 +89,3 @@ describe("conversation:show", () => {
     expect(error).toBeUndefined();
   });
 });
-
-/*
-
-      api
-    .env({ MITTWALD_API_TOKEN: "foo" })
-    .stdout()
-    .command(["conversation show", conversationId])
-    .it("shows a conversation and its messages", (ctx) => {
-      expect(ctx.stdout.trim()).to.equal(`Conversation metadata
-─────────────────────
-
-Title    Test conversation
-ID       CONV-ID
-Opened   less than a minute ago by Unknown User
-Status   open
-
-Messages
-────────
-
-CREATED, less than a minute ago
-
-John Doe, less than a minute ago
-Hello, World!
-
-CLOSED, less than a minute ago`);
-    });*/
