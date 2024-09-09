@@ -214,7 +214,7 @@
       "s3": {
         "xz": true,
         "bucket": "mittwald-cli",
-        "host": "https://s3.eu-central-1.amazonaws.com"
+        "host": "https://mittwald-cli.s3.eu-central-1.amazonaws.com"
       }
     }
   },
