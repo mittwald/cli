@@ -1,6 +1,6 @@
 {
   "name": "@mittwald/cli",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Hand-crafted CLI for the mittwald API",
   "license": "MIT",
   "author": {
