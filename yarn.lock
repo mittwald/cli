@@ -2335,34 +2335,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^4":
-  version: 4.0.0
-  resolution: "@oclif/core@npm:4.0.0"
-  dependencies:
-    ansi-escapes: ^4.3.2
-    ansis: ^3.1.1
-    clean-stack: ^3.0.1
-    cli-spinners: ^2.9.2
-    cosmiconfig: ^9.0.0
-    debug: ^4.3.5
-    ejs: ^3.1.10
-    get-package-type: ^0.1.0
-    globby: ^11.1.0
-    indent-string: ^4.0.0
-    is-wsl: ^2.2.0
-    minimatch: ^9.0.4
-    string-width: ^4.2.3
-    supports-color: ^8
-    widest-line: ^3.1.0
-    wordwrap: ^1.0.0
-    wrap-ansi: ^7.0.0
-  checksum: 943de2b07bd880c07b5333e609379126e730aab1c3ab4e3b44ef689688255fd90fa6b420298a2491314c8f7a3790deb63710f3c41bf4d4c05e54648e4775dcd6
-  languageName: node
-  linkType: hard
-
-"@oclif/core@npm:^4.0.18":
-  version: 4.0.18
-  resolution: "@oclif/core@npm:4.0.18"
+"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18":
+  version: 4.0.20
+  resolution: "@oclif/core@npm:4.0.20"
   dependencies:
     ansi-escapes: ^4.3.2
     ansis: ^3.3.2
@@ -2381,7 +2356,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 80cd06fb4107a85e91285c714b4360dcc9c0ca21d3a82b4c0c825929403e52916afa28b1142fd950fcd940b79bd9c6d271348fe8336d5dd77a34c3aaef04c270
+  checksum: 80b1f9d362c213f27290656cfcb3f5d44794a96a6f458aca13baead3192a4af3f88484e97b47bd7498da8b4996c29acb69c64852b0a024ab46586d8ee8c95287
   languageName: node
   linkType: hard
 
@@ -3990,13 +3965,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansis@npm:^3.1.1":
-  version: 3.2.0
-  resolution: "ansis@npm:3.2.0"
-  checksum: ed161ec20f4764893db801dd3dee95fd6dced0e9adec67e403c256b6f0632ec9300374f075aca533100ce60f68d3f969cac52f1c56237a1fae344262bced36eb
-  languageName: node
-  linkType: hard
-
 "ansis@npm:^3.2.0, ansis@npm:^3.3.1, ansis@npm:^3.3.2":
   version: 3.3.2
   resolution: "ansis@npm:3.3.2"
@@ -4876,23 +4844,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "cosmiconfig@npm:9.0.0"
-  dependencies:
-    env-paths: ^2.2.1
-    import-fresh: ^3.3.0
-    js-yaml: ^4.1.0
-    parse-json: ^5.2.0
-  peerDependencies:
-    typescript: ">=4.9.5"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: a30c424b53d442ea0bdd24cb1b3d0d8687c8dda4a17ab6afcdc439f8964438801619cdb66e8e79f63b9caa3e6586b60d8bab9ce203e72df6c5e80179b971fe8f
-  languageName: node
-  linkType: hard
-
 "create-jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "create-jest@npm:29.7.0"
@@ -5344,7 +5295,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"env-paths@npm:^2.2.0, env-paths@npm:^2.2.1":
+"env-paths@npm:^2.2.0":
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
   checksum: 65b5df55a8bab92229ab2b40dad3b387fad24613263d103a97f91c9fe43ceb21965cd3392b1ccb5d77088021e525c4e0481adb309625d0cb94ade1d1fb8dc17e
@@ -6689,7 +6640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-fresh@npm:^3.2.1, import-fresh@npm:^3.3.0":
+"import-fresh@npm:^3.2.1":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
   dependencies:
