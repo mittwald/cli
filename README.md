@@ -6,14 +6,6 @@
 
 </center>
 
-> ⚠️ **EXPERIMENTAL &mdash; STABILITY NOTICE**
->
-> This project is **experimental**, and we do not offer any stability guarantees
-> of any kind for the command structure, input flags and arguments and output
-> formats. We welcome you to give this project a try and we're looking forward
-> for any feedback on this project in this stage of development. However, please
-> do not rely on any inputs or outputs of this project to remain stable.
-
 ## Synposis
 
 `mw` is the command-line tool for interacting with the mittwald mStudio v2 API.
