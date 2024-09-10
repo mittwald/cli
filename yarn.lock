@@ -2121,14 +2121,14 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^4, @oclif/core@npm:^4.0.18":
-  version: 4.0.20
-  resolution: "@oclif/core@npm:4.0.20"
+  version: 4.0.21
+  resolution: "@oclif/core@npm:4.0.21"
   dependencies:
     ansi-escapes: ^4.3.2
     ansis: ^3.3.2
     clean-stack: ^3.0.1
     cli-spinners: ^2.9.2
-    debug: ^4.3.5
+    debug: ^4.3.7
     ejs: ^3.1.10
     get-package-type: ^0.1.0
     globby: ^11.1.0
@@ -2141,7 +2141,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 80b1f9d362c213f27290656cfcb3f5d44794a96a6f458aca13baead3192a4af3f88484e97b47bd7498da8b4996c29acb69c64852b0a024ab46586d8ee8c95287
+  checksum: 86496146d4fb6123493613dc9740dd02102cdd4b8902c0c9485df61d6b9f99d575f0e5be9166a1e52447945ecd23d6fdd7f853f77cdefb60ef64bf65bd229934
   languageName: node
   linkType: hard
 
@@ -4784,6 +4784,18 @@ __metadata:
     supports-color:
       optional: true
   checksum: 1630b748dea3c581295e02137a9f5cbe2c1d85fea35c1e6597a65ca2b16a6fce68cec61b299d480787ef310ba927dc8c92d3061faba0ad06c6a724672f66be7f
+  languageName: node
+  linkType: hard
+
+"debug@npm:^4.3.7":
+  version: 4.3.7
+  resolution: "debug@npm:4.3.7"
+  dependencies:
+    ms: ^2.1.3
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 822d74e209cd910ef0802d261b150314bbcf36c582ccdbb3e70f0894823c17e49a50d3e66d96b633524263975ca16b6a833f3e3b7e030c157169a5fabac63160
   languageName: node
   linkType: hard
 
@@ -8365,6 +8377,13 @@ __metadata:
   version: 2.1.2
   resolution: "ms@npm:2.1.2"
   checksum: 673cdb2c3133eb050c745908d8ce632ed2c02d85640e2edb3ace856a2266a813b30c613569bf3354fdf4ea7d1a1494add3bfa95e2713baa27d0c2c71fc44f58f
+  languageName: node
+  linkType: hard
+
+"ms@npm:^2.1.3":
+  version: 2.1.3
+  resolution: "ms@npm:2.1.3"
+  checksum: aa92de608021b242401676e35cfa5aa42dd70cbdc082b916da7fb925c542173e36bce97ea3e804923fe92c0ad991434e4a38327e15a1b5b5f945d66df615ae6d
   languageName: node
   linkType: hard
 
