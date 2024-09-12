@@ -30,6 +30,7 @@ Manage apps, and app installations in your projects
 * [`mw app install wordpress`](#mw-app-install-wordpress)
 * [`mw app list`](#mw-app-list)
 * [`mw app list-upgrade-candidates [INSTALLATION-ID]`](#mw-app-list-upgrade-candidates-installation-id)
+* [`mw app open [INSTALLATION-ID]`](#mw-app-open-installation-id)
 * [`mw app ssh [INSTALLATION-ID]`](#mw-app-ssh-installation-id)
 * [`mw app uninstall [INSTALLATION-ID]`](#mw-app-uninstall-installation-id)
 * [`mw app update [INSTALLATION-ID]`](#mw-app-update-installation-id)
@@ -1807,6 +1808,25 @@ FLAGS
 
 DESCRIPTION
   List upgrade candidates for an app installation.
+```
+
+## `mw app open [INSTALLATION-ID]`
+
+Open an app installation in the browser.
+
+```
+USAGE
+  $ mw app open [INSTALLATION-ID]
+
+ARGUMENTS
+  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
+                   in the context.
+
+DESCRIPTION
+  Open an app installation in the browser.
+
+  This command opens an app installation in the browser. For this to work, there needs to be at least one virtual host
+  linked to the app installation.
 ```
 
 ## `mw app ssh [INSTALLATION-ID]`
