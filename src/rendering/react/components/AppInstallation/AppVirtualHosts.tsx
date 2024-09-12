@@ -8,7 +8,7 @@ import buildAppURLsFromIngressList from "../../../../lib/resources/app/buildAppU
 
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
-const AppVirtualHostBox: FC<PropsWithChildren<{}>> = ({ children }) => {
+const AppVirtualHostBox: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Box flexDirection="column">
       <Box marginY={1}>
