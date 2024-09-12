@@ -12,6 +12,8 @@ import path from "path";
 import { isCustomAppInstallation } from "../../../../lib/resources/app/custom_installation.js";
 import maybe from "../../../../lib/util/maybe.js";
 import OptionalValue from "../OptionalValue.js";
+import { AppVirtualHosts } from "./AppVirtualHosts.js";
+
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 
@@ -109,6 +111,7 @@ export const AppInstallationDetails: FC<{
       key="systemsoftware"
       appInstallation={appInstallation}
     />,
+    <AppVirtualHosts key="virtualhosts" appInstallation={appInstallation} />,
   ];
 
   return (
