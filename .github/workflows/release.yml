@@ -176,7 +176,7 @@ jobs:
       - name: Create release
         run:
           gh release create ${GITHUB_REF#refs/tags/} --title
-          ${GITHUB_REF#refs/tags/} --generate-notes --verify-tag
+          ${GITHUB_REF#refs/tags/} --generate-notes --verify-tag --discussion-category Announcements
           pkg-tarballs/*.tar.gz pkg-windows/*.exe pkg-macos/*.pkg
         env:
           GITHUB_TOKEN: ${{ github.token }}
