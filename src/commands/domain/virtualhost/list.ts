@@ -44,7 +44,9 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     const columns: ListColumns<ResponseItem> = {
       id: baseColumns.id,
       projectId: { header: "Project ID" },
-      hostname: {},
+      hostname: {
+        get: (r) => `https://${r.hostname}`,
+      },
       paths: {
         get: (r) =>
           r.paths
