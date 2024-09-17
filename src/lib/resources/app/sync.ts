@@ -30,7 +30,7 @@ export const appInstallationSyncFlags = (direction: "upload" | "download") => ({
         : "delete remote files that are not present locally",
     default: false,
   }),
-  "sub-directory": Flags.string({
+  "remote-sub-directory": Flags.string({
     summary: `specify a sub-directory within the app installation to ${direction}`,
     description:
       `This is particularly useful when you only want to ${direction} a specific sub-directory of the app installation, ` +

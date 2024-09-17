@@ -345,19 +345,19 @@ Download the filesystem of an app within a project to your local machine
 ```
 USAGE
   $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>...] [--dry-run] [--delete] [--sub-directory <value>]
+    [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
 
 FLAGS
-  -q, --quiet                  suppress process output and only display a machine-readable summary.
-      --delete                 delete local files that are not present on the server
-      --dry-run                do not actually download the app installation
-      --exclude=<value>...     [default: ] exclude files matching the given pattern
-      --sub-directory=<value>  specify a sub-directory within the app installation to download
-      --target=<value>         (required) target directory to download the app installation to
+  -q, --quiet                         suppress process output and only display a machine-readable summary.
+      --delete                        delete local files that are not present on the server
+      --dry-run                       do not actually download the app installation
+      --exclude=<value>...            [default: ] exclude files matching the given pattern
+      --remote-sub-directory=<value>  specify a sub-directory within the app installation to download
+      --target=<value>                (required) target directory to download the app installation to
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -388,6 +388,12 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
+  --remote-sub-directory=<value>  specify a sub-directory within the app installation to download
+
+    This is particularly useful when you only want to download a specific sub-directory of the app installation, for
+    example when you are using a deployment tool that manages the app installation directory itself, and you only want
+    to download exempt files, like environment specific configuration files or user data.
+
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
 
     The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
@@ -401,12 +407,6 @@ FLAG DESCRIPTIONS
     will be used for this.
 
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
-
-  --sub-directory=<value>  specify a sub-directory within the app installation to download
-
-    This is particularly useful when you only want to download a specific sub-directory of the app installation, for
-    example when you are using a deployment tool that manages the app installation directory itself, and you only want
-    to download exempt files, like environment specific configuration files or user data.
 ```
 
 ## `mw app get [INSTALLATION-ID]`
@@ -1996,19 +1996,19 @@ Upload the filesystem of an app to a project
 ```
 USAGE
   $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>...] [--dry-run] [--delete] [--sub-directory <value>]
+    [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
 
 FLAGS
-  -q, --quiet                  suppress process output and only display a machine-readable summary.
-      --delete                 delete remote files that are not present locally
-      --dry-run                do not actually upload the app installation
-      --exclude=<value>...     [default: ] exclude files matching the given pattern
-      --source=<value>         (required) source directory from which to upload the app installation
-      --sub-directory=<value>  specify a sub-directory within the app installation to upload
+  -q, --quiet                         suppress process output and only display a machine-readable summary.
+      --delete                        delete remote files that are not present locally
+      --dry-run                       do not actually upload the app installation
+      --exclude=<value>...            [default: ] exclude files matching the given pattern
+      --remote-sub-directory=<value>  specify a sub-directory within the app installation to upload
+      --source=<value>                (required) source directory from which to upload the app installation
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -2042,6 +2042,12 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
+  --remote-sub-directory=<value>  specify a sub-directory within the app installation to upload
+
+    This is particularly useful when you only want to upload a specific sub-directory of the app installation, for
+    example when you are using a deployment tool that manages the app installation directory itself, and you only want
+    to upload exempt files, like environment specific configuration files or user data.
+
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
 
     The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
@@ -2055,12 +2061,6 @@ FLAG DESCRIPTIONS
     will be used for this.
 
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
-
-  --sub-directory=<value>  specify a sub-directory within the app installation to upload
-
-    This is particularly useful when you only want to upload a specific sub-directory of the app installation, for
-    example when you are using a deployment tool that manages the app installation directory itself, and you only want
-    to upload exempt files, like environment specific configuration files or user data.
 ```
 
 ## `mw app versions [APP]`
