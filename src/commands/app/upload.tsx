@@ -14,6 +14,7 @@ import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import {
   appInstallationSyncFlags,
   appInstallationSyncFlagsToRsyncFlags,
+  buildRsyncConnectionString,
   filterFileDocumentation,
   filterFileToRsyncFlagsIfPresent,
 } from "../../lib/resources/app/sync.js";
@@ -49,7 +50,7 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
 
     const p = makeProcessRenderer(this.flags, "Uploading app installation");
 
-    const { host, user, directory } = await p.runStep(
+    const connectionData = await p.runStep(
       "getting connection data",
       async () => {
         return getSSHConnectionForAppInstallation(
@@ -66,6 +67,7 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
       }
     });
 
+    const rsyncHost = buildRsyncConnectionString(connectionData, this.flags);
     const rsyncOpts = [
       ...appInstallationSyncFlagsToRsyncFlags(this.flags),
       ...(await filterFileToRsyncFlagsIfPresent(source)),
@@ -75,7 +77,7 @@ export class Upload extends ExecRenderBaseCommand<typeof Upload, void> {
       p,
       "uploading app installation" + (dryRun ? " (dry-run)" : ""),
       "rsync",
-      [...rsyncOpts, source, `${user}@${host}:${directory}/`],
+      [...rsyncOpts, source, rsyncHost],
     );
 
     await p.complete(<UploadSuccess dryRun={dryRun} />);

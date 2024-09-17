@@ -2,6 +2,7 @@ import { Flags } from "@oclif/core";
 import { SSHConnectionFlags } from "../ssh/flags.js";
 import path from "path";
 import { pathExists } from "../../util/fs/pathExists.js";
+import { SSHConnectionData } from "../ssh/types.js";
 
 export const defaultRsyncFilterFile = ".mw-rsync-filter";
 
@@ -9,6 +10,7 @@ export interface AppInstallationSyncFlags {
   exclude: string[];
   "dry-run": boolean;
   delete: boolean;
+  "sub-directory"?: string;
 }
 
 export const appInstallationSyncFlags = (direction: "upload" | "download") => ({
@@ -27,6 +29,14 @@ export const appInstallationSyncFlags = (direction: "upload" | "download") => ({
         ? "delete local files that are not present on the server"
         : "delete remote files that are not present locally",
     default: false,
+  }),
+  "remote-sub-directory": Flags.string({
+    summary: `specify a sub-directory within the app installation to ${direction}`,
+    description:
+      `This is particularly useful when you only want to ${direction} a specific sub-directory of the app installation, ` +
+      "for example when you are using a deployment tool that manages the app installation directory itself, " +
+      `and you only want to ${direction} exempt files, like environment specific configuration files or user data. ` +
+      `For example, if you want to ${direction} ${direction === "upload" ? "to" : "from"} "/html/my-app-XXXXX/config", set "--remote-sub-directory=config".`,
   }),
 });
 
@@ -47,6 +57,27 @@ export async function filterFileToRsyncFlagsIfPresent(
   }
 
   return [];
+}
+
+/**
+ * Build the rsync connection string for the given SSH connection data and flag
+ * inputs.
+ *
+ * @param host Remote SSH hostname
+ * @param directory Remove base directory of the app installation
+ * @param user Remote SSH user
+ * @param subDirectory Optional sub-directory within the app installation to
+ *   sync
+ */
+export function buildRsyncConnectionString(
+  { host, directory, user }: SSHConnectionData,
+  { "sub-directory": subDirectory }: AppInstallationSyncFlags,
+): string {
+  if (subDirectory) {
+    directory = path.join(directory, subDirectory).replace(/\/$/, "");
+  }
+
+  return `${user}@${host}:${directory}/`;
 }
 
 export function appInstallationSyncFlagsToRsyncFlags(

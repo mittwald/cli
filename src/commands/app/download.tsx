@@ -14,6 +14,7 @@ import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import {
   appInstallationSyncFlags,
   appInstallationSyncFlagsToRsyncFlags,
+  buildRsyncConnectionString,
   filterFileDocumentation,
   filterFileToRsyncFlagsIfPresent,
 } from "../../lib/resources/app/sync.js";
@@ -41,6 +42,17 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       exists: false,
     }),
   };
+  static examples = [
+    {
+      description: "Download entire app to current working directory",
+      command: "$ <%= config.bin %> <%= command.id %> .",
+    },
+    {
+      description: "Download only shared dir from a deployer-managed app",
+      command:
+        "<%= config.bin %> <%= command.id %> --remote-sub-directory=shared .",
+    },
+  ];
 
   protected async exec(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Download);
@@ -48,7 +60,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
 
     const p = makeProcessRenderer(this.flags, "Downloading app installation");
 
-    const { host, user, directory } = await p.runStep(
+    const connectionData = await p.runStep(
       "getting connection data",
       async () => {
         return getSSHConnectionForAppInstallation(
@@ -65,6 +77,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       }
     });
 
+    const rsyncHost = buildRsyncConnectionString(connectionData, this.flags);
     const rsyncOpts = [
       ...appInstallationSyncFlagsToRsyncFlags(this.flags),
       ...(await filterFileToRsyncFlagsIfPresent(target)),
@@ -74,7 +87,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
       p,
       "downloading app installation" + (dryRun ? " (dry-run)" : ""),
       "rsync",
-      [...rsyncOpts, `${user}@${host}:${directory}/`, target],
+      [...rsyncOpts, rsyncHost, target],
     );
 
     if (dryRun) {
