@@ -2602,8 +2602,8 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.5.6
-  resolution: "@oclif/plugin-update@npm:4.5.6"
+  version: 4.5.7
+  resolution: "@oclif/plugin-update@npm:4.5.7"
   dependencies:
     "@inquirer/select": ^2.4.7
     "@oclif/core": ^4
@@ -2615,7 +2615,7 @@ __metadata:
     semver: ^7.6.3
     tar-fs: ^2.1.1
     tty-table: ^4.2.3
-  checksum: f47cfea7dfaea12fed78cf249e13bca9199801f4868cb4d83f518fdb59d7345144db0799cd4abb977ab0e14099b60280b317733e9327c73c01d4fb7a012bc361
+  checksum: 71ce4cbcd8c572f8c722496b68c800741d57536c1f36dd4e658953251f4508cde9124658a454e1c57b708f079fdebbc7340fcae0cc8837d8991238275e4da864
   languageName: node
   linkType: hard
 
