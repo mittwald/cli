@@ -382,6 +382,15 @@ DESCRIPTION
   rsync. Have a look at https://manpages.ubuntu.com/manpages/noble/en/man1/rsync.1.html#filter%20rules for more
   information on how to write filter rules.
 
+EXAMPLES
+  Download entire app to current working directory
+
+    $ mw app download .
+
+  Download only shared dir from a deployer-managed app
+
+    $ mw app download --remote-sub-directory=shared .
+
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
@@ -392,7 +401,8 @@ FLAG DESCRIPTIONS
 
     This is particularly useful when you only want to download a specific sub-directory of the app installation, for
     example when you are using a deployment tool that manages the app installation directory itself, and you only want
-    to download exempt files, like environment specific configuration files or user data.
+    to download exempt files, like environment specific configuration files or user data. For example, if you want to
+    download from "/html/my-app-XXXXX/config", set "--remote-sub-directory=config".
 
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
 
@@ -2046,7 +2056,8 @@ FLAG DESCRIPTIONS
 
     This is particularly useful when you only want to upload a specific sub-directory of the app installation, for
     example when you are using a deployment tool that manages the app installation directory itself, and you only want
-    to upload exempt files, like environment specific configuration files or user data.
+    to upload exempt files, like environment specific configuration files or user data. For example, if you want to
+    upload to "/html/my-app-XXXXX/config", set "--remote-sub-directory=config".
 
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
 

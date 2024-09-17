@@ -35,7 +35,8 @@ export const appInstallationSyncFlags = (direction: "upload" | "download") => ({
     description:
       `This is particularly useful when you only want to ${direction} a specific sub-directory of the app installation, ` +
       "for example when you are using a deployment tool that manages the app installation directory itself, " +
-      `and you only want to ${direction} exempt files, like environment specific configuration files or user data.`,
+      `and you only want to ${direction} exempt files, like environment specific configuration files or user data. ` +
+      `For example, if you want to ${direction} ${direction === "upload" ? "to" : "from"} "/html/my-app-XXXXX/config", set "--remote-sub-directory=config".`,
   }),
 });
 
