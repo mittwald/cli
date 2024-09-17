@@ -10,7 +10,7 @@ export interface AppInstallationSyncFlags {
   exclude: string[];
   "dry-run": boolean;
   delete: boolean;
-  "sub-directory"?: string;
+  "remote-sub-directory"?: string;
 }
 
 export const appInstallationSyncFlags = (direction: "upload" | "download") => ({
@@ -71,7 +71,7 @@ export async function filterFileToRsyncFlagsIfPresent(
  */
 export function buildRsyncConnectionString(
   { host, directory, user }: SSHConnectionData,
-  { "sub-directory": subDirectory }: AppInstallationSyncFlags,
+  { "remote-sub-directory": subDirectory }: AppInstallationSyncFlags,
 ): string {
   if (subDirectory) {
     directory = path.join(directory, subDirectory).replace(/\/$/, "");
