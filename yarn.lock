@@ -2476,11 +2476,11 @@ __metadata:
   linkType: soft
 
 "@mittwald/react-use-promise@npm:^2.1.2":
-  version: 2.4.0
-  resolution: "@mittwald/react-use-promise@npm:2.4.0"
+  version: 2.5.0
+  resolution: "@mittwald/react-use-promise@npm:2.5.0"
   dependencies:
     "@types/luxon": 3.4.2
-    browser-or-node: ^3.0.0-pre.0
+    browser-or-node: ^3.0.0
     luxon: ~3.5.0
     minimatch: ^10.0.1
     object-code: ^1.3.3
@@ -2490,7 +2490,7 @@ __metadata:
   peerDependenciesMeta:
     axios:
       optional: true
-  checksum: 776df1b67019acf622a787139b72c3ca05f8a534c67a5ae9b59154c97bc16090acdee61b03715d7d716258bbd34a9f70ad26366c75109ef384f5eb572c7b6898
+  checksum: 3f89c04aa8975e55e904a192029d83d5660b3a4972cde2995d8c8071018446de1b740d54da06398fd1d0e676fd1e34579fe04d5b1dcac94e8fa697e78189a76d
   languageName: node
   linkType: hard
 
@@ -4887,13 +4887,6 @@ __metadata:
   version: 3.0.0
   resolution: "browser-or-node@npm:3.0.0"
   checksum: 51d74cc5d0139da3d37e83ff3906fcca20d02c42aa8b81a48d9ea01806f36df1a4b55006670071b1d7423967777275920054ec8b723410534b580b0232c5093d
-  languageName: node
-  linkType: hard
-
-"browser-or-node@npm:^3.0.0-pre.0":
-  version: 3.0.0-pre.0
-  resolution: "browser-or-node@npm:3.0.0-pre.0"
-  checksum: 16610f655079cf116c1bd817dc4489023baf79fff57ce4f756dd176aab8853dbac2c6a791b673751021ca3a07da263ce3ecbd296a1438cb92110a36e65644a45
   languageName: node
   linkType: hard
 
