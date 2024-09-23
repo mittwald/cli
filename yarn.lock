@@ -1929,27 +1929,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/core@npm:^9.0.2":
-  version: 9.0.2
-  resolution: "@inquirer/core@npm:9.0.2"
-  dependencies:
-    "@inquirer/figures": ^1.0.3
-    "@inquirer/type": ^1.4.0
-    "@types/mute-stream": ^0.0.4
-    "@types/node": ^20.14.9
-    "@types/wrap-ansi": ^3.0.0
-    ansi-escapes: ^4.3.2
-    cli-spinners: ^2.9.2
-    cli-width: ^4.1.0
-    mute-stream: ^1.0.0
-    signal-exit: ^4.1.0
-    strip-ansi: ^6.0.1
-    wrap-ansi: ^6.2.0
-    yoctocolors-cjs: ^2.1.2
-  checksum: 1d972f8e750ee9ddb56e678a1c480513c53fca35138a2b3b62b4f3bc5a228beab3f349a1efbb2c5054c7bd544a09ed6c9ebd830f6d9aaa8e9c4d45d0bd781199
-  languageName: node
-  linkType: hard
-
 "@inquirer/core@npm:^9.1.0":
   version: 9.1.0
   resolution: "@inquirer/core@npm:9.1.0"
@@ -1971,13 +1950,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/figures@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "@inquirer/figures@npm:1.0.3"
-  checksum: ca83d9e2a02ed5309b3df5642d2194fde24e6f89779339c63304f2570f36f3bc431236a93db7fa412765a06f01c765974b06b1ed8b9aed881be46f2cbb67f9c7
-  languageName: node
-  linkType: hard
-
 "@inquirer/figures@npm:^1.0.5":
   version: 1.0.5
   resolution: "@inquirer/figures@npm:1.0.5"
@@ -1995,19 +1967,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/select@npm:^2.3.10":
-  version: 2.3.10
-  resolution: "@inquirer/select@npm:2.3.10"
-  dependencies:
-    "@inquirer/core": ^9.0.2
-    "@inquirer/figures": ^1.0.3
-    "@inquirer/type": ^1.4.0
-    ansi-escapes: ^4.3.2
-    yoctocolors-cjs: ^2.1.2
-  checksum: fb8ad2f6d4f479ab406dc585aecab82139f1351f3c8b5b890d4204d2ef8dc0ce8cb33157787c84b47c2de76c3bc8a13b462469dcae0939e4a2b7ffb43c2ddb19
-  languageName: node
-  linkType: hard
-
 "@inquirer/select@npm:^2.5.0":
   version: 2.5.0
   resolution: "@inquirer/select@npm:2.5.0"
@@ -2018,15 +1977,6 @@ __metadata:
     ansi-escapes: ^4.3.2
     yoctocolors-cjs: ^2.1.2
   checksum: fc7aa1a70d69f61ad2270ebfb83c059ba8d6bc749a90ae759a538acfa0ae158621f9653625f3fa7ac81072674f19013898e16598ce71a3dd2476897304832598
-  languageName: node
-  linkType: hard
-
-"@inquirer/type@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@inquirer/type@npm:1.4.0"
-  dependencies:
-    mute-stream: ^1.0.0
-  checksum: 3b1be73ca418ad721d7527aea0bd83f21825484d6829fd4dbc830372b4aad68cf030486f8100d0f3883db8924fadcfaac1aa041ef6c51124f808f25825b22d85
   languageName: node
   linkType: hard
 
@@ -3948,7 +3898,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.14.9, @types/node@npm:^20.3.3":
+"@types/node@npm:*, @types/node@npm:^20.3.3":
   version: 20.14.11
   resolution: "@types/node@npm:20.14.11"
   dependencies:
@@ -9351,14 +9301,14 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.14.31":
-  version: 4.14.34
-  resolution: "oclif@npm:4.14.34"
+  version: 4.14.35
+  resolution: "oclif@npm:4.14.35"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.645.0
     "@aws-sdk/client-s3": ^3.651.1
     "@inquirer/confirm": ^3.1.22
     "@inquirer/input": ^2.2.4
-    "@inquirer/select": ^2.3.10
+    "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
     "@oclif/plugin-help": ^6.2.10
     "@oclif/plugin-not-found": ^3.2.21
@@ -9380,7 +9330,7 @@ __metadata:
     validate-npm-package-name: ^5.0.1
   bin:
     oclif: bin/run.js
-  checksum: 420fb195fd2a3f74ac282b0ba196bcada6168b5836a349220a5a29027e6e5ba67dd27639e565b6d23bc4d14d3be2f816cc0c7d6e8545cb82602db87899937f57
+  checksum: 7f78342b6437f0b657dd052a6360b2227ca685bd7c3c4372bc9a31801bc0f88ab6183037bfd99142d668ed267862bdb6a4e32bc918e3358eef983e2f4daa54ff
   languageName: node
   linkType: hard
 
