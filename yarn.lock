@@ -2538,11 +2538,11 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.10":
-  version: 6.2.11
-  resolution: "@oclif/plugin-help@npm:6.2.11"
+  version: 6.2.12
+  resolution: "@oclif/plugin-help@npm:6.2.12"
   dependencies:
     "@oclif/core": ^4
-  checksum: 614c389fdde4798560acea858c247c1ef1a8b9073ef1b0f7d01a2b1da575d7367dc7bd12cacc9b3c5ddce4fc78d5a498e8df8c59a750f800bed2586444f58142
+  checksum: 76f6dcd44aa509522ae8ad5b98bdbc09e96182c6ab7a7224423f5ee6ed982f0e579d2db12ccadb630e16dd278ef91be1940b3b071565bbba34f8f1b4e5703b6e
   languageName: node
   linkType: hard
 
