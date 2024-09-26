@@ -2379,7 +2379,7 @@ __metadata:
     "@types/chalk": ^2.2.0
     "@types/js-yaml": ^4.0.9
     "@types/marked-terminal": ^3.1.3
-    "@types/node": ^20.3.3
+    "@types/node": ^22.7.3
     "@types/parse-duration": ^0.3.0
     "@types/pretty-bytes": ^5.2.0
     "@types/react": ^18
@@ -3920,7 +3920,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.3.3":
+"@types/node@npm:*":
   version: 20.14.11
   resolution: "@types/node@npm:20.14.11"
   dependencies:
@@ -3953,6 +3953,15 @@ __metadata:
   dependencies:
     undici-types: ~6.19.2
   checksum: 5e47839dd1919b39927a5552137ded5d3f18d9ff7729083ba851d640a6a0997ee747b9e2cf4c8a1f8418ad92ef7f0ada4fdc2d005dad2efb39fa80a5c7f6d23d
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^22.7.3":
+  version: 22.7.3
+  resolution: "@types/node@npm:22.7.3"
+  dependencies:
+    undici-types: ~6.19.2
+  checksum: 1785ceb0d7b05b2a68df85ec89f2c76bc57a59f4f7a349966f2f7c8ee531d59dcba1adb4e3fddb19e0981ded96bf255291858e6b56dfe7984247b3a4f1227a22
   languageName: node
   linkType: hard
 
