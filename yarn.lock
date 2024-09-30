@@ -2527,14 +2527,14 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.2.4
-  resolution: "@oclif/plugin-autocomplete@npm:3.2.4"
+  version: 3.2.5
+  resolution: "@oclif/plugin-autocomplete@npm:3.2.5"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.3.1
     debug: ^4.3.6
     ejs: ^3.1.10
-  checksum: b99693e9f017b235c42021ce831bbe4dafdb75dc92e965a7368ca989ce7fe598924514c7bde9d2f28ed30b0f03e571eed52a03e06a41ffc185956eb7561ae42a
+  checksum: d3056e9d87431afcb18b1a585060da986ae32163df685bed8f0cf5150297491ca3531cecda794020b26dbabaec486df060ab9d5e604d3213c207c36cac4f5001
   languageName: node
   linkType: hard
 
