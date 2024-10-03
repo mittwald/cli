@@ -2501,8 +2501,8 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^4, @oclif/core@npm:^4.0.18":
-  version: 4.0.25
-  resolution: "@oclif/core@npm:4.0.25"
+  version: 4.0.27
+  resolution: "@oclif/core@npm:4.0.27"
   dependencies:
     ansi-escapes: ^4.3.2
     ansis: ^3.3.2
@@ -2513,7 +2513,7 @@ __metadata:
     get-package-type: ^0.1.0
     globby: ^11.1.0
     indent-string: ^4.0.0
-    is-wsl: ^2.2.0
+    is-wsl: ^3
     lilconfig: ^3.1.2
     minimatch: ^9.0.5
     semver: ^7.6.3
@@ -2522,7 +2522,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 902b13ad6824cea0a9841529347b632441f4c503d8a4f8a44dc5ebc685d592dea8d838bbd23c59eb446cab9a014041bcf42d811d45c7e719e0bbb0f64166d9cc
+  checksum: fa6d23b26c9455e76e15c9ca38d22a00bef895ef18fb7759b3dbfd8c0c1afc22d6ddbcb88216853ff4016a33b8588eb275e249570c23b05011eac543848e1b0d
   languageName: node
   linkType: hard
 
@@ -7401,15 +7401,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-docker@npm:^2.0.0":
-  version: 2.2.1
-  resolution: "is-docker@npm:2.2.1"
-  bin:
-    is-docker: cli.js
-  checksum: 3fef7ddbf0be25958e8991ad941901bf5922ab2753c46980b60b05c1bf9c9c2402d35e6dc32e4380b980ef5e1970a5d9d5e5aa2e02d77727c3b6b5e918474c56
-  languageName: node
-  linkType: hard
-
 "is-docker@npm:^3.0.0":
   version: 3.0.0
   resolution: "is-docker@npm:3.0.0"
@@ -7605,16 +7596,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-wsl@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "is-wsl@npm:2.2.0"
-  dependencies:
-    is-docker: ^2.0.0
-  checksum: 20849846ae414997d290b75e16868e5261e86ff5047f104027026fd61d8b5a9b0b3ade16239f35e1a067b3c7cc02f70183cb661010ed16f4b6c7c93dad1b19d8
-  languageName: node
-  linkType: hard
-
-"is-wsl@npm:^3.1.0":
+"is-wsl@npm:^3, is-wsl@npm:^3.1.0":
   version: 3.1.0
   resolution: "is-wsl@npm:3.1.0"
   dependencies:
