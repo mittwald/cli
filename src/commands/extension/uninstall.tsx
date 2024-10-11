@@ -8,11 +8,9 @@ import { Args } from "@oclif/core";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
 import { Success } from "../../rendering/react/components/Success.js";
 
-type UninstallResult = {};
-
 export default class Uninstall extends ExecRenderBaseCommand<
   typeof Uninstall,
-  UninstallResult
+  void
 > {
   static description = "Remove an extension from an organization";
 
@@ -27,7 +25,7 @@ export default class Uninstall extends ExecRenderBaseCommand<
     }),
   };
 
-  protected async exec(): Promise<UninstallResult> {
+  protected async exec(): Promise<void> {
     const { "extension-instance-id": extensionInstanceId } = this.args;
 
     const p = makeProcessRenderer(this.flags, "Uninstalling extension");
@@ -42,8 +40,6 @@ export default class Uninstall extends ExecRenderBaseCommand<
     });
 
     await p.complete(<Success>Extension successfully uninstalled</Success>);
-
-    return {};
   }
 
   protected render(): React.ReactNode {

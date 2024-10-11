@@ -6,8 +6,7 @@ import { ListColumns } from "../../rendering/formatter/Table.js";
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2Extensions.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export type PathParams = MittwaldAPIV2.Paths.V2Extensions.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["marketplace"]["extensionListExtensions"]>
 >;
 

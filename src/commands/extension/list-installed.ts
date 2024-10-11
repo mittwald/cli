@@ -11,9 +11,7 @@ type Extension = MittwaldAPIV2.Components.Schemas.MarketplaceExtension;
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ExtensionInstances.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export type PathParams =
-  MittwaldAPIV2.Paths.V2ExtensionInstances.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<
     MittwaldAPIV2Client["marketplace"]["extensionListExtensionInstances"]
   >
