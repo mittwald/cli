@@ -44,7 +44,8 @@ export default class Install extends ExecRenderBaseCommand<
 
   protected async exec(): Promise<InstallResult> {
     const { "extension-id": extensionId } = this.args;
-    let { "org-id": orgId, "project-id": projectId, consent } = this.flags;
+    const { consent } = this.flags;
+    let { "org-id": orgId, "project-id": projectId } = this.flags;
 
     const p = makeProcessRenderer(this.flags, "Installing extension");
 

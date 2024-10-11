@@ -102,9 +102,12 @@ export class ListInstalled extends ListBaseCommand<
       state: {
         header: "State",
         get: (row) => {
+          // Temporary "as any" cast, because the API response is not typed correctly
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           if ((row as any).pendingInstallation) {
             return "installing";
           }
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           if ((row as any).pendingRemoval) {
             return "removing";
           }
