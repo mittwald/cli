@@ -1,7 +1,7 @@
 `mw extension`
 ==============
 
-Install an extension in a project or organization
+Install and manage extensions in your organisations and projects
 
 * [`mw extension install EXTENSION-ID`](#mw-extension-install-extension-id)
 * [`mw extension list`](#mw-extension-list)
