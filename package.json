@@ -160,6 +160,9 @@
       "domain": {
         "description": "Manage domains, virtual hosts and DNS settings in your projects"
       },
+      "extension": {
+        "description": "Install and manage extensions in your organisations and projects"
+      },
       "login": {
         "description": "Manage your client authentication"
       },
