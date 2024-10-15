@@ -2430,12 +2430,12 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.6.3
-  resolution: "@oclif/plugin-update@npm:4.6.3"
+  version: 4.6.4
+  resolution: "@oclif/plugin-update@npm:4.6.4"
   dependencies:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
-    "@oclif/table": ^0.1.17
+    "@oclif/table": ^0.1.18
     ansis: ^3.3.2
     debug: ^4.3.7
     filesize: ^6.1.0
@@ -2443,7 +2443,7 @@ __metadata:
     proxy-agent: ^6.4.0
     semver: ^7.6.3
     tar-fs: ^2.1.1
-  checksum: 13c0f519afd38020f696bfb8966d257306a83fc2b4e23bae53f0d2f40866a9f2a4b55f9f9d7667e46ca9f50dc0a5eecd92e1d29a6693c016b0538c2aebeb233b
+  checksum: 95e7dc0d5af4910b63079206fa0f105e8cbbd504dbb88160c92153f8d1a7cfe704162d1ce94eb66290ef874e13f29adcf9c70e9db3b7ed2e7ad22adf432d6d62
   languageName: node
   linkType: hard
 
@@ -2461,9 +2461,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/table@npm:^0.1.17":
-  version: 0.1.17
-  resolution: "@oclif/table@npm:0.1.17"
+"@oclif/table@npm:^0.1.18":
+  version: 0.1.18
+  resolution: "@oclif/table@npm:0.1.18"
   dependencies:
     "@oclif/core": ^4
     "@types/react": ^18.3.11
@@ -2475,7 +2475,7 @@ __metadata:
     react: ^18.3.1
     strip-ansi: ^7.1.0
     wrap-ansi: ^9.0.0
-  checksum: d489248d60a7d104a0ec1d8c009184d497a282f23463ac10f06337ef51ae7397322263733330fb10826809e3da222720dcc547408bbdb01328475c80e60c4af4
+  checksum: b8f1b1799c867fd59784600d545ff723d383f2c5b8108f04a768ea6dc86bebe57dec77a8de253dab38ad7ee9a28dde4e9a71d9bcf405134b8f4d8c825c2119cc
   languageName: node
   linkType: hard
 
