@@ -3691,9 +3691,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.1.3":
-  version: 4.1.3
-  resolution: "@yarnpkg/core@npm:4.1.3"
+"@yarnpkg/core@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "@yarnpkg/core@npm:4.1.4"
   dependencies:
     "@arcanis/slice-ansi": ^1.1.1
     "@types/semver": ^7.1.0
@@ -3721,7 +3721,7 @@ __metadata:
     treeify: ^1.1.0
     tslib: ^2.4.0
     tunnel: ^0.0.6
-  checksum: 789bf7c1451d24e6405a42537a53382ec76387bf2696aadd3a189e8a343768d78377ff7b363f0c9271465f6a83c8e1e913d390ad3a233f7aa3d8ce9512e5147c
+  checksum: 83c068e1567bb893748df78469ebb1856878b59572a4cf1b383efb4fba8adf924c57b75172450a92dd6d1c7986cf1a5784d98d55ae922eee3c8213aafe143c04
   languageName: node
   linkType: hard
 
@@ -3747,14 +3747,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/nm@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "@yarnpkg/nm@npm:4.0.3"
+"@yarnpkg/nm@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "@yarnpkg/nm@npm:4.0.4"
   dependencies:
-    "@yarnpkg/core": ^4.1.3
+    "@yarnpkg/core": ^4.1.4
     "@yarnpkg/fslib": ^3.1.0
     "@yarnpkg/pnp": ^4.0.6
-  checksum: f3cd0221b8c6924d24672e7e6335e0cc9f63c8b0e2b4c1948103a3abd3e0f9d1587ebc42e99364fcf1d38fe928c0055439ee9b29a8efc16821407e01d332f357
+  checksum: 2cbaf905956ff441f1504c14313551129f2c0b5bf900aa040ecee4defe20d56dac4151a372cb1b3cc0d4dbe6ec7b09427484befd61285e9983c55d5d58d23a33
   languageName: node
   linkType: hard
 
@@ -3779,17 +3779,17 @@ __metadata:
   linkType: hard
 
 "@yarnpkg/pnpify@npm:^4.0.0-rc.48":
-  version: 4.1.2
-  resolution: "@yarnpkg/pnpify@npm:4.1.2"
+  version: 4.1.3
+  resolution: "@yarnpkg/pnpify@npm:4.1.3"
   dependencies:
-    "@yarnpkg/core": ^4.1.3
+    "@yarnpkg/core": ^4.1.4
     "@yarnpkg/fslib": ^3.1.0
-    "@yarnpkg/nm": ^4.0.3
+    "@yarnpkg/nm": ^4.0.4
     clipanion: ^4.0.0-rc.2
     tslib: ^2.4.0
   bin:
     pnpify: ./lib/cli.js
-  checksum: 40623af180af3f5c1f62ded770a229adf9f52655e10be8fab8847941c1481d79ceab3840485a4bbe057d0efabb2561f7c73576fe9c7f0d18f8a1caed80849a71
+  checksum: 0a40e1854166f4d7d24e159ec588dce051df977c31eb380c73fc6cafe6277afa4f22afcb936f46b3d3b5df1f39ae3c2ec2742b5fa4c42ecce0b472b317551d13
   languageName: node
   linkType: hard
 
