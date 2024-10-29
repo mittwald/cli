@@ -2545,33 +2545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18":
-  version: 4.0.30
-  resolution: "@oclif/core@npm:4.0.30"
-  dependencies:
-    ansi-escapes: ^4.3.2
-    ansis: ^3.3.2
-    clean-stack: ^3.0.1
-    cli-spinners: ^2.9.2
-    debug: ^4.3.7
-    ejs: ^3.1.10
-    get-package-type: ^0.1.0
-    globby: ^11.1.0
-    indent-string: ^4.0.0
-    is-wsl: ^3
-    lilconfig: ^3.1.2
-    minimatch: ^9.0.5
-    semver: ^7.6.3
-    string-width: ^4.2.3
-    supports-color: ^8
-    widest-line: ^3.1.0
-    wordwrap: ^1.0.0
-    wrap-ansi: ^7.0.0
-  checksum: 27d40a01af641c67a80b4a127efe475ceb9183a717d74352e507f277f66158df41f88e43cb49c1b39414be7cc19bb4338f8ae9fc2ee1b321a07ec2e41cacdc40
-  languageName: node
-  linkType: hard
-
-"@oclif/core@npm:^4.0.30":
+"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.0.30":
   version: 4.0.31
   resolution: "@oclif/core@npm:4.0.31"
   dependencies:
@@ -6826,7 +6800,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-wsl@npm:^3, is-wsl@npm:^3.1.0":
+"is-wsl@npm:^3.1.0":
   version: 3.1.0
   resolution: "is-wsl@npm:3.1.0"
   dependencies:
