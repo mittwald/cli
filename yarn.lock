@@ -2471,7 +2471,7 @@ __metadata:
     ts-node: ^10.9.2
     tsx: ^4.7.1
     typescript: ^5.1.6
-    uuid: ^10.0.0
+    uuid: ^11.0.3
   bin:
     mw: bin/run.js
   languageName: unknown
@@ -10188,12 +10188,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "uuid@npm:10.0.0"
+"uuid@npm:^11.0.3":
+  version: 11.0.3
+  resolution: "uuid@npm:11.0.3"
   bin:
-    uuid: dist/bin/uuid
-  checksum: 4b81611ade2885d2313ddd8dc865d93d8dccc13ddf901745edca8f86d99bc46d7a330d678e7532e7ebf93ce616679fb19b2e3568873ac0c14c999032acb25869
+    uuid: dist/esm/bin/uuid
+  checksum: 646181c77e8b8df9bd07254faa703943e1c4d5ccde7d080312edf12f443f6c5750801fd9b27bf2e628594182165e6b1b880c0382538f7eca00b26622203741dc
   languageName: node
   linkType: hard
 

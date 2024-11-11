@@ -68,7 +68,7 @@
     "slice-ansi": "^7.1.0",
     "string-width": "^7.2.0",
     "tempfile": "^5.0.0",
-    "uuid": "^10.0.0"
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
