@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Value } from "./Value.js";
 
-interface OptionalValueProps<T> {
+interface OptionalValueProps<T extends ReactNode> {
   value: T | undefined | null;
   render?: (value: T) => ReactNode;
 }
@@ -12,7 +12,7 @@ interface OptionalValueProps<T> {
  * @class
  * @param props
  */
-function OptionalValue<T>(props: OptionalValueProps<T>) {
+function OptionalValue<T extends ReactNode>(props: OptionalValueProps<T>) {
   const { render = (v) => <>{v}</> } = props;
 
   if (props.value === undefined || props.value === null) {
