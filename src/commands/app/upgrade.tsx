@@ -29,7 +29,6 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { waitFlags } from "../../lib/wait.js";
 import { ProcessFlags } from "../../rendering/process/process_flags.js";
 import semver from "semver/preload.js";
-import { validate as validateUuid } from "uuid";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
@@ -115,19 +114,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
           currentApp.id,
           currentAppVersion.id,
         )) as AppAppVersion;
-    } else if (
-      this.flags["target-version"] &&
-      validateUuid(this.flags["target-version"])
-    ) {
-      targetAppVersion = await getAppVersionFromUuid(
-        this.apiClient,
-        currentApp.id,
-        this.flags["target-version"],
-      );
-    } else if (
-      this.flags["target-version"] &&
-      !validateUuid(this.flags["target-version"])
-    ) {
+    } else if (this.flags["target-version"]) {
       const targetVersionMatchFromCandidates: AppAppVersion | undefined =
         targetAppVersionCandidates.find(
           (targetAppVersionCandidate: AppAppVersion) =>

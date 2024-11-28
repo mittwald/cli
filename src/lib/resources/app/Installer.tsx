@@ -7,7 +7,6 @@ import {
   provideSupportedFlags,
   RelevantFlagInput,
 } from "./flags.js";
-import { getAppVersionFromUuid } from "./uuid.js";
 import { normalizeToAppVersionUuid } from "./versions.js";
 import { triggerAppInstallation } from "./install.js";
 import { waitUntilAppStateHasNormalized } from "./wait.js";
@@ -15,11 +14,9 @@ import { Success } from "../../../rendering/react/components/Success.js";
 import React from "react";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Config } from "@oclif/core";
-import { validate as validateUuid } from "uuid";
-import { Text } from "ink";
-import { Value } from "../../../rendering/react/components/Value.js";
 
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+
 type ImplicitDefaultFlag = "wait" | "wait-timeout" | "site-title";
 
 export interface AppInstallationResult {
@@ -94,29 +91,11 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
       this.defaultFlagValues,
     );
 
-    var appVersionId: string =
-      "version" in flags ? (flags.version as string) : "latest";
-    var appVersion: AppAppVersion;
-
-    if (validateUuid(appVersionId)) {
-      appVersion = await getAppVersionFromUuid(
-        apiClient,
-        this.appId,
-        appVersionId,
-      );
-    } else {
-      appVersion = await normalizeToAppVersionUuid(
-        apiClient,
-        appVersionId,
-        process,
-        this.appId,
-      );
-    }
-
-    process.addInfo(
-      <Text>
-        Going to install Version <Value>{appVersion.externalVersion}</Value>
-      </Text>,
+    const appVersion: AppAppVersion = await normalizeToAppVersionUuid(
+      apiClient,
+      "version" in flags ? (flags.version as string) : "latest",
+      process,
+      this.appId,
     );
 
     const appInstallationId = await triggerAppInstallation(
