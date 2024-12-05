@@ -5356,6 +5356,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"es-toolkit@npm:^1.22.0":
+  version: 1.29.0
+  resolution: "es-toolkit@npm:1.29.0"
+  dependenciesMeta:
+    "@trivago/prettier-plugin-sort-imports@4.3.0":
+      unplugged: true
+    prettier-plugin-sort-re-exports@0.0.1:
+      unplugged: true
+  checksum: 0a7753db403ff393ee64b114857dcc25dd0ff7e2a63f4511cbf272bd70c97d594b073db18e30bbf5ae1272e498e8e7dbe3359872c2ca614bfcb4607faf0787d6
+  languageName: node
+  linkType: hard
+
 "esbuild@npm:~0.23.0":
   version: 0.23.1
   resolution: "esbuild@npm:0.23.1"
@@ -6555,8 +6567,8 @@ __metadata:
   linkType: hard
 
 "ink@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "ink@npm:5.0.1"
+  version: 5.1.0
+  resolution: "ink@npm:5.1.0"
   dependencies:
     "@alcalzone/ansi-tokenize": ^0.1.3
     ansi-escapes: ^7.0.0
@@ -6567,20 +6579,20 @@ __metadata:
     cli-cursor: ^4.0.0
     cli-truncate: ^4.0.0
     code-excerpt: ^4.0.0
+    es-toolkit: ^1.22.0
     indent-string: ^5.0.0
-    is-in-ci: ^0.1.0
-    lodash: ^4.17.21
+    is-in-ci: ^1.0.0
     patch-console: ^2.0.0
     react-reconciler: ^0.29.0
     scheduler: ^0.23.0
     signal-exit: ^3.0.7
     slice-ansi: ^7.1.0
     stack-utils: ^2.0.6
-    string-width: ^7.0.0
-    type-fest: ^4.8.3
+    string-width: ^7.2.0
+    type-fest: ^4.27.0
     widest-line: ^5.0.0
     wrap-ansi: ^9.0.0
-    ws: ^8.15.0
+    ws: ^8.18.0
     yoga-wasm-web: ~0.3.3
   peerDependencies:
     "@types/react": ">=18.0.0"
@@ -6591,7 +6603,7 @@ __metadata:
       optional: true
     react-devtools-core:
       optional: true
-  checksum: 16e7cf3696c47928176c7a1c0d8be7cb2d178020559d266f3665ab94130e0faaf9f51b5242e6d8beb27fcaee5dcf719ca47c2b9daff041ea9f3b5a54a150bb08
+  checksum: 04bf04954a54531401edb8878d4000a519e4c68867b7212dee7eff07638849a39d99f2ea06cf46dd8ca7940982b2f9ec65a0e662d2994996a17e09ee5fad79a7
   languageName: node
   linkType: hard
 
@@ -6694,12 +6706,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-in-ci@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "is-in-ci@npm:0.1.0"
+"is-in-ci@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "is-in-ci@npm:1.0.0"
   bin:
     is-in-ci: cli.js
-  checksum: 0479c03f8255d101aaa71cfcbef4175f9d2634d3f70318ed48f68affd63c54b8d3851573744012a18b367c0fdd132c69bbd24b2580d8ee6e40170e57637da376
+  checksum: a2e82d04aa729008e31e4b3dda56266f02ffa44109525a9cb2f521f44a2538d2f86227a32ca4f855b0ebd24f976561c368105cacb477ca34b16acb0b766e9103
   languageName: node
   linkType: hard
 
@@ -10055,10 +10067,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.18.2, type-fest@npm:^4.23.0, type-fest@npm:^4.8.3":
+"type-fest@npm:^4.18.2, type-fest@npm:^4.23.0":
   version: 4.26.0
   resolution: "type-fest@npm:4.26.0"
   checksum: f8073dc59a4a5bd897eecb3dfbf9d7716031fc161062ef572c402252a0375cc692c9ae1f50c75c80722964f1eda4011d1edbab36af63a130a53b3c1aab4ed1c5
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.27.0":
+  version: 4.30.0
+  resolution: "type-fest@npm:4.30.0"
+  checksum: 2ce3b08265acbdf864267e1468cdcc8dbfa4e86c2fd5e4622a20a83358b5e21fcb49a41beada95d29d8ff1ed8aacb27d10ec0b7623d546f9399b529a153724b0
   languageName: node
   linkType: hard
 
@@ -10403,7 +10422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.15.0":
+"ws@npm:^8.18.0":
   version: 8.18.0
   resolution: "ws@npm:8.18.0"
   peerDependencies:
