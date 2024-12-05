@@ -2574,23 +2574,23 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.2.7
-  resolution: "@oclif/plugin-autocomplete@npm:3.2.7"
+  version: 3.2.11
+  resolution: "@oclif/plugin-autocomplete@npm:3.2.11"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.3.1
     debug: ^4.3.6
     ejs: ^3.1.10
-  checksum: cef2e74fce5e08a767f69934e76298347d16e7829ca0853b8318c73c7f3ac073585bc9e72682b4df524e200c976a0c4a8a6563d800cccc4cede555bedcfa2b42
+  checksum: ea5481342330a3b2f4b54a5dcf47b0aa2db6504e27830e8ccd69f31089151636cc4a705ee930e7fcfb5fa56961398166731214aacf678f7728028a4fdf25bac6
   languageName: node
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.16":
-  version: 6.2.16
-  resolution: "@oclif/plugin-help@npm:6.2.16"
+  version: 6.2.18
+  resolution: "@oclif/plugin-help@npm:6.2.18"
   dependencies:
     "@oclif/core": ^4
-  checksum: 6ca6a0ca039d1688349a341ccddb8b674f35ca7a936d41c72447f8880c69e40ea902371d687e1008471e3e8162a82dc8e5943c529a513ec896acb41495f28204
+  checksum: dfe87fe94476a9c9a492c81a1e7b7efbcba2e8e6245571f869ae55c44abdda74bbf6a5f27d778296a004c4e26046ccfca595da5116c094c2cd91d1cdeecde443
   languageName: node
   linkType: hard
 
@@ -2607,12 +2607,12 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.6.8
-  resolution: "@oclif/plugin-update@npm:4.6.8"
+  version: 4.6.14
+  resolution: "@oclif/plugin-update@npm:4.6.14"
   dependencies:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
-    "@oclif/table": ^0.2.4
+    "@oclif/table": ^0.3.5
     ansis: ^3.3.2
     debug: ^4.3.7
     filesize: ^6.1.0
@@ -2620,27 +2620,27 @@ __metadata:
     proxy-agent: ^6.4.0
     semver: ^7.6.3
     tar-fs: ^2.1.1
-  checksum: 4dd5cc53912c240870ac7114a086e1085c708682a2eb68461b61a76501df288cedde4f42b6f1d1586d2cdbe08f0d1bea19bf19007432ebdb2ee827b96b1c775e
+  checksum: 4cec93a067b5318b548616b0072adda9ff217f7fc5c2774063ceba4628254e7472637118ea97ed3a072fe4ab873e5653ac22c3abece3da174333f244d657398b
   languageName: node
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.20":
-  version: 3.1.20
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.20"
+  version: 3.1.24
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.24"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.3.1
     debug: ^4.3.5
     http-call: ^5.2.2
     lodash: ^4.17.21
-    registry-auth-token: ^5.0.2
-  checksum: dc8be5ba8d6080bd47ae1c773d3816b53d650733ffaa219d0e7dd3ac1ba328e40353e1b2bbf7501e06a950d6989d173cc30632774ad198e3de29e5577b6d1400
+    registry-auth-token: ^5.0.3
+  checksum: 042c5af5c24d8c75f823ae6051637c4bd3ee4572b5de38fcb4f1be6782fb04e38a527479f61638e797eec9dc552bbd5dd9f71bed0ab0b30dae24d0503c8575f9
   languageName: node
   linkType: hard
 
-"@oclif/table@npm:^0.2.4":
-  version: 0.2.4
-  resolution: "@oclif/table@npm:0.2.4"
+"@oclif/table@npm:^0.3.5":
+  version: 0.3.5
+  resolution: "@oclif/table@npm:0.3.5"
   dependencies:
     "@oclif/core": ^4
     "@types/react": ^18.3.12
@@ -2652,7 +2652,7 @@ __metadata:
     react: ^18.3.1
     strip-ansi: ^7.1.0
     wrap-ansi: ^9.0.0
-  checksum: 213a462e0259f30e43afad6432a74b70b2487672ffc6e8871c8430eb34c68460fab4cf4258a6a920d1331de539ca61e01b2067817a5345bdfd2b3da0d4860896
+  checksum: 4a205398c76c341c77b6ba41ecb0065731b14832e09eea7f0382719ac75fde542c05bebe4fd8d8d65145bc81a193aacb295224739d99db79cbba08fa0e5bdfc2
   languageName: node
   linkType: hard
 
@@ -9082,12 +9082,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"registry-auth-token@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "registry-auth-token@npm:5.0.2"
+"registry-auth-token@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "registry-auth-token@npm:5.0.3"
   dependencies:
     "@pnpm/npm-conf": ^2.1.0
-  checksum: 0d7683b71ee418993e7872b389024b13645c4295eb7bb850d10728eaf46065db24ea4d47dc6cbb71a60d1aa4bef077b0d8b7363c9ac9d355fdba47bebdfb01dd
+  checksum: 5976f822d6a55267319b011dd4c64ef037ffee038c97529d09ea619835afe59cf89d545ec6b393098de4d7ba7a44664ce740bc1820215a2a90c7d66a1e676f9f
   languageName: node
   linkType: hard
 
