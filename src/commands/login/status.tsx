@@ -6,6 +6,7 @@ import {
 } from "../../rendering/react/components/SingleResult.js";
 import useOwnAccount from "../../lib/resources/login/useOwnAccount.js";
 import { ReactNode } from "react";
+import { Text } from "ink";
 
 export default class Status extends RenderBaseCommand<typeof Status> {
   static description = "Checks your current authentication status";
@@ -17,20 +18,26 @@ export default class Status extends RenderBaseCommand<typeof Status> {
     rows["User identification"] = (
       <SingleResultTable
         rows={{
-          Id: account.userId,
-          Email: account.email,
+          Id: <Text>{account.userId}</Text>,
+          Email: <Text>{account.email}</Text>,
         }}
       />
     );
 
     if (account.person) {
-      rows["Name"] = `${account.person.firstName} ${account.person.lastName}`;
+      rows["Name"] = (
+        <Text>
+          {account.person.firstName} {account.person.lastName}
+        </Text>
+      );
     }
 
     if (account.passwordUpdatedAt) {
-      rows["Last password change"] = `${formatDistanceToNow(
-        new Date(account.passwordUpdatedAt),
-      )} ago`;
+      rows["Last password change"] = (
+        <Text>
+          {formatDistanceToNow(new Date(account.passwordUpdatedAt))} ago
+        </Text>
+      );
     }
 
     return <SingleResult title="Login status" rows={rows} />;
