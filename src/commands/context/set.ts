@@ -24,7 +24,9 @@ export class Set extends BaseCommand {
 
   public async run(): Promise<void> {
     const { flags } = await this.parse(Set);
-    const ctx = new Context(this.apiClient, this.config);
+    const ctx = new Context(this.apiClient, this.config, {
+      onInitError() {},
+    });
 
     if (flags["project-id"]) {
       const projectId = await ctx.setProjectId(flags["project-id"]);
