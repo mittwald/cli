@@ -8641,9 +8641,9 @@ __metadata:
   linkType: hard
 
 "parse-duration@npm:*, parse-duration@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "parse-duration@npm:1.1.0"
-  checksum: 3cfc10aa61b3a06373a347289e1704de47d5d845c79330bbab20b54c02567f3710ba84544a3a44a986c3381c68670d89542fe9de607fb0814e52f78b34893cd9
+  version: 1.1.1
+  resolution: "parse-duration@npm:1.1.1"
+  checksum: 60622742c411139e7656643fb1c91f7c6ef0f96bb71de8a1689fb0290c7f68e1c1c160672f3a7239ec379944f79b92300d453dbd2efa8c633cd11ebb006ea7dd
   languageName: node
   linkType: hard
 
