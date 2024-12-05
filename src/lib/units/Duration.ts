@@ -39,7 +39,7 @@ export default class Duration {
 
   public static fromString(input: string): Duration {
     const parsed = parseDuration(input);
-    if (parsed === undefined) {
+    if (parsed === null) {
       throw new Error("could not parse duration: " + input);
     }
     return new Duration(parsed);
