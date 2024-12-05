@@ -7,6 +7,7 @@ import { DDEVConfig } from "../ddev/config.js";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
 import ContextProvider from "./ContextProvider.js";
 import { pathExists } from "../util/fs/pathExists.js";
+import InvalidContextError from "../error/InvalidContextError.js";
 
 /**
  * DDEVContextProvider is a ContextProvider that reads context overrides from
@@ -63,23 +64,30 @@ export default class DDEVContextProvider implements ContextProvider {
     source: ContextValueSource,
     appInstallationId: string,
   ): Promise<ContextMap> {
-    const response = await this.apiClient.app.getAppinstallation({
-      appInstallationId,
-    });
-    assertStatus(response, 200);
+    try {
+      const response = await this.apiClient.app.getAppinstallation({
+        appInstallationId,
+      });
+      assertStatus(response, 200);
 
-    const out: ContextMap = {
-      "installation-id": { value: response.data.id, source },
-    };
-
-    if (response.data.projectId) {
-      out["project-id"] = {
-        value: response.data.projectId,
-        source,
+      const out: ContextMap = {
+        "installation-id": { value: response.data.id, source },
       };
-    }
 
-    return out;
+      if (response.data.projectId) {
+        out["project-id"] = {
+          value: response.data.projectId,
+          source,
+        };
+      }
+
+      return out;
+    } catch (err) {
+      throw new InvalidContextError(
+        `error while getting app installation ${appInstallationId}: ${err}`,
+        { cause: err },
+      );
+    }
   }
 
   /**

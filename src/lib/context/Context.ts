@@ -5,6 +5,7 @@ import WritableContextProvider from "./WritableContextProvider.js";
 import UserContextProvider from "./UserContextProvider.js";
 import TerraformContextProvider from "./TerraformContextProvider.js";
 import DDEVContextProvider from "./DDEVContextProvider.js";
+import InvalidContextError from "../error/InvalidContextError.js";
 
 export type ContextNames =
   | "project"
@@ -34,19 +35,34 @@ export const contextIDNormalizers: {
   ) => Promise<string>;
 } = {};
 
+export interface ContextOptions {
+  onInitError: (err: unknown) => void;
+}
+
 export default class Context {
   private readonly contextData: Promise<ContextMap>;
   private readonly apiClient: MittwaldAPIV2Client;
+  private readonly opts: ContextOptions;
 
   public readonly providers: ContextProvider[];
 
-  public constructor(apiClient: MittwaldAPIV2Client, config: Config) {
+  public constructor(
+    apiClient: MittwaldAPIV2Client,
+    config: Config,
+    opts: Partial<ContextOptions> = {},
+  ) {
     this.apiClient = apiClient;
     this.providers = [
       new UserContextProvider(config),
       new TerraformContextProvider(),
       new DDEVContextProvider(apiClient),
     ];
+    this.opts = {
+      onInitError(err) {
+        throw err;
+      },
+      ...opts,
+    };
     this.contextData = this.initializeContextData();
   }
 
@@ -54,8 +70,14 @@ export default class Context {
     const contextData: ContextMap = {};
 
     for (const provider of this.providers) {
-      const overrides = await provider.getOverrides();
-      Object.assign(contextData, overrides);
+      try {
+        const overrides = await provider.getOverrides();
+        Object.assign(contextData, overrides);
+      } catch (err) {
+        if (err instanceof InvalidContextError) {
+          this.opts.onInitError(err);
+        }
+      }
     }
 
     return contextData;
