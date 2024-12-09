@@ -2573,23 +2573,23 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.2.11
-  resolution: "@oclif/plugin-autocomplete@npm:3.2.11"
+  version: 3.2.13
+  resolution: "@oclif/plugin-autocomplete@npm:3.2.13"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.3.1
-    debug: ^4.3.6
+    debug: ^4.4.0
     ejs: ^3.1.10
-  checksum: ea5481342330a3b2f4b54a5dcf47b0aa2db6504e27830e8ccd69f31089151636cc4a705ee930e7fcfb5fa56961398166731214aacf678f7728028a4fdf25bac6
+  checksum: ddf92b2bfa753d5f03952ae981f5fcd858a5907ecbc6a274565398f92aa0af55eca546204d73e6da2c2c9ff7a60bafc0a609619ee35e62510962c126dfd20ec5
   languageName: node
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.16":
-  version: 6.2.18
-  resolution: "@oclif/plugin-help@npm:6.2.18"
+  version: 6.2.19
+  resolution: "@oclif/plugin-help@npm:6.2.19"
   dependencies:
     "@oclif/core": ^4
-  checksum: dfe87fe94476a9c9a492c81a1e7b7efbcba2e8e6245571f869ae55c44abdda74bbf6a5f27d778296a004c4e26046ccfca595da5116c094c2cd91d1cdeecde443
+  checksum: 3e291d14c234a049a39fb639310c024eb82302b7d0df1be4707192fee0657323cc9bf0a5f0689fa8c440ba3ba8d89d67c5e0a1a3446436fb0326fcb30dc8411e
   languageName: node
   linkType: hard
 
@@ -2606,34 +2606,34 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.6.14
-  resolution: "@oclif/plugin-update@npm:4.6.14"
+  version: 4.6.17
+  resolution: "@oclif/plugin-update@npm:4.6.17"
   dependencies:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
     "@oclif/table": ^0.3.5
     ansis: ^3.3.2
-    debug: ^4.3.7
+    debug: ^4.4.0
     filesize: ^6.1.0
     got: ^13
-    proxy-agent: ^6.4.0
+    proxy-agent: ^6.5.0
     semver: ^7.6.3
     tar-fs: ^2.1.1
-  checksum: 4cec93a067b5318b548616b0072adda9ff217f7fc5c2774063ceba4628254e7472637118ea97ed3a072fe4ab873e5653ac22c3abece3da174333f244d657398b
+  checksum: b79a7ed0b1efa5ee7ba6d12a8b445e9b63842a5d38e06c035c1c41562b439a0076ba1078150007f897ac6d16b7f38ba52c67fa6ce3a85e3b900e01b642264234
   languageName: node
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.20":
-  version: 3.1.24
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.24"
+  version: 3.1.26
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.26"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.3.1
-    debug: ^4.3.5
+    debug: ^4.4.0
     http-call: ^5.2.2
     lodash: ^4.17.21
     registry-auth-token: ^5.0.3
-  checksum: 042c5af5c24d8c75f823ae6051637c4bd3ee4572b5de38fcb4f1be6782fb04e38a527479f61638e797eec9dc552bbd5dd9f71bed0ab0b30dae24d0503c8575f9
+  checksum: c3a17599f91e499c5c90cb1518594c151cda9066727b5a2ff5644ac8c70d0ff720f356bc882cb494d5f0dc31289c95c77f25a17c91b95fb7a9ce36d6acea07cf
   languageName: node
   linkType: hard
 
@@ -4044,12 +4044,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"agent-base@npm:^7.1.1":
-  version: 7.1.1
-  resolution: "agent-base@npm:7.1.1"
-  dependencies:
-    debug: ^4.3.4
-  checksum: 51c158769c5c051482f9ca2e6e1ec085ac72b5a418a9b31b4e82fe6c0a6699adb94c1c42d246699a587b3335215037091c79e0de512c516f73b6ea844202f037
+"agent-base@npm:^7.1.2":
+  version: 7.1.3
+  resolution: "agent-base@npm:7.1.3"
+  checksum: 87bb7ee54f5ecf0ccbfcba0b07473885c43ecd76cb29a8db17d6137a19d9f9cd443a2a7c5fd8a3f24d58ad8145f9eb49116344a66b107e1aeab82cf2383f4753
   languageName: node
   linkType: hard
 
@@ -5035,7 +5033,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.1.0, debug@npm:^4.3.5":
+"debug@npm:^4.1.0":
   version: 4.3.5
   resolution: "debug@npm:4.3.5"
   dependencies:
@@ -5068,6 +5066,18 @@ __metadata:
     supports-color:
       optional: true
   checksum: 822d74e209cd910ef0802d261b150314bbcf36c582ccdbb3e70f0894823c17e49a50d3e66d96b633524263975ca16b6a833f3e3b7e030c157169a5fabac63160
+  languageName: node
+  linkType: hard
+
+"debug@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "debug@npm:4.4.0"
+  dependencies:
+    ms: ^2.1.3
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: fb42df878dd0e22816fc56e1fdca9da73caa85212fbe40c868b1295a6878f9101ae684f4eeef516c13acfc700f5ea07f1136954f43d4cd2d477a811144136479
   languageName: node
   linkType: hard
 
@@ -6427,13 +6437,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"https-proxy-agent@npm:^7.0.3, https-proxy-agent@npm:^7.0.5":
-  version: 7.0.5
-  resolution: "https-proxy-agent@npm:7.0.5"
+"https-proxy-agent@npm:^7.0.6":
+  version: 7.0.6
+  resolution: "https-proxy-agent@npm:7.0.6"
   dependencies:
-    agent-base: ^7.0.2
+    agent-base: ^7.1.2
     debug: 4
-  checksum: 2e1a28960f13b041a50702ee74f240add8e75146a5c37fc98f1960f0496710f6918b3a9fe1e5aba41e50f58e6df48d107edd9c405c5f0d73ac260dabf2210857
+  checksum: b882377a120aa0544846172e5db021fa8afbf83fea2a897d397bd2ddd8095ab268c24bc462f40a15f2a8c600bf4aa05ce52927f70038d4014e68aefecfa94e8d
   languageName: node
   linkType: hard
 
@@ -8599,19 +8609,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pac-proxy-agent@npm:^7.0.1":
-  version: 7.0.2
-  resolution: "pac-proxy-agent@npm:7.0.2"
+"pac-proxy-agent@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "pac-proxy-agent@npm:7.1.0"
   dependencies:
     "@tootallnate/quickjs-emscripten": ^0.23.0
-    agent-base: ^7.0.2
+    agent-base: ^7.1.2
     debug: ^4.3.4
     get-uri: ^6.0.1
     http-proxy-agent: ^7.0.0
-    https-proxy-agent: ^7.0.5
+    https-proxy-agent: ^7.0.6
     pac-resolver: ^7.0.1
-    socks-proxy-agent: ^8.0.4
-  checksum: 82772aaa489a4ad6f598b75d56daf609e7ba294a05a91cfe3101b004e2df494f0a269c98452cb47aaa4a513428e248308a156e26fee67eb78a76a58e9346921e
+    socks-proxy-agent: ^8.0.5
+  checksum: 0ed8ebca239b5c78f7c5039ec0e33aaf6ce8de2fb53d00996b5b7b362e655af9793721008ddf56c4b1d30fb5202b2cb5baee97e374ed1285c0cfb5be7c4574a5
   languageName: node
   linkType: hard
 
@@ -8941,19 +8951,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"proxy-agent@npm:^6.4.0":
-  version: 6.4.0
-  resolution: "proxy-agent@npm:6.4.0"
+"proxy-agent@npm:^6.5.0":
+  version: 6.5.0
+  resolution: "proxy-agent@npm:6.5.0"
   dependencies:
-    agent-base: ^7.0.2
+    agent-base: ^7.1.2
     debug: ^4.3.4
     http-proxy-agent: ^7.0.1
-    https-proxy-agent: ^7.0.3
+    https-proxy-agent: ^7.0.6
     lru-cache: ^7.14.1
-    pac-proxy-agent: ^7.0.1
+    pac-proxy-agent: ^7.1.0
     proxy-from-env: ^1.1.0
-    socks-proxy-agent: ^8.0.2
-  checksum: 4d3794ad5e07486298902f0a7f250d0f869fa0e92d790767ca3f793a81374ce0ab6c605f8ab8e791c4d754da96656b48d1c24cb7094bfd310a15867e4a0841d7
+    socks-proxy-agent: ^8.0.5
+  checksum: d03ad2d171c2768280ade7ea6a7c5b1d0746215d70c0a16e02780c26e1d347edd27b3f48374661ae54ec0f7b41e6e45175b687baf333b36b1fd109a525154806
   languageName: node
   linkType: hard
 
@@ -9436,14 +9446,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"socks-proxy-agent@npm:^8.0.2, socks-proxy-agent@npm:^8.0.4":
-  version: 8.0.4
-  resolution: "socks-proxy-agent@npm:8.0.4"
+"socks-proxy-agent@npm:^8.0.5":
+  version: 8.0.5
+  resolution: "socks-proxy-agent@npm:8.0.5"
   dependencies:
-    agent-base: ^7.1.1
+    agent-base: ^7.1.2
     debug: ^4.3.4
     socks: ^2.8.3
-  checksum: b2ec5051d85fe49072f9a250c427e0e9571fd09d5db133819192d078fd291276e1f0f50f6dbc04329b207738b1071314cee8bdbb4b12e27de42dbcf1d4233c67
+  checksum: b4fbcdb7ad2d6eec445926e255a1fb95c975db0020543fbac8dfa6c47aecc6b3b619b7fb9c60a3f82c9b2969912a5e7e174a056ae4d98cb5322f3524d6036e1d
   languageName: node
   linkType: hard
 
