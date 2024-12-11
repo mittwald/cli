@@ -106,22 +106,10 @@ USAGE
 
 * [`mw app`](docs/app.md) - Manage apps, and app installations in your projects
 * [`mw autocomplete`](docs/autocomplete.md) - Display autocomplete installation instructions.
-* [`mw backup`](docs/backup.md) - Manage backups of your projects
 * [`mw context`](docs/context.md) - Save certain environment parameters for later use
 * [`mw conversation`](docs/conversation.md) - Manage your support cases
-* [`mw cronjob`](docs/cronjob.md) - Manage cronjobs of your projects
 * [`mw database`](docs/database.md) - Manage databases (like MySQL and Redis) in your projects
-* [`mw ddev`](docs/ddev.md) - Integrate your mittwald projects with DDEV
-* [`mw domain`](docs/domain.md) - Manage domains, virtual hosts and DNS settings in your projects
 * [`mw help`](docs/help.md) - Display help for mw.
-* [`mw login`](docs/login.md) - Manage your client authentication
-* [`mw mail`](docs/mail.md) - Manage mailboxes and mail addresses in your projects
-* [`mw org`](docs/org.md) - Manage your organizations, and also any kinds of user memberships concerning these organizations.
-* [`mw project`](docs/project.md) - Manage your projects, and also any kinds of user memberships concerning these projects.
-* [`mw server`](docs/server.md) - Manage your servers
-* [`mw sftp-user`](docs/sftp-user.md) - Manage SFTP users of your projects
-* [`mw ssh-user`](docs/ssh-user.md) - Manage SSH users of your projects
 * [`mw update`](docs/update.md) - update the mw CLI
-* [`mw user`](docs/user.md) - Manage your own user account
 
 <!-- commandsstop -->
