@@ -2205,7 +2205,7 @@ __metadata:
     jest: ^29.7.0
     js-yaml: ^4.1.0
     license-checker-rseidelsohn: ^4.2.6
-    marked: ^12.0.0
+    marked: ^15.0.4
     marked-terminal: ^6.0.0
     nock: ^13.5.4
     oclif: ^4.14.31
@@ -7494,12 +7494,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^12.0.0":
-  version: 12.0.2
-  resolution: "marked@npm:12.0.2"
+"marked@npm:^15.0.4":
+  version: 15.0.4
+  resolution: "marked@npm:15.0.4"
   bin:
     marked: bin/marked.js
-  checksum: 966422e2ba519294aa657bacb2e51784e4b641c1c8f15bdf9315878993c4ea09fe0d00ba2da761e443a3c52cc285c452644fd107ab0f356669bd5aac08d5c0bd
+  checksum: a3832ebfe1722f89a43afc7056b7135dffc5247dcc486b4a9195b5a23453236ec31f024c448f6bdbd0eab1872eaa759092b7c52dfae995a78f150b801d55b96f
   languageName: node
   linkType: hard
 
