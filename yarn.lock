@@ -2329,14 +2329,14 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.2.13
-  resolution: "@oclif/plugin-autocomplete@npm:3.2.13"
+  version: 3.2.14
+  resolution: "@oclif/plugin-autocomplete@npm:3.2.14"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.3.1
     debug: ^4.4.0
     ejs: ^3.1.10
-  checksum: ddf92b2bfa753d5f03952ae981f5fcd858a5907ecbc6a274565398f92aa0af55eca546204d73e6da2c2c9ff7a60bafc0a609619ee35e62510962c126dfd20ec5
+  checksum: 0751c61fe1d77c7cb71c045eacd12d1317c8d1c7f84ec7d2a31a51a1fcdc275ad1bfad17a8146be52ec922605d176625a7d9932f7d0a4a42f561b79bc1aa293d
   languageName: node
   linkType: hard
 
@@ -2362,12 +2362,12 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.6.17
-  resolution: "@oclif/plugin-update@npm:4.6.17"
+  version: 4.6.18
+  resolution: "@oclif/plugin-update@npm:4.6.18"
   dependencies:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
-    "@oclif/table": ^0.3.5
+    "@oclif/table": ^0.3.7
     ansis: ^3.3.2
     debug: ^4.4.0
     filesize: ^6.1.0
@@ -2375,39 +2375,39 @@ __metadata:
     proxy-agent: ^6.5.0
     semver: ^7.6.3
     tar-fs: ^2.1.1
-  checksum: b79a7ed0b1efa5ee7ba6d12a8b445e9b63842a5d38e06c035c1c41562b439a0076ba1078150007f897ac6d16b7f38ba52c67fa6ce3a85e3b900e01b642264234
+  checksum: 500e338b9b1fcc4faecf124cf8d698f66cae347dbe667bc48f9026f650e654ee9d28ef4dd14df29fd20ded7e44e5f0931c21988a11fdee2127192fbec961e92d
   languageName: node
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.21":
-  version: 3.1.26
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.26"
+  version: 3.1.28
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.28"
   dependencies:
     "@oclif/core": ^4
-    ansis: ^3.3.1
+    ansis: ^3.4.0
     debug: ^4.4.0
     http-call: ^5.2.2
     lodash: ^4.17.21
     registry-auth-token: ^5.0.3
-  checksum: c3a17599f91e499c5c90cb1518594c151cda9066727b5a2ff5644ac8c70d0ff720f356bc882cb494d5f0dc31289c95c77f25a17c91b95fb7a9ce36d6acea07cf
+  checksum: f4db9454497c37eaf9fceb5bc9f67dee92260a8ef79cc85b231d67208840cdfd86e8c6e0964b8b81be4402681ba787a1fa839a31388eb37728a65748d78be8fd
   languageName: node
   linkType: hard
 
-"@oclif/table@npm:^0.3.5":
-  version: 0.3.5
-  resolution: "@oclif/table@npm:0.3.5"
+"@oclif/table@npm:^0.3.7":
+  version: 0.3.8
+  resolution: "@oclif/table@npm:0.3.8"
   dependencies:
     "@oclif/core": ^4
     "@types/react": ^18.3.12
     change-case: ^5.4.4
     cli-truncate: ^4.0.0
-    ink: ^5.0.1
+    ink: ^5.1.0
     natural-orderby: ^3.0.2
     object-hash: ^3.0.0
     react: ^18.3.1
     strip-ansi: ^7.1.0
     wrap-ansi: ^9.0.0
-  checksum: 4a205398c76c341c77b6ba41ecb0065731b14832e09eea7f0382719ac75fde542c05bebe4fd8d8d65145bc81a193aacb295224739d99db79cbba08fa0e5bdfc2
+  checksum: 2c1ef9046247af981869ee2602ff8ac564dd5c6fe329727a0c49810beaff91d747fb7d3897c9e71372b99f806481dffaf736feac280b9b0a66870e0f22970ba2
   languageName: node
   linkType: hard
 
@@ -3913,6 +3913,13 @@ __metadata:
   version: 3.3.2
   resolution: "ansis@npm:3.3.2"
   checksum: 6d3e8a68a93b03a1e7166cbe63cb6831780a7a9b0bc6c3bf0a33c7237d528d00558af84a54827322a85667d4b52d21f796b884f6120ec203b5ed3f9404ec0d05
+  languageName: node
+  linkType: hard
+
+"ansis@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "ansis@npm:3.4.0"
+  checksum: 828ad5a8235ff9e745b9b16e7f8f42efc86943cd2ca8fd253a5a18497a573bb2a5d2abdce8c86805c94b67b9a29d9802a27d5299f04e97775d948ba9363ddd78
   languageName: node
   linkType: hard
 
@@ -6326,7 +6333,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink@npm:^5.0.1":
+"ink@npm:^5.0.1, ink@npm:^5.1.0":
   version: 5.1.0
   resolution: "ink@npm:5.1.0"
   dependencies:
