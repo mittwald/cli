@@ -8665,11 +8665,11 @@ __metadata:
   linkType: hard
 
 "prettier-plugin-sort-json@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "prettier-plugin-sort-json@npm:4.0.0"
+  version: 4.1.1
+  resolution: "prettier-plugin-sort-json@npm:4.1.1"
   peerDependencies:
     prettier: ^3.0.0
-  checksum: 06497ba44d04083c785d196e658bbdc267239857de6ca4925d55a888b2be4ffd6c2603af3d53d37f8e15ff8db25c0d2c90410adc6c150d73df6d56130ddc3404
+  checksum: f04d8c01e34a603db58227f4bbc8b8fd119af912a58bd8ab3be8b9a8211d9dc01a8efc38dd9cf5a70ca804cfe34282e2e6564ae5f8f2b76a125ad10ea2e66a2a
   languageName: node
   linkType: hard
 
