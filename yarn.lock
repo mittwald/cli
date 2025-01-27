@@ -2330,32 +2330,23 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.2.13
-  resolution: "@oclif/plugin-autocomplete@npm:3.2.13"
+  version: 3.2.18
+  resolution: "@oclif/plugin-autocomplete@npm:3.2.18"
   dependencies:
     "@oclif/core": ^4
-    ansis: ^3.3.1
+    ansis: ^3.5.2
     debug: ^4.4.0
     ejs: ^3.1.10
-  checksum: ddf92b2bfa753d5f03952ae981f5fcd858a5907ecbc6a274565398f92aa0af55eca546204d73e6da2c2c9ff7a60bafc0a609619ee35e62510962c126dfd20ec5
+  checksum: 8589d586d607773fd795de5ad453faff516d171f196c1500e1467355c8841d1bedbb1c73697b0b09115f30f2327e615a946c808a505718b087649afb55d2b272
   languageName: node
   linkType: hard
 
-"@oclif/plugin-help@npm:^6.0.5":
-  version: 6.2.19
-  resolution: "@oclif/plugin-help@npm:6.2.19"
+"@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.21":
+  version: 6.2.23
+  resolution: "@oclif/plugin-help@npm:6.2.23"
   dependencies:
     "@oclif/core": ^4
-  checksum: 3e291d14c234a049a39fb639310c024eb82302b7d0df1be4707192fee0657323cc9bf0a5f0689fa8c440ba3ba8d89d67c5e0a1a3446436fb0326fcb30dc8411e
-  languageName: node
-  linkType: hard
-
-"@oclif/plugin-help@npm:^6.2.21":
-  version: 6.2.21
-  resolution: "@oclif/plugin-help@npm:6.2.21"
-  dependencies:
-    "@oclif/core": ^4
-  checksum: 975aa99f9e1bceac26b56e16d0f860a15c559a0300120cc3050f81661707b28d2556a445b341fcc9707d83920f81bd88d22fb552f9b0b59cf2d8b73fff900d95
+  checksum: f78f1e83d7d9d2c016c7465b89c6bc0beb4db6bed47e898292335181cceec083fe6d5d3fc1c961c31a656b58b6ab6dbdcafeb6630f6ac2d1f05d8be556b29e09
   languageName: node
   linkType: hard
 
@@ -2372,38 +2363,24 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.6.17
-  resolution: "@oclif/plugin-update@npm:4.6.17"
+  version: 4.6.27
+  resolution: "@oclif/plugin-update@npm:4.6.27"
   dependencies:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
-    "@oclif/table": ^0.3.5
-    ansis: ^3.3.2
+    "@oclif/table": ^0.4.3
+    ansis: ^3.9.0
     debug: ^4.4.0
     filesize: ^6.1.0
     got: ^13
     proxy-agent: ^6.5.0
     semver: ^7.6.3
     tar-fs: ^2.1.1
-  checksum: b79a7ed0b1efa5ee7ba6d12a8b445e9b63842a5d38e06c035c1c41562b439a0076ba1078150007f897ac6d16b7f38ba52c67fa6ce3a85e3b900e01b642264234
+  checksum: 89bd5449ae170643d0e48c9f4ee03ac1f232c2cc9e7a31cd2c0a7ca23aaf48eed8b74a0cdf696baa2957b1dcec3e066b09fd47b961e6714a18c1c40826d6894d
   languageName: node
   linkType: hard
 
-"@oclif/plugin-warn-if-update-available@npm:^3.0.2":
-  version: 3.1.26
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.26"
-  dependencies:
-    "@oclif/core": ^4
-    ansis: ^3.3.1
-    debug: ^4.4.0
-    http-call: ^5.2.2
-    lodash: ^4.17.21
-    registry-auth-token: ^5.0.3
-  checksum: c3a17599f91e499c5c90cb1518594c151cda9066727b5a2ff5644ac8c70d0ff720f356bc882cb494d5f0dc31289c95c77f25a17c91b95fb7a9ce36d6acea07cf
-  languageName: node
-  linkType: hard
-
-"@oclif/plugin-warn-if-update-available@npm:^3.1.30":
+"@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.30":
   version: 3.1.31
   resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.31"
   dependencies:
@@ -2417,21 +2394,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/table@npm:^0.3.5":
-  version: 0.3.5
-  resolution: "@oclif/table@npm:0.3.5"
+"@oclif/table@npm:^0.4.3":
+  version: 0.4.4
+  resolution: "@oclif/table@npm:0.4.4"
   dependencies:
     "@oclif/core": ^4
     "@types/react": ^18.3.12
     change-case: ^5.4.4
     cli-truncate: ^4.0.0
-    ink: ^5.0.1
+    ink: 5.0.1
     natural-orderby: ^3.0.2
     object-hash: ^3.0.0
     react: ^18.3.1
     strip-ansi: ^7.1.0
     wrap-ansi: ^9.0.0
-  checksum: 4a205398c76c341c77b6ba41ecb0065731b14832e09eea7f0382719ac75fde542c05bebe4fd8d8d65145bc81a193aacb295224739d99db79cbba08fa0e5bdfc2
+  checksum: 145b0e62beaa7fcc2568694fff90827b1c0adc4cc4ec8dbc69d2b9a46b9c1476e5bd442d584734b4837933b35b7bbdd2eff2cd589a049808d6124bf1f292cf4c
   languageName: node
   linkType: hard
 
@@ -3975,13 +3952,6 @@ __metadata:
   version: 0.3.2
   resolution: "ansicolors@npm:0.3.2"
   checksum: e84fae7ebc27ac96d9dbb57f35f078cd6dde1b7046b0f03f73dcefc9fbb1f2e82e3685d083466aded8faf038f9fa9ebb408d215282bcd7aaa301d5ac3c486815
-  languageName: node
-  linkType: hard
-
-"ansis@npm:^3.3.1, ansis@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "ansis@npm:3.3.2"
-  checksum: 6d3e8a68a93b03a1e7166cbe63cb6831780a7a9b0bc6c3bf0a33c7237d528d00558af84a54827322a85667d4b52d21f796b884f6120ec203b5ed3f9404ec0d05
   languageName: node
   linkType: hard
 
@@ -6401,6 +6371,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ink@npm:5.0.1":
+  version: 5.0.1
+  resolution: "ink@npm:5.0.1"
+  dependencies:
+    "@alcalzone/ansi-tokenize": ^0.1.3
+    ansi-escapes: ^7.0.0
+    ansi-styles: ^6.2.1
+    auto-bind: ^5.0.1
+    chalk: ^5.3.0
+    cli-boxes: ^3.0.0
+    cli-cursor: ^4.0.0
+    cli-truncate: ^4.0.0
+    code-excerpt: ^4.0.0
+    indent-string: ^5.0.0
+    is-in-ci: ^0.1.0
+    lodash: ^4.17.21
+    patch-console: ^2.0.0
+    react-reconciler: ^0.29.0
+    scheduler: ^0.23.0
+    signal-exit: ^3.0.7
+    slice-ansi: ^7.1.0
+    stack-utils: ^2.0.6
+    string-width: ^7.0.0
+    type-fest: ^4.8.3
+    widest-line: ^5.0.0
+    wrap-ansi: ^9.0.0
+    ws: ^8.15.0
+    yoga-wasm-web: ~0.3.3
+  peerDependencies:
+    "@types/react": ">=18.0.0"
+    react: ">=18.0.0"
+    react-devtools-core: ^4.19.1
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react-devtools-core:
+      optional: true
+  checksum: 16e7cf3696c47928176c7a1c0d8be7cb2d178020559d266f3665ab94130e0faaf9f51b5242e6d8beb27fcaee5dcf719ca47c2b9daff041ea9f3b5a54a150bb08
+  languageName: node
+  linkType: hard
+
 "ink@npm:^5.0.1":
   version: 5.1.0
   resolution: "ink@npm:5.1.0"
@@ -6538,6 +6549,15 @@ __metadata:
   dependencies:
     is-extglob: ^2.1.1
   checksum: d381c1319fcb69d341cc6e6c7cd588e17cd94722d9a32dbd60660b993c4fb7d0f19438674e68dfec686d09b7c73139c9166b47597f846af387450224a8101ab4
+  languageName: node
+  linkType: hard
+
+"is-in-ci@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "is-in-ci@npm:0.1.0"
+  bin:
+    is-in-ci: cli.js
+  checksum: 0479c03f8255d101aaa71cfcbef4175f9d2634d3f70318ed48f68affd63c54b8d3851573744012a18b367c0fdd132c69bbd24b2580d8ee6e40170e57637da376
   languageName: node
   linkType: hard
 
@@ -9958,6 +9978,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-fest@npm:^4.8.3":
+  version: 4.33.0
+  resolution: "type-fest@npm:4.33.0"
+  checksum: 42c9a4e305ef86826f6c3e9fb0d230765523eba248b7927580e76fa0384a4a12dfcde3ba04ac94b3cfab664b16608f1f9b8fb6116a48c728b87350e8252fd32c
+  languageName: node
+  linkType: hard
+
 "typescript@npm:^5.1.6":
   version: 5.7.3
   resolution: "typescript@npm:5.7.3"
@@ -10299,7 +10326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.18.0":
+"ws@npm:^8.15.0, ws@npm:^8.18.0":
   version: 8.18.0
   resolution: "ws@npm:8.18.0"
   peerDependencies:
