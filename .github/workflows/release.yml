@@ -78,7 +78,7 @@ jobs:
         run: yarn package:windows
 
       - name: Upload to S3
-        run: yarn oclif upload win
+        run: yarn oclif upload win --targets=win32-x64,win32-x86
         env:
           AWS_REGION: eu-central-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
