@@ -2,6 +2,7 @@ import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
 import assertSuccess from "../../../apiutil/assert_success.js";
 import { ProcessRenderer } from "../../../../rendering/process/process.js";
+import { randomInt } from "crypto";
 
 type DatabaseMySqlUser = MittwaldAPIV2.Components.Schemas.DatabaseMySqlUser;
 
@@ -56,20 +57,20 @@ export function generateRandomPassword(length: number = 32): string {
 
   // Ensure the password includes at least one of each required character type
   const passwordArray = [
-    lowercase[Math.floor(Math.random() * lowercase.length)],
-    uppercase[Math.floor(Math.random() * uppercase.length)],
-    digits[Math.floor(Math.random() * digits.length)],
-    specialChars[Math.floor(Math.random() * specialChars.length)],
+    lowercase[randomInt(0, lowercase.length)],
+    uppercase[randomInt(0, uppercase.length)],
+    digits[randomInt(0, digits.length)],
+    specialChars[randomInt(0, specialChars.length)],
   ];
 
   // Fill the remaining characters randomly
   for (let i = passwordArray.length; i < length; i++) {
-    passwordArray.push(allChars[Math.floor(Math.random() * allChars.length)]);
+    passwordArray.push(allChars[randomInt(0, allChars.length)]);
   }
 
   // Shuffle the array to avoid predictable patterns
   for (let i = passwordArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = randomInt(0, i + 1);
     [passwordArray[i], passwordArray[j]] = [passwordArray[j], passwordArray[i]];
   }
 
