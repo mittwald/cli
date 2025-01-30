@@ -11,7 +11,7 @@ export async function getSSHConnectionForProject(
   assertStatus(projectResponse, 200);
 
   if (sshUser === undefined) {
-    const userResponse = await client.user.getOwnAccount();
+    const userResponse = await client.user.getUser({ userId: "self" });
 
     assertStatus(userResponse, 200);
     sshUser = userResponse.data.email;
