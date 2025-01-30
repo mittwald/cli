@@ -227,7 +227,7 @@ export async function autofillFlags(
   appName: string,
   defaults: Partial<Record<AvailableFlagName, string>>,
 ): Promise<void> {
-  const ownUser = await apiClient.user.getOwnAccount();
+  const ownUser = await apiClient.user.getUser({ userId: "self" });
   assertStatus(ownUser, 200);
 
   // Version

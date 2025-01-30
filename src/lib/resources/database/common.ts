@@ -10,7 +10,7 @@ export async function getUser(
   p: ProcessRenderer,
 ): Promise<SignupAccount> {
   return await p.runStep("fetching user", async () => {
-    const r = await apiClient.user.getOwnAccount();
+    const r = await apiClient.user.getUser({ userId: "self" });
     assertStatus(r, 200);
 
     return r.data;
