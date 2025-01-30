@@ -15,8 +15,10 @@ import { printKeyValues } from "../../rendering/formatter/printKeyValues.js";
 type Conversation = MittwaldAPIV2.Components.Schemas.ConversationConversation;
 type Message = MittwaldAPIV2.Components.Schemas.ConversationMessage;
 type StatusUpdate = MittwaldAPIV2.Components.Schemas.ConversationStatusUpdate;
+type ServiceRequest =
+  MittwaldAPIV2.Components.Schemas.ConversationServiceRequest;
 
-type ResponseItem = Message | StatusUpdate;
+type ResponseItem = Message | StatusUpdate | ServiceRequest;
 
 function printStatusChange(text: string, date: string) {
   console.log(chalk.gray(`${text}, ${formatRelativeDate(date)}`));
