@@ -8814,8 +8814,8 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.14.31":
-  version: 4.17.20
-  resolution: "oclif@npm:4.17.20"
+  version: 4.17.21
+  resolution: "oclif@npm:4.17.21"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.726.1
     "@aws-sdk/client-s3": ^3.735.0
@@ -8843,7 +8843,7 @@ __metadata:
     validate-npm-package-name: ^5.0.1
   bin:
     oclif: bin/run.js
-  checksum: cc0aac8df50698283538680a6cd0f5b294e38294eeda74617ad044a44bd4b7b8081db0d9676b7feba58da02d113eecfb4f9f07b4cc96b771296d2a8f6d1ca2b0
+  checksum: 3a0c26fedf51555a6f07373eb784f7b9b2b40d1e9fbd27e9e3b8d3a39379958ff73ff1555253e27f864eefe4fa9d5751ab1e98bf1a7faa9b9fdb23d0c833ec2a
   languageName: node
   linkType: hard
 
