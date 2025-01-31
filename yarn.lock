@@ -9016,17 +9016,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse-duration@npm:*":
-  version: 1.1.2
-  resolution: "parse-duration@npm:1.1.2"
-  checksum: c31ebdee783935afe250fd79cdfab9d14e196ee2a810e6a7abbdef6d945a1b88797972437c9e5ed10e8e1cb5cd68b7cc13e9ac9721839f0cb1c2f5fe837d99d9
-  languageName: node
-  linkType: hard
-
-"parse-duration@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "parse-duration@npm:2.0.1"
-  checksum: 46acdc84a76d59a7810ec865c9582c1a6176cb0adb9763e6c5daed2ca6cd928536fc35d62e21256eb66372d3902cc7250fbae0d1bdcdcc2a2bab82fe3eed08b0
+"parse-duration@npm:*, parse-duration@npm:^2.0.1":
+  version: 2.1.2
+  resolution: "parse-duration@npm:2.1.2"
+  checksum: 49c2c6130f5fb3db1082111bbf4c32851d5adde3284b6a738c27413730c32df248c15a80e3e187e75f615846354712d4dbca5bf88d32b3bb8f7fb46afcad6484
   languageName: node
   linkType: hard
 
