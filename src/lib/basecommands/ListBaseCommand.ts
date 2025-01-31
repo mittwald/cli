@@ -50,15 +50,19 @@ export abstract class ListBaseCommand<
 
   public async run(): Promise<void> {
     const response = await this.getData();
+    let data: TItem[];
 
-    assertStatus(response, 200);
-
-    const data = await this.mapData(response.data);
+    if (!Array.isArray(response)) {
+      assertStatus(response, 200);
+      data = await this.mapData(response.data);
+    } else {
+      data = response;
+    }
 
     this.formatter.log(data, this.getColumns(data), this.flags as ListOptions);
   }
 
-  protected abstract getData(): Promise<TAPIResponse>;
+  protected abstract getData(): Promise<TAPIResponse | TItem[]>;
 
   protected mapData(
     data: SuccessfulResponse<TAPIResponse, 200>["data"],
