@@ -130,6 +130,16 @@ function buildMySqlDumpArgs(d: {
   user: string;
   password: string;
   database: string;
+  charset: string;
 }): string[] {
-  return ["-h", d.hostname, "-u", d.user, `-p${d.password}`, d.database];
+  return [
+    "-h",
+    d.hostname,
+    "-u",
+    d.user,
+    `-p${d.password}`,
+    "--default-character-set",
+    d.charset,
+    d.database,
+  ];
 }

@@ -24,6 +24,7 @@ export interface MySQLConnectionDetails {
   sshHost: string;
   sshUser: string;
   project: Project;
+  charset: string;
 }
 
 export type MySQLConnectionDetailsWithPassword = MySQLConnectionDetails & {
@@ -95,6 +96,7 @@ export async function getConnectionDetails(
     user: databaseUser.name,
     sshHost: sshConnectionData.host,
     sshUser: sshConnectionData.user,
+    charset: database.characterSettings.characterSet,
     project,
   };
 }
