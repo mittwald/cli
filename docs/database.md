@@ -117,8 +117,8 @@ Create a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>]
-    [--ssh-identity-file <value>] [--gzip]
+  $ mw database mysql dump DATABASE-ID -o <value> [-q] [-p <value>] [--mysql-charset <value>] [--temporary-user]
+    [--ssh-user <value>] [--ssh-identity-file <value>] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
@@ -128,6 +128,7 @@ FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --gzip                    compress the dump with gzip
+      --mysql-charset=<value>   the character set to use for the MySQL connection
       --[no-]temporary-user     create a temporary user for the dump
 
 SSH CONNECTION FLAGS
@@ -171,6 +172,11 @@ FLAG DESCRIPTIONS
 
     Compress the dump with gzip. This is useful for large databases, as it can significantly reduce the size of the
     dump.
+
+  --mysql-charset=<value>  the character set to use for the MySQL connection
+
+    The character set that should be used for the MySQL connection. If omitted, the database's default character set
+    will be used (for newer databases, this should be utf8mb4 in most cases, but really might be anything).
 
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
 
@@ -220,8 +226,8 @@ Imports a dump of a MySQL database
 
 ```
 USAGE
-  $ mw database mysql import DATABASE-ID -i <value> [-q] [-p <value>] [--temporary-user] [--ssh-user <value>]
-    [--ssh-identity-file <value>] [--gzip]
+  $ mw database mysql import DATABASE-ID -i <value> [-q] [-p <value>] [--mysql-charset <value>] [--temporary-user]
+    [--ssh-user <value>] [--ssh-identity-file <value>] [--gzip]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
@@ -231,6 +237,7 @@ FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --gzip                    uncompress the dump with gzip
+      --mysql-charset=<value>   the character set to use for the MySQL connection
       --[no-]temporary-user     create a temporary user for the dump
 
 SSH CONNECTION FLAGS
@@ -273,6 +280,11 @@ FLAG DESCRIPTIONS
 
     Uncompress the dump with gzip while importing. This is useful for large databases, as it can significantly reduce
     the size of the dump.
+
+  --mysql-charset=<value>  the character set to use for the MySQL connection
+
+    The character set that should be used for the MySQL connection. If omitted, the database's default character set
+    will be used (for newer databases, this should be utf8mb4 in most cases, but really might be anything).
 
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
 
@@ -401,6 +413,7 @@ Connect to a MySQL database via the MySQL shell
 ```
 USAGE
   $ mw database mysql shell DATABASE-ID [-q] [--ssh-user <value>] [--ssh-identity-file <value>] [-p <value>]
+    [--mysql-charset <value>]
 
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
@@ -408,6 +421,7 @@ ARGUMENTS
 FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary.
+      --mysql-charset=<value>   the character set to use for the MySQL connection
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -439,6 +453,11 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --mysql-charset=<value>  the character set to use for the MySQL connection
+
+    The character set that should be used for the MySQL connection. If omitted, the database's default character set
+    will be used (for newer databases, this should be utf8mb4 in most cases, but really might be anything).
 
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
 
