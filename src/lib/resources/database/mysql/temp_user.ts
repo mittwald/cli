@@ -52,7 +52,7 @@ export function generateRandomPassword(length: number = 32): string {
   const lowercase = "abcdefghijklmnopqrstuvwxyz";
   const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const digits = "0123456789";
-  const specialChars = "#!~%^*_+-=?{}()<>|.,;";
+  const specialChars = "_";
   const allChars = lowercase + uppercase + digits + specialChars;
 
   // Ensure the password includes at least one of each required character type

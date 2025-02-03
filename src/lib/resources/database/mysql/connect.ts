@@ -13,6 +13,7 @@ type Project = MittwaldAPIV2.Components.Schemas.ProjectProject;
 
 export interface MySQLConnectionFlags {
   "mysql-password": string | undefined;
+  "mysql-charset": string | undefined;
   "temporary-user"?: boolean;
   "ssh-user"?: string;
 }
@@ -69,8 +70,15 @@ export async function getConnectionDetailsWithPassword(
 ): Promise<MySQLConnectionDetailsWithPassword> {
   const password = flags["temporary-user"] ? "" : await getPassword(p, flags);
   const sshUser = flags["ssh-user"];
+  const characterSet = flags["mysql-charset"];
   return {
-    ...(await getConnectionDetails(apiClient, databaseId, sshUser, p)),
+    ...(await getConnectionDetails(
+      apiClient,
+      databaseId,
+      sshUser,
+      characterSet,
+      p,
+    )),
     password,
   };
 }
@@ -79,6 +87,7 @@ export async function getConnectionDetails(
   apiClient: MittwaldAPIV2Client,
   databaseId: string,
   sshUser: string | undefined,
+  characterSet: string | undefined,
   p: ProcessRenderer,
 ): Promise<MySQLConnectionDetails> {
   const database = await getDatabase(apiClient, p, databaseId);
@@ -96,7 +105,7 @@ export async function getConnectionDetails(
     user: databaseUser.name,
     sshHost: sshConnectionData.host,
     sshUser: sshConnectionData.user,
-    charset: database.characterSettings.characterSet,
+    charset: characterSet ?? database.characterSettings.characterSet,
     project,
   };
 }
