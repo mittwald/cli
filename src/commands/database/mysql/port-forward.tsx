@@ -46,6 +46,7 @@ export class PortForward extends ExecRenderBaseCommand<
       this.apiClient,
       databaseId,
       this.flags["ssh-user"],
+      undefined,
       p,
     );
 

@@ -14,6 +14,11 @@ NOTE: This is a security risk, as the password will be visible in the process li
     required: false,
     env: "MYSQL_PWD",
   }),
+  "mysql-charset": Flags.string({
+    summary: "the character set to use for the MySQL connection",
+    description:
+      "The character set that should be used for the MySQL connection. If omitted, the database's default character set will be used (for newer databases, this should be utf8mb4 in most cases, but really might be anything).",
+  }),
 };
 
 export const mysqlConnectionFlagsWithTempUser = {
