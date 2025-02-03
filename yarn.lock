@@ -2683,11 +2683,11 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.2.3":
-  version: 4.2.5
-  resolution: "@oclif/core@npm:4.2.5"
+  version: 4.2.6
+  resolution: "@oclif/core@npm:4.2.6"
   dependencies:
     ansi-escapes: ^4.3.2
-    ansis: ^3.9.0
+    ansis: ^3.10.0
     clean-stack: ^3.0.1
     cli-spinners: ^2.9.2
     debug: ^4.4.0
@@ -2704,7 +2704,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 2ac538f602475d15545b6287ebd9caddb36d05dc99c4f710dd020d473fbf2998ce6886be63cfc39e0807d44db7d013aff75af5096065d948c4108040a45087c7
+  checksum: 86a1217768cf6c6c462f4ea0f87c4a4b7826b553c526bd39469c2fda51383af1819a3156d20585e7b397bc833c27f607338d2f7e5dfc90d2778239dffba1d7eb
   languageName: node
   linkType: hard
 
@@ -4441,6 +4441,13 @@ __metadata:
   version: 0.3.2
   resolution: "ansicolors@npm:0.3.2"
   checksum: e84fae7ebc27ac96d9dbb57f35f078cd6dde1b7046b0f03f73dcefc9fbb1f2e82e3685d083466aded8faf038f9fa9ebb408d215282bcd7aaa301d5ac3c486815
+  languageName: node
+  linkType: hard
+
+"ansis@npm:^3.10.0":
+  version: 3.10.0
+  resolution: "ansis@npm:3.10.0"
+  checksum: 440721b606d80fd61efe4fcdfbfbb336889b0ba59cfb787c5b0d1d2ea01629796c894ed648fefcd381521344a6aec62654f94766feae8344d53803c17a4a9636
   languageName: node
   linkType: hard
 
