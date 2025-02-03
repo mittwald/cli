@@ -9658,9 +9658,9 @@ __metadata:
   linkType: hard
 
 "semver-parser@npm:^4.1.6":
-  version: 4.1.7
-  resolution: "semver-parser@npm:4.1.7"
-  checksum: 467d8328f1003ac8c41b67ddc2590ad16f60b93c233617377096b1d7442bd0ef2a6bbdc2022d0d1f370b4693d5b3e8f9e255e70ad9f136346c85b5758479017e
+  version: 4.1.8
+  resolution: "semver-parser@npm:4.1.8"
+  checksum: ddf544b6140f3e5c3ac5839b3d815c5172dbdd492af1c2a06baddeb6c2593488f7db37b07494689b4012faa5253525157a6a809b59361fc144fba2df1d5c135a
   languageName: node
   linkType: hard
 
