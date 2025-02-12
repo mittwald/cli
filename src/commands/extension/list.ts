@@ -27,6 +27,10 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
     return {
       id,
       name: {},
+      context: {},
+      subTitle: {
+        get: (ext) => ext.subTitle?.en ?? ext.subTitle?.de,
+      },
     };
   }
 }
