@@ -2295,14 +2295,14 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.2.21
-  resolution: "@oclif/plugin-autocomplete@npm:3.2.21"
+  version: 3.2.22
+  resolution: "@oclif/plugin-autocomplete@npm:3.2.22"
   dependencies:
     "@oclif/core": ^4
-    ansis: ^3.10.0
+    ansis: ^3.14.0
     debug: ^4.4.0
     ejs: ^3.1.10
-  checksum: 4dc464ee800c9713d02e86b2081c026244357c754284fcc1758b4fa69a87191a4ea7c8e6f7e2c2354dde2f4178fbd6b2198c5de8f72fbb2a6ce4feacd0749cbb
+  checksum: 2ba5b4e230d2956efb191ca72dadd37442671bf4f8cf3c3f7fae9b6f96efb13524d16a6b122bfa7a4c5c4bf7febf43bbaf06b119e24bcc8af05b168be95a0f7e
   languageName: node
   linkType: hard
 
@@ -3902,6 +3902,13 @@ __metadata:
   version: 3.10.0
   resolution: "ansis@npm:3.10.0"
   checksum: 440721b606d80fd61efe4fcdfbfbb336889b0ba59cfb787c5b0d1d2ea01629796c894ed648fefcd381521344a6aec62654f94766feae8344d53803c17a4a9636
+  languageName: node
+  linkType: hard
+
+"ansis@npm:^3.14.0":
+  version: 3.15.0
+  resolution: "ansis@npm:3.15.0"
+  checksum: f9517e855789b2c8cc1f442d36499e8238e6dbf4b6bc6cc27d2826050749253d758f633aaec122a5f39a0e00c3753c1ebe6e47f7daa3f45f339bbbbbebc7fbfd
   languageName: node
   linkType: hard
 
