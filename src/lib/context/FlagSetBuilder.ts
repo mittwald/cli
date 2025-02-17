@@ -36,7 +36,7 @@ export type CommandType<
 export class MissingFlagError extends Error {
   constructor(name: string, flagName: string) {
     super(
-      `No ${name} ID given. Please specify one with --${flagName} or set a default ${name} with 'mittwald context set --${flagName} <${flagName}>'`,
+      `No ${name} ID given. Please specify one with --${flagName} or set a default ${name} with 'mw context set --${flagName} <${flagName}>'`,
     );
   }
 }
@@ -44,7 +44,7 @@ export class MissingFlagError extends Error {
 export class MissingArgError extends Error {
   constructor(name: string, flagName: string) {
     super(
-      `No ${name} ID given. Please specify one as positional argument or set a default ${name} with 'mittwald context set --${flagName} <${flagName}>'`,
+      `No ${name} ID given. Please specify one as positional argument or set a default ${name} with 'mw context set --${flagName} <${flagName}>'`,
     );
   }
 }
@@ -94,7 +94,7 @@ export function makeMissingContextInputError<TName extends ContextNames>(
 
   if (contextSupport) {
     return new Error(
-      `No ${name} ID given. Please consult the --help page of this command or set a default ${name} with 'mittwald context set --${flagName} <${flagName}>'`,
+      `No ${name} ID given. Please consult the --help page of this command or set a default ${name} with 'mw context set --${flagName} <${flagName}>'`,
     );
   }
 
