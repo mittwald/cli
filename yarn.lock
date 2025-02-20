@@ -2131,7 +2131,7 @@ __metadata:
   dependencies:
     "@jest/globals": ^29.7.0
     "@mittwald/api-client": ^4.9.0
-    "@mittwald/react-use-promise": ^2.1.2
+    "@mittwald/react-use-promise": ^3.0.0
     "@oclif/core": ^4.0.18
     "@oclif/plugin-autocomplete": ^3.0.3
     "@oclif/plugin-help": ^6.0.5
@@ -2193,9 +2193,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mittwald/react-use-promise@npm:^2.1.2":
-  version: 2.6.0
-  resolution: "@mittwald/react-use-promise@npm:2.6.0"
+"@mittwald/react-use-promise@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@mittwald/react-use-promise@npm:3.0.0"
   dependencies:
     "@types/luxon": 3.4.2
     browser-or-node: ^3.0.0
@@ -2204,11 +2204,11 @@ __metadata:
     object-code: ^1.3.3
   peerDependencies:
     axios: ^1.6.7
-    react: ">=17.0"
+    react: ">=19.0"
   peerDependenciesMeta:
     axios:
       optional: true
-  checksum: 71c19522545ef9b910ab2218e8f17c378d4271f285a11a628e8701ed48fa5933b5140f57e49eca1dbb0e188d7a43ba39ff6d7aaaf8939a3d6225de898d760907
+  checksum: 0e46ce179d2106463627d0c7e3673f070951d83fd9d2f5000bfc11479dae24ba7c20a474280b48d1926d6f9599d3bad46a1fe7820bc57f017a0c48140f75ca90
   languageName: node
   linkType: hard
 
