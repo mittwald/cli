@@ -2111,8 +2111,8 @@ __metadata:
   linkType: hard
 
 "@mittwald/api-client@npm:^4.9.0":
-  version: 4.105.0
-  resolution: "@mittwald/api-client@npm:4.105.0"
+  version: 4.110.0
+  resolution: "@mittwald/api-client@npm:4.110.0"
   dependencies:
     "@mittwald/api-client-commons": ^4.104.1
     browser-or-node: ^3.0.0
@@ -2121,7 +2121,7 @@ __metadata:
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 074775c0e2fbc1cac78d671a64215bd319ab9c1c6703bd1348abf2b6ac1c3c5acf96b2c2156d28fa5da3c70925442fb2d9a5ad180e2858721320e3187df39314
+  checksum: e110034cda452158f020cf4f755c8be6901de5bf2f5f9ad93678e15775f8e00d5deb83a23c3d913738fab645b90d8c6c7ea1088254b66b9cdfda22d09e96c198
   languageName: node
   linkType: hard
 
