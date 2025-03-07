@@ -91,7 +91,11 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
         throw new Error(`unknown system software ${software}`);
       }
 
-      const versions = await this.getVersions(process, systemSoftware);
+      const versions = await this.getVersions(
+        process,
+        systemSoftware,
+        versionSpec,
+      );
       const version = await process.runStep(
         `determining version for ${software}`,
         async () => {
@@ -102,17 +106,18 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
             return exactMatch;
           }
 
-          const version = versions.find((v) =>
-            parsedVersionSpec.test(v.externalVersion),
-          );
-          if (!version) {
-            const available = versions.map((v) => v.externalVersion).join(", ");
+          const recommendedVersion = versions.find((v) => v.recommended);
+          if (recommendedVersion) {
+            return recommendedVersion;
+          }
+
+          if (versions.length === 0) {
             throw new Error(
-              `unknown version ${versionSpec} for ${software}; available versions are: ${available}`,
+              `no versions found for ${software} and version constraint ${versionSpec}`,
             );
           }
 
-          return version;
+          return versions[versions.length - 1];
         },
       );
 
@@ -150,12 +155,16 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
   private async getVersions(
     p: ProcessRenderer,
     systemSoftware: AppSystemSoftware,
+    versionRange: string,
   ): Promise<AppSystemSoftwareVersion[]> {
     const versions = await p.runStep(
       `fetching versions for ${systemSoftware.name}`,
       async () => {
         const r = await this.apiClient.app.listSystemsoftwareversions({
           systemSoftwareId: systemSoftware.id,
+          queryParameters: {
+            versionRange,
+          },
         });
         assertStatus(r, 200);
 
