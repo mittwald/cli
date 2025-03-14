@@ -161,7 +161,7 @@ FLAG DESCRIPTIONS
 
 ## `mw app create php-worker`
 
-Creates new custom PHP worker installation.
+Creates new PHP worker installation.
 
 ```
 USAGE
@@ -173,13 +173,13 @@ FLAGS
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary.
   -w, --wait                  wait for the resource to be ready.
-      --entrypoint=<value>    the command that should be used to start your custom PHP worker application.
-      --site-title=<value>    site title for your custom PHP worker installation.
+      --entrypoint=<value>    the command that should be used to start your PHP worker application.
+      --site-title=<value>    site title for your PHP worker installation.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 
 DESCRIPTION
-  Creates new custom PHP worker installation.
+  Creates new PHP worker installation.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -192,15 +192,15 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
-  --entrypoint=<value>  the command that should be used to start your custom PHP worker application.
+  --entrypoint=<value>  the command that should be used to start your PHP worker application.
 
     This is the command that should be used to start your application; the app is required to run in the foreground, and
     to listen on the port specified by the PORT environment variable.
 
-  --site-title=<value>  site title for your custom PHP worker installation.
+  --site-title=<value>  site title for your PHP worker installation.
 
-    The site title for this custom PHP worker installation. It is also the title shown in the app overview in the
-    mStudio and the CLI.
+    The site title for this PHP worker installation. It is also the title shown in the app overview in the mStudio and
+    the CLI.
     If unspecified, the application name and the given project ID will be used. The title can be changed after the
     installation is finished
 ```
