@@ -7,7 +7,7 @@ import {
 
 export const phpWorkerInstaller = new AppInstaller(
   "fcac178a-e606-4460-a5fd-b3ad0ae7a3cc",
-  "custom PHP worker",
+  "PHP worker",
   ["entrypoint", "site-title"] as const,
 );
 
