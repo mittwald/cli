@@ -4,7 +4,6 @@
 Manage your client authentication
 
 * [`mw login reset`](#mw-login-reset)
-* [`mw login status`](#mw-login-status)
 * [`mw login token`](#mw-login-token)
 
 ## `mw login reset`
@@ -17,18 +16,6 @@ USAGE
 
 DESCRIPTION
   Reset your local authentication state
-```
-
-## `mw login status`
-
-Checks your current authentication status
-
-```
-USAGE
-  $ mw login status
-
-DESCRIPTION
-  Checks your current authentication status
 ```
 
 ## `mw login token`
