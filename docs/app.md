@@ -13,7 +13,6 @@ Manage apps, and app installations in your projects
 * [`mw app dependency update [INSTALLATION-ID]`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
 * [`mw app download [INSTALLATION-ID]`](#mw-app-download-installation-id)
-* [`mw app get [INSTALLATION-ID]`](#mw-app-get-installation-id)
 * [`mw app install contao`](#mw-app-install-contao)
 * [`mw app install drupal`](#mw-app-install-drupal)
 * [`mw app install grav`](#mw-app-install-grav)
@@ -464,26 +463,6 @@ FLAG DESCRIPTIONS
     will be used for this.
 
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
-```
-
-## `mw app get [INSTALLATION-ID]`
-
-Get details about an app installation
-
-```
-USAGE
-  $ mw app get [INSTALLATION-ID] -o txt|json|yaml
-
-ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
-
-DESCRIPTION
-  Get details about an app installation
 ```
 
 ## `mw app install contao`
