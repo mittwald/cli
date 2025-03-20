@@ -3,34 +3,12 @@
 
 Manage domains, virtual hosts and DNS settings in your projects
 
-* [`mw domain dnszone get DNSZONE-ID`](#mw-domain-dnszone-get-dnszone-id)
 * [`mw domain dnszone list`](#mw-domain-dnszone-list)
 * [`mw domain dnszone update DNSZONE-ID RECORD-SET`](#mw-domain-dnszone-update-dnszone-id-record-set)
-* [`mw domain get DOMAIN-ID`](#mw-domain-get-domain-id)
 * [`mw domain list`](#mw-domain-list)
 * [`mw domain virtualhost create`](#mw-domain-virtualhost-create)
 * [`mw domain virtualhost delete VIRTUAL-HOST-ID`](#mw-domain-virtualhost-delete-virtual-host-id)
-* [`mw domain virtualhost get INGRESS-ID`](#mw-domain-virtualhost-get-ingress-id)
 * [`mw domain virtualhost list`](#mw-domain-virtualhost-list)
-
-## `mw domain dnszone get DNSZONE-ID`
-
-gets a specific zone
-
-```
-USAGE
-  $ mw domain dnszone get DNSZONE-ID -o txt|json|yaml
-
-ARGUMENTS
-  DNSZONE-ID  ID or domain name of a DNS zone
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
-
-DESCRIPTION
-  gets a specific zone
-```
 
 ## `mw domain dnszone list`
 
@@ -119,25 +97,6 @@ FLAG DESCRIPTIONS
     - for "srv" records, the parameter should be formatted as "<priority> <weight> <port> <fqdn>", e.g. "10 1 5060
     sip.example.com"
     - for "txt" records, the parameter should be a string containing the TXT record value.
-```
-
-## `mw domain get DOMAIN-ID`
-
-gets a specific domain
-
-```
-USAGE
-  $ mw domain get DOMAIN-ID -o txt|json|yaml
-
-ARGUMENTS
-  DOMAIN-ID  ID or domain name of a domain
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
-
-DESCRIPTION
-  gets a specific domain
 ```
 
 ## `mw domain list`
@@ -259,22 +218,6 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
-```
-
-## `mw domain virtualhost get INGRESS-ID`
-
-Get a virtual host.
-
-```
-USAGE
-  $ mw domain virtualhost get INGRESS-ID -o txt|json|yaml
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
-
-DESCRIPTION
-  Get a virtual host.
 ```
 
 ## `mw domain virtualhost list`
