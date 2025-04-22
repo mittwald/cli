@@ -69,9 +69,26 @@ export default class Deploy extends ExecRenderBaseCommand<
       }
 
       await p.runStep("Registering extension", async () => {
+        if (manifest.deprecation) {
+          throw new Error(
+            '"deprecation" is not supported when creating a new extension',
+          );
+        }
+
         await this.apiClient.marketplace.extensionRegisterExtension({
           contributorId,
-          data: manifest,
+          data: {
+            description: manifest.description,
+            detailedDescriptions: manifest.detailedDescriptions,
+            externalFrontends: manifest.externalFrontends,
+            frontendFragments: manifest.frontendFragments,
+            name: manifest.name,
+            scopes: manifest.scopes,
+            subTitle: manifest.subTitle,
+            support: manifest.support,
+            tags: manifest.tags,
+            webhookURLs: manifest.webhookUrls,
+          },
         });
       });
     } else {
@@ -80,7 +97,7 @@ export default class Deploy extends ExecRenderBaseCommand<
           extensionId: manifest.id,
           contributorId: manifest.contributorId,
           data: {
-            //deprecation: manifest.deprecation,
+            deprecation: manifest.deprecation,
             description: manifest.description,
             detailedDescriptions: manifest.detailedDescriptions,
             externalFrontends: manifest.externalFrontends,

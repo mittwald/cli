@@ -15,4 +15,10 @@ export type ExtensionManifest = Pick<
   | "support"
   | "tags"
   | "webhookUrls"
->;
+> & {
+  deprecation?: {
+    deprecatedAt: string;
+    note?: string;
+    successorId?: string;
+  };
+};
