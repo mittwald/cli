@@ -12,13 +12,9 @@ import * as uuid from "uuid";
 import { writeFile } from "fs/promises";
 import yaml from "js-yaml";
 import { Value } from "../../../rendering/react/components/Value.js";
+import { pathExists } from "../../../lib/util/fs/pathExists.js";
 
-type UpdateResult = void;
-
-export default class Init extends ExecRenderBaseCommand<
-  typeof Init,
-  UpdateResult
-> {
+export default class Init extends ExecRenderBaseCommand<typeof Init, void> {
   static summary = "Init a new extension manifest file";
   static description =
     "This command will create a new extension manifest file. It only operates on your local file system; afterwards, use the 'deploy' command to upload the manifest to the marketplace.";
@@ -37,11 +33,13 @@ export default class Init extends ExecRenderBaseCommand<
     }),
   };
 
-  protected async exec(): Promise<UpdateResult> {
+  protected async exec(): Promise<void> {
     const p = makeProcessRenderer(
       this.flags,
       "Initializing extension manifest",
     );
+
+    const { overwrite } = this.flags;
 
     await p.runStep("generating extension manifest file", async () => {
       const renderedConfiguration: ExtensionManifest = {
@@ -95,6 +93,16 @@ export default class Init extends ExecRenderBaseCommand<
           },
         },
       };
+
+      const manifestAlreadyExists = await pathExists(
+        this.args["extension-manifest"],
+      );
+
+      if (manifestAlreadyExists && !overwrite) {
+        throw new Error(
+          "File already exists. Use --overwrite to overwrite it.",
+        );
+      }
 
       await writeFile(
         this.args["extension-manifest"],
