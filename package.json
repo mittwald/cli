@@ -42,7 +42,7 @@
     "dist/**/*.{js,d.ts}"
   ],
   "dependencies": {
-    "@mittwald/api-client": "^4.9.0",
+    "@mittwald/api-client": "^4.131.0",
     "@mittwald/react-use-promise": "^2.1.2",
     "@oclif/core": "^4.0.18",
     "@oclif/plugin-autocomplete": "^3.0.3",
@@ -146,6 +146,14 @@
       },
       "conversation": {
         "description": "Manage your support cases"
+      },
+      "contributor": {
+        "description": "Commands for mStudio marketplace contributors",
+        "subtopics": {
+          "extension": {
+            "description": "Manage your published mStudio extensions"
+          }
+        }
       },
       "cronjob": {
         "description": "Manage cronjobs of your projects"
