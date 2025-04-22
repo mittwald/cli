@@ -177,8 +177,8 @@ Create a new ingress
 
 ```
 USAGE
-  $ mw domain virtualhost create --hostname <value> [-q] [-p <value>] [--path-to-dir <value>...] [--path-to-app <value>...]
-    [--path-to-url <value>...]
+  $ mw domain virtualhost create --hostname <value> [-q] [-p <value>] [--path-to-app <value>...] [--path-to-url
+  <value>...]
 
 FLAGS
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -186,7 +186,6 @@ FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary.
       --hostname=<value>        (required) the hostname of the ingress
       --path-to-app=<value>...  add a path mapping to an app
-      --path-to-dir=<value>...  add a path mapping to a directory
       --path-to-url=<value>...  add a path mapping to an external url
 
 DESCRIPTION
@@ -221,13 +220,6 @@ FLAG DESCRIPTIONS
     This flag can be used to map a specific URL path to an app; the value for this flag should be the URL path and the
     app ID, separated by a colon, e.g. /:3ecaf1a9-6eb4-4869-b811-8a13c3a2e745. You can specify this flag multiple times
     to map multiple paths to different apps, and also combine it with the other --path-to-* flags.
-
-  --path-to-dir=<value>...  add a path mapping to a directory
-
-    This flag can be used to map a specific URL path to a directory in your project's file system; the value for this
-    flag should be the URL path and the filesystem path, separated by a colon, e.g. /:/ or /:/some/sub/path. You can
-    specify this flag multiple times to map multiple paths to different directories, and also combine it with the other
-    --path-to-* flags.
 
   --path-to-url=<value>...  add a path mapping to an external url
 
