@@ -30,7 +30,7 @@ export default class Withdraw extends ExecRenderBaseCommand<
   };
 
   protected async exec(): Promise<void> {
-    const p = makeProcessRenderer(this.flags, "Publishing extension");
+    const p = makeProcessRenderer(this.flags, "Withdrawing extension");
 
     const { reason } = this.flags;
     const manifest = await parseExtensionManifest(
@@ -38,7 +38,7 @@ export default class Withdraw extends ExecRenderBaseCommand<
     );
     const { contributorId, id } = manifest;
 
-    await p.runStep("Publishing extension", async () => {
+    await p.runStep("Withdrawing extension", async () => {
       await this.apiClient.marketplace.extensionSetExtensionPublishedState({
         contributorId,
         extensionId: id,
