@@ -51,12 +51,6 @@ export default class Create extends ExecRenderBaseCommand<
       description: "the hostname of the ingress",
       required: true,
     }),
-    "path-to-dir": Flags.string({
-      summary: "add a path mapping to a directory",
-      multiple: true,
-      description:
-        "This flag can be used to map a specific URL path to a directory in your project's file system; the value for this flag should be the URL path and the filesystem path, separated by a colon, e.g. /:/ or /:/some/sub/path. You can specify this flag multiple times to map multiple paths to different directories, and also combine it with the other --path-to-* flags.",
-    }),
     "path-to-app": Flags.string({
       summary: "add a path mapping to an app",
       description:
@@ -76,11 +70,6 @@ export default class Create extends ExecRenderBaseCommand<
     const process = makeProcessRenderer(this.flags, "Creating a new ingress");
     const { hostname } = this.flags;
     const paths: IngressPath[] = [];
-
-    for (const pathToDir of this.flags["path-to-dir"] ?? []) {
-      const [path, directory] = pathToDir.split(":");
-      paths.push({ path, target: { directory } });
-    }
 
     for (const pathToApp of this.flags["path-to-app"] ?? []) {
       const [path, installationId] = pathToApp.split(":");

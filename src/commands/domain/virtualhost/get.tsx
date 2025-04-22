@@ -20,12 +20,8 @@ export type PathParams =
   MittwaldAPIV2.Paths.V2IngressesIngressId.Get.Parameters.Path;
 
 const IngressPathItem: FC<{ path: IngressPath }> = ({ path }) => {
-  if ("directory" in path.target) {
-    return (
-      <Text>
-        {"->"} Local directory: <Value>{path.target.directory}</Value>
-      </Text>
-    );
+  if ("useDefaultPage" in path.target) {
+    return <Text>{"->"} Default page</Text>;
   }
 
   if ("url" in path.target) {
