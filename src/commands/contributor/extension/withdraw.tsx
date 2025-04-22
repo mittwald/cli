@@ -11,11 +11,9 @@ import {
   parseExtensionManifest,
 } from "../../../lib/resources/extension/args_contributor.js";
 
-type PublishResult = void;
-
 export default class Withdraw extends ExecRenderBaseCommand<
   typeof Withdraw,
-  PublishResult
+  void
 > {
   static description = "Withdraw an extension from the marketplace";
 
@@ -31,7 +29,7 @@ export default class Withdraw extends ExecRenderBaseCommand<
     "extension-manifest": extensionManifestArg({ required: true }),
   };
 
-  protected async exec(): Promise<PublishResult> {
+  protected async exec(): Promise<void> {
     const p = makeProcessRenderer(this.flags, "Publishing extension");
 
     const { reason } = this.flags;

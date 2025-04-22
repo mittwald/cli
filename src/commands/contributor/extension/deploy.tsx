@@ -12,12 +12,7 @@ import {
   parseExtensionManifest,
 } from "../../../lib/resources/extension/args_contributor.js";
 
-type UpdateResult = void;
-
-export default class Deploy extends ExecRenderBaseCommand<
-  typeof Deploy,
-  UpdateResult
-> {
+export default class Deploy extends ExecRenderBaseCommand<typeof Deploy, void> {
   static description = "Deploy an extension manifest to the marketplace";
 
   static flags = {
@@ -35,7 +30,7 @@ export default class Deploy extends ExecRenderBaseCommand<
     }),
   };
 
-  protected async exec(): Promise<UpdateResult> {
+  protected async exec(): Promise<void> {
     const p = makeProcessRenderer(this.flags, "Updating extension manifest");
 
     const manifest = await parseExtensionManifest(

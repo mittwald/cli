@@ -10,11 +10,9 @@ import {
   parseExtensionManifest,
 } from "../../../lib/resources/extension/args_contributor.js";
 
-type PublishResult = void;
-
 export default class Publish extends ExecRenderBaseCommand<
   typeof Publish,
-  PublishResult
+  void
 > {
   static description = "Publish an extension on the marketplace";
 
@@ -26,7 +24,7 @@ export default class Publish extends ExecRenderBaseCommand<
     "extension-manifest": extensionManifestArg({ required: true }),
   };
 
-  protected async exec(): Promise<PublishResult> {
+  protected async exec(): Promise<void> {
     const p = makeProcessRenderer(this.flags, "Publishing extension");
 
     const manifest = await parseExtensionManifest(
