@@ -97,9 +97,9 @@ ARGUMENTS
   EXTENSION-MANIFEST  [default: ./mstudio-extension.yaml] file path to the extension manifest (as YAML or JSON)
 
 FLAGS
-  -f, --force           Do not ask for confirmation
+  -f, --force           do not ask for confirmation
   -q, --quiet           suppress process output and only display a machine-readable summary.
-      --reason=<value>  (required) Reason for withdrawal
+      --reason=<value>  (required) reason for withdrawal
 
 DESCRIPTION
   Withdraw an extension from the marketplace
