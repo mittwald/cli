@@ -11,6 +11,7 @@ import { writeFile } from "fs/promises";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { pathExists } from "../../../lib/util/fs/pathExists.js";
 import { generateInitialExtensionManifest } from "../../../lib/resources/extension/init.js";
+import { ManifestAlreadyExistsError } from "../../../lib/resources/extension/init_error.js";
 
 const overwriteFlagName = "overwrite";
 
@@ -40,26 +41,22 @@ export default class Init extends ExecRenderBaseCommand<typeof Init, void> {
     );
 
     const { overwrite } = this.flags;
+    const target = this.args["extension-manifest"];
 
     await p.runStep("generating extension manifest file", async () => {
       const renderedConfiguration = generateInitialExtensionManifest();
-      const manifestAlreadyExists = await pathExists(
-        this.args["extension-manifest"],
-      );
+      const manifestAlreadyExists = await pathExists(target);
 
       if (manifestAlreadyExists && !overwrite) {
-        throw new Error(
-          `File already exists. Use --${overwriteFlagName} to overwrite it.`,
-        );
+        throw new ManifestAlreadyExistsError(target, overwriteFlagName);
       }
 
-      await writeFile(this.args["extension-manifest"], renderedConfiguration);
+      await writeFile(target, renderedConfiguration);
     });
 
     await p.complete(
       <Success>
-        Extension manifest file created at{" "}
-        <Value>{this.args["extension-manifest"]}</Value>
+        Extension manifest file created at <Value>{target}</Value>
       </Success>,
     );
   }

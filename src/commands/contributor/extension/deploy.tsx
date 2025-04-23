@@ -12,12 +12,14 @@ import {
   parseExtensionManifest,
 } from "../../../lib/resources/extension/args_contributor.js";
 
+const createFlagName = "create";
+
 export default class Deploy extends ExecRenderBaseCommand<typeof Deploy, void> {
   static description = "Deploy an extension manifest to the marketplace";
 
   static flags = {
     ...processFlags,
-    create: Flags.boolean({
+    [createFlagName]: Flags.boolean({
       description: "create the extension if it does not exist",
       default: true,
       allowNo: true,
@@ -58,8 +60,10 @@ export default class Deploy extends ExecRenderBaseCommand<typeof Deploy, void> {
     );
 
     if (existing === null) {
-      if (!this.flags.create) {
-        await p.error("Extension does not exist, use --create to create it");
+      if (!this.flags[createFlagName]) {
+        await p.error(
+          `Extension does not exist, use --${createFlagName} to create it`,
+        );
         return;
       }
 
@@ -72,6 +76,11 @@ export default class Deploy extends ExecRenderBaseCommand<typeof Deploy, void> {
 
         await this.apiClient.marketplace.extensionRegisterExtension({
           contributorId,
+
+          // Note: This mapping step is necessary because the API apparently
+          // does not like additional attributes which may be present in the
+          // manifest file. Also, the input formats differ slightly for the
+          // POST and PATCH endpoints.
           data: {
             description: manifest.description,
             detailedDescriptions: manifest.detailedDescriptions,
@@ -91,6 +100,11 @@ export default class Deploy extends ExecRenderBaseCommand<typeof Deploy, void> {
         await this.apiClient.marketplace.extensionPatchExtension({
           extensionId: manifest.id,
           contributorId: manifest.contributorId,
+
+          // Note: This mapping step is necessary because the API apparently
+          // does not like additional attributes which may be present in the
+          // manifest file. Also, the input formats differ slightly for the
+          // POST and PATCH endpoints.
           data: {
             deprecation: manifest.deprecation,
             description: manifest.description,
