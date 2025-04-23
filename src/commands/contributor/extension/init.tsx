@@ -7,12 +7,12 @@ import {
 import { Flags } from "@oclif/core";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { extensionManifestArg } from "../../../lib/resources/extension/args_contributor.js";
-import { ExtensionManifest } from "../../../lib/resources/extension/manifest.js";
-import * as uuid from "uuid";
 import { writeFile } from "fs/promises";
-import yaml from "js-yaml";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { pathExists } from "../../../lib/util/fs/pathExists.js";
+import { generateInitialExtensionManifest } from "../../../lib/resources/extension/init.js";
+
+const overwriteFlagName = "overwrite";
 
 export default class Init extends ExecRenderBaseCommand<typeof Init, void> {
   static summary = "Init a new extension manifest file";
@@ -21,7 +21,7 @@ export default class Init extends ExecRenderBaseCommand<typeof Init, void> {
 
   static flags = {
     ...processFlags,
-    overwrite: Flags.boolean({
+    [overwriteFlagName]: Flags.boolean({
       description: "overwrite an existing extension manifest if found",
       default: false,
     }),
@@ -42,72 +42,18 @@ export default class Init extends ExecRenderBaseCommand<typeof Init, void> {
     const { overwrite } = this.flags;
 
     await p.runStep("generating extension manifest file", async () => {
-      const renderedConfiguration: ExtensionManifest = {
-        name: "my-extension",
-        contributorId: "TODO",
-        id: uuid.v4(),
-        description: "TODO",
-        detailedDescriptions: {
-          de: {
-            markdown: "TODO",
-            plain: "TODO",
-          },
-          en: {
-            markdown: "TODO",
-            plain: "TODO",
-          },
-        },
-        externalFrontends: [
-          {
-            name: "example",
-            url: "https://mstudio-extension.example/auth/oneclick?atrek=:accessTokenRetrievalKey&userId=:userId&instanceID=:extensionInstanceId",
-          },
-        ],
-        frontendFragments: {
-          foo: {
-            url: "https://mstudio-extension.example/",
-          },
-        },
-        scopes: ["user:read"],
-        subTitle: {
-          de: "TODO",
-          en: "TODO",
-        },
-        support: {
-          email: "todo@mstudio-extension.example",
-          phone: "+49 0000 000000",
-        },
-        tags: ["TODO"],
-        webhookUrls: {
-          extensionAddedToContext: {
-            url: "https://mstudio-extension.example/webhooks",
-          },
-          extensionInstanceUpdated: {
-            url: "https://mstudio-extension.example/webhooks",
-          },
-          extensionInstanceSecretRotated: {
-            url: "https://mstudio-extension.example/webhooks",
-          },
-          extensionInstanceRemovedFromContext: {
-            url: "https://mstudio-extension.example/webhooks",
-          },
-        },
-      };
-
+      const renderedConfiguration = generateInitialExtensionManifest();
       const manifestAlreadyExists = await pathExists(
         this.args["extension-manifest"],
       );
 
       if (manifestAlreadyExists && !overwrite) {
         throw new Error(
-          "File already exists. Use --overwrite to overwrite it.",
+          `File already exists. Use --${overwriteFlagName} to overwrite it.`,
         );
       }
 
-      await writeFile(
-        this.args["extension-manifest"],
-        yaml.dump(renderedConfiguration),
-      );
+      await writeFile(this.args["extension-manifest"], renderedConfiguration);
     });
 
     await p.complete(
