@@ -25,10 +25,10 @@ export default class Withdraw extends ExecRenderBaseCommand<
     ...processFlags,
     force: Flags.boolean({
       char: "f",
-      description: "Do not ask for confirmation",
+      description: "do not ask for confirmation",
     }),
     reason: Flags.string({
-      description: "Reason for withdrawal",
+      description: "reason for withdrawal",
       required: true,
     }),
   };
