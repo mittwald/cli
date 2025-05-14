@@ -1388,6 +1388,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.12.5":
+  version: 7.27.0
+  resolution: "@babel/runtime@npm:7.27.0"
+  dependencies:
+    regenerator-runtime: ^0.14.0
+  checksum: 3e73d9e65f76fad8f99802b5364c941f4a60c693b3eca66147bb0bfa54cf0fbe017232155e16e3fd83c0a049b51b8d7239efbd73626534abe8b54a6dd57dcb1b
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.25.0, @babel/template@npm:^7.3.3":
   version: 7.25.0
   resolution: "@babel/template@npm:7.25.0"
@@ -2436,7 +2445,7 @@ __metadata:
   dependencies:
     "@jest/globals": ^29.7.0
     "@mittwald/api-client": ^4.131.0
-    "@mittwald/react-use-promise": ^2.1.2
+    "@mittwald/react-use-promise": ^3.0.4
     "@oclif/core": ^4.0.18
     "@oclif/plugin-autocomplete": ^3.0.3
     "@oclif/plugin-help": ^6.0.5
@@ -2498,22 +2507,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mittwald/react-use-promise@npm:^2.1.2":
-  version: 2.6.0
-  resolution: "@mittwald/react-use-promise@npm:2.6.0"
+"@mittwald/react-use-promise@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "@mittwald/react-use-promise@npm:3.0.4"
   dependencies:
     "@types/luxon": 3.4.2
     browser-or-node: ^3.0.0
     luxon: ~3.5.0
     minimatch: ^10.0.1
     object-code: ^1.3.3
+    react-error-boundary: ^5.0.0
   peerDependencies:
     axios: ^1.6.7
-    react: ">=17.0"
+    react: ">=18.3"
   peerDependenciesMeta:
     axios:
       optional: true
-  checksum: 71c19522545ef9b910ab2218e8f17c378d4271f285a11a628e8701ed48fa5933b5140f57e49eca1dbb0e188d7a43ba39ff6d7aaaf8939a3d6225de898d760907
+  checksum: 1c2d610dc8b41ff9a7aacf367c8bbfe723defae0e8f7003be23a28d1eb673b0f4494f3d6862e65d9ac910e79654f1c1028fee3a007facbb20480b7d0649aadf0
   languageName: node
   linkType: hard
 
@@ -9278,6 +9288,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-error-boundary@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "react-error-boundary@npm:5.0.0"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+  peerDependencies:
+    react: ">=16.13.1"
+  checksum: 4fa78890bb254fe1f0ee1eed893ac161a27482c4567f7667ef83a8339432eb99e323ee69757f01f4864e0037b01a9b6822735ea122f02e749d0bf7a781d9ea53
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.13.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
@@ -9359,6 +9380,13 @@ __metadata:
   dependencies:
     esprima: ~4.0.0
   checksum: 39a1426e377727cfb47a0e24e95c1cf78d969fbc388dc1e0fa1e2ef8a8756450cefb8b0c2598f63b85f1a331986fca7604c0db798427a5775a1dbdb9c1291979
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.14.0":
+  version: 0.14.1
+  resolution: "regenerator-runtime@npm:0.14.1"
+  checksum: 9f57c93277b5585d3c83b0cf76be47b473ae8c6d9142a46ce8b0291a04bb2cf902059f0f8445dcabb3fb7378e5fe4bb4ea1e008876343d42e46d3b484534ce38
   languageName: node
   linkType: hard
 
