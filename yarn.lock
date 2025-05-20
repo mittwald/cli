@@ -8783,14 +8783,14 @@ __metadata:
   linkType: hard
 
 "open@npm:^10.0.3":
-  version: 10.1.0
-  resolution: "open@npm:10.1.0"
+  version: 10.1.2
+  resolution: "open@npm:10.1.2"
   dependencies:
     default-browser: ^5.2.1
     define-lazy-prop: ^3.0.0
     is-inside-container: ^1.0.0
     is-wsl: ^3.1.0
-  checksum: 079b0771616bac13b08129b0300032dc9328d72f345e460dd0416b8a8196a5bdf5e0251fefec8aa2a6a97c736734ac65dd8f1d29ab3fc9a13e85624aa5bc4470
+  checksum: cb40d9786e8c679a1c647c62ad3642bbf1a8cc986c3ec970e99ed13d279c93328ea46bf756db64ea465d2d707815d4e792e7ba906830c3439cc8577cdefb8610
   languageName: node
   linkType: hard
 
