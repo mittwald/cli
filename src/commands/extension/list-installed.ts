@@ -73,7 +73,7 @@ export class ListInstalled extends ListBaseCommand<
         });
 
         assertStatus(resp, 200);
-        const extension = resp.data;
+        const extension = resp.data as Extension;
 
         return {
           ...item,
