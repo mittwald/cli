@@ -2191,7 +2191,7 @@ __metadata:
     "@types/node": ^22.7.5
     "@types/parse-duration": ^0.3.0
     "@types/pretty-bytes": ^5.2.0
-    "@types/react": ^18
+    "@types/react": ^19
     "@types/semver": ^7.5.0
     "@types/shell-escape": ^0.2.3
     "@typescript-eslint/eslint-plugin": ^8.3.0
@@ -2222,7 +2222,7 @@ __metadata:
     prettier-plugin-package: ^1.4.0
     prettier-plugin-sort-json: ^4.0.0
     pretty-bytes: ^6.1.0
-    react: ^18.2.0
+    react: ^19.1.0
     rimraf: ^5.0.1
     semver: ^7.5.4
     semver-parser: ^4.1.6
@@ -3487,13 +3487,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18, @types/react@npm:^18.3.12":
+"@types/react@npm:^18.3.12":
   version: 18.3.13
   resolution: "@types/react@npm:18.3.13"
   dependencies:
     "@types/prop-types": "*"
     csstype: ^3.0.2
   checksum: 5ccf75e8e52e30fd619046ce985d17152fdf92da3b27777cdcbe972c4557bb0f0d7cfda6b379c29e409f4c3293ad1277394eea6c865211c07bd92cab8dcb277f
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^19":
+  version: 19.1.5
+  resolution: "@types/react@npm:19.1.5"
+  dependencies:
+    csstype: ^3.0.2
+  checksum: 49c01b9d1874e11c02c26f08623474d86093ae02c76cf2b9c952093d855fab505ab8d8aaa162200270bd7b1fc03033859db24f6599affa1d05c5fe46374ecafc
   languageName: node
   linkType: hard
 
@@ -8977,12 +8986,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0, react@npm:^18.3.1":
+"react@npm:^18.3.1":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: ^1.1.0
   checksum: a27bcfa8ff7c15a1e50244ad0d0c1cb2ad4375eeffefd266a64889beea6f6b64c4966c9b37d14ee32d6c9fcd5aa6ba183b6988167ab4d127d13e7cb5b386a376
+  languageName: node
+  linkType: hard
+
+"react@npm:^19.1.0":
+  version: 19.1.0
+  resolution: "react@npm:19.1.0"
+  checksum: c0905f8cfb878b0543a5522727e5ed79c67c8111dc16ceee135b7fe19dce77b2c1c19293513061a8934e721292bfc1517e0487e262d1906f306bdf95fa54d02f
   languageName: node
   linkType: hard
 
