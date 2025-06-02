@@ -1,15 +1,13 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { MittwaldAPIV2Client, assertStatus } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { typo3Installer } from "../../commands/app/install/typo3.js";
 import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
 import { shopware6Installer } from "../../commands/app/install/shopware6.js";
-import { drupalInstaller } from "../../commands/app/install/drupal.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { Text } from "ink";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
-type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 /**
  * A list of all known DDEV project types. Shamelessly stolen from
@@ -34,20 +32,6 @@ export const knownDDEVProjectTypes = [
 ] as const;
 
 export type DDEVProjectType = (typeof knownDDEVProjectTypes)[number];
-
-async function getAppVersion(
-  client: MittwaldAPIV2Client,
-  appId: string,
-  appVersionId: string,
-): Promise<AppVersion> {
-  const r = await client.app.getAppversion({
-    appId,
-    appVersionId,
-  });
-
-  assertStatus(r, 200);
-  return r.data;
-}
 
 /**
  * Determines the DDEV project type to use for the given app installation.
@@ -116,20 +100,6 @@ export async function determineProjectTypeFromAppInstallation(
       return "wordpress";
     case shopware6Installer.appId:
       return "shopware6";
-    case drupalInstaller.appId: {
-      const version = await getAppVersion(
-        client,
-        inst.appId,
-        inst.appVersion.desired,
-      );
-
-      const [major] = version.externalVersion.split(".");
-      if (major === "6" || major === "7") {
-        return `drupal${major}`;
-      }
-
-      return "drupal";
-    }
     default:
       return null;
   }
