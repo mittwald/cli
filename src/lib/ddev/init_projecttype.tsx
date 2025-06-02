@@ -1,5 +1,5 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { MittwaldAPIV2Client, assertStatus } from "@mittwald/api-client";
+import { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { typo3Installer } from "../../commands/app/install/typo3.js";
 import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
 import { shopware6Installer } from "../../commands/app/install/shopware6.js";
@@ -8,7 +8,6 @@ import { Value } from "../../rendering/react/components/Value.js";
 import { Text } from "ink";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
-type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 /**
  * A list of all known DDEV project types. Shamelessly stolen from
@@ -33,20 +32,6 @@ export const knownDDEVProjectTypes = [
 ] as const;
 
 export type DDEVProjectType = (typeof knownDDEVProjectTypes)[number];
-
-async function getAppVersion(
-  client: MittwaldAPIV2Client,
-  appId: string,
-  appVersionId: string,
-): Promise<AppVersion> {
-  const r = await client.app.getAppversion({
-    appId,
-    appVersionId,
-  });
-
-  assertStatus(r, 200);
-  return r.data;
-}
 
 /**
  * Determines the DDEV project type to use for the given app installation.
