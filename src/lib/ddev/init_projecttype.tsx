@@ -3,7 +3,6 @@ import { MittwaldAPIV2Client, assertStatus } from "@mittwald/api-client";
 import { typo3Installer } from "../../commands/app/install/typo3.js";
 import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
 import { shopware6Installer } from "../../commands/app/install/shopware6.js";
-import { drupalInstaller } from "../../commands/app/install/drupal.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { Text } from "ink";
@@ -116,20 +115,6 @@ export async function determineProjectTypeFromAppInstallation(
       return "wordpress";
     case shopware6Installer.appId:
       return "shopware6";
-    case drupalInstaller.appId: {
-      const version = await getAppVersion(
-        client,
-        inst.appId,
-        inst.appVersion.desired,
-      );
-
-      const [major] = version.externalVersion.split(".");
-      if (major === "6" || major === "7") {
-        return `drupal${major}`;
-      }
-
-      return "drupal";
-    }
     default:
       return null;
   }
