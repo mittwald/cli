@@ -9922,8 +9922,8 @@ __metadata:
   linkType: hard
 
 "ts-jest@npm:^29.2.5":
-  version: 29.2.6
-  resolution: "ts-jest@npm:29.2.6"
+  version: 29.3.4
+  resolution: "ts-jest@npm:29.3.4"
   dependencies:
     bs-logger: ^0.2.6
     ejs: ^3.1.10
@@ -9932,7 +9932,8 @@ __metadata:
     json5: ^2.2.3
     lodash.memoize: ^4.1.2
     make-error: ^1.3.6
-    semver: ^7.7.1
+    semver: ^7.7.2
+    type-fest: ^4.41.0
     yargs-parser: ^21.1.1
   peerDependencies:
     "@babel/core": ">=7.0.0-beta.0 <8"
@@ -9954,7 +9955,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: ff71b27e997e4c5e6bcf2d38804b188eb1c7eec78570329f058f434ba1bd112a4806cdc4e7baac0e0e834bd20ca3be16e03d5c546304aa28e5cfeaccca82139e
+  checksum: 26341342230704fa29ae72d6e4d5e823602ef1caf68badf849d188cf144675b9129069e7ecb9656e3138e8477ed0dea8239a9ca1d04fd112322d59feecc22bdc
   languageName: node
   linkType: hard
 
@@ -10104,6 +10105,13 @@ __metadata:
   version: 4.30.0
   resolution: "type-fest@npm:4.30.0"
   checksum: 2ce3b08265acbdf864267e1468cdcc8dbfa4e86c2fd5e4622a20a83358b5e21fcb49a41beada95d29d8ff1ed8aacb27d10ec0b7623d546f9399b529a153724b0
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.41.0":
+  version: 4.41.0
+  resolution: "type-fest@npm:4.41.0"
+  checksum: 7055c0e3eb188425d07403f1d5dc175ca4c4f093556f26871fe22041bc93d137d54bef5851afa320638ca1379106c594f5aa153caa654ac1a7f22c71588a4e80
   languageName: node
   linkType: hard
 
