@@ -4495,7 +4495,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:4.1.2, chalk@npm:^4, chalk@npm:^4.0.0, chalk@npm:^4.0.2":
+"chalk@npm:4.1.2, chalk@npm:^4.0.0, chalk@npm:^4.0.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -8416,8 +8416,8 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.14.31":
-  version: 4.17.46
-  resolution: "oclif@npm:4.17.46"
+  version: 4.18.0
+  resolution: "oclif@npm:4.18.0"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.787.0
     "@aws-sdk/client-s3": ^3.787.0
@@ -8428,8 +8428,8 @@ __metadata:
     "@oclif/plugin-help": ^6.2.27
     "@oclif/plugin-not-found": ^3.2.48
     "@oclif/plugin-warn-if-update-available": ^3.1.38
+    ansis: ^3.16.0
     async-retry: ^1.3.3
-    chalk: ^4
     change-case: ^4
     debug: ^4.4.0
     ejs: ^3.1.10
@@ -8445,7 +8445,7 @@ __metadata:
     validate-npm-package-name: ^5.0.1
   bin:
     oclif: bin/run.js
-  checksum: 615ef69a831c4d10d70b90aa3e813e3d59412684c27591fc7eccfdf1c8a46fa73d287ec637f213b3c536ae3bbcf98bb63875fe369a5b2ea2a9e0ccc879391c95
+  checksum: 1db30df25ba32a922540db16dd7cfd2c692b547436a520b9772d7f096cafafa03e61af1e7287fff29c32b8e9cc4320b63e705ef0322a90e057af3c15de549738
   languageName: node
   linkType: hard
 
