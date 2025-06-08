@@ -26,6 +26,10 @@ export async function enrichStackDefinition(
 
     assertStatus(resp, 200);
 
+    if (service.ports === undefined) {
+      service.ports = (resp.data.exposedPorts ?? []).map((p) => p.port);
+    }
+
     if (service.command === undefined) {
       let command = resp.data.command;
       if (typeof command === "string") {
