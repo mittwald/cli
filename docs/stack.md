@@ -1,7 +1,7 @@
 `mw stack`
 ==========
 
-Delete a container stack
+Manage container stacks
 
 * [`mw stack delete [STACK-ID]`](#mw-stack-delete-stack-id)
 * [`mw stack deploy`](#mw-stack-deploy)
