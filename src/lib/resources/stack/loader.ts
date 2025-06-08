@@ -14,7 +14,7 @@ function loadStackYAMLFromFile(file: string): string {
 
 export async function loadStackFromFile(
   file: string,
-  environment: Record<string, string>,
+  environment: Record<string, string | undefined>,
 ): Promise<StackRequest> {
   const input = loadStackYAMLFromFile(file);
   return loadStackFromStr(input, environment);
@@ -22,7 +22,7 @@ export async function loadStackFromFile(
 
 export async function loadStackFromStr(
   input: string,
-  environment: Record<string, string>,
+  environment: Record<string, string | undefined>,
 ): Promise<StackRequest> {
   const stack = yaml.load(input) as StackRequest;
 
@@ -44,7 +44,7 @@ export async function loadStackFromStr(
  */
 function substituteEnvironmentVariables<T = unknown>(
   input: T,
-  environment: Record<string, string>,
+  environment: Record<string, string | undefined>,
 ): T {
   if (typeof input === "string") {
     return input.replace(
