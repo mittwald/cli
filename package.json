@@ -203,6 +203,9 @@
       "ssh-user": {
         "description": "Manage SSH users of your projects"
       },
+      "stack": {
+        "description": "Manage container stacks"
+      },
       "user": {
         "description": "Manage your own user account",
         "subtopics": {
