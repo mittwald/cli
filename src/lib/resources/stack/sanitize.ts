@@ -1,7 +1,14 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 
+type ContainerServiceDeclareRequest =
+  MittwaldAPIV2.Components.Schemas.ContainerServiceDeclareRequest;
+
 type StackRequest =
   MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
+
+type ServiceWithEnvironment = ContainerServiceDeclareRequest & {
+  environment?: Record<string, string>;
+};
 
 /**
  * This function is needed to work around the mStudios supposedly docker-compose
@@ -32,9 +39,10 @@ export function sanitizeStackDefinition(stack: StackRequest): StackRequest {
     }
 
     // mStudio calls it "envs", docker compose calls it "environment" 🫠
-    if ((service as any).environment) {
-      service.envs = (service as any).environment;
-      delete (service as any).environment;
+    const serviceWithEnvironment = service as ServiceWithEnvironment;
+    if (serviceWithEnvironment.environment) {
+      service.envs = serviceWithEnvironment.environment;
+      delete serviceWithEnvironment.environment;
     }
     if (!service.envs) {
       service.envs = {};
