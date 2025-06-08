@@ -9,7 +9,7 @@ import { SemVer } from "semver";
 import { Args } from "@oclif/core";
 
 type ResponseItem = Simplify<
-  MittwaldAPIV2.Paths.V2SystemSoftwareSystemSoftwareIdVersions.Get.Responses.$200.Content.ApplicationJson[number]
+  MittwaldAPIV2.Paths.V2SystemSoftwaresSystemSoftwareIdVersions.Get.Responses.$200.Content.ApplicationJson[number]
 >;
 type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["app"]["listSystemsoftwareversions"]>
