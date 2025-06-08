@@ -4,8 +4,8 @@ type StackRequest =
   MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
 
 /**
- * This function is needed to work around the mStudios shitty (and supposedly
- * docker-compose compatible) container stack API.
+ * This function is needed to work around the mStudios supposedly docker-compose
+ * compatible container stack API.
  *
  * @param stack
  */
@@ -19,13 +19,19 @@ export function sanitizeStackDefinition(stack: StackRequest): StackRequest {
   for (const serviceKey of Object.keys(sanitized.services ?? {})) {
     const service = sanitized.services![serviceKey];
 
+    // mStudio requires "command" to be a string[]; in a docker-compose file, it
+    // can also be a regular string.
     if (typeof (service.command as string | string[]) === "string") {
       service.command = [service.command as any as string];
     }
 
+    // descriptions are required for mStudio containers; docker compose has no
+    // equivalent field.
     if (!service.description) {
       service.description = serviceKey;
     }
+
+    // mStudio calls it "envs", docker compose calls it "environment" 🫠
     if ((service as any).environment) {
       service.envs = (service as any).environment;
       delete (service as any).environment;
@@ -35,6 +41,8 @@ export function sanitizeStackDefinition(stack: StackRequest): StackRequest {
     }
   }
 
+  // For mStudio, volume definitions must be empty objects, null is apparently
+  // not allowed.
   for (const volumeKey of Object.keys(sanitized.volumes ?? {})) {
     if (sanitized.volumes![volumeKey] === null) {
       sanitized.volumes![volumeKey] = { name: volumeKey };
