@@ -17,7 +17,8 @@ export type ContextNames =
   | "mailaddress"
   | "maildeliverybox"
   | "conversation"
-  | "backup";
+  | "backup"
+  | "stack";
 export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
 export type ContextMap = Partial<Record<ContextKey, ContextValue>>;
 export type ContextMapUpdate = Partial<Record<ContextKey, string>>;
@@ -127,9 +128,11 @@ export default class Context {
   public setOrgId = (id: string) => this.setContextValue("org-id", id);
   public setAppInstallationId = (id: string) =>
     this.setContextValue("installation-id", id);
+  public setStackId = (id: string) => this.setContextValue("stack-id", id);
 
   public projectId = () => this.getContextValue("project-id");
   public serverId = () => this.getContextValue("server-id");
   public orgId = () => this.getContextValue("org-id");
   public appInstallationId = () => this.getContextValue("installation-id");
+  public stackId = () => this.getContextValue("stack-id");
 }
