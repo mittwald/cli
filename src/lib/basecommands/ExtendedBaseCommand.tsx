@@ -4,6 +4,7 @@ import { withAppInstallationId } from "../resources/app/flags.js";
 import { CommandType } from "../context/FlagSetBuilder.js";
 import { withProjectId } from "../resources/project/flags.js";
 import { withServerId } from "../resources/server/flags.js";
+import { withStackId } from "../resources/stack/flags.js";
 
 export abstract class ExtendedBaseCommand<
   T extends typeof BaseCommand,
@@ -52,6 +53,18 @@ export abstract class ExtendedBaseCommand<
     command: CommandType<"server"> | "flag" | "arg",
   ): Promise<string> {
     return withServerId(
+      this.apiClient,
+      command,
+      this.flags,
+      this.args,
+      this.config,
+    );
+  }
+
+  public async withStackId(
+    command: CommandType<"stack"> | "flag" | "arg",
+  ): Promise<string> {
+    return withStackId(
       this.apiClient,
       command,
       this.flags,
