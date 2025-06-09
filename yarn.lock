@@ -2335,8 +2335,8 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.2.10":
-  version: 4.3.2
-  resolution: "@oclif/core@npm:4.3.2"
+  version: 4.3.3
+  resolution: "@oclif/core@npm:4.3.3"
   dependencies:
     ansi-escapes: ^4.3.2
     ansis: ^3.17.0
@@ -2352,11 +2352,11 @@ __metadata:
     semver: ^7.6.3
     string-width: ^4.2.3
     supports-color: ^8
-    tinyglobby: ^0.2.13
+    tinyglobby: ^0.2.14
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 02e9b7ffd7cd7719837996e564116c414731f7700fadca53b2220109497b2abdd7426f3cad7da358962825346d01169c374ca20f0b02d44a970820f5a280fdef
+  checksum: 49ae0d86d97d2ce61db276c4d4632e98c481376d7fe6913b9ac61103add9fc8f7ac7cef6e96e3e9c88af29d798eef7dfaac5a0c951f121c598bbdda55ed7f8f6
   languageName: node
   linkType: hard
 
@@ -9792,7 +9792,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinyglobby@npm:^0.2.13":
+"tinyglobby@npm:^0.2.14":
   version: 0.2.14
   resolution: "tinyglobby@npm:0.2.14"
   dependencies:
