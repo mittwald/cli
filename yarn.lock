@@ -2334,7 +2334,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.2.10":
+"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18":
   version: 4.3.2
   resolution: "@oclif/core@npm:4.3.2"
   dependencies:
@@ -2357,6 +2357,32 @@ __metadata:
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
   checksum: 02e9b7ffd7cd7719837996e564116c414731f7700fadca53b2220109497b2abdd7426f3cad7da358962825346d01169c374ca20f0b02d44a970820f5a280fdef
+  languageName: node
+  linkType: hard
+
+"@oclif/core@npm:^4.3.2":
+  version: 4.3.3
+  resolution: "@oclif/core@npm:4.3.3"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansis: ^3.17.0
+    clean-stack: ^3.0.1
+    cli-spinners: ^2.9.2
+    debug: ^4.4.0
+    ejs: ^3.1.10
+    get-package-type: ^0.1.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    lilconfig: ^3.1.3
+    minimatch: ^9.0.5
+    semver: ^7.6.3
+    string-width: ^4.2.3
+    supports-color: ^8
+    tinyglobby: ^0.2.14
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 49ae0d86d97d2ce61db276c4d4632e98c481376d7fe6913b9ac61103add9fc8f7ac7cef6e96e3e9c88af29d798eef7dfaac5a0c951f121c598bbdda55ed7f8f6
   languageName: node
   linkType: hard
 
@@ -8368,15 +8394,15 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.14.31":
-  version: 4.18.0
-  resolution: "oclif@npm:4.18.0"
+  version: 4.18.1
+  resolution: "oclif@npm:4.18.1"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.787.0
     "@aws-sdk/client-s3": ^3.787.0
     "@inquirer/confirm": ^3.1.22
     "@inquirer/input": ^2.2.4
     "@inquirer/select": ^2.5.0
-    "@oclif/core": ^4.2.10
+    "@oclif/core": ^4.3.2
     "@oclif/plugin-help": ^6.2.27
     "@oclif/plugin-not-found": ^3.2.48
     "@oclif/plugin-warn-if-update-available": ^3.1.38
@@ -8397,7 +8423,7 @@ __metadata:
     validate-npm-package-name: ^5.0.1
   bin:
     oclif: bin/run.js
-  checksum: 1db30df25ba32a922540db16dd7cfd2c692b547436a520b9772d7f096cafafa03e61af1e7287fff29c32b8e9cc4320b63e705ef0322a90e057af3c15de549738
+  checksum: b59973e5034f9aee5e77bd0382882e8efc7617c8af67ae633285e1687ce90e45d1432feb6334e3d6cbf4bfe9a0943f3e5a477d6d820e13ba5c9e9e0148d911ea
   languageName: node
   linkType: hard
 
@@ -9792,7 +9818,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinyglobby@npm:^0.2.13":
+"tinyglobby@npm:^0.2.13, tinyglobby@npm:^0.2.14":
   version: 0.2.14
   resolution: "tinyglobby@npm:0.2.14"
   dependencies:
