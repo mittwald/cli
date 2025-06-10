@@ -122,6 +122,7 @@ USAGE
 * [`mw server`](docs/server.md) - Manage your servers
 * [`mw sftp-user`](docs/sftp-user.md) - Manage SFTP users of your projects
 * [`mw ssh-user`](docs/ssh-user.md) - Manage SSH users of your projects
+* [`mw stack`](docs/stack.md) - Manage container stacks
 * [`mw update`](docs/update.md) - update the mw CLI
 * [`mw user`](docs/user.md) - Manage your own user account
 
