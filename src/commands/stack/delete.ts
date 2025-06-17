@@ -12,7 +12,7 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static flags = {
     ...DeleteBaseCommand.baseFlags,
     "with-volumes": Flags.boolean({
-      summary: "also remove volumes",
+      summary: "also include remove volumes in removal",
       default: false,
       char: "v",
     }),
