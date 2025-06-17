@@ -143,10 +143,15 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   private buildFlags(): ContextFlags<TName> {
     const { displayName } = this;
     const article = articleForWord(displayName);
-    const { retrieveFromContext = true } = this.opts;
+    const { retrieveFromContext = true, expectedShortIDFormat } = this.opts;
 
-    let summary = `ID or short ID of ${article} ${displayName}`;
-    let description = `May contain a short ID or a full ID of ${article} ${displayName}`;
+    let summary = `ID of ${article} ${displayName}`;
+    let description = `May contain a ID of ${article} ${displayName}`;
+
+    if (expectedShortIDFormat) {
+      summary = `ID or short ID of ${article} ${displayName}`;
+      description = `May contain a short ID or a full ID of ${article} ${displayName}`;
+    }
 
     if (retrieveFromContext) {
       summary += `; this flag is optional if a default ${displayName} is set in the context`;
@@ -170,9 +175,14 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   private buildArgs(): ContextArgs<TName> {
     const { displayName } = this;
     const article = articleForWord(displayName);
-    const { retrieveFromContext = true } = this.opts;
+    const { retrieveFromContext = true, expectedShortIDFormat } = this.opts;
 
-    let description = `ID or short ID of ${article} ${displayName}`;
+    let description = `ID of ${article} ${displayName}`;
+
+    if (expectedShortIDFormat) {
+      description = `ID or short ID of ${article} ${displayName}`;
+    }
+
     if (retrieveFromContext) {
       description += `; this argument is optional if a default ${displayName} is set in the context.`;
     } else {
