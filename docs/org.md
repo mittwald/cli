@@ -23,7 +23,7 @@ USAGE
   $ mw org delete [ORG-ID] [-q] [-f]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
+  ORG-ID  ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -48,7 +48,7 @@ USAGE
   $ mw org get [ORG-ID] -o txt|json|yaml
 
 ARGUMENTS
-  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
+  ORG-ID  ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
@@ -68,7 +68,7 @@ USAGE
     [--expires <value>]
 
 FLAGS
-  -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>   ID of an org; this flag is optional if a default org is set in the context
   -q, --quiet            suppress process output and only display a machine-readable summary.
       --email=<value>    (required) The email address of the user to invite.
       --expires=<value>  an interval after which the invitation expires (examples: 30m, 30d, 1y).
@@ -80,10 +80,10 @@ DESCRIPTION
   Invite a user to an organization.
 
 FLAG DESCRIPTIONS
-  -o, --org-id=<value>  ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>  ID of an org; this flag is optional if a default org is set in the context
 
-    May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
-    persistently set a default org for all commands that accept this flag.
+    May contain a ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to persistently set a
+    default org for all commands that accept this flag.
 
   -q, --quiet  suppress process output and only display a machine-readable summary.
 
@@ -101,7 +101,7 @@ USAGE
     [--csv-separator ,|;] [-o <value>]
 
 FLAGS
-  -o, --org-id=<value>          ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>          ID of an org; this flag is optional if a default org is set in the context
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -x, --extended                show extended information
@@ -115,10 +115,10 @@ DESCRIPTION
   List all invites for an organization.
 
 FLAG DESCRIPTIONS
-  -o, --org-id=<value>  ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>  ID of an org; this flag is optional if a default org is set in the context
 
-    May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
-    persistently set a default org for all commands that accept this flag.
+    May contain a ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to persistently set a
+    default org for all commands that accept this flag.
 ```
 
 ## `mw org invite list-own`
@@ -201,7 +201,7 @@ USAGE
     [--csv-separator ,|;] [-o <value>]
 
 FLAGS
-  -o, --org-id=<value>          ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>          ID of an org; this flag is optional if a default org is set in the context
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -x, --extended                show extended information
@@ -215,10 +215,10 @@ DESCRIPTION
   List all memberships belonging to an organization.
 
 FLAG DESCRIPTIONS
-  -o, --org-id=<value>  ID or short ID of an org; this flag is optional if a default org is set in the context
+  -o, --org-id=<value>  ID of an org; this flag is optional if a default org is set in the context
 
-    May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
-    persistently set a default org for all commands that accept this flag.
+    May contain a ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to persistently set a
+    default org for all commands that accept this flag.
 ```
 
 ## `mw org membership list-own`

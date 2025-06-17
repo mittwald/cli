@@ -20,7 +20,7 @@ USAGE
   $ mw stack delete [STACK-ID] [-q] [-f] [-v]
 
 ARGUMENTS
-  STACK-ID  ID or short ID of a stack; this argument is optional if a default stack is set in the context.
+  STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
   -f, --force         Do not ask for confirmation
@@ -51,7 +51,7 @@ USAGE
 FLAGS
   -c, --compose-file=<value>  [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
   -q, --quiet                 suppress process output and only display a machine-readable summary.
-  -s, --stack-id=<value>      ID or short ID of a stack; this flag is optional if a default stack is set in the context
+  -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>      [default: ./.env] alternative path to file with environment variables
 
 DESCRIPTION
@@ -66,10 +66,10 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
-  -s, --stack-id=<value>  ID or short ID of a stack; this flag is optional if a default stack is set in the context
+  -s, --stack-id=<value>  ID of a stack; this flag is optional if a default stack is set in the context
 
-    May contain a short ID or a full ID of a stack; you can also use the "mw context set --stack-id=<VALUE>" command to
-    persistently set a default stack for all commands that accept this flag.
+    May contain a ID of a stack; you can also use the "mw context set --stack-id=<VALUE>" command to persistently set a
+    default stack for all commands that accept this flag.
 ```
 
 ## `mw stack list`
@@ -152,8 +152,7 @@ USAGE
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
-  -s, --stack-id=<value>        ID or short ID of a stack; this flag is optional if a default stack is set in the
-                                context
+  -s, --stack-id=<value>        ID of a stack; this flag is optional if a default stack is set in the context
   -x, --extended                show extended information
       --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
                                 <options: ,|;>
@@ -165,10 +164,10 @@ DESCRIPTION
   List all services within a given container stack.
 
 FLAG DESCRIPTIONS
-  -s, --stack-id=<value>  ID or short ID of a stack; this flag is optional if a default stack is set in the context
+  -s, --stack-id=<value>  ID of a stack; this flag is optional if a default stack is set in the context
 
-    May contain a short ID or a full ID of a stack; you can also use the "mw context set --stack-id=<VALUE>" command to
-    persistently set a default stack for all commands that accept this flag.
+    May contain a ID of a stack; you can also use the "mw context set --stack-id=<VALUE>" command to persistently set a
+    default stack for all commands that accept this flag.
 ```
 
 ## `mw stack rm [STACK-ID]`
@@ -180,7 +179,7 @@ USAGE
   $ mw stack rm [STACK-ID] [-q] [-f] [-v]
 
 ARGUMENTS
-  STACK-ID  ID or short ID of a stack; this argument is optional if a default stack is set in the context.
+  STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
   -f, --force         Do not ask for confirmation
@@ -211,7 +210,7 @@ USAGE
 FLAGS
   -c, --compose-file=<value>  [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
   -q, --quiet                 suppress process output and only display a machine-readable summary.
-  -s, --stack-id=<value>      ID or short ID of a stack; this flag is optional if a default stack is set in the context
+  -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>      [default: ./.env] alternative path to file with environment variables
 
 DESCRIPTION
@@ -226,8 +225,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
-  -s, --stack-id=<value>  ID or short ID of a stack; this flag is optional if a default stack is set in the context
+  -s, --stack-id=<value>  ID of a stack; this flag is optional if a default stack is set in the context
 
-    May contain a short ID or a full ID of a stack; you can also use the "mw context set --stack-id=<VALUE>" command to
-    persistently set a default stack for all commands that accept this flag.
+    May contain a ID of a stack; you can also use the "mw context set --stack-id=<VALUE>" command to persistently set a
+    default stack for all commands that accept this flag.
 ```

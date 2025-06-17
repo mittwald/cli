@@ -389,7 +389,7 @@ USAGE
   $ mw mail deliverybox update MAILDELIVERYBOX-ID [-q] [--description <value>] [--password <value>] [--random-password]
 
 ARGUMENTS
-  MAILDELIVERYBOX-ID  ID or short ID of a maildeliverybox.
+  MAILDELIVERYBOX-ID  ID of a maildeliverybox.
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary.

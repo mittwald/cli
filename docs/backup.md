@@ -55,7 +55,7 @@ USAGE
   $ mw backup delete BACKUP-ID [-q] [-f]
 
 ARGUMENTS
-  BACKUP-ID  ID or short ID of a backup.
+  BACKUP-ID  ID of a backup.
 
 FLAGS
   -f, --force  Do not ask for confirmation
@@ -84,7 +84,7 @@ USAGE
     --prompt-password] [--resume --output <value>]
 
 ARGUMENTS
-  BACKUP-ID  ID or short ID of a backup.
+  BACKUP-ID  ID of a backup.
 
 FLAGS
   -q, --quiet              suppress process output and only display a machine-readable summary.
@@ -131,7 +131,7 @@ USAGE
   $ mw backup get BACKUP-ID -o txt|json|yaml
 
 ARGUMENTS
-  BACKUP-ID  ID or short ID of a backup.
+  BACKUP-ID  ID of a backup.
 
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
