@@ -41,7 +41,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
       --expires=<value>       (required) an interval after which the backup expires (examples: 30m, 30d, 1y).
@@ -57,7 +57,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -75,8 +75,8 @@ ARGUMENTS
   BACKUP-ID  ID of a backup.
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a backup
@@ -85,7 +85,7 @@ ALIASES
   $ mw project backup delete
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -104,7 +104,7 @@ ARGUMENTS
   BACKUP-ID  ID of a backup.
 
 FLAGS
-  -q, --quiet              suppress process output and only display a machine-readable summary.
+  -q, --quiet              suppress process output and only display a machine-readable summary
       --format=<option>    [default: tar] the file format to download the backup in.
                            <options: tar|zip>
       --generate-password  generate a random password to encrypt the backup with.
@@ -120,7 +120,7 @@ ALIASES
   $ mw project backup download
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -239,7 +239,7 @@ USAGE
 
 FLAGS
   -d, --description=<value>   (required) A description for the project.
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -s, --server-id=<value>     ID or short ID of a server; this flag is optional if a default server is set in the
                               context
   -w, --wait                  wait for the resource to be ready.
@@ -251,7 +251,7 @@ DESCRIPTION
   Create a new project
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -386,14 +386,14 @@ ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a project
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -756,7 +756,7 @@ ARGUMENTS
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  Set the project description
 
 DESCRIPTION
@@ -768,7 +768,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.

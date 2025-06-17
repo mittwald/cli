@@ -20,7 +20,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
                                 context
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -q, --quiet                   suppress process output and only display a machine-readable summary
       --access-level=<option>   Set access level permissions for the SFTP user.
                                 <options: read|full>
       --description=<value>     (required) Set description for SFTP user.
@@ -35,7 +35,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -77,14 +77,14 @@ ARGUMENTS
   SFTP-USER-ID  The ID of the SFTP user to delete
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete an SFTP user
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -137,7 +137,7 @@ ARGUMENTS
   SFTP-USER-ID  The ID of the SFTP user to update
 
 FLAGS
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -q, --quiet                   suppress process output and only display a machine-readable summary
       --access-level=<option>   Set access level permissions for the SFTP user.
                                 <options: read|full>
       --description=<value>     Set description for SFTP user.
@@ -152,7 +152,7 @@ DESCRIPTION
   Update an existing SFTP user
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.

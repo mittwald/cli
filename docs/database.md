@@ -93,7 +93,7 @@ FLAGS
   -d, --description=<value>         (required) a description for the database
   -p, --project-id=<value>          ID or short ID of a project; this flag is optional if a default project is set in
                                     the context
-  -q, --quiet                       suppress process output and only display a machine-readable summary.
+  -q, --quiet                       suppress process output and only display a machine-readable summary
       --character-set=<value>       [default: utf8mb4] the character set to use
       --collation=<value>           [default: utf8mb4_unicode_ci] the collation to use
       --user-access-level=<option>  [default: full] the access level preset for the default user
@@ -108,7 +108,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -130,14 +130,14 @@ ARGUMENTS
   DATABASE-ID  The ID or name of the database
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a MySQL database
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -158,7 +158,7 @@ ARGUMENTS
 FLAGS
   -o, --output=<value>          (required) the output file to write the dump to ("-" for stdout)
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -q, --quiet                   suppress process output and only display a machine-readable summary
       --gzip                    compress the dump with gzip
       --mysql-charset=<value>   the character set to use for the MySQL connection
       --[no-]temporary-user     create a temporary user for the dump
@@ -195,7 +195,7 @@ FLAG DESCRIPTIONS
     NOTE: This is a security risk, as the password will be visible in the process list of your system, and will be
     visible in your Shell history. It is recommended to use the environment variable instead.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -267,7 +267,7 @@ ARGUMENTS
 FLAGS
   -i, --input=<value>           (required) the input file from which to read the dump ("-" for stdin)
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -q, --quiet                   suppress process output and only display a machine-readable summary
       --gzip                    uncompress the dump with gzip
       --mysql-charset=<value>   the character set to use for the MySQL connection
       --[no-]temporary-user     create a temporary user for the dump
@@ -303,7 +303,7 @@ FLAG DESCRIPTIONS
     NOTE: This is a security risk, as the password will be visible in the process list of your system, and will be
     visible in your Shell history. It is recommended to use the environment variable instead.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -396,7 +396,7 @@ ARGUMENTS
   DATABASE-ID  The ID or name of the database
 
 FLAGS
-  -q, --quiet         suppress process output and only display a machine-readable summary.
+  -q, --quiet         suppress process output and only display a machine-readable summary
       --port=<value>  [default: 3306] The local TCP port to forward to
 
 SSH CONNECTION FLAGS
@@ -418,7 +418,7 @@ DESCRIPTION
   See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -452,7 +452,7 @@ ARGUMENTS
 
 FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -q, --quiet                   suppress process output and only display a machine-readable summary
       --mysql-charset=<value>   the character set to use for the MySQL connection
 
 SSH CONNECTION FLAGS
@@ -481,7 +481,7 @@ FLAG DESCRIPTIONS
     NOTE: This is a security risk, as the password will be visible in the process list of your system, and will be
     visible in your Shell history. It is recommended to use the environment variable instead.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -516,7 +516,7 @@ USAGE
     [-q] [--access-ip-mask <value> --enable-external-access]
 
 FLAGS
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -q, --quiet                   suppress process output and only display a machine-readable summary
       --access-ip-mask=<value>  IP to restrict external access to.
       --access-level=<option>   (required) Set the access level permissions for the SFTP user.
                                 <options: readonly|full>
@@ -529,7 +529,7 @@ DESCRIPTION
   Create a new MySQL user
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -575,14 +575,14 @@ ARGUMENTS
   USER-ID  ID of the MySQL user to delete.
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a MySQL user
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -644,7 +644,7 @@ ARGUMENTS
   USER-ID  ID of the MySQL user to update.
 
 FLAGS
-  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -q, --quiet                    suppress process output and only display a machine-readable summary
       --access-ip-mask=<value>   IP to restrict external access to.
       --access-level=<option>    Set the access level permissions for the SFTP user.
                                  <options: readonly|full>
@@ -657,7 +657,7 @@ DESCRIPTION
   Update an existing MySQL user
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -727,7 +727,7 @@ FLAGS
   -d, --description=<value>         (required) a description for the database
   -p, --project-id=<value>          ID or short ID of a project; this flag is optional if a default project is set in
                                     the context
-  -q, --quiet                       suppress process output and only display a machine-readable summary.
+  -q, --quiet                       suppress process output and only display a machine-readable summary
       --max-memory=<value>          the maximum memory for the Redis database
       --max-memory-policy=<option>  the Redis eviction policy
                                     <options: noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-rando
@@ -741,7 +741,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -824,7 +824,7 @@ ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
 
 FLAGS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -844,7 +844,7 @@ DESCRIPTION
   See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.

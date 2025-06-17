@@ -45,14 +45,14 @@ ARGUMENTS
                    in the context.
 
 FLAGS
-  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  (required) set a description for the new app installation
 
 DESCRIPTION
   Copy an app within a project
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -69,7 +69,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --entrypoint=<value>    [default: yarn start] the command that should be used to start your custom Node.js
                               application.
@@ -86,7 +86,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -115,7 +115,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
-  -q, --quiet                  suppress process output and only display a machine-readable summary.
+  -q, --quiet                  suppress process output and only display a machine-readable summary
   -w, --wait                   wait for the resource to be ready.
       --document-root=<value>  (required) [default: /] the document root from which your custom PHP will be served
                                (relative to the installation path)
@@ -132,7 +132,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -164,7 +164,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --entrypoint=<value>    the command that should be used to start your PHP worker application.
       --site-title=<value>    site title for your PHP worker installation.
@@ -180,7 +180,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -209,7 +209,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --entrypoint=<value>    the command that should be used to start your custom python site application.
       --site-title=<value>    site title for your custom python site installation.
@@ -225,7 +225,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -254,7 +254,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
-  -q, --quiet                  suppress process output and only display a machine-readable summary.
+  -q, --quiet                  suppress process output and only display a machine-readable summary
   -w, --wait                   wait for the resource to be ready.
       --document-root=<value>  (required) [default: /] the document root from which your custom static site will be
                                served (relative to the installation path)
@@ -271,7 +271,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -328,7 +328,7 @@ ARGUMENTS
                    in the context.
 
 FLAGS
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -q, --quiet                   suppress process output and only display a machine-readable summary
       --set=<value>...          (required) set a dependency to a specific version
       --update-policy=<option>  [default: patchLevel] set the update policy for the configured dependencies
                                 <options: none|inheritedFromApp|patchLevel|all>
@@ -339,7 +339,7 @@ EXAMPLES
     $ mw app dependency update $APP_ID --set node=~18
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -392,7 +392,7 @@ ARGUMENTS
                    in the context.
 
 FLAGS
-  -q, --quiet                         suppress process output and only display a machine-readable summary.
+  -q, --quiet                         suppress process output and only display a machine-readable summary
       --delete                        delete local files that are not present on the server
       --dry-run                       do not actually download the app installation
       --exclude=<value>...            [default: ] exclude files matching the given pattern
@@ -432,7 +432,7 @@ EXAMPLES
     $ mw app download --remote-sub-directory=shared .
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -492,7 +492,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
-  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -q, --quiet                    suppress process output and only display a machine-readable summary
   -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
@@ -515,7 +515,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -583,7 +583,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
-  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -q, --quiet                    suppress process output and only display a machine-readable summary
   -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
@@ -606,7 +606,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -673,7 +673,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --admin-email=<value>   email address of your administrator user.
       --admin-pass=<value>    password of your administrator user.
@@ -693,7 +693,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -748,7 +748,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --admin-email=<value>   email address of your administrator user.
       --admin-pass=<value>    password of your administrator user.
@@ -769,7 +769,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -825,7 +825,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
-  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -q, --quiet                    suppress process output and only display a machine-readable summary
   -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
@@ -851,7 +851,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -937,7 +937,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
-  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -q, --quiet                    suppress process output and only display a machine-readable summary
   -w, --wait                     wait for the resource to be ready.
       --admin-email=<value>      email address of your administrator user.
       --admin-firstname=<value>  first name of your administrator user.
@@ -963,7 +963,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -1049,7 +1049,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
-  -q, --quiet                  suppress process output and only display a machine-readable summary.
+  -q, --quiet                  suppress process output and only display a machine-readable summary
   -w, --wait                   wait for the resource to be ready.
       --admin-email=<value>    email address of your administrator user.
       --admin-pass=<value>     password of your administrator user.
@@ -1071,7 +1071,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -1132,7 +1132,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --admin-email=<value>   email address of your administrator user.
       --admin-pass=<value>    password of your administrator user.
@@ -1153,7 +1153,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -1335,14 +1335,14 @@ ARGUMENTS
                    in the context.
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Uninstall an app
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -1361,13 +1361,13 @@ ARGUMENTS
                    in the context.
 
 FLAGS
-  -q, --quiet                  suppress process output and only display a machine-readable summary.
+  -q, --quiet                  suppress process output and only display a machine-readable summary
       --description=<value>    update the description of the app installation
       --document-root=<value>  update the document root of the app installation
       --entrypoint=<value>     update the entrypoint of the app installation (Python and Node.js only)
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -1404,7 +1404,7 @@ FLAGS
   -f, --force                   Do not ask for confirmation.
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
                                 context
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -q, --quiet                   suppress process output and only display a machine-readable summary
   -w, --wait                    wait for the resource to be ready.
       --target-version=<value>  target version to upgrade app to; if omitted, target version will be prompted
                                 interactively
@@ -1420,7 +1420,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -1440,7 +1440,7 @@ ARGUMENTS
                    in the context.
 
 FLAGS
-  -q, --quiet                         suppress process output and only display a machine-readable summary.
+  -q, --quiet                         suppress process output and only display a machine-readable summary
       --delete                        delete remote files that are not present locally
       --dry-run                       do not actually upload the app installation
       --exclude=<value>...            [default: ] exclude files matching the given pattern
@@ -1474,7 +1474,7 @@ DESCRIPTION
   information on how to write filter rules.
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.

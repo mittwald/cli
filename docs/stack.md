@@ -23,9 +23,9 @@ ARGUMENTS
   STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
-  -f, --force         Do not ask for confirmation
-  -q, --quiet         suppress process output and only display a machine-readable summary.
-  -v, --with-volumes  also remove volumes
+  -f, --force         do not ask for confirmation
+  -q, --quiet         suppress process output and only display a machine-readable summary
+  -v, --with-volumes  also include remove volumes in removal
 
 DESCRIPTION
   Delete a container stack
@@ -34,7 +34,7 @@ ALIASES
   $ mw stack rm
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -50,7 +50,7 @@ USAGE
 
 FLAGS
   -c, --compose-file=<value>  [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>      [default: ./.env] alternative path to file with environment variables
 
@@ -61,7 +61,7 @@ ALIASES
   $ mw stack up
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -182,9 +182,9 @@ ARGUMENTS
   STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
-  -f, --force         Do not ask for confirmation
-  -q, --quiet         suppress process output and only display a machine-readable summary.
-  -v, --with-volumes  also remove volumes
+  -f, --force         do not ask for confirmation
+  -q, --quiet         suppress process output and only display a machine-readable summary
+  -v, --with-volumes  also include remove volumes in removal
 
 DESCRIPTION
   Delete a container stack
@@ -193,7 +193,7 @@ ALIASES
   $ mw stack rm
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -209,7 +209,7 @@ USAGE
 
 FLAGS
   -c, --compose-file=<value>  [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>      [default: ./.env] alternative path to file with environment variables
 
@@ -220,7 +220,7 @@ ALIASES
   $ mw stack up
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
