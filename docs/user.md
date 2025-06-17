@@ -25,7 +25,7 @@ USAGE
   $ mw user api-token create --description <value> --roles api_read|api_write... [-q] [--expires <value>]
 
 FLAGS
-  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  (required) description of the API token
       --expires=<value>      an interval after which the API token expires (examples: 30m, 30d, 1y).
       --roles=<option>...    (required) roles of the API token
@@ -35,7 +35,7 @@ DESCRIPTION
   Create a new API token
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -95,14 +95,14 @@ ARGUMENTS
   ID  ID of the API token to revoke
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Revoke an API token
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -179,7 +179,7 @@ USAGE
   $ mw user ssh-key create [-q] [--expires <value>] [--output <value>] [--no-passphrase] [--comment <value>]
 
 FLAGS
-  -q, --quiet            suppress process output and only display a machine-readable summary.
+  -q, --quiet            suppress process output and only display a machine-readable summary
       --comment=<value>  A comment for the SSH key.
       --expires=<value>  an interval after which the SSH key expires (examples: 30m, 30d, 1y).
       --no-passphrase    Use this flag to not set a passphrase for the SSH key.
@@ -189,7 +189,7 @@ DESCRIPTION
   Create and import a new SSH key
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -207,14 +207,14 @@ ARGUMENTS
   ID  ID of the SSH key to be deleted.
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete an SSH key
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -248,7 +248,7 @@ USAGE
   $ mw user ssh-key import [-q] [--expires <value>] [--input <value>]
 
 FLAGS
-  -q, --quiet            suppress process output and only display a machine-readable summary.
+  -q, --quiet            suppress process output and only display a machine-readable summary
       --expires=<value>  an interval after which the SSH key expires (examples: 30m, 30d, 1y).
       --input=<value>    [default: id_rsa.pub] A filename in your ~/.ssh directory containing the key to import.
 
@@ -256,7 +256,7 @@ DESCRIPTION
   Import an existing (local) SSH key
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.

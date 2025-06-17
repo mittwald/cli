@@ -24,7 +24,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
       --expires=<value>       (required) an interval after which the backup expires (examples: 30m, 30d, 1y).
@@ -40,7 +40,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -55,11 +55,11 @@ USAGE
   $ mw backup delete BACKUP-ID [-q] [-f]
 
 ARGUMENTS
-  BACKUP-ID  ID or short ID of a backup.
+  BACKUP-ID  ID of a backup.
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a backup
@@ -68,7 +68,7 @@ ALIASES
   $ mw project backup delete
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -84,10 +84,10 @@ USAGE
     --prompt-password] [--resume --output <value>]
 
 ARGUMENTS
-  BACKUP-ID  ID or short ID of a backup.
+  BACKUP-ID  ID of a backup.
 
 FLAGS
-  -q, --quiet              suppress process output and only display a machine-readable summary.
+  -q, --quiet              suppress process output and only display a machine-readable summary
       --format=<option>    [default: tar] the file format to download the backup in.
                            <options: tar|zip>
       --generate-password  generate a random password to encrypt the backup with.
@@ -103,7 +103,7 @@ ALIASES
   $ mw project backup download
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -131,7 +131,7 @@ USAGE
   $ mw backup get BACKUP-ID -o txt|json|yaml
 
 ARGUMENTS
-  BACKUP-ID  ID or short ID of a backup.
+  BACKUP-ID  ID of a backup.
 
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
@@ -189,7 +189,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  Set the description for the backup schedule.
       --schedule=<value>     (required) Set the interval at which the backup should be scheduled.
       --ttl=<value>          (required) Define the backup retention period in days for backups created.
@@ -200,7 +200,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -232,14 +232,14 @@ ARGUMENTS
   BACKUP-SCHEDULE-ID  ID of schedule to delete
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a backup schedule
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -291,7 +291,7 @@ ARGUMENTS
   BACKUP-SCHEDULE-ID  Define the backup schedule that is to be updated
 
 FLAGS
-  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  Set the description for the backup schedule.
       --schedule=<value>     Set the interval at which the backup should be scheduled.
       --ttl=<value>          Define the backup retention period in days for backups created.
@@ -300,7 +300,7 @@ DESCRIPTION
   Update an existing backup schedule
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.

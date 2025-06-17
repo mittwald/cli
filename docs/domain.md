@@ -79,7 +79,7 @@ ARGUMENTS
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
-  -q, --quiet               suppress process output and only display a machine-readable summary.
+  -q, --quiet               suppress process output and only display a machine-readable summary
       --managed             Reset this record set to fully-managed (only for A and MX records)
       --record=<value>...   The records to set; may not be used with --managed
       --ttl=<value>         The TTL of the record set; omit to use the default TTL
@@ -104,7 +104,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -183,7 +183,7 @@ USAGE
 FLAGS
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
                                 context
-  -q, --quiet                   suppress process output and only display a machine-readable summary.
+  -q, --quiet                   suppress process output and only display a machine-readable summary
       --hostname=<value>        (required) the hostname of the ingress
       --path-to-app=<value>...  add a path mapping to an app
       --path-to-url=<value>...  add a path mapping to an external url
@@ -210,7 +210,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -240,14 +240,14 @@ ARGUMENTS
   VIRTUAL-HOST-ID  ID of the virtual host to delete
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a virtual host
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.

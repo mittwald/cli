@@ -42,8 +42,7 @@ USAGE
   $ mw conversation close [CONVERSATION-ID]
 
 ARGUMENTS
-  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
-                   context.
+  CONVERSATION-ID  ID of a conversation; this argument is optional if a default conversation is set in the context.
 
 DESCRIPTION
   Close a conversation
@@ -105,8 +104,7 @@ USAGE
   $ mw conversation reply [CONVERSATION-ID] [--message <value> | --message-from <value>] [--editor <value>]
 
 ARGUMENTS
-  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
-                   context.
+  CONVERSATION-ID  ID of a conversation; this argument is optional if a default conversation is set in the context.
 
 FLAGS
   --editor=<value>        [default: vim] The editor to use when opening the message for editing; will respect your
@@ -129,8 +127,7 @@ USAGE
   $ mw conversation show [CONVERSATION-ID]
 
 ARGUMENTS
-  CONVERSATION-ID  ID or short ID of a conversation; this argument is optional if a default conversation is set in the
-                   context.
+  CONVERSATION-ID  ID of a conversation; this argument is optional if a default conversation is set in the context.
 
 DESCRIPTION
   Show a conversation and message history

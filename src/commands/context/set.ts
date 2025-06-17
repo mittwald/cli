@@ -20,6 +20,10 @@ export class Set extends BaseCommand {
       description: "ID or short ID of an app installation",
       aliases: ["app-id", "app-installation-id"],
     }),
+    "stack-id": Flags.string({
+      description: "ID of a container stack",
+      aliases: ["container-stack-id"],
+    }),
   };
 
   public async run(): Promise<void> {
@@ -48,6 +52,11 @@ export class Set extends BaseCommand {
         flags["installation-id"],
       );
       this.log(`Set installation ID to ${installationId}`);
+    }
+
+    if (flags["stack-id"]) {
+      const stackId = await ctx.setStackId(flags["stack-id"]);
+      this.log(`Set stack ID to ${stackId}`);
     }
   }
 }

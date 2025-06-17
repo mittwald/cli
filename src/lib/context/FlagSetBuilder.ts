@@ -1,7 +1,6 @@
 import { Args, Config, Flags } from "@oclif/core";
-import { Arg, OptionFlag } from "@oclif/core/interfaces";
+import { AlphabetLowercase, Arg, OptionFlag } from "@oclif/core/interfaces";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { AlphabetLowercase } from "@oclif/core/interfaces";
 import Context, { ContextKey, ContextNames } from "./Context.js";
 import UnexpectedShortIDPassedError from "../error/UnexpectedShortIDPassedError.js";
 import FlagSet from "./FlagSet.js";
@@ -144,10 +143,15 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   private buildFlags(): ContextFlags<TName> {
     const { displayName } = this;
     const article = articleForWord(displayName);
-    const { retrieveFromContext = true } = this.opts;
+    const { retrieveFromContext = true, expectedShortIDFormat } = this.opts;
 
-    let summary = `ID or short ID of ${article} ${displayName}`;
-    let description = `May contain a short ID or a full ID of ${article} ${displayName}`;
+    let summary = `ID of ${article} ${displayName}`;
+    let description = `May contain a ID of ${article} ${displayName}`;
+
+    if (expectedShortIDFormat) {
+      summary = `ID or short ID of ${article} ${displayName}`;
+      description = `May contain a short ID or a full ID of ${article} ${displayName}`;
+    }
 
     if (retrieveFromContext) {
       summary += `; this flag is optional if a default ${displayName} is set in the context`;
@@ -171,9 +175,14 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   private buildArgs(): ContextArgs<TName> {
     const { displayName } = this;
     const article = articleForWord(displayName);
-    const { retrieveFromContext = true } = this.opts;
+    const { retrieveFromContext = true, expectedShortIDFormat } = this.opts;
 
-    let description = `ID or short ID of ${article} ${displayName}`;
+    let description = `ID of ${article} ${displayName}`;
+
+    if (expectedShortIDFormat) {
+      description = `ID or short ID of ${article} ${displayName}`;
+    }
+
     if (retrieveFromContext) {
       description += `; this argument is optional if a default ${displayName} is set in the context.`;
     } else {
@@ -189,19 +198,19 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   }
 
   private buildSanityCheck(): (id: string) => void {
-    if (this.opts.expectedShortIDFormat != null) {
-      const format = this.opts.expectedShortIDFormat;
-      return (id: string): void => {
-        if (!validateUuid(id) && !format.pattern.test(id)) {
-          throw new UnexpectedShortIDPassedError(
-            this.displayName,
-            format.display,
-          );
-        }
-      };
+    if (!this.opts.expectedShortIDFormat) {
+      return (): void => {};
     }
 
-    return (): void => {};
+    const format = this.opts.expectedShortIDFormat;
+    return (id: string): void => {
+      if (!validateUuid(id) && !format.pattern.test(id)) {
+        throw new UnexpectedShortIDPassedError(
+          this.displayName,
+          format.display,
+        );
+      }
+    };
   }
 
   private buildIDGetter() {

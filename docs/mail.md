@@ -27,7 +27,7 @@ FLAGS
   -a, --address=<value>              (required) mail address
   -p, --project-id=<value>           ID or short ID of a project; this flag is optional if a default project is set in
                                      the context
-  -q, --quiet                        suppress process output and only display a machine-readable summary.
+  -q, --quiet                        suppress process output and only display a machine-readable summary
       --catch-all                    make this a catch-all mail address
       --[no-]enable-spam-protection  enable spam protection for this mailbox
       --forward-to=<value>...        forward mail to other addresses
@@ -72,7 +72,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -109,14 +109,14 @@ ARGUMENTS
   ID  Mail address ID
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a mail address
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -186,7 +186,7 @@ ARGUMENTS
 
 FLAGS
   -a, --address=<value>        mail address
-  -q, --quiet                  suppress process output and only display a machine-readable summary.
+  -q, --quiet                  suppress process output and only display a machine-readable summary
       --[no-]catch-all         Change this from or to a catch-all mail address; omit to leave unchanged
       --forward-to=<value>...  forward mail to other addresses
       --password=<value>       mailbox password
@@ -222,7 +222,7 @@ EXAMPLES
     $ mw mail address update --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -258,7 +258,7 @@ FLAGS
   -d, --description=<value>  (required) mail delivery box description
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
-  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -q, --quiet                suppress process output and only display a machine-readable summary
       --password=<value>     delivery box password
       --random-password      generate a random password
 
@@ -287,7 +287,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -317,14 +317,14 @@ ARGUMENTS
   ID  Mail delivery box ID
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a mail delivery box
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -389,10 +389,10 @@ USAGE
   $ mw mail deliverybox update MAILDELIVERYBOX-ID [-q] [--description <value>] [--password <value>] [--random-password]
 
 ARGUMENTS
-  MAILDELIVERYBOX-ID  ID or short ID of a maildeliverybox.
+  MAILDELIVERYBOX-ID  ID of a maildeliverybox.
 
 FLAGS
-  -q, --quiet                suppress process output and only display a machine-readable summary.
+  -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  delivery box description
       --password=<value>     delivery box password
       --random-password      generate a random password
@@ -417,7 +417,7 @@ EXAMPLES
     $ mw mail deliverybox update --random-password --description 'my personal delivery box'
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.

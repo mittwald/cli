@@ -26,14 +26,14 @@ ARGUMENTS
   ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete an organization
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -69,7 +69,7 @@ USAGE
 
 FLAGS
   -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
-  -q, --quiet            suppress process output and only display a machine-readable summary.
+  -q, --quiet            suppress process output and only display a machine-readable summary
       --email=<value>    (required) The email address of the user to invite.
       --expires=<value>  an interval after which the invitation expires (examples: 30m, 30d, 1y).
       --message=<value>  A message to include in the invitation email.
@@ -85,7 +85,7 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of an org; you can also use the "mw context set --org-id=<VALUE>" command to
     persistently set a default org for all commands that accept this flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -156,13 +156,13 @@ ARGUMENTS
   INVITE-ID  The ID of the invite to revoke
 
 FLAGS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Revoke an invite to an organization
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -256,13 +256,13 @@ ARGUMENTS
   MEMBERSHIP-ID  The ID of the membership to revoke
 
 FLAGS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Revoke a user's membership to an organization
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.

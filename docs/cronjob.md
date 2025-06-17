@@ -26,7 +26,7 @@ USAGE
 FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
                                  installation is set in the context
-  -q, --quiet                    suppress process output and only display a machine-readable summary.
+  -q, --quiet                    suppress process output and only display a machine-readable summary
       --command=<value>          Specify the file and arguments to be executed when the cron job is run.
       --description=<value>      (required) Set cron job description.
       --disable                  Disable the cron job.
@@ -46,7 +46,7 @@ FLAG DESCRIPTIONS
     --installation-id=<VALUE>" command to persistently set a default app installation for all commands that accept this
     flag.
 
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -101,14 +101,14 @@ ARGUMENTS
   CRONJOB-ID  ID of the cronjob to be deleted.
 
 FLAGS
-  -f, --force  Do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 DESCRIPTION
   Delete a cron job
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -123,10 +123,10 @@ USAGE
   $ mw cronjob execute CRONJOB-ID [-q]
 
 FLAGS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -145,10 +145,10 @@ ARGUMENTS
   EXECUTION-ID  ID of the cron job execution to abort
 
 FLAGS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
@@ -298,7 +298,7 @@ ARGUMENTS
   CRONJOB-ID  ID of the cron job to be updated.
 
 FLAGS
-  -q, --quiet                 suppress process output and only display a machine-readable summary.
+  -q, --quiet                 suppress process output and only display a machine-readable summary
       --command=<value>       Specify the file and arguments to be executed when the cron job is run.
       --description=<value>   Set cron job description.
       --disable               Disable the cron job.
@@ -314,7 +314,7 @@ DESCRIPTION
   Update an existing cron job
 
 FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary.
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
