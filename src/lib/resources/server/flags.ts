@@ -18,4 +18,10 @@ export const {
   flags: serverFlags,
   args: serverArgs,
   withId: withServerId,
-} = new FlagSetBuilder("server", "s", { normalize }).build();
+} = new FlagSetBuilder("server", "s", {
+  normalize,
+  expectedShortIDFormat: {
+    pattern: /^s-.*/,
+    display: "s-XXXXXX",
+  },
+}).build();

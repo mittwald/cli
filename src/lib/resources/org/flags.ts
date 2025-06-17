@@ -18,4 +18,10 @@ export const {
   flags: orgFlags,
   args: orgArgs,
   withId: withOrgId,
-} = new FlagSetBuilder("org", "o", { normalize }).build();
+} = new FlagSetBuilder("org", "o", {
+  normalize,
+  expectedShortIDFormat: {
+    pattern: /^\d+$/,
+    display: "000000",
+  },
+}).build();
