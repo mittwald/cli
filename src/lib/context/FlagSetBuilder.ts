@@ -1,7 +1,6 @@
 import { Args, Config, Flags } from "@oclif/core";
-import { Arg, OptionFlag } from "@oclif/core/interfaces";
+import { AlphabetLowercase, Arg, OptionFlag } from "@oclif/core/interfaces";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import { AlphabetLowercase } from "@oclif/core/interfaces";
 import Context, { ContextKey, ContextNames } from "./Context.js";
 import UnexpectedShortIDPassedError from "../error/UnexpectedShortIDPassedError.js";
 import FlagSet from "./FlagSet.js";
@@ -189,19 +188,19 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   }
 
   private buildSanityCheck(): (id: string) => void {
-    if (this.opts.expectedShortIDFormat != null) {
-      const format = this.opts.expectedShortIDFormat;
-      return (id: string): void => {
-        if (!validateUuid(id) && !format.pattern.test(id)) {
-          throw new UnexpectedShortIDPassedError(
-            this.displayName,
-            format.display,
-          );
-        }
-      };
+    if (!this.opts.expectedShortIDFormat) {
+      return (): void => {};
     }
 
-    return (): void => {};
+    const format = this.opts.expectedShortIDFormat;
+    return (id: string): void => {
+      if (!validateUuid(id) && !format.pattern.test(id)) {
+        throw new UnexpectedShortIDPassedError(
+          this.displayName,
+          format.display,
+        );
+      }
+    };
   }
 
   private buildIDGetter() {
