@@ -6,7 +6,6 @@ Manage backups of your projects
 * [`mw backup create`](#mw-backup-create)
 * [`mw backup delete BACKUP-ID`](#mw-backup-delete-backup-id)
 * [`mw backup download BACKUP-ID`](#mw-backup-download-backup-id)
-* [`mw backup get BACKUP-ID`](#mw-backup-get-backup-id)
 * [`mw backup list`](#mw-backup-list)
 * [`mw backup schedule create`](#mw-backup-schedule-create)
 * [`mw backup schedule delete BACKUP-SCHEDULE-ID`](#mw-backup-schedule-delete-backup-schedule-id)
@@ -120,28 +119,6 @@ FLAG DESCRIPTIONS
   --prompt-password  prompt for a password to encrypt the backup with.
 
     CAUTION: this is not stored anywhere.
-```
-
-## `mw backup get BACKUP-ID`
-
-Show details of a backup.
-
-```
-USAGE
-  $ mw backup get BACKUP-ID -o txt|json|yaml
-
-ARGUMENTS
-  BACKUP-ID  ID of a backup.
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
-
-DESCRIPTION
-  Show details of a backup.
-
-ALIASES
-  $ mw project backup get
 ```
 
 ## `mw backup list`
