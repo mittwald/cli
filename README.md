@@ -107,6 +107,7 @@ USAGE
 * [`mw app`](docs/app.md) - Manage apps, and app installations in your projects
 * [`mw autocomplete`](docs/autocomplete.md) - Display autocomplete installation instructions.
 * [`mw backup`](docs/backup.md) - Manage backups of your projects
+* [`mw container`](docs/container.md) - List containers belonging to a project.
 * [`mw context`](docs/context.md) - Save certain environment parameters for later use
 * [`mw conversation`](docs/conversation.md) - Manage your support cases
 * [`mw cronjob`](docs/cronjob.md) - Manage cronjobs of your projects
