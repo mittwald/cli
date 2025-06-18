@@ -1,12 +1,8 @@
 import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
 import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
-import { stackFlags, withStackId } from "../../lib/resources/stack/flags.js";
-import { withContainerId } from "../../lib/resources/container/flags.js";
-import {
-  projectFlags,
-  withProjectId,
-} from "../../lib/resources/project/flags.js";
+import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 import { assertStatus } from "@mittwald/api-client";
 import { printToPager } from "../../lib/util/pager.js";
 
@@ -35,7 +31,7 @@ export class Logs extends BaseCommand {
   async run(): Promise<void> {
     const { flags, args } = await this.parse(Logs);
 
-    const projectId = await withProjectId(
+    const [serviceId, stackId] = await withContainerAndStackId(
       this.apiClient,
       Logs,
       flags,
@@ -43,10 +39,6 @@ export class Logs extends BaseCommand {
       this.config,
     );
 
-    const [serviceId, stackId] = await this.getContainerAndStack(
-      projectId,
-      args["container-id"],
-    );
     const usePager = process.stdin.isTTY && !flags["no-pager"];
 
     const logsResp = await this.apiClient.container.getServiceLogs({
@@ -65,26 +57,5 @@ export class Logs extends BaseCommand {
     } else {
       this.log(logs);
     }
-  }
-
-  private async getContainerAndStack(
-    projectId: string,
-    containerId: string,
-  ): Promise<[string, string]> {
-    const containerResp = await this.apiClient.container.listServices({
-      projectId,
-    });
-
-    assertStatus(containerResp, 200);
-
-    for (const container of containerResp.data) {
-      if (container.shortId === containerId || container.id === containerId) {
-        return [container.id, container.stackId];
-      }
-    }
-
-    throw new Error(
-      `no container ${containerId} found in project ${projectId}`,
-    );
   }
 }
