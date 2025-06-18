@@ -6,7 +6,6 @@ Manage your projects, and also any kinds of user memberships concerning these pr
 * [`mw project backup create`](#mw-project-backup-create)
 * [`mw project backup delete BACKUP-ID`](#mw-project-backup-delete-backup-id)
 * [`mw project backup download BACKUP-ID`](#mw-project-backup-download-backup-id)
-* [`mw project backup get BACKUP-ID`](#mw-project-backup-get-backup-id)
 * [`mw project backup list`](#mw-project-backup-list)
 * [`mw project backupschedule list`](#mw-project-backupschedule-list)
 * [`mw project create`](#mw-project-create)
@@ -15,8 +14,6 @@ Manage your projects, and also any kinds of user memberships concerning these pr
 * [`mw project cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-project-cronjob-execution-logs-cronjob-id-execution-id)
 * [`mw project cronjob list`](#mw-project-cronjob-list)
 * [`mw project delete [PROJECT-ID]`](#mw-project-delete-project-id)
-* [`mw project filesystem usage [PROJECT-ID]`](#mw-project-filesystem-usage-project-id)
-* [`mw project get [PROJECT-ID]`](#mw-project-get-project-id)
 * [`mw project invite get INVITE-ID`](#mw-project-invite-get-invite-id)
 * [`mw project invite list`](#mw-project-invite-list)
 * [`mw project invite list-own`](#mw-project-invite-list-own)
@@ -137,28 +134,6 @@ FLAG DESCRIPTIONS
   --prompt-password  prompt for a password to encrypt the backup with.
 
     CAUTION: this is not stored anywhere.
-```
-
-## `mw project backup get BACKUP-ID`
-
-Show details of a backup.
-
-```
-USAGE
-  $ mw project backup get BACKUP-ID -o txt|json|yaml
-
-ARGUMENTS
-  BACKUP-ID  ID of a backup.
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
-
-DESCRIPTION
-  Show details of a backup.
-
-ALIASES
-  $ mw project backup get
 ```
 
 ## `mw project backup list`
@@ -397,45 +372,6 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
-```
-
-## `mw project filesystem usage [PROJECT-ID]`
-
-Get a project directory filesystem usage.
-
-```
-USAGE
-  $ mw project filesystem usage [PROJECT-ID] -o txt|json|yaml [--human]
-
-ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
-      --human            Display human readable sizes.
-
-DESCRIPTION
-  Get a project directory filesystem usage.
-```
-
-## `mw project get [PROJECT-ID]`
-
-Get details of a project
-
-```
-USAGE
-  $ mw project get [PROJECT-ID] -o txt|json|yaml
-
-ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
-
-DESCRIPTION
-  Get details of a project
 ```
 
 ## `mw project invite get INVITE-ID`
