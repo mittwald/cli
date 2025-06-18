@@ -7,7 +7,7 @@ import {
 import { Args, Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client";
 import { Text } from "ink";
-import { contextIDNormalizers } from "../../lib/context/Context.js";
+import Context, { contextIDNormalizers } from "../../lib/context/Context.js";
 
 type InstallResult = {
   extensionInstanceId: string;
@@ -59,14 +59,16 @@ export default class Install extends ExecRenderBaseCommand<
       return response.data;
     });
 
+    const ctx = new Context(this.apiClient, this.config);
+
     if (orgId !== undefined) {
       const normalizer = contextIDNormalizers["org-id"]!;
-      orgId = await normalizer(this.apiClient, orgId);
+      orgId = await normalizer(this.apiClient, orgId, ctx);
     }
 
     if (projectId !== undefined) {
       const normalizer = contextIDNormalizers["project-id"]!;
-      projectId = await normalizer(this.apiClient, projectId);
+      projectId = await normalizer(this.apiClient, projectId, ctx);
     }
 
     if (!consent) {
