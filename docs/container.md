@@ -6,6 +6,10 @@ List containers belonging to a project.
 * [`mw container list`](#mw-container-list)
 * [`mw container logs CONTAINER-ID`](#mw-container-logs-container-id)
 * [`mw container ls`](#mw-container-ls)
+* [`mw container recreate CONTAINER-ID`](#mw-container-recreate-container-id)
+* [`mw container restart CONTAINER-ID`](#mw-container-restart-container-id)
+* [`mw container start CONTAINER-ID`](#mw-container-start-container-id)
+* [`mw container stop CONTAINER-ID`](#mw-container-stop-container-id)
 
 ## `mw container list`
 
@@ -108,4 +112,118 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw container recreate CONTAINER-ID`
+
+Recreates a container.
+
+```
+USAGE
+  $ mw container recreate CONTAINER-ID [-q] [-p <value>] [--pull] [--force]
+
+ARGUMENTS
+  CONTAINER-ID  ID or short ID of the container to restart
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary
+      --force               also recreate the container when it is already up to date
+      --pull                pull the container image before recreating the container
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw container restart CONTAINER-ID`
+
+Restarts a container.
+
+```
+USAGE
+  $ mw container restart CONTAINER-ID [-q] [-p <value>]
+
+ARGUMENTS
+  CONTAINER-ID  ID or short ID of the container to restart
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw container start CONTAINER-ID`
+
+Starts a stopped container.
+
+```
+USAGE
+  $ mw container start CONTAINER-ID [-q] [-p <value>]
+
+ARGUMENTS
+  CONTAINER-ID  ID or short ID of the container to start
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw container stop CONTAINER-ID`
+
+Stops a running container.
+
+```
+USAGE
+  $ mw container stop CONTAINER-ID [-q] [-p <value>]
+
+ARGUMENTS
+  CONTAINER-ID  ID or short ID of the container to stop
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
