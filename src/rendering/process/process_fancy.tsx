@@ -55,11 +55,11 @@ export class FancyProcessRenderer implements ProcessRenderer {
 
   public async runStep<TRes>(
     title: ReactNode,
-    fn: () => Promise<TRes>,
+    fn: (() => Promise<TRes>) | Promise<TRes>,
   ): Promise<TRes> {
     const step = this.addStep(title);
     try {
-      const result = await fn();
+      const result = await (fn instanceof Promise ? fn : fn());
       step.complete();
       return result;
     } catch (err) {
