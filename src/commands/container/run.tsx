@@ -11,8 +11,9 @@ import { Value } from "../../rendering/react/components/Value.js";
 import * as dockerNames from "docker-names";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../rendering/process/process.js";
-import ContainerServiceResponse = MittwaldAPIV2.Components.Schemas.ContainerServiceResponse;
 
+type ContainerServiceResponse =
+  MittwaldAPIV2.Components.Schemas.ContainerServiceResponse;
 type ContainerServiceDeclareRequest =
   MittwaldAPIV2.Components.Schemas.ContainerServiceDeclareRequest;
 type ContainerContainerImageConfig =
@@ -28,47 +29,57 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     ...processFlags,
     ...projectFlags,
     env: Flags.string({
-      description: "environment variables to set in the container",
+      summary: "set environment variables in the container",
+      description:
+        "Format: KEY=VALUE. Multiple environment variables can be specified with multiple --env flags.",
       required: false,
       multiple: true,
       char: "e",
     }),
     "env-file": Flags.string({
-      description: "read environment variables from this file",
+      summary: "read environment variables from a file",
+      description:
+        "The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file flags.",
       multiple: true,
       required: false,
     }),
     description: Flags.string({
-      description: "optional description for the container",
+      summary: "add a descriptive label to the container",
+      description: "This helps identify the container's purpose or contents.",
       required: false,
     }),
     entrypoint: Flags.string({
+      summary: "override the default entrypoint of the container image",
       description:
-        "entrypoint of the container; if omitted, the entrypoint from the image will be used",
+        "The entrypoint is the command that will be executed when the container starts. If omitted, the entrypoint defined in the image will be used.",
       required: false,
     }),
     name: Flags.string({
+      summary: "assign a custom name to the container",
       description:
-        "name of the container; if omitted, a random name will be generated",
+        "This makes it easier to reference the container in subsequent commands. If omitted, a random name will be generated automatically.",
       required: false,
     }),
     publish: Flags.string({
-      summary: "publish a port from the container to the host",
+      summary: "publish a container's port(s) to the host",
       description:
-        "This flag can be used to publish a port from the container to the host. " +
-        "It can be used multiple times to publish multiple ports. " +
-        "Needs to be in the format <host-port>:<container-port> or <container-port>.",
+        "Map a container's port to a port on the host system. " +
+        "Format: <host-port>:<container-port> or just <container-port> (in which case the host port will be automatically assigned). " +
+        "For example, -p 8080:80 maps port 80 in the container to port 8080 on the host. " +
+        "Use multiple -p flags to publish multiple ports.",
       required: false,
       multiple: true,
       char: "p",
     }),
     "publish-all": Flags.boolean({
-      description: "publish all ports that are defined in the image",
+      summary: "publish all ports that are defined in the image",
+      description:
+        "Automatically publish all ports that are exposed by the container image to random ports on the host.",
       required: false,
       char: "P",
     }),
     volume: Flags.string({
-      summary: "volume mount within the container",
+      summary: "bind mount a volume to the container",
       description:
         "This flag can be used to add volume mounts to the container. It can be used multiple times to mount multiple volumes." +
         "" +
@@ -83,16 +94,21 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
   };
   static args = {
     image: Args.string({
-      description: "container image to run",
+      summary: "container image to run",
+      description:
+        "Can be specified as a repository/tag or repository@digest (e.g., 'ubuntu:20.04' or 'alpine@sha256:abc123...'). If no tag is provided, 'latest' is assumed.",
       required: true,
     }),
     command: Args.string({
+      summary: "command to run in the container",
       description:
-        "command to run in the container; omit to use default command from image",
+        "This overrides the default command specified in the container image. If omitted, the default command from the image will be used. For example, 'bash' or 'python app.py'.",
       required: false,
     }),
     args: Args.string({
-      description: "arguments to pass to the command",
+      summary: "arguments to pass to the command",
+      description:
+        "These are the runtime arguments passed to the command specified by the command parameter or the container's default command, not to the container itself. For example, if the command is 'echo', the args might be 'hello world'.",
       required: false,
       variadic: true,
     }),
