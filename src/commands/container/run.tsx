@@ -10,6 +10,9 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import * as dockerNames from "docker-names";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
+import * as fs from "fs/promises";
+import { parse } from "envfile";
+import { pathExists } from "../../lib/util/fs/pathExists.js";
 
 type ContainerStackResponse =
   MittwaldAPIV2.Components.Schemas.ContainerStackResponse;
@@ -126,10 +129,9 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       "getting image metadata",
       this.getImageAndMeta(projectId),
     );
-    const serviceRequest = this.buildServiceRequest(
-      image,
-      imageMeta,
-      serviceName,
+    const serviceRequest = await p.runStep(
+      "preparing service request",
+      this.buildServiceRequest(image, imageMeta, serviceName),
     );
 
     const stack = await p.runStep(
@@ -171,22 +173,27 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     return resp.data;
   }
 
-  private buildServiceRequest(
+  /**
+   * Builds a container service request from command line arguments and image
+   * metadata
+   *
+   * @param image - The container image to use
+   * @param imageMeta - Metadata about the container image
+   * @param serviceName - Name of the service to create
+   * @returns A properly formatted container service request
+   */
+  private async buildServiceRequest(
     image: string,
     imageMeta: ContainerContainerImageConfig,
     serviceName: string,
-  ): ContainerServiceDeclareRequest {
+  ): Promise<ContainerServiceDeclareRequest> {
     const command = this.args.command ? [this.args.command] : imageMeta.command;
     const entrypoint = this.flags.entrypoint
       ? [this.flags.entrypoint]
       : imageMeta.entrypoint;
     const description = this.flags.description ?? serviceName;
-    const envs = Object.fromEntries(
-      this.flags.env?.map((e) => e.split("=", 2)) ?? [],
-    );
-    const ports = this.flags["publish-all"]
-      ? (imageMeta.exposedPorts?.map((p) => p.port + ":" + p.port) ?? [])
-      : (this.flags.publish ?? []);
+    const envs = await this.parseEnvironmentVariables();
+    const ports = this.getPortMappings(imageMeta);
     const volumes = this.flags.volume;
 
     return {
@@ -200,6 +207,52 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     };
   }
 
+  /**
+   * Parses environment variables from command line flags and env files
+   *
+   * @returns An object containing environment variable key-value pairs
+   */
+  private async parseEnvironmentVariables(): Promise<Record<string, string>> {
+    const result: Record<string, string> = {};
+
+    for (const envVar of this.flags.env ?? []) {
+      const [key, value] = envVar.split("=", 2);
+      if (key) {
+        result[key] = value ?? "";
+      }
+    }
+
+    if (this.flags["env-file"]) {
+      for (const envFile of this.flags["env-file"]) {
+        if (!(await pathExists(envFile))) {
+          throw new Error(`Env file not found: ${envFile}`);
+        }
+
+        const fileContent = await fs.readFile(envFile, { encoding: "utf-8" });
+        const parsed = parse(fileContent);
+
+        Object.assign(result, parsed);
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Determines which ports to expose based on flags and image metadata
+   *
+   * @param imageMeta Metadata about the container image
+   * @returns An array of port mappings
+   */
+  private getPortMappings(imageMeta: ContainerContainerImageConfig): string[] {
+    if (this.flags["publish-all"]) {
+      return (imageMeta.exposedPorts ?? []).map(
+        (portInfo) => `${portInfo.port}:${portInfo.port}`,
+      );
+    }
+
+    return this.flags.publish ?? [];
+  }
   private async getImageAndMeta(projectId: string) {
     const { image } = this.args;
     const meta = await this.getImageMeta(image, projectId);
