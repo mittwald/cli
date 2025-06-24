@@ -10,8 +10,9 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import * as dockerNames from "docker-names";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
-import { ProcessRenderer } from "../../rendering/process/process.js";
 
+type ContainerStackResponse =
+  MittwaldAPIV2.Components.Schemas.ContainerStackResponse;
 type ContainerServiceResponse =
   MittwaldAPIV2.Components.Schemas.ContainerServiceResponse;
 type ContainerServiceDeclareRequest =
@@ -121,26 +122,20 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     const stackId = projectId;
 
     const serviceName = this.getServiceName();
-    const { image, meta: imageMeta } = await this.getImageAndMeta(p, projectId);
+    const { image, meta: imageMeta } = await p.runStep(
+      "getting image metadata",
+      this.getImageAndMeta(projectId),
+    );
     const serviceRequest = this.buildServiceRequest(
       image,
       imageMeta,
       serviceName,
     );
 
-    const stack = await p.runStep("creating container", async () => {
-      const resp = await this.apiClient.container.updateStack({
-        stackId,
-        data: {
-          services: {
-            [serviceName]: serviceRequest,
-          },
-        },
-      });
-
-      assertStatus(resp, 200);
-      return resp.data;
-    });
+    const stack = await p.runStep(
+      "creating container",
+      this.addServiceToStack(stackId, serviceName, serviceRequest),
+    );
 
     const service = stack.services?.find(matchServiceByName(serviceName));
     const serviceId = service?.id;
@@ -156,6 +151,24 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     );
 
     return { serviceId };
+  }
+
+  private async addServiceToStack(
+    stackId: string,
+    serviceName: string,
+    serviceRequest: ContainerServiceDeclareRequest,
+  ): Promise<ContainerStackResponse> {
+    const resp = await this.apiClient.container.updateStack({
+      stackId,
+      data: {
+        services: {
+          [serviceName]: serviceRequest,
+        },
+      },
+    });
+
+    assertStatus(resp, 200);
+    return resp.data;
   }
 
   private buildServiceRequest(
@@ -187,29 +200,26 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     };
   }
 
-  private async getImageAndMeta(p: ProcessRenderer, projectId: string) {
+  private async getImageAndMeta(projectId: string) {
     const { image } = this.args;
-    const meta = await this.getImageMeta(p, image, projectId);
+    const meta = await this.getImageMeta(image, projectId);
 
     return { image, meta };
   }
 
   private async getImageMeta(
-    p: ProcessRenderer,
     image: string,
     projectId: string,
   ): Promise<ContainerContainerImageConfig> {
-    return p.runStep("getting image metadata", async () => {
-      const resp = await this.apiClient.container.getContainerImageConfig({
-        queryParameters: {
-          imageReference: image,
-          useCredentialsForProjectId: projectId,
-        },
-      });
-
-      assertStatus(resp, 200);
-      return resp.data;
+    const resp = await this.apiClient.container.getContainerImageConfig({
+      queryParameters: {
+        imageReference: image,
+        useCredentialsForProjectId: projectId,
+      },
     });
+
+    assertStatus(resp, 200);
+    return resp.data;
   }
 
   private getServiceName(): string {
