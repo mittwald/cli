@@ -38,7 +38,7 @@ export async function withContainerAndStackId(
   const containerId = flags["container-id"] ?? args["container-id"];
 
   if (typeof containerId !== "string") {
-    throw new Error("container ID or short ID must be specified");
+    throw new Error("container ID, short ID or name must be specified");
   }
 
   const containerResp = await apiClient.container.listServices({
@@ -48,7 +48,11 @@ export async function withContainerAndStackId(
   assertStatus(containerResp, 200);
 
   for (const container of containerResp.data) {
-    if (container.shortId === containerId || container.id === containerId) {
+    if (
+      container.shortId === containerId ||
+      container.id === containerId ||
+      container.serviceName === containerId
+    ) {
       return [container.id, container.stackId];
     }
   }
