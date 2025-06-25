@@ -3,9 +3,6 @@ import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
 import { BaseCommand } from "../../../lib/basecommands/BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import * as cp from "child_process";
-import * as fs from "fs";
-import tempfile from "tempfile";
 import { printToPager } from "../../../lib/util/pager.js";
 
 export type PathParams =
