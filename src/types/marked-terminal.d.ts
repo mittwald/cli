@@ -7,103 +7,103 @@ declare module "marked-terminal" {
      *
      * @default chalk.yellow
      */
-    code?: Function;
+    code?: (text: string) => string;
     /**
      * Function for styling blockquotes
      *
      * @default chalk.gray.italic
      */
-    blockquote?: Function;
+    blockquote?: (text: string) => string;
     /**
      * Function for styling HTML
      *
      * @default chalk.gray
      */
-    html?: Function;
+    html?: (text: string) => string;
     /**
      * Function for styling headings
      *
      * @default chalk.green.bold
      */
-    heading?: Function;
+    heading?: (text: string) => string;
     /**
      * Function for styling first heading
      *
      * @default chalk.magenta.underline.bold
      */
-    firstHeading?: Function;
+    firstHeading?: (text: string) => string;
     /**
      * Function for styling horizontal rules
      *
      * @default chalk.reset
      */
-    hr?: Function;
+    hr?: (text: string) => string;
     /**
      * Function for styling list items
      *
      * @default chalk.reset
      */
-    listitem?: Function;
+    listitem?: (text: string) => string;
     /**
      * Function for styling lists
      *
      * @default list function
      */
-    list?: Function;
+    list?: (body: string, ordered: boolean, indent: string) => string;
     /**
      * Function for styling tables
      *
      * @default chalk.reset
      */
-    table?: Function;
+    table?: (text: string) => string;
     /**
      * Function for styling paragraphs
      *
      * @default chalk.reset
      */
-    paragraph?: Function;
+    paragraph?: (text: string) => string;
     /**
      * Function for styling strong text
      *
      * @default chalk.bold
      */
-    strong?: Function;
+    strong?: (text: string) => string;
     /**
      * Function for styling emphasized text
      *
      * @default chalk.italic
      */
-    em?: Function;
+    em?: (text: string) => string;
     /**
      * Function for styling code spans
      *
      * @default chalk.yellow
      */
-    codespan?: Function;
+    codespan?: (text: string) => string;
     /**
      * Function for styling deleted text
      *
      * @default chalk.dim.gray.strikethrough
      */
-    del?: Function;
+    del?: (text: string) => string;
     /**
      * Function for styling links
      *
      * @default chalk.blue
      */
-    link?: Function;
+    link?: (text: string) => string;
     /**
      * Function for styling href attributes
      *
      * @default chalk.blue.underline
      */
-    href?: Function;
+    href?: (text: string) => string;
     /**
      * Function for styling text
      *
      * @default identity function
      */
-    text?: Function;
+    text?: (text: string) => string;
     /**
      * Whether to unescape entities
      *
@@ -150,7 +150,7 @@ declare module "marked-terminal" {
 
   interface HighlightOptions {
     /** Options for syntax highlighting */
-    [key: string]: any;
+    [key: string]: unknown;
   }
 
   /** Terminal renderer for marked */
