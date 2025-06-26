@@ -16,6 +16,22 @@ jobs:
       - run: yarn
       - run: yarn compile
 
+  # This is necessary because we also advertise "npm install -g" as an installation
+  # method. Even though we're using yarn ourselves, npm must be able to resolve
+  # this package to an installable set of dependencies.
+  npm-resolvable:
+    strategy:
+      matrix:
+        node_version: [18, 20, 22]
+    runs-on: ubuntu-latest
+    name: Test if dependencies are resolvable without errors
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node_version }}
+      - run: npm install
+
   licenses:
     runs-on: ubuntu-latest
     name: Check license compatibility
