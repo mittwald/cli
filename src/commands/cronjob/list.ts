@@ -2,15 +2,13 @@ import { Simplify } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
-import { ListColumns } from "../../rendering/formatter/ListFormatter.js";
+import { ListColumns } from "../../rendering/formatter/Table.js";
 import { formatRelativeDate } from "../../rendering/textformat/formatDate.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2ProjectsProjectIdCronjobs.Get.Responses.$200.Content.ApplicationJson[number]
 >;
-export type PathParams =
-  MittwaldAPIV2.Paths.V2ProjectsProjectIdCronjobs.Get.Parameters.Path;
-export type Response = Awaited<
+type Response = Awaited<
   ReturnType<MittwaldAPIV2Client["cronjob"]["listCronjobs"]>
 >;
 

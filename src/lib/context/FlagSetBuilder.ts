@@ -61,6 +61,7 @@ export type FlagSetOptions = {
 export type NormalizeFn = (
   apiClient: MittwaldAPIV2Client,
   id: string,
+  ctx: Context,
 ) => string | Promise<string>;
 
 export function makeMissingContextInputError<TName extends ContextNames>(
@@ -225,14 +226,14 @@ export default class FlagSetBuilder<TName extends ContextNames> {
       args: { [key: string]: unknown },
       cfg: Config,
     ): Promise<string> => {
+      const context = new Context(apiClient, cfg);
       const idInput = idFromArgsOrFlag(flags, args);
       if (idInput) {
         idInputSanityCheck(idInput);
-        return normalize(apiClient, idInput);
+        return normalize(apiClient, idInput, context);
       }
 
       if (retrieveFromContext) {
-        const context = new Context(apiClient, cfg);
         const idFromContext = await context.getContextValue(this.flagName);
         if (idFromContext) {
           return idFromContext.value;
