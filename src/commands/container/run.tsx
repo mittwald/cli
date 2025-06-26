@@ -253,9 +253,11 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
    */
   private getPortMappings(imageMeta: ContainerContainerImageConfig): string[] {
     if (this.flags["publish-all"]) {
-      const concatPort = (p: ContainerContainerImageConfigExposedPort) =>
-        `${p.port}:${p.port}`;
       const definedPorts = imageMeta.exposedPorts ?? [];
+      const concatPort = (p: ContainerContainerImageConfigExposedPort) => {
+        const [port, protocol = "tcp"] = p.port.split("/", 2);
+        return `${port}:${port}/${protocol}`;
+      };
 
       return definedPorts.map(concatPort);
     }
