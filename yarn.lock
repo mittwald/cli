@@ -2118,17 +2118,17 @@ __metadata:
     "@types/react": ^18
     "@types/semver": ^7.5.0
     "@types/shell-escape": ^0.2.3
-    "@typescript-eslint/eslint-plugin": ^8.3.0
-    "@typescript-eslint/parser": ^8.3.0
+    "@typescript-eslint/eslint-plugin": ^8.35.0
+    "@typescript-eslint/parser": ^8.35.0
     "@yarnpkg/pnpify": ^4.0.0-rc.48
     axios-retry: ^4.0.0
     chalk: ^5.3.0
     date-fns: ^4.0.0
     envfile: ^7.1.0
-    eslint: ^9.9.1
-    eslint-config-prettier: ^10.0.1
-    eslint-plugin-json: ^4.0.0
-    eslint-plugin-prettier: ^5.1.3
+    eslint: ^9.29.0
+    eslint-config-prettier: ^10.1.5
+    eslint-plugin-json: ^4.0.1
+    eslint-plugin-prettier: ^5.5.1
     globals: ^16.0.0
     ink: ^5.0.1
     ink-link: ^4.0.0
@@ -2142,10 +2142,10 @@ __metadata:
     oclif: ^4.14.31
     open: ^10.0.3
     parse-duration: ^2.0.1
-    prettier: ^3.2.5
-    prettier-plugin-jsdoc: ^1.3.0
+    prettier: ~3.5.3
+    prettier-plugin-jsdoc: ^1.3.2
     prettier-plugin-package: ^1.4.0
-    prettier-plugin-sort-json: ^4.0.0
+    prettier-plugin-sort-json: ^4.1.1
     pretty-bytes: ^6.1.0
     react: ^18.2.0
     rimraf: ^5.0.1
@@ -3422,7 +3422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^8.3.0":
+"@typescript-eslint/eslint-plugin@npm:^8.35.0":
   version: 8.35.0
   resolution: "@typescript-eslint/eslint-plugin@npm:8.35.0"
   dependencies:
@@ -3443,7 +3443,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^8.3.0":
+"@typescript-eslint/parser@npm:^8.35.0":
   version: 8.35.0
   resolution: "@typescript-eslint/parser@npm:8.35.0"
   dependencies:
@@ -5125,7 +5125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^10.0.1":
+"eslint-config-prettier@npm:^10.1.5":
   version: 10.1.5
   resolution: "eslint-config-prettier@npm:10.1.5"
   peerDependencies:
@@ -5136,7 +5136,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-json@npm:^4.0.0":
+"eslint-plugin-json@npm:^4.0.1":
   version: 4.0.1
   resolution: "eslint-plugin-json@npm:4.0.1"
   dependencies:
@@ -5146,7 +5146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^5.1.3":
+"eslint-plugin-prettier@npm:^5.5.1":
   version: 5.5.1
   resolution: "eslint-plugin-prettier@npm:5.5.1"
   dependencies:
@@ -5190,7 +5190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.9.1":
+"eslint@npm:^9.29.0":
   version: 9.29.0
   resolution: "eslint@npm:9.29.0"
   dependencies:
@@ -8465,7 +8465,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-jsdoc@npm:^1.3.0":
+"prettier-plugin-jsdoc@npm:^1.3.2":
   version: 1.3.2
   resolution: "prettier-plugin-jsdoc@npm:1.3.2"
   dependencies:
@@ -8487,7 +8487,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-sort-json@npm:^4.0.0":
+"prettier-plugin-sort-json@npm:^4.1.1":
   version: 4.1.1
   resolution: "prettier-plugin-sort-json@npm:4.1.1"
   peerDependencies:
@@ -8496,12 +8496,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.2.5":
-  version: 3.6.1
-  resolution: "prettier@npm:3.6.1"
+"prettier@npm:~3.5.3":
+  version: 3.5.3
+  resolution: "prettier@npm:3.5.3"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 3b487e03078168467c7efed62207cab4fe9da0c304bd5d1c7ab55647fce9f78cc19caf801890d7bb49653b506b098d796277d998722f87eddf8fa5b2c66744b1
+  checksum: 61e97bb8e71a95d8f9c71f1fd5229c9aaa9d1e184dedb12399f76aa802fb6fdc8954ecac9df25a7f82ee7311cf8ddbd06baf5507388fc98e5b44036cc6a88a1b
   languageName: node
   linkType: hard
 
