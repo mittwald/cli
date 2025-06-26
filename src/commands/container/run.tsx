@@ -14,6 +14,8 @@ import * as fs from "fs/promises";
 import { parse } from "envfile";
 import { pathExists } from "../../lib/util/fs/pathExists.js";
 
+type ContainerContainerImageConfigExposedPort =
+  MittwaldAPIV2.Components.Schemas.ContainerContainerImageConfigExposedPort;
 type ContainerStackResponse =
   MittwaldAPIV2.Components.Schemas.ContainerStackResponse;
 type ContainerServiceResponse =
@@ -123,12 +125,13 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
 
     const projectId = await this.withProjectId(Run);
     const stackId = projectId;
-
     const serviceName = this.getServiceName();
+
     const { image, meta: imageMeta } = await p.runStep(
       "getting image metadata",
       this.getImageAndMeta(projectId),
     );
+
     const serviceRequest = await p.runStep(
       "preparing service request",
       this.buildServiceRequest(image, imageMeta, serviceName),
@@ -148,7 +151,8 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
 
     await p.complete(
       <Success>
-        Container <Value>{serviceId}</Value> was successfully stopped.
+        Container <Value>{serviceId}</Value> was successfully created and
+        started.
       </Success>,
     );
 
@@ -177,9 +181,9 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
    * Builds a container service request from command line arguments and image
    * metadata
    *
-   * @param image - The container image to use
-   * @param imageMeta - Metadata about the container image
-   * @param serviceName - Name of the service to create
+   * @param image The container image to use
+   * @param imageMeta Metadata about the container image
+   * @param serviceName Name of the service to create
    * @returns A properly formatted container service request
    */
   private async buildServiceRequest(
@@ -213,29 +217,32 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
    * @returns An object containing environment variable key-value pairs
    */
   private async parseEnvironmentVariables(): Promise<Record<string, string>> {
+    return {
+      ...this.parseEnvironmentVariablesFromEnvFlags(),
+      ...(await this.parseEnvironmentVariablesFromFile()),
+    };
+  }
+
+  private async parseEnvironmentVariablesFromFile() {
     const result: Record<string, string> = {};
-
-    for (const envVar of this.flags.env ?? []) {
-      const [key, value] = envVar.split("=", 2);
-      if (key) {
-        result[key] = value ?? "";
+    for (const envFile of this.flags["env-file"] ?? []) {
+      if (!(await pathExists(envFile))) {
+        throw new Error(`Env file not found: ${envFile}`);
       }
+
+      const fileContent = await fs.readFile(envFile, { encoding: "utf-8" });
+      const parsed = parse(fileContent);
+
+      Object.assign(result, parsed);
     }
-
-    if (this.flags["env-file"]) {
-      for (const envFile of this.flags["env-file"]) {
-        if (!(await pathExists(envFile))) {
-          throw new Error(`Env file not found: ${envFile}`);
-        }
-
-        const fileContent = await fs.readFile(envFile, { encoding: "utf-8" });
-        const parsed = parse(fileContent);
-
-        Object.assign(result, parsed);
-      }
-    }
-
     return result;
+  }
+
+  private parseEnvironmentVariablesFromEnvFlags() {
+    const splitIntoKeyAndValue = (e: string) => e.split("=", 2);
+    const envFlags = this.flags.env ?? [];
+
+    return Object.fromEntries(envFlags.map(splitIntoKeyAndValue));
   }
 
   /**
@@ -246,13 +253,16 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
    */
   private getPortMappings(imageMeta: ContainerContainerImageConfig): string[] {
     if (this.flags["publish-all"]) {
-      return (imageMeta.exposedPorts ?? []).map(
-        (portInfo) => `${portInfo.port}:${portInfo.port}`,
-      );
+      const concatPort = (p: ContainerContainerImageConfigExposedPort) =>
+        `${p.port}:${p.port}`;
+      const definedPorts = imageMeta.exposedPorts ?? [];
+
+      return definedPorts.map(concatPort);
     }
 
     return this.flags.publish ?? [];
   }
+
   private async getImageAndMeta(projectId: string) {
     const { image } = this.args;
     const meta = await this.getImageMeta(image, projectId);

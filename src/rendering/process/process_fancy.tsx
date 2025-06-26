@@ -59,7 +59,8 @@ export class FancyProcessRenderer implements ProcessRenderer {
   ): Promise<TRes> {
     const step = this.addStep(title);
     try {
-      const result = await (fn instanceof Promise ? fn : fn());
+      const promise = typeof fn === "function" ? fn() : fn;
+      const result = await promise;
       step.complete();
       return result;
     } catch (err) {
