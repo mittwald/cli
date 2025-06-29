@@ -9,29 +9,10 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Build and package
+        uses: ./.github/actions/oclif-package-action
         with:
-          node-version: "18"
-
-      - name: Install dependencies for Windows builds
-        run: sudo apt-get install -y p7zip-full nsis
-
-      - name: Install dependencies
-        run: yarn
-
-      - name: Set version in package json
-        run:
-          npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version
-          --no-workspaces-update
-
-      - name: Build
-        run: yarn compile
-
-      - name: Build all possible packages
-        run: yarn package:tarballs
+          target: tarballs
 
       - name: Upload to S3
         run:
@@ -53,29 +34,13 @@ jobs:
   build-windows:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-
       - name: Install dependencies for Windows builds
         run: sudo apt-get install -y p7zip-full nsis
 
-      - name: Install dependencies
-        run: yarn
-
-      - name: Set version in package json
-        run:
-          npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version
-          --no-workspaces-update
-
-      - name: Build
-        run: yarn compile
-
-      - name: Build all possible packages
-        run: yarn package:windows
+      - name: Build and package
+        uses: ./.github/actions/oclif-package-action
+        with:
+          target: windows
 
       - name: Upload to S3
         run: yarn oclif upload win --targets=win32-x64,win32-x86
@@ -93,27 +58,10 @@ jobs:
   build-macos:
     runs-on: macos-13
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Build and package
+        uses: ./.github/actions/oclif-package-action
         with:
-          node-version: "18"
-
-      - name: Install dependencies
-        run: yarn
-
-      - name: Set version in package json
-        run:
-          npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version
-          --no-workspaces-update
-
-      - name: Build
-        run: yarn compile
-
-      - name: Build all possible packages
-        run: yarn package:macos
+          target: macos
 
       - name: Upload to S3
         run: yarn oclif upload macos
@@ -135,24 +83,10 @@ jobs:
       - build-windows
       - build-macos
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Build and package
+        uses: ./.github/actions/oclif-package-action
         with:
-          node-version: "18"
-
-      - name: Install dependencies
-        run: yarn
-
-      - name: Set version in package json
-        run:
-          npm version ${GITHUB_REF#refs/tags/} --no-git-tag-version
-          --no-workspaces-update
-
-      - name: Build
-        run: yarn compile
+          target: npm
 
       - name: Publish
         run: |
