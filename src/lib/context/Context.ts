@@ -18,7 +18,8 @@ export type ContextNames =
   | "maildeliverybox"
   | "conversation"
   | "backup"
-  | "stack";
+  | "stack"
+  | "container";
 export type ContextKey<N extends ContextNames = ContextNames> = `${N}-id`;
 export type ContextMap = Partial<Record<ContextKey, ContextValue>>;
 export type ContextMapUpdate = Partial<Record<ContextKey, string>>;
@@ -33,6 +34,7 @@ export const contextIDNormalizers: {
   [k in ContextKey]?: (
     apiClient: MittwaldAPIV2Client,
     id: string,
+    ctx: Context,
   ) => Promise<string>;
 } = {};
 
@@ -105,10 +107,18 @@ export default class Context {
     value: string,
   ): Promise<string> {
     if (key in contextIDNormalizers) {
-      value = await contextIDNormalizers[key]!(this.apiClient, value);
+      value = await contextIDNormalizers[key]!(this.apiClient, value, this);
     }
 
     await this.persist({ [key]: value });
+    return value;
+  }
+
+  public async mustGetContextValue(key: ContextKey): Promise<ContextValue> {
+    const value = await this.getContextValue(key);
+    if (!value) {
+      throw new InvalidContextError(`Context value for "${key}" is not set.`);
+    }
     return value;
   }
 

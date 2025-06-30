@@ -109,7 +109,10 @@ export class RunnableHandler {
 export interface ProcessRenderer {
   start(): void;
   addStep(title: ReactNode): RunnableHandler;
-  runStep<TRes>(title: ReactNode, fn: () => Promise<TRes>): Promise<TRes>;
+  runStep<TRes>(
+    title: ReactNode,
+    fn: (() => Promise<TRes>) | Promise<TRes>,
+  ): Promise<TRes>;
   addInfo(title: ReactNode): void;
   addConfirmation(question: ReactNode): Promise<boolean>;
   addInput(question: ReactNode, mask?: boolean): Promise<string>;

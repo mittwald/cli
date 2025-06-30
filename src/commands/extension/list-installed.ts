@@ -4,7 +4,7 @@ import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { ListColumns } from "../../rendering/formatter/Table.js";
 import { SuccessfulResponse } from "../../lib/apiutil/SuccessfulResponse.js";
 import { Flags } from "@oclif/core";
-import { contextIDNormalizers } from "../../lib/context/Context.js";
+import Context, { contextIDNormalizers } from "../../lib/context/Context.js";
 
 type Extension = MittwaldAPIV2.Components.Schemas.MarketplaceExtension;
 
@@ -45,14 +45,16 @@ export class ListInstalled extends ListBaseCommand<
   public async getData(): Promise<Response> {
     let { "org-id": orgId, "project-id": projectId } = this.flags;
 
+    const ctx = new Context(this.apiClient, this.config);
+
     if (orgId) {
       const normalizer = contextIDNormalizers["org-id"]!;
-      orgId = await normalizer(this.apiClient, orgId);
+      orgId = await normalizer(this.apiClient, orgId, ctx);
     }
 
     if (projectId) {
       const normalizer = contextIDNormalizers["project-id"]!;
-      projectId = await normalizer(this.apiClient, projectId);
+      projectId = await normalizer(this.apiClient, projectId, ctx);
     }
 
     return await this.apiClient.marketplace.extensionListExtensionInstances({

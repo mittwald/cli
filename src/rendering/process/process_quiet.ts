@@ -20,8 +20,11 @@ export class SilentProcessRenderer implements ProcessRenderer {
 
   public runStep<TRes>(
     unusedTitle: ReactNode,
-    fn: () => Promise<TRes>,
+    fn: (() => Promise<TRes>) | Promise<TRes>,
   ): Promise<TRes> {
+    if (fn instanceof Promise) {
+      return fn;
+    }
     return fn();
   }
 
