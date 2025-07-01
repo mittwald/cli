@@ -10,9 +10,11 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import * as dockerNames from "docker-names";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
-import * as fs from "fs/promises";
-import { parse } from "envfile";
-import { pathExists } from "../../lib/util/fs/pathExists.js";
+import {
+  parseEnvironmentVariables,
+  getPortMappings,
+  getImageMeta,
+} from "../../lib/resources/container/utils.js";
 
 type ContainerContainerImageConfigExposedPort =
   MittwaldAPIV2.Components.Schemas.ContainerContainerImageConfigExposedPort;
@@ -196,8 +198,15 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       ? [this.flags.entrypoint]
       : imageMeta.entrypoint;
     const description = this.flags.description ?? serviceName;
-    const envs = await this.parseEnvironmentVariables();
-    const ports = this.getPortMappings(imageMeta);
+    const envs = await parseEnvironmentVariables(
+      this.flags.env,
+      this.flags["env-file"]
+    );
+    const ports = getPortMappings(
+      imageMeta,
+      this.flags["publish-all"],
+      this.flags.publish
+    );
     const volumes = this.flags.volume;
 
     return {
@@ -211,81 +220,15 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     };
   }
 
-  /**
-   * Parses environment variables from command line flags and env files
-   *
-   * @returns An object containing environment variable key-value pairs
-   */
-  private async parseEnvironmentVariables(): Promise<Record<string, string>> {
-    return {
-      ...this.parseEnvironmentVariablesFromEnvFlags(),
-      ...(await this.parseEnvironmentVariablesFromFile()),
-    };
-  }
 
-  private async parseEnvironmentVariablesFromFile() {
-    const result: Record<string, string> = {};
-    for (const envFile of this.flags["env-file"] ?? []) {
-      if (!(await pathExists(envFile))) {
-        throw new Error(`Env file not found: ${envFile}`);
-      }
-
-      const fileContent = await fs.readFile(envFile, { encoding: "utf-8" });
-      const parsed = parse(fileContent);
-
-      Object.assign(result, parsed);
-    }
-    return result;
-  }
-
-  private parseEnvironmentVariablesFromEnvFlags() {
-    const splitIntoKeyAndValue = (e: string) => e.split("=", 2);
-    const envFlags = this.flags.env ?? [];
-
-    return Object.fromEntries(envFlags.map(splitIntoKeyAndValue));
-  }
-
-  /**
-   * Determines which ports to expose based on flags and image metadata
-   *
-   * @param imageMeta Metadata about the container image
-   * @returns An array of port mappings
-   */
-  private getPortMappings(imageMeta: ContainerContainerImageConfig): string[] {
-    if (this.flags["publish-all"]) {
-      const definedPorts = imageMeta.exposedPorts ?? [];
-      const concatPort = (p: ContainerContainerImageConfigExposedPort) => {
-        const [port, protocol = "tcp"] = p.port.split("/", 2);
-        return `${port}:${port}/${protocol}`;
-      };
-
-      return definedPorts.map(concatPort);
-    }
-
-    return this.flags.publish ?? [];
-  }
 
   private async getImageAndMeta(projectId: string) {
     const { image } = this.args;
-    const meta = await this.getImageMeta(image, projectId);
+    const meta = await getImageMeta(this.apiClient, image, projectId);
 
     return { image, meta };
   }
 
-  private async getImageMeta(
-    image: string,
-    projectId: string,
-  ): Promise<ContainerContainerImageConfig> {
-    const resp = await this.apiClient.container.getContainerImageConfig({
-      queryParameters: {
-        imageReference: image,
-        useCredentialsForProjectId: projectId,
-      },
-    });
-
-    assertStatus(resp, 200);
-    return resp.data;
-  }
 
   private getServiceName(): string {
     const { name } = this.flags;

@@ -11,16 +11,14 @@ import assertSuccess from "../../lib/apiutil/assert_success.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
-import * as fs from "fs/promises";
-import { parse } from "envfile";
-import { pathExists } from "../../lib/util/fs/pathExists.js";
+import {
+  parseEnvironmentVariables,
+  getPortMappings,
+  getImageMeta,
+} from "../../lib/resources/container/utils.js";
 
 type ContainerServiceRequest =
   MittwaldAPIV2.Components.Schemas.ContainerServiceRequest;
-type ContainerContainerImageConfig =
-  MittwaldAPIV2.Components.Schemas.ContainerContainerImageConfig;
-type ContainerContainerImageConfigExposedPort =
-  MittwaldAPIV2.Components.Schemas.ContainerContainerImageConfigExposedPort;
 
 type Result = {
   serviceId: string;
@@ -201,8 +199,12 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
       // Get image metadata for port mappings if publish-all is specified
       if (this.flags["publish-all"]) {
         const projectId = await this.withProjectId(Update);
-        const imageMeta = await this.getImageMeta(this.flags.image, projectId);
-        updateRequest.ports = this.getPortMappings(imageMeta);
+        const imageMeta = await getImageMeta(
+          this.apiClient,
+          this.flags.image,
+          projectId,
+        );
+        updateRequest.ports = getPortMappings(imageMeta, true);
       }
     }
 
@@ -223,7 +225,10 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
 
     // Update environment variables if specified
     if (this.flags.env || this.flags["env-file"]) {
-      updateRequest.envs = await this.parseEnvironmentVariables();
+      updateRequest.envs = await parseEnvironmentVariables(
+        this.flags.env,
+        this.flags["env-file"],
+      );
     }
 
     // Update port mappings if specified
@@ -237,71 +242,6 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
     }
 
     return updateRequest;
-  }
-
-  /**
-   * Parses environment variables from command line flags and env files
-   *
-   * @returns An object containing environment variable key-value pairs
-   */
-  private async parseEnvironmentVariables(): Promise<Record<string, string>> {
-    return {
-      ...this.parseEnvironmentVariablesFromEnvFlags(),
-      ...(await this.parseEnvironmentVariablesFromFile()),
-    };
-  }
-
-  private async parseEnvironmentVariablesFromFile() {
-    const result: Record<string, string> = {};
-    for (const envFile of this.flags["env-file"] ?? []) {
-      if (!(await pathExists(envFile))) {
-        throw new Error(`Env file not found: ${envFile}`);
-      }
-
-      const fileContent = await fs.readFile(envFile, { encoding: "utf-8" });
-      const parsed = parse(fileContent);
-
-      Object.assign(result, parsed);
-    }
-    return result;
-  }
-
-  private parseEnvironmentVariablesFromEnvFlags() {
-    const splitIntoKeyAndValue = (e: string) => e.split("=", 2);
-    const envFlags = this.flags.env ?? [];
-
-    return Object.fromEntries(envFlags.map(splitIntoKeyAndValue));
-  }
-
-  /**
-   * Determines which ports to expose based on image metadata
-   *
-   * @param imageMeta Metadata about the container image
-   * @returns An array of port mappings
-   */
-  private getPortMappings(imageMeta: ContainerContainerImageConfig): string[] {
-    const definedPorts = imageMeta.exposedPorts ?? [];
-    const concatPort = (p: ContainerContainerImageConfigExposedPort) => {
-      const [port, protocol = "tcp"] = p.port.split("/", 2);
-      return `${port}:${port}/${protocol}`;
-    };
-
-    return definedPorts.map(concatPort);
-  }
-
-  private async getImageMeta(
-    image: string,
-    projectId: string,
-  ): Promise<ContainerContainerImageConfig> {
-    const resp = await this.apiClient.container.getContainerImageConfig({
-      queryParameters: {
-        imageReference: image,
-        useCredentialsForProjectId: projectId,
-      },
-    });
-
-    assertStatus(resp, 200);
-    return resp.data;
   }
 
   protected render({ serviceId }: Result): ReactNode {
