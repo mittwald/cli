@@ -123,7 +123,6 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
       this.config,
     );
 
-    // Get current service configuration
     const service = await p.runStep(
       "getting container configuration",
       async () => {
@@ -192,7 +191,6 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
   private async buildUpdateRequest(): Promise<ContainerServiceRequest> {
     const updateRequest: ContainerServiceRequest = {};
 
-    // Update image if specified
     if (this.flags.image) {
       updateRequest.image = this.flags.image;
 
@@ -208,22 +206,18 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
       }
     }
 
-    // Update command if specified
     if (this.flags.command) {
       updateRequest.command = [this.flags.command];
     }
 
-    // Update entrypoint if specified
     if (this.flags.entrypoint) {
       updateRequest.entrypoint = [this.flags.entrypoint];
     }
 
-    // Update description if specified
     if (this.flags.description) {
       updateRequest.description = this.flags.description;
     }
 
-    // Update environment variables if specified
     if (this.flags.env || this.flags["env-file"]) {
       updateRequest.envs = await parseEnvironmentVariables(
         this.flags.env,
@@ -231,12 +225,10 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
       );
     }
 
-    // Update port mappings if specified
     if (this.flags.publish) {
       updateRequest.ports = this.flags.publish;
     }
 
-    // Update volume mounts if specified
     if (this.flags.volume) {
       updateRequest.volumes = this.flags.volume;
     }
