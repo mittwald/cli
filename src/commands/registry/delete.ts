@@ -9,7 +9,7 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
   static flags = { ...DeleteBaseCommand.baseFlags };
   static args = {
     "registry-id": Args.string({
-      description: "The ID of the container registry to delete",
+      summary: "id of the container registry to delete",
       required: true,
     }),
   };

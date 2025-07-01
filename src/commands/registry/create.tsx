@@ -24,20 +24,20 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     ...projectFlags,
     ...processFlags,
     uri: Flags.string({
-      description: "URI of the registry",
+      summary: "uri of the registry",
       required: true,
     }),
     description: Flags.string({
-      description: "Description of the registry",
+      summary: "description of the registry",
       required: true,
     }),
     username: Flags.string({
-      description: "Username for registry authentication",
+      summary: "username for registry authentication",
       required: false,
       dependsOn: ["password"],
     }),
     password: Flags.string({
-      description: "Password for registry authentication",
+      summary: "password for registry authentication",
       required: false,
       dependsOn: ["username"],
     }),

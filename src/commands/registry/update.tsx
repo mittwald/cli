@@ -21,24 +21,24 @@ export default class Update extends ExecRenderBaseCommand<
   static description = "Update an existing container registry";
   static args = {
     "registry-id": Args.string({
-      description: "The ID of the container registry to update",
+      summary: "id of the container registry to update",
       required: true,
     }),
   };
   static flags = {
     ...processFlags,
     description: Flags.string({
-      description: "New description for the registry",
+      summary: "new description for the registry",
     }),
     uri: Flags.string({
-      description: "New URI for the registry",
+      summary: "new uri for the registry",
     }),
     username: Flags.string({
-      description: "Username for registry authentication",
+      summary: "username for registry authentication",
       dependsOn: ["password"],
     }),
     password: Flags.string({
-      description: "Password for registry authentication",
+      summary: "password for registry authentication",
       dependsOn: ["username"],
     }),
   };
