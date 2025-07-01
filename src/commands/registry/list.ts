@@ -14,7 +14,6 @@ type Response = Awaited<
 export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
   static description = "List container registries.";
 
-  static aliases = ["registry:ls"];
   static args = {};
   static flags = {
     ...ListBaseCommand.baseFlags,
