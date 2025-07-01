@@ -8,6 +8,8 @@ import {
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { Text } from "ink";
+import { ProcessRenderer } from "../../rendering/process/process.js";
 
 type ContainerUpdateRegistry =
   MittwaldAPIV2.Components.Schemas.ContainerUpdateRegistry;
@@ -35,11 +37,11 @@ export default class Update extends ExecRenderBaseCommand<
     }),
     username: Flags.string({
       summary: "username for registry authentication",
-      dependsOn: ["password"],
     }),
     password: Flags.string({
       summary: "password for registry authentication",
-      dependsOn: ["username"],
+      description:
+        "If omitted but username is provided, the command will prompt interactively for a password.\n\nCAUTION: providing this flag may log your password in your shell history!",
     }),
   };
 
@@ -50,7 +52,7 @@ export default class Update extends ExecRenderBaseCommand<
       "Updating container registry",
     );
 
-    const { description, uri, username, password } = this.flags;
+    const { description, uri, username } = this.flags;
 
     const registryUpdatePayload: ContainerUpdateRegistry = {};
 
@@ -62,7 +64,8 @@ export default class Update extends ExecRenderBaseCommand<
       registryUpdatePayload.uri = uri;
     }
 
-    if (username && password) {
+    if (username) {
+      const password = await this.getPassword(process);
       registryUpdatePayload.credentials = {
         username,
         password,
@@ -92,5 +95,13 @@ export default class Update extends ExecRenderBaseCommand<
 
   protected render(): ReactNode {
     return true;
+  }
+
+  private async getPassword(process: ProcessRenderer): Promise<string> {
+    if (this.flags.password) {
+      return this.flags.password;
+    }
+
+    return await process.addInput(<Text>enter registry password</Text>, true);
   }
 }
