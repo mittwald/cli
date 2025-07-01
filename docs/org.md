@@ -4,7 +4,6 @@
 Manage your organizations, and also any kinds of user memberships concerning these organizations.
 
 * [`mw org delete [ORG-ID]`](#mw-org-delete-org-id)
-* [`mw org get [ORG-ID]`](#mw-org-get-org-id)
 * [`mw org invite`](#mw-org-invite)
 * [`mw org invite list`](#mw-org-invite-list)
 * [`mw org invite list-own`](#mw-org-invite-list-own)
@@ -37,25 +36,6 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
-```
-
-## `mw org get [ORG-ID]`
-
-Get an organization profile.
-
-```
-USAGE
-  $ mw org get [ORG-ID] -o txt|json|yaml
-
-ARGUMENTS
-  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
-
-FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
-
-DESCRIPTION
-  Get an organization profile.
 ```
 
 ## `mw org invite`
