@@ -15,7 +15,7 @@ import {
   parseEnvironmentVariables,
   getPortMappings,
   getImageMeta,
-} from "../../lib/resources/container/utils.js";
+} from "../../lib/resources/container/containerconfig.js";
 
 type ContainerServiceRequest =
   MittwaldAPIV2.Components.Schemas.ContainerServiceRequest;

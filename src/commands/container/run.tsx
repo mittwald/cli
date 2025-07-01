@@ -14,10 +14,8 @@ import {
   parseEnvironmentVariables,
   getPortMappings,
   getImageMeta,
-} from "../../lib/resources/container/utils.js";
+} from "../../lib/resources/container/containerconfig.js";
 
-type ContainerContainerImageConfigExposedPort =
-  MittwaldAPIV2.Components.Schemas.ContainerContainerImageConfigExposedPort;
 type ContainerStackResponse =
   MittwaldAPIV2.Components.Schemas.ContainerStackResponse;
 type ContainerServiceResponse =
@@ -200,12 +198,12 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     const description = this.flags.description ?? serviceName;
     const envs = await parseEnvironmentVariables(
       this.flags.env,
-      this.flags["env-file"]
+      this.flags["env-file"],
     );
     const ports = getPortMappings(
       imageMeta,
       this.flags["publish-all"],
-      this.flags.publish
+      this.flags.publish,
     );
     const volumes = this.flags.volume;
 
@@ -220,15 +218,12 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     };
   }
 
-
-
   private async getImageAndMeta(projectId: string) {
     const { image } = this.args;
     const meta = await getImageMeta(this.apiClient, image, projectId);
 
     return { image, meta };
   }
-
 
   private getServiceName(): string {
     const { name } = this.flags;
