@@ -1054,13 +1054,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5":
-  version: 7.27.6
-  resolution: "@babel/runtime@npm:7.27.6"
-  checksum: 3f7b879df1823c0926bd5dbc941c62f5d60faa790c1aab9758c04799e1f04ee8d93553be9ec059d4e5882f19fe03cbe8933ee4f46212dced0f6d8205992c9c9a
-  languageName: node
-  linkType: hard
-
 "@babel/template@npm:^7.27.2, @babel/template@npm:^7.3.3":
   version: 7.27.2
   resolution: "@babel/template@npm:7.27.2"
@@ -2106,7 +2099,7 @@ __metadata:
   dependencies:
     "@jest/globals": ^29.7.0
     "@mittwald/api-client": ^4.131.0
-    "@mittwald/react-use-promise": ^2.6.0
+    "@mittwald/react-use-promise": ^4.0.0
     "@oclif/core": ^4.0.18
     "@oclif/plugin-autocomplete": ^3.0.3
     "@oclif/plugin-help": ^6.0.5
@@ -2166,23 +2159,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mittwald/react-use-promise@npm:^2.6.0":
-  version: 2.6.2
-  resolution: "@mittwald/react-use-promise@npm:2.6.2"
+"@mittwald/react-use-promise@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@mittwald/react-use-promise@npm:4.0.0"
   dependencies:
-    "@types/luxon": 3.4.2
+    "@types/luxon": 3.6.2
     browser-or-node: ^3.0.0
-    luxon: ~3.5.0
-    minimatch: ^10.0.1
+    luxon: ~3.6.1
+    minimatch: ^10.0.3
     object-code: ^1.3.3
-    react-error-boundary: ^5.0.0
   peerDependencies:
     axios: ^1.6.7
-    react: ">=17.0"
+    react: ">=19.0"
   peerDependenciesMeta:
     axios:
       optional: true
-  checksum: f1b9f4055ca974ec6644e1923bbc664d781d11737d57fde56daf3050453f52e9390e7b39ff3c9a11cac4c423e05a352657a79298d9db84801b45a64c6ef21f28
+  checksum: e65fb93e0b73d37963b6f82895c6cf50e390fdadb0264f021348d959e615e4de4d46c1b93128b2e46ad33d5fdb65993e34702e01e10f0c6a0300c55f9d1b608c
   languageName: node
   linkType: hard
 
@@ -3273,10 +3265,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:3.4.2":
-  version: 3.4.2
-  resolution: "@types/luxon@npm:3.4.2"
-  checksum: 6f92d5bd02e89f310395753506bcd9cef3a56f5940f7a50db2a2b9822bce753553ac767d143cb5b4f9ed5ddd4a84e64f89ff538082ceb4d18739af7781b56925
+"@types/luxon@npm:3.6.2":
+  version: 3.6.2
+  resolution: "@types/luxon@npm:3.6.2"
+  checksum: fa7bf7d74544c77c2010739337d359c5d6f9b0424de0e0eb273f7bae203996168cc33c2ad6f3b35771eac8fea8b7e5bcce72b91d129924d0f84b91dc216de42e
   languageName: node
   linkType: hard
 
@@ -7278,10 +7270,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luxon@npm:~3.5.0":
-  version: 3.5.0
-  resolution: "luxon@npm:3.5.0"
-  checksum: f290fe5788c8e51e748744f05092160d4be12150dca70f9fadc0d233e53d60ce86acd82e7d909a114730a136a77e56f0d3ebac6141bbb82fd310969a4704825b
+"luxon@npm:~3.6.1":
+  version: 3.6.1
+  resolution: "luxon@npm:3.6.1"
+  checksum: bc6c24dde90f4263f548cc5a4ea3328e9c9511bee0b2255bd319639712862f1eb14a39c1b2dcbff8a8bf6686996d28f45b8fc902994a72dd05a29cef1269a6a4
   languageName: node
   linkType: hard
 
@@ -7695,7 +7687,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^10.0.1":
+"minimatch@npm:^10.0.3":
   version: 10.0.3
   resolution: "minimatch@npm:10.0.3"
   dependencies:
@@ -8648,17 +8640,6 @@ __metadata:
   version: 5.1.1
   resolution: "quick-lru@npm:5.1.1"
   checksum: a516faa25574be7947969883e6068dbe4aa19e8ef8e8e0fd96cddd6d36485e9106d85c0041a27153286b0770b381328f4072aa40d3b18a19f5f7d2b78b94b5ed
-  languageName: node
-  linkType: hard
-
-"react-error-boundary@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "react-error-boundary@npm:5.0.0"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-  peerDependencies:
-    react: ">=16.13.1"
-  checksum: 4fa78890bb254fe1f0ee1eed893ac161a27482c4567f7667ef83a8339432eb99e323ee69757f01f4864e0037b01a9b6822735ea122f02e749d0bf7a781d9ea53
   languageName: node
   linkType: hard
 
