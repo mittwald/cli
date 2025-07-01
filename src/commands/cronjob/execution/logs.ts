@@ -3,9 +3,7 @@ import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
 import { BaseCommand } from "../../../lib/basecommands/BaseCommand.js";
 import { assertStatus } from "@mittwald/api-client-commons";
-import * as cp from "child_process";
-import * as fs from "fs";
-import tempfile from "tempfile";
+import { printToPager } from "../../../lib/util/pager.js";
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2CronjobsCronjobIdExecutionsExecutionId.Get.Parameters.Path;
@@ -60,34 +58,14 @@ export class Logs extends BaseCommand {
       throw new Error("Cronjob has no project ID");
     }
 
-    // TODO: Replace this with a call to the actual "getFileContent" method,
-    // once we support passing the required query parameters.
-    const response = await this.apiClient.axios.get(
-      `/v2/projects/${projectId}/filesystem/files/raw`,
-      {
-        params: {
-          file: execution.data.logPath,
-          inline: "true",
-        },
-      },
-    );
-
-    // await this.apiClient.projectFileSystem.getFileContent({
-    //    projectId ,
-    //   queryParameters: { file: execution.data.logPath, inline: true },
-    // });
+    const response = await this.apiClient.projectFileSystem.getFileContent({
+      projectId,
+      queryParameters: { file: execution.data.logPath, inline: true },
+    });
+    assertStatus(response, 200);
 
     if (usePager) {
-      const t = tempfile();
-
-      try {
-        fs.writeFileSync(t, response.data);
-        cp.spawnSync(process.env.PAGER || "less", [t], {
-          stdio: "inherit",
-        });
-      } finally {
-        fs.unlinkSync(t);
-      }
+      printToPager(response.data);
     } else {
       this.log(response.data);
     }
