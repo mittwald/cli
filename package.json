@@ -58,7 +58,7 @@
     "ink-link": "^4.0.0",
     "ink-text-input": "^6.0.0",
     "js-yaml": "^4.1.0",
-    "marked": "^15.0.12",
+    "marked": "^16.0.0",
     "marked-terminal": "^7.3.0",
     "open": "^10.0.3",
     "parse-duration": "^2.0.1",
