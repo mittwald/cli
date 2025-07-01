@@ -63,6 +63,12 @@ export default class Create extends ExecRenderBaseCommand<
       description:
         "This flag can be used to map a specific URL path to an external URL; the value for this flag should be the URL path and the external URL, separated by a colon, e.g. /:https://redirect.example. You can specify this flag multiple times to map multiple paths to different external URLs, and also combine it with the other --path-to-* flags.",
     }),
+    "path-to-container": Flags.string({
+      summary: "add a path mapping to a container",
+      multiple: true,
+      description:
+        "This flag can be used to map a specific URL path to a container; the value for this flag should be the URL path, the container ID and the target port, each separated by a colon, e.g. /:3ecaf1a9-6eb4-4869-b811-8a13c3a2e745:80/tcp. You can specify this flag multiple times to map multiple paths to different containers, and also combine it with the other --path-to-* flags.",
+    }),
   };
 
   protected async exec(): Promise<CreateResult> {
@@ -79,6 +85,14 @@ export default class Create extends ExecRenderBaseCommand<
     for (const pathToUrl of this.flags["path-to-url"] ?? []) {
       const [path, url] = pathToUrl.split(":");
       paths.push({ path, target: { url } });
+    }
+
+    for (const pathToContainer of this.flags["path-to-container"] ?? []) {
+      const [path, container, portProtocol] = pathToContainer.split(":", 3);
+      paths.push({
+        path,
+        target: { container: { id: container, portProtocol } },
+      });
     }
 
     const { id: ingressId } = await process.runStep(
