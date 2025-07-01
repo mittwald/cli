@@ -14,7 +14,7 @@ Create a new container registry
 
 ```
 USAGE
-  $ mw registry create --uri <value> --description <value> [-p <value>] [-q] [--username <value> --password <value>]
+  $ mw registry create --uri <value> --description <value> [-p <value>] [-q] [--username <value>] [--password <value>]
 
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
@@ -35,6 +35,12 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --password=<value>  password for registry authentication
+
+    If omitted but username is provided, the command will prompt interactively for a password.
+
+    CAUTION: providing this flag may log your password in your shell history!
 ```
 
 ## `mw registry delete REGISTRY-ID`
@@ -96,7 +102,7 @@ Update an existing container registry
 
 ```
 USAGE
-  $ mw registry update REGISTRY-ID [-q] [--description <value>] [--uri <value>] [--username <value> --password
+  $ mw registry update REGISTRY-ID [-q] [--description <value>] [--uri <value>] [--username <value>] [--password
     <value>]
 
 FLAGS
@@ -114,4 +120,10 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --password=<value>  password for registry authentication
+
+    If omitted but username is provided, the command will prompt interactively for a password.
+
+    CAUTION: providing this flag may log your password in your shell history!
 ```
