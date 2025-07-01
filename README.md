@@ -120,6 +120,7 @@ USAGE
 * [`mw mail`](docs/mail.md) - Manage mailboxes and mail addresses in your projects
 * [`mw org`](docs/org.md) - Manage your organizations, and also any kinds of user memberships concerning these organizations.
 * [`mw project`](docs/project.md) - Manage your projects, and also any kinds of user memberships concerning these projects.
+* [`mw registry`](docs/registry.md) - Manage container registries
 * [`mw server`](docs/server.md) - Manage your servers
 * [`mw sftp-user`](docs/sftp-user.md) - Manage SFTP users of your projects
 * [`mw ssh-user`](docs/ssh-user.md) - Manage SSH users of your projects
