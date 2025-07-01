@@ -13,6 +13,7 @@ Delete a container
 * [`mw container run IMAGE [COMMAND] [ARGS]`](#mw-container-run-image-command-args)
 * [`mw container start CONTAINER-ID`](#mw-container-start-container-id)
 * [`mw container stop CONTAINER-ID`](#mw-container-stop-container-id)
+* [`mw container update CONTAINER-ID`](#mw-container-update-container-id)
 
 ## `mw container delete CONTAINER-ID`
 
@@ -382,4 +383,93 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw container update CONTAINER-ID`
+
+Updates an existing container.
+
+```
+USAGE
+  $ mw container update CONTAINER-ID [-q] [-p <value>] [--image <value>] [-e <value>...] [--env-file <value>...]
+    [--description <value>] [--entrypoint <value>] [--command <value>] [-p <value>...] [-P] [-v <value>...] [--recreate]
+
+ARGUMENTS
+  CONTAINER-ID  ID or short ID of the container to update
+
+FLAGS
+  -P, --publish-all          publish all ports that are defined in the image
+  -e, --env=<value>...       set environment variables in the container
+  -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
+                             context
+  -p, --publish=<value>...   update the container's port mappings
+  -q, --quiet                suppress process output and only display a machine-readable summary
+  -v, --volume=<value>...    update volume mounts for the container
+      --command=<value>      update the command to run in the container
+      --description=<value>  update the descriptive label of the container
+      --entrypoint=<value>   override the entrypoint of the container
+      --env-file=<value>...  read environment variables from a file
+      --image=<value>        update the container image
+      --recreate             recreate the container after updating
+
+DESCRIPTION
+  Updates an existing container.
+
+  Updates attributes of an existing container such as image, environment variables, etc.
+
+FLAG DESCRIPTIONS
+  -P, --publish-all  publish all ports that are defined in the image
+
+    Automatically publish all ports that are exposed by the container image to random ports on the host.
+
+  -e, --env=<value>...  set environment variables in the container
+
+    Format: KEY=VALUE. Multiple environment variables can be specified with multiple --env flags.
+
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -p, --publish=<value>...  update the container's port mappings
+
+    Map a container's port to a port on the host system. Format: <host-port>:<container-port> or just <container-port>
+    (in which case the host port will be automatically assigned). Use multiple -p flags to publish multiple ports.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  -v, --volume=<value>...  update volume mounts for the container
+
+    This flag can be used to add volume mounts to the container. It can be used multiple times to mount multiple
+    volumes.Needs to be in the format <host-path>:<container-path>. If you specify a file path as volume, this will
+    mount a path from your hosting environment's file system (NOT your local file system) into the container. You can
+    also specify a named volume, which needs to be created beforehand.
+
+  --command=<value>  update the command to run in the container
+
+    This overrides the default command specified in the container image.
+
+  --description=<value>  update the descriptive label of the container
+
+    This helps identify the container's purpose or contents.
+
+  --entrypoint=<value>  override the entrypoint of the container
+
+    The entrypoint is the command that will be executed when the container starts.
+
+  --env-file=<value>...  read environment variables from a file
+
+    The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file
+    flags.
+
+  --image=<value>  update the container image
+
+    Specify a new image to use for the container.
+
+  --recreate  recreate the container after updating
+
+    If set, the container will be automatically recreated after updating its configuration.
 ```
