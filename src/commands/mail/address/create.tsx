@@ -13,6 +13,7 @@ import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { FlagInput, OutputFlags } from "@oclif/core/interfaces";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
 import { generateRandomPassword } from "../../../lib/resources/mail/commons.js";
+import { CommandFlags } from "../../../lib/basecommands/CommandFlags.js";
 
 type CreateResult = {
   addressId: string;
@@ -157,9 +158,10 @@ export default class Create extends ExecRenderBaseCommand<
   protected async createMailAddress(
     projectId: string,
     process: ProcessRenderer,
-    flags: OutputFlags<FlagInput<typeof Create.flags>>,
+    flags: CommandFlags<typeof Create>,
   ): Promise<CreateResult> {
     const [password, passwordGenerated] = await this.getPassword(process);
+    const { quota } = flags;
 
     const response = await process.runStep(
       "creating mail address",
@@ -171,7 +173,7 @@ export default class Create extends ExecRenderBaseCommand<
             isCatchAll: flags["catch-all"],
             mailbox: {
               password,
-              quotaInBytes: flags.quota * 1024 * 1024,
+              quotaInBytes: quota.bytes,
               enableSpamProtection: flags["enable-spam-protection"],
             },
           },
