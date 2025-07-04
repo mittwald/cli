@@ -48,7 +48,7 @@ export class ListContainers extends ListBaseCommand<
         get: (svc) => svc.deployedState.image,
       },
       command: {
-        get: (svc) => svc.deployedState.command?.join(" "),
+        get: (svc) => svc.deployedState.command?.join(" ") ?? "(from image)",
       },
       description: {},
       ports: {
