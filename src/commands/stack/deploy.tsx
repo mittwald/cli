@@ -50,26 +50,12 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, DeployResult> {
 
     const result: DeployResult = { restartedServices: [] };
 
-    const stack = await r.runStep("getting stack", async () => {
-      const resp = await this.apiClient.container.getStack({ stackId });
-      assertStatus(resp, 200);
-
-      return resp.data;
-    });
-
     const env = await collectEnvironment(process.env, envFile);
     let stackDefinition = await loadStackFromFile(composeFile, env);
 
     stackDefinition = sanitizeStackDefinition(stackDefinition);
-    stackDefinition = await r.runStep(
-      "getting image configurations",
-      async () => {
-        return enrichStackDefinition(
-          this.apiClient,
-          stack.projectId,
-          stackDefinition,
-        );
-      },
+    stackDefinition = await r.runStep("getting image configurations", () =>
+      enrichStackDefinition(stackDefinition),
     );
 
     this.debug("complete stack definition: %O", stackDefinition);
