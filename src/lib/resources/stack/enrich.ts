@@ -14,20 +14,12 @@ type StackRequest =
   MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
 
 export async function enrichStackDefinition(
-  apiClient: MittwaldAPIV2Client,
-  projectId: string,
   input: StackRequest,
 ): Promise<StackRequest> {
   const enriched = structuredClone(input);
 
   for (const serviceName of Object.keys(input.services ?? {})) {
     let service = enriched.services![serviceName] as ContainerServiceInput;
-
-    service = await setCommandAndEntrypointFromImage(
-      apiClient,
-      projectId,
-      service,
-    );
 
     service = await setEnvironmentFromEnvFile(service);
 
