@@ -2285,23 +2285,23 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.2.31
-  resolution: "@oclif/plugin-autocomplete@npm:3.2.31"
+  version: 3.2.32
+  resolution: "@oclif/plugin-autocomplete@npm:3.2.32"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.16.0
     debug: ^4.4.1
     ejs: ^3.1.10
-  checksum: 175710e28728f4cd89b0211eea24c82a65fb0997e447e5bd5b5b3d6415cfac7973d95ddf6987ca232a271e5a60504631343d9511bcfd328fbb40916f623b7fd3
+  checksum: e3b2cb310253f69d2fe219402bdb8d768214b450bd952dd50ce2e299f39605c0bb9c640e989f9916aedc72b35408a32771443211fa0e74abe4494cb318b04878
   languageName: node
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.29":
-  version: 6.2.29
-  resolution: "@oclif/plugin-help@npm:6.2.29"
+  version: 6.2.30
+  resolution: "@oclif/plugin-help@npm:6.2.30"
   dependencies:
     "@oclif/core": ^4
-  checksum: ebe3f5582f29694894a70ce2a1b9d46c78f8e159f52a69c82c33ce714b3124962b9f9902ebffa1e0117d41b5bfd41b45bce76a9d6cb705c8eced2179eaeaf6e2
+  checksum: 277dab57409fbd9e5973566e409ae89ab3ea9b6b5e90f9d4bb402705a96d97f34a4489e772e7b7cea33f7fe8405027be0b0984a1b7a37b601c3bb9dba6fd26f6
   languageName: node
   linkType: hard
 
@@ -2336,8 +2336,8 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.41":
-  version: 3.1.42
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.42"
+  version: 3.1.43
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.43"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.17.0
@@ -2345,7 +2345,7 @@ __metadata:
     http-call: ^5.2.2
     lodash: ^4.17.21
     registry-auth-token: ^5.1.0
-  checksum: 0502ac99eda62a0e0992a2e72ba4287989d87d30ab62ca6710fe0f070d844177b598fdbd555a920b04743b6991b5b4963da75e471295dccc9635c0f20847de58
+  checksum: bc5893bda7c4901b3777f42e4cffade217b31f22386562448bc153a2d28b4c77aae96f355f59ccc667254e339e2be5c0846cf6add569c8eab333afc0cca0b606
   languageName: node
   linkType: hard
 
