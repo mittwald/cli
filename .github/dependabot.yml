@@ -21,6 +21,11 @@ updates:
         patterns:
           - marked
           - marked-terminal
+      jest:
+        patterns:
+          - "jest"
+          - "ts-test"
+          - "@jest/*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
