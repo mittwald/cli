@@ -62,7 +62,7 @@
     "marked-terminal": "^7.3.0",
     "open": "^10.0.3",
     "parse-duration": "^2.0.1",
-    "pretty-bytes": "^6.1.0",
+    "pretty-bytes": "^7.0.0",
     "react": "^18.2.0",
     "semver": "^7.5.4",
     "semver-parser": "^4.1.6",
