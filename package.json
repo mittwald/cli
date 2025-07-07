@@ -16,7 +16,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "clean": "(rimraf --glob dist tsconfig.*.tsbuildinfo) | true",
@@ -223,7 +223,7 @@
     ],
     "update": {
       "node": {
-        "version": "18.20.4"
+        "version": "20.19.3"
       },
       "s3": {
         "xz": true,
