@@ -20,7 +20,7 @@ jobs:
           token: ${{ secrets.MACHINE_USER_TOKEN }}
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
       - run: gh pr checkout ${{ github.event.pull_request.number }}
         env:
           GH_TOKEN: ${{ github.token }}
