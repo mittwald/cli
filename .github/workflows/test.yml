@@ -22,7 +22,7 @@ jobs:
   npm-resolvable:
     strategy:
       matrix:
-        node_version: [20, 22]
+        node_version: [20, 22, 24]
     runs-on: ubuntu-latest
     name: Test if dependencies are resolvable without errors
     steps:
