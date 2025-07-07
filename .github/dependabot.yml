@@ -17,6 +17,10 @@ updates:
       oclif-plugins:
         patterns:
           - "@oclif/plugin-*"
+      marked:
+        patterns:
+          - marked
+          - marked-terminal
 
   - package-ecosystem: "github-actions"
     directory: "/"
