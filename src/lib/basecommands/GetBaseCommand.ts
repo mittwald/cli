@@ -14,6 +14,7 @@ export abstract class GetBaseCommand<
   TAPIResponse extends Response,
 > extends ExtendedBaseCommand<T> {
   static baseFlags = {
+    ...ExtendedBaseCommand.baseFlags,
     ...GetFormatter.flags,
   };
 
@@ -24,7 +25,7 @@ export abstract class GetBaseCommand<
 
     const { args, flags } = await this.parse({
       flags: this.ctor.flags,
-      baseFlags: (super.ctor as typeof BaseCommand).baseFlags,
+      baseFlags: (super.ctor as typeof GetBaseCommand).baseFlags,
       args: this.ctor.args,
       strict: this.ctor.strict,
     });

@@ -25,6 +25,9 @@ export abstract class ExecRenderBaseCommand<
   T extends typeof BaseCommand,
   TRes,
 > extends ExtendedBaseCommand<T> {
+  static baseFlags = {
+    ...ExtendedBaseCommand.baseFlags,
+  };
   protected abstract exec(): Promise<TRes>;
 
   public async run(): Promise<void> {
