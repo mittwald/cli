@@ -12,7 +12,7 @@ export default class Get extends RenderBaseCommand<typeof Get> {
   static description = "Show details of a backup.";
   static args = { ...backupArgs };
   static flags = {
-    ...GetBaseCommand.baseFlags,
+    ...RenderBaseCommand.buildFlags(),
   };
   static aliases = ["project:backup:get"];
   static deprecateAliases = true;
