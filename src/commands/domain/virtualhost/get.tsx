@@ -108,7 +108,7 @@ const GetIngress: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
 export class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get a virtual host.";
 
-  static flags = { ...GetBaseCommand.baseFlags };
+  static flags = { ...RenderBaseCommand.buildFlags() };
   static args = {
     "ingress-id": Args.string({
       summary: "The ID of the ingress to get.",

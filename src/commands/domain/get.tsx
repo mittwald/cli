@@ -14,7 +14,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
   static description = "gets a specific domain";
 
   static flags = {
-    ...GetBaseCommand.baseFlags,
+    ...RenderBaseCommand.buildFlags(),
   };
 
   static args = {
