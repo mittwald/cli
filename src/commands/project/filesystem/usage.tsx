@@ -21,7 +21,7 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
   static description = "Get a project directory filesystem usage.";
 
   static flags = {
-    ...GetBaseCommand.baseFlags,
+    ...RenderBaseCommand.buildFlags(),
     human: Flags.boolean({
       description: "Display human readable sizes.",
     }),

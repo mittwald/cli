@@ -160,7 +160,7 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
 export class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get details of a project";
 
-  static flags = { ...GetBaseCommand.baseFlags };
+  static flags = { ...RenderBaseCommand.buildFlags() };
   static args = { ...projectArgs };
 
   protected formatter: GetFormatter = new GetFormatter<ProjectProject>(

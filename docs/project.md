@@ -36,9 +36,10 @@ Create a new backup of a project
 
 ```
 USAGE
-  $ mw project backup create --expires <value> [-q] [-p <value>] [--description <value>] [-w] [--wait-timeout <value>]
+  $ mw project backup create [--token <value>] --expires <value> [-q] [-p <value>] [--description <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary
@@ -69,12 +70,13 @@ Delete a backup
 
 ```
 USAGE
-  $ mw project backup delete BACKUP-ID [-q] [-f]
+  $ mw project backup delete [--token <value>] BACKUP-ID [-q] [-f]
 
 ARGUMENTS
   BACKUP-ID  ID of a backup.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -f, --force  do not ask for confirmation
   -q, --quiet  suppress process output and only display a machine-readable summary
 
@@ -97,13 +99,14 @@ Download a backup to your local disk
 
 ```
 USAGE
-  $ mw project backup download BACKUP-ID [-q] [--format tar|zip] [--password <value> | --generate-password |
+  $ mw project backup download [--token <value>] BACKUP-ID [-q] [--format tar|zip] [--password <value> | --generate-password |
     --prompt-password] [--resume --output <value>]
 
 ARGUMENTS
   BACKUP-ID  ID of a backup.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -q, --quiet              suppress process output and only display a machine-readable summary
       --format=<option>    [default: tar] the file format to download the backup in.
                            <options: tar|zip>
@@ -145,12 +148,13 @@ Show details of a backup.
 
 ```
 USAGE
-  $ mw project backup get BACKUP-ID -o txt|json|yaml
+  $ mw project backup get [--token <value>] BACKUP-ID -o txt|json|yaml
 
 ARGUMENTS
   BACKUP-ID  ID of a backup.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
 
@@ -167,10 +171,11 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw project backup list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project backup list [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;] [-p <value>]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -201,10 +206,11 @@ List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw project backupschedule list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project backupschedule list [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;] [-p <value>]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -235,9 +241,10 @@ Create a new project
 
 ```
 USAGE
-  $ mw project create -d <value> [-s <value>] [-q] [-w] [--wait-timeout <value>] [--update-context]
+  $ mw project create [--token <value>] -d <value> [-s <value>] [-q] [-w] [--wait-timeout <value>] [--update-context]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -d, --description=<value>   (required) A description for the project.
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -s, --server-id=<value>     ID or short ID of a server; this flag is optional if a default server is set in the
@@ -268,13 +275,14 @@ Get a cron job execution.
 
 ```
 USAGE
-  $ mw project cronjob execution get CRONJOB-ID EXECUTION-ID -o txt|json|yaml
+  $ mw project cronjob execution get [--token <value>] CRONJOB-ID EXECUTION-ID -o txt|json|yaml
 
 ARGUMENTS
   CRONJOB-ID    ID of the cronjob the execution belongs to
   EXECUTION-ID  ID of the cronjob execution to be retrieved.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
 
@@ -291,10 +299,11 @@ List CronjobExecutions belonging to a Cronjob.
 
 ```
 USAGE
-  $ mw project cronjob execution list -o txt|json|yaml|csv|tsv --cronjob-id <value> [-x] [--no-header] [--no-truncate]
+  $ mw project cronjob execution list [--token <value>] -o txt|json|yaml|csv|tsv --cronjob-id <value> [-x] [--no-header] [--no-truncate]
     [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -x, --extended                show extended information
@@ -318,13 +327,14 @@ Get the log output of a cronjob execution.
 
 ```
 USAGE
-  $ mw project cronjob execution logs CRONJOB-ID EXECUTION-ID -o txt|json|yaml [--no-pager]
+  $ mw project cronjob execution logs [--token <value>] CRONJOB-ID EXECUTION-ID -o txt|json|yaml [--no-pager]
 
 ARGUMENTS
   CRONJOB-ID    ID of the cronjob the execution belongs to
   EXECUTION-ID  ID of the cronjob execution to be retrieved.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
       --no-pager         Disable pager for output.
@@ -346,10 +356,11 @@ List cron jobs belonging to a project.
 
 ```
 USAGE
-  $ mw project cronjob list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project cronjob list [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;] [-p <value>]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -380,12 +391,13 @@ Delete a project
 
 ```
 USAGE
-  $ mw project delete [PROJECT-ID] [-q] [-f]
+  $ mw project delete [--token <value>] [PROJECT-ID] [-q] [-f]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -f, --force  do not ask for confirmation
   -q, --quiet  suppress process output and only display a machine-readable summary
 
@@ -405,12 +417,13 @@ Get a project directory filesystem usage.
 
 ```
 USAGE
-  $ mw project filesystem usage [PROJECT-ID] -o txt|json|yaml [--human]
+  $ mw project filesystem usage [--token <value>] [PROJECT-ID] -o txt|json|yaml [--human]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
       --human            Display human readable sizes.
@@ -425,12 +438,13 @@ Get details of a project
 
 ```
 USAGE
-  $ mw project get [PROJECT-ID] -o txt|json|yaml
+  $ mw project get [--token <value>] [PROJECT-ID] -o txt|json|yaml
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
 
@@ -444,12 +458,13 @@ Get a ProjectInvite.
 
 ```
 USAGE
-  $ mw project invite get INVITE-ID -o txt|json|yaml
+  $ mw project invite get [--token <value>] INVITE-ID -o txt|json|yaml
 
 ARGUMENTS
   INVITE-ID  ID of the ProjectInvite to be retrieved.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
 
@@ -463,10 +478,11 @@ List all invites belonging to a project.
 
 ```
 USAGE
-  $ mw project invite list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project invite list [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;] [-p <value>]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -494,10 +510,11 @@ List all project invites for the executing user.
 
 ```
 USAGE
-  $ mw project invite list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project invite list-own [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -x, --extended                show extended information
@@ -517,10 +534,11 @@ List all projects that you have access to
 
 ```
 USAGE
-  $ mw project list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project list [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -x, --extended                show extended information
@@ -540,12 +558,13 @@ Get a ProjectMembership
 
 ```
 USAGE
-  $ mw project membership get MEMBERSHIP-ID -o txt|json|yaml
+  $ mw project membership get [--token <value>] MEMBERSHIP-ID -o txt|json|yaml
 
 ARGUMENTS
   MEMBERSHIP-ID  ID of the ProjectMembership to be retrieved.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
 
@@ -559,9 +578,10 @@ Get the executing user's membership in a Project.
 
 ```
 USAGE
-  $ mw project membership get-own -o txt|json|yaml [-p <value>]
+  $ mw project membership get-own [--token <value>] -o txt|json|yaml [-p <value>]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>     (required) [default: txt] output in a more machine friendly format
                             <options: txt|json|yaml>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -583,10 +603,11 @@ List all memberships for a Project.
 
 ```
 USAGE
-  $ mw project membership list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project membership list [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;] [-p <value>]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -614,10 +635,11 @@ List ProjectMemberships belonging to the executing user.
 
 ```
 USAGE
-  $ mw project membership list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project membership list-own [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -x, --extended                show extended information
@@ -637,10 +659,11 @@ List all SFTP users for a project.
 
 ```
 USAGE
-  $ mw project sftp-user list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project sftp-user list [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;] [-p <value>]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -671,10 +694,13 @@ Connect to a project via SSH
 
 ```
 USAGE
-  $ mw project ssh [PROJECT-ID] [--ssh-user <value>] [--ssh-identity-file <value>]
+  $ mw project ssh [--token <value>] [PROJECT-ID] [--ssh-user <value>] [--ssh-identity-file <value>]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
+
+FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -714,10 +740,11 @@ List all SSH users for a project.
 
 ```
 USAGE
-  $ mw project ssh-user list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
+  $ mw project ssh-user list [--token <value>] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
     [--csv-separator ,|;] [-p <value>]
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -748,12 +775,13 @@ Update an existing project
 
 ```
 USAGE
-  $ mw project update [PROJECT-ID] [-q] [-p <value>] [--description <value>]
+  $ mw project update [--token <value>] [PROJECT-ID] [-q] [-p <value>] [--description <value>]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
+      --token=<value>        API token to use for authentication (overrides environment and config file)
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary

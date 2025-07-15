@@ -1,17 +1,16 @@
-import { BaseCommand } from "./BaseCommand.js";
+import { UnauthenticatedBaseCommand } from "./UnauthenticatedBaseCommand.js";
 import { CommandArgs, CommandFlags } from "./CommandFlags.js";
 import { withAppInstallationId } from "../resources/app/flags.js";
 import { CommandType } from "../context/FlagSetBuilder.js";
 import { withProjectId } from "../resources/project/flags.js";
 import { withServerId } from "../resources/server/flags.js";
 import { withStackId } from "../resources/stack/flags.js";
+import { CoreBaseCommand } from "./CoreBaseCommand.js";
 
-export abstract class ExtendedBaseCommand<
-  T extends typeof BaseCommand,
-> extends BaseCommand {
-  static baseFlags = {
-    ...BaseCommand.baseFlags,
-  };
+export abstract class UnauthenticatedExtendedBaseCommand<
+  T extends typeof CoreBaseCommand,
+> extends UnauthenticatedBaseCommand {
+  // No baseFlags - we explicitly don't want the --token flag for these commands
 
   protected flags!: CommandFlags<T>;
   protected args!: CommandArgs<T>;
@@ -21,7 +20,7 @@ export abstract class ExtendedBaseCommand<
 
     const { args, flags } = await this.parse({
       flags: this.ctor.flags,
-      baseFlags: (super.ctor as typeof ExtendedBaseCommand).baseFlags,
+      // Note: no baseFlags parameter since we don't want the --token flag
       args: this.ctor.args,
       strict: this.ctor.strict,
     });

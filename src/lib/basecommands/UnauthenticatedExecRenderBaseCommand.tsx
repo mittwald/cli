@@ -1,8 +1,8 @@
-import { BaseCommand } from "./BaseCommand.js";
 import { FC, ReactNode, Suspense } from "react";
 import { render, Text } from "ink";
 import { RenderContextProvider } from "../../rendering/react/context.js";
-import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
+import { UnauthenticatedExtendedBaseCommand } from "./UnauthenticatedExtendedBaseCommand.js";
+import { CoreBaseCommand } from "./CoreBaseCommand.js";
 
 const RenderComponent: FC<{ render: () => ReactNode }> = (p) => (
   <>{p.render()}</>
@@ -21,13 +21,10 @@ function wrapRender<TRes>(
   };
 }
 
-export abstract class ExecRenderBaseCommand<
-  T extends typeof BaseCommand,
+export abstract class UnauthenticatedExecRenderBaseCommand<
+  T extends typeof CoreBaseCommand,
   TRes,
-> extends ExtendedBaseCommand<T> {
-  static baseFlags = {
-    ...ExtendedBaseCommand.baseFlags,
-  };
+> extends UnauthenticatedExtendedBaseCommand<T> {
   protected abstract exec(): Promise<TRes>;
 
   public async run(): Promise<void> {

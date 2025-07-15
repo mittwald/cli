@@ -1,6 +1,7 @@
 import { Flags, ux } from "@oclif/core";
 import { BaseCommand } from "./BaseCommand.js";
 import { ExecRenderBaseCommand } from "./ExecRenderBaseCommand.js";
+import { ExtendedBaseCommand } from "./ExtendedBaseCommand.js";
 import {
   makeProcessRenderer,
   ProcessFlags,
@@ -15,6 +16,7 @@ export abstract class DeleteBaseCommand<
 > extends ExecRenderBaseCommand<T, void> {
   static resourceName = "object";
   static baseFlags = {
+    ...ExecRenderBaseCommand.baseFlags,
     ...processFlags,
     force: Flags.boolean({
       char: "f",

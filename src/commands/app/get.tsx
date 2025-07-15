@@ -8,7 +8,7 @@ import { appInstallationArgs } from "../../lib/resources/app/flags.js";
 
 export default class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get details about an app installation";
-  static flags = { ...GetBaseCommand.baseFlags };
+  static flags = { ...RenderBaseCommand.buildFlags() };
   static args = { ...appInstallationArgs };
 
   protected render(): ReactNode {

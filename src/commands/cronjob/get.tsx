@@ -15,7 +15,7 @@ type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
 export class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get details of a cron job";
 
-  static flags = { ...GetBaseCommand.baseFlags };
+  static flags = { ...RenderBaseCommand.buildFlags() };
   static args = {
     "cronjob-id": Args.string({
       description: "ID of the cron job to be retrieved.",
