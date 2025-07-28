@@ -11,8 +11,9 @@ export abstract class BaseCommand extends CoreBaseCommand {
   static baseFlags = {
     token: Flags.string({
       description:
-        "API token to use for authentication (overrides environment and config file)",
+        "API token to use for authentication (overrides environment and config file). NOTE: watch out that tokens passed via this flag might be logged in your shell history.",
       required: false,
+      helpGroup: "AUTHENTICATION",
     }),
   };
 

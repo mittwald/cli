@@ -12,10 +12,6 @@ export abstract class CoreBaseCommand extends Command {
   protected apiClient: MittwaldAPIV2Client =
     MittwaldAPIV2Client.newUnauthenticated();
 
-  public async init(): Promise<void> {
-    await super.init();
-    // Authentication setup is handled by derived classes (BaseCommand or UnauthenticatedBaseCommand)
-  }
 
   protected async getEffectiveToken(): Promise<string | undefined> {
     // Only check env and file - no --token flag in this base class
