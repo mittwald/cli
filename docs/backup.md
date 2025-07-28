@@ -19,7 +19,8 @@ Create a new backup of a project
 
 ```
 USAGE
-  $ mw backup create --expires <value> [-q] [-p <value>] [--description <value>] [-w] [--wait-timeout <value>]
+  $ mw backup create --expires <value> [--token <value>] [-q] [-p <value>] [--description <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -28,6 +29,7 @@ FLAGS
   -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
       --expires=<value>       (required) an interval after which the backup expires (examples: 30m, 30d, 1y).
+      --token=<value>         API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 
@@ -52,14 +54,15 @@ Delete a backup
 
 ```
 USAGE
-  $ mw backup delete BACKUP-ID [-q] [-f]
+  $ mw backup delete BACKUP-ID [--token <value>] [-q] [-f]
 
 ARGUMENTS
   BACKUP-ID  ID of a backup.
 
 FLAGS
-  -f, --force  do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary
+  -f, --force          do not ask for confirmation
+  -q, --quiet          suppress process output and only display a machine-readable summary
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Delete a backup
@@ -80,8 +83,8 @@ Download a backup to your local disk
 
 ```
 USAGE
-  $ mw backup download BACKUP-ID [-q] [--format tar|zip] [--password <value> | --generate-password |
-    --prompt-password] [--resume --output <value>]
+  $ mw backup download BACKUP-ID [--token <value>] [-q] [--format tar|zip] [--password <value> | --generate-password
+    | --prompt-password] [--resume --output <value>]
 
 ARGUMENTS
   BACKUP-ID  ID of a backup.
@@ -95,6 +98,7 @@ FLAGS
       --password=<value>   the password to encrypt the backup with.
       --prompt-password    prompt for a password to encrypt the backup with.
       --resume             resume a previously interrupted download.
+      --token=<value>      API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Download a backup to your local disk
@@ -128,14 +132,16 @@ Show details of a backup.
 
 ```
 USAGE
-  $ mw backup get BACKUP-ID -o txt|json|yaml
+  $ mw backup get BACKUP-ID [--token <value>] [-o txt|json]
 
 ARGUMENTS
   BACKUP-ID  ID of a backup.
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+      --token=<value>    API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Show details of a backup.
@@ -150,8 +156,8 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw backup list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw backup list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -164,6 +170,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List Backups for a given Project.
@@ -184,7 +191,8 @@ Create a new backup schedule
 
 ```
 USAGE
-  $ mw backup schedule create --schedule <value> --ttl <value> [-p <value>] [-q] [--description <value>]
+  $ mw backup schedule create --schedule <value> --ttl <value> [--token <value>] [-p <value>] [-q] [--description
+  <value>]
 
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
@@ -192,6 +200,7 @@ FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  Set the description for the backup schedule.
       --schedule=<value>     (required) Set the interval at which the backup should be scheduled.
+      --token=<value>        API token to use for authentication (overrides environment and config file)
       --ttl=<value>          (required) Define the backup retention period in days for backups created.
 
 FLAG DESCRIPTIONS
@@ -226,14 +235,15 @@ Delete a backup schedule
 
 ```
 USAGE
-  $ mw backup schedule delete BACKUP-SCHEDULE-ID [-q] [-f]
+  $ mw backup schedule delete BACKUP-SCHEDULE-ID [--token <value>] [-q] [-f]
 
 ARGUMENTS
   BACKUP-SCHEDULE-ID  ID of schedule to delete
 
 FLAGS
-  -f, --force  do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary
+  -f, --force          do not ask for confirmation
+  -q, --quiet          suppress process output and only display a machine-readable summary
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Delete a backup schedule
@@ -251,8 +261,8 @@ List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw backup schedule list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw backup schedule list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -265,6 +275,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List backup schedules belonging to a given project.
@@ -285,7 +296,8 @@ Update an existing backup schedule
 
 ```
 USAGE
-  $ mw backup schedule update BACKUP-SCHEDULE-ID [-q] [--description <value>] [--schedule <value>] [--ttl <value>]
+  $ mw backup schedule update BACKUP-SCHEDULE-ID [--token <value>] [-q] [--description <value>] [--schedule <value>] [--ttl
+    <value>]
 
 ARGUMENTS
   BACKUP-SCHEDULE-ID  Define the backup schedule that is to be updated
@@ -294,6 +306,7 @@ FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  Set the description for the backup schedule.
       --schedule=<value>     Set the interval at which the backup should be scheduled.
+      --token=<value>        API token to use for authentication (overrides environment and config file)
       --ttl=<value>          Define the backup retention period in days for backups created.
 
 DESCRIPTION

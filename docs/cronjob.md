@@ -20,8 +20,8 @@ Create a new cron job
 
 ```
 USAGE
-  $ mw cronjob create --description <value> --interval <value> [-i <value>] [-q] [--email <value>] [--url <value>]
-    [--command <value> --interpreter bash|php] [--disable] [--timeout <value>]
+  $ mw cronjob create --description <value> --interval <value> [--token <value>] [-i <value>] [-q] [--email <value>]
+    [--url <value>] [--command <value> --interpreter bash|php] [--disable] [--timeout <value>]
 
 FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
@@ -35,6 +35,7 @@ FLAGS
                                  <options: bash|php>
       --interval=<value>         (required) Set the interval for cron jobs to run.
       --timeout=<value>          [default: 3600s] Timeout after which the process will be killed.
+      --token=<value>            API token to use for authentication (overrides environment and config file)
       --url=<value>              Set the URL to use when running a cron job.
 
 FLAG DESCRIPTIONS
@@ -95,14 +96,15 @@ Delete a cron job
 
 ```
 USAGE
-  $ mw cronjob delete CRONJOB-ID [-q] [-f]
+  $ mw cronjob delete CRONJOB-ID [--token <value>] [-q] [-f]
 
 ARGUMENTS
   CRONJOB-ID  ID of the cronjob to be deleted.
 
 FLAGS
-  -f, --force  do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary
+  -f, --force          do not ask for confirmation
+  -q, --quiet          suppress process output and only display a machine-readable summary
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Delete a cron job
@@ -120,10 +122,11 @@ Manually run a cron job
 
 ```
 USAGE
-  $ mw cronjob execute CRONJOB-ID [-q]
+  $ mw cronjob execute CRONJOB-ID [--token <value>] [-q]
 
 FLAGS
-  -q, --quiet  suppress process output and only display a machine-readable summary
+  -q, --quiet          suppress process output and only display a machine-readable summary
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary
@@ -138,14 +141,15 @@ Abort a running cron job execution.
 
 ```
 USAGE
-  $ mw cronjob execution abort CRONJOB-ID EXECUTION-ID [-q]
+  $ mw cronjob execution abort CRONJOB-ID EXECUTION-ID [--token <value>] [-q]
 
 ARGUMENTS
   CRONJOB-ID    ID of the cronjob the execution belongs to
   EXECUTION-ID  ID of the cron job execution to abort
 
 FLAGS
-  -q, --quiet  suppress process output and only display a machine-readable summary
+  -q, --quiet          suppress process output and only display a machine-readable summary
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary
@@ -160,7 +164,7 @@ Get a cron job execution.
 
 ```
 USAGE
-  $ mw cronjob execution get CRONJOB-ID EXECUTION-ID -o txt|json|yaml
+  $ mw cronjob execution get CRONJOB-ID EXECUTION-ID -o txt|json|yaml [--token <value>]
 
 ARGUMENTS
   CRONJOB-ID    ID of the cronjob the execution belongs to
@@ -169,6 +173,7 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
+      --token=<value>    API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Get a cron job execution.
@@ -183,8 +188,8 @@ List CronjobExecutions belonging to a Cronjob.
 
 ```
 USAGE
-  $ mw cronjob execution list -o txt|json|yaml|csv|tsv --cronjob-id <value> [-x] [--no-header] [--no-truncate]
-    [--no-relative-dates] [--csv-separator ,|;]
+  $ mw cronjob execution list -o txt|json|yaml|csv|tsv --cronjob-id <value> [--token <value>] [-x] [--no-header]
+    [--no-truncate] [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -196,6 +201,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
@@ -210,7 +216,7 @@ Get the log output of a cronjob execution.
 
 ```
 USAGE
-  $ mw cronjob execution logs CRONJOB-ID EXECUTION-ID -o txt|json|yaml [--no-pager]
+  $ mw cronjob execution logs CRONJOB-ID EXECUTION-ID -o txt|json|yaml [--token <value>] [--no-pager]
 
 ARGUMENTS
   CRONJOB-ID    ID of the cronjob the execution belongs to
@@ -220,6 +226,7 @@ FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
       --no-pager         Disable pager for output.
+      --token=<value>    API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Get the log output of a cronjob execution.
@@ -238,14 +245,16 @@ Get details of a cron job
 
 ```
 USAGE
-  $ mw cronjob get CRONJOB-ID -o txt|json|yaml
+  $ mw cronjob get CRONJOB-ID [--token <value>] [-o txt|json]
 
 ARGUMENTS
   CRONJOB-ID  ID of the cron job to be retrieved.
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+      --token=<value>    API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Get details of a cron job
@@ -257,8 +266,8 @@ List cron jobs belonging to a project.
 
 ```
 USAGE
-  $ mw cronjob list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw cronjob list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -271,6 +280,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List cron jobs belonging to a project.
@@ -291,8 +301,8 @@ Update an existing cron job
 
 ```
 USAGE
-  $ mw cronjob update CRONJOB-ID [-q] [--description <value>] [--interval <value>] [--email <value>] [--url <value>
-    | --command <value>] [--interpreter bash|php ] [--enable | --disable] [--timeout <value>]
+  $ mw cronjob update CRONJOB-ID [--token <value>] [-q] [--description <value>] [--interval <value>] [--email
+    <value>] [--url <value> | --command <value>] [--interpreter bash|php ] [--enable | --disable] [--timeout <value>]
 
 ARGUMENTS
   CRONJOB-ID  ID of the cron job to be updated.
@@ -308,6 +318,7 @@ FLAGS
                               <options: bash|php>
       --interval=<value>      Set the interval for cron jobs to run.
       --timeout=<value>       Timeout after which the process will be killed.
+      --token=<value>         API token to use for authentication (overrides environment and config file)
       --url=<value>           Set the URL to use when running a cron job.
 
 DESCRIPTION

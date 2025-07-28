@@ -14,8 +14,8 @@ Create a new SSH user
 
 ```
 USAGE
-  $ mw ssh-user create --description <value> [-p <value>] [-q] [--expires <value>] [--public-key <value>] [--password
-    <value>]
+  $ mw ssh-user create --description <value> [--token <value>] [-p <value>] [-q] [--expires <value>] [--public-key
+    <value>] [--password <value>]
 
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
@@ -25,6 +25,7 @@ FLAGS
       --expires=<value>      an interval after which the SSH user expires (examples: 30m, 30d, 1y).
       --password=<value>     Password used for authentication
       --public-key=<value>   Public key used for authentication
+      --token=<value>        API token to use for authentication (overrides environment and config file)
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -59,14 +60,15 @@ Delete an SSH user
 
 ```
 USAGE
-  $ mw ssh-user delete SSH-USER-ID [-q] [-f]
+  $ mw ssh-user delete SSH-USER-ID [--token <value>] [-q] [-f]
 
 ARGUMENTS
   SSH-USER-ID  The ID of the SSH user to delete
 
 FLAGS
-  -f, --force  do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary
+  -f, --force          do not ask for confirmation
+  -q, --quiet          suppress process output and only display a machine-readable summary
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Delete an SSH user
@@ -84,8 +86,8 @@ List all SSH users for a project.
 
 ```
 USAGE
-  $ mw ssh-user list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw ssh-user list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -98,6 +100,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List all SSH users for a project.
@@ -118,8 +121,8 @@ Update an existing SSH user
 
 ```
 USAGE
-  $ mw ssh-user update SSH-USER-ID [-q] [--expires <value>] [--description <value>] [--public-key <value>]
-    [--password <value>] [--enable | --disable]
+  $ mw ssh-user update SSH-USER-ID [--token <value>] [-q] [--expires <value>] [--description <value>] [--public-key
+    <value>] [--password <value>] [--enable | --disable]
 
 ARGUMENTS
   SSH-USER-ID  The ID of the SSH user to update
@@ -132,6 +135,7 @@ FLAGS
       --expires=<value>      an interval after which the SSH user expires (examples: 30m, 30d, 1y).
       --password=<value>     Password used for authentication
       --public-key=<value>   Public key used for authentication
+      --token=<value>        API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Update an existing SSH user

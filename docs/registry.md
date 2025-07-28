@@ -14,7 +14,8 @@ Create a new container registry
 
 ```
 USAGE
-  $ mw registry create --uri <value> --description <value> [-p <value>] [-q] [--username <value>] [--password <value>]
+  $ mw registry create --uri <value> --description <value> [--token <value>] [-p <value>] [-q] [--username <value>]
+    [--password <value>]
 
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
@@ -22,6 +23,7 @@ FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  (required) description of the registry
       --password=<value>     password for registry authentication
+      --token=<value>        API token to use for authentication (overrides environment and config file)
       --uri=<value>          (required) uri of the registry
       --username=<value>     username for registry authentication
 
@@ -49,11 +51,12 @@ Delete a container registry
 
 ```
 USAGE
-  $ mw registry delete REGISTRY-ID [-q] [-f]
+  $ mw registry delete REGISTRY-ID [--token <value>] [-q] [-f]
 
 FLAGS
-  -f, --force  do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary
+  -f, --force          do not ask for confirmation
+  -q, --quiet          suppress process output and only display a machine-readable summary
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Delete a container registry
@@ -71,8 +74,8 @@ List container registries.
 
 ```
 USAGE
-  $ mw registry list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw registry list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -85,6 +88,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List container registries.
@@ -102,13 +106,14 @@ Update an existing container registry
 
 ```
 USAGE
-  $ mw registry update REGISTRY-ID [-q] [--description <value>] [--uri <value>] [--username <value>] [--password
-    <value>]
+  $ mw registry update REGISTRY-ID [--token <value>] [-q] [--description <value>] [--uri <value>] [--username
+    <value>] [--password <value>]
 
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  new description for the registry
       --password=<value>     password for registry authentication
+      --token=<value>        API token to use for authentication (overrides environment and config file)
       --uri=<value>          new uri for the registry
       --username=<value>     username for registry authentication
 

@@ -12,7 +12,7 @@ Initialize a new ddev project in the current directory.
 
 ```
 USAGE
-  $ mw ddev init [INSTALLATION-ID] [-q] [--override-type
+  $ mw ddev init [INSTALLATION-ID] [--token <value>] [-q] [--override-type
     backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|python|shopware6|silverstripe|typo3|wo
     rdpress|auto] [--without-database | --database-id <value>] [--project-name <value>] [--override-mittwald-plugin
     <value>]
@@ -28,6 +28,7 @@ FLAGS
                                 <options: backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|
                                 python|shopware6|silverstripe|typo3|wordpress|auto>
       --project-name=<value>    DDEV project name
+      --token=<value>           API token to use for authentication (overrides environment and config file)
       --without-database        Create a DDEV project without a database
 
 DEVELOPMENT FLAGS
@@ -93,7 +94,7 @@ Generate a DDEV configuration YAML file for the current app.
 
 ```
 USAGE
-  $ mw ddev render-config [INSTALLATION-ID] [--override-type
+  $ mw ddev render-config [INSTALLATION-ID] [--token <value>] [--override-type
     backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|python|shopware6|silverstripe|typo3|wo
     rdpress|auto] [--without-database | --database-id <value>]
 
@@ -106,6 +107,7 @@ FLAGS
   --override-type=<option>  [default: auto] Override the type of the generated DDEV configuration
                             <options: backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|pyth
                             on|shopware6|silverstripe|typo3|wordpress|auto>
+  --token=<value>           API token to use for authentication (overrides environment and config file)
   --without-database        Create a DDEV project without a database
 
 DESCRIPTION
