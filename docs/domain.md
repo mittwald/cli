@@ -19,14 +19,16 @@ gets a specific zone
 
 ```
 USAGE
-  $ mw domain dnszone get DNSZONE-ID -o txt|json|yaml
+  $ mw domain dnszone get DNSZONE-ID [--token <value>] [-o txt|json]
 
 ARGUMENTS
   DNSZONE-ID  ID or domain name of a DNS zone
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+      --token=<value>    API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   gets a specific zone
@@ -38,8 +40,8 @@ list all DNS zones by project ID
 
 ```
 USAGE
-  $ mw domain dnszone list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw domain dnszone list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -52,6 +54,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   list all DNS zones by project ID
@@ -69,8 +72,8 @@ Updates a record set of a DNS zone
 
 ```
 USAGE
-  $ mw domain dnszone update DNSZONE-ID RECORD-SET [-q] [-p <value>] [--record <value>... | --managed | --unset] [--ttl
-    <value>]
+  $ mw domain dnszone update DNSZONE-ID RECORD-SET [--token <value>] [-q] [-p <value>] [--record <value>... | --managed |
+    --unset] [--ttl <value>]
 
 ARGUMENTS
   DNSZONE-ID  ID or domain name of a DNS zone
@@ -82,6 +85,7 @@ FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary
       --managed             Reset this record set to fully-managed (only for A and MX records)
       --record=<value>...   The records to set; may not be used with --managed
+      --token=<value>       API token to use for authentication (overrides environment and config file)
       --ttl=<value>         The TTL of the record set; omit to use the default TTL
       --unset               Set this to remove all records from the record set
 
@@ -127,14 +131,16 @@ gets a specific domain
 
 ```
 USAGE
-  $ mw domain get DOMAIN-ID -o txt|json|yaml
+  $ mw domain get DOMAIN-ID [--token <value>] [-o txt|json]
 
 ARGUMENTS
   DOMAIN-ID  ID or domain name of a domain
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+      --token=<value>    API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   gets a specific domain
@@ -146,8 +152,8 @@ List domains belonging to a project.
 
 ```
 USAGE
-  $ mw domain list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw domain list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -160,6 +166,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List domains belonging to a project.
@@ -177,8 +184,8 @@ Create a new ingress
 
 ```
 USAGE
-  $ mw domain virtualhost create --hostname <value> [-q] [-p <value>] [--path-to-app <value>...] [--path-to-url <value>...]
-    [--path-to-container <value>...]
+  $ mw domain virtualhost create --hostname <value> [--token <value>] [-q] [-p <value>] [--path-to-app <value>...]
+    [--path-to-url <value>...] [--path-to-container <value>...]
 
 FLAGS
   -p, --project-id=<value>            ID or short ID of a project; this flag is optional if a default project is set in
@@ -188,6 +195,7 @@ FLAGS
       --path-to-app=<value>...        add a path mapping to an app
       --path-to-container=<value>...  add a path mapping to a container
       --path-to-url=<value>...        add a path mapping to an external url
+      --token=<value>                 API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Create a new ingress
@@ -242,14 +250,15 @@ Delete a virtual host
 
 ```
 USAGE
-  $ mw domain virtualhost delete VIRTUAL-HOST-ID [-q] [-f]
+  $ mw domain virtualhost delete VIRTUAL-HOST-ID [--token <value>] [-q] [-f]
 
 ARGUMENTS
   VIRTUAL-HOST-ID  ID of the virtual host to delete
 
 FLAGS
-  -f, --force  do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary
+  -f, --force          do not ask for confirmation
+  -q, --quiet          suppress process output and only display a machine-readable summary
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Delete a virtual host
@@ -267,11 +276,13 @@ Get a virtual host.
 
 ```
 USAGE
-  $ mw domain virtualhost get INGRESS-ID -o txt|json|yaml
+  $ mw domain virtualhost get INGRESS-ID [--token <value>] [-o txt|json]
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+      --token=<value>    API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Get a virtual host.
@@ -283,8 +294,8 @@ List virtualhosts for a project.
 
 ```
 USAGE
-  $ mw domain virtualhost list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>] [-a]
+  $ mw domain virtualhost list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>] [-a]
 
 FLAGS
   -a, --all                     List all virtual hosts that you have access to, regardless of project
@@ -298,6 +309,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List virtualhosts for a project.

@@ -17,15 +17,16 @@ Delete a container stack
 
 ```
 USAGE
-  $ mw stack delete [STACK-ID] [-q] [-f] [-v]
+  $ mw stack delete [STACK-ID] [--token <value>] [-q] [-f] [-v]
 
 ARGUMENTS
   STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
-  -f, --force         do not ask for confirmation
-  -q, --quiet         suppress process output and only display a machine-readable summary
-  -v, --with-volumes  also include remove volumes in removal
+  -f, --force          do not ask for confirmation
+  -q, --quiet          suppress process output and only display a machine-readable summary
+  -v, --with-volumes   also include remove volumes in removal
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Delete a container stack
@@ -46,13 +47,14 @@ Deploys a docker-compose compatible file to a mittwald container stack
 
 ```
 USAGE
-  $ mw stack deploy [-s <value>] [-q] [-c <value>] [--env-file <value>]
+  $ mw stack deploy [--token <value>] [-s <value>] [-q] [-c <value>] [--env-file <value>]
 
 FLAGS
   -c, --compose-file=<value>  [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>      [default: ./.env] alternative path to file with environment variables
+      --token=<value>         API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Deploys a docker-compose compatible file to a mittwald container stack
@@ -78,8 +80,8 @@ List container stacks for a given project.
 
 ```
 USAGE
-  $ mw stack list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw stack list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -92,6 +94,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List container stacks for a given project.
@@ -112,8 +115,8 @@ List container stacks for a given project.
 
 ```
 USAGE
-  $ mw stack ls -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw stack ls -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -126,6 +129,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List container stacks for a given project.
@@ -146,8 +150,8 @@ List all services within a given container stack.
 
 ```
 USAGE
-  $ mw stack ps -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-s <value>]
+  $ mw stack ps -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-s <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -159,6 +163,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List all services within a given container stack.
@@ -176,15 +181,16 @@ Delete a container stack
 
 ```
 USAGE
-  $ mw stack rm [STACK-ID] [-q] [-f] [-v]
+  $ mw stack rm [STACK-ID] [--token <value>] [-q] [-f] [-v]
 
 ARGUMENTS
   STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
-  -f, --force         do not ask for confirmation
-  -q, --quiet         suppress process output and only display a machine-readable summary
-  -v, --with-volumes  also include remove volumes in removal
+  -f, --force          do not ask for confirmation
+  -q, --quiet          suppress process output and only display a machine-readable summary
+  -v, --with-volumes   also include remove volumes in removal
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Delete a container stack
@@ -205,13 +211,14 @@ Deploys a docker-compose compatible file to a mittwald container stack
 
 ```
 USAGE
-  $ mw stack up [-s <value>] [-q] [-c <value>] [--env-file <value>]
+  $ mw stack up [--token <value>] [-s <value>] [-q] [-c <value>] [--env-file <value>]
 
 FLAGS
   -c, --compose-file=<value>  [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>      [default: ./.env] alternative path to file with environment variables
+      --token=<value>         API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Deploys a docker-compose compatible file to a mittwald container stack

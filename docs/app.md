@@ -38,7 +38,7 @@ Copy an app within a project
 
 ```
 USAGE
-  $ mw app copy [INSTALLATION-ID] --description <value> [-q]
+  $ mw app copy [INSTALLATION-ID] --description <value> [--token <value>] [-q]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -47,6 +47,7 @@ ARGUMENTS
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  (required) set a description for the new app installation
+      --token=<value>        API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Copy an app within a project
@@ -64,7 +65,8 @@ Creates new custom Node.js installation.
 
 ```
 USAGE
-  $ mw app create node [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w] [--wait-timeout <value>]
+  $ mw app create node [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -74,6 +76,7 @@ FLAGS
       --entrypoint=<value>    [default: yarn start] the command that should be used to start your custom Node.js
                               application.
       --site-title=<value>    site title for your custom Node.js installation.
+      --token=<value>         API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 
@@ -110,7 +113,8 @@ Creates new custom PHP installation.
 
 ```
 USAGE
-  $ mw app create php --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app create php --document-root <value> [--token <value>] [-p <value>] [-q] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
@@ -120,6 +124,7 @@ FLAGS
       --document-root=<value>  (required) [default: /] the document root from which your custom PHP will be served
                                (relative to the installation path)
       --site-title=<value>     site title for your custom PHP installation.
+      --token=<value>          API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
 
@@ -158,8 +163,8 @@ Creates new PHP worker installation.
 
 ```
 USAGE
-  $ mw app create php-worker [-p <value>] [-q] [--entrypoint <value>] [--site-title <value>] [-w] [--wait-timeout
-  <value>]
+  $ mw app create php-worker [--token <value>] [-p <value>] [-q] [--entrypoint <value>] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -168,6 +173,7 @@ FLAGS
   -w, --wait                  wait for the resource to be ready.
       --entrypoint=<value>    the command that should be used to start your PHP worker application.
       --site-title=<value>    site title for your PHP worker installation.
+      --token=<value>         API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 
@@ -204,7 +210,8 @@ Creates new custom python site installation.
 
 ```
 USAGE
-  $ mw app create python [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w] [--wait-timeout <value>]
+  $ mw app create python [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -213,6 +220,7 @@ FLAGS
   -w, --wait                  wait for the resource to be ready.
       --entrypoint=<value>    the command that should be used to start your custom python site application.
       --site-title=<value>    site title for your custom python site installation.
+      --token=<value>         API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 
@@ -249,7 +257,8 @@ Creates new custom static site installation.
 
 ```
 USAGE
-  $ mw app create static --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app create static --document-root <value> [--token <value>] [-p <value>] [-q] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
@@ -259,6 +268,7 @@ FLAGS
       --document-root=<value>  (required) [default: /] the document root from which your custom static site will be
                                served (relative to the installation path)
       --site-title=<value>     site title for your custom static site installation.
+      --token=<value>          API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
 
@@ -297,8 +307,8 @@ Get all available dependencies
 
 ```
 USAGE
-  $ mw app dependency list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;]
+  $ mw app dependency list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -309,6 +319,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Get all available dependencies
@@ -320,8 +331,8 @@ Update the dependencies of an app
 
 ```
 USAGE
-  $ mw app dependency update [INSTALLATION-ID] --set <value>... [-q] [--update-policy
-  none|inheritedFromApp|patchLevel|all]
+  $ mw app dependency update [INSTALLATION-ID] --set <value>... [--token <value>] [-q] [--update-policy
+    none|inheritedFromApp|patchLevel|all]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -330,6 +341,7 @@ ARGUMENTS
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary
       --set=<value>...          (required) set a dependency to a specific version
+      --token=<value>           API token to use for authentication (overrides environment and config file)
       --update-policy=<option>  [default: patchLevel] set the update policy for the configured dependencies
                                 <options: none|inheritedFromApp|patchLevel|all>
 
@@ -358,7 +370,7 @@ Get all available versions of a particular dependency
 
 ```
 USAGE
-  $ mw app dependency versions SYSTEMSOFTWARE -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate]
+  $ mw app dependency versions SYSTEMSOFTWARE -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
     [--no-relative-dates] [--csv-separator ,|;]
 
 ARGUMENTS
@@ -373,6 +385,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Get all available versions of a particular dependency
@@ -384,8 +397,8 @@ Download the filesystem of an app within a project to your local machine
 
 ```
 USAGE
-  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
+  $ mw app download [INSTALLATION-ID] --target <value> [--token <value>] [-q] [--ssh-user <value>]
+    [--ssh-identity-file <value>] [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -398,6 +411,7 @@ FLAGS
       --exclude=<value>...            [default: ] exclude files matching the given pattern
       --remote-sub-directory=<value>  specify a sub-directory within the app installation to download
       --target=<value>                (required) target directory to download the app installation to
+      --token=<value>                 API token to use for authentication (overrides environment and config file)
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -465,15 +479,17 @@ Get details about an app installation
 
 ```
 USAGE
-  $ mw app get [INSTALLATION-ID] -o txt|json|yaml
+  $ mw app get [INSTALLATION-ID] [--token <value>] [-o txt|json]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+      --token=<value>    API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Get details about an app installation
@@ -485,9 +501,9 @@ Creates new Contao installation.
 
 ```
 USAGE
-  $ mw app install contao --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
-    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
-    [--wait-timeout <value>]
+  $ mw app install contao --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-firstname
+    <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>]
+    [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
@@ -502,6 +518,7 @@ FLAGS
       --host=<value>             host to initially configure your Contao installation with; needs to be created
                                  separately.
       --site-title=<value>       site title for your Contao installation.
+      --token=<value>            API token to use for authentication (overrides environment and config file)
       --version=<value>          (required) [default: latest] version of Contao to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
@@ -576,9 +593,9 @@ Creates new Joomla! installation.
 
 ```
 USAGE
-  $ mw app install joomla --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
-    [--wait-timeout <value>]
+  $ mw app install joomla --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title
+    <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
@@ -593,6 +610,7 @@ FLAGS
       --host=<value>             host to initially configure your Joomla! installation with; needs to be created
                                  separately.
       --site-title=<value>       site title for your Joomla! installation.
+      --token=<value>            API token to use for authentication (overrides environment and config file)
       --version=<value>          (required) [default: latest] version of Joomla! to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
@@ -667,8 +685,8 @@ Creates new Matomo installation.
 
 ```
 USAGE
-  $ mw app install matomo --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app install matomo --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -680,6 +698,7 @@ FLAGS
       --admin-user=<value>    Username for your administrator user.
       --host=<value>          host to initially configure your Matomo installation with; needs to be created separately.
       --site-title=<value>    site title for your Matomo installation.
+      --token=<value>         API token to use for authentication (overrides environment and config file)
       --version=<value>       (required) [default: latest] version of Matomo to be installed.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
@@ -742,8 +761,8 @@ Creates new Nextcloud installation.
 
 ```
 USAGE
-  $ mw app install nextcloud --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app install nextcloud --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -756,6 +775,7 @@ FLAGS
       --host=<value>          host to initially configure your Nextcloud installation with; needs to be created
                               separately.
       --site-title=<value>    site title for your Nextcloud installation.
+      --token=<value>         API token to use for authentication (overrides environment and config file)
       --version=<value>       (required) [default: latest] version of Nextcloud to be installed.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
@@ -818,9 +838,9 @@ Creates new Shopware 5 installation.
 
 ```
 USAGE
-  $ mw app install shopware5 --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>]
-    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
+  $ mw app install shopware5 --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title
+    <value>] [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
@@ -838,6 +858,7 @@ FLAGS
       --shop-email=<value>       email address your Shopware 5 will be working with.
       --shop-lang=<value>        language your Shopware 5 will be working with.
       --site-title=<value>       site title for your Shopware 5 installation.
+      --token=<value>            API token to use for authentication (overrides environment and config file)
       --version=<value>          (required) [default: latest] version of Shopware 5 to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
@@ -930,9 +951,9 @@ Creates new Shopware 6 installation.
 
 ```
 USAGE
-  $ mw app install shopware6 --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>]
-    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
+  $ mw app install shopware6 --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title
+    <value>] [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
@@ -950,6 +971,7 @@ FLAGS
       --shop-email=<value>       email address your Shopware 6 will be working with.
       --shop-lang=<value>        language your Shopware 6 will be working with.
       --site-title=<value>       site title for your Shopware 6 installation.
+      --token=<value>            API token to use for authentication (overrides environment and config file)
       --version=<value>          (required) [default: latest] version of Shopware 6 to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
@@ -1042,9 +1064,9 @@ Creates new TYPO3 installation.
 
 ```
 USAGE
-  $ mw app install typo3 --version <value> --install-mode composer|symlink [-p <value>] [-q] [--host <value>]
-    [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout
-    <value>]
+  $ mw app install typo3 --version <value> --install-mode composer|symlink [--token <value>] [-p <value>] [-q] [--host
+    <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1058,6 +1080,7 @@ FLAGS
       --install-mode=<option>  (required) [default: composer] The installation mode your TYPO3 will be installed with.
                                <options: composer|symlink>
       --site-title=<value>     site title for your TYPO3 installation.
+      --token=<value>          API token to use for authentication (overrides environment and config file)
       --version=<value>        (required) [default: latest] version of TYPO3 to be installed.
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
@@ -1126,8 +1149,8 @@ Creates new WordPress installation.
 
 ```
 USAGE
-  $ mw app install wordpress --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app install wordpress --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1140,6 +1163,7 @@ FLAGS
       --host=<value>          host to initially configure your WordPress installation with; needs to be created
                               separately.
       --site-title=<value>    site title for your WordPress installation.
+      --token=<value>         API token to use for authentication (overrides environment and config file)
       --version=<value>       (required) [default: latest] version of WordPress to be installed.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
@@ -1202,8 +1226,8 @@ List installed apps in a project.
 
 ```
 USAGE
-  $ mw app list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw app list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -1216,6 +1240,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List installed apps in a project.
@@ -1233,8 +1258,8 @@ List upgrade candidates for an app installation.
 
 ```
 USAGE
-  $ mw app list-upgrade-candidates [INSTALLATION-ID] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate]
-    [--no-relative-dates] [--csv-separator ,|;]
+  $ mw app list-upgrade-candidates [INSTALLATION-ID] -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header]
+    [--no-truncate] [--no-relative-dates] [--csv-separator ,|;]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1249,6 +1274,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List upgrade candidates for an app installation.
@@ -1260,11 +1286,14 @@ Open an app installation in the browser.
 
 ```
 USAGE
-  $ mw app open [INSTALLATION-ID]
+  $ mw app open [INSTALLATION-ID] [--token <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
+
+FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Open an app installation in the browser.
@@ -1279,16 +1308,18 @@ Connect to an app via SSH
 
 ```
 USAGE
-  $ mw app ssh [INSTALLATION-ID] [--ssh-user <value>] [--ssh-identity-file <value>] [--cd] [--info] [--test]
+  $ mw app ssh [INSTALLATION-ID] [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>] [--cd]
+    [--info] [--test]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
 
 FLAGS
-  --[no-]cd  change to installation path after connecting
-  --info     only print connection information, without actually connecting
-  --test     test connection and exit
+  --[no-]cd        change to installation path after connecting
+  --info           only print connection information, without actually connecting
+  --test           test connection and exit
+  --token=<value>  API token to use for authentication (overrides environment and config file)
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -1328,15 +1359,16 @@ Uninstall an app
 
 ```
 USAGE
-  $ mw app uninstall [INSTALLATION-ID] [-q] [-f]
+  $ mw app uninstall [INSTALLATION-ID] [--token <value>] [-q] [-f]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
 
 FLAGS
-  -f, --force  do not ask for confirmation
-  -q, --quiet  suppress process output and only display a machine-readable summary
+  -f, --force          do not ask for confirmation
+  -q, --quiet          suppress process output and only display a machine-readable summary
+      --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Uninstall an app
@@ -1354,7 +1386,8 @@ Update properties of an app installation (use 'upgrade' to update the app versio
 
 ```
 USAGE
-  $ mw app update [INSTALLATION-ID] [-q] [--description <value>] [--entrypoint <value>] [--document-root <value>]
+  $ mw app update [INSTALLATION-ID] [--token <value>] [-q] [--description <value>] [--entrypoint <value>]
+    [--document-root <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1365,6 +1398,7 @@ FLAGS
       --description=<value>    update the description of the app installation
       --document-root=<value>  update the document root of the app installation
       --entrypoint=<value>     update the entrypoint of the app installation (Python and Node.js only)
+      --token=<value>          API token to use for authentication (overrides environment and config file)
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary
@@ -1393,8 +1427,8 @@ Upgrade app installation to target version
 
 ```
 USAGE
-  $ mw app upgrade [INSTALLATION-ID] [--target-version <value>] [-f] [-p <value>] [-q] [-w] [--wait-timeout
-    <value>]
+  $ mw app upgrade [INSTALLATION-ID] [--token <value>] [--target-version <value>] [-f] [-p <value>] [-q] [-w]
+    [--wait-timeout <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1408,6 +1442,7 @@ FLAGS
   -w, --wait                    wait for the resource to be ready.
       --target-version=<value>  target version to upgrade app to; if omitted, target version will be prompted
                                 interactively
+      --token=<value>           API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>    [default: 600s] the duration to wait for the resource to be ready (common units like
                                 'ms', 's', 'm' are accepted).
 
@@ -1432,8 +1467,8 @@ Upload the filesystem of an app to a project
 
 ```
 USAGE
-  $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
+  $ mw app upload [INSTALLATION-ID] --source <value> [--token <value>] [-q] [--ssh-user <value>]
+    [--ssh-identity-file <value>] [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1446,6 +1481,7 @@ FLAGS
       --exclude=<value>...            [default: ] exclude files matching the given pattern
       --remote-sub-directory=<value>  specify a sub-directory within the app installation to upload
       --source=<value>                (required) source directory from which to upload the app installation
+      --token=<value>                 API token to use for authentication (overrides environment and config file)
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -1507,10 +1543,13 @@ List supported Apps and Versions
 
 ```
 USAGE
-  $ mw app versions [APP]
+  $ mw app versions [APP] [--token <value>]
 
 ARGUMENTS
   APP  name of specific app to get versions for
+
+FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List supported Apps and Versions

@@ -12,7 +12,7 @@ Get a server.
 
 ```
 USAGE
-  $ mw server get [SERVER-ID] -o txt|json|yaml
+  $ mw server get [SERVER-ID] -o txt|json|yaml [--token <value>]
 
 ARGUMENTS
   SERVER-ID  ID or short ID of a server; this argument is optional if a default server is set in the context.
@@ -20,6 +20,7 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
+      --token=<value>    API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   Get a server.
@@ -31,8 +32,8 @@ List servers for an organization or user.
 
 ```
 USAGE
-  $ mw server list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;]
+  $ mw server list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -43,6 +44,7 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 DESCRIPTION
   List servers for an organization or user.
