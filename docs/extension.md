@@ -24,7 +24,10 @@ FLAGS
       --consent             consent to the extension having access to the requested scopes
       --org-id=<value>      the ID of the organization to install the extension in
       --project-id=<value>  the ID of the project to install the extension in
-      --token=<value>       API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Install an extension in a project or organization
@@ -54,7 +57,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all available extensions.
@@ -80,7 +86,10 @@ FLAGS
       --no-truncate             do not truncate output (only relevant for txt output)
       --org-id=<value>          the ID of the organization to install the extension in
       --project-id=<value>      the ID of the project to install the extension in
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List installed extensions in an organization or project.
@@ -98,8 +107,11 @@ ARGUMENTS
   EXTENSION-INSTANCE-ID  the ID of the extension instance to uninstall
 
 FLAGS
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Remove an extension from an organization

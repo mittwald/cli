@@ -31,7 +31,10 @@ FLAGS
       --expires=<value>      an interval after which the API token expires (examples: 30m, 30d, 1y).
       --roles=<option>...    (required) roles of the API token
                              <options: api_read|api_write>
-      --token=<value>        API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new API token
@@ -57,7 +60,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a specific API token
@@ -81,7 +87,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all API tokens of the user
@@ -99,9 +108,12 @@ ARGUMENTS
   ID  ID of the API token to revoke
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Revoke an API token
@@ -128,7 +140,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get profile information for a user.
@@ -148,7 +163,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a specific session
@@ -172,7 +190,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all active sessions
@@ -193,7 +214,10 @@ FLAGS
       --expires=<value>  an interval after which the SSH key expires (examples: 30m, 30d, 1y).
       --no-passphrase    Use this flag to not set a passphrase for the SSH key.
       --output=<value>   [default: mstudio-cli] A filename in your ~/.ssh directory to write the SSH key to.
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create and import a new SSH key
@@ -217,9 +241,12 @@ ARGUMENTS
   ID  ID of the SSH key to be deleted.
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete an SSH key
@@ -245,7 +272,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a specific SSH key
@@ -263,7 +293,10 @@ FLAGS
   -q, --quiet            suppress process output and only display a machine-readable summary
       --expires=<value>  an interval after which the SSH key expires (examples: 30m, 30d, 1y).
       --input=<value>    [default: id_rsa.pub] A filename in your ~/.ssh directory containing the key to import.
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Import an existing (local) SSH key
@@ -293,7 +326,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get your stored ssh keys

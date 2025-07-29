@@ -15,8 +15,9 @@ Reset your local authentication state
 USAGE
   $ mw login reset [--token <value>]
 
-FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file)
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Reset your local authentication state
@@ -30,8 +31,9 @@ Checks your current authentication status
 USAGE
   $ mw login status [--token <value>]
 
-FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file)
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Checks your current authentication status
@@ -46,9 +48,12 @@ USAGE
   $ mw login token [--token <value>] [-q] [-o]
 
 FLAGS
-  -o, --overwrite      overwrite existing token file
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -o, --overwrite  overwrite existing token file
+  -q, --quiet      suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Authenticate using an API token

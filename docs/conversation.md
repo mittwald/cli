@@ -28,7 +28,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all conversation categories.
@@ -45,8 +48,9 @@ USAGE
 ARGUMENTS
   CONVERSATION-ID  ID of a conversation; this argument is optional if a default conversation is set in the context.
 
-FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file)
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Close a conversation
@@ -71,7 +75,10 @@ FLAGS
   --message-from=<value>  A file from which to read the message to send; may be '-' to read from stdin. If neither this
                           nor --message is given, an editor will be opened to enter the message.
   --title=<value>         (required) Title of the conversation
-  --token=<value>         API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new conversation
@@ -95,7 +102,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all conversations the authenticated user has created or has access to.
@@ -120,7 +130,10 @@ FLAGS
                           be opened to enter the message.
   --message-from=<value>  A file from which to read the message to send; may be '-' to read from stdin. If neither this
                           nor --message is given, an editor will be opened to enter the message.
-  --token=<value>         API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Reply to a conversation
@@ -137,8 +150,9 @@ USAGE
 ARGUMENTS
   CONVERSATION-ID  ID of a conversation; this argument is optional if a default conversation is set in the context.
 
-FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file)
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Show a conversation and message history

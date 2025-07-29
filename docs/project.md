@@ -46,9 +46,12 @@ FLAGS
   -w, --wait                  wait for the resource to be ready.
       --description=<value>   a description for the backup.
       --expires=<value>       (required) an interval after which the backup expires (examples: 30m, 30d, 1y).
-      --token=<value>         API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 ALIASES
   $ mw project backup create
@@ -77,9 +80,12 @@ ARGUMENTS
   BACKUP-ID  ID of a backup.
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a backup
@@ -115,7 +121,10 @@ FLAGS
       --password=<value>   the password to encrypt the backup with.
       --prompt-password    prompt for a password to encrypt the backup with.
       --resume             resume a previously interrupted download.
-      --token=<value>      API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Download a backup to your local disk
@@ -158,7 +167,10 @@ FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
                          and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Show details of a backup.
@@ -187,7 +199,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List Backups for a given Project.
@@ -222,7 +237,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List backup schedules belonging to a given project.
@@ -251,10 +269,13 @@ FLAGS
   -s, --server-id=<value>     ID or short ID of a server; this flag is optional if a default server is set in the
                               context
   -w, --wait                  wait for the resource to be ready.
-      --token=<value>         API token to use for authentication (overrides environment and config file)
       --update-context        Update the CLI context to use the newly created project
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new project
@@ -286,7 +307,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a cron job execution.
@@ -314,7 +338,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
@@ -339,7 +366,10 @@ FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
       --no-pager         Disable pager for output.
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get the log output of a cronjob execution.
@@ -372,7 +402,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List cron jobs belonging to a project.
@@ -399,9 +432,12 @@ ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a project
@@ -429,7 +465,10 @@ FLAGS
                          and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
       --human            Display human readable sizes.
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a project directory filesystem usage.
@@ -450,7 +489,10 @@ FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
                          and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get details of a project
@@ -470,7 +512,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a ProjectInvite.
@@ -496,7 +541,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all invites belonging to a project.
@@ -526,7 +574,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all project invites for the executing user.
@@ -550,7 +601,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all projects that you have access to
@@ -570,7 +624,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a ProjectMembership
@@ -589,7 +646,10 @@ FLAGS
                             <options: txt|json|yaml>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
-      --token=<value>       API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get the executing user's membership in a Project.
@@ -621,7 +681,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all memberships for a Project.
@@ -651,7 +714,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List ProjectMemberships belonging to the executing user.
@@ -677,7 +743,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all SFTP users for a project.
@@ -703,12 +772,13 @@ USAGE
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
-FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file)
-
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Connect to a project via SSH
@@ -758,7 +828,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all SSH users for a project.
@@ -789,7 +862,10 @@ FLAGS
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  Set the project description
-      --token=<value>        API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Update an existing project

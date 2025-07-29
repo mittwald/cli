@@ -34,7 +34,10 @@ FLAGS
       --password=<value>             mailbox password
       --quota=<value>                [default: 1GiB] mailbox quota
       --random-password              generate a random password
-      --token=<value>                API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new mail address
@@ -110,9 +113,12 @@ ARGUMENTS
   ID  Mail address ID
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a mail address
@@ -138,7 +144,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a specific mail address
@@ -164,7 +173,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all mail addresses for a project ID
@@ -196,7 +208,10 @@ FLAGS
       --password=<value>       mailbox password
       --quota=<value>          mailbox quota in mebibytes
       --random-password        generate a random password
-      --token=<value>          API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Update a mail address
@@ -266,7 +281,10 @@ FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --password=<value>     delivery box password
       --random-password      generate a random password
-      --token=<value>        API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new mail delivery box
@@ -323,9 +341,12 @@ ARGUMENTS
   ID  Mail delivery box ID
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a mail delivery box
@@ -351,7 +372,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a specific delivery box
@@ -377,7 +401,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all delivery boxes by project ID
@@ -406,7 +433,10 @@ FLAGS
       --description=<value>  delivery box description
       --password=<value>     delivery box password
       --random-password      generate a random password
-      --token=<value>        API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Update a mail delivery box

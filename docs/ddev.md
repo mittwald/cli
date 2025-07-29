@@ -28,11 +28,14 @@ FLAGS
                                 <options: backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|
                                 python|shopware6|silverstripe|typo3|wordpress|auto>
       --project-name=<value>    DDEV project name
-      --token=<value>           API token to use for authentication (overrides environment and config file)
       --without-database        Create a DDEV project without a database
 
 DEVELOPMENT FLAGS
   --override-mittwald-plugin=<value>  [default: mittwald/ddev] override the mittwald plugin
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Initialize a new ddev project in the current directory.
@@ -107,8 +110,11 @@ FLAGS
   --override-type=<option>  [default: auto] Override the type of the generated DDEV configuration
                             <options: backdrop|craftcms|django4|drupal6|drupal7|drupal|laravel|magento|magento2|php|pyth
                             on|shopware6|silverstripe|typo3|wordpress|auto>
-  --token=<value>           API token to use for authentication (overrides environment and config file)
   --without-database        Create a DDEV project without a database
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Generate a DDEV configuration YAML file for the current app.

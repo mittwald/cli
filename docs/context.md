@@ -19,7 +19,10 @@ FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
                          and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Print an overview of currently set context parameters
@@ -36,8 +39,9 @@ Reset context values
 USAGE
   $ mw context reset [--token <value>]
 
-FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file)
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Reset context values
@@ -60,7 +64,10 @@ FLAGS
   --project-id=<value>       ID or short ID of a project
   --server-id=<value>        ID or short ID of a server
   --stack-id=<value>         ID of a container stack
-  --token=<value>            API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Set context values for the current project, org or server

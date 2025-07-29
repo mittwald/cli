@@ -31,7 +31,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
-      --token=<value>       API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a container
@@ -71,7 +74,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List containers belonging to a project.
@@ -103,7 +109,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
       --no-pager            Disable pager for output.
-      --token=<value>       API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Display logs of a specific container.
@@ -142,7 +151,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List containers belonging to a project.
@@ -174,7 +186,10 @@ FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary
       --force               also recreate the container when it is already up to date
       --pull                pull the container image before recreating the container
-      --token=<value>       API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -203,7 +218,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
-      --token=<value>       API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -233,7 +251,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
-      --token=<value>       API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a container
@@ -283,7 +304,10 @@ FLAGS
       --entrypoint=<value>   override the default entrypoint of the container image
       --env-file=<value>...  read environment variables from a file
       --name=<value>         assign a custom name to the container
-      --token=<value>        API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -P, --publish-all  publish all ports that are defined in the image
@@ -352,7 +376,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
-      --token=<value>       API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -381,7 +408,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
-      --token=<value>       API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -422,7 +452,10 @@ FLAGS
       --env-file=<value>...  read environment variables from a file
       --image=<value>        update the container image
       --recreate             recreate the container after updating
-      --token=<value>        API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Updates an existing container.

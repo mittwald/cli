@@ -28,7 +28,10 @@ FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
                          and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   gets a specific zone
@@ -54,7 +57,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   list all DNS zones by project ID
@@ -85,9 +91,12 @@ FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary
       --managed             Reset this record set to fully-managed (only for A and MX records)
       --record=<value>...   The records to set; may not be used with --managed
-      --token=<value>       API token to use for authentication (overrides environment and config file)
       --ttl=<value>         The TTL of the record set; omit to use the default TTL
       --unset               Set this to remove all records from the record set
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Updates a record set of a DNS zone
@@ -140,7 +149,10 @@ FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
                          and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   gets a specific domain
@@ -166,7 +178,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List domains belonging to a project.
@@ -195,7 +210,10 @@ FLAGS
       --path-to-app=<value>...        add a path mapping to an app
       --path-to-container=<value>...  add a path mapping to a container
       --path-to-url=<value>...        add a path mapping to an external url
-      --token=<value>                 API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new ingress
@@ -256,9 +274,12 @@ ARGUMENTS
   VIRTUAL-HOST-ID  ID of the virtual host to delete
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a virtual host
@@ -282,7 +303,10 @@ FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
                          and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a virtual host.
@@ -309,7 +333,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List virtualhosts for a project.

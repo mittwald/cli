@@ -23,10 +23,13 @@ ARGUMENTS
   STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-  -v, --with-volumes   also include remove volumes in removal
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force         do not ask for confirmation
+  -q, --quiet         suppress process output and only display a machine-readable summary
+  -v, --with-volumes  also include remove volumes in removal
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a container stack
@@ -54,7 +57,10 @@ FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>      [default: ./.env] alternative path to file with environment variables
-      --token=<value>         API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Deploys a docker-compose compatible file to a mittwald container stack
@@ -94,7 +100,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List container stacks for a given project.
@@ -129,7 +138,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List container stacks for a given project.
@@ -163,7 +175,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all services within a given container stack.
@@ -187,10 +202,13 @@ ARGUMENTS
   STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-  -v, --with-volumes   also include remove volumes in removal
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force         do not ask for confirmation
+  -q, --quiet         suppress process output and only display a machine-readable summary
+  -v, --with-volumes  also include remove volumes in removal
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a container stack
@@ -218,7 +236,10 @@ FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>      [default: ./.env] alternative path to file with environment variables
-      --token=<value>         API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Deploys a docker-compose compatible file to a mittwald container stack

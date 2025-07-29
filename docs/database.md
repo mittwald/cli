@@ -46,7 +46,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all kinds of databases belonging to a project.
@@ -76,7 +79,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List available MySQL character sets and collations, optionally filtered by a MySQLVersion.
@@ -98,12 +104,15 @@ FLAGS
   -q, --quiet                       suppress process output and only display a machine-readable summary
       --character-set=<value>       [default: utf8mb4] the character set to use
       --collation=<value>           [default: utf8mb4_unicode_ci] the collation to use
-      --token=<value>               API token to use for authentication (overrides environment and config file)
       --user-access-level=<option>  [default: full] the access level preset for the default user
                                     <options: full|readonly>
       --user-external               enable external access for default user
       --user-password=<value>       the password to use for the default user (env: MYSQL_PWD)
       --version=<value>             (required) the MySQL version to use
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -133,9 +142,12 @@ ARGUMENTS
   DATABASE-ID  The ID or name of the database
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a MySQL database
@@ -166,11 +178,14 @@ FLAGS
       --gzip                    compress the dump with gzip
       --mysql-charset=<value>   the character set to use for the MySQL connection
       --[no-]temporary-user     create a temporary user for the dump
-      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a dump of a MySQL database
@@ -252,7 +267,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a MySQLDatabase.
@@ -277,11 +295,14 @@ FLAGS
       --gzip                    uncompress the dump with gzip
       --mysql-charset=<value>   the character set to use for the MySQL connection
       --[no-]temporary-user     create a temporary user for the dump
-      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Imports a dump of a MySQL database
@@ -368,7 +389,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List MySQLDatabases belonging to a Project.
@@ -391,8 +415,9 @@ USAGE
 ARGUMENTS
   DATABASE-ID  The ID or name of the database
 
-FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file)
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 ```
 
 ## `mw database mysql port-forward DATABASE-ID`
@@ -408,13 +433,16 @@ ARGUMENTS
   DATABASE-ID  The ID or name of the database
 
 FLAGS
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --port=<value>   [default: 3306] The local TCP port to forward to
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -q, --quiet         suppress process output and only display a machine-readable summary
+      --port=<value>  [default: 3306] The local TCP port to forward to
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Forward the TCP port of a MySQL database to a local port
@@ -467,11 +495,14 @@ FLAGS
   -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
   -q, --quiet                   suppress process output and only display a machine-readable summary
       --mysql-charset=<value>   the character set to use for the MySQL connection
-      --token=<value>           API token to use for authentication (overrides environment and config file)
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Connect to a MySQL database via the MySQL shell
@@ -538,7 +569,10 @@ FLAGS
       --description=<value>     (required) Set the description for the MySQL user.
       --enable-external-access  Enable external access for this MySQL user.
       --password=<value>        (required) Password used for authentication
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new MySQL user
@@ -590,9 +624,12 @@ ARGUMENTS
   USER-ID  ID of the MySQL user to delete.
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a MySQL user
@@ -618,7 +655,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a MySQL user.
@@ -643,7 +683,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List MySQL users belonging to a database.
@@ -670,7 +713,10 @@ FLAGS
       --disable-external-access  Disable external access.
       --enable-external-access   Enable external access.
       --password=<value>         Password used for authentication
-      --token=<value>            API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Update an existing MySQL user
@@ -727,7 +773,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List available MySQL versions.
@@ -753,8 +802,11 @@ FLAGS
                                     <options: noeviction|allkeys-lru|allkeys-lfu|volatile-lru|volatile-lfu|allkeys-rando
                                     m|volatile-random|volatile-ttl>
       --[no-]persistent             enable persistent storage for the Redis database
-      --token=<value>               API token to use for authentication (overrides environment and config file)
       --version=<value>             (required) the Redis version to use
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -797,7 +849,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a Redis database.
@@ -823,7 +878,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List Redis databases belonging to a project.
@@ -847,12 +905,15 @@ ARGUMENTS
   DATABASE-ID  The ID of the database (when a project context is set, you can also use the name)
 
 FLAGS
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Connect to a Redis database via the redis-cli
@@ -908,7 +969,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List available Redis versions.

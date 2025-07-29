@@ -47,7 +47,10 @@ ARGUMENTS
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  (required) set a description for the new app installation
-      --token=<value>        API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Copy an app within a project
@@ -76,9 +79,12 @@ FLAGS
       --entrypoint=<value>    [default: yarn start] the command that should be used to start your custom Node.js
                               application.
       --site-title=<value>    site title for your custom Node.js installation.
-      --token=<value>         API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new custom Node.js installation.
@@ -124,9 +130,12 @@ FLAGS
       --document-root=<value>  (required) [default: /] the document root from which your custom PHP will be served
                                (relative to the installation path)
       --site-title=<value>     site title for your custom PHP installation.
-      --token=<value>          API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new custom PHP installation.
@@ -173,9 +182,12 @@ FLAGS
   -w, --wait                  wait for the resource to be ready.
       --entrypoint=<value>    the command that should be used to start your PHP worker application.
       --site-title=<value>    site title for your PHP worker installation.
-      --token=<value>         API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new PHP worker installation.
@@ -220,9 +232,12 @@ FLAGS
   -w, --wait                  wait for the resource to be ready.
       --entrypoint=<value>    the command that should be used to start your custom python site application.
       --site-title=<value>    site title for your custom python site installation.
-      --token=<value>         API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new custom python site installation.
@@ -268,9 +283,12 @@ FLAGS
       --document-root=<value>  (required) [default: /] the document root from which your custom static site will be
                                served (relative to the installation path)
       --site-title=<value>     site title for your custom static site installation.
-      --token=<value>          API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new custom static site installation.
@@ -319,7 +337,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all available dependencies
@@ -341,9 +362,12 @@ ARGUMENTS
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary
       --set=<value>...          (required) set a dependency to a specific version
-      --token=<value>           API token to use for authentication (overrides environment and config file)
       --update-policy=<option>  [default: patchLevel] set the update policy for the configured dependencies
                                 <options: none|inheritedFromApp|patchLevel|all>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 EXAMPLES
   Update Node.js version to newest available from the 18.x branch
@@ -385,7 +409,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all available versions of a particular dependency
@@ -411,11 +438,14 @@ FLAGS
       --exclude=<value>...            [default: ] exclude files matching the given pattern
       --remote-sub-directory=<value>  specify a sub-directory within the app installation to download
       --target=<value>                (required) target directory to download the app installation to
-      --token=<value>                 API token to use for authentication (overrides environment and config file)
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Download the filesystem of an app within a project to your local machine
@@ -489,7 +519,10 @@ FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
                          and 'json' for a machine-readable JSON representation.
                          <options: txt|json>
-      --token=<value>    API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get details about an app installation
@@ -518,10 +551,13 @@ FLAGS
       --host=<value>             host to initially configure your Contao installation with; needs to be created
                                  separately.
       --site-title=<value>       site title for your Contao installation.
-      --token=<value>            API token to use for authentication (overrides environment and config file)
       --version=<value>          (required) [default: latest] version of Contao to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Contao installation.
@@ -610,10 +646,13 @@ FLAGS
       --host=<value>             host to initially configure your Joomla! installation with; needs to be created
                                  separately.
       --site-title=<value>       site title for your Joomla! installation.
-      --token=<value>            API token to use for authentication (overrides environment and config file)
       --version=<value>          (required) [default: latest] version of Joomla! to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Joomla! installation.
@@ -698,10 +737,13 @@ FLAGS
       --admin-user=<value>    Username for your administrator user.
       --host=<value>          host to initially configure your Matomo installation with; needs to be created separately.
       --site-title=<value>    site title for your Matomo installation.
-      --token=<value>         API token to use for authentication (overrides environment and config file)
       --version=<value>       (required) [default: latest] version of Matomo to be installed.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Matomo installation.
@@ -775,10 +817,13 @@ FLAGS
       --host=<value>          host to initially configure your Nextcloud installation with; needs to be created
                               separately.
       --site-title=<value>    site title for your Nextcloud installation.
-      --token=<value>         API token to use for authentication (overrides environment and config file)
       --version=<value>       (required) [default: latest] version of Nextcloud to be installed.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Nextcloud installation.
@@ -858,10 +903,13 @@ FLAGS
       --shop-email=<value>       email address your Shopware 5 will be working with.
       --shop-lang=<value>        language your Shopware 5 will be working with.
       --site-title=<value>       site title for your Shopware 5 installation.
-      --token=<value>            API token to use for authentication (overrides environment and config file)
       --version=<value>          (required) [default: latest] version of Shopware 5 to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Shopware 5 installation.
@@ -971,10 +1019,13 @@ FLAGS
       --shop-email=<value>       email address your Shopware 6 will be working with.
       --shop-lang=<value>        language your Shopware 6 will be working with.
       --site-title=<value>       site title for your Shopware 6 installation.
-      --token=<value>            API token to use for authentication (overrides environment and config file)
       --version=<value>          (required) [default: latest] version of Shopware 6 to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Shopware 6 installation.
@@ -1080,10 +1131,13 @@ FLAGS
       --install-mode=<option>  (required) [default: composer] The installation mode your TYPO3 will be installed with.
                                <options: composer|symlink>
       --site-title=<value>     site title for your TYPO3 installation.
-      --token=<value>          API token to use for authentication (overrides environment and config file)
       --version=<value>        (required) [default: latest] version of TYPO3 to be installed.
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new TYPO3 installation.
@@ -1163,10 +1217,13 @@ FLAGS
       --host=<value>          host to initially configure your WordPress installation with; needs to be created
                               separately.
       --site-title=<value>    site title for your WordPress installation.
-      --token=<value>         API token to use for authentication (overrides environment and config file)
       --version=<value>       (required) [default: latest] version of WordPress to be installed.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new WordPress installation.
@@ -1240,7 +1297,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List installed apps in a project.
@@ -1274,7 +1334,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List upgrade candidates for an app installation.
@@ -1292,8 +1355,9 @@ ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
 
-FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file)
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Open an app installation in the browser.
@@ -1316,14 +1380,17 @@ ARGUMENTS
                    in the context.
 
 FLAGS
-  --[no-]cd        change to installation path after connecting
-  --info           only print connection information, without actually connecting
-  --test           test connection and exit
-  --token=<value>  API token to use for authentication (overrides environment and config file)
+  --[no-]cd  change to installation path after connecting
+  --info     only print connection information, without actually connecting
+  --test     test connection and exit
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Connect to an app via SSH
@@ -1366,9 +1433,12 @@ ARGUMENTS
                    in the context.
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Uninstall an app
@@ -1398,7 +1468,10 @@ FLAGS
       --description=<value>    update the description of the app installation
       --document-root=<value>  update the document root of the app installation
       --entrypoint=<value>     update the entrypoint of the app installation (Python and Node.js only)
-      --token=<value>          API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary
@@ -1442,9 +1515,12 @@ FLAGS
   -w, --wait                    wait for the resource to be ready.
       --target-version=<value>  target version to upgrade app to; if omitted, target version will be prompted
                                 interactively
-      --token=<value>           API token to use for authentication (overrides environment and config file)
       --wait-timeout=<value>    [default: 600s] the duration to wait for the resource to be ready (common units like
                                 'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Upgrade app installation to target version
@@ -1481,11 +1557,14 @@ FLAGS
       --exclude=<value>...            [default: ] exclude files matching the given pattern
       --remote-sub-directory=<value>  specify a sub-directory within the app installation to upload
       --source=<value>                (required) source directory from which to upload the app installation
-      --token=<value>                 API token to use for authentication (overrides environment and config file)
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Upload the filesystem of an app to a project
@@ -1548,8 +1627,9 @@ USAGE
 ARGUMENTS
   APP  name of specific app to get versions for
 
-FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file)
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List supported Apps and Versions

@@ -23,9 +23,12 @@ FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  (required) description of the registry
       --password=<value>     password for registry authentication
-      --token=<value>        API token to use for authentication (overrides environment and config file)
       --uri=<value>          (required) uri of the registry
       --username=<value>     username for registry authentication
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -54,9 +57,12 @@ USAGE
   $ mw registry delete REGISTRY-ID [--token <value>] [-q] [-f]
 
 FLAGS
-  -f, --force          do not ask for confirmation
-  -q, --quiet          suppress process output and only display a machine-readable summary
-      --token=<value>  API token to use for authentication (overrides environment and config file)
+  -f, --force  do not ask for confirmation
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a container registry
@@ -88,7 +94,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
-      --token=<value>           API token to use for authentication (overrides environment and config file)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List container registries.
@@ -113,9 +122,12 @@ FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  new description for the registry
       --password=<value>     password for registry authentication
-      --token=<value>        API token to use for authentication (overrides environment and config file)
       --uri=<value>          new uri for the registry
       --username=<value>     username for registry authentication
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Update an existing container registry
