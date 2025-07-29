@@ -1,5 +1,4 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
 import { RenderBaseCommand } from "../../../lib/basecommands/RenderBaseCommand.js";
 import {
   dnsZoneArgs,

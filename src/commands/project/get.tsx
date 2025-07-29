@@ -1,4 +1,3 @@
-import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { projectArgs } from "../../lib/resources/project/flags.js";
 import { FC, ReactNode } from "react";
