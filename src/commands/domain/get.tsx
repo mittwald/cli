@@ -1,5 +1,4 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import React from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
@@ -14,7 +13,7 @@ export class Get extends RenderBaseCommand<typeof Get> {
   static description = "gets a specific domain";
 
   static flags = {
-    ...GetBaseCommand.baseFlags,
+    ...RenderBaseCommand.buildFlags(),
   };
 
   static args = {

@@ -1,4 +1,3 @@
-import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { projectArgs } from "../../lib/resources/project/flags.js";
 import { FC, ReactNode } from "react";
@@ -160,7 +159,7 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
 export class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get details of a project";
 
-  static flags = { ...GetBaseCommand.baseFlags };
+  static flags = { ...RenderBaseCommand.buildFlags() };
   static args = { ...projectArgs };
 
   protected formatter: GetFormatter = new GetFormatter<ProjectProject>(

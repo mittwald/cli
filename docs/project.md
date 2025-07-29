@@ -36,7 +36,8 @@ Create a new backup of a project
 
 ```
 USAGE
-  $ mw project backup create --expires <value> [-q] [-p <value>] [--description <value>] [-w] [--wait-timeout <value>]
+  $ mw project backup create --expires <value> [--token <value>] [-q] [-p <value>] [--description <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -47,6 +48,10 @@ FLAGS
       --expires=<value>       (required) an interval after which the backup expires (examples: 30m, 30d, 1y).
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 ALIASES
   $ mw project backup create
@@ -69,7 +74,7 @@ Delete a backup
 
 ```
 USAGE
-  $ mw project backup delete BACKUP-ID [-q] [-f]
+  $ mw project backup delete BACKUP-ID [--token <value>] [-q] [-f]
 
 ARGUMENTS
   BACKUP-ID  ID of a backup.
@@ -77,6 +82,10 @@ ARGUMENTS
 FLAGS
   -f, --force  do not ask for confirmation
   -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a backup
@@ -97,8 +106,8 @@ Download a backup to your local disk
 
 ```
 USAGE
-  $ mw project backup download BACKUP-ID [-q] [--format tar|zip] [--password <value> | --generate-password |
-    --prompt-password] [--resume --output <value>]
+  $ mw project backup download BACKUP-ID [--token <value>] [-q] [--format tar|zip] [--password <value> | --generate-password
+    | --prompt-password] [--resume --output <value>]
 
 ARGUMENTS
   BACKUP-ID  ID of a backup.
@@ -112,6 +121,10 @@ FLAGS
       --password=<value>   the password to encrypt the backup with.
       --prompt-password    prompt for a password to encrypt the backup with.
       --resume             resume a previously interrupted download.
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Download a backup to your local disk
@@ -145,14 +158,19 @@ Show details of a backup.
 
 ```
 USAGE
-  $ mw project backup get BACKUP-ID -o txt|json|yaml
+  $ mw project backup get BACKUP-ID [--token <value>] [-o txt|json]
 
 ARGUMENTS
   BACKUP-ID  ID of a backup.
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Show details of a backup.
@@ -167,8 +185,8 @@ List Backups for a given Project.
 
 ```
 USAGE
-  $ mw project backup list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw project backup list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -181,6 +199,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List Backups for a given Project.
@@ -201,8 +223,8 @@ List backup schedules belonging to a given project.
 
 ```
 USAGE
-  $ mw project backupschedule list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw project backupschedule list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -215,6 +237,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List backup schedules belonging to a given project.
@@ -235,7 +261,7 @@ Create a new project
 
 ```
 USAGE
-  $ mw project create -d <value> [-s <value>] [-q] [-w] [--wait-timeout <value>] [--update-context]
+  $ mw project create -d <value> [--token <value>] [-s <value>] [-q] [-w] [--wait-timeout <value>] [--update-context]
 
 FLAGS
   -d, --description=<value>   (required) A description for the project.
@@ -246,6 +272,10 @@ FLAGS
       --update-context        Update the CLI context to use the newly created project
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new project
@@ -268,7 +298,7 @@ Get a cron job execution.
 
 ```
 USAGE
-  $ mw project cronjob execution get CRONJOB-ID EXECUTION-ID -o txt|json|yaml
+  $ mw project cronjob execution get CRONJOB-ID EXECUTION-ID -o txt|json|yaml [--token <value>]
 
 ARGUMENTS
   CRONJOB-ID    ID of the cronjob the execution belongs to
@@ -277,6 +307,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a cron job execution.
@@ -291,8 +325,8 @@ List CronjobExecutions belonging to a Cronjob.
 
 ```
 USAGE
-  $ mw project cronjob execution list -o txt|json|yaml|csv|tsv --cronjob-id <value> [-x] [--no-header] [--no-truncate]
-    [--no-relative-dates] [--csv-separator ,|;]
+  $ mw project cronjob execution list -o txt|json|yaml|csv|tsv --cronjob-id <value> [--token <value>] [-x] [--no-header]
+    [--no-truncate] [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -304,6 +338,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List CronjobExecutions belonging to a Cronjob.
@@ -318,7 +356,7 @@ Get the log output of a cronjob execution.
 
 ```
 USAGE
-  $ mw project cronjob execution logs CRONJOB-ID EXECUTION-ID -o txt|json|yaml [--no-pager]
+  $ mw project cronjob execution logs CRONJOB-ID EXECUTION-ID -o txt|json|yaml [--token <value>] [--no-pager]
 
 ARGUMENTS
   CRONJOB-ID    ID of the cronjob the execution belongs to
@@ -328,6 +366,10 @@ FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
       --no-pager         Disable pager for output.
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get the log output of a cronjob execution.
@@ -346,8 +388,8 @@ List cron jobs belonging to a project.
 
 ```
 USAGE
-  $ mw project cronjob list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw project cronjob list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -360,6 +402,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List cron jobs belonging to a project.
@@ -380,7 +426,7 @@ Delete a project
 
 ```
 USAGE
-  $ mw project delete [PROJECT-ID] [-q] [-f]
+  $ mw project delete [PROJECT-ID] [--token <value>] [-q] [-f]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
@@ -388,6 +434,10 @@ ARGUMENTS
 FLAGS
   -f, --force  do not ask for confirmation
   -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a project
@@ -405,15 +455,20 @@ Get a project directory filesystem usage.
 
 ```
 USAGE
-  $ mw project filesystem usage [PROJECT-ID] -o txt|json|yaml [--human]
+  $ mw project filesystem usage [PROJECT-ID] [--token <value>] [-o txt|json] [--human]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
       --human            Display human readable sizes.
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a project directory filesystem usage.
@@ -425,14 +480,19 @@ Get details of a project
 
 ```
 USAGE
-  $ mw project get [PROJECT-ID] -o txt|json|yaml
+  $ mw project get [PROJECT-ID] [--token <value>] [-o txt|json]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get details of a project
@@ -444,7 +504,7 @@ Get a ProjectInvite.
 
 ```
 USAGE
-  $ mw project invite get INVITE-ID -o txt|json|yaml
+  $ mw project invite get INVITE-ID -o txt|json|yaml [--token <value>]
 
 ARGUMENTS
   INVITE-ID  ID of the ProjectInvite to be retrieved.
@@ -452,6 +512,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a ProjectInvite.
@@ -463,8 +527,8 @@ List all invites belonging to a project.
 
 ```
 USAGE
-  $ mw project invite list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw project invite list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -477,6 +541,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all invites belonging to a project.
@@ -494,8 +562,8 @@ List all project invites for the executing user.
 
 ```
 USAGE
-  $ mw project invite list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;]
+  $ mw project invite list-own -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -506,6 +574,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all project invites for the executing user.
@@ -517,8 +589,8 @@ List all projects that you have access to
 
 ```
 USAGE
-  $ mw project list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;]
+  $ mw project list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -530,6 +602,10 @@ FLAGS
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
 
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
 DESCRIPTION
   List all projects that you have access to
 ```
@@ -540,7 +616,7 @@ Get a ProjectMembership
 
 ```
 USAGE
-  $ mw project membership get MEMBERSHIP-ID -o txt|json|yaml
+  $ mw project membership get MEMBERSHIP-ID -o txt|json|yaml [--token <value>]
 
 ARGUMENTS
   MEMBERSHIP-ID  ID of the ProjectMembership to be retrieved.
@@ -548,6 +624,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a ProjectMembership
@@ -559,13 +639,17 @@ Get the executing user's membership in a Project.
 
 ```
 USAGE
-  $ mw project membership get-own -o txt|json|yaml [-p <value>]
+  $ mw project membership get-own -o txt|json|yaml [--token <value>] [-p <value>]
 
 FLAGS
   -o, --output=<option>     (required) [default: txt] output in a more machine friendly format
                             <options: txt|json|yaml>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get the executing user's membership in a Project.
@@ -583,8 +667,8 @@ List all memberships for a Project.
 
 ```
 USAGE
-  $ mw project membership list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw project membership list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -597,6 +681,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all memberships for a Project.
@@ -614,8 +702,8 @@ List ProjectMemberships belonging to the executing user.
 
 ```
 USAGE
-  $ mw project membership list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;]
+  $ mw project membership list-own -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -627,6 +715,10 @@ FLAGS
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
 
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
 DESCRIPTION
   List ProjectMemberships belonging to the executing user.
 ```
@@ -637,8 +729,8 @@ List all SFTP users for a project.
 
 ```
 USAGE
-  $ mw project sftp-user list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw project sftp-user list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -651,6 +743,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all SFTP users for a project.
@@ -671,7 +767,7 @@ Connect to a project via SSH
 
 ```
 USAGE
-  $ mw project ssh [PROJECT-ID] [--ssh-user <value>] [--ssh-identity-file <value>]
+  $ mw project ssh [PROJECT-ID] [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
@@ -679,6 +775,10 @@ ARGUMENTS
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Connect to a project via SSH
@@ -714,8 +814,8 @@ List all SSH users for a project.
 
 ```
 USAGE
-  $ mw project ssh-user list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw project ssh-user list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -728,6 +828,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all SSH users for a project.
@@ -748,7 +852,7 @@ Update an existing project
 
 ```
 USAGE
-  $ mw project update [PROJECT-ID] [-q] [-p <value>] [--description <value>]
+  $ mw project update [PROJECT-ID] [--token <value>] [-q] [-p <value>] [--description <value>]
 
 ARGUMENTS
   PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
@@ -758,6 +862,10 @@ FLAGS
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  Set the project description
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Update an existing project

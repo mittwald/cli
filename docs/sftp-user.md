@@ -14,8 +14,8 @@ Create a new SFTP user
 
 ```
 USAGE
-  $ mw sftp-user create --description <value> --directories <value>... [-p <value>] [-q] [--expires <value>]
-    [--public-key <value>] [--password <value>] [--access-level read|full]
+  $ mw sftp-user create --description <value> --directories <value>... [--token <value>] [-p <value>] [-q] [--expires
+    <value>] [--public-key <value>] [--password <value>] [--access-level read|full]
 
 FLAGS
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
@@ -28,6 +28,10 @@ FLAGS
       --expires=<value>         an interval after which the SFTP User expires (examples: 30m, 30d, 1y).
       --password=<value>        Password used for authentication
       --public-key=<value>      Public key used for authentication
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -71,7 +75,7 @@ Delete an SFTP user
 
 ```
 USAGE
-  $ mw sftp-user delete SFTP-USER-ID [-q] [-f]
+  $ mw sftp-user delete SFTP-USER-ID [--token <value>] [-q] [-f]
 
 ARGUMENTS
   SFTP-USER-ID  The ID of the SFTP user to delete
@@ -79,6 +83,10 @@ ARGUMENTS
 FLAGS
   -f, --force  do not ask for confirmation
   -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete an SFTP user
@@ -96,8 +104,8 @@ List all SFTP users for a project.
 
 ```
 USAGE
-  $ mw sftp-user list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw sftp-user list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -110,6 +118,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all SFTP users for a project.
@@ -130,8 +142,8 @@ Update an existing SFTP user
 
 ```
 USAGE
-  $ mw sftp-user update SFTP-USER-ID [-q] [--expires <value>] [--description <value>] [--public-key <value> |
-    --password <value>] [--access-level read|full] [--directories <value>...] [--enable | --disable]
+  $ mw sftp-user update SFTP-USER-ID [--token <value>] [-q] [--expires <value>] [--description <value>] [--public-key
+    <value> | --password <value>] [--access-level read|full] [--directories <value>...] [--enable | --disable]
 
 ARGUMENTS
   SFTP-USER-ID  The ID of the SFTP user to update
@@ -147,6 +159,10 @@ FLAGS
       --expires=<value>         an interval after which the SFTP user expires (examples: 30m, 30d, 1y).
       --password=<value>        Password used for authentication
       --public-key=<value>      Public key used for authentication
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Update an existing SFTP user

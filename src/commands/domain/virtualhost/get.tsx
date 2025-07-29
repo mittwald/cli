@@ -1,5 +1,4 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../../lib/basecommands/GetBaseCommand.js";
 import { Args } from "@oclif/core";
 import { RenderBaseCommand } from "../../../lib/basecommands/RenderBaseCommand.js";
 import { FC, ReactNode } from "react";
@@ -108,7 +107,7 @@ const GetIngress: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
 export class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get a virtual host.";
 
-  static flags = { ...GetBaseCommand.baseFlags };
+  static flags = { ...RenderBaseCommand.buildFlags() };
   static args = {
     "ingress-id": Args.string({
       summary: "The ID of the ingress to get.",

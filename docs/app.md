@@ -38,7 +38,7 @@ Copy an app within a project
 
 ```
 USAGE
-  $ mw app copy [INSTALLATION-ID] --description <value> [-q]
+  $ mw app copy [INSTALLATION-ID] --description <value> [--token <value>] [-q]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -47,6 +47,10 @@ ARGUMENTS
 FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --description=<value>  (required) set a description for the new app installation
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Copy an app within a project
@@ -64,7 +68,8 @@ Creates new custom Node.js installation.
 
 ```
 USAGE
-  $ mw app create node [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w] [--wait-timeout <value>]
+  $ mw app create node [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -76,6 +81,10 @@ FLAGS
       --site-title=<value>    site title for your custom Node.js installation.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new custom Node.js installation.
@@ -110,7 +119,8 @@ Creates new custom PHP installation.
 
 ```
 USAGE
-  $ mw app create php --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app create php --document-root <value> [--token <value>] [-p <value>] [-q] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
@@ -122,6 +132,10 @@ FLAGS
       --site-title=<value>     site title for your custom PHP installation.
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new custom PHP installation.
@@ -158,8 +172,8 @@ Creates new PHP worker installation.
 
 ```
 USAGE
-  $ mw app create php-worker [-p <value>] [-q] [--entrypoint <value>] [--site-title <value>] [-w] [--wait-timeout
-  <value>]
+  $ mw app create php-worker [--token <value>] [-p <value>] [-q] [--entrypoint <value>] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -170,6 +184,10 @@ FLAGS
       --site-title=<value>    site title for your PHP worker installation.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new PHP worker installation.
@@ -204,7 +222,8 @@ Creates new custom python site installation.
 
 ```
 USAGE
-  $ mw app create python [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w] [--wait-timeout <value>]
+  $ mw app create python [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -215,6 +234,10 @@ FLAGS
       --site-title=<value>    site title for your custom python site installation.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new custom python site installation.
@@ -249,7 +272,8 @@ Creates new custom static site installation.
 
 ```
 USAGE
-  $ mw app create static --document-root <value> [-p <value>] [-q] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app create static --document-root <value> [--token <value>] [-p <value>] [-q] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
@@ -261,6 +285,10 @@ FLAGS
       --site-title=<value>     site title for your custom static site installation.
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new custom static site installation.
@@ -297,8 +325,8 @@ Get all available dependencies
 
 ```
 USAGE
-  $ mw app dependency list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;]
+  $ mw app dependency list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -310,6 +338,10 @@ FLAGS
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
 
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
 DESCRIPTION
   Get all available dependencies
 ```
@@ -320,8 +352,8 @@ Update the dependencies of an app
 
 ```
 USAGE
-  $ mw app dependency update [INSTALLATION-ID] --set <value>... [-q] [--update-policy
-  none|inheritedFromApp|patchLevel|all]
+  $ mw app dependency update [INSTALLATION-ID] --set <value>... [--token <value>] [-q] [--update-policy
+    none|inheritedFromApp|patchLevel|all]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -332,6 +364,10 @@ FLAGS
       --set=<value>...          (required) set a dependency to a specific version
       --update-policy=<option>  [default: patchLevel] set the update policy for the configured dependencies
                                 <options: none|inheritedFromApp|patchLevel|all>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 EXAMPLES
   Update Node.js version to newest available from the 18.x branch
@@ -358,7 +394,7 @@ Get all available versions of a particular dependency
 
 ```
 USAGE
-  $ mw app dependency versions SYSTEMSOFTWARE -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate]
+  $ mw app dependency versions SYSTEMSOFTWARE -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
     [--no-relative-dates] [--csv-separator ,|;]
 
 ARGUMENTS
@@ -374,6 +410,10 @@ FLAGS
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
 
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
 DESCRIPTION
   Get all available versions of a particular dependency
 ```
@@ -384,8 +424,8 @@ Download the filesystem of an app within a project to your local machine
 
 ```
 USAGE
-  $ mw app download [INSTALLATION-ID] --target <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
+  $ mw app download [INSTALLATION-ID] --target <value> [--token <value>] [-q] [--ssh-user <value>]
+    [--ssh-identity-file <value>] [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -402,6 +442,10 @@ FLAGS
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Download the filesystem of an app within a project to your local machine
@@ -465,15 +509,20 @@ Get details about an app installation
 
 ```
 USAGE
-  $ mw app get [INSTALLATION-ID] -o txt|json|yaml
+  $ mw app get [INSTALLATION-ID] [--token <value>] [-o txt|json]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get details about an app installation
@@ -485,9 +534,9 @@ Creates new Contao installation.
 
 ```
 USAGE
-  $ mw app install contao --version <value> [-p <value>] [-q] [--host <value>] [--admin-firstname <value>] [--admin-user
-    <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
-    [--wait-timeout <value>]
+  $ mw app install contao --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-firstname
+    <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>]
+    [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
@@ -505,6 +554,10 @@ FLAGS
       --version=<value>          (required) [default: latest] version of Contao to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Contao installation.
@@ -576,9 +629,9 @@ Creates new Joomla! installation.
 
 ```
 USAGE
-  $ mw app install joomla --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>] [-w]
-    [--wait-timeout <value>]
+  $ mw app install joomla --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title
+    <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
@@ -596,6 +649,10 @@ FLAGS
       --version=<value>          (required) [default: latest] version of Joomla! to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Joomla! installation.
@@ -667,8 +724,8 @@ Creates new Matomo installation.
 
 ```
 USAGE
-  $ mw app install matomo --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app install matomo --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -683,6 +740,10 @@ FLAGS
       --version=<value>       (required) [default: latest] version of Matomo to be installed.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Matomo installation.
@@ -742,8 +803,8 @@ Creates new Nextcloud installation.
 
 ```
 USAGE
-  $ mw app install nextcloud --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app install nextcloud --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -759,6 +820,10 @@ FLAGS
       --version=<value>       (required) [default: latest] version of Nextcloud to be installed.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Nextcloud installation.
@@ -818,9 +883,9 @@ Creates new Shopware 5 installation.
 
 ```
 USAGE
-  $ mw app install shopware5 --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>]
-    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
+  $ mw app install shopware5 --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title
+    <value>] [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
@@ -841,6 +906,10 @@ FLAGS
       --version=<value>          (required) [default: latest] version of Shopware 5 to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Shopware 5 installation.
@@ -930,9 +999,9 @@ Creates new Shopware 6 installation.
 
 ```
 USAGE
-  $ mw app install shopware6 --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title <value>]
-    [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
+  $ mw app install shopware6 --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title
+    <value>] [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
@@ -953,6 +1022,10 @@ FLAGS
       --version=<value>          (required) [default: latest] version of Shopware 6 to be installed.
       --wait-timeout=<value>     [default: 600s] the duration to wait for the resource to be ready (common units like
                                  'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new Shopware 6 installation.
@@ -1042,9 +1115,9 @@ Creates new TYPO3 installation.
 
 ```
 USAGE
-  $ mw app install typo3 --version <value> --install-mode composer|symlink [-p <value>] [-q] [--host <value>]
-    [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout
-    <value>]
+  $ mw app install typo3 --version <value> --install-mode composer|symlink [--token <value>] [-p <value>] [-q] [--host
+    <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w]
+    [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1061,6 +1134,10 @@ FLAGS
       --version=<value>        (required) [default: latest] version of TYPO3 to be installed.
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new TYPO3 installation.
@@ -1126,8 +1203,8 @@ Creates new WordPress installation.
 
 ```
 USAGE
-  $ mw app install wordpress --version <value> [-p <value>] [-q] [--host <value>] [--admin-user <value>] [--admin-email
-    <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
+  $ mw app install wordpress --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
+    [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>]
 
 FLAGS
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
@@ -1143,6 +1220,10 @@ FLAGS
       --version=<value>       (required) [default: latest] version of WordPress to be installed.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Creates new WordPress installation.
@@ -1202,8 +1283,8 @@ List installed apps in a project.
 
 ```
 USAGE
-  $ mw app list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw app list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -1216,6 +1297,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List installed apps in a project.
@@ -1233,8 +1318,8 @@ List upgrade candidates for an app installation.
 
 ```
 USAGE
-  $ mw app list-upgrade-candidates [INSTALLATION-ID] -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate]
-    [--no-relative-dates] [--csv-separator ,|;]
+  $ mw app list-upgrade-candidates [INSTALLATION-ID] -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header]
+    [--no-truncate] [--no-relative-dates] [--csv-separator ,|;]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1250,6 +1335,10 @@ FLAGS
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
 
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
 DESCRIPTION
   List upgrade candidates for an app installation.
 ```
@@ -1260,11 +1349,15 @@ Open an app installation in the browser.
 
 ```
 USAGE
-  $ mw app open [INSTALLATION-ID]
+  $ mw app open [INSTALLATION-ID] [--token <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Open an app installation in the browser.
@@ -1279,7 +1372,8 @@ Connect to an app via SSH
 
 ```
 USAGE
-  $ mw app ssh [INSTALLATION-ID] [--ssh-user <value>] [--ssh-identity-file <value>] [--cd] [--info] [--test]
+  $ mw app ssh [INSTALLATION-ID] [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>] [--cd]
+    [--info] [--test]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1293,6 +1387,10 @@ FLAGS
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Connect to an app via SSH
@@ -1328,7 +1426,7 @@ Uninstall an app
 
 ```
 USAGE
-  $ mw app uninstall [INSTALLATION-ID] [-q] [-f]
+  $ mw app uninstall [INSTALLATION-ID] [--token <value>] [-q] [-f]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1337,6 +1435,10 @@ ARGUMENTS
 FLAGS
   -f, --force  do not ask for confirmation
   -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Uninstall an app
@@ -1354,7 +1456,8 @@ Update properties of an app installation (use 'upgrade' to update the app versio
 
 ```
 USAGE
-  $ mw app update [INSTALLATION-ID] [-q] [--description <value>] [--entrypoint <value>] [--document-root <value>]
+  $ mw app update [INSTALLATION-ID] [--token <value>] [-q] [--description <value>] [--entrypoint <value>]
+    [--document-root <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1365,6 +1468,10 @@ FLAGS
       --description=<value>    update the description of the app installation
       --document-root=<value>  update the document root of the app installation
       --entrypoint=<value>     update the entrypoint of the app installation (Python and Node.js only)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary
@@ -1393,8 +1500,8 @@ Upgrade app installation to target version
 
 ```
 USAGE
-  $ mw app upgrade [INSTALLATION-ID] [--target-version <value>] [-f] [-p <value>] [-q] [-w] [--wait-timeout
-    <value>]
+  $ mw app upgrade [INSTALLATION-ID] [--token <value>] [--target-version <value>] [-f] [-p <value>] [-q] [-w]
+    [--wait-timeout <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1410,6 +1517,10 @@ FLAGS
                                 interactively
       --wait-timeout=<value>    [default: 600s] the duration to wait for the resource to be ready (common units like
                                 'ms', 's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Upgrade app installation to target version
@@ -1432,8 +1543,8 @@ Upload the filesystem of an app to a project
 
 ```
 USAGE
-  $ mw app upload [INSTALLATION-ID] --source <value> [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
-    [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
+  $ mw app upload [INSTALLATION-ID] --source <value> [--token <value>] [-q] [--ssh-user <value>]
+    [--ssh-identity-file <value>] [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
@@ -1450,6 +1561,10 @@ FLAGS
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
   --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Upload the filesystem of an app to a project
@@ -1507,10 +1622,14 @@ List supported Apps and Versions
 
 ```
 USAGE
-  $ mw app versions [APP]
+  $ mw app versions [APP] [--token <value>]
 
 ARGUMENTS
   APP  name of specific app to get versions for
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List supported Apps and Versions

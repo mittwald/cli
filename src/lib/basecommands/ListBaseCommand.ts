@@ -30,6 +30,7 @@ export abstract class ListBaseCommand<
   TAPIResponse extends Response,
 > extends ExtendedBaseCommand<T> {
   static baseFlags = {
+    ...ExtendedBaseCommand.baseFlags,
     ...ListFormatter.flags,
   };
 

@@ -1,22 +1,31 @@
-import { Command } from "@oclif/core";
+import { Flags } from "@oclif/core";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { getTokenFilename, readApiToken } from "../auth/token.js";
+import { CoreBaseCommand } from "./CoreBaseCommand.js";
+import { configureAxiosLogging } from "../apiutil/api_logging.js";
 import { configureAxiosRetry } from "../apiutil/api_retry.js";
 import { configureConsistencyHandling } from "../apiutil/api_consistency.js";
-import { getTokenFilename, readApiToken } from "../auth/token.js";
-import { configureAxiosLogging } from "../apiutil/api_logging.js";
 
-export abstract class BaseCommand extends Command {
-  protected authenticationRequired = true;
-  protected apiClient: MittwaldAPIV2Client =
-    MittwaldAPIV2Client.newUnauthenticated();
+/** Base command class for authenticated commands that includes the --token flag. */
+export abstract class BaseCommand extends CoreBaseCommand {
+  static baseFlags = {
+    token: Flags.string({
+      description:
+        "API token to use for authentication (overrides environment and config file). NOTE: watch out that tokens passed via this flag might be logged in your shell history.",
+      required: false,
+      helpGroup: "AUTHENTICATION",
+    }),
+  };
 
   public async init(): Promise<void> {
     await super.init();
+    // Override the parent's auth behavior to include --token flag support
     if (this.authenticationRequired) {
-      const token = await readApiToken(this.config);
+      const { flags } = await this.parse();
+      const token = await this.getEffectiveTokenWithFlag(flags);
       if (token === undefined) {
         throw new Error(
-          `Could not get token from either config file (${getTokenFilename(this.config)}) or environment`,
+          `Could not get token from --token flag, MITTWALD_API_TOKEN env var, or config file (${getTokenFilename(this.config)}). Please run "mw login token" or use --token.`,
         );
       }
 
@@ -28,5 +37,17 @@ export abstract class BaseCommand extends Command {
       configureAxiosRetry(this.apiClient.axios);
       configureConsistencyHandling(this.apiClient.axios);
     }
+  }
+
+  private async getEffectiveTokenWithFlag(flags: {
+    token?: string;
+    [key: string]: unknown;
+  }): Promise<string | undefined> {
+    // 1. Check --token flag first (highest precedence)
+    if (flags.token) {
+      return flags.token;
+    }
+    // 2. Fall back to existing readApiToken logic (env then file)
+    return await readApiToken(this.config);
   }
 }

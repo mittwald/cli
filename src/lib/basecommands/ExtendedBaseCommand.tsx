@@ -9,6 +9,10 @@ import { withStackId } from "../resources/stack/flags.js";
 export abstract class ExtendedBaseCommand<
   T extends typeof BaseCommand,
 > extends BaseCommand {
+  static baseFlags = {
+    ...BaseCommand.baseFlags,
+  };
+
   protected flags!: CommandFlags<T>;
   protected args!: CommandArgs<T>;
 

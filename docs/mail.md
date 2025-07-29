@@ -20,8 +20,8 @@ Create a new mail address
 
 ```
 USAGE
-  $ mw mail address create -a <value> [-p <value>] [-q] [--catch-all] [--enable-spam-protection] [--quota <value>]
-    [--password <value> | --random-password] [--forward-to <value>...]
+  $ mw mail address create -a <value> [--token <value>] [-p <value>] [-q] [--catch-all] [--enable-spam-protection]
+    [--quota <value>] [--password <value> | --random-password] [--forward-to <value>...]
 
 FLAGS
   -a, --address=<value>              (required) mail address
@@ -34,6 +34,10 @@ FLAGS
       --password=<value>             mailbox password
       --quota=<value>                [default: 1GiB] mailbox quota
       --random-password              generate a random password
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new mail address
@@ -103,7 +107,7 @@ Delete a mail address
 
 ```
 USAGE
-  $ mw mail address delete ID [-q] [-f]
+  $ mw mail address delete ID [--token <value>] [-q] [-f]
 
 ARGUMENTS
   ID  Mail address ID
@@ -111,6 +115,10 @@ ARGUMENTS
 FLAGS
   -f, --force  do not ask for confirmation
   -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a mail address
@@ -128,7 +136,7 @@ Get a specific mail address
 
 ```
 USAGE
-  $ mw mail address get ID -o txt|json|yaml
+  $ mw mail address get ID -o txt|json|yaml [--token <value>]
 
 ARGUMENTS
   ID  id of the address you want to get
@@ -136,6 +144,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a specific mail address
@@ -147,8 +159,8 @@ Get all mail addresses for a project ID
 
 ```
 USAGE
-  $ mw mail address list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw mail address list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -161,6 +173,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all mail addresses for a project ID
@@ -178,8 +194,8 @@ Update a mail address
 
 ```
 USAGE
-  $ mw mail address update MAILADDRESS-ID [-q] [-a <value>] [--catch-all] [--quota <value>] [--password <value>]
-    [--random-password] [--forward-to <value>...]
+  $ mw mail address update MAILADDRESS-ID [--token <value>] [-q] [-a <value>] [--catch-all] [--quota <value>] [--password
+    <value>] [--random-password] [--forward-to <value>...]
 
 ARGUMENTS
   MAILADDRESS-ID  ID or mail address of a mailaddress
@@ -192,6 +208,10 @@ FLAGS
       --password=<value>       mailbox password
       --quota=<value>          mailbox quota in mebibytes
       --random-password        generate a random password
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Update a mail address
@@ -252,7 +272,7 @@ Create a new mail delivery box
 
 ```
 USAGE
-  $ mw mail deliverybox create -d <value> [-p <value>] [-q] [--password <value> | --random-password]
+  $ mw mail deliverybox create -d <value> [--token <value>] [-p <value>] [-q] [--password <value> | --random-password]
 
 FLAGS
   -d, --description=<value>  (required) mail delivery box description
@@ -261,6 +281,10 @@ FLAGS
   -q, --quiet                suppress process output and only display a machine-readable summary
       --password=<value>     delivery box password
       --random-password      generate a random password
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Create a new mail delivery box
@@ -311,7 +335,7 @@ Delete a mail delivery box
 
 ```
 USAGE
-  $ mw mail deliverybox delete ID [-q] [-f]
+  $ mw mail deliverybox delete ID [--token <value>] [-q] [-f]
 
 ARGUMENTS
   ID  Mail delivery box ID
@@ -319,6 +343,10 @@ ARGUMENTS
 FLAGS
   -f, --force  do not ask for confirmation
   -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a mail delivery box
@@ -336,7 +364,7 @@ Get a specific delivery box
 
 ```
 USAGE
-  $ mw mail deliverybox get ID -o txt|json|yaml
+  $ mw mail deliverybox get ID -o txt|json|yaml [--token <value>]
 
 ARGUMENTS
   ID  ID of the delivery box you want to retrieve
@@ -344,6 +372,10 @@ ARGUMENTS
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
                          <options: txt|json|yaml>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get a specific delivery box
@@ -355,8 +387,8 @@ Get all delivery boxes by project ID
 
 ```
 USAGE
-  $ mw mail deliverybox list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw mail deliverybox list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -369,6 +401,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all delivery boxes by project ID
@@ -386,7 +422,8 @@ Update a mail delivery box
 
 ```
 USAGE
-  $ mw mail deliverybox update MAILDELIVERYBOX-ID [-q] [--description <value>] [--password <value>] [--random-password]
+  $ mw mail deliverybox update MAILDELIVERYBOX-ID [--token <value>] [-q] [--description <value>] [--password <value>]
+    [--random-password]
 
 ARGUMENTS
   MAILDELIVERYBOX-ID  ID of a maildeliverybox.
@@ -396,6 +433,10 @@ FLAGS
       --description=<value>  delivery box description
       --password=<value>     delivery box password
       --random-password      generate a random password
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Update a mail delivery box

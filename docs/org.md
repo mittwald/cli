@@ -20,7 +20,7 @@ Delete an organization
 
 ```
 USAGE
-  $ mw org delete [ORG-ID] [-q] [-f]
+  $ mw org delete [ORG-ID] [--token <value>] [-q] [-f]
 
 ARGUMENTS
   ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
@@ -28,6 +28,10 @@ ARGUMENTS
 FLAGS
   -f, --force  do not ask for confirmation
   -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete an organization
@@ -45,14 +49,19 @@ Get an organization profile.
 
 ```
 USAGE
-  $ mw org get [ORG-ID] -o txt|json|yaml
+  $ mw org get [ORG-ID] [--token <value>] [-o txt|json]
 
 ARGUMENTS
   ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
-  -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
-                         <options: txt|json|yaml>
+  -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
+                         and 'json' for a machine-readable JSON representation.
+                         <options: txt|json>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get an organization profile.
@@ -64,8 +73,8 @@ Invite a user to an organization.
 
 ```
 USAGE
-  $ mw org invite --email <value> [-o <value>] [-q] [--role owner|member|accountant] [--message <value>]
-    [--expires <value>]
+  $ mw org invite --email <value> [--token <value>] [-o <value>] [-q] [--role owner|member|accountant]
+    [--message <value>] [--expires <value>]
 
 FLAGS
   -o, --org-id=<value>   ID or short ID of an org; this flag is optional if a default org is set in the context
@@ -75,6 +84,10 @@ FLAGS
       --message=<value>  A message to include in the invitation email.
       --role=<option>    [default: member] The role of the user to invite.
                          <options: owner|member|accountant>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Invite a user to an organization.
@@ -97,8 +110,8 @@ List all invites for an organization.
 
 ```
 USAGE
-  $ mw org invite list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-o <value>]
+  $ mw org invite list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-o <value>]
 
 FLAGS
   -o, --org-id=<value>          ID or short ID of an org; this flag is optional if a default org is set in the context
@@ -110,6 +123,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all invites for an organization.
@@ -127,8 +144,8 @@ List all organization invites for the executing user.
 
 ```
 USAGE
-  $ mw org invite list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;]
+  $ mw org invite list-own -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -140,6 +157,10 @@ FLAGS
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
 
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
 DESCRIPTION
   List all organization invites for the executing user.
 ```
@@ -150,13 +171,17 @@ Revoke an invite to an organization
 
 ```
 USAGE
-  $ mw org invite revoke INVITE-ID [-q]
+  $ mw org invite revoke INVITE-ID [--token <value>] [-q]
 
 ARGUMENTS
   INVITE-ID  The ID of the invite to revoke
 
 FLAGS
   -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Revoke an invite to an organization
@@ -174,8 +199,8 @@ Get all organizations the authenticated user has access to.
 
 ```
 USAGE
-  $ mw org list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;]
+  $ mw org list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -186,6 +211,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Get all organizations the authenticated user has access to.
@@ -197,8 +226,8 @@ List all memberships belonging to an organization.
 
 ```
 USAGE
-  $ mw org membership list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-o <value>]
+  $ mw org membership list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-o <value>]
 
 FLAGS
   -o, --org-id=<value>          ID or short ID of an org; this flag is optional if a default org is set in the context
@@ -210,6 +239,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List all memberships belonging to an organization.
@@ -227,8 +260,8 @@ List all organization memberships for the executing user.
 
 ```
 USAGE
-  $ mw org membership list-own -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;]
+  $ mw org membership list-own -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -240,6 +273,10 @@ FLAGS
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
 
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
 DESCRIPTION
   List all organization memberships for the executing user.
 ```
@@ -250,13 +287,17 @@ Revoke a user's membership to an organization
 
 ```
 USAGE
-  $ mw org membership revoke MEMBERSHIP-ID [-q]
+  $ mw org membership revoke MEMBERSHIP-ID [--token <value>] [-q]
 
 ARGUMENTS
   MEMBERSHIP-ID  The ID of the membership to revoke
 
 FLAGS
   -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Revoke a user's membership to an organization

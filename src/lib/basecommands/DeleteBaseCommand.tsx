@@ -15,6 +15,7 @@ export abstract class DeleteBaseCommand<
 > extends ExecRenderBaseCommand<T, void> {
   static resourceName = "object";
   static baseFlags = {
+    ...ExecRenderBaseCommand.baseFlags,
     ...processFlags,
     force: Flags.boolean({
       char: "f",

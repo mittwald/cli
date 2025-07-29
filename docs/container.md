@@ -21,7 +21,7 @@ Delete a container
 
 ```
 USAGE
-  $ mw container delete CONTAINER-ID [-q] [-f] [-p <value>]
+  $ mw container delete CONTAINER-ID [--token <value>] [-q] [-f] [-p <value>]
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to start
@@ -31,6 +31,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a container
@@ -56,8 +60,8 @@ List containers belonging to a project.
 
 ```
 USAGE
-  $ mw container list -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw container list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -70,6 +74,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List containers belonging to a project.
@@ -90,7 +98,7 @@ Display logs of a specific container.
 
 ```
 USAGE
-  $ mw container logs CONTAINER-ID -o txt|json|yaml [-p <value>] [--no-pager]
+  $ mw container logs CONTAINER-ID -o txt|json|yaml [--token <value>] [-p <value>] [--no-pager]
 
 ARGUMENTS
   CONTAINER-ID  ID of the container for which to get logs
@@ -101,6 +109,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
       --no-pager            Disable pager for output.
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Display logs of a specific container.
@@ -125,8 +137,8 @@ List containers belonging to a project.
 
 ```
 USAGE
-  $ mw container ls -o txt|json|yaml|csv|tsv [-x] [--no-header] [--no-truncate] [--no-relative-dates]
-    [--csv-separator ,|;] [-p <value>]
+  $ mw container ls -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [-p <value>]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -139,6 +151,10 @@ FLAGS
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   List containers belonging to a project.
@@ -159,7 +175,7 @@ Recreates a container.
 
 ```
 USAGE
-  $ mw container recreate CONTAINER-ID [-q] [-p <value>] [--pull] [--force]
+  $ mw container recreate CONTAINER-ID [--token <value>] [-q] [-p <value>] [--pull] [--force]
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to restart
@@ -170,6 +186,10 @@ FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary
       --force               also recreate the container when it is already up to date
       --pull                pull the container image before recreating the container
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -189,7 +209,7 @@ Restarts a container.
 
 ```
 USAGE
-  $ mw container restart CONTAINER-ID [-q] [-p <value>]
+  $ mw container restart CONTAINER-ID [--token <value>] [-q] [-p <value>]
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to restart
@@ -198,6 +218,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -217,7 +241,7 @@ Delete a container
 
 ```
 USAGE
-  $ mw container rm CONTAINER-ID [-q] [-f] [-p <value>]
+  $ mw container rm CONTAINER-ID [--token <value>] [-q] [-f] [-p <value>]
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to start
@@ -227,6 +251,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Delete a container
@@ -252,8 +280,8 @@ Creates and starts a new container.
 
 ```
 USAGE
-  $ mw container run IMAGE [COMMAND] [ARGS] [-q] [-p <value>] [-e <value>...] [--env-file <value>...]
-    [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...]
+  $ mw container run IMAGE [COMMAND] [ARGS] [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file
+    <value>...] [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...]
 
 ARGUMENTS
   IMAGE    Can be specified as a repository/tag or repository@digest (e.g., 'ubuntu:20.04' or
@@ -276,6 +304,10 @@ FLAGS
       --entrypoint=<value>   override the default entrypoint of the container image
       --env-file=<value>...  read environment variables from a file
       --name=<value>         assign a custom name to the container
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -P, --publish-all  publish all ports that are defined in the image
@@ -335,7 +367,7 @@ Starts a stopped container.
 
 ```
 USAGE
-  $ mw container start CONTAINER-ID [-q] [-p <value>]
+  $ mw container start CONTAINER-ID [--token <value>] [-q] [-p <value>]
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to start
@@ -344,6 +376,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -363,7 +399,7 @@ Stops a running container.
 
 ```
 USAGE
-  $ mw container stop CONTAINER-ID [-q] [-p <value>]
+  $ mw container stop CONTAINER-ID [--token <value>] [-q] [-p <value>]
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to stop
@@ -372,6 +408,10 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -391,8 +431,9 @@ Updates an existing container.
 
 ```
 USAGE
-  $ mw container update CONTAINER-ID [-q] [-p <value>] [--image <value>] [-e <value>...] [--env-file <value>...]
-    [--description <value>] [--entrypoint <value>] [--command <value>] [-p <value>...] [-P] [-v <value>...] [--recreate]
+  $ mw container update CONTAINER-ID [--token <value>] [-q] [-p <value>] [--image <value>] [-e <value>...] [--env-file
+    <value>...] [--description <value>] [--entrypoint <value>] [--command <value>] [-p <value>...] [-P] [-v <value>...]
+    [--recreate]
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to update
@@ -411,6 +452,10 @@ FLAGS
       --env-file=<value>...  read environment variables from a file
       --image=<value>        update the container image
       --recreate             recreate the container after updating
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
   Updates an existing container.

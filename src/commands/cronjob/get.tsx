@@ -1,5 +1,4 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import { Args } from "@oclif/core";
 import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
 import { ComponentPrinter } from "../../rendering/react/ComponentPrinter.js";
@@ -15,7 +14,7 @@ type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
 export class Get extends RenderBaseCommand<typeof Get> {
   static description = "Get details of a cron job";
 
-  static flags = { ...GetBaseCommand.baseFlags };
+  static flags = { ...RenderBaseCommand.buildFlags() };
   static args = {
     "cronjob-id": Args.string({
       description: "ID of the cron job to be retrieved.",
