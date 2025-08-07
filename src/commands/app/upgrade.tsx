@@ -118,7 +118,10 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
           currentApp.id,
           currentAppVersion.id,
         )) as AppAppVersion;
-    } else if (validateUuid(this.flags["target-version"])) {
+    } else if (
+      this.flags["target-version"] &&
+      validateUuid(this.flags["target-version"])
+    ) {
       targetAppVersion = await getAppVersionFromUuid(
         this.apiClient,
         currentApp.id,
