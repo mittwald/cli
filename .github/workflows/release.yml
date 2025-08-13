@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -94,7 +94,7 @@ jobs:
     runs-on: macos-13
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -136,7 +136,7 @@ jobs:
       - build-macos
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -168,7 +168,7 @@ jobs:
       - build-macos
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download artifacts
         uses: actions/download-artifact@v5
@@ -189,7 +189,7 @@ jobs:
       - build-macos
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download artifacts
         uses: actions/download-artifact@v5
@@ -218,7 +218,7 @@ jobs:
       - build-linux
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -256,10 +256,10 @@ jobs:
       - build-linux
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Checkout Homebrew repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: mittwald/homebrew-cli
           path: homebrew
