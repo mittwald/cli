@@ -117,6 +117,9 @@
       "app": {
         "description": "Manage apps, and app installations in your projects",
         "subtopics": {
+          "create": {
+            "description": "Create new self-managed apps in your projects"
+          },
           "install": {
             "description": "Install apps in your projects"
           },
@@ -128,9 +131,6 @@
       "registry": {
         "description": "Manage container registries"
       },
-      "article": {
-        "description": "Query available hosting articles"
-      },
       "backup": {
         "description": "Manage backups of your projects",
         "subtopics": {
@@ -139,11 +139,11 @@
           }
         }
       },
+      "container": {
+        "description": "Manage containers"
+      },
       "context": {
         "description": "Save certain environment parameters for later use"
-      },
-      "contract": {
-        "description": "Manage your hosting contracts, and order new ones"
       },
       "conversation": {
         "description": "Manage your support cases"
@@ -157,16 +157,42 @@
         }
       },
       "cronjob": {
-        "description": "Manage cronjobs of your projects"
+        "description": "Manage cronjobs of your projects",
+        "subtopics": {
+          "execution": {
+            "description": "Manage individual cronjob executions"
+          }
+        }
       },
       "database": {
-        "description": "Manage databases (like MySQL and Redis) in your projects"
+        "description": "Manage databases (like MySQL and Redis) in your projects",
+        "subtopics": {
+          "mysql": {
+            "description": "Manage MySQL databases in your projects",
+            "subtopics": {
+              "user": {
+                "description": "Manage MySQL database users"
+              }
+            }
+          },
+          "redis": {
+            "description": "Manage Redis databases in your projects"
+          }
+        }
       },
       "ddev": {
         "description": "Integrate your mittwald projects with DDEV"
       },
       "domain": {
-        "description": "Manage domains, virtual hosts and DNS settings in your projects"
+        "description": "Manage domains, virtual hosts and DNS settings in your projects",
+        "subtopics": {
+          "dnszone": {
+            "description": "Manage DNS zones for your domains"
+          },
+          "virtualhost": {
+            "description": "Manage virtual hosts for your domains"
+          }
+        }
       },
       "extension": {
         "description": "Install and manage extensions in your organisations and projects"
@@ -175,10 +201,26 @@
         "description": "Manage your client authentication"
       },
       "mail": {
-        "description": "Manage mailboxes and mail addresses in your projects"
+        "description": "Manage mailboxes and mail addresses in your projects",
+        "subtopics": {
+          "address": {
+            "description": "Manage mail addresses in your projects"
+          },
+          "deliverybox": {
+            "description": "Manage mail delivery boxes in your projects"
+          }
+        }
       },
       "org": {
-        "description": "Manage your organizations, and also any kinds of user memberships concerning these organizations."
+        "description": "Manage your organizations, and also any kinds of user memberships concerning these organizations.",
+        "subtopics": {
+          "invite": {
+            "description": "Invite users to your organizations and manage their invitations"
+          },
+          "membership": {
+            "description": "Control who gets to work in your organizations, and who doesn't"
+          }
+        }
       },
       "project": {
         "description": "Manage your projects, and also any kinds of user memberships concerning these projects.",
@@ -209,6 +251,12 @@
       "user": {
         "description": "Manage your own user account",
         "subtopics": {
+          "api-token": {
+            "description": "Manage your API tokens"
+          },
+          "session": {
+            "description": "Manage your active sessions"
+          },
           "ssh-key": {
             "description": "Manage your SSH keys"
           }
