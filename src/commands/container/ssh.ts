@@ -65,7 +65,7 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
 
     this.log("connecting to %o as %o", host, user);
 
-    const [cmd, args] = buildSSHCmdAndFlags(user, host, this.flags);
+    const [cmd, args] = buildSSHCmdAndFlags(user, host, flags);
 
     this.debug("running ssh %o, with command %o", args, cmd);
 
