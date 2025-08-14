@@ -10,10 +10,9 @@ import { projectFlags } from "../../lib/resources/project/flags.js";
 import shellEscape from "shell-escape";
 
 export default class Exec extends ExtendedBaseCommand<typeof Exec> {
-  static summary = "Execute a command in a container via SSH";
-  static description =
-    "Executes a command in a container via SSH non-interactively.\n\n" +
-    sshUsageDocumentation;
+  static summary =
+    "Execute a command in a container via SSH non-interactively.";
+  static description = sshUsageDocumentation;
 
   static args = {
     "container-id": Args.string({
