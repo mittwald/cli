@@ -24,7 +24,10 @@ export default class PortMapping {
     const localPortNum = parseInt(localPort);
     const remotePortNum = parseInt(remotePort);
 
-    if (!PortMapping.validatePort(localPortNum) || !PortMapping.validatePort(remotePortNum)) {
+    if (
+      !PortMapping.validatePort(localPortNum) ||
+      !PortMapping.validatePort(remotePortNum)
+    ) {
       throw new Error(
         "Invalid port number. Ports must be between 1 and 65535.",
       );
