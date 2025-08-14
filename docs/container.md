@@ -59,7 +59,7 @@ FLAG DESCRIPTIONS
 
 ## `mw container exec CONTAINER-ID COMMAND`
 
-Execute a command in a container via SSH
+Execute a command in a container via SSH non-interactively.
 
 ```
 USAGE
@@ -86,9 +86,7 @@ AUTHENTICATION FLAGS
                    tokens passed via this flag might be logged in your shell history.
 
 DESCRIPTION
-  Execute a command in a container via SSH
-
-  Executes a command in a container via SSH non-interactively.
+  Execute a command in a container via SSH non-interactively.
 
   This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
   under the hood, and will respect your SSH configuration in ~/.ssh/config.
