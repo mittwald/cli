@@ -7,13 +7,14 @@ import {
 import * as cp from "child_process";
 import { Text } from "ink";
 import { Value } from "../../rendering/react/components/Value.js";
-import { Args, Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
 import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
 import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
 import { getSSHConnectionForContainer } from "../../lib/resources/ssh/container.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
+import PortMapping from "../../lib/units/PortMapping.js";
 
 export class PortForward extends ExecRenderBaseCommand<
   typeof PortForward,
@@ -33,7 +34,7 @@ export class PortForward extends ExecRenderBaseCommand<
       description: "ID or short ID of the container to connect to",
       required: true,
     }),
-    port: Args.string({
+    port: PortMapping.arg({
       summary: "Port mapping in the format 'local-port:container-port'",
       description:
         "Specifies the port mapping between your local machine and the container. Format: 'local-port:container-port'",
@@ -59,30 +60,18 @@ export class PortForward extends ExecRenderBaseCommand<
       this.flags["ssh-user"],
     );
 
-    const portMapping = this.args.port;
-    const [localPort, containerPort] = portMapping.split(":");
-
-    if (
-      !localPort ||
-      !containerPort ||
-      isNaN(Number(localPort)) ||
-      isNaN(Number(containerPort))
-    ) {
-      throw new Error(
-        "Invalid port format. Expected 'local-port:container-port' where both ports are numbers.",
-      );
-    }
+    const { localPort, remotePort } = this.args.port;
 
     await p.complete(
       <Text>
-        Forwarding container port <Value>{containerPort}</Value> to local port{" "}
+        Forwarding container port <Value>{remotePort}</Value> to local port{" "}
         <Value>{localPort}</Value>. Use CTRL+C to cancel.
       </Text>,
     );
 
     const sshArgs = buildSSHClientFlags(user, host, this.flags, {
       interactive: false,
-      additionalFlags: ["-L", `${localPort}:localhost:${containerPort}`],
+      additionalFlags: ["-L", `${localPort}:localhost:${remotePort}`],
     });
 
     cp.spawnSync("ssh", [...sshArgs, "cat", "/dev/zero"], {
