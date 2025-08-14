@@ -8,7 +8,7 @@ Manage containers
 * [`mw container list`](#mw-container-list)
 * [`mw container logs CONTAINER-ID`](#mw-container-logs-container-id)
 * [`mw container ls`](#mw-container-ls)
-* [`mw container port-forward CONTAINER-ID PORT`](#mw-container-port-forward-container-id-port)
+* [`mw container port-forward CONTAINER-ID [PORT]`](#mw-container-port-forward-container-id-port)
 * [`mw container recreate CONTAINER-ID`](#mw-container-recreate-container-id)
 * [`mw container restart CONTAINER-ID`](#mw-container-restart-container-id)
 * [`mw container rm CONTAINER-ID`](#mw-container-rm-container-id)
@@ -232,19 +232,19 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-## `mw container port-forward CONTAINER-ID PORT`
+## `mw container port-forward CONTAINER-ID [PORT]`
 
 Forward a container port to a local port
 
 ```
 USAGE
-  $ mw container port-forward CONTAINER-ID PORT [--token <value>] [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
+  $ mw container port-forward CONTAINER-ID [PORT] [--token <value>] [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
     [-p <value>]
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to connect to
   PORT          Specifies the port mapping between your local machine and the container. Format:
-                'local-port:container-port'
+                'local-port:container-port'. If not specified, available ports will be detected automatically.
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
