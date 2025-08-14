@@ -9,6 +9,7 @@ import {
   MissingArgError,
   MissingFlagError,
 } from "../../../lib/context/FlagSetBuilder.js";
+import NoTokenFoundError from "../../../lib/error/NoTokenFoundError.js";
 
 /**
  * Render an error to the terminal.
@@ -36,6 +37,15 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
         withStack={false}
         withIssue={false}
         title="Input required"
+      />
+    );
+  } else if (err instanceof NoTokenFoundError) {
+    return (
+      <GenericError
+        err={err}
+        withStack={false}
+        withIssue={false}
+        title="Login required"
       />
     );
   } else if (err instanceof UnexpectedShortIDPassedError) {
