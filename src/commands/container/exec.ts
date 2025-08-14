@@ -2,10 +2,7 @@ import * as child_process from "child_process";
 import { Args, Flags } from "@oclif/core";
 import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
 import { getSSHConnectionForContainer } from "../../lib/resources/ssh/container.js";
-import {
-  SSHConnectionFlags,
-  sshConnectionFlags,
-} from "../../lib/resources/ssh/flags.js";
+import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
 import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
 import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
