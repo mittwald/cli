@@ -1,7 +1,7 @@
 `mw container`
 ==============
 
-Delete a container
+Manage containers
 
 * [`mw container delete CONTAINER-ID`](#mw-container-delete-container-id)
 * [`mw container list`](#mw-container-list)
