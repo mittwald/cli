@@ -1,0 +1,97 @@
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
+import { ReactNode } from "react";
+import {
+  makeProcessRenderer,
+  processFlags,
+} from "../../rendering/process/process_flags.js";
+import * as cp from "child_process";
+import { Text } from "ink";
+import { Value } from "../../rendering/react/components/Value.js";
+import { Args, Flags } from "@oclif/core";
+import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
+import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
+import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
+import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
+import { getSSHConnectionForContainer } from "../../lib/resources/ssh/container.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
+
+export class PortForward extends ExecRenderBaseCommand<
+  typeof PortForward,
+  Record<string, never>
+> {
+  static summary = "Forward a container port to a local port";
+  static description =
+    "This command forwards a TCP port from a container to a local port on your machine. This allows you to connect to services running in the container as if they were running on your local machine.\n\n" +
+    sshUsageDocumentation;
+  static flags = {
+    ...processFlags,
+    ...sshConnectionFlags,
+    ...projectFlags,
+  };
+  static args = {
+    "container-id": Args.string({
+      description: "ID or short ID of the container to connect to",
+      required: true,
+    }),
+    port: Args.string({
+      summary: "Port mapping in the format 'local-port:container-port'",
+      description:
+        "Specifies the port mapping between your local machine and the container. Format: 'local-port:container-port'",
+      required: true,
+    }),
+  };
+
+  protected async exec(): Promise<Record<string, never>> {
+    const [containerId, stackId] = await withContainerAndStackId(
+      this.apiClient,
+      PortForward,
+      this.flags,
+      this.args,
+      this.config,
+    );
+
+    const p = makeProcessRenderer(this.flags, "Port-forwarding a container");
+
+    const { host, user } = await getSSHConnectionForContainer(
+      this.apiClient,
+      containerId,
+      stackId,
+      this.flags["ssh-user"],
+    );
+
+    const portMapping = this.args.port;
+    const [localPort, containerPort] = portMapping.split(":");
+
+    if (
+      !localPort ||
+      !containerPort ||
+      isNaN(Number(localPort)) ||
+      isNaN(Number(containerPort))
+    ) {
+      throw new Error(
+        "Invalid port format. Expected 'local-port:container-port' where both ports are numbers.",
+      );
+    }
+
+    await p.complete(
+      <Text>
+        Forwarding container port <Value>{containerPort}</Value> to local port{" "}
+        <Value>{localPort}</Value>. Use CTRL+C to cancel.
+      </Text>,
+    );
+
+    const sshArgs = buildSSHClientFlags(user, host, this.flags, {
+      interactive: false,
+      additionalFlags: ["-L", `${localPort}:localhost:${containerPort}`],
+    });
+
+    cp.spawnSync("ssh", [...sshArgs, "cat", "/dev/zero"], {
+      stdio: ["ignore", process.stdout, process.stderr],
+    });
+    return {};
+  }
+
+  protected render(): ReactNode {
+    return undefined;
+  }
+}
