@@ -46,6 +46,29 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
     }),
   };
 
+  /**
+   * Prepare environment variables for the SSH command
+   *
+   * @param envVars Array of environment variables in KEY=VALUE format
+   * @returns Formatted string with export commands
+   */
+  private prepareEnvironmentVariables(envVars: string[]): string {
+    return (
+      envVars
+        .map((env) => {
+          const eqIdx = env.indexOf("=");
+          if (eqIdx === -1) {
+            // If no '=', treat the whole string as key with empty value
+            return `export ${shellEscape([env])}=`;
+          }
+          const key = env.slice(0, eqIdx);
+          const value = env.slice(eqIdx + 1);
+          return `export ${shellEscape([key])}=${shellEscape([value])}`;
+        })
+        .join("; ") + "; "
+    );
+  }
+
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Exec);
     const [containerId, stackId] = await withContainerAndStackId(
@@ -73,18 +96,7 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
 
     // Add environment variables if provided
     if (flags.env && flags.env.length > 0) {
-      execCommand += flags.env
-        .map((env) => {
-          const eqIdx = env.indexOf("=");
-          if (eqIdx === -1) {
-            // If no '=', treat the whole string as key with empty value
-            return `export ${shellEscape([env])}=`;
-          }
-          const key = env.slice(0, eqIdx);
-          const value = env.slice(eqIdx + 1);
-          return `export ${shellEscape([key])}=${shellEscape([value])}`;
-        })
-        .join("; ") + "; ";
+      execCommand += this.prepareEnvironmentVariables(flags.env);
     }
 
     // Change to working directory if specified
