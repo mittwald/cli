@@ -4,13 +4,16 @@
 Manage containers
 
 * [`mw container delete CONTAINER-ID`](#mw-container-delete-container-id)
+* [`mw container exec CONTAINER-ID COMMAND`](#mw-container-exec-container-id-command)
 * [`mw container list`](#mw-container-list)
 * [`mw container logs CONTAINER-ID`](#mw-container-logs-container-id)
 * [`mw container ls`](#mw-container-ls)
+* [`mw container port-forward CONTAINER-ID [PORT]`](#mw-container-port-forward-container-id-port)
 * [`mw container recreate CONTAINER-ID`](#mw-container-recreate-container-id)
 * [`mw container restart CONTAINER-ID`](#mw-container-restart-container-id)
 * [`mw container rm CONTAINER-ID`](#mw-container-rm-container-id)
 * [`mw container run IMAGE [COMMAND] [ARGS]`](#mw-container-run-image-command-args)
+* [`mw container ssh CONTAINER-ID`](#mw-container-ssh-container-id)
 * [`mw container start CONTAINER-ID`](#mw-container-start-container-id)
 * [`mw container stop CONTAINER-ID`](#mw-container-stop-container-id)
 * [`mw container update CONTAINER-ID`](#mw-container-update-container-id)
@@ -52,6 +55,66 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+## `mw container exec CONTAINER-ID COMMAND`
+
+Execute a command in a container via SSH non-interactively.
+
+```
+USAGE
+  $ mw container exec CONTAINER-ID COMMAND [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>] [-p
+    <value>] [-w <value>] [-e <value>...] [--shell <value>]
+
+ARGUMENTS
+  CONTAINER-ID  ID or short ID of the container to connect to
+  COMMAND       Command to execute in the container
+
+FLAGS
+  -e, --env=<value>...      environment variables to set for the command (format: KEY=VALUE)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -w, --workdir=<value>     working directory where the command will be executed
+      --shell=<value>       [default: /bin/sh] shell to use for the SSH connection
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Execute a command in a container via SSH non-interactively.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw container list`
@@ -167,6 +230,73 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+## `mw container port-forward CONTAINER-ID [PORT]`
+
+Forward a container port to a local port
+
+```
+USAGE
+  $ mw container port-forward CONTAINER-ID [PORT] [--token <value>] [-q] [--ssh-user <value>] [--ssh-identity-file <value>]
+    [-p <value>]
+
+ARGUMENTS
+  CONTAINER-ID  ID or short ID of the container to connect to
+  PORT          Specifies the port mapping between your local machine and the container. Format:
+                'local-port:container-port'. If not specified, available ports will be detected automatically.
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               suppress process output and only display a machine-readable summary
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Forward a container port to a local port
+
+  This command forwards a TCP port from a container to a local port on your machine. This allows you to connect to
+  services running in the container as if they were running on your local machine.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw container recreate CONTAINER-ID`
@@ -359,6 +489,66 @@ FLAG DESCRIPTIONS
 
     This makes it easier to reference the container in subsequent commands. If omitted, a random name will be generated
     automatically.
+```
+
+## `mw container ssh CONTAINER-ID`
+
+Connect to a container via SSH
+
+```
+USAGE
+  $ mw container ssh CONTAINER-ID [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>] [-p <value>]
+    [--info] [--test] [--shell <value>]
+
+ARGUMENTS
+  CONTAINER-ID  ID or short ID of the container to connect to
+
+FLAGS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+      --info                only print connection information, without actually connecting
+      --shell=<value>       [default: /bin/sh] shell to use for the SSH connection
+      --test                test connection and exit
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Connect to a container via SSH
+
+  Establishes an interactive SSH connection to a container.
+
+  This command is a wrapper around your systems SSH client, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
 ## `mw container start CONTAINER-ID`
