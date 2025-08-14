@@ -89,7 +89,7 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
 
     // Change to working directory if specified
     if (workdir !== undefined) {
-      execCommand += `cd ${workdir} && `;
+      execCommand += `cd ${shellEscape([workdir])} && `;
     }
 
     // Add the actual command
