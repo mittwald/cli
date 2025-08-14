@@ -73,7 +73,18 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
 
     // Add environment variables if provided
     if (flags.env && flags.env.length > 0) {
-      execCommand += flags.env.map((env) => `export ${env}`).join("; ") + "; ";
+      execCommand += flags.env
+        .map((env) => {
+          const eqIdx = env.indexOf("=");
+          if (eqIdx === -1) {
+            // If no '=', treat the whole string as key with empty value
+            return `export ${shellEscape([env])}=`;
+          }
+          const key = env.slice(0, eqIdx);
+          const value = env.slice(eqIdx + 1);
+          return `export ${shellEscape([key])}=${shellEscape([value])}`;
+        })
+        .join("; ") + "; ";
     }
 
     // Change to working directory if specified
