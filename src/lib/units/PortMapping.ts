@@ -18,6 +18,25 @@ export default class PortMapping {
     parse: async (input) => PortMapping.fromString(input),
   });
 
+  /** @param str Port and protocol; example: `8080/tcp` */
+  public static fromPortAndProtocol(str: string): PortMapping {
+    const [localPort, protocol] = str.split("/");
+
+    const portNum = parseInt(localPort);
+
+    if (!PortMapping.validatePort(portNum)) {
+      throw new Error(
+        "Invalid port number. Ports must be between 1 and 65535.",
+      );
+    }
+
+    if (protocol.toLowerCase() !== "tcp") {
+      throw new Error("Only TCP protocol is supported.");
+    }
+
+    return new PortMapping(portNum, portNum);
+  }
+
   public static fromString(str: string): PortMapping {
     const [localPort, remotePort] = str.split(":");
 
