@@ -255,9 +255,8 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
         return exactVersionMatch;
       }
 
-      const semverMatch: AppAppVersion | undefined = targetAppVersionCandidates
-        .reverse()
-        .find((v) =>
+      const semverMatch: AppAppVersion | undefined =
+        targetAppVersionCandidates.findLast((v) =>
           semver.satisfies(v.externalVersion, targetAppVersionString),
         );
       if (semverMatch) {
