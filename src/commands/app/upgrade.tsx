@@ -269,13 +269,6 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
           candidate.
         </Text>,
       );
-      return await forceTargetVersionSelection(
-        process,
-        this.apiClient,
-        targetAppVersionCandidates,
-        currentApp,
-        currentAppVersion,
-      );
     }
 
     return await forceTargetVersionSelection(
