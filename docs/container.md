@@ -12,7 +12,7 @@ Manage containers
 * [`mw container recreate CONTAINER-ID`](#mw-container-recreate-container-id)
 * [`mw container restart CONTAINER-ID`](#mw-container-restart-container-id)
 * [`mw container rm CONTAINER-ID`](#mw-container-rm-container-id)
-* [`mw container run IMAGE [COMMAND] [ARGS]`](#mw-container-run-image-command-args)
+* [`mw container run [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file <value>...] [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND] [ARGS...]`](#mw-container-run---token-value--q--p-value--e-value---env-file-value---description-value---entrypoint-value---name-value--p-value--p--v-value-image-command-args)
 * [`mw container ssh CONTAINER-ID`](#mw-container-ssh-container-id)
 * [`mw container start CONTAINER-ID`](#mw-container-start-container-id)
 * [`mw container stop CONTAINER-ID`](#mw-container-stop-container-id)
@@ -404,23 +404,23 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw container run IMAGE [COMMAND] [ARGS]`
+## `mw container run [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file <value>...] [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND] [ARGS...]`
 
 Creates and starts a new container.
 
 ```
 USAGE
-  $ mw container run IMAGE [COMMAND] [ARGS] [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file
-    <value>...] [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...]
+  $ mw container run [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file <value>...] [--description
+    <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND] [ARGS...]
 
 ARGUMENTS
-  IMAGE    Can be specified as a repository/tag or repository@digest (e.g., 'ubuntu:20.04' or
-           'alpine@sha256:abc123...'). If no tag is provided, 'latest' is assumed.
-  COMMAND  This overrides the default command specified in the container image. If omitted, the default command from the
-           image will be used. For example, 'bash' or 'python app.py'.
-  ARGS     These are the runtime arguments passed to the command specified by the command parameter or the container's
-           default command, not to the container itself. For example, if the command is 'echo', the args might be 'hello
-           world'.
+  IMAGE...    Can be specified as a repository/tag or repository@digest (e.g., 'ubuntu:20.04' or
+              'alpine@sha256:abc123...'). If no tag is provided, 'latest' is assumed.
+  COMMAND...  This overrides the default command specified in the container image. If omitted, the default command from
+              the image will be used. For example, 'bash' or 'python app.py'.
+  ARGS...     These are the runtime arguments passed to the command specified by the command parameter or the
+              container's default command, not to the container itself. For example, if the command is 'echo', the args
+              might be 'hello world'.
 
 FLAGS
   -P, --publish-all          publish all ports that are defined in the image
