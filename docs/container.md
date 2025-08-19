@@ -12,7 +12,7 @@ Manage containers
 * [`mw container recreate CONTAINER-ID`](#mw-container-recreate-container-id)
 * [`mw container restart CONTAINER-ID`](#mw-container-restart-container-id)
 * [`mw container rm CONTAINER-ID`](#mw-container-rm-container-id)
-* [`mw mw container run [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file <value>...] [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND] [ARGS...]`](#mw-mw-container-run---token-value--q--p-value--e-value---env-file-value---description-value---entrypoint-value---name-value--p-value--p--v-value-image-command-args)
+* [`mw container run [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file <value>...] [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND] [ARGS...]`](#mw-container-run---token-value--q--p-value--e-value---env-file-value---description-value---entrypoint-value---name-value--p-value--p--v-value-image-command-args)
 * [`mw container ssh CONTAINER-ID`](#mw-container-ssh-container-id)
 * [`mw container start CONTAINER-ID`](#mw-container-start-container-id)
 * [`mw container stop CONTAINER-ID`](#mw-container-stop-container-id)
@@ -404,15 +404,14 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-## `mw mw container run [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file <value>...] [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND] [ARGS...]`
+## `mw container run [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file <value>...] [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND] [ARGS...]`
 
 Creates and starts a new container.
 
 ```
 USAGE
-  $ mw container run mw container run [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file <value>...]
-    [--description <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND]
-    [ARGS...]
+  $ mw container run [--token <value>] [-q] [-p <value>] [-e <value>...] [--env-file <value>...] [--description
+    <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND] [ARGS...]
 
 ARGUMENTS
   IMAGE...    Can be specified as a repository/tag or repository@digest (e.g., 'ubuntu:20.04' or
