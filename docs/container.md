@@ -427,13 +427,13 @@ FLAGS
   -e, --env=<value>...       set environment variables in the container
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
-  -p, --publish=<value>...   publish a container's port(s) to the host
   -q, --quiet                suppress process output and only display a machine-readable summary
   -v, --volume=<value>...    bind mount a volume to the container
       --description=<value>  add a descriptive label to the container
       --entrypoint=<value>   override the default entrypoint of the container image
       --env-file=<value>...  read environment variables from a file
       --name=<value>         assign a custom name to the container
+      --publish=<value>...   publish a container's port(s) to the host
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -452,12 +452,6 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-
-  -p, --publish=<value>...  publish a container's port(s) to the host
-
-    Map a container's port to a port on the host system. Format: <host-port>:<container-port> or just <container-port>
-    (in which case the host port will be automatically assigned). For example, -p 8080:80 maps port 80 in the container
-    to port 8080 on the host. Use multiple -p flags to publish multiple ports.
 
   -q, --quiet  suppress process output and only display a machine-readable summary
 
@@ -489,6 +483,15 @@ FLAG DESCRIPTIONS
 
     This makes it easier to reference the container in subsequent commands. If omitted, a random name will be generated
     automatically.
+
+  --publish=<value>...  publish a container's port(s) to the host
+
+    Map a container's port to a port on the host system. Format: <host-port>:<container-port> or just <container-port>
+    (in which case the host port will be automatically assigned). For example, --publish 8080:80 maps port 80 in the
+    container to port 8080 on the host. Use multiple --publish flags to publish multiple ports.
+
+    NOTE: Please note that the usual shorthand -p is not supported for this flag, as it would conflict with the
+    --project flag.
 ```
 
 ## `mw container ssh CONTAINER-ID`
