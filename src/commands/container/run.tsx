@@ -198,7 +198,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       return imageMeta.command;
     }
 
-    const firstArg = (this.argv.indexOf(this.args.command) ?? Infinity) + 1;
+    const firstArg = (this.argv.lastIndexOf(this.args.command) ?? Infinity) + 1;
     const command = [this.args.command, ...this.argv.slice(firstArg)];
 
     return command;
