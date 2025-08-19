@@ -1508,13 +1508,14 @@ ARGUMENTS
                    in the context.
 
 FLAGS
-  -f, --force                   Do not ask for confirmation.
+  -f, --force                   do not ask for confirmation.
   -p, --project-id=<value>      ID or short ID of a project; this flag is optional if a default project is set in the
                                 context
   -q, --quiet                   suppress process output and only display a machine-readable summary
   -w, --wait                    wait for the resource to be ready.
       --target-version=<value>  target version to upgrade app to; if omitted, target version will be prompted
-                                interactively
+                                interactively. May also be a semantic versioning range, e.g. ^1.0.0. If set to 'latest',
+                                the latest available version will be used.
       --wait-timeout=<value>    [default: 600s] the duration to wait for the resource to be ready (common units like
                                 'ms', 's', 'm' are accepted).
 

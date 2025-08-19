@@ -7,7 +7,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "stripInternal": true,
-    "target": "ES2022",
+    "target": "ES2023",
     "module": "Node16",
     "moduleResolution": "node16",
     "forceConsistentCasingInFileNames": true,

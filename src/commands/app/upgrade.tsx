@@ -28,7 +28,7 @@ import { waitUntilAppStateHasNormalized } from "../../lib/resources/app/wait.js"
 import { assertStatus } from "@mittwald/api-client-commons";
 import { waitFlags } from "../../lib/wait.js";
 import { ProcessFlags } from "../../rendering/process/process_flags.js";
-import semver from "semver/preload.js";
+import semver from "semver";
 
 type AppApp = MittwaldAPIV2.Components.Schemas.AppApp;
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
@@ -49,11 +49,11 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   static flags = {
     "target-version": Flags.string({
       description:
-        "target version to upgrade app to; if omitted, target version will be prompted interactively",
+        "target version to upgrade app to; if omitted, target version will be prompted interactively. May also be a semantic versioning range, e.g. ^1.0.0. If set to 'latest', the latest available version will be used.",
     }),
     force: Flags.boolean({
       char: "f",
-      description: "Do not ask for confirmation.",
+      summary: "do not ask for confirmation.",
     }),
     ...projectFlags,
     ...processFlags,
@@ -105,49 +105,12 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       return;
     }
 
-    let targetAppVersion: AppAppVersion;
-
-    if (this.flags["target-version"] == "latest") {
-      targetAppVersion =
-        (await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
-          this.apiClient,
-          currentApp.id,
-          currentAppVersion.id,
-        )) as AppAppVersion;
-    } else if (this.flags["target-version"]) {
-      const targetVersionMatchFromCandidates: AppAppVersion | undefined =
-        targetAppVersionCandidates.find(
-          (targetAppVersionCandidate: AppAppVersion) =>
-            targetAppVersionCandidate.externalVersion ===
-            this.flags["target-version"],
-        );
-
-      if (targetVersionMatchFromCandidates) {
-        targetAppVersion = targetVersionMatchFromCandidates;
-      } else {
-        process.addInfo(
-          <Text>
-            The given target upgrade version does not seem to be a valid upgrade
-            candidate.
-          </Text>,
-        );
-        targetAppVersion = (await forceTargetVersionSelection(
-          process,
-          this.apiClient,
-          targetAppVersionCandidates,
-          currentApp,
-          currentAppVersion,
-        )) as AppAppVersion;
-      }
-    } else {
-      targetAppVersion = (await forceTargetVersionSelection(
-        process,
-        this.apiClient,
-        targetAppVersionCandidates,
-        currentApp,
-        currentAppVersion,
-      )) as AppAppVersion;
-    }
+    const targetAppVersion = await this.determineTargetAppVersion(
+      currentApp,
+      currentAppVersion,
+      targetAppVersionCandidates,
+      process,
+    );
 
     if (!targetAppVersion) {
       process.error("Target app version could not be determined properly.");
@@ -251,6 +214,70 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       successText = "The upgrade has been started. Buckle up! 🚀";
     }
     await process.complete(<Success>{successText}</Success>);
+  }
+
+  /**
+   * Determines the target application version based on the provided input and
+   * available upgrade candidates.
+   *
+   * @param currentApp The current application instance.
+   * @param currentAppVersion The current version of the application.
+   * @param targetAppVersionCandidates List of potential target application
+   *   versions.
+   * @param process The process renderer to handle user interactions and display
+   *   information.
+   * @returns The determined target application version, or undefined if not
+   *   resolved.
+   */
+  private async determineTargetAppVersion(
+    currentApp: AppApp,
+    currentAppVersion: AppAppVersion,
+    targetAppVersionCandidates: AppAppVersion[],
+    process: ProcessRenderer,
+  ): Promise<AppAppVersion | undefined> {
+    const targetAppVersionString = this.flags["target-version"];
+
+    if (targetAppVersionString == "latest") {
+      return await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
+        this.apiClient,
+        currentApp.id,
+        currentAppVersion.id,
+      );
+    }
+
+    if (targetAppVersionString) {
+      const exactVersionMatch: AppAppVersion | undefined =
+        targetAppVersionCandidates.find(
+          (v) => v.externalVersion === targetAppVersionString,
+        );
+
+      if (exactVersionMatch) {
+        return exactVersionMatch;
+      }
+
+      const semverMatch: AppAppVersion | undefined =
+        targetAppVersionCandidates.findLast((v) =>
+          semver.satisfies(v.externalVersion, targetAppVersionString),
+        );
+      if (semverMatch) {
+        return semverMatch;
+      }
+
+      process.addInfo(
+        <Text>
+          The given target upgrade version does not seem to be a valid upgrade
+          candidate.
+        </Text>,
+      );
+    }
+
+    return await forceTargetVersionSelection(
+      process,
+      this.apiClient,
+      targetAppVersionCandidates,
+      currentApp,
+      currentAppVersion,
+    );
   }
 
   protected render(): ReactNode {
