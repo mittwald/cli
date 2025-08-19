@@ -8,7 +8,7 @@ import {
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-import * as dockerNames from "docker-names";
+import dockerNames from "docker-names";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import {
   parseEnvironmentVariables,
