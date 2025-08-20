@@ -166,7 +166,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-s3@npm:^3.850.0":
+"@aws-sdk/client-s3@npm:^3.864.0":
   version: 3.864.0
   resolution: "@aws-sdk/client-s3@npm:3.864.0"
   dependencies:
@@ -1537,9 +1537,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/checkbox@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "@inquirer/checkbox@npm:4.2.0"
+"@inquirer/checkbox@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@inquirer/checkbox@npm:4.2.1"
   dependencies:
     "@inquirer/core": ^10.1.15
     "@inquirer/figures": ^1.0.13
@@ -1551,7 +1551,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: a01a9519cbe29fdac99fbe2acfa54c92687d040a9aa36963d665713609a38af3b88f8f201953fb29bdb765eb30530cffff35d8ec33a209d215567cf155f05ab2
+  checksum: 652009b384eccf0d5c5df8e6ec6534357c272768bcc7e26442d36e67c61caaaa33b0ebf351f30cd1ca6a3827fb92e8aec525df391322854847389008c241a9a0
   languageName: node
   linkType: hard
 
@@ -1565,9 +1565,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/confirm@npm:^5.1.14":
-  version: 5.1.14
-  resolution: "@inquirer/confirm@npm:5.1.14"
+"@inquirer/confirm@npm:^5.1.15":
+  version: 5.1.15
+  resolution: "@inquirer/confirm@npm:5.1.15"
   dependencies:
     "@inquirer/core": ^10.1.15
     "@inquirer/type": ^3.0.8
@@ -1576,7 +1576,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 18e56ca1a46bd7b03064cc01b467f9c699d0c27abdccafb14174192875d7a39a1802eb968386f33668303a28b0b1859dac07ac0323422c35a62f5a80a0987a7a
+  checksum: d9202888f29bf9f81f97d9f6f67da42324452d139f1408884e0c12037338dc18f565947ec9b843f4762c463f2981f29f9b2335a9befac9e8f0000ba237b76b91
   languageName: node
   linkType: hard
 
@@ -1621,19 +1621,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/editor@npm:^4.2.16":
-  version: 4.2.16
-  resolution: "@inquirer/editor@npm:4.2.16"
+"@inquirer/editor@npm:^4.2.17":
+  version: 4.2.17
+  resolution: "@inquirer/editor@npm:4.2.17"
   dependencies:
     "@inquirer/core": ^10.1.15
-    "@inquirer/external-editor": ^1.0.0
+    "@inquirer/external-editor": ^1.0.1
     "@inquirer/type": ^3.0.8
   peerDependencies:
     "@types/node": ">=18"
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: 80b9b3b7577636846537e6b457a9b0e91367f1942e3603474d70838e3a572e2207953c6312899aab9f180e9f340f9ef849f66d00bedbbff7c6072fafcf3c17b0
+  checksum: 1aef64f4bb7eb3c1dca922a1c2315f2118b815790e555320ed5d408678659237332f9b4693c9cbd04f64abd919255c688df982ed136665eea15cb7d2db9d76a3
   languageName: node
   linkType: hard
 
@@ -1653,15 +1653,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/external-editor@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@inquirer/external-editor@npm:1.0.0"
+"@inquirer/external-editor@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@inquirer/external-editor@npm:1.0.1"
   dependencies:
     chardet: ^2.1.0
     iconv-lite: ^0.6.3
   peerDependencies:
     "@types/node": ">=18"
-  checksum: d441a3e4370adc4edabec8c9d4495ac3794cc5a9d0065744f19705568c793aad3f977fe1adbfa768e0caa88650a670dfe7901501935a84d8ff8753015ecb2419
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+  checksum: 6f1753d31db52c7088bad5209c7fccb23c3803d248be0e9f3f49ec5972628782c690086defc19fe8d740b2c45f67a746884ef41df9299a526f297813babd8281
   languageName: node
   linkType: hard
 
@@ -1735,13 +1738,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@inquirer/prompts@npm:^7.8.1":
-  version: 7.8.1
-  resolution: "@inquirer/prompts@npm:7.8.1"
+"@inquirer/prompts@npm:^7.8.2":
+  version: 7.8.3
+  resolution: "@inquirer/prompts@npm:7.8.3"
   dependencies:
-    "@inquirer/checkbox": ^4.2.0
-    "@inquirer/confirm": ^5.1.14
-    "@inquirer/editor": ^4.2.16
+    "@inquirer/checkbox": ^4.2.1
+    "@inquirer/confirm": ^5.1.15
+    "@inquirer/editor": ^4.2.17
     "@inquirer/expand": ^4.0.17
     "@inquirer/input": ^4.2.1
     "@inquirer/number": ^3.0.17
@@ -1754,7 +1757,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/node":
       optional: true
-  checksum: c7291ddbb842d352ec610b2412e7740a383687f3a3bbc0f064e870c4a943089cc18382c1ec15b672dca7c697d154f7765d3a1844ae84a1d2fee322752d49cd66
+  checksum: 81ac3bc15086431c2086d5edb359662f5c216d32225656f10143cbf3fcfed9a9f7dffc4bbb96f23aaf897d08aec5529fc68859cb0b99e713637b557b006e700a
   languageName: node
   linkType: hard
 
@@ -2498,7 +2501,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.29":
+"@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.32":
   version: 6.2.32
   resolution: "@oclif/plugin-help@npm:6.2.32"
   dependencies:
@@ -2507,15 +2510,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-not-found@npm:^3.2.63":
-  version: 3.2.64
-  resolution: "@oclif/plugin-not-found@npm:3.2.64"
+"@oclif/plugin-not-found@npm:^3.2.64":
+  version: 3.2.65
+  resolution: "@oclif/plugin-not-found@npm:3.2.65"
   dependencies:
-    "@inquirer/prompts": ^7.8.1
+    "@inquirer/prompts": ^7.8.2
     "@oclif/core": ^4.5.2
     ansis: ^3.17.0
     fast-levenshtein: ^3.0.0
-  checksum: b9b2818bd6d5585d49e9d9e9d6cc1133c2d8b2918f4dc8e2a70348d459e51a5c48732138593a4baaa500a948a111f7e04493f3a1612c7654c528e3fe4954f14f
+  checksum: 0305cffdeb6a862100e1e1e3d9f31ca600af1b400177b672c86487fd4f75671d3cd38c9b2aab9a5209c21740c3c37efe197138c3b4c749d00da1409abf2d5002
   languageName: node
   linkType: hard
 
@@ -8491,17 +8494,17 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.14.31":
-  version: 4.22.9
-  resolution: "oclif@npm:4.22.9"
+  version: 4.22.12
+  resolution: "oclif@npm:4.22.12"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.864.0
-    "@aws-sdk/client-s3": ^3.850.0
+    "@aws-sdk/client-s3": ^3.864.0
     "@inquirer/confirm": ^3.1.22
     "@inquirer/input": ^2.2.4
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4.5.2
-    "@oclif/plugin-help": ^6.2.29
-    "@oclif/plugin-not-found": ^3.2.63
+    "@oclif/plugin-help": ^6.2.32
+    "@oclif/plugin-not-found": ^3.2.64
     "@oclif/plugin-warn-if-update-available": ^3.1.46
     ansis: ^3.16.0
     async-retry: ^1.3.3
@@ -8520,7 +8523,7 @@ __metadata:
     validate-npm-package-name: ^5.0.1
   bin:
     oclif: bin/run.js
-  checksum: cc794703472721d168f9421624b3db86c32010badec2807d2222caf3b4e0d39caaebe000c3c0e8c423206220dc22ac709c1072ceb4a6d8422b4a93710ac00f95
+  checksum: a47ccb58c94adce8263e5cf419421b3934a6a3fe6a610632965fee8a1e13afcd2c3a2966a8443d30fc735b8fe16bac95930c8af06954bbf5b462e9db64ab8302
   languageName: node
   linkType: hard
 
