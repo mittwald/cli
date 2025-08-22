@@ -1,13 +1,19 @@
-import * as child_process from "child_process";
 import * as fs from "fs";
 import { Args, Flags } from "@oclif/core";
-import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import { getSSHConnectionForContainer } from "../../lib/resources/ssh/container.js";
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
 import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
+import {
+  makeProcessRenderer,
+  processFlags,
+} from "../../rendering/process/process_flags.js";
+import { spawnInProcess } from "../../rendering/process/process_exec.js";
+import { Success } from "../../rendering/react/components/Success.js";
+import { ReactNode } from "react";
 
-export default class Cp extends ExtendedBaseCommand<typeof Cp> {
+export default class Cp extends ExecRenderBaseCommand<typeof Cp, void> {
   static summary =
     "Copy files/folders between a container and the local filesystem";
   static description = `The syntax is similar to docker cp:
@@ -35,20 +41,17 @@ Where CONTAINER can be a container ID, short ID, or service name.`;
   };
 
   static flags = {
+    ...processFlags,
     ...sshConnectionFlags,
     ...projectFlags,
     archive: Flags.boolean({
       char: "a",
-      summary: "Archive mode (copy all uid/gid information)",
+      summary: "archive mode (copy all uid/gid information)",
       description: "Preserve file permissions and ownership when copying",
     }),
     recursive: Flags.boolean({
       char: "r",
-      summary: "Copy directories recursively",
-    }),
-    quiet: Flags.boolean({
-      char: "q",
-      summary: "Suppress progress output",
+      summary: "copy directories recursively",
     }),
   };
 
@@ -75,7 +78,7 @@ Where CONTAINER can be a container ID, short ID, or service name.`;
   private buildScpCommand(
     source: string,
     dest: string,
-    flags: { archive?: boolean; recursive?: boolean; quiet?: boolean },
+    flags: { archive?: boolean; recursive?: boolean },
   ): string[] {
     const scpArgs = ["-o", "PasswordAuthentication=no"];
 
@@ -87,17 +90,12 @@ Where CONTAINER can be a container ID, short ID, or service name.`;
       scpArgs.push("-r");
     }
 
-    if (flags.quiet) {
-      scpArgs.push("-q");
-    }
-
     scpArgs.push(source, dest);
     return scpArgs;
   }
 
-  public async run(): Promise<void> {
+  protected async exec(): Promise<void> {
     const { args, flags } = await this.parse(Cp);
-
     const sourceParsed = this.parseContainerPath(args.source);
     const destParsed = this.parseContainerPath(args.dest);
 
@@ -117,20 +115,35 @@ Where CONTAINER can be a container ID, short ID, or service name.`;
     const containerName = sourceParsed.container || destParsed.container!;
     const isDownload = !!sourceParsed.container;
 
-    // Get container connection info
-    const [containerId, stackId] = await withContainerAndStackId(
-      this.apiClient,
-      Cp,
+    const p = makeProcessRenderer(
       flags,
-      { "container-id": containerName },
-      this.config,
+      `Copying files ${isDownload ? "from" : "to"} container`,
     );
 
-    const { host, user } = await getSSHConnectionForContainer(
-      this.apiClient,
-      containerId,
-      stackId,
-      flags["ssh-user"],
+    // Get container connection info
+    const [containerId, stackId] = await p.runStep(
+      "getting container connection info",
+      async () => {
+        return withContainerAndStackId(
+          this.apiClient,
+          Cp,
+          flags,
+          { "container-id": containerName },
+          this.config,
+        );
+      },
+    );
+
+    const { host, user } = await p.runStep(
+      "establishing SSH connection",
+      async () => {
+        return getSSHConnectionForContainer(
+          this.apiClient,
+          containerId,
+          stackId,
+          flags["ssh-user"],
+        );
+      },
     );
 
     // Construct source and destination for SCP
@@ -138,43 +151,21 @@ Where CONTAINER can be a container ID, short ID, or service name.`;
     let scpDest: string;
 
     if (isDownload) {
-      // Download from container to local
       scpSource = `${user}@${host}:${sourceParsed.path}`;
       scpDest = destParsed.path;
-
-      if (!flags.quiet) {
-        this.log(
-          "Copying from container %s:%s to %s",
-          containerName,
-          sourceParsed.path,
-          scpDest,
-        );
-      }
     } else {
-      // Upload from local to container
       scpSource = sourceParsed.path;
       scpDest = `${user}@${host}:${destParsed.path}`;
-
-      if (!flags.quiet) {
-        this.log(
-          "Copying from %s to container %s:%s",
-          scpSource,
-          containerName,
-          destParsed.path,
-        );
-      }
     }
 
     // Automatically enable recursive for directories
-    if (!flags.recursive) {
+    const effectiveFlags = { ...flags };
+    if (!flags.recursive && !isDownload) {
       try {
-        if (!isDownload && fs.existsSync(scpSource)) {
+        if (fs.existsSync(scpSource)) {
           const stats = fs.statSync(scpSource);
           if (stats.isDirectory()) {
-            flags.recursive = true;
-            if (!flags.quiet) {
-              this.log("Automatically enabling recursive mode for directory");
-            }
+            effectiveFlags.recursive = true;
           }
         }
       } catch (ignored) {
@@ -182,24 +173,28 @@ Where CONTAINER can be a container ID, short ID, or service name.`;
       }
     }
 
-    const scpCommand = this.buildScpCommand(scpSource, scpDest, flags);
+    const scpCommand = this.buildScpCommand(scpSource, scpDest, effectiveFlags);
 
-    this.debug("running scp with args: %o", scpCommand);
+    await spawnInProcess(
+      p,
+      `copying files ${isDownload ? "from" : "to"} container`,
+      "/usr/bin/scp",
+      scpCommand,
+    );
 
-    const result = child_process.spawnSync("/usr/bin/scp", scpCommand, {
-      stdio: flags.quiet ? "pipe" : "inherit",
-    });
-
-    if (result.status !== 0) {
-      if (result.stderr) {
-        this.error(`Copy failed: ${result.stderr.toString()}`);
-      } else {
-        this.error(`Copy failed with exit code ${result.status}`);
-      }
-    }
-
-    if (!flags.quiet) {
-      this.log("Copy completed successfully");
-    }
+    await p.complete(<CopySuccess isDownload={isDownload} />);
   }
+
+  protected render(): ReactNode {
+    return undefined;
+  }
+}
+
+function CopySuccess({ isDownload }: { isDownload: boolean }) {
+  return (
+    <Success>
+      Files successfully {isDownload ? "downloaded from" : "uploaded to"}{" "}
+      container! 🚀
+    </Success>
+  );
 }
