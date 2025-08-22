@@ -25,19 +25,19 @@ Copy files/folders between a container and the local filesystem
 
 ```
 USAGE
-  $ mw container cp SOURCE DEST [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>] [-p <value>]
-    [-a] [-r] [-q]
+  $ mw container cp SOURCE DEST [--token <value>] [-q] [--ssh-user <value>] [--ssh-identity-file <value>] [-p
+    <value>] [-a] [-r]
 
 ARGUMENTS
   SOURCE  Source path (either local path or CONTAINER:PATH)
   DEST    Destination path (either local path or CONTAINER:PATH)
 
 FLAGS
-  -a, --archive             Archive mode (copy all uid/gid information)
+  -a, --archive             archive mode (copy all uid/gid information)
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
-  -q, --quiet               Suppress progress output
-  -r, --recursive           Copy directories recursively
+  -q, --quiet               suppress process output and only display a machine-readable summary
+  -r, --recursive           copy directories recursively
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -74,7 +74,7 @@ EXAMPLES
     $ mw container cp -a mycontainer:/app/data ./backup
 
 FLAG DESCRIPTIONS
-  -a, --archive  Archive mode (copy all uid/gid information)
+  -a, --archive  archive mode (copy all uid/gid information)
 
     Preserve file permissions and ownership when copying
 
@@ -82,6 +82,11 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
 
