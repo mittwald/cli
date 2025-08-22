@@ -3523,29 +3523,29 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^24.0.10":
-  version: 24.0.12
-  resolution: "@types/node@npm:24.0.12"
+  version: 24.3.0
+  resolution: "@types/node@npm:24.3.0"
   dependencies:
-    undici-types: ~7.8.0
-  checksum: fad1d824df644492f85fc1d29ae500672703145a1599ab59b48897a6fb868ed5065eb74c48027ac9ec68b2ad9557fe214a959884abc6e4cd82dbd85a7eb33b68
+    undici-types: ~7.10.0
+  checksum: 0f98e492032007d7be811b5598d24b6260f6ef3d21b6fe3b9ca61a1c88f70d5d94c33f361b0f2bd9a1f5963426584c7c2514e29ca69b0649f6b075e7abd551cb
   languageName: node
   linkType: hard
 
 "@types/node@npm:^18.17.15":
-  version: 18.19.117
-  resolution: "@types/node@npm:18.19.117"
+  version: 18.19.123
+  resolution: "@types/node@npm:18.19.123"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 6d1c1e9b5ad779ab6b6a2ccac4f079eb746d8a43afe850c2121d4196e00d518750bd2a8085f964f6a0b4c183cdf43dee2ca92603a4757ab13cdba89a4515613f
+  checksum: a450556143df831703fc20a96a1eff485fa425e5a6e887331991d3e00ab2d33981d36e94d4320f4961e96d22c488ced740913fed6de161daea5caf39722c5f49
   languageName: node
   linkType: hard
 
 "@types/node@npm:^22.5.5":
-  version: 22.16.2
-  resolution: "@types/node@npm:22.16.2"
+  version: 22.17.2
+  resolution: "@types/node@npm:22.17.2"
   dependencies:
     undici-types: ~6.21.0
-  checksum: 3ec83f9276c7915039953c6d96d33c7505d8a72eaad56fb400275174630d57301d6c9bdb134320c7dbdfe7662764d0ed2ec5e9d4420a2a79ea775b01a29aaf00
+  checksum: 2a82f96abcf25104efa6e9b8231616e039e5e0854f07e9ce4fdf821d30eaac30a80ec3cafefb36d2af8bd7c9594cfda337887bd85bb5c2031ba0f7e23a3d588d
   languageName: node
   linkType: hard
 
@@ -10014,10 +10014,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~7.8.0":
-  version: 7.8.0
-  resolution: "undici-types@npm:7.8.0"
-  checksum: 59521a5b9b50e72cb838a29466b3557b4eacbc191a83f4df5a2f7b156bc8263072b145dc4bb8ec41da7d56a7e9b178892458da02af769243d57f801a50ac5751
+"undici-types@npm:~7.10.0":
+  version: 7.10.0
+  resolution: "undici-types@npm:7.10.0"
+  checksum: 6917fcd8c80963919fe918952f9243a6749af0e3f759a39f8d2c2486144a66c86ae4125aebbce700b636cb1dcd45e85eb8c49c60d60738a97b63f0e89ef9b053
   languageName: node
   linkType: hard
 
