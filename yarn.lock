@@ -2339,7 +2339,7 @@ __metadata:
     parse-duration: ^2.0.1
     prettier: ~3.6.2
     prettier-plugin-jsdoc: ^1.3.2
-    prettier-plugin-package: ^1.4.0
+    prettier-plugin-package: ^2.0.0
     prettier-plugin-sort-json: ^4.1.1
     pretty-bytes: ^7.0.0
     react: ^18.2.0
@@ -8817,12 +8817,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-package@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "prettier-plugin-package@npm:1.4.0"
+"prettier-plugin-package@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "prettier-plugin-package@npm:2.0.0"
   peerDependencies:
-    prettier: ^2.0.0 || ^3.0.0
-  checksum: 09c48d1cd43aa13e3cfa30f6f8a4c72bf07b1cd5da955419b6da611f34c80427e8681a86f55cd63114f10a0082c51b3fb8a3515c9afdd4a9eaaf54ffc3d0b1a2
+    prettier: ^3.0.0
+  checksum: 3c17a1afb64b12494b7032d9b84ad47460d54a06280de1249a6e3fed9b35543c34fc97493d6d6d4e35ba507a4800b5cab6a12d1a84cea55e8a0213e870aad636
   languageName: node
   linkType: hard
 
