@@ -3,6 +3,7 @@
 
 Manage containers
 
+* [`mw container cp SOURCE DEST`](#mw-container-cp-source-dest)
 * [`mw container delete CONTAINER-ID`](#mw-container-delete-container-id)
 * [`mw container exec CONTAINER-ID COMMAND`](#mw-container-exec-container-id-command)
 * [`mw container list`](#mw-container-list)
@@ -17,6 +18,87 @@ Manage containers
 * [`mw container start CONTAINER-ID`](#mw-container-start-container-id)
 * [`mw container stop CONTAINER-ID`](#mw-container-stop-container-id)
 * [`mw container update CONTAINER-ID`](#mw-container-update-container-id)
+
+## `mw container cp SOURCE DEST`
+
+Copy files/folders between a container and the local filesystem
+
+```
+USAGE
+  $ mw container cp SOURCE DEST [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>] [-p <value>]
+    [-a] [-r] [-q]
+
+ARGUMENTS
+  SOURCE  Source path (either local path or CONTAINER:PATH)
+  DEST    Destination path (either local path or CONTAINER:PATH)
+
+FLAGS
+  -a, --archive             Archive mode (copy all uid/gid information)
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
+                            context
+  -q, --quiet               Suppress progress output
+  -r, --recursive           Copy directories recursively
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Copy files/folders between a container and the local filesystem
+
+  Copy files/folders between a container and the local filesystem.
+
+  The syntax is similar to docker cp:
+  - Copy from container to host: mw container cp CONTAINER:SRC_PATH DEST_PATH
+  - Copy from host to container: mw container cp SRC_PATH CONTAINER:DEST_PATH
+
+  Where CONTAINER can be a container ID, short ID, or service name.
+
+EXAMPLES
+  # Copy a file from container to current directory
+
+    $ mw container cp mycontainer:/app/config.json .
+
+  # Copy a file from host to container
+
+    $ mw container cp ./local-file.txt mycontainer:/app/
+
+  # Copy a directory recursively
+
+    $ mw container cp mycontainer:/var/log ./logs
+
+  # Copy with archive mode (preserve permissions)
+
+    $ mw container cp -a mycontainer:/app/data ./backup
+
+FLAG DESCRIPTIONS
+  -a, --archive  Archive mode (copy all uid/gid information)
+
+    Preserve file permissions and ownership when copying
+
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
+```
 
 ## `mw container delete CONTAINER-ID`
 
