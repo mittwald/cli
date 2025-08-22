@@ -10,9 +10,7 @@ import { projectFlags } from "../../lib/resources/project/flags.js";
 export default class Cp extends ExtendedBaseCommand<typeof Cp> {
   static summary =
     "Copy files/folders between a container and the local filesystem";
-  static description = `Copy files/folders between a container and the local filesystem.
-
-The syntax is similar to docker cp:
+  static description = `The syntax is similar to docker cp:
 - Copy from container to host: mw container cp CONTAINER:SRC_PATH DEST_PATH
 - Copy from host to container: mw container cp SRC_PATH CONTAINER:DEST_PATH
 
