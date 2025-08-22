@@ -18,6 +18,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development best practices
 
 - Follow the conventional commit format when writing commit messages
+- Make sure to re-generate the documentation before each commit
 
 ## Architecture Overview
 
@@ -60,3 +61,11 @@ This is a CLI tool built with [oclif](https://oclif.io/) for interacting with th
 - Uses `@mittwald/api-client` for API communication
 - Automatic retry logic and consistency handling
 - Authentication via API tokens (file, environment, or flag)
+
+## Coding hints
+
+### When writing commands
+
+- Provide examples using the `static examples` property when useful
+- Keep the command summary short; do not repeat the summary at the beginning of
+  the description

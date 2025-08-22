@@ -7,7 +7,8 @@
       "Bash(yarn compile)",
       "Bash(yarn test:unit:*)",
       "Bash(yarn lint)",
-      "Bash(yarn generate:readme:*)"
+      "Bash(yarn generate:readme:*)",
+      "Bash(gh pr diff:*)"
     ],
     "deny": [],
     "ask": []
