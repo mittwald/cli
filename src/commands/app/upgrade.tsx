@@ -249,11 +249,14 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       );
     }
 
-    if (validateUuid(targetAppVersionString)) {
+    if (
+      validateUuid(targetAppVersionString) &&
+      typeof targetAppVersionString === "string"
+    ) {
       return await getAppVersionFromUuid(
         this.apiClient,
         currentApp.id,
-        targetAppVersionString!,
+        targetAppVersionString,
       );
     }
 
