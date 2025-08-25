@@ -5,6 +5,7 @@ import { CoreBaseCommand } from "./CoreBaseCommand.js";
 import { configureAxiosLogging } from "../apiutil/api_logging.js";
 import { configureAxiosRetry } from "../apiutil/api_retry.js";
 import { configureConsistencyHandling } from "../apiutil/api_consistency.js";
+import NoTokenFoundError from "../error/NoTokenFoundError.js";
 
 /** Base command class for authenticated commands that includes the --token flag. */
 export abstract class BaseCommand extends CoreBaseCommand {
@@ -24,9 +25,7 @@ export abstract class BaseCommand extends CoreBaseCommand {
       const { flags } = await this.parse();
       const token = await this.getEffectiveTokenWithFlag(flags);
       if (token === undefined) {
-        throw new Error(
-          `Could not get token from --token flag, MITTWALD_API_TOKEN env var, or config file (${getTokenFilename(this.config)}). Please run "mw login token" or use --token.`,
-        );
+        throw new NoTokenFoundError(getTokenFilename(this.config));
       }
 
       this.apiClient = MittwaldAPIV2Client.newWithToken(token);

@@ -14,6 +14,7 @@ import { projectFlags } from "../../../lib/resources/project/flags.js";
 import { assertStatus } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
+import assertSuccess from "../../../lib/apiutil/assert_success.js";
 
 type DnsRecordMXRecord = MittwaldAPIV2.Components.Schemas.DnsRecordMXRecord;
 type DnsRecordSRVRecord = MittwaldAPIV2.Components.Schemas.DnsRecordSRVRecord;
@@ -221,10 +222,10 @@ export default class Update extends ExecRenderBaseCommand<
         recordSet,
       });
 
-      assertStatus(r, 204);
+      assertSuccess(r);
     });
 
-    process.complete(
+    await process.complete(
       <Success>DNS record set successfully reset to fully managed.</Success>,
     );
   }
