@@ -2280,8 +2280,8 @@ __metadata:
   linkType: hard
 
 "@mittwald/api-client@npm:^4.131.0":
-  version: 4.202.0
-  resolution: "@mittwald/api-client@npm:4.202.0"
+  version: 4.206.0
+  resolution: "@mittwald/api-client@npm:4.206.0"
   dependencies:
     "@mittwald/api-client-commons": ^4.168.0
     browser-or-node: ^3.0.0
@@ -2290,7 +2290,7 @@ __metadata:
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 5110c4b0fb4de79297b807ce7770390faececb088b23953a8c5c25540007758c04b8a092ffa31761684a0b5b027593ea1cbc3dd370c9684e9ba30f5dd7a83722
+  checksum: 74e195a485dc2b09e4939f7927624ad272eed9d44938d741e77f2fb41e9746a443221f3fb71df39812472bfd915270e7bdbcaf1c6c3ead6f3bd7e3549137e120
   languageName: node
   linkType: hard
 
@@ -2339,7 +2339,7 @@ __metadata:
     parse-duration: ^2.0.1
     prettier: ~3.6.2
     prettier-plugin-jsdoc: ^1.3.2
-    prettier-plugin-package: ^1.4.0
+    prettier-plugin-package: ^2.0.0
     prettier-plugin-sort-json: ^4.1.1
     pretty-bytes: ^7.0.0
     react: ^18.2.0
@@ -2348,7 +2348,7 @@ __metadata:
     semver-parser: ^4.1.6
     shell-escape: ^0.2.0
     slice-ansi: ^7.1.0
-    string-width: ^7.2.0
+    string-width: ^8.0.0
     tempfile: ^5.0.0
     ts-jest: ^29.2.5
     ts-node: ^10.9.2
@@ -3523,29 +3523,29 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^24.0.10":
-  version: 24.0.12
-  resolution: "@types/node@npm:24.0.12"
+  version: 24.3.0
+  resolution: "@types/node@npm:24.3.0"
   dependencies:
-    undici-types: ~7.8.0
-  checksum: fad1d824df644492f85fc1d29ae500672703145a1599ab59b48897a6fb868ed5065eb74c48027ac9ec68b2ad9557fe214a959884abc6e4cd82dbd85a7eb33b68
+    undici-types: ~7.10.0
+  checksum: 0f98e492032007d7be811b5598d24b6260f6ef3d21b6fe3b9ca61a1c88f70d5d94c33f361b0f2bd9a1f5963426584c7c2514e29ca69b0649f6b075e7abd551cb
   languageName: node
   linkType: hard
 
 "@types/node@npm:^18.17.15":
-  version: 18.19.117
-  resolution: "@types/node@npm:18.19.117"
+  version: 18.19.123
+  resolution: "@types/node@npm:18.19.123"
   dependencies:
     undici-types: ~5.26.4
-  checksum: 6d1c1e9b5ad779ab6b6a2ccac4f079eb746d8a43afe850c2121d4196e00d518750bd2a8085f964f6a0b4c183cdf43dee2ca92603a4757ab13cdba89a4515613f
+  checksum: a450556143df831703fc20a96a1eff485fa425e5a6e887331991d3e00ab2d33981d36e94d4320f4961e96d22c488ced740913fed6de161daea5caf39722c5f49
   languageName: node
   linkType: hard
 
 "@types/node@npm:^22.5.5":
-  version: 22.16.2
-  resolution: "@types/node@npm:22.16.2"
+  version: 22.17.2
+  resolution: "@types/node@npm:22.17.2"
   dependencies:
     undici-types: ~6.21.0
-  checksum: 3ec83f9276c7915039953c6d96d33c7505d8a72eaad56fb400275174630d57301d6c9bdb134320c7dbdfe7662764d0ed2ec5e9d4420a2a79ea775b01a29aaf00
+  checksum: 2a82f96abcf25104efa6e9b8231616e039e5e0854f07e9ce4fdf821d30eaac30a80ec3cafefb36d2af8bd7c9594cfda337887bd85bb5c2031ba0f7e23a3d588d
   languageName: node
   linkType: hard
 
@@ -4638,9 +4638,9 @@ __metadata:
   linkType: hard
 
 "chalk@npm:^5.3.0, chalk@npm:^5.4.1":
-  version: 5.4.1
-  resolution: "chalk@npm:5.4.1"
-  checksum: 0c656f30b782fed4d99198825c0860158901f449a6b12b818b0aabad27ec970389e7e8767d0e00762175b23620c812e70c4fd92c0210e55fc2d993638b74e86e
+  version: 5.6.0
+  resolution: "chalk@npm:5.6.0"
+  checksum: 245d4b53c29c88da9e291f318c86b6b3ee65aa81568f9e10fafc984a6ef520412dee513057d07cc0f4614ab5a46cb07a0394fab3794d88d48c89c17b2d8fbf7f
   languageName: node
   linkType: hard
 
@@ -5991,7 +5991,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-east-asian-width@npm:^1.0.0":
+"get-east-asian-width@npm:^1.0.0, get-east-asian-width@npm:^1.3.0":
   version: 1.3.0
   resolution: "get-east-asian-width@npm:1.3.0"
   checksum: 757a34c7a46ff385e2775f96f9d3e553f6b6666a8898fb89040d36a1010fba692332772945606a7d4b0f0c6afb84cd394e75d5477c56e1f00f1eb79603b0aecc
@@ -8817,12 +8817,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-package@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "prettier-plugin-package@npm:1.4.0"
+"prettier-plugin-package@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "prettier-plugin-package@npm:2.0.0"
   peerDependencies:
-    prettier: ^2.0.0 || ^3.0.0
-  checksum: 09c48d1cd43aa13e3cfa30f6f8a4c72bf07b1cd5da955419b6da611f34c80427e8681a86f55cd63114f10a0082c51b3fb8a3515c9afdd4a9eaaf54ffc3d0b1a2
+    prettier: ^3.0.0
+  checksum: 3c17a1afb64b12494b7032d9b84ad47460d54a06280de1249a6e3fed9b35543c34fc97493d6d6d4e35ba507a4800b5cab6a12d1a84cea55e8a0213e870aad636
   languageName: node
   linkType: hard
 
@@ -9551,6 +9551,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"string-width@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "string-width@npm:8.0.0"
+  dependencies:
+    get-east-asian-width: ^1.3.0
+    strip-ansi: ^7.1.0
+  checksum: 088195f4f0b715f8b7a12a943422f36dd8f11d2245f4e9bf22c5da0934a23feb4dcc5e2d47398464131dccab8f131550c2a86988812880f278309aefd7c33b6e
+  languageName: node
+  linkType: hard
+
 "string_decoder@npm:^1.1.1":
   version: 1.3.0
   resolution: "string_decoder@npm:1.3.0"
@@ -10014,10 +10024,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~7.8.0":
-  version: 7.8.0
-  resolution: "undici-types@npm:7.8.0"
-  checksum: 59521a5b9b50e72cb838a29466b3557b4eacbc191a83f4df5a2f7b156bc8263072b145dc4bb8ec41da7d56a7e9b178892458da02af769243d57f801a50ac5751
+"undici-types@npm:~7.10.0":
+  version: 7.10.0
+  resolution: "undici-types@npm:7.10.0"
+  checksum: 6917fcd8c80963919fe918952f9243a6749af0e3f759a39f8d2c2486144a66c86ae4125aebbce700b636cb1dcd45e85eb8c49c60d60738a97b63f0e89ef9b053
   languageName: node
   linkType: hard
 

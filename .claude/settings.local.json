@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "WebSearch",
+      "Bash(yarn compile)",
+      "Bash(yarn test:unit:*)",
+      "Bash(yarn lint)",
+      "Bash(yarn generate:readme:*)",
+      "Bash(gh pr diff:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
