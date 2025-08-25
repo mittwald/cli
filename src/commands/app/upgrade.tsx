@@ -40,6 +40,7 @@ type AppSystemSoftwareDependency =
 type AppUpgradePayload = Parameters<
   MittwaldAPIV2Client["app"]["patchAppinstallation"]
 >[0]["data"];
+import { validate as validateUuid } from "uuid";
 
 export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   static description = "Upgrade app installation to target version";
@@ -95,7 +96,10 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       currentAppInstallation.appVersion.current,
     );
 
-    if (targetAppVersionCandidates.length == 0) {
+    if (
+      targetAppVersionCandidates.length == 0 &&
+      !validateUuid(this.flags["target-version"])
+    ) {
       process.complete(
         <Text>
           Your {currentApp.name} {currentAppVersion.externalVersion} is already
@@ -237,11 +241,23 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   ): Promise<AppAppVersion | undefined> {
     const targetAppVersionString = this.flags["target-version"];
 
+    if (!targetAppVersionString) {
+      return undefined;
+    }
+
     if (targetAppVersionString == "latest") {
       return await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
         this.apiClient,
         currentApp.id,
         currentAppVersion.id,
+      );
+    }
+
+    if (validateUuid(targetAppVersionString)) {
+      return await getAppVersionFromUuid(
+        this.apiClient,
+        currentApp.id,
+        targetAppVersionString,
       );
     }
 
