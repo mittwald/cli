@@ -64,7 +64,7 @@ export class PortForward extends ExecRenderBaseCommand<
       additionalFlags: ["-L", `${port}:${hostname}:3306`],
     });
 
-    cp.spawnSync("ssh", [...sshArgs, "cat", "/dev/zero"], {
+    cp.spawnSync("ssh", [...sshArgs, "sleep", "infinity"], {
       stdio: ["ignore", process.stdout, process.stderr],
     });
     return {};
