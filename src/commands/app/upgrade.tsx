@@ -241,10 +241,6 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
   ): Promise<AppAppVersion | undefined> {
     const targetAppVersionString = this.flags["target-version"];
 
-    if (!targetAppVersionString) {
-      return undefined;
-    }
-
     if (targetAppVersionString == "latest") {
       return await getLatestAvailableTargetAppVersionForAppVersionUpgradeCandidates(
         this.apiClient,
@@ -257,7 +253,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       return await getAppVersionFromUuid(
         this.apiClient,
         currentApp.id,
-        targetAppVersionString,
+        targetAppVersionString!,
       );
     }
 
