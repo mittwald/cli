@@ -55,10 +55,7 @@ export class Delete extends ExecRenderBaseCommand<typeof Delete, Result> {
     );
 
     // Check if volume exists
-    if (
-      !currentStack.volumes ||
-      !(currentStack.volumes || []).some((v) => v.name === volumeName)
-    ) {
+    if (!(currentStack.volumes || []).some((v) => v.name === volumeName)) {
       throw new Error(`Volume "${volumeName}" does not exist`);
     }
 

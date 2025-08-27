@@ -49,7 +49,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     );
 
     // Check if volume already exists
-    if (currentStack.volumes && volumeName in currentStack.volumes) {
+    if ((currentStack.volumes || []).some((v) => v.name === volumeName)) {
       throw new Error(`Volume "${volumeName}" already exists`);
     }
 
