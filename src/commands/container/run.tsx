@@ -22,6 +22,8 @@ type ContainerServiceResponse =
   MittwaldAPIV2.Components.Schemas.ContainerServiceResponse;
 type ContainerServiceDeclareRequest =
   MittwaldAPIV2.Components.Schemas.ContainerServiceDeclareRequest;
+type ContainerVolumeDeclareRequest =
+  MittwaldAPIV2.Components.Schemas.ContainerVolumeDeclareRequest;
 type ContainerContainerImageConfig =
   MittwaldAPIV2.Components.Schemas.ContainerContainerImageConfig;
 
@@ -107,6 +109,13 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       multiple: true,
       multipleNonGreedy: true,
     }),
+    "create-volumes": Flags.boolean({
+      summary: "automatically create named volumes that do not exist",
+      description:
+        "When enabled, any named volumes referenced in --volume flags that do not already exist will be automatically created before starting the container.",
+      required: false,
+      default: false,
+    }),
   };
   static args = {
     image: Args.string({
@@ -173,17 +182,69 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     serviceName: string,
     serviceRequest: ContainerServiceDeclareRequest,
   ): Promise<ContainerStackResponse> {
+    const updateData: {
+      services: { [key: string]: ContainerServiceDeclareRequest };
+      volumes?: { [key: string]: ContainerVolumeDeclareRequest };
+    } = {
+      services: {
+        [serviceName]: serviceRequest,
+      },
+    };
+
+    // If create-volumes flag is enabled, add missing volumes to the same call
+    if (this.flags["create-volumes"] && this.flags.volume) {
+      const volumesToCreate = await this.getVolumesToCreate(stackId);
+      if (volumesToCreate.length > 0) {
+        updateData.volumes = Object.fromEntries(
+          volumesToCreate.map((name) => [name, { name }]),
+        );
+      }
+    }
+
     const resp = await this.apiClient.container.updateStack({
       stackId,
-      data: {
-        services: {
-          [serviceName]: serviceRequest,
-        },
-      },
+      data: updateData,
     });
 
     assertStatus(resp, 200);
     return resp.data;
+  }
+
+  /**
+   * Gets the list of named volumes that need to be created.
+   *
+   * @param stackId The stack ID to check existing volumes against
+   * @returns Array of volume names that need to be created
+   */
+  private async getVolumesToCreate(stackId: string): Promise<string[]> {
+    if (!this.flags.volume) {
+      return [];
+    }
+
+    // Get current stack state to check existing volumes
+    const currentStackResp = await this.apiClient.container.getStack({
+      stackId,
+    });
+    assertStatus(currentStackResp, 200);
+    const existingVolumes = (currentStackResp.data.volumes || []).map(
+      (v) => v.name,
+    );
+
+    // Parse volume flags to extract named volumes (not file paths)
+    const namedVolumes = new Set(
+      this.flags.volume
+        .filter((volume) => {
+          const [source] = volume.split(":");
+          // Named volumes typically don't start with /
+          return source && !source.startsWith("/");
+        })
+        .map((volume) => volume.split(":")[0]),
+    );
+
+    // Find volumes that need to be created
+    return Array.from(namedVolumes).filter(
+      (volumeName: string) => !existingVolumes.includes(volumeName),
+    );
   }
 
   /**
