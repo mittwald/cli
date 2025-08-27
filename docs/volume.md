@@ -7,7 +7,6 @@ Manage volumes
 * [`mw volume delete NAME`](#mw-volume-delete-name)
 * [`mw volume list`](#mw-volume-list)
 * [`mw volume ls`](#mw-volume-ls)
-* [`mw volume remove NAME`](#mw-volume-remove-name)
 * [`mw volume rm NAME`](#mw-volume-rm-name)
 
 ## `mw volume create NAME`
@@ -162,47 +161,6 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
-```
-
-## `mw volume remove NAME`
-
-Remove one or more volumes
-
-```
-USAGE
-  $ mw volume remove NAME [--token <value>] [-p <value>] [-q] [-f]
-
-ARGUMENTS
-  NAME  Name of the volume to remove
-
-FLAGS
-  -f, --force               Force removal without confirmation
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
-                            context
-  -q, --quiet               suppress process output and only display a machine-readable summary
-
-AUTHENTICATION FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
-                   tokens passed via this flag might be logged in your shell history.
-
-DESCRIPTION
-  Remove one or more volumes
-
-  Removes named volumes from the project stack. Be careful as this will permanently delete the volume data.
-
-ALIASES
-  $ mw volume remove
-
-FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
-
-    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
-    to persistently set a default project for all commands that accept this flag.
-
-  -q, --quiet  suppress process output and only display a machine-readable summary
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 ## `mw volume rm NAME`
