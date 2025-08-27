@@ -261,6 +261,9 @@
             "description": "Manage your SSH keys"
           }
         }
+      },
+      "volume": {
+        "description": "Manage volumes"
       }
     },
     "plugins": [

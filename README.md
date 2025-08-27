@@ -127,5 +127,6 @@ USAGE
 * [`mw stack`](docs/stack.md) - Manage container stacks
 * [`mw update`](docs/update.md) - update the mw CLI
 * [`mw user`](docs/user.md) - Manage your own user account
+* [`mw volume`](docs/volume.md) - Manage volumes
 
 <!-- commandsstop -->
