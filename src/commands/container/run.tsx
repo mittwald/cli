@@ -46,6 +46,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
         "Format: KEY=VALUE. Multiple environment variables can be specified with multiple --env flags.",
       required: false,
       multiple: true,
+      multipleNonGreedy: true,
       char: "e",
     }),
     "env-file": Flags.string({
@@ -53,6 +54,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       description:
         "The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file flags.",
       multiple: true,
+      multipleNonGreedy: true,
       required: false,
     }),
     description: Flags.string({
@@ -82,6 +84,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
         "NOTE: Please note that the usual shorthand -p is not supported for this flag, as it would conflict with the --project flag.",
       required: false,
       multiple: true,
+      multipleNonGreedy: true,
     }),
     "publish-all": Flags.boolean({
       summary: "publish all ports that are defined in the image",
@@ -102,6 +105,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       required: false,
       char: "v",
       multiple: true,
+      multipleNonGreedy: true,
     }),
   };
   static args = {
@@ -223,7 +227,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       ? [this.flags.entrypoint]
       : imageMeta.entrypoint;
     const description = this.flags.description ?? serviceName;
-    const envs = await parseEnvironmentVariables(
+    const environment = await parseEnvironmentVariables(
       this.flags.env,
       this.flags["env-file"],
     );
@@ -239,7 +243,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       command,
       entrypoint,
       description,
-      envs,
+      environment,
       ports,
       volumes,
     };
