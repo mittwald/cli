@@ -514,6 +514,7 @@ FLAGS
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary
   -v, --volume=<value>...    bind mount a volume to the container
+      --create-volumes       automatically create named volumes that do not exist
       --description=<value>  add a descriptive label to the container
       --entrypoint=<value>   override the default entrypoint of the container image
       --env-file=<value>...  read environment variables from a file
@@ -549,6 +550,11 @@ FLAG DESCRIPTIONS
     volumes.Needs to be in the format <host-path>:<container-path>. If you specify a file path as volume, this will
     mount a path from your hosting environment's file system (NOT your local file system) into the container. You can
     also specify a named volume, which needs to be created beforehand.
+
+  --create-volumes  automatically create named volumes that do not exist
+
+    When enabled, any named volumes referenced in --volume flags that do not already exist will be automatically created
+    before starting the container.
 
   --description=<value>  add a descriptive label to the container
 
