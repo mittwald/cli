@@ -8,7 +8,7 @@ import TableColumnRenderer from "./TableColumnRenderer.js";
 import { TableRenderer } from "./TableRenderer.js";
 import TableCSVRenderer from "./TableCSVRenderer.js";
 
-export { ListColumn, ListColumns } from "./Table.js";
+export type { ListColumn, ListColumns } from "./Table.js";
 
 type ListFormatterFlags = {
   output: OptionFlag<OutputFormat>;
