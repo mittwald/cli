@@ -281,6 +281,9 @@
         "bucket": "mittwald-cli",
         "host": "https://mittwald-cli.s3.eu-central-1.amazonaws.com"
       }
+    },
+    "hooks": {
+      "prerun": "./dist/hooks/prerun/update-brew-check"
     }
   },
   "packageManager": "yarn@3.6.1"
