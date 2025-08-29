@@ -10,6 +10,7 @@ interface TerraformInstance {
 }
 
 interface TerraformResource {
+  mode: "data" | "managed";
   type: string;
   name: string;
   provider: string;
@@ -24,7 +25,9 @@ function overrideIDFromState(
   state: TerraformState,
   type: string,
 ): string | undefined {
-  const instances = state.resources?.find((r) => r.type === type)?.instances;
+  const instances = state.resources?.find(
+    (r) => r.type === type && r.mode === "managed",
+  )?.instances;
   if (instances === undefined) {
     return undefined;
   }
