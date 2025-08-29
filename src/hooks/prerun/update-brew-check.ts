@@ -5,7 +5,7 @@ const hook: Hook<"prerun"> = async function (opts) {
   const isInstalledWithBrew = () => {
     try {
       const cellar = execSync("brew --cellar", { encoding: "utf8" });
-      return opts.config.root.startsWith(cellar);
+      return opts.config.root.startsWith(cellar.trim());
     } catch {
       return false;
     }
