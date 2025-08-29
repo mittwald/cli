@@ -8,6 +8,7 @@ import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
 import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import shellEscape from "shell-escape";
+import { prepareEnvironmentVariables } from "../../lib/resources/ssh/environment.js";
 
 export default class Exec extends ExtendedBaseCommand<typeof Exec> {
   static summary =
@@ -43,30 +44,13 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
       summary: "shell to use for the SSH connection",
       default: "/bin/sh",
     }),
+    quiet: Flags.boolean({
+      char: "q",
+      summary: "disable informational output, only show command results",
+      default: false,
+    }),
   };
 
-  /**
-   * Prepare environment variables for the SSH command
-   *
-   * @param envVars Array of environment variables in KEY=VALUE format
-   * @returns Formatted string with export commands
-   */
-  private prepareEnvironmentVariables(envVars: string[]): string {
-    return (
-      envVars
-        .map((env) => {
-          const eqIdx = env.indexOf("=");
-          if (eqIdx === -1) {
-            // If no '=', treat the whole string as key with empty value
-            return `export ${shellEscape([env])}=`;
-          }
-          const key = env.slice(0, eqIdx);
-          const value = env.slice(eqIdx + 1);
-          return `export ${shellEscape([key])}=${shellEscape([value])}`;
-        })
-        .join("; ") + "; "
-    );
-  }
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Exec);
@@ -85,7 +69,9 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
       flags["ssh-user"],
     );
 
-    this.log("executing command on %s as %s", host, user);
+    if (!flags.quiet) {
+      this.log("executing command on %s as %s", host, user);
+    }
 
     const command = args.command;
     const workdir = flags.workdir;
@@ -95,7 +81,7 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
 
     // Add environment variables if provided
     if (flags.env && flags.env.length > 0) {
-      execCommand += this.prepareEnvironmentVariables(flags.env);
+      execCommand += prepareEnvironmentVariables(flags.env);
     }
 
     // Change to working directory if specified

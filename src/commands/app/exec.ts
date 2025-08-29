@@ -4,9 +4,13 @@ import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
 import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
-import { appInstallationArgs } from "../../lib/resources/app/flags.js";
+import {
+  appInstallationArgs,
+  appInstallationFlags,
+} from "../../lib/resources/app/flags.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
 import shellEscape from "shell-escape";
+import { prepareEnvironmentVariables } from "../../lib/resources/ssh/environment.js";
 
 export default class Exec extends ExtendedBaseCommand<typeof Exec> {
   static summary =
@@ -14,7 +18,6 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
   static description = sshUsageDocumentation;
 
   static args = {
-    ...appInstallationArgs,
     command: Args.string({
       description: "Command to execute in the app installation",
       required: true,
@@ -23,6 +26,7 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
 
   static flags = {
     ...sshConnectionFlags,
+    ...appInstallationFlags,
     workdir: Flags.string({
       char: "w",
       summary: "working directory where the command will be executed",
@@ -34,30 +38,12 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
         "environment variables to set for the command (format: KEY=VALUE)",
       multiple: true,
     }),
+    quiet: Flags.boolean({
+      char: "q",
+      summary: "disable informational output, only show command results",
+      default: false,
+    }),
   };
-
-  /**
-   * Prepare environment variables for the SSH command
-   *
-   * @param envVars Array of environment variables in KEY=VALUE format
-   * @returns Formatted string with export commands
-   */
-  private prepareEnvironmentVariables(envVars: string[]): string {
-    return (
-      envVars
-        .map((env) => {
-          const eqIdx = env.indexOf("=");
-          if (eqIdx === -1) {
-            // If no '=', treat the whole string as key with empty value
-            return `export ${shellEscape([env])}=`;
-          }
-          const key = env.slice(0, eqIdx);
-          const value = env.slice(eqIdx + 1);
-          return `export ${shellEscape([key])}=${shellEscape([value])}`;
-        })
-        .join("; ") + "; "
-    );
-  }
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Exec);
@@ -69,25 +55,23 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
       flags["ssh-user"],
     );
 
-    this.log("executing command on %s as %s", host, user);
+    if (!flags.quiet) {
+      this.log("executing command on %s as %s", host, user);
+    }
 
     const command = args.command;
-    const workdir = flags.workdir;
+    const workdir = flags.workdir ?? directory;
 
     // Build the command to execute
     let execCommand = "";
 
     // Add environment variables if provided
     if (flags.env && flags.env.length > 0) {
-      execCommand += this.prepareEnvironmentVariables(flags.env);
+      execCommand += prepareEnvironmentVariables(flags.env);
     }
 
     // Change to working directory if specified, otherwise use app directory
-    if (workdir !== undefined) {
-      execCommand += `cd ${shellEscape([workdir])} && `;
-    } else {
-      execCommand += `cd ${shellEscape([directory])} && `;
-    }
+    execCommand += `cd ${shellEscape([workdir])} && `;
 
     // Add the actual command
     execCommand += command;
