@@ -1,34 +1,29 @@
 import * as child_process from "child_process";
 import { Args, Flags } from "@oclif/core";
 import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
-import { getSSHConnectionForContainer } from "../../lib/resources/ssh/container.js";
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
 import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
-import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
-import { projectFlags } from "../../lib/resources/project/flags.js";
+import { appInstallationFlags } from "../../lib/resources/app/flags.js";
+import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
 import shellEscape from "shell-escape";
 import { prepareEnvironmentVariables } from "../../lib/resources/ssh/environment.js";
 
 export default class Exec extends ExtendedBaseCommand<typeof Exec> {
   static summary =
-    "Execute a command in a container via SSH non-interactively.";
+    "Execute a command in an app installation via SSH non-interactively.";
   static description = sshUsageDocumentation;
 
   static args = {
-    "container-id": Args.string({
-      description: "ID or short ID of the container to connect to",
-      required: true,
-    }),
     command: Args.string({
-      description: "Command to execute in the container",
+      description: "Command to execute in the app installation",
       required: true,
     }),
   };
 
   static flags = {
     ...sshConnectionFlags,
-    ...projectFlags,
+    ...appInstallationFlags,
     workdir: Flags.string({
       char: "w",
       summary: "working directory where the command will be executed",
@@ -41,10 +36,6 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
       multiple: true,
       multipleNonGreedy: true,
     }),
-    shell: Flags.string({
-      summary: "shell to use for the SSH connection",
-      default: "/bin/sh",
-    }),
     quiet: Flags.boolean({
       char: "q",
       summary: "disable informational output, only show command results",
@@ -54,18 +45,11 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
 
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Exec);
-    const [containerId, stackId] = await withContainerAndStackId(
-      this.apiClient,
-      Exec,
-      flags,
-      this.args,
-      this.config,
-    );
+    const appInstallationId = await this.withAppInstallationId(Exec);
 
-    const { host, user } = await getSSHConnectionForContainer(
+    const { host, user, directory } = await getSSHConnectionForAppInstallation(
       this.apiClient,
-      containerId,
-      stackId,
+      appInstallationId,
       flags["ssh-user"],
     );
 
@@ -74,7 +58,7 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
     }
 
     const command = args.command;
-    const workdir = flags.workdir;
+    const workdir = flags.workdir ?? directory;
 
     // Build the command to execute
     let execCommand = "";
@@ -84,10 +68,8 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
       execCommand += prepareEnvironmentVariables(flags.env);
     }
 
-    // Change to working directory if specified
-    if (workdir !== undefined) {
-      execCommand += `cd ${shellEscape([workdir])} && `;
-    }
+    // Change to working directory if specified, otherwise use app directory
+    execCommand += `cd ${shellEscape([workdir])} && `;
 
     // Add the actual command
     execCommand += command;
@@ -96,7 +78,7 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
       interactive: false,
     });
 
-    const wrappedExecCommand = shellEscape([flags.shell, "-c", execCommand]);
+    const wrappedExecCommand = shellEscape(["/bin/bash", "-c", execCommand]);
 
     this.debug("running ssh %o, with command %o", sshArgs, wrappedExecCommand);
 
