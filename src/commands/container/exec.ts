@@ -51,7 +51,6 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
     }),
   };
 
-
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Exec);
     const [containerId, stackId] = await withContainerAndStackId(

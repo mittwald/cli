@@ -4,10 +4,7 @@ import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
 import { sshUsageDocumentation } from "../../lib/resources/ssh/doc.js";
 import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
-import {
-  appInstallationArgs,
-  appInstallationFlags,
-} from "../../lib/resources/app/flags.js";
+import { appInstallationFlags } from "../../lib/resources/app/flags.js";
 import { getSSHConnectionForAppInstallation } from "../../lib/resources/ssh/appinstall.js";
 import shellEscape from "shell-escape";
 import { prepareEnvironmentVariables } from "../../lib/resources/ssh/environment.js";
