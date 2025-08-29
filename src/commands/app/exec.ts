@@ -34,6 +34,7 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
       summary:
         "environment variables to set for the command (format: KEY=VALUE)",
       multiple: true,
+      multipleNonGreedy: true,
     }),
     quiet: Flags.boolean({
       char: "q",

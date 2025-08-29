@@ -39,6 +39,7 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
       summary:
         "environment variables to set for the command (format: KEY=VALUE)",
       multiple: true,
+      multipleNonGreedy: true,
     }),
     shell: Flags.string({
       summary: "shell to use for the SSH connection",
