@@ -13,6 +13,7 @@ Manage apps, and app installations in your projects
 * [`mw app dependency update [INSTALLATION-ID]`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
 * [`mw app download [INSTALLATION-ID]`](#mw-app-download-installation-id)
+* [`mw app exec COMMAND`](#mw-app-exec-command)
 * [`mw app get [INSTALLATION-ID]`](#mw-app-get-installation-id)
 * [`mw app install contao`](#mw-app-install-contao)
 * [`mw app install joomla`](#mw-app-install-joomla)
@@ -488,6 +489,68 @@ FLAG DESCRIPTIONS
     example when you are using a deployment tool that manages the app installation directory itself, and you only want
     to download exempt files, like environment specific configuration files or user data. For example, if you want to
     download from "/html/my-app-XXXXX/config", set "--remote-sub-directory=config".
+
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+
+    The SSH identity file to use for the connection. This file should contain an SSH private key and will be used to
+    authenticate the connection to the server.
+
+    You can also set this value by setting the MITTWALD_SSH_IDENTITY_FILE environment variable.
+
+  --ssh-user=<value>  override the SSH user to connect with; if omitted, your own user will be used
+
+    This flag can be used to override the SSH user that is used for a connection; be default, your own personal user
+    will be used for this.
+
+    You can also set this value by setting the MITTWALD_SSH_USER environment variable.
+```
+
+## `mw app exec COMMAND`
+
+Execute a command in an app installation via SSH non-interactively.
+
+```
+USAGE
+  $ mw app exec COMMAND [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>] [-i <value>] [-w
+    <value>] [-e <value>...] [-q]
+
+ARGUMENTS
+  COMMAND  Command to execute in the app installation
+
+FLAGS
+  -e, --env=<value>...           environment variables to set for the command (format: KEY=VALUE)
+  -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
+                                 installation is set in the context
+  -q, --quiet                    disable informational output, only show command results
+  -w, --workdir=<value>          working directory where the command will be executed
+
+SSH CONNECTION FLAGS
+  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
+  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Execute a command in an app installation via SSH non-interactively.
+
+  This command relies on connecting to your hosting environment via SSH. For this, it will use your systems SSH client
+  under the hood, and will respect your SSH configuration in ~/.ssh/config.
+
+  An exception to this is the 'User' configuration, which will be overridden by this command to either your
+  authenticated mStudio user or the user specified with the --ssh-user flag.
+
+  See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
+
+FLAG DESCRIPTIONS
+  -i, --installation-id=<value>
+
+    ID or short ID of an app installation; this flag is optional if a default app installation is set in the context
+
+    May contain a short ID or a full ID of an app installation; you can also use the "mw context set
+    --installation-id=<VALUE>" command to persistently set a default app installation for all commands that accept this
+    flag.
 
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
 
