@@ -149,7 +149,7 @@ Execute a command in a container via SSH non-interactively.
 ```
 USAGE
   $ mw container exec CONTAINER-ID COMMAND [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>] [-p
-    <value>] [-w <value>] [-e <value>...] [--shell <value>]
+    <value>] [-w <value>] [-e <value>...] [--shell <value>] [-q]
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to connect to
@@ -159,6 +159,7 @@ FLAGS
   -e, --env=<value>...      environment variables to set for the command (format: KEY=VALUE)
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
+  -q, --quiet               disable informational output, only show command results
   -w, --workdir=<value>     working directory where the command will be executed
       --shell=<value>       [default: /bin/sh] shell to use for the SSH connection
 
