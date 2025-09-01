@@ -1,5 +1,6 @@
 import React, { FC, PropsWithChildren } from "react";
 import { Box, Text } from "ink";
+import useDefaultBoxStyles from "../styles/useDefaultBoxStyles.js";
 
 interface Props {
   title?: string;
@@ -26,13 +27,14 @@ export const Success: FC<PropsWithChildren<Props>> = (props) => {
     props.children
   );
 
+  const defaultBoxStyles = useDefaultBoxStyles();
+
   return (
     <Box
+      {...defaultBoxStyles}
       width={width}
-      borderStyle={"round"}
       borderColor={color}
       flexDirection="column"
-      paddingX={2}
     >
       <Text bold underline color={color}>
         {title.toUpperCase()}
