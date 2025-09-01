@@ -3,6 +3,7 @@ import { FancyProcessRenderer } from "./process_fancy.js";
 import { Flags } from "@oclif/core";
 import { SilentProcessRenderer } from "./process_quiet.js";
 import { InferredFlags } from "@oclif/core/interfaces";
+import { SimpleProcessRenderer } from "./process_simple.js";
 
 export const processFlags = {
   quiet: Flags.boolean({
@@ -36,5 +37,10 @@ export const makeProcessRenderer = (
   if (flags.quiet) {
     return new SilentProcessRenderer();
   }
+
+  if (!process.stdout.isTTY) {
+    return new SimpleProcessRenderer(title);
+  }
+
   return new FancyProcessRenderer(title);
 };
