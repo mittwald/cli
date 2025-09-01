@@ -1,19 +1,20 @@
 import { Box, BoxProps } from "ink";
 import { PropsWithChildren } from "react";
+import useDefaultBoxStyles from "../../styles/useDefaultBoxStyles.js";
 
 const defaultErrorBoxProps: BoxProps = {
-  width: 80,
   flexDirection: "column",
   borderColor: "red",
-  borderStyle: "round",
-  paddingX: 1,
   rowGap: 1,
 };
 
 /** A pre-styled box for displaying errors. */
-export default function ErrorBox(props: PropsWithChildren<BoxProps>) {
+export default function ErrorBox(
+  props: PropsWithChildren<Omit<BoxProps, "width">>,
+) {
+  const defaultBoxStyles = useDefaultBoxStyles();
   return (
-    <Box {...defaultErrorBoxProps} {...props}>
+    <Box {...defaultBoxStyles} {...defaultErrorBoxProps} {...props}>
       {props.children}
     </Box>
   );

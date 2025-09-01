@@ -5,7 +5,7 @@ interface BoxStyles {
   borderStyle: keyof Boxes;
   paddingX: number;
   paddingY: number;
-  width: number;
+  width: number | `${string}%`;
 }
 
 /**
@@ -28,5 +28,7 @@ export default function useDefaultBoxStyles(): Partial<BoxStyles> {
     };
   }
 
-  return {};
+  return {
+    width: 99999,
+  };
 }
