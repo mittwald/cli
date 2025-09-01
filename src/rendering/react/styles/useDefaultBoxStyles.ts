@@ -5,6 +5,7 @@ interface BoxStyles {
   borderStyle: keyof Boxes;
   paddingX: number;
   paddingY: number;
+  width: number;
 }
 
 /**
@@ -23,6 +24,7 @@ export default function useDefaultBoxStyles(): Partial<BoxStyles> {
     return {
       borderStyle: "single",
       paddingX: 2,
+      width: 80,
     };
   }
 
