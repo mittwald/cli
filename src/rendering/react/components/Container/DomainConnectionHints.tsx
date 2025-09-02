@@ -22,7 +22,7 @@ export const DomainConnectionHints: FC<DomainConnectionHintsProps> = ({
   return (
     <>
       <Text bold color={infoColor}>
-        🌐 Connect via Domain (recommended):
+        🌐 Connect via Domain:
       </Text>
       {ports.map((port) => (
         <CommandHint
@@ -43,7 +43,9 @@ export const DomainConnectionHints: FC<DomainConnectionHintsProps> = ({
               <Value>
                 {port.port}/{port.protocol}
               </Value>
-              , making it accessible via HTTPS
+              , making it accessible via HTTPS. This works only if the container
+              listens for HTTP connections on this port. Other protocols are not
+              supported.
             </>
           }
         />

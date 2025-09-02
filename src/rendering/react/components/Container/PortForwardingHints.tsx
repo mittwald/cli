@@ -4,7 +4,6 @@ import { Value } from "../Value.js";
 import { CommandHint } from "./CommandHint.js";
 import { ParsedPort } from "./types.js";
 
-
 interface PortForwardingHintsProps {
   ports: ParsedPort[];
   containerName: string;
@@ -22,11 +21,9 @@ export const PortForwardingHints: FC<PortForwardingHintsProps> = ({
 }) => {
   return (
     <>
-      <Box marginTop={1}>
-        <Text bold color={infoColor}>
-          🔗 Port Forward for Local Development:
-        </Text>
-      </Box>
+      <Text bold color={infoColor}>
+        🔗 Port Forward for Local Development:
+      </Text>
       {ports.map((port) => (
         <CommandHint
           key={`forward-${port.port}`}
@@ -45,7 +42,7 @@ export const PortForwardingHints: FC<PortForwardingHintsProps> = ({
                 {port.port}:{port.port}
               </Value>{" "}
               makes it accessible at <Value>http://localhost:{port.port}</Value>
-              )
+              ). This works for all TCP-based protocols.
             </>
           }
         />
