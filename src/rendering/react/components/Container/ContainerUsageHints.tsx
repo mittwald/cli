@@ -1,21 +1,18 @@
-import React, { FC, ReactNode } from "react";
-import { Box, Text } from "ink";
+import React, { FC } from "react";
+import { Box, Static, Text } from "ink";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Value } from "../Value.js";
 import useDefaultBoxStyles from "../../styles/useDefaultBoxStyles.js";
 import { ContainerManagementCommands } from "./ContainerManagementCommands.js";
-import { CommandHint } from "./CommandHint.js";
+import { NoPortsUsageHints } from "./NoPortsUsageHints.js";
+import { PortConnectionHints } from "./PortConnectionHints.js";
+import { ParsedPort } from "./types.js";
 
 type ContainerServiceResponse =
   MittwaldAPIV2.Components.Schemas.ContainerServiceResponse;
 
 interface ContainerUsageHintsProps {
   service: ContainerServiceResponse;
-}
-
-interface ParsedPort {
-  port: string;
-  protocol: string;
 }
 
 const infoColor = "blueBright";
@@ -25,6 +22,10 @@ const parsePort = (portString: string): ParsedPort => {
   return { port, protocol };
 };
 
+/**
+ * ContainerUsageHints displays comprehensive usage instructions for containers,
+ * adapting the content based on whether the container exposes ports or not.
+ */
 const ContainerUsageHints: FC<ContainerUsageHintsProps> = ({ service }) => {
   const defaultBoxStyles = useDefaultBoxStyles();
   const rawPorts = service.deployedState?.ports || [];
@@ -32,30 +33,22 @@ const ContainerUsageHints: FC<ContainerUsageHintsProps> = ({ service }) => {
   const containerId = service.id;
   const containerName = service.serviceName;
 
+  const boxProps = {
+    ...defaultBoxStyles,
+    borderColor: infoColor,
+    marginLeft: 2,
+  };
+
+  // Handle containers without exposed ports
   if (ports.length === 0) {
     return (
-      <Box {...defaultBoxStyles} borderColor={infoColor} flexDirection="column">
-        <Text bold underline color={infoColor}>
-          USAGE HINTS
-        </Text>
-        <Text color={infoColor}>
-          Container <Value>{containerName}</Value> is now running! 🐳
-        </Text>
-        <Box marginTop={1}>
-          <Text>
-            Your container doesn't expose any ports, but you can still interact
-            with it:
-          </Text>
-        </Box>
-        <Box marginTop={1} flexDirection="column">
-          <ContainerManagementCommands containerIdentifier={containerName} />
-        </Box>
-      </Box>
+      <NoPortsUsageHints boxProps={boxProps} containerName={containerName} />
     );
   }
 
+  // Handle containers with exposed ports
   return (
-    <Box {...defaultBoxStyles} borderColor={infoColor} flexDirection="column">
+    <Box {...boxProps} flexDirection="column">
       <Text bold underline color={infoColor}>
         USAGE HINTS
       </Text>
@@ -76,62 +69,11 @@ const ContainerUsageHints: FC<ContainerUsageHintsProps> = ({ service }) => {
       </Box>
 
       <Box marginTop={1} flexDirection="column">
-        <Text bold color={infoColor}>
-          🌐 Connect via Domain (recommended):
-        </Text>
-        {ports.map((port) => (
-          <CommandHint
-            key={`domain-${port.port}`}
-            command={[
-              "mw",
-              "domain",
-              "virtualhost",
-              "create",
-              "--hostname",
-              "<your-domain.com>",
-              "--path-to-container",
-              `/:${containerId}:${port.port}/${port.protocol}`,
-            ]}
-            description={
-              <>
-                Connect <Value>{"<your-domain.com>"}</Value> to container port{" "}
-                <Value>
-                  {port.port}/{port.protocol}
-                </Value>
-                , making it accessible via HTTPS
-              </>
-            }
-          />
-        ))}
-
-        <Box marginTop={1}>
-          <Text bold color={infoColor}>
-            🔗 Port Forward for Local Development:
-          </Text>
-        </Box>
-        {ports.map((port) => (
-          <CommandHint
-            key={`forward-${port.port}`}
-            command={[
-              "mw",
-              "container",
-              "port-forward",
-              containerName,
-              `<local-port>:${port.port}`,
-            ]}
-            description={
-              <>
-                Forward container port <Value>{port.port}</Value> to a local
-                port (e.g.,{" "}
-                <Value>
-                  {port.port}:{port.port}
-                </Value>{" "}
-                makes it accessible at{" "}
-                <Value>http://localhost:{port.port}</Value>)
-              </>
-            }
-          />
-        ))}
+        <PortConnectionHints
+          ports={ports}
+          containerId={containerId}
+          containerName={containerName}
+        />
 
         <ContainerManagementCommands containerIdentifier={containerName} />
 

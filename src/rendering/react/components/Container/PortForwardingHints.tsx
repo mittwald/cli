@@ -1,0 +1,55 @@
+import React, { FC } from "react";
+import { Box, Text } from "ink";
+import { Value } from "../Value.js";
+import { CommandHint } from "./CommandHint.js";
+import { ParsedPort } from "./types.js";
+
+
+interface PortForwardingHintsProps {
+  ports: ParsedPort[];
+  containerName: string;
+}
+
+const infoColor = "blueBright";
+
+/**
+ * PortForwardingHints displays instructions for forwarding container ports to
+ * local ports for development purposes.
+ */
+export const PortForwardingHints: FC<PortForwardingHintsProps> = ({
+  ports,
+  containerName,
+}) => {
+  return (
+    <>
+      <Box marginTop={1}>
+        <Text bold color={infoColor}>
+          🔗 Port Forward for Local Development:
+        </Text>
+      </Box>
+      {ports.map((port) => (
+        <CommandHint
+          key={`forward-${port.port}`}
+          command={[
+            "mw",
+            "container",
+            "port-forward",
+            containerName,
+            `<local-port>:${port.port}`,
+          ]}
+          description={
+            <>
+              Forward container port <Value>{port.port}</Value> to a local port
+              (e.g.,{" "}
+              <Value>
+                {port.port}:{port.port}
+              </Value>{" "}
+              makes it accessible at <Value>http://localhost:{port.port}</Value>
+              )
+            </>
+          }
+        />
+      ))}
+    </>
+  );
+};

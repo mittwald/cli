@@ -163,16 +163,14 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     );
 
     const service = stack.services?.find(matchServiceByName(serviceName));
-    const serviceId = service?.id;
-
-    if (!serviceId) {
+    if (!service) {
       throw new Error("Service ID not found in the created stack.");
     }
 
     await p.complete(
       <Success>
-        Container <Value>{serviceId}</Value> was successfully created and
-        started.
+        Container <Value>{service.serviceName}</Value> was successfully created
+        and started.
       </Success>,
     );
 
