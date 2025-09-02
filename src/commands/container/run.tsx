@@ -15,6 +15,8 @@ import {
 } from "../../lib/resources/container/containerconfig.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
+import { Text } from "ink";
+import ContainerUsageHints from "../../rendering/react/components/Container/ContainerUsageHints.js";
 
 type ContainerStackResponse =
   MittwaldAPIV2.Components.Schemas.ContainerStackResponse;
@@ -28,7 +30,7 @@ type ContainerContainerImageConfig =
   MittwaldAPIV2.Components.Schemas.ContainerContainerImageConfig;
 
 type Result = {
-  serviceId: string;
+  service: ContainerServiceResponse;
 };
 
 export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
@@ -174,7 +176,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       </Success>,
     );
 
-    return { serviceId };
+    return { service };
   }
 
   private async addServiceToStack(
@@ -326,10 +328,12 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     return dockerNames.getRandomName();
   }
 
-  protected render({ serviceId }: Result): ReactNode {
+  protected render({ service }: Result): ReactNode {
     if (this.flags.quiet) {
-      return serviceId;
+      return service.id;
     }
+
+    return <ContainerUsageHints service={service} />;
   }
 }
 
