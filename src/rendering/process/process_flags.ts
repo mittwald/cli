@@ -39,7 +39,7 @@ export const makeProcessRenderer = (
   }
 
   if (!process.stdout.isTTY) {
-    return new SimpleProcessRenderer(title);
+    return new SimpleProcessRenderer(title, process.stdout);
   }
 
   return new FancyProcessRenderer(title);

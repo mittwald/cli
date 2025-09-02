@@ -4,15 +4,19 @@ import {
   RunnableHandler,
   ProcessStepRunnable,
 } from "./process.js";
+import { Writable } from "stream";
 
 export class SimpleProcessRenderer implements ProcessRenderer {
   private readonly title: string;
+  private readonly output: Writable;
+
   private started = false;
   private cleanupFns: (() => Promise<unknown>)[] = [];
   private stepCounter = 0;
 
-  public constructor(title: string) {
+  public constructor(title: string, output: Writable) {
     this.title = title;
+    this.output = output;
   }
 
   public start() {
@@ -20,7 +24,7 @@ export class SimpleProcessRenderer implements ProcessRenderer {
       return;
     }
     this.started = true;
-    console.log(`Starting: ${this.title}\n`);
+    this.output.write(`Starting: ${this.title}\n\n`);
   }
 
   public addStep(title: ReactNode): RunnableHandler {
@@ -28,39 +32,38 @@ export class SimpleProcessRenderer implements ProcessRenderer {
     this.stepCounter++;
 
     const titleText = this.renderNodeToText(title);
-    console.log(`[RUNNING] Step ${this.stepCounter}: ${titleText}...`);
+    this.output.write(`Step ${this.stepCounter}: ${titleText}... `);
 
     const state: ProcessStepRunnable = {
       type: "step",
       title,
       phase: "running",
     };
-    const stepNum = this.stepCounter;
 
     return new RunnableHandler(state, () => {
-      const currentTitleText = this.renderNodeToText(state.title);
-
       if (state.phase === "completed") {
-        console.log(`[COMPLETED] Step ${stepNum}: ${currentTitleText}`);
+        this.output.write("completed\n");
       } else if (state.phase === "failed") {
-        console.log(`[FAILED] Step ${stepNum}: ${currentTitleText}`);
+        this.output.write("FAILED\n");
         if (state.error) {
-          console.log(`  Error: ${state.error}`);
+          this.output.write(`  Error: ${state.error}\n`);
         }
       } else if (state.phase === "aborted") {
-        console.log(`[ABORTED] Step ${stepNum}: ${currentTitleText}`);
+        this.output.write("aborted\n");
       }
 
       if (state.progress) {
-        console.log(`  Progress: ${state.progress}`);
+        this.output.write(`  Progress: ${state.progress}\n`);
       }
 
       if (state.output) {
         const lines = state.output
           .split("\n")
           .filter((line: string) => line.trim());
+
+        this.output.write("got output:\n");
         for (const line of lines) {
-          console.log(`  ${line}`);
+          this.output.write(`  ${line}\n`);
         }
       }
     });
@@ -85,15 +88,15 @@ export class SimpleProcessRenderer implements ProcessRenderer {
   public addInfo(title: ReactNode) {
     this.start();
     const titleText = this.renderNodeToText(title);
-    console.log(`[INFO] ${titleText}`);
+    this.output.write(`Info: ${titleText}\n`);
   }
 
   public async addConfirmation(question: ReactNode): Promise<boolean> {
     this.start();
     const questionText = this.renderNodeToText(question);
-    console.log(`[CONFIRM] ${questionText}`);
 
-    console.log("[CONFIRM] Automatically confirming: true");
+    this.output.write(`Confirm: ${questionText}; automatically confirmed\n`);
+
     return true;
   }
 
@@ -101,7 +104,10 @@ export class SimpleProcessRenderer implements ProcessRenderer {
     this.start();
     const questionText = this.renderNodeToText(question);
     const maskText = mask ? " (masked)" : "";
-    console.log(`[INPUT] ${questionText}${maskText}`);
+
+    this.output.write(
+      `Input: ${questionText}${maskText}; no input available\n`,
+    );
 
     // For non-interactive use, throw an error
     throw new Error(
@@ -115,12 +121,13 @@ export class SimpleProcessRenderer implements ProcessRenderer {
   ): Promise<TVal> {
     this.start();
     const questionText = this.renderNodeToText(question);
-    console.log(`[SELECT] ${questionText}`);
 
-    console.log("[SELECT] Available options:");
+    this.output.write(`Selection: ${questionText}\n`);
+    this.output.write("Available options:\n");
+
     options.forEach((option, index) => {
       const labelText = this.renderNodeToText(option.label);
-      console.log(`[SELECT]   ${index + 1}. ${labelText}`);
+      this.output.write(`  ${index + 1}. ${labelText}\n`);
     });
 
     throw new Error(
@@ -136,13 +143,13 @@ export class SimpleProcessRenderer implements ProcessRenderer {
     await this.cleanup();
 
     const summaryText = this.renderNodeToText(summary);
-    console.log("[COMPLETED] Process completed successfully\n");
-    console.log(`Summary: ${summaryText}`);
+    this.output.write("Completed: Process completed successfully\n\n");
+    this.output.write(`Summary: ${summaryText}\n`);
   }
 
   public async error(err: unknown): Promise<void> {
     await this.cleanup();
-    console.log(`[ERROR] Process failed: ${err?.toString()}`);
+    this.output.write(`ERROR: Process failed: ${err?.toString()}\n`);
   }
 
   private async cleanup() {
@@ -150,15 +157,16 @@ export class SimpleProcessRenderer implements ProcessRenderer {
       return;
     }
 
-    console.log("[CLEANUP] Running cleanup tasks...");
+    this.output.write("Cleanup: Running cleanup tasks... ");
     for (let i = 0; i < this.cleanupFns.length; i++) {
       try {
         await this.cleanupFns[i]();
       } catch (err) {
-        console.log(`[CLEANUP] Task ${i + 1} failed: ${err}`);
+        this.output.write(`task ${i + 1} failed: ${err}`);
       }
     }
-    console.log("[CLEANUP] Cleanup tasks completed");
+
+    this.output.write("completed\n");
   }
 
   private renderNodeToText(node: ReactNode): string {

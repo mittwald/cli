@@ -8,89 +8,91 @@ import {
   afterEach,
 } from "@jest/globals";
 import React from "react";
+import { Writable } from "stream";
 
 describe("SimpleProcessRenderer", () => {
-  let consoleSpy: jest.SpiedFunction<typeof console.log>;
+  let output: string;
+  let testStream: Writable;
 
   beforeEach(() => {
-    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
-  });
-
-  afterEach(() => {
-    consoleSpy.mockRestore();
+    output = "";
+    testStream = new Writable({
+      write(chunk, encoding, callback) {
+        output += chunk.toString();
+        if (callback) callback();
+        return true;
+      },
+    });
   });
 
   it("should start with a title", () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
     renderer.start();
 
-    expect(consoleSpy).toHaveBeenCalledWith("Starting: Test Process");
+    expect(output).toContain("Starting: Test Process\n");
   });
 
   it("should display info messages", () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
     renderer.addInfo("This is an info message");
 
-    expect(consoleSpy).toHaveBeenCalledWith("[INFO] This is an info message");
+    expect(output).toContain("Info: This is an info message\n");
   });
 
   it("should handle string step titles", () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
     const handler = renderer.addStep("Processing data");
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "[RUNNING] Step 1: Processing data...",
-    );
+    expect(output).toContain("Step 1: Processing data... ");
 
     handler.complete();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "[COMPLETED] Step 1: Processing data",
-    );
+    expect(output).toContain("completed\n");
   });
 
   it("should handle step failures", () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
     const handler = renderer.addStep("Failing step");
 
     handler.error("Something went wrong");
 
-    expect(consoleSpy).toHaveBeenCalledWith("[FAILED] Step 1: Failing step");
-    expect(consoleSpy).toHaveBeenCalledWith("  Error: Something went wrong");
+    expect(output).toContain("FAILED\n");
+    expect(output).toContain("  Error: Something went wrong\n");
   });
 
   it("should handle step progress", () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
     const handler = renderer.addStep("Long running task");
 
     handler.progress("50% complete");
 
-    expect(consoleSpy).toHaveBeenCalledWith("  Progress: 50% complete");
+    expect(output).toContain("  Progress: 50% complete\n");
   });
 
   it("should handle step output", () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
     const handler = renderer.addStep("Task with output");
 
     handler.appendOutput("Line 1\nLine 2\n");
 
-    expect(consoleSpy).toHaveBeenCalledWith("  Line 1");
-    expect(consoleSpy).toHaveBeenCalledWith("  Line 2");
+    expect(output).toContain("got output:\n");
+    expect(output).toContain("  Line 1\n");
+    expect(output).toContain("  Line 2\n");
   });
 
   it("should run steps successfully", async () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
 
     const result = await renderer.runStep("Test step", async () => {
       return "success";
     });
 
     expect(result).toBe("success");
-    expect(consoleSpy).toHaveBeenCalledWith("[RUNNING] Step 1: Test step...");
-    expect(consoleSpy).toHaveBeenCalledWith("[COMPLETED] Step 1: Test step");
+    expect(output).toContain("Step 1: Test step... ");
+    expect(output).toContain("completed\n");
   });
 
   it("should handle runStep failures", async () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
 
     await expect(
       renderer.runStep("Failing step", async () => {
@@ -98,25 +100,22 @@ describe("SimpleProcessRenderer", () => {
       }),
     ).rejects.toThrow("Test error");
 
-    expect(consoleSpy).toHaveBeenCalledWith("[FAILED] Step 1: Failing step");
+    expect(output).toContain("FAILED\n");
   });
 
   it("should auto-confirm confirmations", async () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
 
     const result = await renderer.addConfirmation("Do you want to continue?");
 
     expect(result).toBe(true);
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "[CONFIRM] Do you want to continue?",
-    );
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "[CONFIRM] Automatically confirming: true",
+    expect(output).toContain(
+      "Confirm: Do you want to continue?; automatically confirmed\n",
     );
   });
 
   it("should throw error for input requests", async () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
 
     await expect(renderer.addInput("Enter your name")).rejects.toThrow(
       "Interactive input not available in simple process renderer",
@@ -124,7 +123,7 @@ describe("SimpleProcessRenderer", () => {
   });
 
   it("should throw error for select requests", async () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
 
     await expect(
       renderer.addSelect("Choose option", [
@@ -137,46 +136,40 @@ describe("SimpleProcessRenderer", () => {
   });
 
   it("should handle React element titles", () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
     const reactElement = React.createElement("span", null, "React step");
 
     renderer.addStep(reactElement);
 
-    expect(consoleSpy).toHaveBeenCalledWith("[RUNNING] Step 1: React step...");
+    expect(output).toContain("Step 1: React step... ");
   });
 
   it("should complete with summary", async () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
     const summary = React.createElement("div", null, "Process completed!");
 
     await renderer.complete(summary);
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "[COMPLETED] Process completed successfully",
-    );
-    expect(consoleSpy).toHaveBeenCalledWith("Summary: Process completed!");
+    expect(output).toContain("Completed: Process completed successfully\n\n");
+    expect(output).toContain("Summary: Process completed!\n");
   });
 
   it("should handle errors", async () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
 
     await renderer.error("Something went wrong");
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "[ERROR] Process failed: Something went wrong",
-    );
+    expect(output).toContain("ERROR: Process failed: Something went wrong\n");
   });
 
   it("should handle cleanup tasks", async () => {
-    const renderer = new SimpleProcessRenderer("Test Process");
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
     const cleanupFn = jest.fn(async () => {});
 
     renderer.addCleanup("Cleanup task", cleanupFn);
     await renderer.complete(React.createElement("div", null, "Done"));
 
     expect(cleanupFn).toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "[CLEANUP] Running cleanup tasks...",
-    );
+    expect(output).toContain("Cleanup: Running cleanup tasks... ");
   });
 });
