@@ -15,7 +15,6 @@ import {
 } from "../../lib/resources/container/containerconfig.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-import { Text } from "ink";
 import ContainerUsageHints from "../../rendering/react/components/Container/ContainerUsageHints.js";
 
 type ContainerStackResponse =

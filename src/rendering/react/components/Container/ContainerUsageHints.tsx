@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Static, Text } from "ink";
+import { Box, Text } from "ink";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Value } from "../Value.js";
 import useDefaultBoxStyles from "../../styles/useDefaultBoxStyles.js";

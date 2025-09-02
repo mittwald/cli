@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Text } from "ink";
+import { Text } from "ink";
 import { Value } from "../Value.js";
 import { CommandHint } from "./CommandHint.js";
 import { ParsedPort } from "./types.js";
