@@ -25,7 +25,7 @@ export default class InstallWordPress extends ExecRenderBaseCommand<
   static description = wordpressInstaller.description;
   static flags = wordpressInstaller.flags;
 
-  protected async exec(): Promise<{ appInstallationId: string }> {
+  protected async exec() {
     return wordpressInstaller.exec(
       this.apiClient,
       this.args,

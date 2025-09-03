@@ -2,6 +2,7 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 
+type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 
 export async function triggerAppInstallation(
@@ -12,7 +13,7 @@ export async function triggerAppInstallation(
     [k: string]: unknown;
   },
   appVersion: AppAppVersion,
-): Promise<string> {
+): Promise<AppAppInstallation> {
   const appInstallationId = await process.runStep(
     "starting installation",
     async (): Promise<string> => {
@@ -63,5 +64,8 @@ export async function triggerAppInstallation(
     });
   }
 
-  return appInstallationId;
+  const result = await apiClient.app.getAppinstallation({ appInstallationId });
+  assertStatus(result, 200);
+
+  return result.data;
 }

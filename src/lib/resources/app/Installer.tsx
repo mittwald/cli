@@ -11,16 +11,20 @@ import { normalizeToAppVersionUuid } from "./versions.js";
 import { triggerAppInstallation } from "./install.js";
 import { waitUntilAppStateHasNormalized } from "./wait.js";
 import { Success } from "../../../rendering/react/components/Success.js";
+import AppUsageHints from "../../../rendering/react/components/AppInstallation/AppUsageHints.js";
 import React from "react";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Config } from "@oclif/core";
 
-type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
+type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
 type ImplicitDefaultFlag = "wait" | "wait-timeout" | "site-title";
 
 export interface AppInstallationResult {
-  appInstallationId: string;
+  appInstallation: AppInstallation;
+  appVersion: AppVersion;
+  host?: string;
 }
 
 export class AppInstaller<TFlagName extends AvailableFlagName> {
@@ -91,14 +95,14 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
       this.defaultFlagValues,
     );
 
-    const appVersion: AppAppVersion = await normalizeToAppVersionUuid(
+    const appVersion: AppVersion = await normalizeToAppVersionUuid(
       apiClient,
       "version" in flags ? (flags.version as string) : "latest",
       process,
       this.appId,
     );
 
-    const appInstallationId = await triggerAppInstallation(
+    const appInstallation = await triggerAppInstallation(
       apiClient,
       process,
       projectId,
@@ -111,7 +115,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
       await waitUntilAppStateHasNormalized(
         apiClient,
         process,
-        appInstallationId,
+        appInstallation.id,
         "waiting for app installation to be ready",
         flags["wait-timeout"],
       );
@@ -120,8 +124,16 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
       successText = `Your ${this.appName} installation has started. Have fun when it's ready! 🎉`;
     }
 
-    process.complete(<Success>{successText}</Success>);
-    return { appInstallationId };
+    await process.complete(<Success>{successText}</Success>);
+
+    return {
+      appInstallation,
+      appVersion,
+      host:
+        "host" in flags && typeof flags.host === "string"
+          ? flags.host
+          : undefined,
+    };
   }
 
   public render(
@@ -129,8 +141,16 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
     flags: { quiet: boolean },
   ): React.ReactNode {
     if (flags.quiet) {
-      return result.appInstallationId;
+      return result.appInstallation.id;
     }
-    return undefined;
+
+    return (
+      <AppUsageHints
+        appInstallation={result.appInstallation}
+        appVersion={result.appVersion}
+        appName={this.appName}
+        appHost={result.host}
+      />
+    );
   }
 }

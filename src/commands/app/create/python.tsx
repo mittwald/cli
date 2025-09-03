@@ -18,7 +18,7 @@ export default class InstallPython extends ExecRenderBaseCommand<
   static description = pythonInstaller.description;
   static flags = pythonInstaller.flags;
 
-  protected async exec(): Promise<{ appInstallationId: string }> {
+  protected async exec() {
     return pythonInstaller.exec(
       this.apiClient,
       this.args,
