@@ -1,5 +1,5 @@
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
-import React, { ReactNode } from "react";
+import React from "react";
 import {
   appInstallationArgs,
   withAppInstallationId,
@@ -10,7 +10,6 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Success } from "../../rendering/react/components/Success.js";
-import { Value } from "../../rendering/react/components/Value.js";
 import { Flags } from "@oclif/core";
 import { CommandFlags } from "../../lib/basecommands/CommandFlags.js";
 
@@ -98,12 +97,12 @@ export class Update extends ExecRenderBaseCommand<typeof Update, void> {
 
 function buildUpdateBodyFromFlags(
   flags: CommandFlags<typeof Update>,
-): [UpdateBody, ReactNode[]] {
+): [UpdateBody, string[]] {
   const updateBody: UpdateBody = {};
-  const info: ReactNode[] = [];
+  const info: string[] = [];
 
   if (flags.entrypoint) {
-    info.push(<UpdateFieldInfo name="entrypoint" value={flags.entrypoint} />);
+    info.push(`setting entrypoint to ${flags.entrypoint}`);
     updateBody.userInputs = [
       ...(updateBody.userInputs || []),
       {
@@ -114,24 +113,14 @@ function buildUpdateBodyFromFlags(
   }
 
   if (flags["document-root"]) {
-    info.push(
-      <UpdateFieldInfo name="document root" value={flags["document-root"]} />,
-    );
+    info.push(`setting document root to ${flags["document-root"]}`);
     updateBody.customDocumentRoot = flags["document-root"];
   }
 
   if (flags.description !== undefined) {
-    info.push(<UpdateFieldInfo name="description" value={flags.description} />);
+    info.push(`setting description to ${flags.description}`);
     updateBody.description = flags.description;
   }
 
   return [updateBody, info];
-}
-
-function UpdateFieldInfo({ name, value }: { name: string; value: string }) {
-  return (
-    <>
-      setting {name} to <Value>{value}</Value>
-    </>
-  );
 }

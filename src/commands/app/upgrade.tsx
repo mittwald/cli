@@ -123,26 +123,16 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
 
     if (!this.flags.force) {
       const confirmed: boolean = await process.addConfirmation(
-        <Text>
-          Confirm upgrading {currentApp.name}{" "}
-          {currentAppVersion.externalVersion} (
-          {currentAppInstallation.description}) to version{" "}
-          {targetAppVersion.externalVersion}
-        </Text>,
+        `Confirm upgrading ${currentApp.name} ${currentAppVersion.externalVersion} (${currentAppInstallation.description}) to version ${targetAppVersion.externalVersion}`,
       );
       if (!confirmed) {
-        process.addInfo(<Text>Upgrade will not be triggered.</Text>);
+        process.addInfo("Upgrade will not be triggered.");
         process.complete(<></>);
         ux.exit(1);
       }
     } else {
       process.addInfo(
-        <Text>
-          Commencing upgrade of {currentApp.name}{" "}
-          {currentAppVersion.externalVersion} (
-          {currentAppInstallation.description}) to Version{" "}
-          {targetAppVersion.externalVersion}.
-        </Text>,
+        `Commencing upgrade of ${currentApp.name} ${currentAppVersion.externalVersion} (${currentAppInstallation.description}) to Version ${targetAppVersion.externalVersion}.`,
       );
     }
 
@@ -161,11 +151,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
     if (missingDependencies.data.missingSystemSoftwareDependencies) {
       appUpgradePayload.systemSoftware = {};
       process.addStep(
-        <Text>
-          In order to upgrade your {currentApp.name} to Version{" "}
-          {targetAppVersion.externalVersion} some dependencies need to be
-          upgraded too.
-        </Text>,
+        `In order to upgrade your ${currentApp.name} to Version ${targetAppVersion.externalVersion} some dependencies need to be upgraded too.`,
       );
       for (const missingSystemSoftwareDependency of missingDependencies.data
         .missingSystemSoftwareDependencies as AppSystemSoftwareDependency[]) {
@@ -184,10 +170,10 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
 
       if (!this.flags.force) {
         const confirmed: boolean = await process.addConfirmation(
-          <Text>Do you want to continue?</Text>,
+          "Do you want to continue?",
         );
         if (!confirmed) {
-          process.addInfo(<Text>Upgrade will not be triggered.</Text>);
+          process.addInfo("Upgrade will not be triggered.");
           process.complete(<></>);
           ux.exit(1);
         }
@@ -279,10 +265,7 @@ export class UpgradeApp extends ExecRenderBaseCommand<typeof UpgradeApp, void> {
       }
 
       process.addInfo(
-        <Text>
-          The given target upgrade version does not seem to be a valid upgrade
-          candidate.
-        </Text>,
+        "The given target upgrade version does not seem to be a valid upgrade candidate.",
       );
     }
 
@@ -369,10 +352,7 @@ async function updateMissingSystemSoftwareDependency(
     );
   } else {
     process.addInfo(
-      <Text>
-        {dependencySoftware.data.name as string} will be upgraded to Version{" "}
-        {dependencyTargetVersion.externalVersion}.
-      </Text>,
+      `${dependencySoftware.data.name as string} will be upgraded to Version ${dependencyTargetVersion.externalVersion}.`,
     );
 
     return {

@@ -1,7 +1,5 @@
 import { generatePassword } from "../../util/password/generatePassword.js";
-import { Value } from "../../../rendering/react/components/Value.js";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { Text } from "ink";
 
 export async function generateRandomPassword(
   process: ProcessRenderer,
@@ -11,11 +9,6 @@ export async function generateRandomPassword(
     async () => generatePassword(32),
   );
 
-  process.addInfo(
-    <Text>
-      {" "}
-      generated password: <Value>{generated}</Value>{" "}
-    </Text>,
-  );
+  process.addInfo(` generated password: ${generated} `);
   return generated;
 }

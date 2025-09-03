@@ -2,9 +2,6 @@ import React, { FC } from "react";
 import { Box, Text } from "ink";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Value } from "../Value.js";
-import { useVirtualHosts } from "../../../../lib/resources/domain/virtualhost/hooks.js";
-import buildAppURLsFromIngressList from "../../../../lib/resources/app/buildAppURLsFromIngressList.js";
-import maybe from "../../../../lib/util/maybe.js";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 

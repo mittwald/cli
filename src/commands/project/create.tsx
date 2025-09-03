@@ -2,10 +2,8 @@ import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { serverFlags } from "../../lib/resources/server/flags.js";
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
-import { Text } from "ink";
 import React, { ReactNode } from "react";
 import { Success } from "../../rendering/react/components/Success.js";
-import { Value } from "../../rendering/react/components/Value.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -39,7 +37,7 @@ export default class Create extends ExecRenderBaseCommand<
     const process = makeProcessRenderer(flags, "Creating project");
     const serverId = await this.withServerId(Create);
 
-    const stepCreating = process.addStep(<Text>creating a new project</Text>);
+    const stepCreating = process.addStep("creating a new project");
 
     const result = await this.apiClient.project.createProject({
       serverId,
@@ -49,16 +47,10 @@ export default class Create extends ExecRenderBaseCommand<
     assertStatus(result, 201);
 
     stepCreating.complete();
-    process.addInfo(
-      <Text>
-        project ID: <Value>{result.data.id}</Value>
-      </Text>,
-    );
+    process.addInfo(`project ID: ${result.data.id}`);
 
     if (flags.wait) {
-      const stepWaiting = process.addStep(
-        <Text>waiting for project to be ready</Text>,
-      );
+      const stepWaiting = process.addStep("waiting for project to be ready");
 
       await waitUntil(async () => {
         const projectResponse = await this.apiClient.project.getProject({

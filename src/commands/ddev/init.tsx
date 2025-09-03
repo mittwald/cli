@@ -15,7 +15,6 @@ import { DDEVConfig, ddevConfigToFlags } from "../../lib/ddev/config.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import { renderDDEVConfig } from "../../lib/ddev/config_render.js";
 import { loadDDEVConfig } from "../../lib/ddev/config_loader.js";
-import { Value } from "../../rendering/react/components/Value.js";
 import { ddevFlags } from "../../lib/ddev/flags.js";
 import { compareSemVer } from "semver-parser";
 import { assertStatus, type MittwaldAPIV2 } from "@mittwald/api-client";
@@ -169,7 +168,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
 
     const existing = await loadDDEVConfig();
     if (existing?.name) {
-      r.addInfo(<InfoUsingExistingName name={existing.name} />);
+      r.addInfo(`using existing project name: ${existing.name}`);
       return existing.name;
     }
 
@@ -257,12 +256,4 @@ async function writeContentsToFile(
 
   await mkdir(dirname, { recursive: true });
   await writeFile(filename, data);
-}
-
-function InfoUsingExistingName({ name }: { name: string }) {
-  return (
-    <>
-      using existing project name: <Value>{name}</Value>
-    </>
-  );
 }

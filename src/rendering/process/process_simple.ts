@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactElement } from "react";
 import {
   ProcessRenderer,
   RunnableHandler,
@@ -27,11 +27,11 @@ export class SimpleProcessRenderer implements ProcessRenderer {
     this.output.write(`Starting: ${this.title}\n\n`);
   }
 
-  public addStep(title: ReactNode): RunnableHandler {
+  public addStep(title: string): RunnableHandler {
     this.start();
     this.stepCounter++;
 
-    const titleText = this.renderNodeToText(title);
+    const titleText = title;
     this.output.write(`Step ${this.stepCounter}: ${titleText}... `);
 
     const state: ProcessStepRunnable = {
@@ -70,7 +70,7 @@ export class SimpleProcessRenderer implements ProcessRenderer {
   }
 
   public async runStep<TRes>(
-    title: ReactNode,
+    title: string,
     fn: (() => Promise<TRes>) | Promise<TRes>,
   ): Promise<TRes> {
     const step = this.addStep(title);
@@ -85,24 +85,24 @@ export class SimpleProcessRenderer implements ProcessRenderer {
     }
   }
 
-  public addInfo(title: ReactNode) {
+  public addInfo(title: string) {
     this.start();
-    const titleText = this.renderNodeToText(title);
+    const titleText = title;
     this.output.write(`Info: ${titleText}\n`);
   }
 
-  public async addConfirmation(question: ReactNode): Promise<boolean> {
+  public async addConfirmation(question: string): Promise<boolean> {
     this.start();
-    const questionText = this.renderNodeToText(question);
+    const questionText = question;
 
     this.output.write(`Confirm: ${questionText}; automatically confirmed\n`);
 
     return true;
   }
 
-  public async addInput(question: ReactNode, mask?: boolean): Promise<string> {
+  public async addInput(question: string, mask?: boolean): Promise<string> {
     this.start();
-    const questionText = this.renderNodeToText(question);
+    const questionText = question;
     const maskText = mask ? " (masked)" : "";
 
     this.output.write(
@@ -116,17 +116,17 @@ export class SimpleProcessRenderer implements ProcessRenderer {
   }
 
   public async addSelect<TVal>(
-    question: ReactNode,
-    options: { value: TVal; label: ReactNode }[],
+    question: string,
+    options: { value: TVal; label: string }[],
   ): Promise<TVal> {
     this.start();
-    const questionText = this.renderNodeToText(question);
+    const questionText = question;
 
     this.output.write(`Selection: ${questionText}\n`);
     this.output.write("Available options:\n");
 
     options.forEach((option, index) => {
-      const labelText = this.renderNodeToText(option.label);
+      const labelText = option.label;
       this.output.write(`  ${index + 1}. ${labelText}\n`);
     });
 
@@ -135,14 +135,14 @@ export class SimpleProcessRenderer implements ProcessRenderer {
     );
   }
 
-  public addCleanup(title: ReactNode, fn: () => Promise<unknown>): void {
+  public addCleanup(title: string, fn: () => Promise<unknown>): void {
     this.cleanupFns.push(fn);
   }
 
   public async complete(summary: ReactElement): Promise<void> {
     await this.cleanup();
 
-    const summaryText = this.renderNodeToText(summary);
+    const summaryText = this.renderElementToText(summary);
     this.output.write("Completed: Process completed successfully\n\n");
     this.output.write(`Summary: ${summaryText}\n`);
   }
@@ -169,32 +169,24 @@ export class SimpleProcessRenderer implements ProcessRenderer {
     this.output.write("completed\n");
   }
 
-  private renderNodeToText(node: ReactNode): string {
-    if (typeof node === "string") {
-      return node;
-    }
-    if (typeof node === "number") {
-      return node.toString();
-    }
+  private renderElementToText(node: ReactElement): string {
     if (node === null || node === undefined) {
       return "";
     }
-    if (typeof node === "boolean") {
-      return node.toString();
-    }
 
-    // For React elements and complex nodes, provide a simple fallback
-    if (typeof node === "object") {
-      // Check if it's a React element with props.children
-      if ("props" in node && node.props && typeof node.props === "object") {
-        const props = node.props as Record<string, unknown>;
-        if (props.children && typeof props.children === "string") {
-          return props.children;
-        }
+    // Check if it's a React element with props.children
+    if (
+      typeof node === "object" &&
+      "props" in node &&
+      node.props &&
+      typeof node.props === "object"
+    ) {
+      const props = node.props as Record<string, unknown>;
+      if (props.children && typeof props.children === "string") {
+        return props.children;
       }
-      return "[Complex content]";
     }
 
-    return String(node);
+    return "[Complex content]";
   }
 }

@@ -9,7 +9,6 @@ import {
   processFlags,
 } from "../../../rendering/process/process_flags.js";
 import { Success } from "../../../rendering/react/components/Success.js";
-import { Filename } from "../../../rendering/react/components/Filename.js";
 
 import { expireFlags } from "../../../lib/flags/expireFlags.js";
 
@@ -50,11 +49,7 @@ export default class Import extends ExecRenderBaseCommand<
     );
 
     if (keyAlreadyExists) {
-      r.addInfo(
-        <>
-          the SSH key <Filename filename={inputFile} /> is already imported.
-        </>,
-      );
+      r.addInfo(`the SSH key ${inputFile} is already imported.`);
       await r.complete(<SSHKeySuccess />);
       return;
     }

@@ -7,7 +7,6 @@ import {
 import { ReactNode } from "react";
 import { Flags } from "@oclif/core";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { Text } from "ink";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
@@ -143,7 +142,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       return this.flags["user-password"];
     }
 
-    return await p.addInput(<Text>enter password for default user</Text>, true);
+    return await p.addInput("enter password for default user", true);
   }
 
   protected render({ databaseId }: Result): ReactNode {

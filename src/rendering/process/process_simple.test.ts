@@ -135,11 +135,10 @@ describe("SimpleProcessRenderer", () => {
     );
   });
 
-  it("should handle React element titles", () => {
+  it("should handle string titles", () => {
     const renderer = new SimpleProcessRenderer("Test Process", testStream);
-    const reactElement = React.createElement("span", null, "React step");
 
-    renderer.addStep(reactElement);
+    renderer.addStep("React step");
 
     expect(output).toContain("Step 1: React step... ");
   });
@@ -171,5 +170,57 @@ describe("SimpleProcessRenderer", () => {
 
     expect(cleanupFn).toHaveBeenCalled();
     expect(output).toContain("Cleanup: Running cleanup tasks... ");
+  });
+
+  it("should render string titles", () => {
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
+
+    renderer.addStep("Hello from Text component");
+
+    expect(output).toContain("Step 1: Hello from Text component... ");
+  });
+
+  it("should render nested string content", () => {
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
+
+    renderer.addStep("Nested content");
+
+    expect(output).toContain("Step 1: Nested content... ");
+  });
+
+  it("should handle string content", () => {
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
+
+    renderer.addStep("First Second Third");
+
+    expect(output).toContain("Step 1: First Second Third... ");
+  });
+
+  it("should handle complex string content", () => {
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
+
+    renderer.addStep("String content 42 and React element");
+
+    expect(output).toContain("Step 1: String content 42 and React element... ");
+  });
+
+  it("should handle empty string content gracefully", () => {
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
+    
+    renderer.addStep("");
+
+    expect(output).toContain("Step 1: ... ");
+  });
+
+  it("should handle different string content", () => {
+    const renderer = new SimpleProcessRenderer("Test Process", testStream);
+    
+    renderer.addStep("true");
+    renderer.addStep("false");
+    renderer.addStep("123");
+
+    expect(output).toContain("Step 1: true... ");
+    expect(output).toContain("Step 2: false... ");
+    expect(output).toContain("Step 3: 123... ");
   });
 });
