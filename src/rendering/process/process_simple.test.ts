@@ -206,7 +206,7 @@ describe("SimpleProcessRenderer", () => {
 
   it("should handle empty string content gracefully", () => {
     const renderer = new SimpleProcessRenderer("Test Process", testStream);
-    
+
     renderer.addStep("");
 
     expect(output).toContain("Step 1: ... ");
@@ -214,7 +214,7 @@ describe("SimpleProcessRenderer", () => {
 
   it("should handle different string content", () => {
     const renderer = new SimpleProcessRenderer("Test Process", testStream);
-    
+
     renderer.addStep("true");
     renderer.addStep("false");
     renderer.addStep("123");
