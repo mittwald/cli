@@ -9664,12 +9664,12 @@ __metadata:
   linkType: hard
 
 "string-width@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "string-width@npm:8.0.0"
+  version: 8.1.0
+  resolution: "string-width@npm:8.1.0"
   dependencies:
     get-east-asian-width: ^1.3.0
     strip-ansi: ^7.1.0
-  checksum: 088195f4f0b715f8b7a12a943422f36dd8f11d2245f4e9bf22c5da0934a23feb4dcc5e2d47398464131dccab8f131550c2a86988812880f278309aefd7c33b6e
+  checksum: 51ee97c4ffee7b94f8a2ee785fac14f81ec9809b9fcec9a4db44e25c717c263af0cc4387c111aef76195c0718dc43766f3678c07fb542294fb0244f7bfbde883
   languageName: node
   linkType: hard
 
