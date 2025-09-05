@@ -5,5 +5,8 @@ import handleError from "../dist/lib/error/handleError.js";
 
 oclif
   .run(process.argv.slice(2), import.meta.url)
-  .then(oclif.flush)
+  .then(async () => {
+    await oclif.flush();
+    process.exit(0);
+  })
   .catch(handleError);
