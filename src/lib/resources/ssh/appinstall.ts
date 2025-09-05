@@ -6,7 +6,7 @@ export async function getSSHConnectionForAppInstallation(
   client: MittwaldAPIV2Client,
   appInstallationId: string,
   sshUser: string | undefined,
-): Promise<SSHConnectionData> {
+): Promise<SSHConnectionData & { appShortId: string }> {
   const appInstallationResponse = await client.app.getAppinstallation({
     appInstallationId,
   });
@@ -41,5 +41,6 @@ export async function getSSHConnectionForAppInstallation(
     host,
     user,
     directory,
+    appShortId: appInstallationResponse.data.shortId,
   };
 }

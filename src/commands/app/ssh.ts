@@ -9,6 +9,7 @@ import {
 } from "../../lib/resources/ssh/flags.js";
 import { sshWrapperDocumentation } from "../../lib/resources/ssh/doc.js";
 import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
+import { generateIntellijConfigs } from "../../lib/intellij/config.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static summary = "Connect to an app via SSH";
@@ -30,17 +31,34 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
     test: Flags.boolean({
       summary: "test connection and exit",
     }),
+    "generate-intellij-config": Flags.boolean({
+      summary: "generate IntelliJ IDEA SSH and deployment configuration files",
+    }),
   };
 
   public async run(): Promise<void> {
     const { flags } = await this.parse(Ssh);
     const appInstallationId = await this.withAppInstallationId(Ssh);
 
-    const { host, user, directory } = await getSSHConnectionForAppInstallation(
-      this.apiClient,
-      appInstallationId,
-      flags["ssh-user"],
-    );
+    const { host, user, directory, appShortId } =
+      await getSSHConnectionForAppInstallation(
+        this.apiClient,
+        appInstallationId,
+        flags["ssh-user"],
+      );
+
+    if (flags["generate-intellij-config"]) {
+      generateIntellijConfigs({
+        host,
+        user,
+        directory,
+        appShortId,
+      });
+      this.log(
+        "IntelliJ IDEA configuration files generated in .idea/ directory",
+      );
+      return;
+    }
 
     if (flags.info) {
       this.log("hostname: %o", host);

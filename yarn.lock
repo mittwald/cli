@@ -2324,6 +2324,7 @@ __metadata:
     eslint-config-prettier: ^10.1.5
     eslint-plugin-json: ^4.0.1
     eslint-plugin-prettier: ^5.5.1
+    fast-xml-parser: ^5.2.5
     globals: ^16.0.0
     ink: ^5.0.1
     ink-link: ^4.0.0
@@ -5740,7 +5741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-xml-parser@npm:5.2.5":
+"fast-xml-parser@npm:5.2.5, fast-xml-parser@npm:^5.2.5":
   version: 5.2.5
   resolution: "fast-xml-parser@npm:5.2.5"
   dependencies:
