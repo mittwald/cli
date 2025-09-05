@@ -74,7 +74,7 @@ describe("IntelliJ Config Generator", () => {
       expect(sshConfig["@_authType"]).toBe("OPEN_SSH");
       expect(sshConfig["@_host"]).toBe("ssh.test.example.com");
       expect(sshConfig["@_port"]).toBe("22");
-      expect(sshConfig["@_username"]).toBe("testuser");
+      expect(sshConfig["@_username"]).toBe("testuser@app123");
       expect(sshConfig["@_useOpenSSHConfig"]).toBe("true");
       expect(sshConfig["@_nameFormat"]).toBe("DESCRIPTIVE");
       expect(sshConfig["@_id"]).toBeDefined();
@@ -157,7 +157,7 @@ describe("IntelliJ Config Generator", () => {
       expect(fileTransfer["@_host"]).toBe("ssh.test.example.com");
       expect(fileTransfer["@_port"]).toBe("22");
       expect(fileTransfer["@_authAgent"]).toBe("true");
-      expect(fileTransfer["@_sshConfig"]).toBe("testuser@ssh.test.example.com:22 agent");
+      expect(fileTransfer["@_sshConfig"]).toBe("testuser@app123@ssh.test.example.com:22 agent");
       
       const advancedOptions = fileTransfer.advancedOptions.advancedOptions;
       expect(advancedOptions["@_dataProtectionLevel"]).toBe("Private");
@@ -214,9 +214,9 @@ describe("IntelliJ Config Generator", () => {
     });
   });
 
-  describe("parseUserHost functionality", () => {
-    test("should correctly parse user@host format", () => {
-      const userData = { ...testData, user: "myuser@app456" };
+  describe("SSH username handling", () => {
+    test("should use complete user string as SSH username", () => {
+      const userData = { ...testData, user: "m.helmich@mittwald.de@a-ce3rzc" };
       generateIntellijConfigs(userData, tempDir);
       
       const configPath = path.join(tempDir, ".idea", "sshConfigs.xml");
@@ -224,10 +224,17 @@ describe("IntelliJ Config Generator", () => {
       const xmlDoc = parser.parse(content);
       
       const sshConfig = xmlDoc.project.component.configs.sshConfig;
-      expect(sshConfig["@_username"]).toBe("myuser");
+      expect(sshConfig["@_username"]).toBe("m.helmich@mittwald.de@a-ce3rzc");
+      
+      // Also check web server config uses the same username
+      const webConfigPath = path.join(tempDir, ".idea", "webServers.xml");
+      const webContent = fs.readFileSync(webConfigPath, "utf8");
+      const webXmlDoc = parser.parse(webContent);
+      const webServer = webXmlDoc.project.component.option.webServer;
+      expect(webServer.fileTransfer["@_sshConfig"]).toBe("m.helmich@mittwald.de@a-ce3rzc@ssh.test.example.com:22 agent");
     });
 
-    test("should handle user without @ symbol", () => {
+    test("should handle simple usernames as-is", () => {
       const userData = { ...testData, user: "plainuser" };
       generateIntellijConfigs(userData, tempDir);
       

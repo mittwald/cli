@@ -4,6 +4,34 @@ import { randomUUID } from "crypto";
 import { XMLParser, XMLBuilder } from "fast-xml-parser";
 import { SSHConnectionData } from "../resources/ssh/types.js";
 
+// Common XML configuration
+const XML_PARSER_CONFIG = {
+  ignoreAttributes: false,
+  attributeNamePrefix: "@_",
+  parseAttributeValue: false,
+} as const;
+
+const XML_BUILDER_CONFIG = {
+  ignoreAttributes: false,
+  attributeNamePrefix: "@_",
+  format: true,
+  suppressBooleanAttributes: false,
+} as const;
+
+// Common XML document structure
+const createXmlDocumentBase = () => ({
+  "?xml": { "@_version": "1.0", "@_encoding": "UTF-8" },
+  project: { "@_version": "4" },
+});
+
+interface XmlManipulationConfig<T> {
+  filename: string;
+  componentName: string;
+  checkDuplicateFn: (existing: T[], newItem: T) => boolean;
+  addItemFn: (xmlDoc: Record<string, unknown>, newItem: T) => boolean;
+  createNewDocumentFn: (newItem: T) => Record<string, unknown>;
+}
+
 export interface IntellijConfigData extends SSHConnectionData {
   appShortId: string;
 }
@@ -30,154 +58,154 @@ export function generateIntellijConfigs(
   generateDeploymentXml(data, ideaDir);
 }
 
-function generateSshConfigsXml(
-  data: IntellijConfigData,
-  configId: string,
+// Common XML manipulation utility
+function manipulateXmlFile<T>(
   ideaDir: string,
+  config: XmlManipulationConfig<T>,
+  newItem: T,
 ): void {
-  const configPath = path.join(ideaDir, "sshConfigs.xml");
-  const [username, host] = parseUserHost(data.user, data.host);
+  const configPath = path.join(ideaDir, config.filename);
+  const parser = new XMLParser(XML_PARSER_CONFIG);
+  const builder = new XMLBuilder(XML_BUILDER_CONFIG);
 
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    attributeNamePrefix: "@_",
-    parseAttributeValue: false,
-  });
-  const builder = new XMLBuilder({
-    ignoreAttributes: false,
-    attributeNamePrefix: "@_",
-    format: true,
-    suppressBooleanAttributes: false,
-  });
-
-  let xmlDoc;
-
-  if (fs.existsSync(configPath)) {
-    try {
-      const content = fs.readFileSync(configPath, "utf8");
-      xmlDoc = parser.parse(content);
-
-      // Ensure proper structure exists
-      if (!xmlDoc.project?.component) {
-        throw new Error("Invalid XML structure");
-      }
-    } catch (error) {
-      // If parsing fails, create a new document
-      xmlDoc = null;
-    }
-  }
+  let xmlDoc = loadExistingXmlDocument(configPath, parser);
 
   if (xmlDoc) {
-    // Check if this host already exists
-    const configs = xmlDoc.project.component.configs;
-    if (configs && configs.sshConfig) {
-      const existingConfigs = Array.isArray(configs.sshConfig)
-        ? configs.sshConfig
-        : [configs.sshConfig];
-      if (
-        existingConfigs.some(
-          (config: Record<string, unknown>) => config["@_host"] === host,
-        )
-      ) {
-        return; // Host already exists
-      }
-
-      // Add new config
-      if (Array.isArray(configs.sshConfig)) {
-        configs.sshConfig.push({
-          "@_authType": "OPEN_SSH",
-          "@_host": host,
-          "@_id": configId,
-          "@_port": "22",
-          "@_nameFormat": "DESCRIPTIVE",
-          "@_username": username,
-          "@_useOpenSSHConfig": "true",
-        });
-      } else {
-        configs.sshConfig = [
-          configs.sshConfig,
-          {
-            "@_authType": "OPEN_SSH",
-            "@_host": host,
-            "@_id": configId,
-            "@_port": "22",
-            "@_nameFormat": "DESCRIPTIVE",
-            "@_username": username,
-            "@_useOpenSSHConfig": "true",
-          },
-        ];
-      }
-    } else {
-      // First SSH config
-      if (!configs) {
-        xmlDoc.project.component.configs = {};
-      }
-      xmlDoc.project.component.configs.sshConfig = {
-        "@_authType": "OPEN_SSH",
-        "@_host": host,
-        "@_id": configId,
-        "@_port": "22",
-        "@_nameFormat": "DESCRIPTIVE",
-        "@_username": username,
-        "@_useOpenSSHConfig": "true",
-      };
+    const wasAdded = tryAddToExistingDocument(xmlDoc, newItem, config);
+    if (!wasAdded) {
+      return; // Item already exists
     }
-  }
-  
-  if (!xmlDoc) {
-    // Create new XML document
-    xmlDoc = {
-      "?xml": { "@_version": "1.0", "@_encoding": "UTF-8" },
-      project: {
-        "@_version": "4",
-        component: {
-          "@_name": "SshConfigs",
-          configs: {
-            sshConfig: {
-              "@_authType": "OPEN_SSH",
-              "@_host": host,
-              "@_id": configId,
-              "@_port": "22",
-              "@_nameFormat": "DESCRIPTIVE",
-              "@_username": username,
-              "@_useOpenSSHConfig": "true",
-            },
-          },
-        },
-      },
-    };
+  } else {
+    xmlDoc = config.createNewDocumentFn(newItem);
   }
 
   const xmlContent = builder.build(xmlDoc);
   fs.writeFileSync(configPath, xmlContent);
 }
 
-function generateWebServersXml(
+function loadExistingXmlDocument(
+  configPath: string,
+  parser: XMLParser,
+): Record<string, unknown> | null {
+  if (!fs.existsSync(configPath)) {
+    return null;
+  }
+
+  try {
+    const content = fs.readFileSync(configPath, "utf8");
+    const xmlDoc = parser.parse(content);
+
+    if (!xmlDoc.project?.component) {
+      throw new Error("Invalid XML structure");
+    }
+    return xmlDoc;
+  } catch (error) {
+    return null;
+  }
+}
+
+function tryAddToExistingDocument<T>(
+  xmlDoc: Record<string, unknown>,
+  newItem: T,
+  config: XmlManipulationConfig<T>,
+): boolean {
+  // This function delegates to the specific addItemFn
+  // Return false if item already exists, true if added
+  const result = config.addItemFn(xmlDoc, newItem);
+  return result !== false;
+}
+
+// Helper function to handle array/single element patterns
+function ensureArray<T>(item: T | T[]): T[] {
+  return Array.isArray(item) ? item : [item];
+}
+
+function addItemToArrayField<T>(
+  container: Record<string, unknown>,
+  fieldName: string,
+  newItem: T,
+  existingItems: T[],
+): void {
+  if (Array.isArray(container[fieldName])) {
+    (container[fieldName] as T[]).push(newItem);
+  } else if (container[fieldName]) {
+    container[fieldName] = [container[fieldName] as T, newItem];
+  } else {
+    container[fieldName] = newItem;
+  }
+}
+
+// SSH Config specific functions
+function createSshConfigItem(
+  host: string,
+  username: string,
+  configId: string,
+): Record<string, string> {
+  return {
+    "@_authType": "OPEN_SSH",
+    "@_host": host,
+    "@_id": configId,
+    "@_port": "22",
+    "@_nameFormat": "DESCRIPTIVE",
+    "@_username": username,
+    "@_useOpenSSHConfig": "true",
+  };
+}
+
+function generateSshConfigsXml(
   data: IntellijConfigData,
-  serverId: string,
-  sshConfigId: string,
+  configId: string,
   ideaDir: string,
 ): void {
-  const configPath = path.join(ideaDir, "webServers.xml");
-  const [username, host] = parseUserHost(data.user, data.host);
+  const sshConfigItem = createSshConfigItem(data.host, data.user, configId);
 
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    attributeNamePrefix: "@_",
-    parseAttributeValue: false,
-  });
-  const builder = new XMLBuilder({
-    ignoreAttributes: false,
-    attributeNamePrefix: "@_",
-    format: true,
-    suppressBooleanAttributes: false,
-  });
+  const config: XmlManipulationConfig<Record<string, string>> = {
+    filename: "sshConfigs.xml",
+    componentName: "SshConfigs",
+    checkDuplicateFn: (existing, newItem) =>
+      existing.some((config) => config["@_host"] === newItem["@_host"]),
+    addItemFn: (xmlDoc, newItem) => {
+      const configs = (xmlDoc.project as any).component.configs;
+      if (configs?.sshConfig) {
+        const existingConfigs = ensureArray(configs.sshConfig);
+        if (existingConfigs.some((config: Record<string, unknown>) => config["@_host"] === data.host)) {
+          return false; // Already exists
+        }
+        addItemToArrayField(configs, "sshConfig", newItem, existingConfigs);
+      } else {
+        if (!configs) {
+          (xmlDoc.project as any).component.configs = {};
+        }
+        (xmlDoc.project as any).component.configs.sshConfig = newItem;
+      }
+      return true;
+    },
+    createNewDocumentFn: (newItem) => ({
+      ...createXmlDocumentBase(),
+      project: {
+        "@_version": "4",
+        component: {
+          "@_name": "SshConfigs",
+          configs: { sshConfig: newItem },
+        },
+      },
+    }),
+  };
 
-  let xmlDoc;
+  manipulateXmlFile(ideaDir, config, sshConfigItem);
+}
 
-  const newServer = {
+// Web Server specific functions
+function createWebServerItem(
+  serverId: string,
+  appShortId: string,
+  host: string,
+  username: string,
+  sshConfigId: string,
+): Record<string, unknown> {
+  return {
     "@_id": serverId,
-    "@_name": data.appShortId,
+    "@_name": appShortId,
     fileTransfer: {
       "@_accessType": "SFTP",
       "@_host": host,
@@ -195,150 +223,115 @@ function generateWebServersXml(
       },
     },
   };
+}
 
-  if (fs.existsSync(configPath)) {
-    const content = fs.readFileSync(configPath, "utf8");
-    xmlDoc = parser.parse(content);
+function generateWebServersXml(
+  data: IntellijConfigData,
+  serverId: string,
+  sshConfigId: string,
+  ideaDir: string,
+): void {
+  const webServerItem = createWebServerItem(serverId, data.appShortId, data.host, data.user, sshConfigId);
 
-    // Check if this server already exists
-    const servers = xmlDoc.project.component.option;
-    if (servers && servers.webServer) {
-      const existingServers = Array.isArray(servers.webServer)
-        ? servers.webServer
-        : [servers.webServer];
-      if (
-        existingServers.some(
-          (server: Record<string, unknown>) =>
-            server["@_name"] === data.appShortId,
-        )
-      ) {
-        return; // Server already exists
-      }
-
-      // Add new server
-      if (Array.isArray(servers.webServer)) {
-        servers.webServer.push(newServer);
+  const config: XmlManipulationConfig<Record<string, unknown>> = {
+    filename: "webServers.xml",
+    componentName: "WebServers",
+    checkDuplicateFn: (existing, newItem) =>
+      existing.some((server) => server["@_name"] === newItem["@_name"]),
+    addItemFn: (xmlDoc, newItem) => {
+      const servers = (xmlDoc.project as any).component.option;
+      if (servers?.webServer) {
+        const existingServers = ensureArray(servers.webServer);
+        if (existingServers.some((server: Record<string, unknown>) => server["@_name"] === data.appShortId)) {
+          return false; // Already exists
+        }
+        addItemToArrayField(servers, "webServer", newItem, existingServers);
       } else {
-        servers.webServer = [servers.webServer, newServer];
+        if (!servers) {
+          (xmlDoc.project as any).component.option = { "@_name": "servers" };
+        }
+        (xmlDoc.project as any).component.option.webServer = newItem;
       }
-    } else {
-      // First web server
-      if (!servers) {
-        xmlDoc.project.component.option = { "@_name": "servers" };
-      }
-      xmlDoc.project.component.option.webServer = newServer;
-    }
-  } else {
-    // Create new XML document
-    xmlDoc = {
-      "?xml": { "@_version": "1.0", "@_encoding": "UTF-8" },
+      return true;
+    },
+    createNewDocumentFn: (newItem) => ({
+      ...createXmlDocumentBase(),
       project: {
         "@_version": "4",
         component: {
           "@_name": "WebServers",
           option: {
             "@_name": "servers",
-            webServer: newServer,
+            webServer: newItem,
           },
         },
       },
-    };
-  }
+    }),
+  };
 
-  const xmlContent = builder.build(xmlDoc);
-  fs.writeFileSync(configPath, xmlContent);
+  manipulateXmlFile(ideaDir, config, webServerItem);
 }
 
-function generateDeploymentXml(
-  data: IntellijConfigData,
-  ideaDir: string,
-): void {
-  const configPath = path.join(ideaDir, "deployment.xml");
-
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    attributeNamePrefix: "@_",
-    parseAttributeValue: false,
-  });
-  const builder = new XMLBuilder({
-    ignoreAttributes: false,
-    attributeNamePrefix: "@_",
-    format: true,
-    suppressBooleanAttributes: false,
-  });
-
-  let xmlDoc;
-
-  const newPath = {
-    "@_name": data.appShortId,
+// Deployment specific functions
+function createDeploymentPathItem(
+  appShortId: string,
+  directory: string,
+): Record<string, unknown> {
+  return {
+    "@_name": appShortId,
     serverdata: {
       mappings: {
         mapping: {
-          "@_deploy": data.directory,
+          "@_deploy": directory,
           "@_local": "$PROJECT_DIR$",
           "@_web": "/",
         },
       },
     },
   };
+}
 
-  if (fs.existsSync(configPath)) {
-    const content = fs.readFileSync(configPath, "utf8");
-    xmlDoc = parser.parse(content);
+function generateDeploymentXml(
+  data: IntellijConfigData,
+  ideaDir: string,
+): void {
+  const deploymentPathItem = createDeploymentPathItem(data.appShortId, data.directory);
 
-    // Check if this server already exists
-    const serverData = xmlDoc.project.component.serverData;
-    if (serverData && serverData.paths) {
-      const existingPaths = Array.isArray(serverData.paths)
-        ? serverData.paths
-        : [serverData.paths];
-      if (
-        existingPaths.some(
-          (p: Record<string, unknown>) => p["@_name"] === data.appShortId,
-        )
-      ) {
-        return; // Path already exists
-      }
-
-      // Add new path
-      if (Array.isArray(serverData.paths)) {
-        serverData.paths.push(newPath);
+  const config: XmlManipulationConfig<Record<string, unknown>> = {
+    filename: "deployment.xml",
+    componentName: "PublishConfigData",
+    checkDuplicateFn: (existing, newItem) =>
+      existing.some((path) => path["@_name"] === newItem["@_name"]),
+    addItemFn: (xmlDoc, newItem) => {
+      const serverData = (xmlDoc.project as any).component.serverData;
+      if (serverData?.paths) {
+        const existingPaths = ensureArray(serverData.paths);
+        if (existingPaths.some((path: Record<string, unknown>) => path["@_name"] === data.appShortId)) {
+          return false; // Already exists
+        }
+        addItemToArrayField(serverData, "paths", newItem, existingPaths);
       } else {
-        serverData.paths = [serverData.paths, newPath];
+        if (!(xmlDoc.project as any).component.serverData) {
+          (xmlDoc.project as any).component.serverData = {};
+        }
+        (xmlDoc.project as any).component.serverData.paths = newItem;
       }
-    } else {
-      // First server data
-      if (!xmlDoc.project.component.serverData) {
-        xmlDoc.project.component.serverData = {};
-      }
-      xmlDoc.project.component.serverData.paths = newPath;
-    }
-  } else {
-    // Create new XML document
-    xmlDoc = {
-      "?xml": { "@_version": "1.0", "@_encoding": "UTF-8" },
+      return true;
+    },
+    createNewDocumentFn: (newItem) => ({
+      ...createXmlDocumentBase(),
       project: {
         "@_version": "4",
         component: {
           "@_name": "PublishConfigData",
           "@_serverName": data.appShortId,
           "@_remoteFilesAllowedToDisappearOnAutoupload": "false",
-          serverData: {
-            paths: newPath,
-          },
+          serverData: { paths: newItem },
         },
       },
-    };
-  }
+    }),
+  };
 
-  const xmlContent = builder.build(xmlDoc);
-  fs.writeFileSync(configPath, xmlContent);
+  manipulateXmlFile(ideaDir, config, deploymentPathItem);
 }
 
-function parseUserHost(user: string, host: string): [string, string] {
-  const atIndex = user.indexOf("@");
-  if (atIndex > -1) {
-    return [user.substring(0, atIndex), host];
-  }
-  return [user, host];
-}
