@@ -1,8 +1,6 @@
 import { ProcessRenderer } from "../../rendering/process/process.js";
-import React from "react";
 import { promisify } from "util";
 import { exec } from "child_process";
-import { Value } from "../../rendering/react/components/Value.js";
 import { hasBinaryInPath } from "../util/fs/hasBinaryInPath.js";
 
 const execAsync = promisify(exec);
@@ -21,15 +19,7 @@ export async function determineDDEVVersion(
   const { stdout } = await execAsync("ddev --version");
   const version = stdout.trim().replace(/^ddev version +/, "");
 
-  r.addInfo(<InfoDDEVVersion version={version} />);
+  r.addInfo(`detected DDEV version: ${version}`);
 
   return version;
-}
-
-function InfoDDEVVersion({ version }: { version: string }) {
-  return (
-    <>
-      detected DDEV version: <Value>{version}</Value>
-    </>
-  );
 }

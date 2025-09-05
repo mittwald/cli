@@ -9,7 +9,6 @@ import { Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
-import { Text } from "ink";
 import { expireFlags } from "../../lib/flags/expireFlags.js";
 
 type CreateResult = {
@@ -51,9 +50,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, CreateResult> {
     });
 
     if (this.flags.wait) {
-      const stepWaiting = p.addStep(
-        <Text>waiting for backup to be complete</Text>,
-      );
+      const stepWaiting = p.addStep("waiting for backup to be complete");
 
       await waitUntil(async () => {
         const backupResponse = await this.apiClient.backup.getProjectBackup({

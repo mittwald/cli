@@ -9,8 +9,6 @@ import {
   processFlags,
 } from "../../../rendering/process/process_flags.js";
 import { Success } from "../../../rendering/react/components/Success.js";
-import { Filename } from "../../../rendering/react/components/Filename.js";
-import { Text } from "ink";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { spawnInProcess } from "../../../rendering/process/process_exec.js";
 import { expireFlags } from "../../../lib/flags/expireFlags.js";
@@ -54,7 +52,7 @@ export default class Create extends ExecRenderBaseCommand<
     await spawnInProcess(r, "generating SSH key using ssh-keygen", cmd, args);
     const publicKey = await fs.readFile(outputFile + ".pub", "utf-8");
 
-    r.addInfo(<InfoSSHKeySaved filename={outputFile} />);
+    r.addInfo(`ssh key saved to ${outputFile}.`);
 
     await r.runStep("importing SSH key", async () => {
       const response = await this.apiClient.user.createSshKey({
@@ -79,7 +77,7 @@ export default class Create extends ExecRenderBaseCommand<
       return "";
     }
 
-    return await r.addInput(<Text>enter passphrase for SSH key</Text>, true);
+    return await r.addInput("enter passphrase for SSH key", true);
   }
 }
 
@@ -88,13 +86,5 @@ function SSHKeySuccess() {
     <Success>
       Your SSH key was successfully created and imported to your user profile.
     </Success>
-  );
-}
-
-function InfoSSHKeySaved({ filename }: { filename: string }) {
-  return (
-    <Text>
-      ssh key saved to <Filename filename={filename} />.
-    </Text>
   );
 }

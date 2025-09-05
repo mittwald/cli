@@ -5,9 +5,6 @@ import {
   type MittwaldAPIV2,
   type MittwaldAPIV2Client,
 } from "@mittwald/api-client";
-import { Value } from "../../rendering/react/components/Value.js";
-import React from "react";
-import { Text } from "ink";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
@@ -49,7 +46,7 @@ export async function determineDDEVDatabaseId(
     });
     assertStatus(mysqlDatabaseResponse, 200);
 
-    r.addInfo(<InfoDatabase name={mysqlDatabaseResponse.data.name} />);
+    r.addInfo(`using database: ${mysqlDatabaseResponse.data.name}`);
     return mysqlDatabaseResponse.data.name;
   }
 
@@ -81,12 +78,4 @@ async function promptDatabaseFromUser(
       label: "no database",
     },
   ]);
-}
-
-function InfoDatabase({ name }: { name: string }) {
-  return (
-    <Text>
-      using database: <Value>{name}</Value>
-    </Text>
-  );
 }

@@ -1,10 +1,10 @@
 import React, { FC, PropsWithChildren } from "react";
 import { Box, Text } from "ink";
+import useDefaultBoxStyles from "../styles/useDefaultBoxStyles.js";
 
 interface Props {
   title?: string;
   color?: string;
-  width?: number;
   innerText?: boolean;
 }
 
@@ -14,7 +14,6 @@ export const Success: FC<PropsWithChildren<Props>> = (props) => {
   const {
     title = "Success",
     color = defaultSuccessColor,
-    width = 80,
     innerText = true,
   } = props;
 
@@ -26,14 +25,10 @@ export const Success: FC<PropsWithChildren<Props>> = (props) => {
     props.children
   );
 
+  const defaultBoxStyles = useDefaultBoxStyles();
+
   return (
-    <Box
-      width={width}
-      borderStyle={"round"}
-      borderColor={color}
-      flexDirection="column"
-      paddingX={2}
-    >
+    <Box {...defaultBoxStyles} borderColor={color} flexDirection="column">
       <Text bold underline color={color}>
         {title.toUpperCase()}
       </Text>

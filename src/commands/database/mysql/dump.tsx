@@ -5,7 +5,6 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../../rendering/process/process_flags.js";
-import { Text } from "ink";
 import { Value } from "../../../rendering/react/components/Value.js";
 import * as fs from "fs";
 import { Success } from "../../../rendering/react/components/Success.js";
@@ -72,10 +71,7 @@ export class Dump extends ExecRenderBaseCommand<
         }
 
         await p.runStep(
-          <Text>
-            starting mysqldump via SSH on project{" "}
-            <Value>{project.shortId}</Value>
-          </Text>,
+          `starting mysqldump via SSH on project ${project.shortId}`,
           () =>
             executeViaSSH(
               this.apiClient,

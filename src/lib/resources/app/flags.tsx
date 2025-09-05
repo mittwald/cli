@@ -1,9 +1,6 @@
 import { getDefaultIngressForProject } from "../project/ingress.js";
-import { Value } from "../../../rendering/react/components/Value.js";
 import { getProjectShortIdFromUuid } from "../project/shortId.js";
 import { MittwaldAPIV2Client } from "@mittwald/api-client";
-import React from "react";
-import { Text } from "ink";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { projectFlags } from "../project/flags.js";
@@ -239,11 +236,7 @@ export async function autofillFlags(
   if (necessaryFlags.includes("host") && !flags.host) {
     flags.host =
       "https://" + (await getDefaultIngressForProject(apiClient, projectId));
-    process.addInfo(
-      <Text>
-        Using default Host <Value>{flags["host"]}</Value>
-      </Text>,
-    );
+    process.addInfo(`Using default Host ${flags["host"]}`);
   }
 
   // Title
@@ -264,11 +257,7 @@ export async function autofillFlags(
         projectId,
       );
     }
-    process.addInfo(
-      <Text>
-        Using generated Admin User: <Value>{flags["admin-user"]}</Value>
-      </Text>,
-    );
+    process.addInfo(`Using generated Admin User: ${flags["admin-user"]}`);
   }
 
   // Admin Pass
@@ -276,9 +265,7 @@ export async function autofillFlags(
     flags["admin-pass"] = generatePasswordWithSpecialChars();
 
     process.addInfo(
-      <Text>
-        Using generated random Admin Pass: <Value>{flags["admin-pass"]}</Value>
-      </Text>,
+      `Using generated random Admin Pass: ${flags["admin-pass"]}`,
     );
   }
 
@@ -290,10 +277,7 @@ export async function autofillFlags(
       flags["admin-firstname"] = "Max";
     }
     process.addInfo(
-      <Text>
-        Using mStudio firstname as Admin firstname (
-        <Value>{flags["admin-firstname"]}</Value>)
-      </Text>,
+      `Using mStudio firstname as Admin firstname (${flags["admin-firstname"]})`,
     );
   }
 
@@ -305,10 +289,7 @@ export async function autofillFlags(
       flags["admin-lastname"] = "Mustermann";
     }
     process.addInfo(
-      <Text>
-        Using mStudio lastname as Admin lastname (
-        <Value>{flags["admin-lastname"]}</Value>)
-      </Text>,
+      `Using mStudio lastname as Admin lastname (${flags["admin-lastname"]})`,
     );
   }
 
@@ -316,10 +297,7 @@ export async function autofillFlags(
   if (necessaryFlags.includes("admin-email") && !flags["admin-email"]) {
     flags["admin-email"] = ownUser.data.email;
     process.addInfo(
-      <Text>
-        Using mStudio email as Admin email (
-        <Value>{flags["admin-email"]}</Value>)
-      </Text>,
+      `Using mStudio email as Admin email (${flags["admin-email"]})`,
     );
   }
 
@@ -327,23 +305,19 @@ export async function autofillFlags(
   if (necessaryFlags.includes("shop-email") && !flags["shop-email"]) {
     flags["shop-email"] = ownUser.data.email;
     process.addInfo(
-      <Text>
-        Using mStudio email as Shop email (<Value>{flags["shop-email"]}</Value>)
-      </Text>,
+      `Using mStudio email as Shop email (${flags["shop-email"]})`,
     );
   }
 
   // Shop Language Code
   if (necessaryFlags.includes("shop-lang") && !flags["shop-lang"]) {
     flags["shop-lang"] = defaults["shop-lang"] ?? "de-DE";
-    process.addInfo(
-      <Text>Using default shop language '{flags["shop-lang"]}'.</Text>,
-    );
+    process.addInfo(`Using default shop language '${flags["shop-lang"]}'.`);
   }
 
   // Shop Currency
   if (necessaryFlags.includes("shop-currency") && !flags["shop-currency"]) {
     flags["shop-currency"] = "EUR";
-    process.addInfo(<Text>Using default shop currency '€'.</Text>);
+    process.addInfo("Using default shop currency '€'.");
   }
 }

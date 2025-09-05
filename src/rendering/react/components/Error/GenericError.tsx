@@ -23,7 +23,7 @@ export default function GenericError({
   title = "Error",
 }: GenericErrorProps) {
   return (
-    <Box flexDirection="column">
+    <Box flexDirection="column" width={Infinity}>
       <ErrorBox>
         <ErrorText bold underline>
           {title.toUpperCase()}

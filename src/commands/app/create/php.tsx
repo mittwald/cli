@@ -18,7 +18,7 @@ export default class InstallPhp extends ExecRenderBaseCommand<
   static description = phpInstaller.description;
   static flags = phpInstaller.flags;
 
-  protected async exec(): Promise<{ appInstallationId: string }> {
+  protected async exec() {
     return phpInstaller.exec(
       this.apiClient,
       this.args,

@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement } from "react";
 import {
   CleanupFunction,
   ProcessRenderer,
@@ -32,7 +32,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
     render(this.renderStart(), {}).unmount();
   }
 
-  public addStep(title: ReactNode): RunnableHandler {
+  public addStep(title: string): RunnableHandler {
     this.start();
 
     if (this.currentHandler !== null) {
@@ -54,7 +54,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
   }
 
   public async runStep<TRes>(
-    title: ReactNode,
+    title: string,
     fn: (() => Promise<TRes>) | Promise<TRes>,
   ): Promise<TRes> {
     const step = this.addStep(title);
@@ -69,7 +69,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
     }
   }
 
-  public addInfo(title: ReactNode) {
+  public addInfo(title: string) {
     this.start();
 
     if (this.currentHandler !== null) {
@@ -80,10 +80,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
     render(<ProcessState step={state} />).unmount();
   }
 
-  public addInput(
-    question: React.ReactElement,
-    mask?: boolean,
-  ): Promise<string> {
+  public addInput(question: string, mask?: boolean): Promise<string> {
     this.start();
 
     if (this.currentHandler !== null) {
@@ -115,8 +112,8 @@ export class FancyProcessRenderer implements ProcessRenderer {
   }
 
   public addSelect<TVal>(
-    question: React.ReactNode,
-    options: { value: TVal; label: React.ReactNode }[],
+    question: string,
+    options: { value: TVal; label: string }[],
   ): Promise<TVal> {
     this.start();
 
@@ -155,7 +152,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
     });
   }
 
-  public addConfirmation(question: ReactElement): Promise<boolean> {
+  public addConfirmation(question: string): Promise<boolean> {
     this.start();
 
     if (this.currentHandler !== null) {
@@ -222,7 +219,7 @@ export class FancyProcessRenderer implements ProcessRenderer {
     );
   }
 
-  public addCleanup(title: ReactNode, fn: () => Promise<unknown>): void {
+  public addCleanup(title: string, fn: () => Promise<unknown>): void {
     this.cleanupFns.push({ title, fn });
   }
 

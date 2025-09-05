@@ -57,7 +57,7 @@ export default class Create extends ExecRenderBaseCommand<
 
       assertStatus(response, 201);
       process.complete(
-        <Success width={100}>
+        <Success>
           <Text>
             API token successfully created. Have fun. 🥳
             <Newline count={2} />

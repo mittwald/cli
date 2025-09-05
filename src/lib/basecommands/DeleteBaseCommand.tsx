@@ -32,10 +32,10 @@ export abstract class DeleteBaseCommand<
 
     if (!this.flags.force) {
       const confirmed = await process.addConfirmation(
-        <Text>confirm deletion of {resourceName}</Text>,
+        `confirm deletion of ${resourceName}`,
       );
       if (!confirmed) {
-        process.addInfo(<Text>deletion of {resourceName} was cancelled</Text>);
+        process.addInfo(`deletion of ${resourceName} was cancelled`);
         process.complete(<></>);
 
         ux.exit(1);
@@ -43,7 +43,7 @@ export abstract class DeleteBaseCommand<
       }
     }
 
-    const deletingStep = process.addStep(<Text>deleting {resourceName}</Text>);
+    const deletingStep = process.addStep(`deleting ${resourceName}`);
 
     try {
       await this.deleteResource();

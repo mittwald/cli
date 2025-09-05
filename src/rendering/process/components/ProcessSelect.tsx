@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProcessStepSelect } from "../process.js";
 import { ProcessStateIcon } from "./ProcessStateIcon.js";
 import { ProcessState } from "./ProcessState.js";
@@ -124,7 +124,7 @@ function SelectOption({
   label,
 }: {
   selected: boolean;
-  label: ReactNode;
+  label: string;
 }) {
   return (
     <Box marginLeft={4}>

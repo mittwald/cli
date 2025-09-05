@@ -4,8 +4,6 @@ import { typo3Installer } from "../../commands/app/install/typo3.js";
 import { wordpressInstaller } from "../../commands/app/install/wordpress.js";
 import { shopware6Installer } from "../../commands/app/install/shopware6.js";
 import { ProcessRenderer } from "../../rendering/process/process.js";
-import { Value } from "../../rendering/react/components/Value.js";
-import { Text } from "ink";
 
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
@@ -51,7 +49,9 @@ export async function determineProjectType(
   typeOverride: DDEVProjectType | "auto",
 ): Promise<DDEVProjectType> {
   if (typeOverride !== "auto") {
-    r.addInfo(<ProjectTypeInfoOverride type={typeOverride} />);
+    r.addInfo(
+      `using DDEV project type: ${typeOverride} (explicitly specified)`,
+    );
     return typeOverride;
   }
 
@@ -60,7 +60,9 @@ export async function determineProjectType(
     inst,
   );
   if (determinedProjectType !== null) {
-    r.addInfo(<ProjectTypeInfoAuto type={determinedProjectType} />);
+    r.addInfo(
+      `using DDEV project type: ${determinedProjectType} (derived from app installation)`,
+    );
     return determinedProjectType;
   }
 
@@ -103,21 +105,4 @@ export async function determineProjectTypeFromAppInstallation(
     default:
       return null;
   }
-}
-
-function ProjectTypeInfoOverride({ type }: { type: DDEVProjectType }) {
-  return (
-    <Text>
-      using DDEV project type: <Value>{type}</Value> (explicitly specified)
-    </Text>
-  );
-}
-
-function ProjectTypeInfoAuto({ type }: { type: DDEVProjectType }) {
-  return (
-    <Text>
-      using DDEV project type: <Value>{type}</Value> (derived from app
-      installation)
-    </Text>
-  );
 }
