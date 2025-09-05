@@ -45,12 +45,12 @@ export class Download extends ExecRenderBaseCommand<typeof Download, void> {
   static examples = [
     {
       description: "Download entire app to current working directory",
-      command: "$ <%= config.bin %> <%= command.id %> .",
+      command: "$ <%= config.bin %> <%= command.id %> --target .",
     },
     {
       description: "Download only shared dir from a deployer-managed app",
       command:
-        "<%= config.bin %> <%= command.id %> --remote-sub-directory=shared .",
+        "<%= config.bin %> <%= command.id %> --remote-sub-directory=shared --target .",
     },
   ];
 

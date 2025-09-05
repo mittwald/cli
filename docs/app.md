@@ -471,11 +471,11 @@ DESCRIPTION
 EXAMPLES
   Download entire app to current working directory
 
-    $ mw app download .
+    $ mw app download --target .
 
   Download only shared dir from a deployer-managed app
 
-    $ mw app download --remote-sub-directory=shared .
+    $ mw app download --remote-sub-directory=shared --target .
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary
