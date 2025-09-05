@@ -2259,12 +2259,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.168.0":
-  version: 4.168.0
-  resolution: "@mittwald/api-client-commons@npm:4.168.0"
+"@mittwald/api-client-commons@npm:^4.214.1":
+  version: 4.214.1
+  resolution: "@mittwald/api-client-commons@npm:4.214.1"
   dependencies:
     "@types/parse-path": ^7.0.3
-    axios: ^1.8.2
+    axios: ^1.11.0
     parse-path: ^7.0.0
     path-to-regexp: ^8.2.0
     type-fest: ^4.30.0
@@ -2275,22 +2275,22 @@ __metadata:
       optional: true
     "@mittwald/react-use-promise":
       optional: true
-  checksum: b553026b19f364d44a3b2c8de56359c47e99e63b7b362cccb276b52dbb39707fd2f351c7fd63ec590d504ba410ebaa34345d51b79ec806de1d95d6740b6e2a94
+  checksum: 85bb59981fbabf7d5c7cb73731610e3ed2e9e80183e129a08b8a722753880d10aa0c9ae94ece36f492a946f28685d84906d631691b71d5d51392ffbf8de7eebe
   languageName: node
   linkType: hard
 
 "@mittwald/api-client@npm:^4.131.0":
-  version: 4.214.0
-  resolution: "@mittwald/api-client@npm:4.214.0"
+  version: 4.216.0
+  resolution: "@mittwald/api-client@npm:4.216.0"
   dependencies:
-    "@mittwald/api-client-commons": ^4.168.0
+    "@mittwald/api-client-commons": ^4.214.1
     browser-or-node: ^3.0.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.6.0
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: f198538e4282d9e41718da11b982bdad0f8eb054d763b840f55dae8cae1ddf0843af8c4a97c2ff0807e5d1dd618259b0ef4255c02c404207129c2572087c733a
+  checksum: 6a5383b5998bf273121776b192a09bcea8c02ddfb741e4252cfcb0f5872de4a843384072a77ad160d82022de8a40c3b3c34dce37366e4902c59e4d71cd2b7064
   languageName: node
   linkType: hard
 
@@ -4276,14 +4276,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.8.2":
-  version: 1.10.0
-  resolution: "axios@npm:1.10.0"
+"axios@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "axios@npm:1.11.0"
   dependencies:
     follow-redirects: ^1.15.6
-    form-data: ^4.0.0
+    form-data: ^4.0.4
     proxy-from-env: ^1.1.0
-  checksum: b5fd840d499469bf968e44b8ac96f4b363c6aa4c791a50834c086a7cffbc2d77fe24f27af1aba46c3e1f4840aaf991461fc27537990596b93dea0f4df3245a86
+  checksum: 0a33dc600b588bfd3111b198d5985527ed89f722817455d7cdb66c1d055e5f8859cc2bebb7320888957fc8458ebe77d5f83af02af9cd260217c91c4e92b6dfb6
   languageName: node
   linkType: hard
 
@@ -5895,16 +5895,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^4.0.0":
-  version: 4.0.3
-  resolution: "form-data@npm:4.0.3"
+"form-data@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "form-data@npm:4.0.4"
   dependencies:
     asynckit: ^0.4.0
     combined-stream: ^1.0.8
     es-set-tostringtag: ^2.1.0
     hasown: ^2.0.2
     mime-types: ^2.1.12
-  checksum: b8e2568c0853ce167b2b9c9c4b81fe563f9ade647178baf6b6381cf8a11e3c01dd2b78a63ba367e6f5eab59afab8284a9438bb5ae768133f9d9fce6567fbc26a
+  checksum: 9b7788836df9fa5a6999e0c02515b001946b2a868cfe53f026c69e2c537a2ff9fbfb8e9d2b678744628f3dc7a2d6e14e4e45dfaf68aa6239727f0bdb8ce0abf2
   languageName: node
   linkType: hard
 
