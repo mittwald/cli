@@ -74,10 +74,7 @@ export default class Create extends ExecRenderBaseCommand<
       return [await generateRandomPassword(process), true];
     }
 
-    return [
-      await process.addInput(<Text>enter delivery box password</Text>, true),
-      false,
-    ];
+    return [await process.addInput("enter delivery box password", true), false];
   }
 
   protected async createMailDeliveryBox(

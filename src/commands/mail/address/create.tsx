@@ -118,10 +118,7 @@ export default class Create extends ExecRenderBaseCommand<
       return [await generateRandomPassword(process), true];
     }
 
-    return [
-      await process.addInput(<Text>enter mailbox password</Text>, true),
-      false,
-    ];
+    return [await process.addInput("enter mailbox password", true), false];
   }
 
   protected async createForwardAddress(

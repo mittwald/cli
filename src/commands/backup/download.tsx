@@ -7,7 +7,6 @@ import {
 import { ReactNode } from "react";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 import crypto from "crypto";
-import { Text } from "ink";
 import { Value } from "../../rendering/react/components/Value.js";
 import {
   assertStatus,
@@ -75,16 +74,12 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
       const password = await p.runStep("generating password", async () => {
         return crypto.randomBytes(32).toString("ascii").substring(0, 32);
       });
-      p.addInfo(
-        <Text>
-          generated password: <Value>{password}</Value>
-        </Text>,
-      );
+      p.addInfo(`generated password: ${password}`);
       return password;
     }
 
     if (this.flags["prompt-password"]) {
-      return await p.addInput(<Text>enter backup password</Text>, true);
+      return await p.addInput("enter backup password", true);
     }
 
     return undefined;
@@ -111,7 +106,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
     });
 
     if (backup.export && backup.export.phase !== "Expired") {
-      p.addInfo(<Text>backup download is already prepared</Text>);
+      p.addInfo("backup download is already prepared");
     } else {
       await p.runStep("preparing backup download", async () => {
         const r = await this.apiClient.backup.createProjectBackupExport({
@@ -159,11 +154,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
 
       reqConfig.headers = { Range: range };
 
-      p.addInfo(
-        <Text>
-          resuming download starting at <Value>{stat.size}</Value> bytes
-        </Text>,
-      );
+      p.addInfo(`resuming download starting at ${stat.size} bytes`);
     }
 
     const downloadStep = p.addStep("downloading backup");

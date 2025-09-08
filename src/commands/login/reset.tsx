@@ -4,7 +4,6 @@ import React from "react";
 import { Box, Text } from "ink";
 import { Note } from "../../rendering/react/components/Note.js";
 import { FancyProcessRenderer } from "../../rendering/process/process_fancy.js";
-import { Filename } from "../../rendering/react/components/Filename.js";
 import { getTokenFilename } from "../../lib/auth/token.js";
 
 import { isNotFound } from "../../lib/util/fs/isNotFound.js";
@@ -25,11 +24,7 @@ export default class Reset extends ExecRenderBaseCommand<
     process.start();
 
     if (await this.tokenFileExists(tokenFilename)) {
-      const step = process.addStep(
-        <Text>
-          Deleting token file <Filename filename={tokenFilename} />
-        </Text>,
-      );
+      const step = process.addStep(`Deleting token file ${tokenFilename}`);
       await fs.rm(tokenFilename, { force: true });
       step.complete();
 

@@ -8,7 +8,6 @@ import {
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { Text } from "ink";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 
 type ContainerUpdateRegistry =
@@ -102,6 +101,6 @@ export default class Update extends ExecRenderBaseCommand<
       return this.flags.password;
     }
 
-    return await process.addInput(<Text>enter registry password</Text>, true);
+    return await process.addInput("enter registry password", true);
   }
 }

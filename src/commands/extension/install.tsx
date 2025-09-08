@@ -6,7 +6,6 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { Args, Flags } from "@oclif/core";
 import { assertStatus } from "@mittwald/api-client";
-import { Text } from "ink";
 import Context, { contextIDNormalizers } from "../../lib/context/Context.js";
 
 type InstallResult = {
@@ -73,11 +72,7 @@ export default class Install extends ExecRenderBaseCommand<
 
     if (!consent) {
       p.addInfo(
-        <Text>
-          This extension requires access to the following scopes:{" "}
-          {ext.scopes.join(", ")}. Please confirm your consent, or run the
-          command with the --consent flag.
-        </Text>,
+        `This extension requires access to the following scopes: ${ext.scopes.join(", ")}. Please confirm your consent, or run the command with the --consent flag.`,
       );
       const consentedInteractively = await p.addConfirmation(
         "Consent to requested scopes?",

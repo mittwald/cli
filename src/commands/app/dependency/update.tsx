@@ -11,8 +11,6 @@ import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Range, SemVer } from "semver";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { Value } from "../../../rendering/react/components/Value.js";
-import { Text } from "ink";
 
 type AppSystemSoftwareUpdatePolicy =
   MittwaldAPIV2.Components.Schemas.AppSystemSoftwareUpdatePolicy;
@@ -122,10 +120,7 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
       );
 
       process.addInfo(
-        <Text>
-          selected <Value>{systemSoftware.name}</Value> version:{" "}
-          <Value>{version.externalVersion}</Value>
-        </Text>,
+        `selected ${systemSoftware.name} version: ${version.externalVersion}`,
       );
 
       versionsToUpdate[systemSoftware.id] = {

@@ -26,7 +26,7 @@ export default class InstallTYPO3 extends ExecRenderBaseCommand<
   static description = typo3Installer.description;
   static flags = typo3Installer.flags;
 
-  protected async exec(): Promise<{ appInstallationId: string }> {
+  protected async exec() {
     return typo3Installer.exec(
       this.apiClient,
       this.args,

@@ -1,13 +1,12 @@
 import { spawn } from "child_process";
 import { ProcessRenderer } from "./process.js";
-import { ReactNode } from "react";
 import debug from "debug";
 
 const d = debug("mw:exec");
 
 export async function spawnInProcess(
   r: ProcessRenderer,
-  title: ReactNode,
+  title: string,
   cmd: string,
   args: string[],
 ): Promise<void> {

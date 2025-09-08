@@ -18,7 +18,7 @@ export default class InstallPhpWorker extends ExecRenderBaseCommand<
   static description = phpWorkerInstaller.description;
   static flags = phpWorkerInstaller.flags;
 
-  protected async exec(): Promise<{ appInstallationId: string }> {
+  protected async exec() {
     return phpWorkerInstaller.exec(
       this.apiClient,
       this.args,

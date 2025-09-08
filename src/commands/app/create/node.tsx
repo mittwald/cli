@@ -22,7 +22,7 @@ export default class InstallNode extends ExecRenderBaseCommand<
   static description = nodeInstaller.description;
   static flags = nodeInstaller.flags;
 
-  protected async exec(): Promise<{ appInstallationId: string }> {
+  protected async exec() {
     return nodeInstaller.exec(
       this.apiClient,
       this.args,

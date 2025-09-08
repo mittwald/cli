@@ -25,7 +25,7 @@ export default class InstallMatomo extends ExecRenderBaseCommand<
   static description = matomoInstaller.description;
   static flags = matomoInstaller.flags;
 
-  protected async exec(): Promise<{ appInstallationId: string }> {
+  protected async exec() {
     return matomoInstaller.exec(
       this.apiClient,
       this.args,

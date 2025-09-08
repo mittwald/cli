@@ -1,10 +1,7 @@
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { gt } from "semver";
-import { Value } from "../../../rendering/react/components/Value.js";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { Text } from "ink";
-import React from "react";
 import { getAppInstallationFromUuid, getAppNameFromUuid } from "./uuid.js";
 import { compare } from "semver";
 
@@ -38,11 +35,7 @@ export async function normalizeToAppVersionUuid(
     );
   }
 
-  process.addInfo(
-    <Text>
-      installing version: <Value>{appVersion.externalVersion}</Value>
-    </Text>,
-  );
+  process.addInfo(`installing version: ${appVersion.externalVersion}`);
 
   return appVersion;
 }

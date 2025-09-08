@@ -1,13 +1,13 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactElement } from "react";
 
 export type ProcessStepInfo = {
   type: "info";
-  title: ReactNode;
+  title: string;
 };
 
 export type ProcessStepRunnable = {
   type: "step";
-  title: ReactNode;
+  title: string;
   phase: "running" | "completed" | "failed" | "aborted";
   error?: unknown;
   progress?: string;
@@ -16,21 +16,21 @@ export type ProcessStepRunnable = {
 
 export type ProcessStepConfirm = {
   type: "confirm";
-  title: ReactNode;
+  title: string;
   confirmed: boolean | undefined;
 };
 
 export type ProcessStepInput = {
   type: "input";
-  title: ReactNode;
+  title: string;
   mask?: boolean;
   value?: string;
 };
 
 export type ProcessStepSelect<TVal> = {
   type: "select";
-  title: ReactNode;
-  options: { value: TVal; label: ReactNode }[];
+  title: string;
+  options: { value: TVal; label: string }[];
   selected?: TVal;
 };
 
@@ -42,7 +42,7 @@ export type ProcessStep =
   | ProcessStepSelect<unknown>;
 
 export type CleanupFunction = {
-  title: ReactNode;
+  title: string;
   fn: () => Promise<unknown>;
 };
 
@@ -108,19 +108,19 @@ export class RunnableHandler {
 
 export interface ProcessRenderer {
   start(): void;
-  addStep(title: ReactNode): RunnableHandler;
+  addStep(title: string): RunnableHandler;
   runStep<TRes>(
-    title: ReactNode,
+    title: string,
     fn: (() => Promise<TRes>) | Promise<TRes>,
   ): Promise<TRes>;
-  addInfo(title: ReactNode): void;
-  addConfirmation(question: ReactNode): Promise<boolean>;
-  addInput(question: ReactNode, mask?: boolean): Promise<string>;
+  addInfo(title: string): void;
+  addConfirmation(question: string): Promise<boolean>;
+  addInput(question: string, mask?: boolean): Promise<string>;
   addSelect<TVal>(
-    question: ReactNode,
-    options: { value: TVal; label: ReactNode }[],
+    question: string,
+    options: { value: TVal; label: string }[],
   ): Promise<TVal>;
-  addCleanup(title: ReactNode, fn: () => Promise<unknown>): void;
+  addCleanup(title: string, fn: () => Promise<unknown>): void;
 
   complete(summary: ReactElement): Promise<void>;
   error(err: unknown): Promise<void>;

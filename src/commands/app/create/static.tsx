@@ -18,7 +18,7 @@ export default class InstallStatic extends ExecRenderBaseCommand<
   static description = staticInstaller.description;
   static flags = staticInstaller.flags;
 
-  protected async exec(): Promise<{ appInstallationId: string }> {
+  protected async exec() {
     return staticInstaller.exec(
       this.apiClient,
       this.args,

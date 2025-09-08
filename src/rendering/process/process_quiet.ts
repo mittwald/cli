@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { ProcessRenderer, RunnableHandler } from "./process.js";
 import * as console from "console";
 
@@ -9,7 +8,7 @@ export class SilentProcessRenderer implements ProcessRenderer {
     // 🤐
   }
 
-  public addStep(title: ReactNode): RunnableHandler {
+  public addStep(title: string): RunnableHandler {
     return new RunnableHandler(
       { type: "step", title, phase: "aborted" },
       () => {
@@ -19,7 +18,7 @@ export class SilentProcessRenderer implements ProcessRenderer {
   }
 
   public runStep<TRes>(
-    unusedTitle: ReactNode,
+    unusedTitle: string,
     fn: (() => Promise<TRes>) | Promise<TRes>,
   ): Promise<TRes> {
     if (fn instanceof Promise) {
@@ -53,7 +52,7 @@ export class SilentProcessRenderer implements ProcessRenderer {
     throw new Error("no interactive input available in quiet mode");
   }
 
-  public addCleanup(_: ReactNode, fn: () => Promise<unknown>): void {
+  public addCleanup(_: string, fn: () => Promise<unknown>): void {
     this.cleanupFns.push(fn);
   }
 

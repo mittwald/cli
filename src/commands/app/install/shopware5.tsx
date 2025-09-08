@@ -30,7 +30,7 @@ export default class InstallShopware5 extends ExecRenderBaseCommand<
   static description = installer.description;
   static flags = installer.flags;
 
-  protected async exec(): Promise<{ appInstallationId: string }> {
+  protected async exec() {
     return installer.exec(this.apiClient, this.args, this.flags, this.config);
   }
 

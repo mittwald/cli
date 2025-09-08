@@ -10,7 +10,6 @@ import { Value } from "../../rendering/react/components/Value.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { Flags } from "@oclif/core";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { Text } from "ink";
 import { ProcessRenderer } from "../../rendering/process/process.js";
 
 type ContainerCreateRegistry =
@@ -110,6 +109,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       return this.flags.password;
     }
 
-    return await process.addInput(<Text>enter registry password</Text>, true);
+    return await process.addInput("enter registry password", true);
   }
 }
