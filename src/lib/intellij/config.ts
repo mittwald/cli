@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { randomUUID } from "crypto";
-import { XMLParser, XMLBuilder } from "fast-xml-parser";
+import { XMLBuilder, XMLParser } from "fast-xml-parser";
 import { SSHConnectionData } from "../resources/ssh/types.js";
 
 // Common XML configuration
@@ -47,7 +47,9 @@ export function generateIntellijConfigs(
       fs.mkdirSync(ideaDir, { recursive: true });
     }
   } catch (error) {
-    throw new Error(`Cannot create .idea directory: ${error instanceof Error ? error.message : error}`);
+    throw new Error(
+      `Cannot create .idea directory: ${error instanceof Error ? error.message : error}`,
+    );
   }
 
   const sshConfigId = randomUUID();
@@ -91,17 +93,13 @@ function loadExistingXmlDocument(
     return null;
   }
 
-  try {
-    const content = fs.readFileSync(configPath, "utf8");
-    const xmlDoc = parser.parse(content);
+  const content = fs.readFileSync(configPath, "utf8");
+  const xmlDoc = parser.parse(content);
 
-    if (!xmlDoc.project?.component) {
-      throw new Error("Invalid XML structure");
-    }
-    return xmlDoc;
-  } catch (error) {
-    return null;
+  if (!xmlDoc.project?.component) {
+    throw new Error("Invalid XML structure");
   }
+  return xmlDoc;
 }
 
 function tryAddToExistingDocument<T>(
@@ -112,7 +110,7 @@ function tryAddToExistingDocument<T>(
   // This function delegates to the specific addItemFn
   // Return false if item already exists, true if added
   const result = config.addItemFn(xmlDoc, newItem);
-  return result !== false;
+  return result;
 }
 
 // Helper function to handle array/single element patterns
@@ -124,7 +122,6 @@ function addItemToArrayField<T>(
   container: Record<string, unknown>,
   fieldName: string,
   newItem: T,
-  existingItems: T[],
 ): void {
   if (Array.isArray(container[fieldName])) {
     (container[fieldName] as T[]).push(newItem);
@@ -168,10 +165,14 @@ function generateSshConfigsXml(
       const configs = (xmlDoc.project as any).component.configs;
       if (configs?.sshConfig) {
         const existingConfigs = ensureArray(configs.sshConfig);
-        if (existingConfigs.some((config: Record<string, unknown>) => config["@_host"] === data.host)) {
+        if (
+          existingConfigs.some(
+            (config: Record<string, unknown>) => config["@_host"] === data.host,
+          )
+        ) {
           return false; // Already exists
         }
-        addItemToArrayField(configs, "sshConfig", newItem, existingConfigs);
+        addItemToArrayField(configs, "sshConfig", newItem);
       } else {
         if (!configs) {
           (xmlDoc.project as any).component.configs = {};
@@ -231,7 +232,13 @@ function generateWebServersXml(
   sshConfigId: string,
   ideaDir: string,
 ): void {
-  const webServerItem = createWebServerItem(serverId, data.appShortId, data.host, data.user, sshConfigId);
+  const webServerItem = createWebServerItem(
+    serverId,
+    data.appShortId,
+    data.host,
+    data.user,
+    sshConfigId,
+  );
 
   const config: XmlManipulationConfig<Record<string, unknown>> = {
     filename: "webServers.xml",
@@ -242,10 +249,15 @@ function generateWebServersXml(
       const servers = (xmlDoc.project as any).component.option;
       if (servers?.webServer) {
         const existingServers = ensureArray(servers.webServer);
-        if (existingServers.some((server: Record<string, unknown>) => server["@_name"] === data.appShortId)) {
+        if (
+          existingServers.some(
+            (server: Record<string, unknown>) =>
+              server["@_name"] === data.appShortId,
+          )
+        ) {
           return false; // Already exists
         }
-        addItemToArrayField(servers, "webServer", newItem, existingServers);
+        addItemToArrayField(servers, "webServer", newItem);
       } else {
         if (!servers) {
           (xmlDoc.project as any).component.option = { "@_name": "servers" };
@@ -295,7 +307,10 @@ function generateDeploymentXml(
   data: IntellijConfigData,
   ideaDir: string,
 ): void {
-  const deploymentPathItem = createDeploymentPathItem(data.appShortId, data.directory);
+  const deploymentPathItem = createDeploymentPathItem(
+    data.appShortId,
+    data.directory,
+  );
 
   const config: XmlManipulationConfig<Record<string, unknown>> = {
     filename: "deployment.xml",
@@ -306,10 +321,15 @@ function generateDeploymentXml(
       const serverData = (xmlDoc.project as any).component.serverData;
       if (serverData?.paths) {
         const existingPaths = ensureArray(serverData.paths);
-        if (existingPaths.some((path: Record<string, unknown>) => path["@_name"] === data.appShortId)) {
+        if (
+          existingPaths.some(
+            (path: Record<string, unknown>) =>
+              path["@_name"] === data.appShortId,
+          )
+        ) {
           return false; // Already exists
         }
-        addItemToArrayField(serverData, "paths", newItem, existingPaths);
+        addItemToArrayField(serverData, "paths", newItem);
       } else {
         if (!(xmlDoc.project as any).component.serverData) {
           (xmlDoc.project as any).component.serverData = {};
@@ -334,4 +354,3 @@ function generateDeploymentXml(
 
   manipulateXmlFile(ideaDir, config, deploymentPathItem);
 }
-
