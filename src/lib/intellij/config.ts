@@ -3,6 +3,15 @@ import * as path from "path";
 import { randomUUID } from "crypto";
 import { XMLBuilder, XMLParser } from "fast-xml-parser";
 import { SSHConnectionData } from "../resources/ssh/types.js";
+import {
+  XmlDocument,
+  XmlSshConfig,
+  XmlWebServer,
+  XmlPath,
+  XmlConfigs,
+  XmlOption,
+  XmlServerData,
+} from "./config_xml_types.js";
 
 // Common XML configuration
 const XML_PARSER_CONFIG = {
@@ -23,87 +32,6 @@ const createXmlDocumentBase = () => ({
   "?xml": { "@_version": "1.0", "@_encoding": "UTF-8" },
   project: { "@_version": "4" },
 });
-
-// XML Document Structure Types
-interface XmlDocument {
-  "?xml": { "@_version": string; "@_encoding": string };
-  project: XmlProject;
-}
-
-interface XmlProject {
-  "@_version": string;
-  component: XmlComponent;
-}
-
-interface XmlComponent {
-  "@_name": string;
-  configs?: XmlConfigs;
-  option?: XmlOption;
-  serverData?: XmlServerData;
-  "@_serverName"?: string;
-  "@_remoteFilesAllowedToDisappearOnAutoupload"?: string;
-}
-
-interface XmlConfigs {
-  sshConfig?: XmlSshConfig | XmlSshConfig[];
-}
-
-interface XmlSshConfig {
-  "@_authType": string;
-  "@_host": string;
-  "@_id": string;
-  "@_port": string;
-  "@_nameFormat": string;
-  "@_username": string;
-  "@_useOpenSSHConfig": string;
-}
-
-interface XmlOption {
-  "@_name": string;
-  webServer?: XmlWebServer | XmlWebServer[];
-}
-
-interface XmlWebServer {
-  "@_id": string;
-  "@_name": string;
-  fileTransfer: XmlFileTransfer;
-}
-
-interface XmlFileTransfer {
-  "@_accessType": string;
-  "@_host": string;
-  "@_port": string;
-  "@_sshConfigId": string;
-  "@_sshConfig": string;
-  "@_authAgent": string;
-  advancedOptions: XmlAdvancedOptions;
-}
-
-interface XmlAdvancedOptions {
-  advancedOptions: {
-    "@_dataProtectionLevel": string;
-    "@_keepAliveTimeout": string;
-    "@_passiveMode": string;
-    "@_shareSSLContext": string;
-  };
-}
-
-interface XmlServerData {
-  paths?: XmlPath | XmlPath[];
-}
-
-interface XmlPath {
-  "@_name": string;
-  serverdata: {
-    mappings: {
-      mapping: {
-        "@_deploy": string;
-        "@_local": string;
-        "@_web": string;
-      };
-    };
-  };
-}
 
 interface XmlManipulationConfig<T> {
   filename: string;
