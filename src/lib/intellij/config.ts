@@ -61,10 +61,12 @@ export function generateIntellijConfigs(
     );
   }
 
-  const sshConfigId = randomUUID();
   const webServerId = randomUUID();
 
-  generateSshConfigsXml(data, sshConfigId, ideaDir);
+  // First, ensure SSH config exists and get its ID (existing or newly created)
+  const sshConfigId = ensureSshConfigExists(data, ideaDir);
+
+  // Then create web server and deployment configs using the correct SSH config ID
   generateWebServersXml(data, webServerId, sshConfigId, ideaDir);
   generateDeploymentXml(data, ideaDir);
 }
@@ -155,6 +157,38 @@ function addDeploymentPath(serverData: XmlServerData, newPath: XmlPath): void {
   } else {
     serverData.paths = newPath;
   }
+}
+
+// Function to ensure SSH config exists and return its ID
+function ensureSshConfigExists(
+  data: IntellijConfigData,
+  ideaDir: string,
+): string {
+  const configPath = path.join(ideaDir, "sshConfigs.xml");
+  const parser = new XMLParser(XML_PARSER_CONFIG);
+
+  const existingXmlDoc = loadExistingXmlDocument(configPath, parser);
+
+  if (existingXmlDoc) {
+    // Check if SSH config for this host already exists
+    const configs = existingXmlDoc.project.component.configs;
+    if (configs?.sshConfig) {
+      const existingConfigs = ensureArray(configs.sshConfig);
+      const existingConfig = existingConfigs.find(
+        (config) => config["@_host"] === data.host,
+      );
+
+      if (existingConfig) {
+        // Return existing SSH config ID
+        return existingConfig["@_id"];
+      }
+    }
+  }
+
+  // SSH config doesn't exist, create it with a new ID
+  const newSshConfigId = randomUUID();
+  generateSshConfigsXml(data, newSshConfigId, ideaDir);
+  return newSshConfigId;
 }
 
 // SSH Config specific functions

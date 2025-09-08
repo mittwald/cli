@@ -134,6 +134,40 @@ describe("IntelliJ Config Generator", () => {
       expect(Array.isArray(sshConfigs)).toBe(true);
       expect(sshConfigs).toHaveLength(2);
     });
+
+    test("should reuse existing SSH config ID in web server configuration", () => {
+      const ideaDir = path.join(tempDir, ".idea");
+      fs.mkdirSync(ideaDir, { recursive: true });
+      
+      // Create existing SSH config with the same host as testData
+      const existingConfig = `<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="OPEN_SSH" host="ssh.test.example.com" id="existing-ssh-id" port="22" nameFormat="DESCRIPTIVE" username="testuser@app123" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>`;
+      
+      fs.writeFileSync(path.join(ideaDir, "sshConfigs.xml"), existingConfig);
+      
+      generateIntellijConfigs(testData, tempDir);
+      
+      // Verify SSH config wasn't duplicated
+      const sshConfigPath = path.join(ideaDir, "sshConfigs.xml");
+      const sshContent = fs.readFileSync(sshConfigPath, "utf8");
+      const sshXmlDoc = parser.parse(sshContent);
+      const sshConfig = sshXmlDoc.project.component.configs.sshConfig;
+      expect(Array.isArray(sshConfig)).toBe(false); // Should still be single config
+      expect(sshConfig["@_id"]).toBe("existing-ssh-id");
+      
+      // Verify web server config uses the existing SSH config ID
+      const webConfigPath = path.join(ideaDir, "webServers.xml");
+      const webContent = fs.readFileSync(webConfigPath, "utf8");
+      const webXmlDoc = parser.parse(webContent);
+      const webServer = webXmlDoc.project.component.option.webServer;
+      expect(webServer.fileTransfer["@_sshConfigId"]).toBe("existing-ssh-id");
+    });
   });
 
   describe("Web Servers XML", () => {
