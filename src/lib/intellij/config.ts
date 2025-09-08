@@ -24,12 +24,93 @@ const createXmlDocumentBase = () => ({
   project: { "@_version": "4" },
 });
 
+// XML Document Structure Types
+interface XmlDocument {
+  "?xml": { "@_version": string; "@_encoding": string };
+  project: XmlProject;
+}
+
+interface XmlProject {
+  "@_version": string;
+  component: XmlComponent;
+}
+
+interface XmlComponent {
+  "@_name": string;
+  configs?: XmlConfigs;
+  option?: XmlOption;
+  serverData?: XmlServerData;
+  "@_serverName"?: string;
+  "@_remoteFilesAllowedToDisappearOnAutoupload"?: string;
+}
+
+interface XmlConfigs {
+  sshConfig?: XmlSshConfig | XmlSshConfig[];
+}
+
+interface XmlSshConfig {
+  "@_authType": string;
+  "@_host": string;
+  "@_id": string;
+  "@_port": string;
+  "@_nameFormat": string;
+  "@_username": string;
+  "@_useOpenSSHConfig": string;
+}
+
+interface XmlOption {
+  "@_name": string;
+  webServer?: XmlWebServer | XmlWebServer[];
+}
+
+interface XmlWebServer {
+  "@_id": string;
+  "@_name": string;
+  fileTransfer: XmlFileTransfer;
+}
+
+interface XmlFileTransfer {
+  "@_accessType": string;
+  "@_host": string;
+  "@_port": string;
+  "@_sshConfigId": string;
+  "@_sshConfig": string;
+  "@_authAgent": string;
+  advancedOptions: XmlAdvancedOptions;
+}
+
+interface XmlAdvancedOptions {
+  advancedOptions: {
+    "@_dataProtectionLevel": string;
+    "@_keepAliveTimeout": string;
+    "@_passiveMode": string;
+    "@_shareSSLContext": string;
+  };
+}
+
+interface XmlServerData {
+  paths?: XmlPath | XmlPath[];
+}
+
+interface XmlPath {
+  "@_name": string;
+  serverdata: {
+    mappings: {
+      mapping: {
+        "@_deploy": string;
+        "@_local": string;
+        "@_web": string;
+      };
+    };
+  };
+}
+
 interface XmlManipulationConfig<T> {
   filename: string;
   componentName: string;
   checkDuplicateFn: (existing: T[], newItem: T) => boolean;
-  addItemFn: (xmlDoc: Record<string, unknown>, newItem: T) => boolean;
-  createNewDocumentFn: (newItem: T) => Record<string, unknown>;
+  addItemFn: (xmlDoc: XmlDocument, newItem: T) => boolean;
+  createNewDocumentFn: (newItem: T) => XmlDocument;
 }
 
 export interface IntellijConfigData extends SSHConnectionData {
@@ -88,7 +169,7 @@ function manipulateXmlFile<T>(
 function loadExistingXmlDocument(
   configPath: string,
   parser: XMLParser,
-): Record<string, unknown> | null {
+): XmlDocument | null {
   if (!fs.existsSync(configPath)) {
     return null;
   }
@@ -103,14 +184,13 @@ function loadExistingXmlDocument(
 }
 
 function tryAddToExistingDocument<T>(
-  xmlDoc: Record<string, unknown>,
+  xmlDoc: XmlDocument,
   newItem: T,
   config: XmlManipulationConfig<T>,
 ): boolean {
   // This function delegates to the specific addItemFn
   // Return false if item already exists, true if added
-  const result = config.addItemFn(xmlDoc, newItem);
-  return result;
+  return config.addItemFn(xmlDoc, newItem);
 }
 
 // Helper function to handle array/single element patterns
@@ -118,17 +198,34 @@ function ensureArray<T>(item: T | T[]): T[] {
   return Array.isArray(item) ? item : [item];
 }
 
-function addItemToArrayField<T>(
-  container: Record<string, unknown>,
-  fieldName: string,
-  newItem: T,
-): void {
-  if (Array.isArray(container[fieldName])) {
-    (container[fieldName] as T[]).push(newItem);
-  } else if (container[fieldName]) {
-    container[fieldName] = [container[fieldName] as T, newItem];
+// Specific type-safe helper functions for each XML structure
+function addSshConfig(configs: XmlConfigs, newConfig: XmlSshConfig): void {
+  if (Array.isArray(configs.sshConfig)) {
+    configs.sshConfig.push(newConfig);
+  } else if (configs.sshConfig) {
+    configs.sshConfig = [configs.sshConfig, newConfig];
   } else {
-    container[fieldName] = newItem;
+    configs.sshConfig = newConfig;
+  }
+}
+
+function addWebServer(option: XmlOption, newServer: XmlWebServer): void {
+  if (Array.isArray(option.webServer)) {
+    option.webServer.push(newServer);
+  } else if (option.webServer) {
+    option.webServer = [option.webServer, newServer];
+  } else {
+    option.webServer = newServer;
+  }
+}
+
+function addDeploymentPath(serverData: XmlServerData, newPath: XmlPath): void {
+  if (Array.isArray(serverData.paths)) {
+    serverData.paths.push(newPath);
+  } else if (serverData.paths) {
+    serverData.paths = [serverData.paths, newPath];
+  } else {
+    serverData.paths = newPath;
   }
 }
 
@@ -137,7 +234,7 @@ function createSshConfigItem(
   host: string,
   username: string,
   configId: string,
-): Record<string, string> {
+): XmlSshConfig {
   return {
     "@_authType": "OPEN_SSH",
     "@_host": host,
@@ -156,28 +253,24 @@ function generateSshConfigsXml(
 ): void {
   const sshConfigItem = createSshConfigItem(data.host, data.user, configId);
 
-  const config: XmlManipulationConfig<Record<string, string>> = {
+  const config: XmlManipulationConfig<XmlSshConfig> = {
     filename: "sshConfigs.xml",
     componentName: "SshConfigs",
     checkDuplicateFn: (existing, newItem) =>
       existing.some((config) => config["@_host"] === newItem["@_host"]),
     addItemFn: (xmlDoc, newItem) => {
-      const configs = (xmlDoc.project as any).component.configs;
+      const configs = xmlDoc.project.component.configs;
       if (configs?.sshConfig) {
         const existingConfigs = ensureArray(configs.sshConfig);
-        if (
-          existingConfigs.some(
-            (config: Record<string, unknown>) => config["@_host"] === data.host,
-          )
-        ) {
+        if (existingConfigs.some((config) => config["@_host"] === data.host)) {
           return false; // Already exists
         }
-        addItemToArrayField(configs, "sshConfig", newItem);
+        addSshConfig(configs, newItem);
       } else {
-        if (!configs) {
-          (xmlDoc.project as any).component.configs = {};
+        if (!xmlDoc.project.component.configs) {
+          xmlDoc.project.component.configs = {};
         }
-        (xmlDoc.project as any).component.configs.sshConfig = newItem;
+        xmlDoc.project.component.configs.sshConfig = newItem;
       }
       return true;
     },
@@ -203,7 +296,7 @@ function createWebServerItem(
   host: string,
   username: string,
   sshConfigId: string,
-): Record<string, unknown> {
+): XmlWebServer {
   return {
     "@_id": serverId,
     "@_name": appShortId,
@@ -240,29 +333,26 @@ function generateWebServersXml(
     sshConfigId,
   );
 
-  const config: XmlManipulationConfig<Record<string, unknown>> = {
+  const config: XmlManipulationConfig<XmlWebServer> = {
     filename: "webServers.xml",
     componentName: "WebServers",
     checkDuplicateFn: (existing, newItem) =>
       existing.some((server) => server["@_name"] === newItem["@_name"]),
     addItemFn: (xmlDoc, newItem) => {
-      const servers = (xmlDoc.project as any).component.option;
+      const servers = xmlDoc.project.component.option;
       if (servers?.webServer) {
         const existingServers = ensureArray(servers.webServer);
         if (
-          existingServers.some(
-            (server: Record<string, unknown>) =>
-              server["@_name"] === data.appShortId,
-          )
+          existingServers.some((server) => server["@_name"] === data.appShortId)
         ) {
           return false; // Already exists
         }
-        addItemToArrayField(servers, "webServer", newItem);
+        addWebServer(servers, newItem);
       } else {
-        if (!servers) {
-          (xmlDoc.project as any).component.option = { "@_name": "servers" };
+        if (!xmlDoc.project.component.option) {
+          xmlDoc.project.component.option = { "@_name": "servers" };
         }
-        (xmlDoc.project as any).component.option.webServer = newItem;
+        xmlDoc.project.component.option.webServer = newItem;
       }
       return true;
     },
@@ -288,7 +378,7 @@ function generateWebServersXml(
 function createDeploymentPathItem(
   appShortId: string,
   directory: string,
-): Record<string, unknown> {
+): XmlPath {
   return {
     "@_name": appShortId,
     serverdata: {
@@ -312,29 +402,24 @@ function generateDeploymentXml(
     data.directory,
   );
 
-  const config: XmlManipulationConfig<Record<string, unknown>> = {
+  const config: XmlManipulationConfig<XmlPath> = {
     filename: "deployment.xml",
     componentName: "PublishConfigData",
     checkDuplicateFn: (existing, newItem) =>
       existing.some((path) => path["@_name"] === newItem["@_name"]),
     addItemFn: (xmlDoc, newItem) => {
-      const serverData = (xmlDoc.project as any).component.serverData;
+      const serverData = xmlDoc.project.component.serverData;
       if (serverData?.paths) {
         const existingPaths = ensureArray(serverData.paths);
-        if (
-          existingPaths.some(
-            (path: Record<string, unknown>) =>
-              path["@_name"] === data.appShortId,
-          )
-        ) {
+        if (existingPaths.some((path) => path["@_name"] === data.appShortId)) {
           return false; // Already exists
         }
-        addItemToArrayField(serverData, "paths", newItem);
+        addDeploymentPath(serverData, newItem);
       } else {
-        if (!(xmlDoc.project as any).component.serverData) {
-          (xmlDoc.project as any).component.serverData = {};
+        if (!xmlDoc.project.component.serverData) {
+          xmlDoc.project.component.serverData = {};
         }
-        (xmlDoc.project as any).component.serverData.paths = newItem;
+        xmlDoc.project.component.serverData.paths = newItem;
       }
       return true;
     },

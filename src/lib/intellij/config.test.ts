@@ -257,7 +257,7 @@ describe("IntelliJ Config Generator", () => {
       }).toThrow("Cannot create .idea directory");
     });
 
-    test("should handle malformed existing XML files", () => {
+    test("should throw error for malformed existing XML files", () => {
       const ideaDir = path.join(tempDir, ".idea");
       fs.mkdirSync(ideaDir, { recursive: true });
       
@@ -265,15 +265,10 @@ describe("IntelliJ Config Generator", () => {
       const malformedXml = "<?xml version='1.0'?><project><unclosed>";
       fs.writeFileSync(path.join(ideaDir, "sshConfigs.xml"), malformedXml);
       
-      // Should not throw, should recreate the file
+      // Should throw an error for malformed XML
       expect(() => {
         generateIntellijConfigs(testData, tempDir);
-      }).not.toThrow();
-      
-      // Verify file was recreated with valid content
-      const configPath = path.join(ideaDir, "sshConfigs.xml");
-      const content = fs.readFileSync(configPath, "utf8");
-      expect(() => parser.parse(content)).not.toThrow();
+      }).toThrow();
     });
   });
 
