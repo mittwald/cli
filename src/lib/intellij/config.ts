@@ -224,7 +224,11 @@ function generateSshConfigsXml(
       const configs = xmlDoc.project.component.configs;
       if (configs?.sshConfig) {
         const existingConfigs = ensureArray(configs.sshConfig);
-        if (existingConfigs.some((config) => config["@_host"] === newItem["@_host"])) {
+        if (
+          existingConfigs.some(
+            (config) => config["@_host"] === newItem["@_host"],
+          )
+        ) {
           return false; // Already exists
         }
         addSshConfig(configs, newItem);
@@ -305,7 +309,9 @@ function generateWebServersXml(
       if (servers?.webServer) {
         const existingServers = ensureArray(servers.webServer);
         if (
-          existingServers.some((server) => server["@_name"] === newItem["@_name"])
+          existingServers.some(
+            (server) => server["@_name"] === newItem["@_name"],
+          )
         ) {
           return false; // Already exists
         }
@@ -373,7 +379,9 @@ function generateDeploymentXml(
       const serverData = xmlDoc.project.component.serverData;
       if (serverData?.paths) {
         const existingPaths = ensureArray(serverData.paths);
-        if (existingPaths.some((path) => path["@_name"] === newItem["@_name"])) {
+        if (
+          existingPaths.some((path) => path["@_name"] === newItem["@_name"])
+        ) {
           return false; // Already exists
         }
         addDeploymentPath(serverData, newItem);
