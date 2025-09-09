@@ -1437,16 +1437,17 @@ Connect to an app via SSH
 ```
 USAGE
   $ mw app ssh [INSTALLATION-ID] [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>] [--cd]
-    [--info] [--test]
+    [--info] [--test] [--generate-intellij-config]
 
 ARGUMENTS
   INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
                    in the context.
 
 FLAGS
-  --[no-]cd  change to installation path after connecting
-  --info     only print connection information, without actually connecting
-  --test     test connection and exit
+  --[no-]cd                   change to installation path after connecting
+  --generate-intellij-config  generate IntelliJ IDEA SSH and deployment configuration files
+  --info                      only print connection information, without actually connecting
+  --test                      test connection and exit
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
