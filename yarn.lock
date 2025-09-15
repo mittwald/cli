@@ -2559,12 +2559,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.214.1":
-  version: 4.214.1
-  resolution: "@mittwald/api-client-commons@npm:4.214.1"
+"@mittwald/api-client-commons@npm:^4.224.1":
+  version: 4.224.1
+  resolution: "@mittwald/api-client-commons@npm:4.224.1"
   dependencies:
     "@types/parse-path": ^7.0.3
-    axios: ^1.11.0
+    axios: ^1.12.2
     parse-path: ^7.0.0
     path-to-regexp: ^8.2.0
     type-fest: ^4.30.0
@@ -2575,22 +2575,22 @@ __metadata:
       optional: true
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 85bb59981fbabf7d5c7cb73731610e3ed2e9e80183e129a08b8a722753880d10aa0c9ae94ece36f492a946f28685d84906d631691b71d5d51392ffbf8de7eebe
+  checksum: 3119592d7d742c9173a738cc2484ccd6c291dbd7e3663bc0d2e5c3b37bd4474ecef17fdbf871b367e04388e6886618365cc888ed74f91ee6bc9e10a1348ee50c
   languageName: node
   linkType: hard
 
 "@mittwald/api-client@npm:^4.131.0":
-  version: 4.224.0
-  resolution: "@mittwald/api-client@npm:4.224.0"
+  version: 4.225.0
+  resolution: "@mittwald/api-client@npm:4.225.0"
   dependencies:
-    "@mittwald/api-client-commons": ^4.214.1
+    "@mittwald/api-client-commons": ^4.224.1
     browser-or-node: ^3.0.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.6.0
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 039d29ac66cc874cd5a4b0ef5b512ca040add64c6556491416eeb6b72c0aee554757fb153923eafb5500a73fd6d3dde5ef07801b63703cb95205ab054364eca7
+  checksum: 796069a36cde19c1694e0306138e42640db4c7004f8c99de26b437db10968b06d2476610df678439c33f6ae5413bedddc98b985a79bc6589de112d03bebd76de
   languageName: node
   linkType: hard
 
@@ -4970,14 +4970,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.11.0":
-  version: 1.11.0
-  resolution: "axios@npm:1.11.0"
+"axios@npm:^1.12.2":
+  version: 1.12.2
+  resolution: "axios@npm:1.12.2"
   dependencies:
     follow-redirects: ^1.15.6
     form-data: ^4.0.4
     proxy-from-env: ^1.1.0
-  checksum: 0a33dc600b588bfd3111b198d5985527ed89f722817455d7cdb66c1d055e5f8859cc2bebb7320888957fc8458ebe77d5f83af02af9cd260217c91c4e92b6dfb6
+  checksum: f0331594fe053a4bbff04104edb073973a3aabfad2e56b0aa18de82428aa63f6f0839ca3d837258ec739cb4528014121793b1649a21e5115ffb2bf8237eadca3
   languageName: node
   linkType: hard
 
