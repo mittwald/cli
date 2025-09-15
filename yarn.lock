@@ -2803,11 +2803,11 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.32":
-  version: 6.2.32
-  resolution: "@oclif/plugin-help@npm:6.2.32"
+  version: 6.2.33
+  resolution: "@oclif/plugin-help@npm:6.2.33"
   dependencies:
     "@oclif/core": ^4
-  checksum: c33a95367e495341b82287122623d0d7d5df12fe96d069393e51fb96a38acc15dcde2dd392b50207fd6b0839fbab21405937435891921c088f3e6129a27a7cd3
+  checksum: c2fc7a2071f1149bc911f5d6a877616c471773ef128490bae09b465d54c025d2a675c179113ccf33e27d79f467bcfcf402c7e203572deb8e44ba42a6f15ae27a
   languageName: node
   linkType: hard
 
@@ -2824,12 +2824,12 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.7.4
-  resolution: "@oclif/plugin-update@npm:4.7.4"
+  version: 4.7.5
+  resolution: "@oclif/plugin-update@npm:4.7.5"
   dependencies:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
-    "@oclif/table": ^0.4.12
+    "@oclif/table": ^0.4.13
     ansis: ^3.17.0
     debug: ^4.4.1
     filesize: ^6.1.0
@@ -2837,27 +2837,27 @@ __metadata:
     proxy-agent: ^6.5.0
     semver: ^7.7.2
     tar-fs: ^2.1.3
-  checksum: f19d103b294ce19ad1b8787ca1ce89bd34b6d961f89fccbc6070c282f82bf725cb88c74174a96b498f481026529215985a67799a16e0db455e2ce43ebc34c412
+  checksum: 2448177519c36ed1b481384a991d60f0cb2ec963be087e089c069e7659153dd5a7a6f25b6a6823289646c70c05e3549e91c1dd5bfa1eefe307d6676e0487e7b0
   languageName: node
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.46":
-  version: 3.1.46
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.46"
+  version: 3.1.48
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.48"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.17.0
-    debug: ^4.4.1
+    debug: ^4.4.3
     http-call: ^5.2.2
     lodash: ^4.17.21
     registry-auth-token: ^5.1.0
-  checksum: a232fd95601ad0695321c85ebe617fd99e05b56eefb4468d66a921d5a9acc30ad46a2d6116de90b85372ac3165a11ec7639b7080cabebda2e402adf65c310175
+  checksum: 13969c8c3189c5c9df0155974e24cb900e8a0f4c17998fae1ca21771764b9b1fc02488d26f6eb1d07c68c1b64d5bc9d94b91b39d06519f3271fe64637d50a926
   languageName: node
   linkType: hard
 
-"@oclif/table@npm:^0.4.12":
-  version: 0.4.12
-  resolution: "@oclif/table@npm:0.4.12"
+"@oclif/table@npm:^0.4.13":
+  version: 0.4.14
+  resolution: "@oclif/table@npm:0.4.14"
   dependencies:
     "@types/react": ^18.3.12
     change-case: ^5.4.4
@@ -2866,9 +2866,9 @@ __metadata:
     natural-orderby: ^3.0.2
     object-hash: ^3.0.0
     react: ^18.3.1
-    strip-ansi: ^7.1.0
-    wrap-ansi: ^9.0.0
-  checksum: ef06b6c71214b71038a36d238ed50a8af39ce68fb7e521a354e4a6eef50c9d75eb0aa843b878df04eec0bfb7ef3ee2d3e88e09f420ff22d3393fc958f534bb44
+    strip-ansi: ^7.1.2
+    wrap-ansi: ^9.0.2
+  checksum: 1f95ce299c1829dac71bbd5bb99b16a9c16ee3dd27f7ac332bf8e1d764d9a5066a9786731c13105cb9c9e21c4dc11bdc43b074a66ccfd34164ba628fe7c4948f
   languageName: node
   linkType: hard
 
@@ -5700,6 +5700,18 @@ __metadata:
     supports-color:
       optional: true
   checksum: a43826a01cda685ee4cec00fb2d3322eaa90ccadbef60d9287debc2a886be3e835d9199c80070ede75a409ee57828c4c6cd80e4b154f2843f0dc95a570dc0729
+  languageName: node
+  linkType: hard
+
+"debug@npm:^4.4.3":
+  version: 4.4.3
+  resolution: "debug@npm:4.4.3"
+  dependencies:
+    ms: ^2.1.3
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 4805abd570e601acdca85b6aa3757186084a45cff9b2fa6eee1f3b173caa776b45f478b2a71a572d616d2010cea9211d0ac4a02a610e4c18ac4324bde3760834
   languageName: node
   linkType: hard
 
@@ -10306,6 +10318,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strip-ansi@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "strip-ansi@npm:7.1.2"
+  dependencies:
+    ansi-regex: ^6.0.1
+  checksum: db0e3f9654e519c8a33c50fc9304d07df5649388e7da06d3aabf66d29e5ad65d5e6315d8519d409c15b32fa82c1df7e11ed6f8cd50b0e4404463f0c9d77c8d0b
+  languageName: node
+  linkType: hard
+
 "strip-bom@npm:^4.0.0":
   version: 4.0.0
   resolution: "strip-bom@npm:4.0.0"
@@ -11103,6 +11124,17 @@ __metadata:
     string-width: ^7.0.0
     strip-ansi: ^7.1.0
   checksum: b2d43b76b3d8dcbdd64768165e548aad3e54e1cae4ecd31bac9966faaa7cf0b0345677ad6879db10ba58eb446ba8fa44fb82b4951872fd397f096712467a809f
+  languageName: node
+  linkType: hard
+
+"wrap-ansi@npm:^9.0.2":
+  version: 9.0.2
+  resolution: "wrap-ansi@npm:9.0.2"
+  dependencies:
+    ansi-styles: ^6.2.1
+    string-width: ^7.0.0
+    strip-ansi: ^7.1.0
+  checksum: 9827bf8bbb341d2d15f26d8507d98ca2695279359073422fe089d374b30e233d24ab95beca55cf9ab8dcb89face00e919be4158af50d4b6d8eab5ef4ee399e0c
   languageName: node
   linkType: hard
 
