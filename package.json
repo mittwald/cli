@@ -56,7 +56,7 @@
     "envfile": "^7.1.0",
     "fast-xml-parser": "^5.2.5",
     "ink": "^6.2.3",
-    "ink-link": "^4.0.0",
+    "ink-link": "^5.0.0",
     "ink-text-input": "^6.0.0",
     "js-yaml": "^4.1.0",
     "marked": "^15.0.12",
