@@ -6,7 +6,7 @@ type ContainerServiceDeclareRequest =
 export type ContainerServiceInput = ContainerServiceDeclareRequest & {
   command?: string[] | string;
   entrypoint?: string[] | string;
-  env_file?: string;
+  env_file?: string | string[];
   environment?: {
     [k: string]: string;
   };

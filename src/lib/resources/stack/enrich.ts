@@ -33,8 +33,17 @@ async function setEnvironmentFromEnvFile(
   }
 
   const enriched = structuredClone(service) as ContainerServiceInput;
-  const envFileContent = await readFile(service.env_file, "utf-8");
-  const envVars = parse(envFileContent);
+  const envFiles = Array.isArray(service.env_file)
+    ? service.env_file
+    : [service.env_file];
+
+  let envVars = {};
+
+  for (const envFile of envFiles) {
+    const envFileContent = await readFile(envFile, "utf-8");
+    const fileEnvVars = parse(envFileContent);
+    envVars = { ...envVars, ...fileEnvVars };
+  }
 
   delete enriched.env_file;
   enriched.envs = {
