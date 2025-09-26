@@ -4280,11 +4280,11 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:^19":
-  version: 19.1.13
-  resolution: "@types/react@npm:19.1.13"
+  version: 19.1.14
+  resolution: "@types/react@npm:19.1.14"
   dependencies:
     csstype: ^3.0.2
-  checksum: def174cf34e8450ea326d02e3b3a9378e51aaa71e6dd25e5f6750ddc5f3eda5099bf1b5c415cb911d91bec354b9ef25c99e55a1deedf483b93ed698da0e20ab4
+  checksum: 6528ca368d3e209fe7c74d466f252e862e4ac3bbd61a414d48421a0e07525635acc927d4a2d5d2dabf8307beb493a0276ef0b3bf51554eaf685c5766461df7ac
   languageName: node
   linkType: hard
 
