@@ -81,6 +81,8 @@ export abstract class RenderBaseCommand<
         </JsonCollectionProvider>
       </RenderContextProvider>,
     );
+
+    await handle.waitUntilExit();
   }
 
   protected abstract render(): ReactNode;
