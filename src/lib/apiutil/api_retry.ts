@@ -40,10 +40,12 @@ export function configureAxiosRetry(axios: AxiosInstance) {
       }
 
       const isSafeRequest = error.config?.method?.toLowerCase() === "get";
+      const isConditionalRequest =
+        !!error.config?.headers?.["if-event-reached"];
       const isPreconditionFailed = error.response?.status === 412;
       const isAccessDenied = error.response?.status === 403;
 
-      if (isPreconditionFailed) {
+      if (isPreconditionFailed && isConditionalRequest) {
         return true;
       }
 
