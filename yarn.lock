@@ -3990,21 +3990,21 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:^18.3.12":
-  version: 18.3.24
-  resolution: "@types/react@npm:18.3.24"
+  version: 18.3.25
+  resolution: "@types/react@npm:18.3.25"
   dependencies:
     "@types/prop-types": "*"
     csstype: ^3.0.2
-  checksum: 852fd0430d721ceb431662ac90b6b41d6473ea55d29b5d92f7a81f4c6c397eb3b26a904fdd276fb71a5fad318d0d79cc0072867024611716bfb85e6b4907ae68
+  checksum: 33bb754ac0201cb0f4eed7f42c6c71e6fe4f00bc1b028a5a69d2383c77bfa33c4b99827299d525a0582dab697de4e9fda9e23b283dec1083f96704aea2157edd
   languageName: node
   linkType: hard
 
 "@types/react@npm:^19":
-  version: 19.1.15
-  resolution: "@types/react@npm:19.1.15"
+  version: 19.1.16
+  resolution: "@types/react@npm:19.1.16"
   dependencies:
     csstype: ^3.0.2
-  checksum: 3fcdeaddcca2ca09aadbce93c7f8105a46933f5f9ca8643b5f3599f41207c46a9982267e9095b67b2b69c5b4ac6e4450c74698cd99406baf8d31fa5333e86e22
+  checksum: 2c58c6be656b111774da23b98d9f797ab5befb1e0a7900c698f04701de66977c36d5a9c989b10b2da1d575ca9a45a6f3bf75292a0ad24a0c91457549cd65f9e6
   languageName: node
   linkType: hard
 
