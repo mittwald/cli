@@ -2495,8 +2495,8 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.5.3, @oclif/core@npm:^4.5.4":
-  version: 4.5.4
-  resolution: "@oclif/core@npm:4.5.4"
+  version: 4.5.5
+  resolution: "@oclif/core@npm:4.5.5"
   dependencies:
     ansi-escapes: ^4.3.2
     ansis: ^3.17.0
@@ -2509,14 +2509,14 @@ __metadata:
     is-wsl: ^2.2.0
     lilconfig: ^3.1.3
     minimatch: ^9.0.5
-    semver: ^7.6.3
+    semver: ^7.7.3
     string-width: ^4.2.3
     supports-color: ^8
     tinyglobby: ^0.2.14
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 095660343680cc9c7b303ca1ae0fa5362ad25011156d2478d1f63138f98dd20507be8395149cb1d99e6d68518df0adb9dac095c73dd689d3b100a5cea95a24d6
+  checksum: 1161bb47f7526c462e8dc25131054102e2e093b3352b1db6ecf99fa4e953cbff0cddb01787f333057c940314b897fb85ee11363b97ce288572677d63fd6a43d1
   languageName: node
   linkType: hard
 
@@ -9326,7 +9326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:2 || 3 || 4 || 5 || 6 || 7, semver@npm:^7.1.2, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.6.3, semver@npm:^7.7.1, semver@npm:^7.7.2, semver@npm:^7.7.3":
+"semver@npm:2 || 3 || 4 || 5 || 6 || 7, semver@npm:^7.1.2, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.7.1, semver@npm:^7.7.2, semver@npm:^7.7.3":
   version: 7.7.3
   resolution: "semver@npm:7.7.3"
   bin:
