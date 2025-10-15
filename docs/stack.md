@@ -20,7 +20,7 @@ USAGE
   $ mw stack delete [STACK-ID] [--token <value>] [-q] [-f] [-v]
 
 ARGUMENTS
-  STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
+  [STACK-ID]  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
   -f, --force         do not ask for confirmation
@@ -199,7 +199,7 @@ USAGE
   $ mw stack rm [STACK-ID] [--token <value>] [-q] [-f] [-v]
 
 ARGUMENTS
-  STACK-ID  ID of a stack; this argument is optional if a default stack is set in the context.
+  [STACK-ID]  ID of a stack; this argument is optional if a default stack is set in the context.
 
 FLAGS
   -f, --force         do not ask for confirmation

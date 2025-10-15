@@ -46,7 +46,7 @@ USAGE
   $ mw conversation close [CONVERSATION-ID] [--token <value>]
 
 ARGUMENTS
-  CONVERSATION-ID  ID of a conversation; this argument is optional if a default conversation is set in the context.
+  [CONVERSATION-ID]  ID of a conversation; this argument is optional if a default conversation is set in the context.
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -121,7 +121,7 @@ USAGE
     <value>]
 
 ARGUMENTS
-  CONVERSATION-ID  ID of a conversation; this argument is optional if a default conversation is set in the context.
+  [CONVERSATION-ID]  ID of a conversation; this argument is optional if a default conversation is set in the context.
 
 FLAGS
   --editor=<value>        [default: vim] The editor to use when opening the message for editing; will respect your
@@ -148,7 +148,7 @@ USAGE
   $ mw conversation show [CONVERSATION-ID] [--token <value>]
 
 ARGUMENTS
-  CONVERSATION-ID  ID of a conversation; this argument is optional if a default conversation is set in the context.
+  [CONVERSATION-ID]  ID of a conversation; this argument is optional if a default conversation is set in the context.
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that

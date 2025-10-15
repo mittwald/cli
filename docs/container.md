@@ -329,7 +329,7 @@ USAGE
 
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to connect to
-  PORT          Specifies the port mapping between your local machine and the container. Format:
+  [PORT]        Specifies the port mapping between your local machine and the container. Format:
                 'local-port:container-port'. If not specified, available ports will be detected automatically.
 
 FLAGS
@@ -500,13 +500,13 @@ USAGE
     <value>] [--entrypoint <value>] [--name <value>] [-p <value>...] [-P] [-v <value>...] IMAGE [COMMAND] [ARGS...]
 
 ARGUMENTS
-  IMAGE...    Can be specified as a repository/tag or repository@digest (e.g., 'ubuntu:20.04' or
-              'alpine@sha256:abc123...'). If no tag is provided, 'latest' is assumed.
-  COMMAND...  This overrides the default command specified in the container image. If omitted, the default command from
-              the image will be used. For example, 'bash' or 'python app.py'.
-  ARGS...     These are the runtime arguments passed to the command specified by the command parameter or the
-              container's default command, not to the container itself. For example, if the command is 'echo', the args
-              might be 'hello world'.
+  IMAGE...      Can be specified as a repository/tag or repository@digest (e.g., 'ubuntu:20.04' or
+                'alpine@sha256:abc123...'). If no tag is provided, 'latest' is assumed.
+  [COMMAND...]  This overrides the default command specified in the container image. If omitted, the default command
+                from the image will be used. For example, 'bash' or 'python app.py'.
+  [ARGS...]     These are the runtime arguments passed to the command specified by the command parameter or the
+                container's default command, not to the container itself. For example, if the command is 'echo', the
+                args might be 'hello world'.
 
 FLAGS
   -P, --publish-all          publish all ports that are defined in the image
