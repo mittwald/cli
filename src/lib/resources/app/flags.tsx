@@ -57,6 +57,7 @@ type AvailableFlags = typeof waitFlags & {
   "shop-lang": OptionFlag<string | undefined>;
   "shop-currency": OptionFlag<string | undefined>;
   "install-mode": OptionFlag<string>;
+  "install-path": OptionFlag<string>;
   "document-root": OptionFlag<string>;
   "opensearch-host": OptionFlag<string>;
   "opensearch-port": OptionFlag<string>;
@@ -151,6 +152,13 @@ function buildFlagsWithDescription(appName: string): AvailableFlags {
       If unspecified, this will default to a composer-based installation. This can not be changed later.`,
       options: ["composer", "symlink"],
       default: "composer",
+    }),
+    "install-path": Flags.string({
+      required: false,
+      summary: `the installation path of your ${appName} application`,
+      description:
+        "This is the path where your application will be installed. If omitted, this will default to an automatically-generated path.",
+      default: undefined,
     }),
     "document-root": Flags.string({
       required: true,
