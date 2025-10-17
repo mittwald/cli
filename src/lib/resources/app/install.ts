@@ -9,7 +9,11 @@ export async function triggerAppInstallation(
   apiClient: MittwaldAPIV2Client,
   process: ProcessRenderer,
   projectId: string,
-  flags: { "site-title": string; "document-root"?: string } & {
+  flags: {
+    "site-title": string;
+    "document-root"?: string;
+    "install-path"?: string;
+  } & {
     [k: string]: unknown;
   },
   appVersion: AppAppVersion,
@@ -23,6 +27,7 @@ export async function triggerAppInstallation(
           appVersionId: appVersion.id,
           description: flags["site-title"],
           updatePolicy: "none",
+          installationPath: flags["install-path"],
           userInputs: Object.keys(flags).map((k) => ({
             name: k.replace("-", "_"),
             value: flags[k] as string,

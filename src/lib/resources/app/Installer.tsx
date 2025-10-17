@@ -19,7 +19,11 @@ import { Config } from "@oclif/core";
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
-type ImplicitDefaultFlag = "wait" | "wait-timeout" | "site-title";
+type ImplicitDefaultFlag =
+  | "wait"
+  | "wait-timeout"
+  | "site-title"
+  | "install-path";
 
 export interface AppInstallationResult {
   appInstallation: AppInstallation;
@@ -59,7 +63,13 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
     readonly (TFlagName | ImplicitDefaultFlag)[]
   > {
     const flags = provideSupportedFlags(
-      [...this.appSupportedFlags, "wait", "wait-timeout", "site-title"],
+      [
+        ...this.appSupportedFlags,
+        "wait",
+        "wait-timeout",
+        "site-title",
+        "install-path",
+      ],
       this.appName,
     );
 
