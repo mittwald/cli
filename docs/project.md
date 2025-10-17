@@ -429,7 +429,7 @@ USAGE
   $ mw project delete [PROJECT-ID] [--token <value>] [-q] [-f]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
+  [PROJECT-ID]  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -f, --force  do not ask for confirmation
@@ -458,7 +458,7 @@ USAGE
   $ mw project filesystem usage [PROJECT-ID] [--token <value>] [-o txt|json] [--human]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
+  [PROJECT-ID]  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
@@ -483,7 +483,7 @@ USAGE
   $ mw project get [PROJECT-ID] [--token <value>] [-o txt|json]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
+  [PROJECT-ID]  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
@@ -770,7 +770,7 @@ USAGE
   $ mw project ssh [PROJECT-ID] [--token <value>] [--ssh-user <value>] [--ssh-identity-file <value>]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
+  [PROJECT-ID]  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 SSH CONNECTION FLAGS
   --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
@@ -855,7 +855,7 @@ USAGE
   $ mw project update [PROJECT-ID] [--token <value>] [-q] [-p <value>] [--description <value>]
 
 ARGUMENTS
-  PROJECT-ID  ID or short ID of a project; this argument is optional if a default project is set in the context.
+  [PROJECT-ID]  ID or short ID of a project; this argument is optional if a default project is set in the context.
 
 FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the

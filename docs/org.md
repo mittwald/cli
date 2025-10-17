@@ -23,7 +23,7 @@ USAGE
   $ mw org delete [ORG-ID] [--token <value>] [-q] [-f]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
+  [ORG-ID]  ID or short ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
   -f, --force  do not ask for confirmation
@@ -52,7 +52,7 @@ USAGE
   $ mw org get [ORG-ID] [--token <value>] [-o txt|json]
 
 ARGUMENTS
-  ORG-ID  ID or short ID of an org; this argument is optional if a default org is set in the context.
+  [ORG-ID]  ID or short ID of an org; this argument is optional if a default org is set in the context.
 
 FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,

@@ -43,8 +43,8 @@ USAGE
   $ mw app copy [INSTALLATION-ID] --description <value> [--token <value>] [-q] [--install-path <value>]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary
@@ -390,8 +390,8 @@ USAGE
     none|inheritedFromApp|patchLevel|all]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary
@@ -462,8 +462,8 @@ USAGE
     [--ssh-identity-file <value>] [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -q, --quiet                         suppress process output and only display a machine-readable summary
@@ -608,8 +608,8 @@ USAGE
   $ mw app get [INSTALLATION-ID] [--token <value>] [-o txt|json]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -o, --output=<option>  [default: txt] The output format to use; use 'txt' for a human readable text representation,
@@ -1471,8 +1471,8 @@ USAGE
     [--no-truncate] [--no-relative-dates] [--csv-separator ,|;]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
@@ -1501,8 +1501,8 @@ USAGE
   $ mw app open [INSTALLATION-ID] [--token <value>]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -1525,8 +1525,8 @@ USAGE
     [--info] [--test] [--generate-intellij-config]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   --[no-]cd                   change to installation path after connecting
@@ -1579,8 +1579,8 @@ USAGE
   $ mw app uninstall [INSTALLATION-ID] [--token <value>] [-q] [-f]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -f, --force  do not ask for confirmation
@@ -1610,8 +1610,8 @@ USAGE
     [--document-root <value>]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -q, --quiet                  suppress process output and only display a machine-readable summary
@@ -1654,8 +1654,8 @@ USAGE
     [--wait-timeout <value>]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -f, --force                   do not ask for confirmation.
@@ -1698,8 +1698,8 @@ USAGE
     [--ssh-identity-file <value>] [--exclude <value>...] [--dry-run] [--delete] [--remote-sub-directory <value>]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -q, --quiet                         suppress process output and only display a machine-readable summary
@@ -1799,7 +1799,7 @@ USAGE
   $ mw app versions [APP] [--token <value>]
 
 ARGUMENTS
-  APP  name of specific app to get versions for
+  [APP]  name of specific app to get versions for
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that

@@ -18,8 +18,8 @@ USAGE
     <value>]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   -q, --quiet                   suppress process output and only display a machine-readable summary
@@ -102,8 +102,8 @@ USAGE
     rdpress|auto] [--without-database | --database-id <value>]
 
 ARGUMENTS
-  INSTALLATION-ID  ID or short ID of an app installation; this argument is optional if a default app installation is set
-                   in the context.
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
 
 FLAGS
   --database-id=<value>     ID of the application database

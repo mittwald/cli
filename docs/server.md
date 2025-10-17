@@ -15,7 +15,7 @@ USAGE
   $ mw server get [SERVER-ID] -o txt|json|yaml [--token <value>]
 
 ARGUMENTS
-  SERVER-ID  ID or short ID of a server; this argument is optional if a default server is set in the context.
+  [SERVER-ID]  ID or short ID of a server; this argument is optional if a default server is set in the context.
 
 FLAGS
   -o, --output=<option>  (required) [default: txt] output in a more machine friendly format
