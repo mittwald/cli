@@ -134,6 +134,9 @@ jobs:
       - build-linux
       - build-windows
       - build-macos
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -156,7 +159,6 @@ jobs:
 
       - name: Publish
         run: |
-          yarn config set npmScopes.mittwald.npmAuthToken "${{ secrets.NPMJS_TOKEN }}"
           yarn config set npmScopes.mittwald.npmPublishRegistry "https://registry.npmjs.org"
           yarn npm publish --access=public
 
