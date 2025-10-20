@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           token: ${{ secrets.MACHINE_USER_TOKEN }}
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
       - run: gh pr checkout ${{ github.event.pull_request.number }}
