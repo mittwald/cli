@@ -2663,14 +2663,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.224.1":
-  version: 4.224.1
-  resolution: "@mittwald/api-client-commons@npm:4.224.1"
+"@mittwald/api-client-commons@npm:^4.242.3":
+  version: 4.242.3
+  resolution: "@mittwald/api-client-commons@npm:4.242.3"
   dependencies:
     "@types/parse-path": ^7.0.3
     axios: ^1.12.2
-    parse-path: ^7.0.0
-    path-to-regexp: ^8.2.0
+    parse-path: ^7.1.0
+    path-to-regexp: ^8.3.0
     type-fest: ^4.30.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.6.0
@@ -2679,22 +2679,22 @@ __metadata:
       optional: true
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 3119592d7d742c9173a738cc2484ccd6c291dbd7e3663bc0d2e5c3b37bd4474ecef17fdbf871b367e04388e6886618365cc888ed74f91ee6bc9e10a1348ee50c
+  checksum: d8e62455cb6e24aea20f9ec8a6b8c937c0a47dd933c5335a0db901a44ae145afe76243d3a983a33461ebfacdbf3aaac14946b215449de6883e5169743ea5ab1f
   languageName: node
   linkType: hard
 
 "@mittwald/api-client@npm:^4.131.0":
-  version: 4.241.0
-  resolution: "@mittwald/api-client@npm:4.241.0"
+  version: 4.242.3
+  resolution: "@mittwald/api-client@npm:4.242.3"
   dependencies:
-    "@mittwald/api-client-commons": ^4.224.1
+    "@mittwald/api-client-commons": ^4.242.3
     browser-or-node: ^3.0.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.6.0
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: ca5d43e45c2043131d7dbf5e5a80c2e66d7fdd48a8fffefd45bcc2a0d89e32ba8e7da43ce250048b5bf1e6354d29f0dabf5ba8bcd6d5a8d80e474cc3af0c42bf
+  checksum: 168198a375fac1df748426004da557f327a3c8da2c3137bff4ac292f3e1ac5ac54d9343356e02da9c3b905f85810761e9ee6f24d6193dff3a0b28d0b23b83e1c
   languageName: node
   linkType: hard
 
@@ -9536,7 +9536,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse-path@npm:*, parse-path@npm:^7.0.0":
+"parse-path@npm:*, parse-path@npm:^7.1.0":
   version: 7.1.0
   resolution: "parse-path@npm:7.1.0"
   dependencies:
@@ -9626,10 +9626,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-to-regexp@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "path-to-regexp@npm:8.2.0"
-  checksum: 56e13e45962e776e9e7cd72e87a441cfe41f33fd539d097237ceb16adc922281136ca12f5a742962e33d8dda9569f630ba594de56d8b7b6e49adf31803c5e771
+"path-to-regexp@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "path-to-regexp@npm:8.3.0"
+  checksum: 73e0d3db449f9899692b10be8480bbcfa294fd575be2d09bce3e63f2f708d1fccd3aaa8591709f8b82062c528df116e118ff9df8f5c52ccc4c2443a90be73e10
   languageName: node
   linkType: hard
 
