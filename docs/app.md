@@ -1498,11 +1498,14 @@ Open an app installation in the browser.
 
 ```
 USAGE
-  $ mw app open [INSTALLATION-ID] [--token <value>]
+  $ mw app open [INSTALLATION-ID] [--token <value>] [--backend]
 
 ARGUMENTS
   [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
                      set in the context.
+
+FLAGS
+  --backend  open the backend of the app installation
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -1513,6 +1516,12 @@ DESCRIPTION
 
   This command opens an app installation in the browser. For this to work, there needs to be at least one virtual host
   linked to the app installation.
+
+FLAG DESCRIPTIONS
+  --backend  open the backend of the app installation
+
+    If this flag is set, the backend of the app installation will be opened instead of the frontend. This flag is only
+    available for some types of apps (like PHP and Node.js).
 ```
 
 ## `mw app ssh [INSTALLATION-ID]`
