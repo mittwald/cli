@@ -2869,8 +2869,8 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.5.3, @oclif/core@npm:^4.5.5":
-  version: 4.5.6
-  resolution: "@oclif/core@npm:4.5.6"
+  version: 4.7.0
+  resolution: "@oclif/core@npm:4.7.0"
   dependencies:
     ansi-escapes: ^4.3.2
     ansis: ^3.17.0
@@ -2890,7 +2890,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 3fc04e6ac8d4d57c908043c15ecca981e75cf915e2f4699ec7a288bb3324ba016e4609b9b1435bce26fae7ad8184709d014381e4e2990440f0f63d64a08ff6e3
+  checksum: fa64bad1eed637eff1943420d86a85c8a0c8c5fa0ef3ef7edd3460fb8bdbf5d3f79fc387a044ac602fbd46f4a5d2d42d426768bf1d8ab117412e3ee703477507
   languageName: node
   linkType: hard
 
