@@ -71,8 +71,8 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
     publish: Flags.string({
       summary: "update the container's port mappings",
       description:
-        "Map a container's port to a port on the host system. " +
-        "Format: <host-port>:<container-port> or just <container-port> (in which case the host port will be automatically assigned). " +
+        "Expose a container's port within the cluster. " +
+        "Format: <cluster-port>:<container-port> or just <port> (in which case the same port is used for both cluster and container). " +
         "Use multiple -p flags to publish multiple ports.",
       required: false,
       multiple: true,

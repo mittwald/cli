@@ -78,11 +78,11 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       required: false,
     }),
     publish: Flags.string({
-      summary: "publish a container's port(s) to the host",
+      summary: "publish a container's port(s)",
       description:
-        "Map a container's port to a port on the host system. " +
-        "Format: <host-port>:<container-port> or just <container-port> (in which case the host port will be automatically assigned). " +
-        "For example, --publish 8080:80 maps port 80 in the container to port 8080 on the host. " +
+        "Expose a container's port within the cluster. " +
+        "Format: <cluster-port>:<container-port> or just <port> (in which case the same port is used for both cluster and container). " +
+        "For example, --publish 8080:80 maps port 80 in the container to port 8080 within the cluster, while --publish 8080 exposes port 8080 as port 8080. " +
         "Use multiple --publish flags to publish multiple ports.\n\n" +
         "NOTE: Please note that the usual shorthand -p is not supported for this flag, as it would conflict with the --project flag.",
       required: false,

@@ -36,9 +36,10 @@ export class PortForward extends ExecRenderBaseCommand<
       required: true,
     }),
     port: PortMapping.arg({
-      summary: "Port mapping in the format 'local-port:container-port'",
+      summary:
+        "Port mapping in the format 'local-port:container-port' or 'port'",
       description:
-        "Specifies the port mapping between your local machine and the container. Format: 'local-port:container-port'. If not specified, available ports will be detected automatically.",
+        "Specifies the port mapping between your local machine and the container. Format: 'local-port:container-port' or just 'port' (in which case the same port is used locally and in the container). If not specified, available ports will be detected automatically.",
       required: false,
     }),
   };
