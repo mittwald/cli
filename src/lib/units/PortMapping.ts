@@ -14,6 +14,28 @@ export default class PortMapping {
     return !isNaN(port) && port > 0 && port <= 65535;
   }
 
+  private static isValidPortString(str: string): boolean {
+    return /^\d+$/.test(str);
+  }
+
+  private static parseAndValidatePort(str: string): number {
+    if (!PortMapping.isValidPortString(str)) {
+      throw new Error(
+        "Invalid port number. Ports must be between 1 and 65535.",
+      );
+    }
+
+    const portNum = parseInt(str);
+
+    if (!PortMapping.validatePort(portNum)) {
+      throw new Error(
+        "Invalid port number. Ports must be between 1 and 65535.",
+      );
+    }
+
+    return portNum;
+  }
+
   public static arg = Args.custom<PortMapping>({
     parse: async (input) => PortMapping.fromString(input),
   });
@@ -38,19 +60,17 @@ export default class PortMapping {
   }
 
   public static fromString(str: string): PortMapping {
-    const [localPort, remotePort] = str.split(":");
+    const parts = str.split(":");
 
-    const localPortNum = parseInt(localPort);
-    const remotePortNum = parseInt(remotePort);
-
-    if (
-      !PortMapping.validatePort(localPortNum) ||
-      !PortMapping.validatePort(remotePortNum)
-    ) {
-      throw new Error(
-        "Invalid port number. Ports must be between 1 and 65535.",
-      );
+    // If only one part, use it for both local and remote port
+    if (parts.length === 1) {
+      const portNum = PortMapping.parseAndValidatePort(parts[0]);
+      return new PortMapping(portNum, portNum);
     }
+
+    const [localPort, remotePort] = parts;
+    const localPortNum = PortMapping.parseAndValidatePort(localPort);
+    const remotePortNum = PortMapping.parseAndValidatePort(remotePort);
 
     return new PortMapping(localPortNum, remotePortNum);
   }
