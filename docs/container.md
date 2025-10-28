@@ -40,8 +40,10 @@ FLAGS
   -r, --recursive           copy directories recursively
 
 SSH CONNECTION FLAGS
-  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
-  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+  --ssh-identity-file=<value>  [env: MITTWALD_SSH_IDENTITY_FILE] the SSH identity file (private key) to use for public
+                               key authentication.
+  --ssh-user=<value>           [env: MITTWALD_SSH_USER] override the SSH user to connect with; if omitted, your own user
+                               will be used
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -164,8 +166,10 @@ FLAGS
       --shell=<value>       [default: /bin/sh] shell to use for the SSH connection
 
 SSH CONNECTION FLAGS
-  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
-  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+  --ssh-identity-file=<value>  [env: MITTWALD_SSH_IDENTITY_FILE] the SSH identity file (private key) to use for public
+                               key authentication.
+  --ssh-user=<value>           [env: MITTWALD_SSH_USER] override the SSH user to connect with; if omitted, your own user
+                               will be used
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -338,8 +342,10 @@ FLAGS
   -q, --quiet               suppress process output and only display a machine-readable summary
 
 SSH CONNECTION FLAGS
-  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
-  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+  --ssh-identity-file=<value>  [env: MITTWALD_SSH_IDENTITY_FILE] the SSH identity file (private key) to use for public
+                               key authentication.
+  --ssh-user=<value>           [env: MITTWALD_SSH_USER] override the SSH user to connect with; if omitted, your own user
+                               will be used
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -606,8 +612,10 @@ FLAGS
       --test                test connection and exit
 
 SSH CONNECTION FLAGS
-  --ssh-identity-file=<value>  the SSH identity file (private key) to use for public key authentication.
-  --ssh-user=<value>           override the SSH user to connect with; if omitted, your own user will be used
+  --ssh-identity-file=<value>  [env: MITTWALD_SSH_IDENTITY_FILE] the SSH identity file (private key) to use for public
+                               key authentication.
+  --ssh-user=<value>           [env: MITTWALD_SSH_USER] override the SSH user to connect with; if omitted, your own user
+                               will be used
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
