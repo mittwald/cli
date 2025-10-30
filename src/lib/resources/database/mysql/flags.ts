@@ -5,7 +5,7 @@ import { assertStatus } from "@mittwald/api-client-commons";
 export const mysqlConnectionFlags = {
   "mysql-password": Flags.string({
     char: "p",
-    summary: "the password to use for the MySQL user (env: MYSQL_PWD)",
+    summary: "the password to use for the MySQL user",
     description: `\
 The password to use for the MySQL user. If not provided, the environment variable MYSQL_PWD will be used. If that is not set either, the command will interactively ask for the password.
 
