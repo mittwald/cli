@@ -117,6 +117,21 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       required: false,
       default: false,
     }),
+    cpus: Flags.string({
+      summary: "set CPU limit for the container",
+      description:
+        "Specify the number of CPUs available to the container (e.g., '0.5', '1', '2'). " +
+        "This is equivalent to the docker run --cpus flag or the deploy.resources.limits.cpus field in docker-compose.",
+      required: false,
+    }),
+    memory: Flags.string({
+      summary: "set memory limit for the container",
+      description:
+        "Specify the maximum amount of memory the container can use (e.g., '512m', '1g', '2g'). " +
+        "This is equivalent to the docker run --memory flag or the deploy.resources.limits.memory field in docker-compose.",
+      required: false,
+      char: "m",
+    }),
   };
   static args = {
     image: Args.string({
@@ -269,6 +284,36 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
   }
 
   /**
+   * Builds the deploy.resources structure from command line flags
+   *
+   * @returns The deploy configuration with resource limits, or undefined if no
+   *   limits are specified
+   */
+  private buildDeployResources():
+    | { resources: { limits: { cpus?: string; memory?: string } } }
+    | undefined {
+    if (!this.flags.cpus && !this.flags.memory) {
+      return undefined;
+    }
+
+    const limits: { cpus?: string; memory?: string } = {};
+
+    if (this.flags.cpus) {
+      limits.cpus = this.flags.cpus;
+    }
+
+    if (this.flags.memory) {
+      limits.memory = this.flags.memory;
+    }
+
+    return {
+      resources: {
+        limits,
+      },
+    };
+  }
+
+  /**
    * Builds a container service request from command line arguments and image
    * metadata
    *
@@ -297,6 +342,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       this.flags.publish,
     );
     const volumes = this.flags.volume;
+    const deploy = this.buildDeployResources();
 
     return {
       image,
@@ -306,6 +352,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
       environment,
       ports,
       volumes,
+      deploy,
     };
   }
 
