@@ -330,7 +330,8 @@ USAGE
 ARGUMENTS
   CONTAINER-ID  ID or short ID of the container to connect to
   [PORT]        Specifies the port mapping between your local machine and the container. Format:
-                'local-port:container-port'. If not specified, available ports will be detected automatically.
+                'local-port:container-port' or just 'port' (in which case the same port is used locally and in the
+                container). If not specified, available ports will be detected automatically.
 
 FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
@@ -520,7 +521,7 @@ FLAGS
       --entrypoint=<value>   override the default entrypoint of the container image
       --env-file=<value>...  read environment variables from a file
       --name=<value>         assign a custom name to the container
-      --publish=<value>...   publish a container's port(s) to the host
+      --publish=<value>...   publish a container's port(s)
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -576,11 +577,12 @@ FLAG DESCRIPTIONS
     This makes it easier to reference the container in subsequent commands. If omitted, a random name will be generated
     automatically.
 
-  --publish=<value>...  publish a container's port(s) to the host
+  --publish=<value>...  publish a container's port(s)
 
-    Map a container's port to a port on the host system. Format: <host-port>:<container-port> or just <container-port>
-    (in which case the host port will be automatically assigned). For example, --publish 8080:80 maps port 80 in the
-    container to port 8080 on the host. Use multiple --publish flags to publish multiple ports.
+    Expose a container's port within the cluster. Format: <cluster-port>:<container-port> or just <port> (in which case
+    the same port is used for both cluster and container). For example, --publish 8080:80 maps port 80 in the container
+    to port 8080 within the cluster, while --publish 8080 exposes port 8080 as port 8080. Use multiple --publish flags
+    to publish multiple ports.
 
     NOTE: Please note that the usual shorthand -p is not supported for this flag, as it would conflict with the
     --project flag.
@@ -763,8 +765,8 @@ FLAG DESCRIPTIONS
 
   -p, --publish=<value>...  update the container's port mappings
 
-    Map a container's port to a port on the host system. Format: <host-port>:<container-port> or just <container-port>
-    (in which case the host port will be automatically assigned). Use multiple -p flags to publish multiple ports.
+    Expose a container's port within the cluster. Format: <cluster-port>:<container-port> or just <port> (in which case
+    the same port is used for both cluster and container). Use multiple -p flags to publish multiple ports.
 
   -q, --quiet  suppress process output and only display a machine-readable summary
 
