@@ -49,7 +49,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       default: "utf8mb4",
     }),
     "user-password": Flags.string({
-      summary: "the password to use for the default user (env: MYSQL_PWD)",
+      summary: "the password to use for the default user",
       env: "MYSQL_PWD",
     }),
     "user-external": Flags.boolean({

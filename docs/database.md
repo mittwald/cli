@@ -107,7 +107,7 @@ FLAGS
       --user-access-level=<option>  [default: full] the access level preset for the default user
                                     <options: full|readonly>
       --user-external               enable external access for default user
-      --user-password=<value>       [env: MYSQL_PWD] the password to use for the default user (env: MYSQL_PWD)
+      --user-password=<value>       [env: MYSQL_PWD] the password to use for the default user
       --version=<value>             (required) the MySQL version to use
 
 AUTHENTICATION FLAGS
@@ -173,7 +173,7 @@ ARGUMENTS
 
 FLAGS
   -o, --output=<value>          (required) the output file to write the dump to ("-" for stdout)
-  -p, --mysql-password=<value>  [env: MYSQL_PWD] the password to use for the MySQL user (env: MYSQL_PWD)
+  -p, --mysql-password=<value>  [env: MYSQL_PWD] the password to use for the MySQL user
   -q, --quiet                   suppress process output and only display a machine-readable summary
       --gzip                    compress the dump with gzip
       --mysql-charset=<value>   the character set to use for the MySQL connection
@@ -209,7 +209,7 @@ FLAG DESCRIPTIONS
     this case, you might want to use the --quiet/-q flag to supress all other output, so that you can pipe the mysqldump
     for further processing.
 
-  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+  -p, --mysql-password=<value>  the password to use for the MySQL user
 
     The password to use for the MySQL user. If not provided, the environment variable MYSQL_PWD will be used. If that is
     not set either, the command will interactively ask for the password.
@@ -292,7 +292,7 @@ ARGUMENTS
 
 FLAGS
   -i, --input=<value>           (required) the input file from which to read the dump ("-" for stdin)
-  -p, --mysql-password=<value>  [env: MYSQL_PWD] the password to use for the MySQL user (env: MYSQL_PWD)
+  -p, --mysql-password=<value>  [env: MYSQL_PWD] the password to use for the MySQL user
   -q, --quiet                   suppress process output and only display a machine-readable summary
       --gzip                    uncompress the dump with gzip
       --mysql-charset=<value>   the character set to use for the MySQL connection
@@ -327,7 +327,7 @@ FLAG DESCRIPTIONS
     The input file from which to read the dump to. You can specify "-" or "/dev/stdin" to read the dump directly from
     STDIN.
 
-  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+  -p, --mysql-password=<value>  the password to use for the MySQL user
 
     The password to use for the MySQL user. If not provided, the environment variable MYSQL_PWD will be used. If that is
     not set either, the command will interactively ask for the password.
@@ -498,7 +498,7 @@ ARGUMENTS
   DATABASE-ID  The ID or name of the database
 
 FLAGS
-  -p, --mysql-password=<value>  [env: MYSQL_PWD] the password to use for the MySQL user (env: MYSQL_PWD)
+  -p, --mysql-password=<value>  [env: MYSQL_PWD] the password to use for the MySQL user
   -q, --quiet                   suppress process output and only display a machine-readable summary
       --mysql-charset=<value>   the character set to use for the MySQL connection
 
@@ -526,7 +526,7 @@ DESCRIPTION
   See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
-  -p, --mysql-password=<value>  the password to use for the MySQL user (env: MYSQL_PWD)
+  -p, --mysql-password=<value>  the password to use for the MySQL user
 
     The password to use for the MySQL user. If not provided, the environment variable MYSQL_PWD will be used. If that is
     not set either, the command will interactively ask for the password.
