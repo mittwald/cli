@@ -518,10 +518,12 @@ ARGUMENTS
 FLAGS
   -P, --publish-all          publish all ports that are defined in the image
   -e, --env=<value>...       set environment variables in the container
+  -m, --memory=<value>       set memory limit for the container
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary
   -v, --volume=<value>...    bind mount a volume to the container
+      --cpus=<value>         set CPU limit for the container
       --create-volumes       automatically create named volumes that do not exist
       --description=<value>  add a descriptive label to the container
       --entrypoint=<value>   override the default entrypoint of the container image
@@ -542,6 +544,11 @@ FLAG DESCRIPTIONS
 
     Format: KEY=VALUE. Multiple environment variables can be specified with multiple --env flags.
 
+  -m, --memory=<value>  set memory limit for the container
+
+    Specify the maximum amount of memory the container can use (e.g., '512m', '1g', '2g'). This is equivalent to the
+    docker run --memory flag or the deploy.resources.limits.memory field in docker-compose.
+
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
@@ -558,6 +565,11 @@ FLAG DESCRIPTIONS
     volumes.Needs to be in the format <host-path>:<container-path>. If you specify a file path as volume, this will
     mount a path from your hosting environment's file system (NOT your local file system) into the container. You can
     also specify a named volume, which needs to be created beforehand.
+
+  --cpus=<value>  set CPU limit for the container
+
+    Specify the number of CPUs available to the container (e.g., '0.5', '1', '2'). This is equivalent to the docker run
+    --cpus flag or the deploy.resources.limits.cpus field in docker-compose.
 
   --create-volumes  automatically create named volumes that do not exist
 
