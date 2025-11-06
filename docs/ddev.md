@@ -31,7 +31,7 @@ FLAGS
       --without-database        Create a DDEV project without a database
 
 DEVELOPMENT FLAGS
-  --override-mittwald-plugin=<value>  [default: mittwald/ddev] override the mittwald plugin
+  --override-mittwald-plugin=<value>  [default: mittwald/ddev-mittwald] override the mittwald plugin
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that

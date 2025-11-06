@@ -62,7 +62,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       helpGroup: "Development",
       description:
         "This flag allows you to override the mittwald plugin that should be installed by default; this is useful for testing purposes",
-      default: "mittwald/ddev",
+      default: "mittwald/ddev-mittwald",
     }),
   };
   static args = {
@@ -133,6 +133,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
   private async installMittwaldPlugin(r: ProcessRenderer) {
     const { "override-mittwald-plugin": mittwaldPlugin } = this.flags;
     await spawnInProcess(r, "installing mittwald plugin", "ddev", [
+      "add-on",
       "get",
       mittwaldPlugin,
     ]);
