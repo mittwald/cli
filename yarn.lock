@@ -2887,14 +2887,14 @@ __metadata:
   linkType: hard
 
 "@oclif/test@npm:^4.0.4":
-  version: 4.1.14
-  resolution: "@oclif/test@npm:4.1.14"
+  version: 4.1.15
+  resolution: "@oclif/test@npm:4.1.15"
   dependencies:
     ansis: ^3.17.0
     debug: ^4.4.3
   peerDependencies:
     "@oclif/core": ">= 3.0.0"
-  checksum: e499001f577e7ce043c40f497e67d6f2bb61c8d18e22ef073b1c924b53b557afa15b14eca27ece62ec94679cb49d90c538e2d422d84485ac0e5a3c24565a10f7
+  checksum: 5c7789d67f90280bfbf4670d82bcac35e04e2a748c037ffae256bc6d1db66b090bc1d2d6cb3947bea3943eead31af60b197f849e9c5aa8f10d9a0715c17dd62e
   languageName: node
   linkType: hard
 
