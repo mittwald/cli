@@ -61,7 +61,7 @@
     "js-yaml": "^4.1.0",
     "marked": "^15.0.12",
     "marked-terminal": "^7.3.0",
-    "open": "^10.0.3",
+    "open": "^11.0.0",
     "parse-duration": "^2.0.1",
     "pretty-bytes": "^7.0.0",
     "react": "^19.1.1",
