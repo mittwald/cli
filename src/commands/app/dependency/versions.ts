@@ -5,8 +5,8 @@ import {
   SorterFunction,
 } from "../../../lib/basecommands/ListBaseCommand.js";
 import { ListColumns } from "../../../rendering/formatter/ListFormatter.js";
-import { SemVer } from "semver";
 import { Args } from "@oclif/core";
+import { compareVersionsBy } from "../../../lib/resources/app/versions.js";
 
 type ResponseItem = Simplify<
   MittwaldAPIV2.Paths.V2SystemSoftwaresSystemSoftwareIdVersions.Get.Responses.$200.Content.ApplicationJson[number]
@@ -32,8 +32,7 @@ export class Versions extends ListBaseCommand<
     ...ListBaseCommand.baseFlags,
   };
 
-  sorter: SorterFunction<ResponseItem> = (a, b) =>
-    new SemVer(a.externalVersion).compare(b.externalVersion);
+  sorter: SorterFunction<ResponseItem> = compareVersionsBy("internal");
 
   public async getData(): Promise<Response> {
     const systemSoftwareName = this.args["systemsoftware"];
@@ -49,9 +48,9 @@ export class Versions extends ListBaseCommand<
       throw new Error(`system software ${systemSoftwareName} not found`);
     }
 
-    return await this.apiClient.app.listSystemsoftwareversions({
+    return this.apiClient.app.listSystemsoftwareversions({
       systemSoftwareId: systemSoftware.id,
-    } as Parameters<typeof this.apiClient.app.listSystemsoftwareversions>[0]);
+    });
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {

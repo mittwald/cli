@@ -9,8 +9,9 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { ReactNode } from "react";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Success } from "../../../rendering/react/components/Success.js";
-import { Range, SemVer } from "semver";
+import { Range } from "semver";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
+import { compareVersionsBy } from "../../../lib/resources/app/versions.js";
 
 type AppSystemSoftwareUpdatePolicy =
   MittwaldAPIV2.Components.Schemas.AppSystemSoftwareUpdatePolicy;
@@ -140,7 +141,7 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
       assertStatus(r, 204);
     });
 
-    process.complete(
+    await process.complete(
       <Success>
         The dependencies of this app were successfully updated!
       </Success>,
@@ -167,13 +168,7 @@ export default class Update extends ExecRenderBaseCommand<typeof Update, void> {
       },
     );
 
-    versions.sort((a, b) => {
-      return (
-        new SemVer(a.externalVersion).compare(new SemVer(b.externalVersion)) *
-        -1
-      );
-    });
-
+    versions.sort(compareVersionsBy("internal"));
     return versions;
   }
 
