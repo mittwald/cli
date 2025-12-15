@@ -15,6 +15,7 @@ import AppUsageHints from "../../../rendering/react/components/AppInstallation/A
 import React from "react";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { Config } from "@oclif/core";
+import Context from "../../context/Context.js";
 
 type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
@@ -23,7 +24,8 @@ type ImplicitDefaultFlag =
   | "wait"
   | "wait-timeout"
   | "site-title"
-  | "install-path";
+  | "install-path"
+  | "update-context";
 
 export interface AppInstallationResult {
   appInstallation: AppInstallation;
@@ -69,6 +71,7 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
         "wait-timeout",
         "site-title",
         "install-path",
+        "update-context",
       ],
       this.appName,
     );
@@ -132,6 +135,12 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
       successText = `Your ${this.appName} installation is now complete. Have fun! 🎉`;
     } else {
       successText = `Your ${this.appName} installation has started. Have fun when it's ready! 🎉`;
+    }
+
+    if (flags["update-context"]) {
+      const context = new Context(apiClient, config);
+      await context.setProjectId(appInstallation.projectId);
+      await context.setAppInstallationId(appInstallation.id);
     }
 
     await process.complete(<Success>{successText}</Success>);
