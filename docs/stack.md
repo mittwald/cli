@@ -50,13 +50,14 @@ Deploys a docker-compose compatible file to a mittwald container stack
 
 ```
 USAGE
-  $ mw stack deploy [--token <value>] [-s <value>] [-q] [-c <value>] [--env-file <value>]
+  $ mw stack deploy [--token <value>] [-s <value>] [-q] [-c <value> | --from-template <value>] [--env-file <value>]
 
 FLAGS
-  -c, --compose-file=<value>  [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
-  -q, --quiet                 suppress process output and only display a machine-readable summary
-  -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
-      --env-file=<value>      [default: ./.env] alternative path to file with environment variables
+  -c, --compose-file=<value>   [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
+  -q, --quiet                  suppress process output and only display a machine-readable summary
+  -s, --stack-id=<value>       ID of a stack; this flag is optional if a default stack is set in the context
+      --env-file=<value>       [default: ./.env] alternative path to file with environment variables
+      --from-template=<value>  deploy from a GitHub template (e.g., mittwald/n8n)
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -78,6 +79,21 @@ FLAG DESCRIPTIONS
 
     May contain a ID of a stack; you can also use the "mw context set --stack-id=<VALUE>" command to persistently set a
     default stack for all commands that accept this flag.
+
+  --from-template=<value>  deploy from a GitHub template (e.g., mittwald/n8n)
+
+    Fetch and deploy a stack from a GitHub template repository. Template names are automatically converted to repository
+    names by prefixing "stack-template-" to the name part.
+
+    For example, "mittwald/n8n" resolves to the repository "mittwald/stack-template-n8n". The command fetches both
+    docker-compose.yml and .env files from the main branch.
+
+    Environment variable precedence (from lowest to highest):
+    1. Template .env file (if present in the repository)
+    2. System environment variables (process.env)
+    3. Local --env-file (if specified)
+
+    This flag is mutually exclusive with --compose-file.
 ```
 
 ## `mw stack list`
@@ -229,13 +245,14 @@ Deploys a docker-compose compatible file to a mittwald container stack
 
 ```
 USAGE
-  $ mw stack up [--token <value>] [-s <value>] [-q] [-c <value>] [--env-file <value>]
+  $ mw stack up [--token <value>] [-s <value>] [-q] [-c <value> | --from-template <value>] [--env-file <value>]
 
 FLAGS
-  -c, --compose-file=<value>  [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
-  -q, --quiet                 suppress process output and only display a machine-readable summary
-  -s, --stack-id=<value>      ID of a stack; this flag is optional if a default stack is set in the context
-      --env-file=<value>      [default: ./.env] alternative path to file with environment variables
+  -c, --compose-file=<value>   [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
+  -q, --quiet                  suppress process output and only display a machine-readable summary
+  -s, --stack-id=<value>       ID of a stack; this flag is optional if a default stack is set in the context
+      --env-file=<value>       [default: ./.env] alternative path to file with environment variables
+      --from-template=<value>  deploy from a GitHub template (e.g., mittwald/n8n)
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -257,4 +274,19 @@ FLAG DESCRIPTIONS
 
     May contain a ID of a stack; you can also use the "mw context set --stack-id=<VALUE>" command to persistently set a
     default stack for all commands that accept this flag.
+
+  --from-template=<value>  deploy from a GitHub template (e.g., mittwald/n8n)
+
+    Fetch and deploy a stack from a GitHub template repository. Template names are automatically converted to repository
+    names by prefixing "stack-template-" to the name part.
+
+    For example, "mittwald/n8n" resolves to the repository "mittwald/stack-template-n8n". The command fetches both
+    docker-compose.yml and .env files from the main branch.
+
+    Environment variable precedence (from lowest to highest):
+    1. Template .env file (if present in the repository)
+    2. System environment variables (process.env)
+    3. Local --env-file (if specified)
+
+    This flag is mutually exclusive with --compose-file.
 ```
