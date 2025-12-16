@@ -2660,7 +2660,7 @@ __metadata:
     "@oclif/plugin-warn-if-update-available": ^3.0.2
     "@oclif/test": ^4.0.4
     "@types/js-yaml": ^4.0.9
-    "@types/node": ^24.0.10
+    "@types/node": ^25.0.2
     "@types/react": ^19
     "@types/semver": ^7.5.0
     "@types/shell-escape": ^0.2.3
@@ -3905,7 +3905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^24.0.10":
+"@types/node@npm:*":
   version: 24.10.1
   resolution: "@types/node@npm:24.10.1"
   dependencies:
@@ -3929,6 +3929,15 @@ __metadata:
   dependencies:
     undici-types: ~6.21.0
   checksum: 62b72e26a51659e654cfd6791f296a95ebc4b1deb1fa97f7a5cea4032434d1b4f14021f6e52eb9ea0cc1d1a7ab90567797a25c3865e3ea3d2caf6b3ea0ac4c4d
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^25.0.2":
+  version: 25.0.2
+  resolution: "@types/node@npm:25.0.2"
+  dependencies:
+    undici-types: ~7.16.0
+  checksum: b7abfefd226ad074bc837fb6fe539f15adcae38d4a7792ca5fe4ff967c6f759730a956f628f9a59060c32f69c89f5eadc18d8d5c53f8c4e2f395af85751cd936
   languageName: node
   linkType: hard
 
