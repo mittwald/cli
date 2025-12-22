@@ -73,9 +73,10 @@ Creates new custom Node.js installation.
 ```
 USAGE
   $ mw app create node [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>]
+    [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context        update the CLI context to use the newly created app installation
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary
@@ -130,9 +131,10 @@ Creates new custom PHP installation.
 ```
 USAGE
   $ mw app create php --document-root <value> [--token <value>] [-p <value>] [-q] [--site-title <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>]
+    [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context         update the CLI context to use the newly created app installation
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
   -q, --quiet                  suppress process output and only display a machine-readable summary
@@ -189,9 +191,10 @@ Creates new PHP worker installation.
 ```
 USAGE
   $ mw app create php-worker [--token <value>] [-p <value>] [-q] [--entrypoint <value>] [--site-title <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>]
+    [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context        update the CLI context to use the newly created app installation
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary
@@ -245,9 +248,10 @@ Creates new custom python site installation.
 ```
 USAGE
   $ mw app create python [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>]
+    [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context        update the CLI context to use the newly created app installation
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary
@@ -301,9 +305,10 @@ Creates new custom static site installation.
 ```
 USAGE
   $ mw app create static --document-root <value> [--token <value>] [-p <value>] [-q] [--site-title <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>]
+    [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context         update the CLI context to use the newly created app installation
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
   -q, --quiet                  suppress process output and only display a machine-readable summary
@@ -636,9 +641,10 @@ Creates new Contao installation.
 USAGE
   $ mw app install contao --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-firstname
     <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--admin-lastname <value>]
-    [--site-title <value>] [-w] [--wait-timeout <value>] [--install-path <value>]
+    [--site-title <value>] [-w] [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context           update the CLI context to use the newly created app installation
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary
@@ -737,9 +743,10 @@ Creates new Joomla! installation.
 USAGE
   $ mw app install joomla --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
     [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title
-    <value>] [-w] [--wait-timeout <value>] [--install-path <value>]
+    <value>] [-w] [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context           update the CLI context to use the newly created app installation
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary
@@ -838,9 +845,10 @@ Creates new Matomo installation.
 USAGE
   $ mw app install matomo --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
     [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>] [--install-path
-    <value>]
+    <value>] [-c]
 
 FLAGS
+  -c, --update-context        update the CLI context to use the newly created app installation
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary
@@ -924,9 +932,10 @@ Creates new Nextcloud installation.
 USAGE
   $ mw app install nextcloud --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
     [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>] [--install-path
-    <value>]
+    <value>] [-c]
 
 FLAGS
+  -c, --update-context        update the CLI context to use the newly created app installation
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary
@@ -1012,9 +1021,10 @@ USAGE
   $ mw app install shopware5 --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
     [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title
     <value>] [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
-    [--install-path <value>]
+    [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context           update the CLI context to use the newly created app installation
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary
@@ -1135,9 +1145,10 @@ USAGE
   $ mw app install shopware6 --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
     [--admin-email <value>] [--admin-pass <value>] [--admin-firstname <value>] [--admin-lastname <value>] [--site-title
     <value>] [--shop-email <value>] [--shop-lang <value>] [--shop-currency <value>] [-w] [--wait-timeout <value>]
-    [--install-path <value>]
+    [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context           update the CLI context to use the newly created app installation
   -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
                                  context
   -q, --quiet                    suppress process output and only display a machine-readable summary
@@ -1257,9 +1268,10 @@ Creates new TYPO3 installation.
 USAGE
   $ mw app install typo3 --version <value> --install-mode composer|symlink [--token <value>] [-p <value>] [-q] [--host
     <value>] [--admin-user <value>] [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>]
+    [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
+  -c, --update-context         update the CLI context to use the newly created app installation
   -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
                                context
   -q, --quiet                  suppress process output and only display a machine-readable summary
@@ -1351,9 +1363,10 @@ Creates new WordPress installation.
 USAGE
   $ mw app install wordpress --version <value> [--token <value>] [-p <value>] [-q] [--host <value>] [--admin-user <value>]
     [--admin-email <value>] [--admin-pass <value>] [--site-title <value>] [-w] [--wait-timeout <value>] [--install-path
-    <value>]
+    <value>] [-c]
 
 FLAGS
+  -c, --update-context        update the CLI context to use the newly created app installation
   -p, --project-id=<value>    ID or short ID of a project; this flag is optional if a default project is set in the
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary

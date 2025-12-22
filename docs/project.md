@@ -261,15 +261,15 @@ Create a new project
 
 ```
 USAGE
-  $ mw project create -d <value> [--token <value>] [-s <value>] [-q] [-w] [--wait-timeout <value>] [--update-context]
+  $ mw project create -d <value> [--token <value>] [-s <value>] [-q] [-w] [--wait-timeout <value>] [-c]
 
 FLAGS
+  -c, --update-context        update the CLI context to use the newly created project
   -d, --description=<value>   (required) A description for the project.
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -s, --server-id=<value>     ID or short ID of a server; this flag is optional if a default server is set in the
                               context
   -w, --wait                  wait for the resource to be ready.
-      --update-context        Update the CLI context to use the newly created project
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 

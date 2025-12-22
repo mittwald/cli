@@ -10,6 +10,7 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
 import Context from "../../lib/context/Context.js";
+import { Value } from "../../rendering/react/components/Value.js";
 
 export default class Create extends ExecRenderBaseCommand<
   typeof Create,
@@ -27,7 +28,8 @@ export default class Create extends ExecRenderBaseCommand<
       description: "A description for the project.",
     }),
     "update-context": Flags.boolean({
-      description: "Update the CLI context to use the newly created project",
+      description: "update the CLI context to use the newly created project",
+      char: "c",
     }),
   };
 
@@ -68,6 +70,11 @@ export default class Create extends ExecRenderBaseCommand<
       stepWaiting.complete();
     }
 
+    const projectResult = await this.apiClient.project.getProject({
+      projectId: result.data.id,
+    });
+    assertStatus(projectResult, 200);
+
     if (flags["update-context"]) {
       await process.runStep("updating CLI context", async () => {
         await new Context(this.apiClient, this.config).setProjectId(
@@ -76,9 +83,10 @@ export default class Create extends ExecRenderBaseCommand<
       });
     }
 
-    process.complete(
-      <Success>Your new project was successfully created! 🚀</Success>,
+    await process.complete(
+      <ProjectCreationSuccess shortId={projectResult.data.shortId} />,
     );
+
     return { projectId: result.data.id };
   }
 
@@ -87,4 +95,12 @@ export default class Create extends ExecRenderBaseCommand<
       return projectId;
     }
   }
+}
+
+function ProjectCreationSuccess({ shortId }: { shortId: string }) {
+  return (
+    <Success>
+      Your new project <Value>{shortId}</Value> was successfully created! 🚀
+    </Success>
+  );
 }
