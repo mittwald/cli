@@ -126,14 +126,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-cloudfront@npm:^3.958.0":
-  version: 3.958.0
-  resolution: "@aws-sdk/client-cloudfront@npm:3.958.0"
+"@aws-sdk/client-cloudfront@npm:^3.962.0":
+  version: 3.962.0
+  resolution: "@aws-sdk/client-cloudfront@npm:3.962.0"
   dependencies:
     "@aws-crypto/sha256-browser": 5.2.0
     "@aws-crypto/sha256-js": 5.2.0
     "@aws-sdk/core": 3.957.0
-    "@aws-sdk/credential-provider-node": 3.958.0
+    "@aws-sdk/credential-provider-node": 3.962.0
     "@aws-sdk/middleware-host-header": 3.957.0
     "@aws-sdk/middleware-logger": 3.957.0
     "@aws-sdk/middleware-recursion-detection": 3.957.0
@@ -171,19 +171,19 @@ __metadata:
     "@smithy/util-utf8": ^4.2.0
     "@smithy/util-waiter": ^4.2.7
     tslib: ^2.6.2
-  checksum: ca03b199b0daa3dd6ba9caaa656fde20b88f9ad5c516fbd10b27dfb2669513cf1d7dbea564e57a37c4e0c2b07c008dab72f6524d1c7d4b449ede966c44df666f
+  checksum: 3375426e279200082eb8dbe64c620e5a3d611f9ffbbbf6c44b5f7f96597cd38bf63327f99a3a2c03fc1182fd3c8e9f190e8cc62fd19fd73243f5ddacfc14db1f
   languageName: node
   linkType: hard
 
-"@aws-sdk/client-s3@npm:^3.958.0":
-  version: 3.958.0
-  resolution: "@aws-sdk/client-s3@npm:3.958.0"
+"@aws-sdk/client-s3@npm:^3.962.0":
+  version: 3.962.0
+  resolution: "@aws-sdk/client-s3@npm:3.962.0"
   dependencies:
     "@aws-crypto/sha1-browser": 5.2.0
     "@aws-crypto/sha256-browser": 5.2.0
     "@aws-crypto/sha256-js": 5.2.0
     "@aws-sdk/core": 3.957.0
-    "@aws-sdk/credential-provider-node": 3.958.0
+    "@aws-sdk/credential-provider-node": 3.962.0
     "@aws-sdk/middleware-bucket-endpoint": 3.957.0
     "@aws-sdk/middleware-expect-continue": 3.957.0
     "@aws-sdk/middleware-flexible-checksums": 3.957.0
@@ -234,7 +234,7 @@ __metadata:
     "@smithy/util-utf8": ^4.2.0
     "@smithy/util-waiter": ^4.2.7
     tslib: ^2.6.2
-  checksum: 3b5374af4ea17e63fb50cbe8691a76336d8907d34b32fce34c0cb890d1c5608d91086f81f932bb9d3a6a9f0ac61360734a214dd707c9b20700dd032b2a48aa42
+  checksum: b61b62d9cca443fe443e211c3ce3080f8682542e11d8304ce281ee7c30398d5b8c53ecce46edc34217ea067bd853bc74f4efc830bcaa5ee1682ff2280f91e25e
   languageName: node
   linkType: hard
 
@@ -346,14 +346,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/credential-provider-ini@npm:3.958.0":
-  version: 3.958.0
-  resolution: "@aws-sdk/credential-provider-ini@npm:3.958.0"
+"@aws-sdk/credential-provider-ini@npm:3.962.0":
+  version: 3.962.0
+  resolution: "@aws-sdk/credential-provider-ini@npm:3.962.0"
   dependencies:
     "@aws-sdk/core": 3.957.0
     "@aws-sdk/credential-provider-env": 3.957.0
     "@aws-sdk/credential-provider-http": 3.957.0
-    "@aws-sdk/credential-provider-login": 3.958.0
+    "@aws-sdk/credential-provider-login": 3.962.0
     "@aws-sdk/credential-provider-process": 3.957.0
     "@aws-sdk/credential-provider-sso": 3.958.0
     "@aws-sdk/credential-provider-web-identity": 3.958.0
@@ -364,13 +364,13 @@ __metadata:
     "@smithy/shared-ini-file-loader": ^4.4.2
     "@smithy/types": ^4.11.0
     tslib: ^2.6.2
-  checksum: d1041cad363e89ae91f81024164e29eab94839f1c46a7d8ff6bfd21db04c6926b05db4a11bb121b996d1ce5a833c6e591a3d49b9c6453849d251c34f0860ec0c
+  checksum: e9876d2e7177021e592fc9dafb13b93da26e05ac7f8d3617d40d8311d8af87aa6a20524621051b140154b408211e628bfac7e7f8cc27dc9f8659302a1dce7b14
   languageName: node
   linkType: hard
 
-"@aws-sdk/credential-provider-login@npm:3.958.0":
-  version: 3.958.0
-  resolution: "@aws-sdk/credential-provider-login@npm:3.958.0"
+"@aws-sdk/credential-provider-login@npm:3.962.0":
+  version: 3.962.0
+  resolution: "@aws-sdk/credential-provider-login@npm:3.962.0"
   dependencies:
     "@aws-sdk/core": 3.957.0
     "@aws-sdk/nested-clients": 3.958.0
@@ -380,17 +380,17 @@ __metadata:
     "@smithy/shared-ini-file-loader": ^4.4.2
     "@smithy/types": ^4.11.0
     tslib: ^2.6.2
-  checksum: 2924fbb53bbd610a2c24f5082a68762a42a1ada576ed8e401e1e9494d74cdc6ef77017c8b564cf0225d1bf1ea61befc9409fd23518e326d1c6af78a3b42ebbd4
+  checksum: 2f4e7fa0fd9c82f6693e06e9e6489b57968abb05c76e134de8ee2666bf4f06b7dc5dcbdf3520b63d06c7de55f32e223e9ac9a6a726a4349af69693d19577726e
   languageName: node
   linkType: hard
 
-"@aws-sdk/credential-provider-node@npm:3.958.0":
-  version: 3.958.0
-  resolution: "@aws-sdk/credential-provider-node@npm:3.958.0"
+"@aws-sdk/credential-provider-node@npm:3.962.0":
+  version: 3.962.0
+  resolution: "@aws-sdk/credential-provider-node@npm:3.962.0"
   dependencies:
     "@aws-sdk/credential-provider-env": 3.957.0
     "@aws-sdk/credential-provider-http": 3.957.0
-    "@aws-sdk/credential-provider-ini": 3.958.0
+    "@aws-sdk/credential-provider-ini": 3.962.0
     "@aws-sdk/credential-provider-process": 3.957.0
     "@aws-sdk/credential-provider-sso": 3.958.0
     "@aws-sdk/credential-provider-web-identity": 3.958.0
@@ -400,7 +400,7 @@ __metadata:
     "@smithy/shared-ini-file-loader": ^4.4.2
     "@smithy/types": ^4.11.0
     tslib: ^2.6.2
-  checksum: ae991076af8265ecfbd9ff1a13a0564fe60028537bb81d691efd71f7bddf57e0736e86003b7b6d8cb215aa2382a270b2f97e48e824607724a7006562a96f4725
+  checksum: 02338ffc6d0937777c32d5989c5df8b9a089fde23b863de3d55ce7ef4b17a8109ac4a1cfd9266c324ee10c46b4fe7dcb66124dba70e84e86b894d5e95353cdf0
   languageName: node
   linkType: hard
 
@@ -8704,11 +8704,11 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.14.31":
-  version: 4.22.61
-  resolution: "oclif@npm:4.22.61"
+  version: 4.22.63
+  resolution: "oclif@npm:4.22.63"
   dependencies:
-    "@aws-sdk/client-cloudfront": ^3.958.0
-    "@aws-sdk/client-s3": ^3.958.0
+    "@aws-sdk/client-cloudfront": ^3.962.0
+    "@aws-sdk/client-s3": ^3.962.0
     "@inquirer/confirm": ^3.1.22
     "@inquirer/input": ^2.2.4
     "@inquirer/select": ^2.5.0
@@ -8733,7 +8733,7 @@ __metadata:
     validate-npm-package-name: ^5.0.1
   bin:
     oclif: bin/run.js
-  checksum: ea96b190ab0b34c6925d8da783b999d1d002c069610019c3e1638b077ee76a06743a778a68ee480ce8ad0b1945ba61f4a3b29a01be91405506b7106dcb8addc4
+  checksum: b536792958042a4becfd4b0bb55afbe4e529b1e8dd41a14b69874ee21f633e82a0e3c960e3e57b411bd8944502b8b589faf7e186bb36b3d89e4c9bec09cfd6ac
   languageName: node
   linkType: hard
 
