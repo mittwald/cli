@@ -31,7 +31,7 @@ Features that would (usually) not be added to the CLI:
 
 For a development environment for this CLI, you need:
 
-- Node.JS (>=18)
+- Node.JS (>=20.0.7)
 - Yarn
 - 7zip + NSIS (for Windows builds)
 - Docker (for building the Docker image)
