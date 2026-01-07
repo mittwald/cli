@@ -61,7 +61,14 @@ export async function parseEnvironmentVariablesFromFile(
 export function parseEnvironmentVariablesFromEnvFlags(
   envFlags: string[] = [],
 ): Record<string, string> {
-  const splitIntoKeyAndValue = (e: string) => e.split("=", 2);
+  const splitIntoKeyAndValue = (e: string) => {
+    const index = e.indexOf("=");
+    if (index < 0) {
+        throw new Error(`Invalid environment variable format: ${e}`);
+    }
+    return [e.slice(0, index), e.slice(index + 1)];
+  };
+
   return Object.fromEntries(envFlags.map(splitIntoKeyAndValue));
 }
 
