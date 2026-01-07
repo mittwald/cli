@@ -1,5 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
-import { parseEnvironmentVariablesFromEnvFlags } from "./containerconfig.js";
+import {
+  parseEnvironmentVariablesFromEnvFlags
+} from "./containerconfig.js";
 
 describe("Containerconfig handling", () => {
   describe("Config parsing", () => {
@@ -23,6 +25,16 @@ describe("Containerconfig handling", () => {
       expect(res).toStrictEqual({
         extra_args: "first=1 second=2 third=littlebitoflove",
       });
+    });
+
+    test("throw error for invalid flag format", () => {
+      const args = [
+        'invalidFlagWithoutEqualsSign'
+      ];
+
+      expect(() => parseEnvironmentVariablesFromEnvFlags(args)).toThrow(
+        "Invalid environment variable format: invalidFlagWithoutEqualsSign"
+      );
     });
 
   });
