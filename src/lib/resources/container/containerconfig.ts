@@ -64,7 +64,7 @@ export function parseEnvironmentVariablesFromEnvFlags(
   const splitIntoKeyAndValue = (e: string) => {
     const index = e.indexOf("=");
     if (index < 0) {
-        throw new Error(`Invalid environment variable format: ${e}`);
+      throw new Error(`Invalid environment variable format: ${e}`);
     }
     return [e.slice(0, index), e.slice(index + 1)];
   };
