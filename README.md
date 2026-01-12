@@ -103,6 +103,7 @@ USAGE
 ...
 ```
 
+<!-- prettier-ignore-start -->
 <!-- commands -->
 # Command Topics
 
@@ -132,3 +133,4 @@ USAGE
 * [`mw volume`](docs/volume.md) - Manage volumes
 
 <!-- commandsstop -->
+<!-- prettier-ignore-end -->
