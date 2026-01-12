@@ -95,7 +95,9 @@ DESCRIPTION
   Creates new custom Node.js installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -152,7 +154,9 @@ DESCRIPTION
   Creates new custom PHP installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -210,7 +214,9 @@ DESCRIPTION
   Creates new PHP worker installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -266,7 +272,9 @@ DESCRIPTION
   Creates new custom python site installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -323,7 +331,9 @@ DESCRIPTION
   Creates new custom static site installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -664,7 +674,9 @@ DESCRIPTION
   Creates new Contao installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -765,7 +777,9 @@ DESCRIPTION
   Creates new Joomla! installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -863,7 +877,9 @@ DESCRIPTION
   Creates new Matomo installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -950,7 +966,9 @@ DESCRIPTION
   Creates new Nextcloud installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1043,7 +1061,9 @@ DESCRIPTION
   Creates new Shopware 5 installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1166,7 +1186,9 @@ DESCRIPTION
   Creates new Shopware 6 installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1284,7 +1306,9 @@ DESCRIPTION
   Creates new TYPO3 installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1377,7 +1401,9 @@ DESCRIPTION
   Creates new WordPress installation.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1459,7 +1485,9 @@ DESCRIPTION
   List installed apps in a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -1692,7 +1720,9 @@ DESCRIPTION
   Upgrade app installation to target version
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.

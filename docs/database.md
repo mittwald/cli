@@ -55,7 +55,9 @@ DESCRIPTION
   List all kinds of databases belonging to a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -115,7 +117,9 @@ AUTHENTICATION FLAGS
                    tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -402,7 +406,9 @@ DESCRIPTION
   List MySQLDatabases belonging to a Project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -817,7 +823,9 @@ AUTHENTICATION FLAGS
                    tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -895,7 +903,9 @@ DESCRIPTION
   List Redis databases belonging to a project.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -988,7 +998,9 @@ DESCRIPTION
   List available Redis versions.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>
+
+    ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
