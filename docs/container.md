@@ -80,9 +80,7 @@ FLAG DESCRIPTIONS
 
     Preserve file permissions and ownership when copying
 
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -135,9 +133,7 @@ ALIASES
   $ mw container rm
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -191,9 +187,7 @@ DESCRIPTION
   See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -245,9 +239,7 @@ ALIASES
   $ mw container ls
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -286,9 +278,7 @@ ALIASES
   $ mw container ls
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -326,9 +316,7 @@ ALIASES
   $ mw container ls
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -379,9 +367,7 @@ DESCRIPTION
   See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -429,9 +415,7 @@ AUTHENTICATION FLAGS
                    tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -463,9 +447,7 @@ AUTHENTICATION FLAGS
                    tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -504,9 +486,7 @@ ALIASES
   $ mw container rm
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -569,9 +549,7 @@ FLAG DESCRIPTIONS
     Specify the maximum amount of memory the container can use (e.g., '512m', '1g', '2g'). This is equivalent to the
     docker run --memory flag or the deploy.resources.limits.memory field in docker-compose.
 
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -670,9 +648,7 @@ DESCRIPTION
   See https://linux.die.net/man/5/ssh_config for a reference on the configuration file.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -713,9 +689,7 @@ AUTHENTICATION FLAGS
                    tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -747,9 +721,7 @@ AUTHENTICATION FLAGS
                    tokens passed via this flag might be logged in your shell history.
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -806,9 +778,7 @@ FLAG DESCRIPTIONS
 
     Format: KEY=VALUE. Multiple environment variables can be specified with multiple --env flags.
 
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.

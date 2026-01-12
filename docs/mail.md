@@ -71,9 +71,7 @@ EXAMPLES
     $ mw mail address create --address foo@bar.example --forward-to bar@bar.example --forward-to baz@bar.example
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -184,9 +182,7 @@ DESCRIPTION
   Get all mail addresses for a project ID
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -310,9 +306,7 @@ EXAMPLES
     $ mw mail deliverybox create --random-password --description 'my personal delivery box'
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
@@ -416,9 +410,7 @@ DESCRIPTION
   Get all delivery boxes by project ID
 
 FLAG DESCRIPTIONS
-  -p, --project-id=<value>
-
-    ID or short ID of a project; this flag is optional if a default project is set in the context
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
