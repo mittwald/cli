@@ -80,6 +80,7 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
     "server-id",
     "org-id",
     "installation-id",
+    "stack-id",
   ] as ContextKey[]) {
     const value = usePromise(ctx.getContextValue.bind(ctx), [key]);
     if (value) {

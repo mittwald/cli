@@ -144,6 +144,7 @@ provide functions to retrieve the respective context. These functions are:
 - `withOrganizationId`
 - `withServerId`
 - `withAppInstallationId`
+- `withStackId`
 - possibly more to come
 
 Using these functions typically requires providing an argument or a flag to the
