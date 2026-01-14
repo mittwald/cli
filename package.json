@@ -21,7 +21,8 @@
   "scripts": {
     "clean": "(rimraf --glob dist tsconfig.*.tsbuildinfo) | true",
     "compile": "tsc --build tsconfig.json",
-    "format": "prettier --write $@ '**/*.{ts,tsx,yaml,yml,json,md,mdx}'",
+    "format": "yarn format:prettier --write",
+    "format:prettier": "prettier $@ '**/*.{ts,tsx,yaml,yml,json,md,mdx}'",
     "generate:readme": "oclif readme --multi --output-dir=docs < /dev/null",
     "license-check": "yarn pnpify license-checker-rseidelsohn ",
     "lint": "eslint . --cache",
@@ -31,7 +32,7 @@
     "package:windows": "oclif pack win --targets=win32-x64,win32-x86",
     "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
     "test": "yarn test:format && yarn test:licenses && yarn test:unit",
-    "test:format": "yarn lint && yarn format --check",
+    "test:format": "yarn lint && yarn format:prettier --check",
     "test:licenses": "yarn license-check --summary --unknown --failOn 'UNLICENSED;UNKNOWN'",
     "test:readme": "yarn generate:readme && git diff --exit-code README.md docs/*.md",
     "test:unit": "NODE_NO_WARNINGS=1 yarn node --experimental-vm-modules $(yarn bin jest) ./src"

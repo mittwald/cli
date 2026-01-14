@@ -42,7 +42,8 @@ using NPM; remember to run `npm upgrade -g @mittwald/cli` occasionally.
 $ npm install -g @mittwald/cli
 ```
 
-Attention! When installing via `-g` flag, make sure you have nodejs >= 20.7.0 installed, as package definition is ignored for global installations!
+Attention! When installing via `-g` flag, make sure you have nodejs >= 20.7.0
+installed, as package definition is ignored for global installations!
 
 #### Any OS, using Docker
 
@@ -103,6 +104,7 @@ USAGE
 ...
 ```
 
+<!-- prettier-ignore-start -->
 <!-- commands -->
 # Command Topics
 
@@ -132,3 +134,4 @@ USAGE
 * [`mw volume`](docs/volume.md) - Manage volumes
 
 <!-- commandsstop -->
+<!-- prettier-ignore-end -->

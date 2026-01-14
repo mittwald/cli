@@ -189,3 +189,35 @@ flags:
   difference between the two types is that `relativeFlag` will map to a
   `Duration` type, whereas `absoluteFlag` will map to a `Date` type (with the
   specified duration added to the current date).
+
+## Contributing
+
+### Running your changes locally
+
+To run the CLI with your changes, you have multiple options:
+
+- Run the dev runnable in your console:
+  ```shell
+  > bin/dev.js
+  # example
+  > bin/dev.js context get
+  ```
+  This is slow, since it complies TypeScript code on the fly with `tsx`.
+- Run the prebuilt js runnable in your console:
+  ```shell
+  > bin/run.js
+  # example
+  > bin/run.js context get
+  ```
+  Faster than `dev` but `yarn compile` must be called manually first and after
+  each change.
+
+### Creating a pull request
+
+- If feasible, create unit tests for your changes. Run them with
+  `yarn test:unit`.
+- Make sure the code is formatted and fulfills linter rules. Run `yarn format`
+  to autoformat code and `yarn lint` to run linter.
+- Generate docs and readme changes using `yarn generate:readme`.
+- Create a pull request. Explain your changes; ideally, you should link to a
+  ticket.
