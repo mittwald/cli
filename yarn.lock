@@ -9023,11 +9023,11 @@ __metadata:
   linkType: hard
 
 "prettier-plugin-sort-json@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "prettier-plugin-sort-json@npm:4.1.1"
+  version: 4.2.0
+  resolution: "prettier-plugin-sort-json@npm:4.2.0"
   peerDependencies:
     prettier: ^3.0.0
-  checksum: f04d8c01e34a603db58227f4bbc8b8fd119af912a58bd8ab3be8b9a8211d9dc01a8efc38dd9cf5a70ca804cfe34282e2e6564ae5f8f2b76a125ad10ea2e66a2a
+  checksum: 5391b29bbfc0a70e9c847cf64762aecddc6c31a24af742b45eeeef4ab37802b846ffcf21d3a52d20d5b5c2f5bac87e0b4bc550a9cb1aa6a8d55e08c4826d9b24
   languageName: node
   linkType: hard
 
