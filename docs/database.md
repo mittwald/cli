@@ -95,7 +95,7 @@ Create a new MySQL database
 ```
 USAGE
   $ mw database mysql create -d <value> --version <value> [--token <value>] [-p <value>] [-q] [--collation <value>]
-    [--character-set <value>] [--user-password <value>] [--user-external] [--user-access-level full|readonly]
+    [--character-set <value>] [--user-password <value>] [--user-external] [--user-access-level full]
 
 FLAGS
   -d, --description=<value>         (required) a description for the database
@@ -105,7 +105,7 @@ FLAGS
       --character-set=<value>       [default: utf8mb4] the character set to use
       --collation=<value>           [default: utf8mb4_unicode_ci] the collation to use
       --user-access-level=<option>  [default: full] the access level preset for the default user
-                                    <options: full|readonly>
+                                    <options: full>
       --user-external               enable external access for default user
       --user-password=<value>       [env: MYSQL_PWD] the password to use for the default user
       --version=<value>             (required) the MySQL version to use

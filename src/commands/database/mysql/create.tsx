@@ -56,9 +56,10 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       summary: "enable external access for default user",
       default: false,
     }),
-    "user-access-level": Flags.custom<"full" | "readonly">({
+    "user-access-level": Flags.custom<"full">({
       summary: "the access level preset for the default user",
-      options: ["full", "readonly"],
+      deprecated: true,
+      options: ["full"],
       default: "full",
     })(),
   };

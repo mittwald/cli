@@ -6,7 +6,6 @@ Manage cronjobs of your projects
 * [`mw cronjob create`](#mw-cronjob-create)
 * [`mw cronjob delete CRONJOB-ID`](#mw-cronjob-delete-cronjob-id)
 * [`mw cronjob execute CRONJOB-ID`](#mw-cronjob-execute-cronjob-id)
-* [`mw cronjob execution abort CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-abort-cronjob-id-execution-id)
 * [`mw cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-get-cronjob-id-execution-id)
 * [`mw cronjob execution list`](#mw-cronjob-execution-list)
 * [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
@@ -129,32 +128,6 @@ Manually run a cron job
 ```
 USAGE
   $ mw cronjob execute CRONJOB-ID [--token <value>] [-q]
-
-FLAGS
-  -q, --quiet  suppress process output and only display a machine-readable summary
-
-AUTHENTICATION FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
-                   tokens passed via this flag might be logged in your shell history.
-
-FLAG DESCRIPTIONS
-  -q, --quiet  suppress process output and only display a machine-readable summary
-
-    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
-    scripts), you can use this flag to easily get the IDs of created resources for further processing.
-```
-
-## `mw cronjob execution abort CRONJOB-ID EXECUTION-ID`
-
-Abort a running cron job execution.
-
-```
-USAGE
-  $ mw cronjob execution abort CRONJOB-ID EXECUTION-ID [--token <value>] [-q]
-
-ARGUMENTS
-  CRONJOB-ID    ID of the cronjob the execution belongs to
-  EXECUTION-ID  ID of the cron job execution to abort
 
 FLAGS
   -q, --quiet  suppress process output and only display a machine-readable summary
