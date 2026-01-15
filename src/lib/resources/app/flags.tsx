@@ -67,7 +67,7 @@ type AvailableFlags = typeof waitFlags & {
   "opensearch-host": OptionFlag<string>;
   "opensearch-port": OptionFlag<string>;
   entrypoint: OptionFlag<string | undefined>;
-  "update-context": BooleanFlag<boolean | undefined>;
+  "update-context": BooleanFlag<boolean>;
 };
 
 function buildFlagsWithDescription(appName: string): AvailableFlags {
@@ -199,7 +199,7 @@ function buildFlagsWithDescription(appName: string): AvailableFlags {
         "update the CLI context to use the newly created app installation",
       char: "c",
       required: false,
-      default: undefined,
+      default: false,
     }),
     ...waitFlags,
   };
