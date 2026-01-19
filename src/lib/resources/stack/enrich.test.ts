@@ -17,26 +17,23 @@ describe("enrichStackDefinition", () => {
     const input = {
       services: {
         webapp: {
-          image: 'postgres:latest',
-          environment: [
-            'something=little',
-            'bit="of love"',
-          ]
-        }
-      }
-    }
+          image: "postgres:latest",
+          environment: ["something=little", 'bit="of love"'],
+        },
+      },
+    };
 
     const expected = {
       services: {
         webapp: {
-          image: 'postgres:latest',
+          image: "postgres:latest",
           environment: {
-            something: 'little',
-            bit: 'of love',
-          }
-        }
-      }
-    }
+            something: "little",
+            bit: "of love",
+          },
+        },
+      },
+    };
 
     const result = await enrichStackDefinition(input);
     expect(result).toEqual(expected);
