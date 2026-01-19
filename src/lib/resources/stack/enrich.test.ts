@@ -13,6 +13,36 @@ describe("enrichStackDefinition", () => {
     jest.clearAllMocks();
   });
 
+  it("should resolve environment lists to objects", async () => {
+    const input = {
+      services: {
+        webapp: {
+          image: 'postgres:latest',
+          environment: [
+            'something=little',
+            'bit="of love"',
+          ]
+        }
+      }
+    }
+
+    const expected = {
+      services: {
+        webapp: {
+          image: 'postgres:latest',
+          environment: {
+            something: 'little',
+            bit: 'of love',
+          }
+        }
+      }
+    }
+
+    const result = await enrichStackDefinition(input);
+    expect(result).toEqual(expected);
+    expect(mockReadFile).not.toHaveBeenCalled();
+  });
+
   it("should handle service without env_file", async () => {
     const input = {
       services: {
