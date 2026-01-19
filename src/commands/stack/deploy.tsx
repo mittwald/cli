@@ -21,7 +21,6 @@ import { enrichStackDefinition } from "../../lib/resources/stack/enrich.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { loadStackFromTemplate } from "../../lib/resources/stack/template-loader.js";
-import { parse } from "envfile";
 
 interface DeployResult {
   restartedServices: string[];
@@ -141,14 +140,16 @@ This flag is mutually exclusive with --compose-file.`,
     );
 
     stackDefinition = sanitizeStackDefinition(stackDefinition);
-    stackDefinition = await r.runStep("getting image configurations", () =>
-      enrichStackDefinition(stackDefinition),
+    const enriched_stack = enrichStackDefinition(stackDefinition);
+    stackDefinition = await r.runStep(
+      "getting image configurations",
+      () => enriched_stack,
     );
 
     const declaredStack = await r.runStep("deploying stack", async () => {
       const resp = await this.apiClient.container.declareStack({
         stackId,
-        data: stackDefinition,
+        data: stackDefinition as StackRequest,
       });
 
       assertStatus(resp, 200);

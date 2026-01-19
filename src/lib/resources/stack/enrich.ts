@@ -12,7 +12,7 @@ type StackRequest =
   MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
 
 export async function enrichStackDefinition(
-  input: StackRequest,
+  input: RawStackInput,
 ): Promise<StackRequest> {
   const enriched = structuredClone(input);
 
@@ -21,9 +21,8 @@ export async function enrichStackDefinition(
 
     // resolve array into object before enriching
     if (service.environment && Array.isArray(service.environment)) {
-
       service.environment = parseEnvironmentVariablesFromArray(
-        service.environment
+        service.environment,
       );
       // Loop through the object and adjust the values
       for (const key in service.environment) {
