@@ -1,5 +1,6 @@
 /**
- * Parses environment variables from array and strips unnecessary quotes from values.
+ * Parses environment variables from array and strips unnecessary quotes from
+ * values.
  *
  * @param envFlags Array of environment variable strings in KEY=VALUE format
  * @returns An object containing environment variable key-value pairs
@@ -16,9 +17,8 @@ export function parseEnvironmentVariablesFromArray(
     const rawValue = e.slice(index + 1);
 
     // Remove enclosing quotes (if they exist)
-    const value = rawValue.startsWith('"') && rawValue.endsWith('"')
-      ? rawValue.slice(1, -1) // Remove surrounding quotes
-      : rawValue;
+    const isQuoted = rawValue.startsWith('"') && rawValue.endsWith('"');
+    const value = isQuoted ? rawValue.slice(1, -1) : rawValue;
 
     return [key, value];
   };
