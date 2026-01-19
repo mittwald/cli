@@ -2617,16 +2617,16 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.53":
-  version: 3.1.53
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.53"
+  version: 3.1.54
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.54"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.17.0
     debug: ^4.4.3
     http-call: ^5.2.2
     lodash: ^4.17.21
-    registry-auth-token: ^5.1.0
-  checksum: 7c4386e630dfa722cddf62ba84a9758b43df36f47efdca26b45d6289824279d65f9e1cdf335adb6c01ef1e6c33eccc6272e52be4f8f2cdcc764abb6cddd75027
+    registry-auth-token: ^5.1.1
+  checksum: f4b6c16bfd47bc531fbfc4a8a36e2d757e07086099c716298c7c91acfd3f9a8d59973257ec0867877a2d7ce542fdc4465f381b6a762252ea1e0f353a15927621
   languageName: node
   linkType: hard
 
@@ -2720,14 +2720,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pnpm/npm-conf@npm:^2.1.0":
-  version: 2.3.1
-  resolution: "@pnpm/npm-conf@npm:2.3.1"
+"@pnpm/npm-conf@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@pnpm/npm-conf@npm:3.0.2"
   dependencies:
     "@pnpm/config.env-replace": ^1.1.0
     "@pnpm/network.ca-file": ^1.0.1
     config-chain: ^1.1.11
-  checksum: 9e1e1ce5faa64719e866b02d10e28d727d809365eb3692ccfdc420ab6d2073b93abe403994691868f265e34a5601a8eee18ffff6562b27124d971418ba6bb815
+  checksum: 8a88e8b59858ee7e37b3249d85f491821a878070f736127a1baff55e293c9d6e5db67c8945084970d0f2de5af9351ece28714c7dc1b2888998524999b800c144
   languageName: node
   linkType: hard
 
@@ -9319,12 +9319,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"registry-auth-token@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "registry-auth-token@npm:5.1.0"
+"registry-auth-token@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "registry-auth-token@npm:5.1.1"
   dependencies:
-    "@pnpm/npm-conf": ^2.1.0
-  checksum: 620c897167e2e0e9308b9cdd0288f70d651d9ec554348c39a96d398bb91d444e8cb4b3c0dc1e19d4a8f1c10ade85163baf606e5c09959baa31179bdfb1f7434e
+    "@pnpm/npm-conf": ^3.0.2
+  checksum: 36cf27fca6419e4d92c27419c5a333aea1d9dec62f7fb812fa8d8d95dcfa4124e57f22bb944512f5f97ae0e0cda90c28b3a5f0e7ace0b5620d84a8b6b2cab862
   languageName: node
   linkType: hard
 
