@@ -12,3 +12,16 @@ export type ContainerServiceInput = ContainerServiceDeclareRequest & {
   };
   ports?: string[];
 };
+
+// We've kept this as simple and flexible as possible to reduce bloat
+export type RawStackInput = {
+  services: {
+    [serviceName: string]: {
+      // Allow raw input and map notation for environment vars
+      environment?: string[] | { [k: string]: string };
+      env_file?: string | string[];
+      image: string;
+      ports?: string[];
+    };
+  };
+};
