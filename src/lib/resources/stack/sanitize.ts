@@ -4,9 +4,6 @@ import { RawStackInput } from "./types.js";
 type ContainerServiceDeclareRequest =
   MittwaldAPIV2.Components.Schemas.ContainerServiceDeclareRequest;
 
-type StackRequest =
-  MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
-
 type ServiceWithEnvironment = ContainerServiceDeclareRequest & {
   environment?: Record<string, string>;
 };

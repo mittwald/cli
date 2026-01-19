@@ -26,10 +26,10 @@ export type RawStackInput = {
       description?: string;
       envs?: string[] | { [k: string]: string };
     };
-  },
+  };
   volumes?: {
     [key: string]: {
-      name: string
-    }
-  }
+      name: string;
+    };
+  };
 };
