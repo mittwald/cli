@@ -1,4 +1,5 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { RawStackInput } from "./types.js";
 
 type ContainerServiceDeclareRequest =
   MittwaldAPIV2.Components.Schemas.ContainerServiceDeclareRequest;
@@ -16,7 +17,7 @@ type ServiceWithEnvironment = ContainerServiceDeclareRequest & {
  *
  * @param stack
  */
-export function sanitizeStackDefinition(stack: StackRequest): StackRequest {
+export function sanitizeStackDefinition(stack: RawStackInput): RawStackInput {
   const sanitized = {
     services: structuredClone(stack.services),
     volumes: structuredClone(stack.volumes),

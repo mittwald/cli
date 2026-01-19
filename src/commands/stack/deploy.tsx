@@ -14,6 +14,10 @@ import { sanitizeStackDefinition } from "../../lib/resources/stack/sanitize.js";
 import { enrichStackDefinition } from "../../lib/resources/stack/enrich.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+
+type StackRequest =
+  MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
 
 interface DeployResult {
   restartedServices: string[];
@@ -54,8 +58,10 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, DeployResult> {
     let stackDefinition = await loadStackFromFile(composeFile, env);
 
     stackDefinition = sanitizeStackDefinition(stackDefinition);
-    stackDefinition = await r.runStep("getting image configurations", () =>
-      enrichStackDefinition(stackDefinition),
+    const enriched_stack = enrichStackDefinition(stackDefinition);
+    stackDefinition = await r.runStep(
+      "getting image configurations",
+      () => enriched_stack,
     );
 
     this.debug("complete stack definition: %O", stackDefinition);
@@ -63,7 +69,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, DeployResult> {
     const declaredStack = await r.runStep("deploying stack", async () => {
       const resp = await this.apiClient.container.declareStack({
         stackId,
-        data: stackDefinition,
+        data: stackDefinition as StackRequest,
       });
 
       assertStatus(resp, 200);
