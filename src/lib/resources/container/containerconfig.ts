@@ -6,6 +6,7 @@ import {
 import * as fs from "fs/promises";
 import { parse } from "envfile";
 import { pathExists } from "../../util/fs/pathExists.js";
+import { parseEnvironmentVariablesFromArray } from "../../util/parser.js";
 
 type ContainerContainerImageConfig =
   MittwaldAPIV2.Components.Schemas.ContainerContainerImageConfig;
@@ -24,7 +25,7 @@ export async function parseEnvironmentVariables(
   envFiles: string[] = [],
 ): Promise<Record<string, string>> {
   return {
-    ...parseEnvironmentVariablesFromEnvFlags(envFlags),
+    ...parseEnvironmentVariablesFromArray(envFlags),
     ...(await parseEnvironmentVariablesFromFile(envFiles)),
   };
 }
@@ -50,26 +51,6 @@ export async function parseEnvironmentVariablesFromFile(
     Object.assign(result, parsed);
   }
   return result;
-}
-
-/**
- * Parses environment variables from command line flags
- *
- * @param envFlags Array of environment variable strings in KEY=VALUE format
- * @returns An object containing environment variable key-value pairs
- */
-export function parseEnvironmentVariablesFromEnvFlags(
-  envFlags: string[] = [],
-): Record<string, string> {
-  const splitIntoKeyAndValue = (e: string) => {
-    const index = e.indexOf("=");
-    if (index < 0) {
-      throw new Error(`Invalid environment variable format: ${e}`);
-    }
-    return [e.slice(0, index), e.slice(index + 1)];
-  };
-
-  return Object.fromEntries(envFlags.map(splitIntoKeyAndValue));
 }
 
 /**

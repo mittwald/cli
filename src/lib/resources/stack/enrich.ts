@@ -2,6 +2,7 @@ import { type MittwaldAPIV2 } from "@mittwald/api-client";
 import { readFile } from "fs/promises";
 import { parse } from "envfile";
 import { ContainerServiceInput } from "./types.js";
+import { parseEnvironmentVariablesFromArray } from "../../util/parser.js";
 
 type ContainerServiceDeclareRequest =
   MittwaldAPIV2.Components.Schemas.ContainerServiceDeclareRequest;
@@ -16,6 +17,20 @@ export async function enrichStackDefinition(
 
   for (const serviceName of Object.keys(input.services ?? {})) {
     let service = enriched.services![serviceName] as ContainerServiceInput;
+
+    // resolve array into object before enriching
+    if (service.environment && Array.isArray(service.environment)) {
+
+      service.environment = parseEnvironmentVariablesFromArray(
+        service.environment
+      );
+      // Loop through the object and adjust the values
+      for (const key in service.environment) {
+        if (Object.prototype.hasOwnProperty.call(service.environment, key)) {
+          service.environment[key] = service.environment[key].replace(/\"/g, "");
+        }
+      }
+    }
 
     service = await setEnvironmentFromEnvFile(service);
 
