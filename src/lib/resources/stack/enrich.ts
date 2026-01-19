@@ -2,6 +2,7 @@ import { type MittwaldAPIV2 } from "@mittwald/api-client";
 import { readFile } from "fs/promises";
 import { parse } from "envfile";
 import { ContainerServiceInput } from "./types.js";
+import { RawStackInput } from "./types.js";
 import { parseEnvironmentVariablesFromArray } from "../../util/parser.js";
 
 type ContainerServiceDeclareRequest =
@@ -37,7 +38,7 @@ export async function enrichStackDefinition(
     enriched.services![serviceName] = service as ContainerServiceDeclareRequest;
   }
 
-  return enriched;
+  return enriched as StackRequest;
 }
 
 async function setEnvironmentFromEnvFile(
