@@ -24,12 +24,6 @@ export async function enrichStackDefinition(
       service.environment = parseEnvironmentVariablesFromArray(
         service.environment,
       );
-      // Loop through the object and adjust the values
-      for (const key in service.environment) {
-        if (Object.prototype.hasOwnProperty.call(service.environment, key)) {
-          service.environment[key] = service.environment[key].replace(/\"/g, "");
-        }
-      }
     }
 
     service = await setEnvironmentFromEnvFile(service);
