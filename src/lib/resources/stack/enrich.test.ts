@@ -329,12 +329,8 @@ describe("Integration Test: Docker Compose to Mittwald API Request transformatio
     // Step 2: Sanitize stack definition ( compat layer )
     const sanitizedStack = sanitizeStackDefinition(parsedStack);
 
-    console.warn(sanitizedStack);
-
     // Step 3: Enrich stack definition (process environment variables)
     const enrichedStack = await enrichStackDefinition(sanitizedStack);
-
-    console.warn(enrichedStack);
 
     // Expected API request format after the transformation
     const expectedApiRequest: Partial<StackRequest> = {
