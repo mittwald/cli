@@ -360,4 +360,57 @@ describe("Integration Test: Docker Compose to Mittwald API Request transformatio
     expect(mockReadFile).toHaveBeenCalledWith(".env", "utf-8");
     expect(mockReadFile).toHaveBeenCalledWith(".env.local", "utf-8");
   });
+
+  it("Issue # 1589: Invalid JSON from env file", async () => {
+    // Sample Docker Compose file content
+    const dockerComposeFile = `
+      version: '3'
+      services:
+        nginx:
+          image: 'nginx:latest'
+          ports:
+            - "80:80"
+          environment:
+            EXCLUDES: \${CUSTOM_EXCLUDES:-failed}
+    `;
+
+    // simulate env file input, mimes "collectEnvironment" output
+    const env = {
+      CUSTOM_EXCLUDES: JSON.stringify(["foo", "bar"])
+    }
+
+    // Step 1: Load and parse Docker Compose file
+    // stuff from --env-file and/or process environment
+    // is already injected here!
+    const parsedStack = await loadStackFromStr(dockerComposeFile, env);
+
+    // Step 2: Sanitize stack definition ( compat layer )
+    const sanitizedStack = sanitizeStackDefinition(parsedStack);
+
+    // Step 3: Enrich stack definition (process environment variables)
+    // this one deals with additional env files *per service*
+    const enrichedStack = await enrichStackDefinition(sanitizedStack);
+
+    // Expected API request format after the transformation
+    const expectedApiRequest: Partial<StackRequest> = {
+      services: {
+        nginx: {
+          image: "nginx:latest",
+          ports: ["80:80"],
+          envs: {
+            EXCLUDES: JSON.stringify(["foo", "bar"]),
+          },
+        },
+      },
+    };
+
+    // Assertions
+    expect(enrichedStack).toMatchObject(expectedApiRequest);
+
+    // Type Assertions
+    const typeCheck: StackRequest = enrichedStack;
+    expect(typeCheck).toBeTruthy();
+
+  });
+
 });
