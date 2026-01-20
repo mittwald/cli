@@ -9,7 +9,7 @@ jest.unstable_mockModule("fs/promises", () => ({
 
 const { enrichStackDefinition } = await import("./enrich.js");
 const { loadStackFromStr } = await import("./loader.js");
-const { sanitizeStackDefinition } = await import ("./sanitize.js");
+const { sanitizeStackDefinition } = await import("./sanitize.js");
 
 type StackRequest =
   MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
