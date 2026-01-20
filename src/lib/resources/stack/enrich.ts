@@ -21,9 +21,7 @@ export async function enrichStackDefinition(
 
     // resolve array into object before enriching
     if (service.envs && Array.isArray(service.envs)) {
-      service.envs = parseEnvironmentVariablesFromArray(
-        service.envs,
-      );
+      service.envs = parseEnvironmentVariablesFromArray(service.envs);
     }
 
     service = await setEnvironmentFromEnvFile(service);

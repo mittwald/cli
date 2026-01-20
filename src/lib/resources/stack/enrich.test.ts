@@ -296,7 +296,6 @@ describe("Integration Test: Docker Compose to Mittwald API Request transformatio
     expect(mockReadFile).toHaveBeenCalledWith(".env.local", "utf-8");
   });
 
-
   it("should transform Docker Compose file with list environment, environment variables, and CLI args into a valid API request", async () => {
     // Sample Docker Compose file content
     const dockerComposeFile = `
@@ -365,5 +364,4 @@ describe("Integration Test: Docker Compose to Mittwald API Request transformatio
     expect(mockReadFile).toHaveBeenCalledWith(".env", "utf-8");
     expect(mockReadFile).toHaveBeenCalledWith(".env.local", "utf-8");
   });
-
 });
