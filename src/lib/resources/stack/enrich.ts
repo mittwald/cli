@@ -20,9 +20,9 @@ export async function enrichStackDefinition(
     let service = enriched.services![serviceName] as ContainerServiceInput;
 
     // resolve array into object before enriching
-    if (service.environment && Array.isArray(service.environment)) {
-      service.environment = parseEnvironmentVariablesFromArray(
-        service.environment,
+    if (service.envs && Array.isArray(service.envs)) {
+      service.envs = parseEnvironmentVariablesFromArray(
+        service.envs,
       );
     }
 
