@@ -2,6 +2,7 @@ import * as fs from "fs/promises";
 import { pathExists } from "../../util/fs/pathExists.js";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { getRandomValues } from "node:crypto";
+import { parseEnvironmentVariablesFromStr } from "../../util/parser.js";
 
 export const parse = (src: string): Record<string, string> => {
   const result: Record<string, string> = {};
@@ -26,7 +27,7 @@ export async function collectEnvironment(
   }
 
   const defs = await fs.readFile(envFile, { encoding: "utf-8" });
-  const parsed = parse(defs);
+  const parsed = parseEnvironmentVariablesFromStr(defs);
 
   return { ...base, ...parsed };
 }
