@@ -27,15 +27,14 @@ export function parseEnvironmentVariablesFromArray(
 }
 
 /**
- * Parses environment variables from string.
- * Called with .env file content.
+ * Parses environment variables from string. Called with .env file content.
  *
  * @param src String describing environment, .env file notation
  * @returns An object containing environment variable key-value pairs
  */
 export function parseEnvironmentVariablesFromStr(
-  src: string
-): Record<string, string>  {
+  src: string,
+): Record<string, string> {
   const result: Record<string, string> = {};
   const lines = src.toString().split("\n");
   for (const line of lines) {
@@ -47,4 +46,4 @@ export function parseEnvironmentVariablesFromStr(
     }
   }
   return result;
-};
+}
