@@ -1,9 +1,11 @@
 import { type MittwaldAPIV2 } from "@mittwald/api-client";
 import { readFile } from "fs/promises";
-import { parse } from "envfile";
 import { ContainerServiceInput } from "./types.js";
 import { RawStackInput } from "./types.js";
-import { parseEnvironmentVariablesFromArray } from "../../util/parser.js";
+import {
+  parseEnvironmentVariablesFromArray,
+  parseEnvironmentVariablesFromStr,
+} from "../../util/parser.js";
 
 type ContainerServiceDeclareRequest =
   MittwaldAPIV2.Components.Schemas.ContainerServiceDeclareRequest;
@@ -48,7 +50,7 @@ async function setEnvironmentFromEnvFile(
 
   for (const envFile of envFiles) {
     const envFileContent = await readFile(envFile, "utf-8");
-    const fileEnvVars = parse(envFileContent);
+    const fileEnvVars = parseEnvironmentVariablesFromStr(envFileContent);
     envVars = { ...envVars, ...fileEnvVars };
   }
 
