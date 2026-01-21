@@ -9,7 +9,12 @@ import {
   processFlags,
 } from "../../../rendering/process/process_flags.js";
 import { Flags } from "@oclif/core";
-import { FlagInput, OptionFlag, OutputFlags } from "@oclif/core/interfaces";
+import {
+  BooleanFlag,
+  FlagInput,
+  OptionFlag,
+  OutputFlags,
+} from "@oclif/core/interfaces";
 import FlagSetBuilder from "../../context/FlagSetBuilder.js";
 import { contextIDNormalizers } from "../../context/Context.js";
 import { generatePasswordWithSpecialChars } from "../../util/password/generatePasswordWithSpecialChars.js";
@@ -62,6 +67,7 @@ type AvailableFlags = typeof waitFlags & {
   "opensearch-host": OptionFlag<string>;
   "opensearch-port": OptionFlag<string>;
   entrypoint: OptionFlag<string | undefined>;
+  "update-context": BooleanFlag<boolean>;
 };
 
 function buildFlagsWithDescription(appName: string): AvailableFlags {
@@ -187,6 +193,13 @@ function buildFlagsWithDescription(appName: string): AvailableFlags {
         "This is the command that should be used to start your application; the app is required to run in the foreground, and to listen on the port specified by the PORT environment variable.",
       required: false,
       default: undefined,
+    }),
+    "update-context": Flags.boolean({
+      description:
+        "update the CLI context to use the newly created app installation",
+      char: "c",
+      required: false,
+      default: false,
     }),
     ...waitFlags,
   };
