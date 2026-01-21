@@ -26,18 +26,24 @@ export function parseEnvironmentVariablesFromArray(
   return Object.fromEntries(envFlags.map(splitIntoKeyAndValue));
 }
 
+/**
+ * Parses environment variables from string.
+ * Called with .env file content.
+ *
+ * @param src String describing environment, .env file notation
+ * @returns An object containing environment variable key-value pairs
+ */
 export function parseEnvironmentVariablesFromStr(
   src: string
 ): Record<string, string>  {
   const result: Record<string, string> = {};
   const lines = src.toString().split("\n");
-  // XXX: just throw this array to parseEnvironmentVariablesFromArray !!
   for (const line of lines) {
     const match = line.match(/^([^=:#]+?)[=:](.*)/);
     if (match) {
       const key = match[1].trim();
-      const value = match[2].trim(); // Modify this to preserve quotes
-      result[key] = value; // Retain the original value without removing quotes
+      const value = match[2].trim();
+      result[key] = value;
     }
   }
   return result;
