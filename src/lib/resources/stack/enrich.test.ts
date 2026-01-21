@@ -376,8 +376,8 @@ describe("Integration Test: Docker Compose to Mittwald API Request transformatio
 
     // simulate env file input, mimes "collectEnvironment" output
     const env = {
-      CUSTOM_EXCLUDES: JSON.stringify(["foo", "bar"])
-    }
+      CUSTOM_EXCLUDES: JSON.stringify(["foo", "bar"]),
+    };
 
     // Step 1: Load and parse Docker Compose file
     // stuff from --env-file and/or process environment
@@ -410,7 +410,5 @@ describe("Integration Test: Docker Compose to Mittwald API Request transformatio
     // Type Assertions
     const typeCheck: StackRequest = enrichedStack;
     expect(typeCheck).toBeTruthy();
-
   });
-
 });

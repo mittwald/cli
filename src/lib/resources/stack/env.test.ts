@@ -14,8 +14,7 @@ describe("collectEnvironment", () => {
 
     // Mock .env file path and its content
     const envFilePath = "test.env";
-    const envFileContent =
-      `NODES_EXCLUDE=["node1","node2","node3"]\n`;
+    const envFileContent = `NODES_EXCLUDE=["node1","node2","node3"]\n`;
 
     // Call `collectEnvironment` with the mocks in effect
     const result = await collectEnvironment(baseEnv, envFilePath);
@@ -25,7 +24,5 @@ describe("collectEnvironment", () => {
       NODE_ENV: "production",
       NODES_EXCLUDE: '["node1","node2","node3"]', // JSON array must remain a string
     });
-
   });
-
 });
