@@ -4,9 +4,11 @@ import {
   MittwaldAPIV2Client,
 } from "@mittwald/api-client";
 import * as fs from "fs/promises";
-import { parse } from "envfile";
 import { pathExists } from "../../util/fs/pathExists.js";
-import { parseEnvironmentVariablesFromArray } from "../../util/parser.js";
+import {
+  parseEnvironmentVariablesFromArray,
+  parseEnvironmentVariablesFromStr,
+} from "../../util/parser.js";
 
 type ContainerContainerImageConfig =
   MittwaldAPIV2.Components.Schemas.ContainerContainerImageConfig;
@@ -46,7 +48,7 @@ export async function parseEnvironmentVariablesFromFile(
     }
 
     const fileContent = await fs.readFile(envFile, { encoding: "utf-8" });
-    const parsed = parse(fileContent);
+    const parsed = parseEnvironmentVariablesFromStr(fileContent);
 
     Object.assign(result, parsed);
   }
