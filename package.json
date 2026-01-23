@@ -71,7 +71,7 @@
     "shell-escape": "^0.2.0",
     "slice-ansi": "^7.1.0",
     "string-width": "^8.0.0",
-    "tempfile": "^5.0.0",
+    "tempfile": "^6.0.0",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

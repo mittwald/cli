@@ -2425,7 +2425,7 @@ __metadata:
     shell-escape: ^0.2.0
     slice-ansi: ^7.1.0
     string-width: ^8.0.0
-    tempfile: ^5.0.0
+    tempfile: ^6.0.0
     ts-jest: ^29.2.5
     ts-node: ^10.9.2
     tsx: ^4.7.1
@@ -10023,12 +10023,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tempfile@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "tempfile@npm:5.0.0"
+"tempfile@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "tempfile@npm:6.0.0"
   dependencies:
     temp-dir: ^3.0.0
-  checksum: c1c1a2c0944aade54b28c7b1d4c07b9d527c5a8d7d67c3a9faa39a34b31569d1c4992ac36c35f5379114e11f30efd654458cec9edaaa21dad73ac374c9b4c655
+  checksum: 23ad955a92ef5bd018e0c7334b6a6b8fd6084e43cc7a281329b93f94f482a49299c92fd27be02add2cb1b17cb54a22799b1c1fd405c7c80e3ac08f5e55089161
   languageName: node
   linkType: hard
 
