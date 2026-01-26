@@ -143,7 +143,7 @@ declare module "marked-terminal" {
     /**
      * Options for cli-table3
      *
-     * @default { }
+     * @default {}
      */
     tableOptions?: object;
   }
