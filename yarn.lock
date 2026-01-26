@@ -2425,7 +2425,7 @@ __metadata:
     shell-escape: ^0.2.0
     slice-ansi: ^7.1.0
     string-width: ^8.0.0
-    tempfile: ^5.0.0
+    tempfile: ^6.0.1
     ts-jest: ^29.2.5
     ts-node: ^10.9.2
     tsx: ^4.7.1
@@ -6943,6 +6943,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-safe-filename@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "is-safe-filename@npm:0.1.1"
+  checksum: 476f9a523810457df79575566820ddec29354d004d3a8ff02b8df281a56dde22bbb2eecbec2e79bd89ea9303028a22a3db56e00646002169ed9bb25dd3721e86
+  languageName: node
+  linkType: hard
+
 "is-stream@npm:^2.0.0":
   version: 2.0.1
   resolution: "is-stream@npm:2.0.1"
@@ -10023,12 +10030,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tempfile@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "tempfile@npm:5.0.0"
+"tempfile@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "tempfile@npm:6.0.1"
   dependencies:
+    is-safe-filename: ^0.1.1
     temp-dir: ^3.0.0
-  checksum: c1c1a2c0944aade54b28c7b1d4c07b9d527c5a8d7d67c3a9faa39a34b31569d1c4992ac36c35f5379114e11f30efd654458cec9edaaa21dad73ac374c9b4c655
+  checksum: c0336d12a8bd5e88daecff3bdca1267a5771fac2316ba91016979f3f89cd1a6388dfcc7d2303738b00db992bd63028359facde0785f5843075fe952be95c5557
   languageName: node
   linkType: hard
 
