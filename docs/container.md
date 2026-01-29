@@ -251,7 +251,7 @@ Display logs of a specific container.
 
 ```
 USAGE
-  $ mw container logs CONTAINER-ID -o txt|json|yaml [--token <value>] [-p <value>] [--no-pager]
+  $ mw container logs CONTAINER-ID -o txt|json|yaml [--token <value>] [-p <value>] [--no-pager] [-t <value>]
 
 ARGUMENTS
   CONTAINER-ID  ID of the container for which to get logs
@@ -261,6 +261,7 @@ FLAGS
                             <options: txt|json|yaml>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
+  -t, --tail=<value>        Number of lines to show from the end of the logs (minimum: 1).
       --no-pager            Disable pager for output.
 
 AUTHENTICATION FLAGS

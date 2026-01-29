@@ -20,6 +20,12 @@ export class Logs extends BaseCommand {
     "no-pager": Flags.boolean({
       description: "Disable pager for output.",
     }),
+    tail: Flags.integer({
+      char: "t",
+      description:
+        "Number of lines to show from the end of the logs (minimum: 1).",
+      min: 1,
+    }),
   };
   static args = {
     "container-id": Args.string({
@@ -44,6 +50,9 @@ export class Logs extends BaseCommand {
     const logsResp = await this.apiClient.container.getServiceLogs({
       stackId,
       serviceId,
+      queryParameters: {
+        ...(flags.tail && { tail: flags.tail }),
+      },
     });
     assertStatus(logsResp, 200);
 
