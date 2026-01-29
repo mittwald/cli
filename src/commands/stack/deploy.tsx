@@ -76,7 +76,8 @@ This flag is mutually exclusive with --compose-file.`,
     let env: Record<string, string | undefined> = { ...process.env };
 
     if ("template" in source) {
-      if (existing.services?.length ?? 0 > 0) {
+      const hasServices = existing.services?.length ?? 0 > 0;
+      if (hasServices) {
         throw new Error(
           "Re-applying templates to existing stacks is currently not supported.",
         );
