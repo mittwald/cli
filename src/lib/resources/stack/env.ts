@@ -45,7 +45,7 @@ export async function fillMissingEnvironmentVariables(
         `generating random value for environment variable ${key}`,
       );
 
-      output[key] = Buffer.from(getRandomValues(new Uint8Array(12))).toString(
+      output[key] = Buffer.from(getRandomValues(new Uint8Array(32))).toString(
         "base64",
       );
     }
