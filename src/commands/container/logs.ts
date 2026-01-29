@@ -22,7 +22,8 @@ export class Logs extends BaseCommand {
     }),
     tail: Flags.integer({
       char: "t",
-      description: "Number of lines to show from the end of the logs.",
+      description:
+        "Number of lines to show from the end of the logs (minimum: 1).",
       min: 1,
     }),
   };
@@ -49,7 +50,9 @@ export class Logs extends BaseCommand {
     const logsResp = await this.apiClient.container.getServiceLogs({
       stackId,
       serviceId,
-      queryParameters: flags.tail ? { tail: flags.tail } : undefined,
+      queryParameters: {
+        ...(flags.tail && { tail: flags.tail }),
+      },
     });
     assertStatus(logsResp, 200);
 

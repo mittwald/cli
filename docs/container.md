@@ -261,7 +261,7 @@ FLAGS
                             <options: txt|json|yaml>
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
-  -t, --tail=<value>        Number of lines to show from the end of the logs.
+  -t, --tail=<value>        Number of lines to show from the end of the logs (minimum: 1).
       --no-pager            Disable pager for output.
 
 AUTHENTICATION FLAGS
