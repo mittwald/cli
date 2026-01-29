@@ -3029,23 +3029,23 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.2.39
-  resolution: "@oclif/plugin-autocomplete@npm:3.2.39"
+  version: 3.2.40
+  resolution: "@oclif/plugin-autocomplete@npm:3.2.40"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.16.0
     debug: ^4.4.1
     ejs: ^3.1.10
-  checksum: ed9d2f722cd13990f4663e61dbc97202ff43b66360e2a3276eac12598051261b0fbeda4e5aa8114d764702a18aa30003f28ef5a7196ee3261148b8ffaed36d68
+  checksum: 7e1e532be1c722798d09e77f2eabb31251f2612fb4966380ca43e294385f9946a98b93f984e50ec85ceea693f7c07b0dd4fac5d566a3879424467f0ed8905493
   languageName: node
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.36":
-  version: 6.2.36
-  resolution: "@oclif/plugin-help@npm:6.2.36"
+  version: 6.2.37
+  resolution: "@oclif/plugin-help@npm:6.2.37"
   dependencies:
     "@oclif/core": ^4
-  checksum: ffd1b37ecbb8fc3736865a4f2117471ef9fe82ed35060d31aef77bfa5f885d2d3d7d32576838d28b7e3a42e0d2df688a51887409c6f1ed6e4adf71093fc9964d
+  checksum: a9efe24a410a17a821bc1d85d001a256312593d0c7758a25473ecc3c1e00728e6ed97248569240ed2f666aa4bd7a7801422d37a6a21ba97fd6fd053d19e8b95b
   languageName: node
   linkType: hard
 
@@ -3062,12 +3062,12 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.7.16
-  resolution: "@oclif/plugin-update@npm:4.7.16"
+  version: 4.7.18
+  resolution: "@oclif/plugin-update@npm:4.7.18"
   dependencies:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
-    "@oclif/table": ^0.5.1
+    "@oclif/table": ^0.5.2
     ansis: ^3.17.0
     debug: ^4.4.1
     filesize: ^6.1.0
@@ -3075,25 +3075,11 @@ __metadata:
     proxy-agent: ^6.5.0
     semver: ^7.7.3
     tar-fs: ^2.1.4
-  checksum: 0b79f7424c7027012535dfc56d9d60c922285918d4e6f7c32e66a68e7432c695edeb6691f05ea653d4736ebe095be0c707be8223f9329017ac52e3a99958fc23
+  checksum: e4038692953cba452daca28d7d1e416b1a303e0def87d4f32bf64352cb2d0d60e01d24e17d15c57914b939c95bddaf3fceebb426f3ceb28f644687249a184f9f
   languageName: node
   linkType: hard
 
-"@oclif/plugin-warn-if-update-available@npm:^3.0.2":
-  version: 3.1.54
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.54"
-  dependencies:
-    "@oclif/core": ^4
-    ansis: ^3.17.0
-    debug: ^4.4.3
-    http-call: ^5.2.2
-    lodash: ^4.17.21
-    registry-auth-token: ^5.1.1
-  checksum: f4b6c16bfd47bc531fbfc4a8a36e2d757e07086099c716298c7c91acfd3f9a8d59973257ec0867877a2d7ce542fdc4465f381b6a762252ea1e0f353a15927621
-  languageName: node
-  linkType: hard
-
-"@oclif/plugin-warn-if-update-available@npm:^3.1.55":
+"@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.55":
   version: 3.1.55
   resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.55"
   dependencies:
@@ -3107,9 +3093,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/table@npm:^0.5.1":
-  version: 0.5.1
-  resolution: "@oclif/table@npm:0.5.1"
+"@oclif/table@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "@oclif/table@npm:0.5.2"
   dependencies:
     "@types/react": ^18.3.12
     change-case: ^5.4.4
@@ -3120,7 +3106,7 @@ __metadata:
     react: ^18.3.1
     strip-ansi: ^7.1.2
     wrap-ansi: ^9.0.2
-  checksum: 01adea9b53be161c9c054b8830fb2fb1b93345cf03289c22029bb2f55fa37eff492ab42cf9ef16af280405f427889dfd595fdc7a32bb49c1b169036c0b54b0bb
+  checksum: 0c781785f9a729a7c998d93809f42dbdefa3eab04073196a55b9e10ac78bd416f8a9ab0c351c25f703842b6c981e9a9a2d41b9773b7778771c0f0de718d662a3
   languageName: node
   linkType: hard
 
