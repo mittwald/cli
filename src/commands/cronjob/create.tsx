@@ -51,6 +51,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       default: Duration.fromString("1h"),
       required: false,
     }),
+    timezone: cronjobFlagDefinitions.timezone(),
   };
 
   protected async exec(): Promise<Result> {
@@ -65,6 +66,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       interpreter,
       command,
       timeout,
+      timezone,
     } = this.flags;
 
     const { projectId } = await p.runStep("fetching project", async () => {
@@ -90,6 +92,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
           email,
           destination: buildCronjobDestination(url, command, interpreter),
           timeout: timeout.seconds,
+          timeZone: timezone,
         },
       });
 
