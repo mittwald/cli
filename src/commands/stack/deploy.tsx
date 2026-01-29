@@ -78,7 +78,7 @@ This flag is mutually exclusive with --compose-file.`,
     if ("template" in source) {
       if (existing.services?.length ?? 0 > 0) {
         throw new Error(
-          "Re-applying templates to existing stacks is not currently not supported.",
+          "Re-applying templates to existing stacks is currently not supported.",
         );
       }
 
