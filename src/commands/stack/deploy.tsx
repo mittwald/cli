@@ -12,7 +12,10 @@ import {
 } from "../../lib/resources/stack/loader.js";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
-import { collectEnvironment } from "../../lib/resources/stack/env.js";
+import {
+  collectEnvironment,
+  fillMissingEnvironmentVariables,
+} from "../../lib/resources/stack/env.js";
 import { sanitizeStackDefinition } from "../../lib/resources/stack/sanitize.js";
 import { enrichStackDefinition } from "../../lib/resources/stack/enrich.js";
 import { Success } from "../../rendering/react/components/Success.js";
@@ -26,6 +29,8 @@ interface DeployResult {
 
 type StackRequest =
   MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
+type ContainerStackResponse =
+  MittwaldAPIV2.Components.Schemas.ContainerStackResponse;
 
 export class Deploy extends ExecRenderBaseCommand<typeof Deploy, DeployResult> {
   static description =
@@ -64,28 +69,39 @@ This flag is mutually exclusive with --compose-file.`,
   private async loadStackDefinition(
     source: { template: string } | { composeFile: string },
     envFile: string,
+    existing: ContainerStackResponse,
     renderer: ReturnType<typeof makeProcessRenderer>,
   ): Promise<StackRequest> {
+    // Build environment: start with process.env, then template .env, then local --env-file
+    let env: Record<string, string | undefined> = { ...process.env };
+
     if ("template" in source) {
+      if (existing.services?.length ?? 0 > 0) {
+        throw new Error(
+          "Re-applying templates to existing stacks is not currently not supported.",
+        );
+      }
+
       // Load from GitHub template
       const { composeYaml, envContent } = await renderer.runStep(
         "fetching template from GitHub",
         () => loadStackFromTemplate(source.template),
       );
 
-      // Build environment: start with process.env, then template .env, then local --env-file
-      let env: Record<string, string | undefined> = { ...process.env };
       if (envContent) {
         const templateEnv = parse(envContent);
         env = { ...env, ...templateEnv };
       }
+
       env = await collectEnvironment(env, envFile);
+      env = await fillMissingEnvironmentVariables(env, renderer);
 
       return loadStackFromStr(composeYaml, env);
     }
 
     // Load from local file
-    const env = await collectEnvironment(process.env, envFile);
+    env = await collectEnvironment(env, envFile);
+
     return loadStackFromFile(source.composeFile, env);
   }
 
@@ -104,11 +120,22 @@ This flag is mutually exclusive with --compose-file.`,
     } = this.flags;
     const r = makeProcessRenderer(this.flags, "Deploying container stack");
 
+    const existingStack = await r.runStep(
+      "retrieving current stack state",
+      async () => {
+        const resp = await this.apiClient.container.getStack({ stackId });
+        assertStatus(resp, 200);
+
+        return resp.data;
+      },
+    );
+
     const result: DeployResult = { restartedServices: [] };
 
     let stackDefinition = await this.loadStackDefinition(
       fromTemplate ? { template: fromTemplate } : { composeFile },
       envFile,
+      existingStack,
       r,
     );
 
@@ -116,8 +143,6 @@ This flag is mutually exclusive with --compose-file.`,
     stackDefinition = await r.runStep("getting image configurations", () =>
       enrichStackDefinition(stackDefinition),
     );
-
-    this.debug("complete stack definition: %O", stackDefinition);
 
     const declaredStack = await r.runStep("deploying stack", async () => {
       const resp = await this.apiClient.container.declareStack({

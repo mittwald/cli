@@ -52,6 +52,10 @@ export type FlagSetOptions = {
   normalize: NormalizeFn;
   displayName: string;
   retrieveFromContext: boolean;
+  retrieveFunction: (
+    client: MittwaldAPIV2Client,
+    ctx: Context,
+  ) => Promise<string | null>;
   expectedShortIDFormat: {
     pattern: RegExp;
     display: string;
@@ -217,7 +221,11 @@ export default class FlagSetBuilder<TName extends ContextNames> {
   private buildIDGetter() {
     const idInputSanityCheck = this.buildSanityCheck();
     const idFromArgsOrFlag = this.buildIDFromArgsOrFlag();
-    const { normalize = (_, id) => id, retrieveFromContext = true } = this.opts;
+    const {
+      normalize = (_, id) => id,
+      retrieveFromContext = true,
+      retrieveFunction,
+    } = this.opts;
 
     return async (
       apiClient: MittwaldAPIV2Client,
@@ -237,6 +245,13 @@ export default class FlagSetBuilder<TName extends ContextNames> {
         const idFromContext = await context.getContextValue(this.flagName);
         if (idFromContext) {
           return idFromContext.value;
+        }
+      }
+
+      if (retrieveFunction) {
+        const idFromFunction = await retrieveFunction(apiClient, context);
+        if (idFromFunction) {
+          return idFromFunction;
         }
       }
 
