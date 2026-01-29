@@ -6,18 +6,31 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/process/process_flags.js";
-import { loadStackFromFile } from "../../lib/resources/stack/loader.js";
-import { assertStatus } from "@mittwald/api-client";
+import {
+  loadStackFromFile,
+  loadStackFromStr,
+} from "../../lib/resources/stack/loader.js";
+import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
-import { collectEnvironment } from "../../lib/resources/stack/env.js";
+import {
+  collectEnvironment,
+  fillMissingEnvironmentVariables,
+} from "../../lib/resources/stack/env.js";
 import { sanitizeStackDefinition } from "../../lib/resources/stack/sanitize.js";
 import { enrichStackDefinition } from "../../lib/resources/stack/enrich.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
+import { loadStackFromTemplate } from "../../lib/resources/stack/template-loader.js";
+import { parse } from "envfile";
 
 interface DeployResult {
   restartedServices: string[];
 }
+
+type StackRequest =
+  MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
+type ContainerStackResponse =
+  MittwaldAPIV2.Components.Schemas.ContainerStackResponse;
 
 export class Deploy extends ExecRenderBaseCommand<typeof Deploy, DeployResult> {
   static description =
@@ -30,12 +43,68 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, DeployResult> {
       summary: 'path to a compose file, or "-" to read from stdin',
       default: "./docker-compose.yml",
       char: "c",
+      exclusive: ["from-template"],
+    }),
+    "from-template": Flags.string({
+      summary: "deploy from a GitHub template (e.g., mittwald/n8n)",
+      description: `\
+Fetch and deploy a stack from a GitHub template repository. Template names are automatically converted to repository names by prefixing "stack-template-" to the name part.
+
+For example, "mittwald/n8n" resolves to the repository "mittwald/stack-template-n8n". The command fetches both docker-compose.yml and .env files from the main branch.
+
+Environment variable precedence (from lowest to highest):
+1. Template .env file (if present in the repository)
+2. System environment variables (process.env)
+3. Local --env-file (if specified)
+
+This flag is mutually exclusive with --compose-file.`,
+      exclusive: ["compose-file"],
     }),
     "env-file": Flags.file({
       summary: "alternative path to file with environment variables",
       default: "./.env",
     }),
   };
+
+  private async loadStackDefinition(
+    source: { template: string } | { composeFile: string },
+    envFile: string,
+    existing: ContainerStackResponse,
+    renderer: ReturnType<typeof makeProcessRenderer>,
+  ): Promise<StackRequest> {
+    // Build environment: start with process.env, then template .env, then local --env-file
+    let env: Record<string, string | undefined> = { ...process.env };
+
+    if ("template" in source) {
+      const hasServices = existing.services?.length ?? 0 > 0;
+      if (hasServices) {
+        throw new Error(
+          "Re-applying templates to existing stacks is currently not supported.",
+        );
+      }
+
+      // Load from GitHub template
+      const { composeYaml, envContent } = await renderer.runStep(
+        "fetching template from GitHub",
+        () => loadStackFromTemplate(source.template),
+      );
+
+      if (envContent) {
+        const templateEnv = parse(envContent);
+        env = { ...env, ...templateEnv };
+      }
+
+      env = await collectEnvironment(env, envFile);
+      env = await fillMissingEnvironmentVariables(env, renderer);
+
+      return loadStackFromStr(composeYaml, env);
+    }
+
+    // Load from local file
+    env = await collectEnvironment(env, envFile);
+
+    return loadStackFromFile(source.composeFile, env);
+  }
 
   protected async exec(): Promise<DeployResult> {
     const stackId = await withStackId(
@@ -45,20 +114,36 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, DeployResult> {
       this.args,
       this.config,
     );
-    const { "compose-file": composeFile, "env-file": envFile } = this.flags;
+    const {
+      "compose-file": composeFile,
+      "from-template": fromTemplate,
+      "env-file": envFile,
+    } = this.flags;
     const r = makeProcessRenderer(this.flags, "Deploying container stack");
+
+    const existingStack = await r.runStep(
+      "retrieving current stack state",
+      async () => {
+        const resp = await this.apiClient.container.getStack({ stackId });
+        assertStatus(resp, 200);
+
+        return resp.data;
+      },
+    );
 
     const result: DeployResult = { restartedServices: [] };
 
-    const env = await collectEnvironment(process.env, envFile);
-    let stackDefinition = await loadStackFromFile(composeFile, env);
+    let stackDefinition = await this.loadStackDefinition(
+      fromTemplate ? { template: fromTemplate } : { composeFile },
+      envFile,
+      existingStack,
+      r,
+    );
 
     stackDefinition = sanitizeStackDefinition(stackDefinition);
     stackDefinition = await r.runStep("getting image configurations", () =>
       enrichStackDefinition(stackDefinition),
     );
-
-    this.debug("complete stack definition: %O", stackDefinition);
 
     const declaredStack = await r.runStep("deploying stack", async () => {
       const resp = await this.apiClient.container.declareStack({
