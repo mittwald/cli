@@ -23,6 +23,7 @@ export class Logs extends BaseCommand {
     tail: Flags.integer({
       char: "t",
       description: "Number of lines to show from the end of the logs.",
+      min: 1,
     }),
   };
   static args = {
