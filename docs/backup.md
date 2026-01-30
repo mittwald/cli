@@ -51,7 +51,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/backup/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/create.ts)_
+_See code: [src/commands/backup/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/backup/create.ts)_
 
 ## `mw backup delete BACKUP-ID`
 
@@ -85,7 +85,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/backup/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/delete.ts)_
+_See code: [src/commands/backup/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/backup/delete.ts)_
 
 ## `mw backup download BACKUP-ID`
 
@@ -139,7 +139,7 @@ FLAG DESCRIPTIONS
     CAUTION: this is not stored anywhere.
 ```
 
-_See code: [src/commands/backup/download.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/download.ts)_
+_See code: [src/commands/backup/download.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/backup/download.ts)_
 
 ## `mw backup get BACKUP-ID`
 
@@ -168,7 +168,7 @@ ALIASES
   $ mw project backup get
 ```
 
-_See code: [src/commands/backup/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/get.ts)_
+_See code: [src/commands/backup/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/backup/get.ts)_
 
 ## `mw backup list`
 
@@ -208,7 +208,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/backup/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/list.ts)_
+_See code: [src/commands/backup/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/backup/list.ts)_
 
 ## `mw backup schedule create`
 
@@ -257,7 +257,7 @@ FLAG DESCRIPTIONS
     define the number of days the backup will be kept.
 ```
 
-_See code: [src/commands/backup/schedule/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/schedule/create.ts)_
+_See code: [src/commands/backup/schedule/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/backup/schedule/create.ts)_
 
 ## `mw backup schedule delete BACKUP-SCHEDULE-ID`
 
@@ -288,7 +288,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/backup/schedule/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/schedule/delete.ts)_
+_See code: [src/commands/backup/schedule/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/backup/schedule/delete.ts)_
 
 ## `mw backup schedule list`
 
@@ -328,7 +328,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/backup/schedule/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/schedule/list.ts)_
+_See code: [src/commands/backup/schedule/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/backup/schedule/list.ts)_
 
 ## `mw backup schedule update BACKUP-SCHEDULE-ID`
 
@@ -376,4 +376,4 @@ FLAG DESCRIPTIONS
     define the number of days the backup will be kept.
 ```
 
-_See code: [src/commands/backup/schedule/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/schedule/update.ts)_
+_See code: [src/commands/backup/schedule/update.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/backup/schedule/update.ts)_

@@ -46,7 +46,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/volume/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/volume/create.ts)_
+_See code: [src/commands/volume/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/volume/create.ts)_
 
 ## `mw volume delete NAME`
 
@@ -89,7 +89,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/volume/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/volume/delete.ts)_
+_See code: [src/commands/volume/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/volume/delete.ts)_
 
 ## `mw volume list`
 
@@ -129,7 +129,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/volume/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/volume/list.ts)_
+_See code: [src/commands/volume/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/volume/list.ts)_
 
 ## `mw volume ls`
 

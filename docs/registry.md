@@ -48,7 +48,7 @@ FLAG DESCRIPTIONS
     CAUTION: providing this flag may log your password in your shell history!
 ```
 
-_See code: [src/commands/registry/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/registry/create.ts)_
+_See code: [src/commands/registry/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/registry/create.ts)_
 
 ## `mw registry delete REGISTRY-ID`
 
@@ -76,7 +76,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/registry/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/registry/delete.ts)_
+_See code: [src/commands/registry/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/registry/delete.ts)_
 
 ## `mw registry list`
 
@@ -113,7 +113,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/registry/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/registry/list.ts)_
+_See code: [src/commands/registry/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/registry/list.ts)_
 
 ## `mw registry update REGISTRY-ID`
 
@@ -151,4 +151,4 @@ FLAG DESCRIPTIONS
     CAUTION: providing this flag may log your password in your shell history!
 ```
 
-_See code: [src/commands/registry/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/registry/update.ts)_
+_See code: [src/commands/registry/update.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/registry/update.ts)_

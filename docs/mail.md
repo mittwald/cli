@@ -101,7 +101,7 @@ FLAG DESCRIPTIONS
     --quiet, the address ID and the password will be printed to stdout, separated by a tab character.
 ```
 
-_See code: [src/commands/mail/address/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/address/create.ts)_
+_See code: [src/commands/mail/address/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/address/create.ts)_
 
 ## `mw mail address delete ID`
 
@@ -132,7 +132,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/mail/address/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/address/delete.ts)_
+_See code: [src/commands/mail/address/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/address/delete.ts)_
 
 ## `mw mail address get ID`
 
@@ -157,7 +157,7 @@ DESCRIPTION
   Get a specific mail address
 ```
 
-_See code: [src/commands/mail/address/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/address/get.ts)_
+_See code: [src/commands/mail/address/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/address/get.ts)_
 
 ## `mw mail address list`
 
@@ -194,7 +194,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/mail/address/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/address/list.ts)_
+_See code: [src/commands/mail/address/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/address/list.ts)_
 
 ## `mw mail address update MAILADDRESS-ID`
 
@@ -274,7 +274,7 @@ FLAG DESCRIPTIONS
     --quiet, the password will be printed to stdout.
 ```
 
-_See code: [src/commands/mail/address/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/address/update.ts)_
+_See code: [src/commands/mail/address/update.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/address/update.ts)_
 
 ## `mw mail deliverybox create`
 
@@ -339,7 +339,7 @@ FLAG DESCRIPTIONS
     --quiet, the delivery box ID and the password will be printed to stdout, separated by a tab character.
 ```
 
-_See code: [src/commands/mail/deliverybox/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/deliverybox/create.ts)_
+_See code: [src/commands/mail/deliverybox/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/deliverybox/create.ts)_
 
 ## `mw mail deliverybox delete ID`
 
@@ -370,7 +370,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/mail/deliverybox/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/deliverybox/delete.ts)_
+_See code: [src/commands/mail/deliverybox/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/deliverybox/delete.ts)_
 
 ## `mw mail deliverybox get ID`
 
@@ -395,7 +395,7 @@ DESCRIPTION
   Get a specific delivery box
 ```
 
-_See code: [src/commands/mail/deliverybox/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/deliverybox/get.ts)_
+_See code: [src/commands/mail/deliverybox/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/deliverybox/get.ts)_
 
 ## `mw mail deliverybox list`
 
@@ -432,7 +432,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/mail/deliverybox/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/deliverybox/list.ts)_
+_See code: [src/commands/mail/deliverybox/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/deliverybox/list.ts)_
 
 ## `mw mail deliverybox update MAILDELIVERYBOX-ID`
 
@@ -498,4 +498,4 @@ FLAG DESCRIPTIONS
     --quiet, the password will be printed to stdout.
 ```
 
-_See code: [src/commands/mail/deliverybox/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/mail/deliverybox/update.ts)_
+_See code: [src/commands/mail/deliverybox/update.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/mail/deliverybox/update.ts)_
