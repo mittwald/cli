@@ -119,7 +119,7 @@ jobs:
 
       - name: Publish
         run: |
-          npm publish --access=public
+          npm publish --access=public --tag=latest
 
   release-github:
     runs-on: ubuntu-latest
