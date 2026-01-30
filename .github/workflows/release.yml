@@ -5,6 +5,9 @@ on:
     tags:
       - v*
 
+permissions:
+  id-token: write
+
 jobs:
   build-linux:
     runs-on: ubuntu-latest
@@ -103,6 +106,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: "20"
+          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: yarn
@@ -117,8 +121,6 @@ jobs:
 
       - name: Publish
         run: |
-          yarn config set npmScopes.mittwald.npmAuthToken "${{ secrets.NPMJS_TOKEN }}"
-          yarn config set npmScopes.mittwald.npmPublishRegistry "https://registry.npmjs.org"
           yarn npm publish --access=public
 
   release-github:
