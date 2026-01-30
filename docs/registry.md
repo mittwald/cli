@@ -48,6 +48,8 @@ FLAG DESCRIPTIONS
     CAUTION: providing this flag may log your password in your shell history!
 ```
 
+_See code: [src/commands/registry/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/registry/create.ts)_
+
 ## `mw registry delete REGISTRY-ID`
 
 Delete a container registry
@@ -73,6 +75,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/registry/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/registry/delete.ts)_
 
 ## `mw registry list`
 
@@ -109,6 +113,8 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
+_See code: [src/commands/registry/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/registry/list.ts)_
+
 ## `mw registry update REGISTRY-ID`
 
 Update an existing container registry
@@ -144,3 +150,5 @@ FLAG DESCRIPTIONS
 
     CAUTION: providing this flag may log your password in your shell history!
 ```
+
+_See code: [src/commands/registry/update.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/registry/update.ts)_

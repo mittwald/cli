@@ -57,6 +57,8 @@ FLAG DESCRIPTIONS
     authentication.
 ```
 
+_See code: [src/commands/ssh-user/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/ssh-user/create.ts)_
+
 ## `mw ssh-user delete SSH-USER-ID`
 
 Delete an SSH user
@@ -85,6 +87,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/ssh-user/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/ssh-user/delete.ts)_
 
 ## `mw ssh-user list`
 
@@ -123,6 +127,8 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 ```
+
+_See code: [src/commands/ssh-user/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/ssh-user/list.ts)_
 
 ## `mw ssh-user update SSH-USER-ID`
 
@@ -181,3 +187,5 @@ FLAG DESCRIPTIONS
     through this user. Using a public key for authentication prevents this user from also using a password for
     authentication.
 ```
+
+_See code: [src/commands/ssh-user/update.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/ssh-user/update.ts)_
