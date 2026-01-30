@@ -26,7 +26,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - run: yarn
       - run: yarn compile
-      - run: yarn generate:readme
+      - run: |
+          latest_version=$(git describe --tags --abbrev=0)
+          yarn generate:readme --version=${latest_version/v}
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: re-generate README"
