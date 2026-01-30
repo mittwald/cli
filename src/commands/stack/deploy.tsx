@@ -142,9 +142,8 @@ This flag is mutually exclusive with --compose-file.`,
     );
 
     stackDefinition = sanitizeStackDefinition(stackDefinition);
-    stackDefinition = await r.runStep(
-      "getting image configurations",
-      () => enrichStackDefinition(stackDefinition),
+    stackDefinition = await r.runStep("getting image configurations", () =>
+      enrichStackDefinition(stackDefinition),
     );
 
     const declaredStack = await r.runStep("deploying stack", async () => {
