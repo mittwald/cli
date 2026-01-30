@@ -4,7 +4,6 @@ import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { getRandomValues } from "node:crypto";
 import { parseEnvironmentVariablesFromStr } from "../../util/parser.js";
 
-
 export async function collectEnvironment(
   base: NodeJS.ProcessEnv,
   envFile: string,
