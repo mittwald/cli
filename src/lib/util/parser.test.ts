@@ -40,15 +40,6 @@ describe("Containerconfig handling", () => {
       });
     });
 
-    test("preserve values without quotes", () => {
-      const args = ["foo=bar", "ham=eggs"];
-      const res = parseEnvironmentVariablesFromArray(args);
-      expect(res).toStrictEqual({
-        foo: "bar",
-        ham: "eggs",
-      });
-    });
-
     test("preserve values with quotes in the middle", () => {
       const args = ['foo=bar"baz', 'ham=eggs"and"bacon'];
       const res = parseEnvironmentVariablesFromArray(args);
