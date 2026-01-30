@@ -1,4 +1,4 @@
-import * as child_process from "child_process";
+import { spawnSync } from "child_process";
 import { Args, Flags } from "@oclif/core";
 import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
 import { getSSHConnectionForContainer } from "../../lib/resources/ssh/container.js";
@@ -100,13 +100,9 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
 
     this.debug("running ssh %o, with command %o", sshArgs, wrappedExecCommand);
 
-    const result = child_process.spawnSync(
-      "/usr/bin/ssh",
-      [...sshArgs, wrappedExecCommand],
-      {
-        stdio: "inherit",
-      },
-    );
+    const result = spawnSync("/usr/bin/ssh", [...sshArgs, wrappedExecCommand], {
+      stdio: "inherit",
+    });
 
     if (result.status !== 0) {
       this.error(`Command failed with exit code ${result.status}`);

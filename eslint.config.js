@@ -71,6 +71,10 @@ export default [
       ],
 
       curly: ["error", "all"],
+      camelcase: [
+        "error",
+        { properties: "always", ignoreImports: true, ignoreGlobals: true },
+      ],
     },
   },
 ];

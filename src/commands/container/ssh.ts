@@ -1,4 +1,4 @@
-import * as child_process from "child_process";
+import { spawnSync } from "child_process";
 import { Args, Flags } from "@oclif/core";
 import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
 import { getSSHConnectionForContainer } from "../../lib/resources/ssh/container.js";
@@ -69,7 +69,7 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
 
     this.debug("running ssh %o, with command %o", args, cmd);
 
-    child_process.spawnSync("/usr/bin/ssh", [...args, cmd], {
+    spawnSync("/usr/bin/ssh", [...args, cmd], {
       stdio: "inherit",
     });
   }

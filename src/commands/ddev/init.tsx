@@ -199,6 +199,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
           (e) => e.startsWith("MITTWALD_API_TOKEN="),
         );
         if (!alreadyContainsAPIToken) {
+          // eslint-disable-next-line camelcase
           parsed.web_environment = [
             ...(parsed.web_environment ?? []),
             `MITTWALD_API_TOKEN=${token}`,
@@ -208,6 +209,7 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
       } catch (err) {
         if (isNotFound(err)) {
           const config: Partial<DDEVConfig> = {
+            // eslint-disable-next-line camelcase
             web_environment: [`MITTWALD_API_TOKEN=${token}`],
           };
 
