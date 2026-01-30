@@ -23,7 +23,6 @@ DESCRIPTION
   Reset your local authentication state
 ```
 
-_See code: [src/commands/login/reset.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/login/reset.ts)_
 
 ## `mw login status`
 
@@ -41,7 +40,6 @@ DESCRIPTION
   Checks your current authentication status
 ```
 
-_See code: [src/commands/login/status.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/login/status.ts)_
 
 ## `mw login token`
 
@@ -69,4 +67,3 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/login/token.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/login/token.ts)_

@@ -29,7 +29,6 @@ DESCRIPTION
   Get a server.
 ```
 
-_See code: [src/commands/server/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/server/get.ts)_
 
 ## `mw server list`
 
@@ -58,4 +57,3 @@ DESCRIPTION
   List servers for an organization or user.
 ```
 
-_See code: [src/commands/server/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/server/list.ts)_
