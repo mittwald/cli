@@ -57,7 +57,6 @@ FLAG DESCRIPTIONS
     authentication.
 ```
 
-_See code: [src/commands/ssh-user/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/ssh-user/create.ts)_
 
 ## `mw ssh-user delete SSH-USER-ID`
 
@@ -88,7 +87,6 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/ssh-user/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/ssh-user/delete.ts)_
 
 ## `mw ssh-user list`
 
@@ -128,7 +126,6 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/ssh-user/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/ssh-user/list.ts)_
 
 ## `mw ssh-user update SSH-USER-ID`
 
@@ -188,4 +185,3 @@ FLAG DESCRIPTIONS
     authentication.
 ```
 
-_See code: [src/commands/ssh-user/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/ssh-user/update.ts)_

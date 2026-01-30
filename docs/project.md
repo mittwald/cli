@@ -292,7 +292,6 @@ FLAG DESCRIPTIONS
     to persistently set a default server for all commands that accept this flag.
 ```
 
-_See code: [src/commands/project/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/create.ts)_
 
 ## `mw project cronjob execution get CRONJOB-ID EXECUTION-ID`
 
@@ -451,7 +450,6 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/project/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/delete.ts)_
 
 ## `mw project filesystem usage [PROJECT-ID]`
 
@@ -478,7 +476,6 @@ DESCRIPTION
   Get a project directory filesystem usage.
 ```
 
-_See code: [src/commands/project/filesystem/usage.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/filesystem/usage.ts)_
 
 ## `mw project get [PROJECT-ID]`
 
@@ -504,7 +501,6 @@ DESCRIPTION
   Get details of a project
 ```
 
-_See code: [src/commands/project/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/get.ts)_
 
 ## `mw project invite get INVITE-ID`
 
@@ -529,7 +525,6 @@ DESCRIPTION
   Get a ProjectInvite.
 ```
 
-_See code: [src/commands/project/invite/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/invite/get.ts)_
 
 ## `mw project invite list`
 
@@ -566,7 +561,6 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/project/invite/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/invite/list.ts)_
 
 ## `mw project invite list-own`
 
@@ -595,7 +589,6 @@ DESCRIPTION
   List all project invites for the executing user.
 ```
 
-_See code: [src/commands/project/invite/list-own.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/invite/list-own.ts)_
 
 ## `mw project list`
 
@@ -624,7 +617,6 @@ DESCRIPTION
   List all projects that you have access to
 ```
 
-_See code: [src/commands/project/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/list.ts)_
 
 ## `mw project membership get MEMBERSHIP-ID`
 
@@ -649,7 +641,6 @@ DESCRIPTION
   Get a ProjectMembership
 ```
 
-_See code: [src/commands/project/membership/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/membership/get.ts)_
 
 ## `mw project membership get-own`
 
@@ -679,7 +670,6 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/project/membership/get-own.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/membership/get-own.ts)_
 
 ## `mw project membership list`
 
@@ -716,7 +706,6 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/project/membership/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/membership/list.ts)_
 
 ## `mw project membership list-own`
 
@@ -745,7 +734,6 @@ DESCRIPTION
   List ProjectMemberships belonging to the executing user.
 ```
 
-_See code: [src/commands/project/membership/list-own.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/membership/list-own.ts)_
 
 ## `mw project sftp-user list`
 
@@ -834,7 +822,6 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
-_See code: [src/commands/project/ssh.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/ssh.ts)_
 
 ## `mw project ssh-user list`
 
@@ -910,4 +897,3 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/project/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/project/update.ts)_
