@@ -121,7 +121,7 @@ jobs:
 
       - name: Publish
         run: |
-          yarn npm publish --access=public
+          npm publish --access=public
 
   release-github:
     runs-on: ubuntu-latest
