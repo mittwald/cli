@@ -4,19 +4,6 @@ import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { getRandomValues } from "node:crypto";
 import { parseEnvironmentVariablesFromStr } from "../../util/parser.js";
 
-export const parse = (src: string): Record<string, string> => {
-  const result: Record<string, string> = {};
-  const lines = src.toString().split("\n");
-  for (const line of lines) {
-    const match = line.match(/^([^=:#]+?)[=:](.*)/);
-    if (match) {
-      const key = match[1].trim();
-      const value = match[2].trim(); // Modify this to preserve quotes
-      result[key] = value; // Retain the original value without removing quotes
-    }
-  }
-  return result;
-};
 
 export async function collectEnvironment(
   base: NodeJS.ProcessEnv,

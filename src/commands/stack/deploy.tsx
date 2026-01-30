@@ -21,6 +21,8 @@ import { enrichStackDefinition } from "../../lib/resources/stack/enrich.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { loadStackFromTemplate } from "../../lib/resources/stack/template-loader.js";
+import { parseEnvironmentVariablesFromStr } from "../../lib/util/parser.js";
+import { RawStackInput } from "../../lib/resources/stack/types.js";
 
 interface DeployResult {
   restartedServices: string[];
@@ -70,7 +72,7 @@ This flag is mutually exclusive with --compose-file.`,
     envFile: string,
     existing: ContainerStackResponse,
     renderer: ReturnType<typeof makeProcessRenderer>,
-  ): Promise<StackRequest> {
+  ): Promise<RawStackInput> {
     // Build environment: start with process.env, then template .env, then local --env-file
     let env: Record<string, string | undefined> = { ...process.env };
 
@@ -89,7 +91,7 @@ This flag is mutually exclusive with --compose-file.`,
       );
 
       if (envContent) {
-        const templateEnv = parse(envContent);
+        const templateEnv = parseEnvironmentVariablesFromStr(envContent);
         env = { ...env, ...templateEnv };
       }
 
