@@ -165,7 +165,7 @@ jobs:
       - name: Upload to S3
         run:
           yarn oclif promote --version=${GITHUB_REF_NAME#v} --sha=$(git
-          rev-parse --short ${{ github.sha }}) --win --macos
+          rev-parse --short ${{ github.sha }}) --win
           --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64
         env:
           AWS_REGION: eu-central-1
