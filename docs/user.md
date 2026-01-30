@@ -46,7 +46,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/user/api-token/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/api-token/create.ts)_
+_See code: [src/commands/user/api-token/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/api-token/create.ts)_
 
 ## `mw user api-token get TOKEN-ID`
 
@@ -71,7 +71,7 @@ DESCRIPTION
   Get a specific API token
 ```
 
-_See code: [src/commands/user/api-token/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/api-token/get.ts)_
+_See code: [src/commands/user/api-token/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/api-token/get.ts)_
 
 ## `mw user api-token list`
 
@@ -100,7 +100,7 @@ DESCRIPTION
   List all API tokens of the user
 ```
 
-_See code: [src/commands/user/api-token/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/api-token/list.ts)_
+_See code: [src/commands/user/api-token/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/api-token/list.ts)_
 
 ## `mw user api-token revoke ID`
 
@@ -131,7 +131,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/user/api-token/revoke.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/api-token/revoke.ts)_
+_See code: [src/commands/user/api-token/revoke.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/api-token/revoke.ts)_
 
 ## `mw user get USER-ID`
 
@@ -157,7 +157,7 @@ DESCRIPTION
   Get profile information for a user.
 ```
 
-_See code: [src/commands/user/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/get.ts)_
+_See code: [src/commands/user/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/get.ts)_
 
 ## `mw user session get TOKEN-ID`
 
@@ -182,7 +182,7 @@ DESCRIPTION
   Get a specific session
 ```
 
-_See code: [src/commands/user/session/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/session/get.ts)_
+_See code: [src/commands/user/session/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/session/get.ts)_
 
 ## `mw user session list`
 
@@ -211,7 +211,7 @@ DESCRIPTION
   List all active sessions
 ```
 
-_See code: [src/commands/user/session/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/session/list.ts)_
+_See code: [src/commands/user/session/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/session/list.ts)_
 
 ## `mw user ssh-key create`
 
@@ -243,7 +243,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/user/ssh-key/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/ssh-key/create.ts)_
+_See code: [src/commands/user/ssh-key/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/ssh-key/create.ts)_
 
 ## `mw user ssh-key delete ID`
 
@@ -274,7 +274,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/user/ssh-key/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/ssh-key/delete.ts)_
+_See code: [src/commands/user/ssh-key/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/ssh-key/delete.ts)_
 
 ## `mw user ssh-key get KEY-ID`
 
@@ -299,7 +299,7 @@ DESCRIPTION
   Get a specific SSH key
 ```
 
-_See code: [src/commands/user/ssh-key/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/ssh-key/get.ts)_
+_See code: [src/commands/user/ssh-key/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/ssh-key/get.ts)_
 
 ## `mw user ssh-key import`
 
@@ -328,7 +328,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/user/ssh-key/import.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/ssh-key/import.ts)_
+_See code: [src/commands/user/ssh-key/import.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/ssh-key/import.ts)_
 
 ## `mw user ssh-key list`
 
@@ -357,4 +357,4 @@ DESCRIPTION
   Get your stored ssh keys
 ```
 
-_See code: [src/commands/user/ssh-key/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/user/ssh-key/list.ts)_
+_See code: [src/commands/user/ssh-key/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/user/ssh-key/list.ts)_

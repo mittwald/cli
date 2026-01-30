@@ -44,7 +44,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/stack/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/stack/delete.ts)_
+_See code: [src/commands/stack/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/stack/delete.ts)_
 
 ## `mw stack deploy`
 
@@ -98,7 +98,7 @@ FLAG DESCRIPTIONS
     This flag is mutually exclusive with --compose-file.
 ```
 
-_See code: [src/commands/stack/deploy.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/stack/deploy.ts)_
+_See code: [src/commands/stack/deploy.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/stack/deploy.ts)_
 
 ## `mw stack list`
 
@@ -138,7 +138,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/stack/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/stack/list.ts)_
+_See code: [src/commands/stack/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/stack/list.ts)_
 
 ## `mw stack ls`
 
@@ -212,7 +212,7 @@ FLAG DESCRIPTIONS
     default stack for all commands that accept this flag.
 ```
 
-_See code: [src/commands/stack/ps.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/stack/ps.ts)_
+_See code: [src/commands/stack/ps.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/stack/ps.ts)_
 
 ## `mw stack rm [STACK-ID]`
 

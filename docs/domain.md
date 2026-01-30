@@ -37,7 +37,7 @@ DESCRIPTION
   gets a specific zone
 ```
 
-_See code: [src/commands/domain/dnszone/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/domain/dnszone/get.ts)_
+_See code: [src/commands/domain/dnszone/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/domain/dnszone/get.ts)_
 
 ## `mw domain dnszone list`
 
@@ -74,7 +74,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/domain/dnszone/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/domain/dnszone/list.ts)_
+_See code: [src/commands/domain/dnszone/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/domain/dnszone/list.ts)_
 
 ## `mw domain dnszone update DNSZONE-ID RECORD-SET`
 
@@ -138,7 +138,7 @@ FLAG DESCRIPTIONS
     - for "txt" records, the parameter should be a string containing the TXT record value.
 ```
 
-_See code: [src/commands/domain/dnszone/update.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/domain/dnszone/update.ts)_
+_See code: [src/commands/domain/dnszone/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/domain/dnszone/update.ts)_
 
 ## `mw domain get DOMAIN-ID`
 
@@ -164,7 +164,7 @@ DESCRIPTION
   gets a specific domain
 ```
 
-_See code: [src/commands/domain/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/domain/get.ts)_
+_See code: [src/commands/domain/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/domain/get.ts)_
 
 ## `mw domain list`
 
@@ -201,7 +201,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/domain/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/domain/list.ts)_
+_See code: [src/commands/domain/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/domain/list.ts)_
 
 ## `mw domain virtualhost create`
 
@@ -272,7 +272,7 @@ FLAG DESCRIPTIONS
     times to map multiple paths to different external URLs, and also combine it with the other --path-to-* flags.
 ```
 
-_See code: [src/commands/domain/virtualhost/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/domain/virtualhost/create.ts)_
+_See code: [src/commands/domain/virtualhost/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/domain/virtualhost/create.ts)_
 
 ## `mw domain virtualhost delete VIRTUAL-HOST-ID`
 
@@ -303,7 +303,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/domain/virtualhost/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/domain/virtualhost/delete.ts)_
+_See code: [src/commands/domain/virtualhost/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/domain/virtualhost/delete.ts)_
 
 ## `mw domain virtualhost get INGRESS-ID`
 
@@ -326,7 +326,7 @@ DESCRIPTION
   Get a virtual host.
 ```
 
-_See code: [src/commands/domain/virtualhost/get.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/domain/virtualhost/get.ts)_
+_See code: [src/commands/domain/virtualhost/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/domain/virtualhost/get.ts)_
 
 ## `mw domain virtualhost list`
 
@@ -364,4 +364,4 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/domain/virtualhost/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/domain/virtualhost/list.ts)_
+_See code: [src/commands/domain/virtualhost/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/domain/virtualhost/list.ts)_

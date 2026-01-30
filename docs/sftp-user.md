@@ -69,7 +69,7 @@ FLAG DESCRIPTIONS
     authentication.
 ```
 
-_See code: [src/commands/sftp-user/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/sftp-user/create.ts)_
+_See code: [src/commands/sftp-user/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/sftp-user/create.ts)_
 
 ## `mw sftp-user delete SFTP-USER-ID`
 
@@ -100,7 +100,7 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/sftp-user/delete.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/sftp-user/delete.ts)_
+_See code: [src/commands/sftp-user/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/sftp-user/delete.ts)_
 
 ## `mw sftp-user list`
 
@@ -140,7 +140,7 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
-_See code: [src/commands/sftp-user/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/sftp-user/list.ts)_
+_See code: [src/commands/sftp-user/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/sftp-user/list.ts)_
 
 ## `mw sftp-user update SFTP-USER-ID`
 
@@ -212,4 +212,4 @@ FLAG DESCRIPTIONS
     authentication.
 ```
 
-_See code: [src/commands/sftp-user/update.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/sftp-user/update.ts)_
+_See code: [src/commands/sftp-user/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/sftp-user/update.ts)_
