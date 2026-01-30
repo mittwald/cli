@@ -105,6 +105,8 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+_See code: [src/commands/container/cp.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/cp.ts)_
+
 ## `mw container delete CONTAINER-ID`
 
 Delete a container
@@ -143,6 +145,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/container/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/delete.ts)_
 
 ## `mw container exec CONTAINER-ID COMMAND`
 
@@ -207,6 +211,8 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+_See code: [src/commands/container/exec.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/exec.ts)_
+
 ## `mw container list`
 
 List containers belonging to a project.
@@ -244,6 +250,8 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 ```
+
+_See code: [src/commands/container/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/list.ts)_
 
 ## `mw container logs CONTAINER-ID`
 
@@ -284,6 +292,8 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 ```
+
+_See code: [src/commands/container/logs.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/logs.ts)_
 
 ## `mw container ls`
 
@@ -393,6 +403,8 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+_See code: [src/commands/container/port-forward.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/port-forward.ts)_
+
 ## `mw container recreate CONTAINER-ID`
 
 Recreates a container.
@@ -427,6 +439,8 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+_See code: [src/commands/container/recreate.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/recreate.ts)_
+
 ## `mw container restart CONTAINER-ID`
 
 Restarts a container.
@@ -458,6 +472,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/container/restart.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/restart.ts)_
 
 ## `mw container rm CONTAINER-ID`
 
@@ -607,6 +623,8 @@ FLAG DESCRIPTIONS
     --project flag.
 ```
 
+_See code: [src/commands/container/run.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/run.ts)_
+
 ## `mw container ssh CONTAINER-ID`
 
 Connect to a container via SSH
@@ -669,6 +687,8 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+_See code: [src/commands/container/ssh.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/ssh.ts)_
+
 ## `mw container start CONTAINER-ID`
 
 Starts a stopped container.
@@ -701,6 +721,8 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+_See code: [src/commands/container/start.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/start.ts)_
+
 ## `mw container stop CONTAINER-ID`
 
 Stops a running container.
@@ -732,6 +754,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/container/stop.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/stop.ts)_
 
 ## `mw container update CONTAINER-ID`
 
@@ -826,3 +850,5 @@ FLAG DESCRIPTIONS
 
     If set, the container will be automatically recreated after updating its configuration.
 ```
+
+_See code: [src/commands/container/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/container/update.ts)_

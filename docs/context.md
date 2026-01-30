@@ -31,6 +31,8 @@ DESCRIPTION
   don't have to specify them on every command.
 ```
 
+_See code: [src/commands/context/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/context/get.ts)_
+
 ## `mw context reset`
 
 Reset context values
@@ -48,6 +50,8 @@ DESCRIPTION
 
   This command resets any values for common parameters that you've previously set with 'context set'.
 ```
+
+_See code: [src/commands/context/reset.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/context/reset.ts)_
 
 ## `mw context set`
 
@@ -75,3 +79,5 @@ DESCRIPTION
   The context allows you to persistently set values for common parameters, like --project-id or --server-id, so you
   don't have to specify them on every command.
 ```
+
+_See code: [src/commands/context/set.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/context/set.ts)_

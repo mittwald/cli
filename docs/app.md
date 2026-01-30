@@ -66,6 +66,8 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+_See code: [src/commands/app/copy.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/copy.ts)_
+
 ## `mw app create node`
 
 Creates new custom Node.js installation.
@@ -123,6 +125,8 @@ FLAG DESCRIPTIONS
     If unspecified, the application name and the given project ID will be used. The title can be changed after the
     installation is finished
 ```
+
+_See code: [src/commands/app/create/node.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/create/node.ts)_
 
 ## `mw app create php`
 
@@ -184,6 +188,8 @@ FLAG DESCRIPTIONS
     installation is finished
 ```
 
+_See code: [src/commands/app/create/php.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/create/php.ts)_
+
 ## `mw app create php-worker`
 
 Creates new PHP worker installation.
@@ -241,6 +247,8 @@ FLAG DESCRIPTIONS
     installation is finished
 ```
 
+_See code: [src/commands/app/create/php-worker.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/create/php-worker.ts)_
+
 ## `mw app create python`
 
 Creates new custom python site installation.
@@ -297,6 +305,8 @@ FLAG DESCRIPTIONS
     If unspecified, the application name and the given project ID will be used. The title can be changed after the
     installation is finished
 ```
+
+_See code: [src/commands/app/create/python.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/create/python.ts)_
 
 ## `mw app create static`
 
@@ -358,6 +368,8 @@ FLAG DESCRIPTIONS
     installation is finished
 ```
 
+_See code: [src/commands/app/create/static.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/create/static.ts)_
+
 ## `mw app dependency list`
 
 Get all available dependencies
@@ -384,6 +396,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Get all available dependencies
 ```
+
+_See code: [src/commands/app/dependency/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/dependency/list.ts)_
 
 ## `mw app dependency update [INSTALLATION-ID]`
 
@@ -427,6 +441,8 @@ FLAG DESCRIPTIONS
     This flag may be specified multiple times to update multiple dependencies.
 ```
 
+_See code: [src/commands/app/dependency/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/dependency/update.ts)_
+
 ## `mw app dependency versions SYSTEMSOFTWARE`
 
 Get all available versions of a particular dependency
@@ -456,6 +472,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Get all available versions of a particular dependency
 ```
+
+_See code: [src/commands/app/dependency/versions.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/dependency/versions.ts)_
 
 ## `mw app download [INSTALLATION-ID]`
 
@@ -544,6 +562,8 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+_See code: [src/commands/app/download.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/download.ts)_
+
 ## `mw app exec COMMAND`
 
 Execute a command in an app installation via SSH non-interactively.
@@ -608,6 +628,8 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+_See code: [src/commands/app/exec.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/exec.ts)_
+
 ## `mw app get [INSTALLATION-ID]`
 
 Get details about an app installation
@@ -632,6 +654,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Get details about an app installation
 ```
+
+_See code: [src/commands/app/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/get.ts)_
 
 ## `mw app install contao`
 
@@ -735,6 +759,8 @@ FLAG DESCRIPTIONS
     If unspecified, the Contao will be installed in the latest available version.
 ```
 
+_See code: [src/commands/app/install/contao.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/install/contao.ts)_
+
 ## `mw app install joomla`
 
 Creates new Joomla! installation.
@@ -837,6 +863,8 @@ FLAG DESCRIPTIONS
     If unspecified, the Joomla! will be installed in the latest available version.
 ```
 
+_See code: [src/commands/app/install/joomla.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/install/joomla.ts)_
+
 ## `mw app install matomo`
 
 Creates new Matomo installation.
@@ -923,6 +951,8 @@ FLAG DESCRIPTIONS
     Specify the version in which your Matomo will be installed.
     If unspecified, the Matomo will be installed in the latest available version.
 ```
+
+_See code: [src/commands/app/install/matomo.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/install/matomo.ts)_
 
 ## `mw app install nextcloud`
 
@@ -1011,6 +1041,8 @@ FLAG DESCRIPTIONS
     Specify the version in which your Nextcloud will be installed.
     If unspecified, the Nextcloud will be installed in the latest available version.
 ```
+
+_See code: [src/commands/app/install/nextcloud.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/install/nextcloud.ts)_
 
 ## `mw app install shopware5`
 
@@ -1136,6 +1168,8 @@ FLAG DESCRIPTIONS
     If unspecified, the Shopware 5 will be installed in the latest available version.
 ```
 
+_See code: [src/commands/app/install/shopware5.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/install/shopware5.ts)_
+
 ## `mw app install shopware6`
 
 Creates new Shopware 6 installation.
@@ -1260,6 +1294,8 @@ FLAG DESCRIPTIONS
     If unspecified, the Shopware 6 will be installed in the latest available version.
 ```
 
+_See code: [src/commands/app/install/shopware6.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/install/shopware6.ts)_
+
 ## `mw app install typo3`
 
 Creates new TYPO3 installation.
@@ -1355,6 +1391,8 @@ FLAG DESCRIPTIONS
     If unspecified, the TYPO3 will be installed in the latest available version.
 ```
 
+_See code: [src/commands/app/install/typo3.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/install/typo3.ts)_
+
 ## `mw app install wordpress`
 
 Creates new WordPress installation.
@@ -1443,6 +1481,8 @@ FLAG DESCRIPTIONS
     If unspecified, the WordPress will be installed in the latest available version.
 ```
 
+_See code: [src/commands/app/install/wordpress.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/install/wordpress.ts)_
+
 ## `mw app list`
 
 List installed apps in a project.
@@ -1478,6 +1518,8 @@ FLAG DESCRIPTIONS
     to persistently set a default project for all commands that accept this flag.
 ```
 
+_See code: [src/commands/app/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/list.ts)_
+
 ## `mw app list-upgrade-candidates [INSTALLATION-ID]`
 
 List upgrade candidates for an app installation.
@@ -1508,6 +1550,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   List upgrade candidates for an app installation.
 ```
+
+_See code: [src/commands/app/list-upgrade-candidates.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/list-upgrade-candidates.ts)_
 
 ## `mw app open [INSTALLATION-ID]`
 
@@ -1540,6 +1584,8 @@ FLAG DESCRIPTIONS
     If this flag is set, the backend of the app installation will be opened instead of the frontend. This flag is only
     available for some types of apps (like PHP and Node.js).
 ```
+
+_See code: [src/commands/app/open.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/open.ts)_
 
 ## `mw app ssh [INSTALLATION-ID]`
 
@@ -1598,6 +1644,8 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+_See code: [src/commands/app/ssh.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/ssh.ts)_
+
 ## `mw app uninstall [INSTALLATION-ID]`
 
 Uninstall an app
@@ -1627,6 +1675,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/app/uninstall.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/uninstall.ts)_
 
 ## `mw app update [INSTALLATION-ID]`
 
@@ -1672,6 +1722,8 @@ FLAG DESCRIPTIONS
     is only available for some types of apps (like Python and Node.js).
 ```
 
+_See code: [src/commands/app/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/update.ts)_
+
 ## `mw app upgrade [INSTALLATION-ID]`
 
 Upgrade app installation to target version
@@ -1715,6 +1767,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/app/upgrade.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/upgrade.ts)_
 
 ## `mw app upload [INSTALLATION-ID]`
 
@@ -1797,6 +1851,8 @@ FLAG DESCRIPTIONS
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
 ```
 
+_See code: [src/commands/app/upload.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/upload.ts)_
+
 ## `mw app version-info APP VERSION`
 
 This command shows information about a specific app version. It is useful to get information about the user inputs that are required for the version to be deployed successfully.
@@ -1820,6 +1876,8 @@ DESCRIPTION
   show information about specific app versions
 ```
 
+_See code: [src/commands/app/version-info.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/version-info.ts)_
+
 ## `mw app versions [APP]`
 
 List supported Apps and Versions
@@ -1838,3 +1896,5 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   List supported Apps and Versions
 ```
+
+_See code: [src/commands/app/versions.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/app/versions.ts)_

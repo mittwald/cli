@@ -51,6 +51,8 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+_See code: [src/commands/backup/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/create.ts)_
+
 ## `mw backup delete BACKUP-ID`
 
 Delete a backup
@@ -82,6 +84,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/backup/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/delete.ts)_
 
 ## `mw backup download BACKUP-ID`
 
@@ -135,6 +139,8 @@ FLAG DESCRIPTIONS
     CAUTION: this is not stored anywhere.
 ```
 
+_See code: [src/commands/backup/download.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/download.ts)_
+
 ## `mw backup get BACKUP-ID`
 
 Show details of a backup.
@@ -161,6 +167,8 @@ DESCRIPTION
 ALIASES
   $ mw project backup get
 ```
+
+_See code: [src/commands/backup/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/get.ts)_
 
 ## `mw backup list`
 
@@ -199,6 +207,8 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 ```
+
+_See code: [src/commands/backup/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/list.ts)_
 
 ## `mw backup schedule create`
 
@@ -247,6 +257,8 @@ FLAG DESCRIPTIONS
     define the number of days the backup will be kept.
 ```
 
+_See code: [src/commands/backup/schedule/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/schedule/create.ts)_
+
 ## `mw backup schedule delete BACKUP-SCHEDULE-ID`
 
 Delete a backup schedule
@@ -275,6 +287,8 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/backup/schedule/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/schedule/delete.ts)_
 
 ## `mw backup schedule list`
 
@@ -313,6 +327,8 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 ```
+
+_See code: [src/commands/backup/schedule/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/schedule/list.ts)_
 
 ## `mw backup schedule update BACKUP-SCHEDULE-ID`
 
@@ -359,3 +375,5 @@ FLAG DESCRIPTIONS
     Must be specified as an amount of days between 7 and 400 in the format [amount]d - e.g. '7d' for 7 days. This will
     define the number of days the backup will be kept.
 ```
+
+_See code: [src/commands/backup/schedule/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/backup/schedule/update.ts)_

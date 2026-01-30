@@ -6,6 +6,7 @@ Manage cronjobs of your projects
 * [`mw cronjob create`](#mw-cronjob-create)
 * [`mw cronjob delete CRONJOB-ID`](#mw-cronjob-delete-cronjob-id)
 * [`mw cronjob execute CRONJOB-ID`](#mw-cronjob-execute-cronjob-id)
+* [`mw cronjob execution abort CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-abort-cronjob-id-execution-id)
 * [`mw cronjob execution get CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-get-cronjob-id-execution-id)
 * [`mw cronjob execution list`](#mw-cronjob-execution-list)
 * [`mw cronjob execution logs CRONJOB-ID EXECUTION-ID`](#mw-cronjob-execution-logs-cronjob-id-execution-id)
@@ -92,6 +93,8 @@ FLAG DESCRIPTIONS
     'https://my-website.com/cron-job'. Not required if a command and interpreter is defined.
 ```
 
+_See code: [src/commands/cronjob/create.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/create.ts)_
+
 ## `mw cronjob delete CRONJOB-ID`
 
 Delete a cron job
@@ -121,6 +124,8 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+_See code: [src/commands/cronjob/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/delete.ts)_
+
 ## `mw cronjob execute CRONJOB-ID`
 
 Manually run a cron job
@@ -142,6 +147,36 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/cronjob/execute.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/execute.ts)_
+
+## `mw cronjob execution abort CRONJOB-ID EXECUTION-ID`
+
+Abort a running cron job execution.
+
+```
+USAGE
+  $ mw cronjob execution abort CRONJOB-ID EXECUTION-ID [--token <value>] [-q]
+
+ARGUMENTS
+  CRONJOB-ID    ID of the cronjob the execution belongs to
+  EXECUTION-ID  ID of the cron job execution to abort
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+_See code: [src/commands/cronjob/execution/abort.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/execution/abort.ts)_
 
 ## `mw cronjob execution get CRONJOB-ID EXECUTION-ID`
 
@@ -169,6 +204,8 @@ DESCRIPTION
 ALIASES
   $ mw project cronjob execution get
 ```
+
+_See code: [src/commands/cronjob/execution/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/execution/get.ts)_
 
 ## `mw cronjob execution list`
 
@@ -200,6 +237,8 @@ DESCRIPTION
 ALIASES
   $ mw project cronjob execution list
 ```
+
+_See code: [src/commands/cronjob/execution/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/execution/list.ts)_
 
 ## `mw cronjob execution logs CRONJOB-ID EXECUTION-ID`
 
@@ -233,6 +272,8 @@ ALIASES
   $ mw project cronjob execution logs
 ```
 
+_See code: [src/commands/cronjob/execution/logs.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/execution/logs.ts)_
+
 ## `mw cronjob get CRONJOB-ID`
 
 Get details of a cron job
@@ -256,6 +297,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Get details of a cron job
 ```
+
+_See code: [src/commands/cronjob/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/get.ts)_
 
 ## `mw cronjob list`
 
@@ -294,6 +337,8 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 ```
+
+_See code: [src/commands/cronjob/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/list.ts)_
 
 ## `mw cronjob update CRONJOB-ID`
 
@@ -373,3 +418,5 @@ FLAG DESCRIPTIONS
     Define a URL with protocol to which a request will be dispatched when the cron job is executed. For example:
     'https://my-website.com/cron-job'. Not required if a command and interpreter is defined.
 ```
+
+_See code: [src/commands/cronjob/update.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/cronjob/update.ts)_

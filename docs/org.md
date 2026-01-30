@@ -43,6 +43,8 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+_See code: [src/commands/org/delete.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/delete.ts)_
+
 ## `mw org get [ORG-ID]`
 
 Get an organization profile.
@@ -66,6 +68,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Get an organization profile.
 ```
+
+_See code: [src/commands/org/get.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/get.ts)_
 
 ## `mw org invite`
 
@@ -104,6 +108,8 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+_See code: [src/commands/org/invite.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/invite.ts)_
+
 ## `mw org invite list`
 
 List all invites for an organization.
@@ -138,6 +144,8 @@ FLAG DESCRIPTIONS
     persistently set a default org for all commands that accept this flag.
 ```
 
+_See code: [src/commands/org/invite/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/invite/list.ts)_
+
 ## `mw org invite list-own`
 
 List all organization invites for the executing user.
@@ -164,6 +172,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   List all organization invites for the executing user.
 ```
+
+_See code: [src/commands/org/invite/list-own.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/invite/list-own.ts)_
 
 ## `mw org invite revoke INVITE-ID`
 
@@ -193,6 +203,8 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
+_See code: [src/commands/org/invite/revoke.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/invite/revoke.ts)_
+
 ## `mw org list`
 
 Get all organizations the authenticated user has access to.
@@ -219,6 +231,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Get all organizations the authenticated user has access to.
 ```
+
+_See code: [src/commands/org/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/list.ts)_
 
 ## `mw org membership list`
 
@@ -254,6 +268,8 @@ FLAG DESCRIPTIONS
     persistently set a default org for all commands that accept this flag.
 ```
 
+_See code: [src/commands/org/membership/list.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/membership/list.ts)_
+
 ## `mw org membership list-own`
 
 List all organization memberships for the executing user.
@@ -280,6 +296,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   List all organization memberships for the executing user.
 ```
+
+_See code: [src/commands/org/membership/list-own.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/membership/list-own.ts)_
 
 ## `mw org membership revoke MEMBERSHIP-ID`
 
@@ -308,3 +326,5 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+_See code: [src/commands/org/membership/revoke.ts](https://github.com/mittwald/cli/blob/v1.13.1-beta.8/src/commands/org/membership/revoke.ts)_
