@@ -37,6 +37,8 @@ DESCRIPTION
   Get all conversation categories.
 ```
 
+_See code: [src/commands/conversation/categories.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/conversation/categories.ts)_
+
 ## `mw conversation close [CONVERSATION-ID]`
 
 Close a conversation
@@ -55,6 +57,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Close a conversation
 ```
+
+_See code: [src/commands/conversation/close.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/conversation/close.ts)_
 
 ## `mw conversation create`
 
@@ -84,6 +88,8 @@ DESCRIPTION
   Create a new conversation
 ```
 
+_See code: [src/commands/conversation/create.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/conversation/create.ts)_
+
 ## `mw conversation list`
 
 Get all conversations the authenticated user has created or has access to.
@@ -110,6 +116,8 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Get all conversations the authenticated user has created or has access to.
 ```
+
+_See code: [src/commands/conversation/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/conversation/list.ts)_
 
 ## `mw conversation reply [CONVERSATION-ID]`
 
@@ -139,6 +147,8 @@ DESCRIPTION
   Reply to a conversation
 ```
 
+_See code: [src/commands/conversation/reply.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/conversation/reply.ts)_
+
 ## `mw conversation show [CONVERSATION-ID]`
 
 Show a conversation and message history
@@ -157,3 +167,5 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Show a conversation and message history
 ```
+
+_See code: [src/commands/conversation/show.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/conversation/show.ts)_

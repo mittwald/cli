@@ -3,6 +3,9 @@
   "version": "0.0.0-development",
   "description": "Hand-crafted CLI for the mittwald API",
   "license": "MIT",
+  "repository": {
+    "url": "https://github.com/mittwald/cli"
+  },
   "author": {
     "name": "Mittwald CM Service GmbH & Co. KG",
     "email": "opensource@mittwald.de"
