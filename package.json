@@ -26,7 +26,7 @@
     "compile": "tsc --build tsconfig.json",
     "format": "yarn format:prettier --write",
     "format:prettier": "prettier $@ '**/*.{ts,tsx,yaml,yml,json,md,mdx}'",
-    "generate:readme": "latest_version=$(git describe --tags --abbrev=0 | tr -d v); oclif readme --multi --output-dir=docs --version=${latest_version} < /dev/null",
+    "generate:readme": "oclif readme --multi --output-dir=docs < /dev/null && sed -i -e '/See code: .src/d' docs/*.md",
     "license-check": "yarn pnpify license-checker-rseidelsohn ",
     "lint": "eslint . --cache",
     "package": "yarn package:tarballs && yarn package:windows && yarn package:macos",

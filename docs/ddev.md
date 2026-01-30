@@ -91,7 +91,6 @@ FLAG DESCRIPTIONS
     database.
 ```
 
-_See code: [src/commands/ddev/init.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/ddev/init.ts)_
 
 ## `mw ddev render-config [INSTALLATION-ID]`
 
@@ -147,4 +146,3 @@ FLAG DESCRIPTIONS
     database.
 ```
 
-_See code: [src/commands/ddev/render-config.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/ddev/render-config.ts)_

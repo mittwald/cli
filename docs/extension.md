@@ -39,7 +39,6 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/extension/install.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/extension/install.ts)_
 
 ## `mw extension list`
 
@@ -68,7 +67,6 @@ DESCRIPTION
   Get all available extensions.
 ```
 
-_See code: [src/commands/extension/list.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/extension/list.ts)_
 
 ## `mw extension list-installed`
 
@@ -99,7 +97,6 @@ DESCRIPTION
   List installed extensions in an organization or project.
 ```
 
-_See code: [src/commands/extension/list-installed.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/extension/list-installed.ts)_
 
 ## `mw extension uninstall EXTENSION-INSTANCE-ID`
 
@@ -129,4 +126,3 @@ FLAG DESCRIPTIONS
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
-_See code: [src/commands/extension/uninstall.ts](https://github.com/mittwald/cli/blob/v0.0.0-development/src/commands/extension/uninstall.ts)_
