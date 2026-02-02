@@ -113,6 +113,7 @@ USAGE
 * [`mw backup`](docs/backup.md) - Manage backups of your projects
 * [`mw container`](docs/container.md) - Manage containers
 * [`mw context`](docs/context.md) - Save certain environment parameters for later use
+* [`mw contributor`](docs/contributor.md) - Commands for mStudio marketplace contributors
 * [`mw conversation`](docs/conversation.md) - Manage your support cases
 * [`mw cronjob`](docs/cronjob.md) - Manage cronjobs of your projects
 * [`mw database`](docs/database.md) - Manage databases (like MySQL and Redis) in your projects
