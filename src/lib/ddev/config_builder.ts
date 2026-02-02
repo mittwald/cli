@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
 import {

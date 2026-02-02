@@ -1,4 +1,4 @@
-import * as child_process from "child_process";
+import { spawnSync } from "child_process";
 import { projectArgs } from "../../lib/resources/project/flags.js";
 import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.js";
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
@@ -27,7 +27,7 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
 
     this.log("connecting to %o as %o", host, user);
 
-    child_process.spawnSync("/usr/bin/ssh", ["-l", user, host], {
+    spawnSync("/usr/bin/ssh", ["-l", user, host], {
       stdio: "inherit",
     });
   }
