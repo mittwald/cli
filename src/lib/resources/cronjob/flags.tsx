@@ -33,4 +33,9 @@ export const cronjobFlagDefinitions = {
     description:
       "Must be either 'bash' or 'php'. Define the interpreter to be used to execute the previously defined command. The interpreter should match the corresponding command or script.",
   }),
+  timezone: Flags.custom<string>({
+    summary: "Set the timezone for the cron job.",
+    description:
+      "Specify the timezone in which the cron job should be executed. Use standard timezone identifiers (e.g., 'Europe/Berlin', 'America/New_York'). Defaults to UTC if not specified.",
+  }),
 };

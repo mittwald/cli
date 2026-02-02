@@ -74,6 +74,7 @@ export const CronJobDetails: CronJobComponent = ({ cronjob }) => {
         <CronJobNextExecution cronjob={cronjob} />)
       </Text>
     ),
+    Timezone: <Value>{cronjob.timeZone || "UTC"}</Value>,
   };
 
   const sections = [

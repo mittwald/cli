@@ -35,6 +35,10 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       shortId,
       interval: {},
       description: {},
+      timezone: {
+        header: "Timezone",
+        get: (r) => r.timeZone || "UTC",
+      },
       lastExecution: {
         header: "Last execution",
         get: (r) => {

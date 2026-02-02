@@ -59,6 +59,7 @@ export default class Update extends ExecRenderBaseCommand<
         "If an email address is defined, an error message will be sent.",
       required: false,
     }),
+    timezone: cronjobFlagDefinitions.timezone(),
   };
 
   protected async exec(): Promise<void> {
@@ -79,6 +80,7 @@ export default class Update extends ExecRenderBaseCommand<
       command,
       enable,
       disable,
+      timezone,
     } = this.flags;
 
     if (Object.keys(this.flags).length == 0) {
@@ -101,6 +103,7 @@ export default class Update extends ExecRenderBaseCommand<
           timeout: timeout?.seconds,
           email,
           interval,
+          timeZone: timezone,
         },
       });
       assertSuccess(response);

@@ -20,7 +20,7 @@ Create a new cron job
 ```
 USAGE
   $ mw cronjob create --description <value> --interval <value> [--token <value>] [-i <value>] [-q] [--email <value>]
-    [--url <value>] [--command <value> --interpreter bash|php] [--disable] [--timeout <value>]
+    [--url <value>] [--command <value> --interpreter bash|php] [--disable] [--timeout <value>] [--timezone <value>]
 
 FLAGS
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
@@ -34,6 +34,7 @@ FLAGS
                                  <options: bash|php>
       --interval=<value>         (required) Set the interval for cron jobs to run.
       --timeout=<value>          [default: 3600s] Timeout after which the process will be killed.
+      --timezone=<value>         Set the timezone for the cron job.
       --url=<value>              Set the URL to use when running a cron job.
 
 AUTHENTICATION FLAGS
@@ -85,6 +86,11 @@ FLAG DESCRIPTIONS
 
     Common duration formats are supported (for example, '1h', '30m', '30s'). Defines the amount of time after which a
     running cron job will be killed. If an email address is defined, an error message will be sent.
+
+  --timezone=<value>  Set the timezone for the cron job.
+
+    Specify the timezone in which the cron job should be executed. Use standard timezone identifiers (e.g.,
+    'Europe/Berlin', 'America/New_York'). Defaults to UTC if not specified.
 
   --url=<value>  Set the URL to use when running a cron job.
 
@@ -311,6 +317,7 @@ Update an existing cron job
 USAGE
   $ mw cronjob update CRONJOB-ID [--token <value>] [-q] [--description <value>] [--interval <value>] [--email
     <value>] [--url <value> | --command <value>] [--interpreter bash|php ] [--enable | --disable] [--timeout <value>]
+    [--timezone <value>]
 
 ARGUMENTS
   CRONJOB-ID  ID of the cron job to be updated.
@@ -326,6 +333,7 @@ FLAGS
                               <options: bash|php>
       --interval=<value>      Set the interval for cron jobs to run.
       --timeout=<value>       Timeout after which the process will be killed.
+      --timezone=<value>      Set the timezone for the cron job.
       --url=<value>           Set the URL to use when running a cron job.
 
 AUTHENTICATION FLAGS
@@ -375,6 +383,11 @@ FLAG DESCRIPTIONS
 
     Common duration formats are supported (for example, '1h', '30m', '30s'). Defines the amount of time after which a
     running cron job will be killed. If an email address is defined, an error message will be sent.
+
+  --timezone=<value>  Set the timezone for the cron job.
+
+    Specify the timezone in which the cron job should be executed. Use standard timezone identifiers (e.g.,
+    'Europe/Berlin', 'America/New_York'). Defaults to UTC if not specified.
 
   --url=<value>  Set the URL to use when running a cron job.
 
