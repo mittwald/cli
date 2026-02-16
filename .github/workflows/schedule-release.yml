@@ -4,9 +4,6 @@ on:
   schedule:
     - '0 13 * * *'
 
-permissions:
-  contents: write
-
 jobs:
   tag-release:
     runs-on: ubuntu-latest
