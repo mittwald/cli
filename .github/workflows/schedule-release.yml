@@ -1,0 +1,28 @@
+name: schedule-release.yml
+on:
+  workflow_dispatch:
+  schedule:
+    - '0 13 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  tag-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Tag new release
+        run: |
+          npx --package @semantic-release/git semantic-release
+        env:
+          GH_TOKEN: ${{ secrets.MACHINE_USER_TOKEN }}
+          GIT_AUTHOR_NAME: mittwald-machine[bot]
+          GIT_AUTHOR_EMAIL: opensource@mittwald.de
