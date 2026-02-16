@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, jest } from "@jest/globals";
 import { collectEnvironment } from "./env.js";
+import * as path from "path";
 
 describe("collectEnvironment", () => {
   beforeEach(() => {
@@ -13,7 +14,11 @@ describe("collectEnvironment", () => {
     };
 
     // Mock .env file path and its content
-    const envFilePath = "test_assets/test.env";
+    const envFilePath = path.join(
+      import.meta.dirname,
+      "test_assets",
+      "test.env",
+    );
 
     // Call `collectEnvironment` with the mocks in effect
     const result = await collectEnvironment(baseEnv, envFilePath);
