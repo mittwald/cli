@@ -1,4 +1,4 @@
-name: schedule-release.yml
+name: Tag new release
 on:
   workflow_dispatch:
   schedule:
