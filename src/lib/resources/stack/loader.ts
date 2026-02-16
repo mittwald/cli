@@ -1,9 +1,6 @@
 import yaml from "js-yaml";
 import * as fs from "fs";
-import type { MittwaldAPIV2 } from "@mittwald/api-client";
-
-type StackRequest =
-  MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
+import { RawStackInput } from "./types.js";
 
 function loadStackYAMLFromFile(file: string): string {
   if (file === "-") {
@@ -15,7 +12,7 @@ function loadStackYAMLFromFile(file: string): string {
 export async function loadStackFromFile(
   file: string,
   environment: Record<string, string | undefined>,
-): Promise<StackRequest> {
+): Promise<RawStackInput> {
   const input = loadStackYAMLFromFile(file);
   return loadStackFromStr(input, environment);
 }
@@ -23,8 +20,8 @@ export async function loadStackFromFile(
 export async function loadStackFromStr(
   input: string,
   environment: Record<string, string | undefined>,
-): Promise<StackRequest> {
-  const stack = yaml.load(input) as StackRequest;
+): Promise<RawStackInput> {
+  const stack = yaml.load(input) as RawStackInput;
 
   const stackWithSubstitutedEnvironment = substituteEnvironmentVariables(
     stack,

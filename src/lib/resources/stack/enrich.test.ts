@@ -1,3 +1,4 @@
+import { type MittwaldAPIV2 } from "@mittwald/api-client";
 import { describe, expect, it, jest, beforeEach } from "@jest/globals";
 
 const mockReadFile = jest.fn<typeof import("fs/promises").readFile>();
@@ -7,10 +8,42 @@ jest.unstable_mockModule("fs/promises", () => ({
 }));
 
 const { enrichStackDefinition } = await import("./enrich.js");
+const { loadStackFromStr } = await import("./loader.js");
+const { sanitizeStackDefinition } = await import("./sanitize.js");
+
+type StackRequest =
+  MittwaldAPIV2.Paths.V2StacksStackId.Put.Parameters.RequestBody;
 
 describe("enrichStackDefinition", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  it("should resolve environment lists to objects", async () => {
+    const input = {
+      services: {
+        webapp: {
+          image: "postgres:latest",
+          envs: ["something=little", 'bit="of love"'],
+        },
+      },
+    };
+
+    const expected = {
+      services: {
+        webapp: {
+          image: "postgres:latest",
+          envs: {
+            something: "little",
+            bit: "of love",
+          },
+        },
+      },
+    };
+
+    const result = await enrichStackDefinition(input);
+    expect(result).toEqual(expected);
+    expect(mockReadFile).not.toHaveBeenCalled();
   });
 
   it("should handle service without env_file", async () => {
@@ -190,5 +223,192 @@ describe("enrichStackDefinition", () => {
         },
       },
     });
+  });
+});
+
+describe("Integration Test: Docker Compose to Mittwald API Request transformation", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should transform Docker Compose file, environment variables, and CLI args into a valid API request", async () => {
+    // Sample Docker Compose file content
+    const dockerComposeFile = `
+      version: '3'
+      services:
+        nginx:
+          image: 'nginx:latest'
+          ports:
+            - "80:80"
+          environment:
+            APP_ENV: "development"
+            API_URL: "\${CUSTOM_API_URL:-https://default.api}"
+          env_file:
+            - ".env"
+            - ".env.local"
+    `;
+
+    // Mocking environment variables (process.env)
+    const cliEnv = {
+      CUSTOM_API_URL: "https://cli.api",
+    };
+
+    // Mocking .env files using fs/promises
+    mockReadFile
+      .mockResolvedValueOnce("DB_HOST=db.local\nDB_PORT=5432") // Content of .env
+      .mockResolvedValueOnce("DB_HOST=db.override.local\nDB_USER=user123"); // Content of .env.local
+
+    // Step 1: Load and parse Docker Compose file
+    const parsedStack = await loadStackFromStr(dockerComposeFile, cliEnv);
+
+    // Step 2: Sanitize stack definition ( compat layer )
+    const sanitizedStack = sanitizeStackDefinition(parsedStack);
+
+    // Step 3: Enrich stack definition (process environment variables)
+    const enrichedStack = await enrichStackDefinition(sanitizedStack);
+
+    // Expected API request format after the transformation
+    const expectedApiRequest: Partial<StackRequest> = {
+      services: {
+        nginx: {
+          image: "nginx:latest",
+          ports: ["80:80"],
+          envs: {
+            APP_ENV: "development", // From compose file
+            API_URL: "https://cli.api", // Default value overridden by CLI env
+            DB_HOST: "db.override.local", // Overridden by .env.local
+            DB_PORT: "5432", // Value from first .env file
+            DB_USER: "user123", // Value from .env.local
+          },
+        },
+      },
+    };
+
+    // Assertions
+    expect(enrichedStack).toMatchObject(expectedApiRequest);
+
+    // Type Assertions
+    const typeCheck: StackRequest = enrichedStack;
+    expect(typeCheck).toBeTruthy();
+
+    // Ensure env files are read in order
+    expect(mockReadFile).toHaveBeenCalledWith(".env", "utf-8");
+    expect(mockReadFile).toHaveBeenCalledWith(".env.local", "utf-8");
+  });
+
+  it("should transform Docker Compose file with list environment, environment variables, and CLI args into a valid API request", async () => {
+    // Sample Docker Compose file content
+    const dockerComposeFile = `
+      version: '3'
+      services:
+        nginx:
+          image: 'nginx:latest'
+          ports:
+            - "80:80"
+          environment:
+            - APP_ENV=development
+            - API_URL=\${CUSTOM_API_URL:-https://default.api}
+          env_file:
+            - ".env"
+            - ".env.local"
+    `;
+
+    // Mocking environment variables (process.env)
+    const cliEnv = {
+      CUSTOM_API_URL: "https://cli.api",
+    };
+
+    // Mocking .env files using fs/promises
+    mockReadFile
+      .mockResolvedValueOnce("DB_HOST=db.local\nDB_PORT=5432") // Content of .env
+      .mockResolvedValueOnce("DB_HOST=db.override.local\nDB_USER=user123"); // Content of .env.local
+
+    // Step 1: Load and parse Docker Compose file
+    const parsedStack = await loadStackFromStr(dockerComposeFile, cliEnv);
+
+    // Step 2: Sanitize stack definition ( compat layer )
+    const sanitizedStack = sanitizeStackDefinition(parsedStack);
+
+    // Step 3: Enrich stack definition (process environment variables)
+    const enrichedStack = await enrichStackDefinition(sanitizedStack);
+
+    // Expected API request format after the transformation
+    const expectedApiRequest: Partial<StackRequest> = {
+      services: {
+        nginx: {
+          image: "nginx:latest",
+          ports: ["80:80"],
+          envs: {
+            APP_ENV: "development", // From compose file
+            API_URL: "https://cli.api", // Default value overridden by CLI env
+            DB_HOST: "db.override.local", // Overridden by .env.local
+            DB_PORT: "5432", // Value from first .env file
+            DB_USER: "user123", // Value from .env.local
+          },
+        },
+      },
+    };
+
+    // Assertions
+    expect(enrichedStack).toMatchObject(expectedApiRequest);
+
+    // Type Assertions
+    const typeCheck: StackRequest = enrichedStack;
+    expect(typeCheck).toBeTruthy();
+
+    // Ensure env files are read in order
+    expect(mockReadFile).toHaveBeenCalledWith(".env", "utf-8");
+    expect(mockReadFile).toHaveBeenCalledWith(".env.local", "utf-8");
+  });
+
+  it("Issue # 1589: Invalid JSON from env file", async () => {
+    // Sample Docker Compose file content
+    const dockerComposeFile = `
+      version: '3'
+      services:
+        nginx:
+          image: 'nginx:latest'
+          ports:
+            - "80:80"
+          environment:
+            EXCLUDES: \${CUSTOM_EXCLUDES:-failed}
+    `;
+
+    // simulate env file input, mimes "collectEnvironment" output
+    const env = {
+      CUSTOM_EXCLUDES: JSON.stringify(["foo", "bar"]),
+    };
+
+    // Step 1: Load and parse Docker Compose file
+    // stuff from --env-file and/or process environment
+    // is already injected here!
+    const parsedStack = await loadStackFromStr(dockerComposeFile, env);
+
+    // Step 2: Sanitize stack definition ( compat layer )
+    const sanitizedStack = sanitizeStackDefinition(parsedStack);
+
+    // Step 3: Enrich stack definition (process environment variables)
+    // this one deals with additional env files *per service*
+    const enrichedStack = await enrichStackDefinition(sanitizedStack);
+
+    // Expected API request format after the transformation
+    const expectedApiRequest: Partial<StackRequest> = {
+      services: {
+        nginx: {
+          image: "nginx:latest",
+          ports: ["80:80"],
+          envs: {
+            EXCLUDES: JSON.stringify(["foo", "bar"]),
+          },
+        },
+      },
+    };
+
+    // Assertions
+    expect(enrichedStack).toMatchObject(expectedApiRequest);
+
+    // Type Assertions
+    const typeCheck: StackRequest = enrichedStack;
+    expect(typeCheck).toBeTruthy();
   });
 });

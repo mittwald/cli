@@ -1,0 +1,10 @@
+version: "3"
+services:
+  nginx:
+    image: "nginx:latest"
+    ports:
+      - "80:80"
+    environment:
+      - FOO=BAR
+      - HAM=EGGS
+      - SOMETHING=${MY_ENV}
