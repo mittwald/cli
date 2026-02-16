@@ -44,9 +44,9 @@ const defaultOptions: TableColumnRendererOptions = {
   favorSmallColumnsFactor: 0.2,
 };
 
-export default class TableColumnRenderer<TItem>
-  implements TableRenderer<TItem>
-{
+export default class TableColumnRenderer<
+  TItem,
+> implements TableRenderer<TItem> {
   private opts: TableColumnRendererOptions;
   private readonly chalk: ChalkInstance;
 
