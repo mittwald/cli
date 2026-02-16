@@ -77,6 +77,8 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^10.0.1",
     "@jest/globals": "^30.0.4",
     "@oclif/test": "^4.0.4",
     "@types/js-yaml": "^4.0.9",
