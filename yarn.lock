@@ -9076,16 +9076,15 @@ __metadata:
   linkType: hard
 
 "prettier-plugin-jsdoc@npm:^1.3.2":
-  version: 1.7.0
-  resolution: "prettier-plugin-jsdoc@npm:1.7.0"
+  version: 1.8.0
+  resolution: "prettier-plugin-jsdoc@npm:1.8.0"
   dependencies:
     binary-searching: ^2.0.5
     comment-parser: ^1.4.0
     mdast-util-from-markdown: ^2.0.0
-    prettier-plugin-tailwindcss: ^0.7.1
   peerDependencies:
     prettier: ^3.0.0
-  checksum: ab51489265e2e7abb9449c0a97099fd8000cd2d0d1d646a65d40e47730e71575fe50b1e6228f4be48c3d238feba92c25850c090b2ba281dc69b94a80b7c19e91
+  checksum: 31b2d6b4a0f2dfee5315a925045fb30d9179541f98c04bcc4f345911a81a612deeff45fcdaf861fe04998d440443a7693bddd2a68e2b65f7397d2884a2a8f397
   languageName: node
   linkType: hard
 
@@ -9104,64 +9103,6 @@ __metadata:
   peerDependencies:
     prettier: ^3.0.0
   checksum: 5391b29bbfc0a70e9c847cf64762aecddc6c31a24af742b45eeeef4ab37802b846ffcf21d3a52d20d5b5c2f5bac87e0b4bc550a9cb1aa6a8d55e08c4826d9b24
-  languageName: node
-  linkType: hard
-
-"prettier-plugin-tailwindcss@npm:^0.7.1":
-  version: 0.7.1
-  resolution: "prettier-plugin-tailwindcss@npm:0.7.1"
-  peerDependencies:
-    "@ianvs/prettier-plugin-sort-imports": "*"
-    "@prettier/plugin-hermes": "*"
-    "@prettier/plugin-oxc": "*"
-    "@prettier/plugin-pug": "*"
-    "@shopify/prettier-plugin-liquid": "*"
-    "@trivago/prettier-plugin-sort-imports": "*"
-    "@zackad/prettier-plugin-twig": "*"
-    prettier: ^3.0
-    prettier-plugin-astro: "*"
-    prettier-plugin-css-order: "*"
-    prettier-plugin-jsdoc: "*"
-    prettier-plugin-marko: "*"
-    prettier-plugin-multiline-arrays: "*"
-    prettier-plugin-organize-attributes: "*"
-    prettier-plugin-organize-imports: "*"
-    prettier-plugin-sort-imports: "*"
-    prettier-plugin-svelte: "*"
-  peerDependenciesMeta:
-    "@ianvs/prettier-plugin-sort-imports":
-      optional: true
-    "@prettier/plugin-hermes":
-      optional: true
-    "@prettier/plugin-oxc":
-      optional: true
-    "@prettier/plugin-pug":
-      optional: true
-    "@shopify/prettier-plugin-liquid":
-      optional: true
-    "@trivago/prettier-plugin-sort-imports":
-      optional: true
-    "@zackad/prettier-plugin-twig":
-      optional: true
-    prettier-plugin-astro:
-      optional: true
-    prettier-plugin-css-order:
-      optional: true
-    prettier-plugin-jsdoc:
-      optional: true
-    prettier-plugin-marko:
-      optional: true
-    prettier-plugin-multiline-arrays:
-      optional: true
-    prettier-plugin-organize-attributes:
-      optional: true
-    prettier-plugin-organize-imports:
-      optional: true
-    prettier-plugin-sort-imports:
-      optional: true
-    prettier-plugin-svelte:
-      optional: true
-  checksum: a87fcfa4eb115daa50e9cdf8ceb3e214477480bca02233fb6a3d31fd1756700de652e650b347944aa29415853d300308b6fbafb49ba2f06e777750be499d105b
   languageName: node
   linkType: hard
 
