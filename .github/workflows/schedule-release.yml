@@ -2,7 +2,7 @@ name: schedule-release.yml
 on:
   workflow_dispatch:
   schedule:
-    - '0 13 * * *'
+    - cron: '0 13 * * *'
 
 jobs:
   tag-release:
