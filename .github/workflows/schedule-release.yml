@@ -2,7 +2,7 @@ name: Tag new release
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 13 * * *'
+    - cron: "0 13 * * *"
 
 jobs:
   tag-release:
