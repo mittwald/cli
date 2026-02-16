@@ -3707,11 +3707,11 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:^19":
-  version: 19.2.13
-  resolution: "@types/react@npm:19.2.13"
+  version: 19.2.14
+  resolution: "@types/react@npm:19.2.14"
   dependencies:
     csstype: ^3.2.2
-  checksum: fc3ca7226a7f1c54fa3ef185019f4cfb76f9088f4fed8a7eec0ddfcecfe41fa64c649ce6cf7facbce871343a8cb600a5afed68e15f6e85fe4163c5c8db8fc2b8
+  checksum: ddd330292abf2dc2cfa65188e1c5f67cc6e90f8d8ffb088f753a38db9d123f942c23d324a6b7e8027ff04f22b395492150f54b9b520b6cbec1e8841e669f2c19
   languageName: node
   linkType: hard
 
