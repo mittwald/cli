@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.MACHINE_USER_TOKEN }}
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -18,7 +20,7 @@ jobs:
 
       - name: Tag new release
         run: |
-          npx --package @semantic-release/git semantic-release
+          npx --package @semantic-release/git semantic-release --debug
         env:
           GH_TOKEN: ${{ secrets.MACHINE_USER_TOKEN }}
           GIT_AUTHOR_NAME: mittwald-machine[bot]
