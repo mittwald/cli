@@ -58,6 +58,7 @@ export function generateIntellijConfigs(
   } catch (error) {
     throw new Error(
       `Cannot create .idea directory: ${error instanceof Error ? error.message : error}`,
+      { cause: error },
     );
   }
 
