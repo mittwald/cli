@@ -808,7 +808,7 @@ FLAG DESCRIPTIONS
 
   -v, --volume=<value>...  update volume mounts for the container
 
-    This flag can be used to add volume mounts to the container. It can be used multiple times to mount multiple
+    This flag can be used to replace volume mounts of the container. It can be used multiple times to mount multiple
     volumes.Needs to be in the format <host-path>:<container-path>. If you specify a file path as volume, this will
     mount a path from your hosting environment's file system (NOT your local file system) into the container. You can
     also specify a named volume, which needs to be created beforehand.
