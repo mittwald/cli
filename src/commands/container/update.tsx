@@ -88,7 +88,7 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
     volume: Flags.string({
       summary: "update volume mounts for the container",
       description:
-        "This flag can be used to add volume mounts to the container. It can be used multiple times to mount multiple volumes." +
+        "This flag can be used to replace volume mounts of the container. It can be used multiple times to mount multiple volumes." +
         "" +
         "Needs to be in the format <host-path>:<container-path>. " +
         "" +
