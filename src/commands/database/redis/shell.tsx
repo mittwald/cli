@@ -49,6 +49,7 @@ export class Shell extends ExecRenderBaseCommand<
 
     const sshArgs = buildSSHClientFlags(sshUser, sshHost, this.flags, {
       interactive: true,
+      configDir: this.config.configDir,
     });
     const redisArgs = ["-h", hostname];
 

@@ -4,6 +4,7 @@ import { ExtendedBaseCommand } from "../../lib/basecommands/ExtendedBaseCommand.
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
 import { getSSHConnectionForProject } from "../../lib/resources/ssh/project.js";
 import { sshWrapperDocumentation } from "../../lib/resources/ssh/doc.js";
+import { buildSSHClientFlags } from "../../lib/resources/ssh/connection.js";
 
 export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
   static summary = "Connect to a project via SSH";
@@ -27,7 +28,12 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
 
     this.log("connecting to %o as %o", host, user);
 
-    spawnSync("/usr/bin/ssh", ["-l", user, host], {
+    const sshArgs = buildSSHClientFlags(user, host, this.flags, {
+      interactive: true,
+      configDir: this.config.configDir,
+    });
+
+    spawnSync("/usr/bin/ssh", sshArgs, {
       stdio: "inherit",
     });
   }

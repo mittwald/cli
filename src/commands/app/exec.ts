@@ -76,6 +76,7 @@ export default class Exec extends ExtendedBaseCommand<typeof Exec> {
 
     const sshArgs = buildSSHClientFlags(user, host, flags, {
       interactive: false,
+      configDir: this.config.configDir,
     });
 
     const wrappedExecCommand = shellEscape(["/bin/bash", "-c", execCommand]);
