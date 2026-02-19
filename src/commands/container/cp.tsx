@@ -3,6 +3,7 @@ import { Args, Flags } from "@oclif/core";
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import { getSSHConnectionForContainer } from "../../lib/resources/ssh/container.js";
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
+import { getSSHKnownHostsFlags } from "../../lib/resources/ssh/knownhosts.js";
 import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import {
@@ -80,7 +81,11 @@ Where CONTAINER can be a container ID, short ID, or service name.`;
     dest: string,
     flags: { archive?: boolean; recursive?: boolean },
   ): string[] {
-    const scpArgs = ["-o", "PasswordAuthentication=no"];
+    const scpArgs = [
+      ...getSSHKnownHostsFlags(this.config.configDir),
+      "-o",
+      "PasswordAuthentication=no",
+    ];
 
     if (flags.archive) {
       scpArgs.push("-p");

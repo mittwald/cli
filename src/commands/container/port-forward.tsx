@@ -81,6 +81,7 @@ export class PortForward extends ExecRenderBaseCommand<
       additionalFlags: portMappings
         .map((p) => ["-L", `${p.localPort}:localhost:${p.remotePort}`])
         .flat(),
+      configDir: this.config.configDir,
     });
 
     cp.spawnSync("ssh", [...sshArgs, "sleep", "infinity"], {

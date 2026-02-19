@@ -79,6 +79,7 @@ export class Import extends ExecRenderBaseCommand<
               { projectId: connectionDetails.project.id },
               cmd,
               { input: this.getInputStream(), output: null },
+              this.config.configDir,
             ),
         );
 
