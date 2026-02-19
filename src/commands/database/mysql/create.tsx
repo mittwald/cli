@@ -128,7 +128,7 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
       const r = await this.apiClient.database.createMysqlDatabase({
         projectId,
         data: {
-          database: { projectId, ...database },
+          database,
           user,
         },
       });
