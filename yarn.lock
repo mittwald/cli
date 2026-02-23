@@ -2546,8 +2546,8 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.8.0":
-  version: 4.8.0
-  resolution: "@oclif/core@npm:4.8.0"
+  version: 4.8.1
+  resolution: "@oclif/core@npm:4.8.1"
   dependencies:
     ansi-escapes: ^4.3.2
     ansis: ^3.17.0
@@ -2559,7 +2559,7 @@ __metadata:
     indent-string: ^4.0.0
     is-wsl: ^2.2.0
     lilconfig: ^3.1.3
-    minimatch: ^9.0.5
+    minimatch: ^10.2.1
     semver: ^7.7.3
     string-width: ^4.2.3
     supports-color: ^8
@@ -2567,7 +2567,7 @@ __metadata:
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 37743cd2c38c79d48b6b9db51f0f5fac302f3c874fd9079a96ff3f225b60d3abeacc90d9e24047f537bf93f43d0d73ae09d4427bf35251199ffc38d49c36541b
+  checksum: 05ede56ea586b4786d83d87f448f3cb90b0dc850efbac1b83d72ece0ccb874d945751bdbcf7aa0bb59dd1e6ea2e4ab434acfd8751df5c2022da7fd81af7937f2
   languageName: node
   linkType: hard
 
@@ -8304,6 +8304,15 @@ __metadata:
   dependencies:
     brace-expansion: ^5.0.2
   checksum: 7b54732b32255a6a5458e67c928eb8247d08b19623bbc5a4123ded2545e38ecf6a3296c4f47bb7f85ac0834061c058499fe4507403793effd3f9dfc5839b1c20
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:^10.2.1":
+  version: 10.2.2
+  resolution: "minimatch@npm:10.2.2"
+  dependencies:
+    brace-expansion: ^5.0.2
+  checksum: b48f5cac833a83d0bdbc6b6fa656f35c86069b32cd692977c3e9d620f9b595081dbf3168bcb3027cc30b1fa0bfba83e70e09cba612adab4779aef4f8cdc7da39
   languageName: node
   linkType: hard
 
