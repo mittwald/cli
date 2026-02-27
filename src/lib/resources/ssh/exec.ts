@@ -24,6 +24,7 @@ export async function executeViaSSH(
   target: RunTarget,
   command: RunCommand,
   { input = null, output = null }: RunIO,
+  configDir: string,
 ): Promise<void> {
   const { user, host } = await connectionDataForTarget(
     client,
@@ -37,6 +38,7 @@ export async function executeViaSSH(
 
   const sshArgs = buildSSHClientFlags(user, host, sshConnectionFlags, {
     interactive: false,
+    configDir,
   });
 
   const ssh = cp.spawn("ssh", [...sshArgs, ...sshCommandArgs], {

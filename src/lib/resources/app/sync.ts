@@ -3,6 +3,7 @@ import { SSHConnectionFlags } from "../ssh/flags.js";
 import path from "path";
 import { pathExists } from "../../util/fs/pathExists.js";
 import { SSHConnectionData } from "../ssh/types.js";
+import { getSSHKnownHostsArgsString } from "../ssh/knownhosts.js";
 
 export const defaultRsyncFilterFile = ".mw-rsync-filter";
 
@@ -82,6 +83,7 @@ export function buildRsyncConnectionString(
 
 export function appInstallationSyncFlagsToRsyncFlags(
   f: AppInstallationSyncFlags & SSHConnectionFlags,
+  configDir: string,
 ): string[] {
   const {
     "dry-run": dryRun,
@@ -102,9 +104,14 @@ export function appInstallationSyncFlagsToRsyncFlags(
   if (f.delete) {
     rsyncOpts.push("--delete");
   }
+
+  // Build the SSH command for rsync with known hosts and optional identity file
+  const sshArgs = [getSSHKnownHostsArgsString(configDir)];
   if (sshIdentityFile) {
-    rsyncOpts.push("--rsh", `ssh -i ${sshIdentityFile}`);
+    sshArgs.push(`-i ${sshIdentityFile}`);
   }
+  rsyncOpts.push("--rsh", `ssh ${sshArgs.join(" ")}`);
+
   if (exclude?.length > 0) {
     rsyncOpts.push(...exclude.map((e) => `--exclude=${e}`));
   }
