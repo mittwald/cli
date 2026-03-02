@@ -3919,11 +3919,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^25.0.3":
-  version: 25.3.2
-  resolution: "@types/node@npm:25.3.2"
+  version: 25.3.3
+  resolution: "@types/node@npm:25.3.3"
   dependencies:
     undici-types: ~7.18.0
-  checksum: 6375c36cfc40ea512dfc715ce7ef55794ded163a4797a459bf2e2d7ac9c78a1ea79c2482bcdce7a94bb999fce8a28ab7a5ef568ea5d5586bf831f0a44a80f831
+  checksum: 9186aae36f8ddb0b3630dba446e5c16e5f3e6c5e7a4708d117a394d3e3b6f41db2dd83a6127adf4567826776a732ca9e2561594667bce74bb18ea4d59ee1e06a
   languageName: node
   linkType: hard
 
