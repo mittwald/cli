@@ -10,6 +10,7 @@ import { withContainerAndStackId } from "../lib/resources/container/flags.js";
 import assertSuccess from "../lib/apiutil/assert_success.js";
 import { Success } from "../rendering/react/components/Success.js";
 import { Value } from "../rendering/react/components/Value.js";
+import { assertStatus } from "@mittwald/api-client";
 
 type Result = {
   serviceId: string;
@@ -52,7 +53,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         uri = `${subdomain}.project.space`;
 
         // 4. Create the registry container (service)
-        const image = "ghcr.io/mittwald/docker-registry-authenticated:latest";
+        const image = "mittwald/registry:3";
         const serviceName = "project-registry";
         const environment = {
           REGISTRY_AUTH_USERNAME: username,
@@ -77,11 +78,16 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         assertSuccess(updateResp);
 
         // 5. Wait for container to be healthy
+        // XXX: Check project create & friends for polling mechanics
         let healthy = false;
         for (let i = 0; i < 20; i++) { // up to ~20s
-          const services = (await this.apiClient.container.listServices({ projectId })).data;
+          const servicesResp = await this.apiClient.container.listServices({ projectId });
+          assertStatus(servicesResp, 200);
+          const services = servicesResp.data;
+
+
           const regSvc = services.find(svc => svc.serviceName === serviceName);
-          if (regSvc && regSvc.status === "healthy") {
+          if (regSvc && regSvc.status === "running") {
             healthy = true;
             break;
           }
@@ -103,6 +109,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         registry = createResp.data;
         created = true;
       } else {
+        // XXX: This is not correct yet, we dont get full credentials just from service,
+        // instead check environment varubles of the service for registry credentials
         username = registry.credentials?.username;
         password = registry.credentials?.password;
         uri = registry.uri;
@@ -110,7 +118,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
 
       // 7. Output credentials to user
       // XXX: How to show intermediate step results in process renderer?
-      await p.info(
+      await p.addInfo(
         <>
           <Success>
             {created ? "Created new registry:" : "Using existing registry:"}
