@@ -1,16 +1,17 @@
 import { ReactNode } from "react";
-import { Args } from "@oclif/core";
 import { ExecRenderBaseCommand } from "../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
   processFlags,
 } from "../rendering/process/process_flags.js";
 import { projectFlags } from "../lib/resources/project/flags.js";
-import { withContainerAndStackId } from "../lib/resources/container/flags.js";
 import assertSuccess from "../lib/apiutil/assert_success.js";
 import { Success } from "../rendering/react/components/Success.js";
 import { Value } from "../rendering/react/components/Value.js";
-import { assertStatus } from "@mittwald/api-client";
+import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
+import { generatePasswordWithSpecialChars } from "../lib/util/password/generatePasswordWithSpecialChars.js";
+import { waitFlags, waitUntil } from "../lib/wait.js";
+
 
 type Result = {
   serviceId: string;
@@ -21,6 +22,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
   static flags = {
     ...processFlags,
     ...projectFlags,
+    ...waitFlags,
   };
   static args = {
   };
@@ -32,9 +34,9 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       const projectId = await this.withProjectId(Deploy);
       // 1. List registries and filter out default ones
       const registriesResp = await this.apiClient.container.listRegistries({ projectId });
-      assertSuccess(registriesResp);
+      assertStatus(registriesResp, 200);
 
-      const isDefaultRegistry = (r) => {
+      const isDefaultRegistry = (r: MittwaldAPIV2.Components.Schemas.ContainerRegistry) => {
         const uri = r.uri || "";
         return uri.includes("docker.io") || uri.includes("ghcr.io") || uri.includes("gitlab.com");
       };
@@ -45,7 +47,6 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       if (!registry) {
         // 2. Generate random credentials
         username = `user_${Math.random().toString(36).slice(2, 10)}`;
-        const { generatePasswordWithSpecialChars } = await import("../lib/util/password/generatePasswordWithSpecialChars.js");
         password = generatePasswordWithSpecialChars();
 
         // 3. Build registry URL: registry.p-XXXXXX.project.space
@@ -75,25 +76,21 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
           data: { services: { [serviceName]: serviceRequest } },
         });
 
-        assertSuccess(updateResp);
+        assertStatus(updateResp, 200);
 
-        // 5. Wait for container to be healthy
-        // XXX: Check project create & friends for polling mechanics
-        let healthy = false;
-        for (let i = 0; i < 20; i++) { // up to ~20s
-          const servicesResp = await this.apiClient.container.listServices({ projectId });
+        // 5. Wait for container to be running
+        await waitUntil(async () => {
+          const servicesResp = await this.apiClient.container.listServices(
+            { projectId }
+          );
           assertStatus(servicesResp, 200);
           const services = servicesResp.data;
 
-
           const regSvc = services.find(svc => svc.serviceName === serviceName);
           if (regSvc && regSvc.status === "running") {
-            healthy = true;
-            break;
+            return true;
           }
-          await new Promise(res => setTimeout(res, 1000));
-        }
-        if (!healthy) throw new Error("Registry container did not become healthy in time");
+        }, this.flags["wait-timeout"]);
 
         // 6. Register the registry entry
         const registryCreationPayload = {
@@ -105,7 +102,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
           projectId,
           data: registryCreationPayload,
         });
-        assertSuccess(createResp);
+        assertStatus(createResp, 201);
         registry = createResp.data;
         created = true;
       } else {
