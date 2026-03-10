@@ -31,6 +31,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       const projectId = await this.withProjectId(Deploy);
       // 1. List registries and filter out default ones
       const registriesResp = await this.apiClient.container.listRegistries({ projectId });
+      assertSuccess(registriesResp);
+
       const isDefaultRegistry = (r) => {
         const uri = r.uri || "";
         return uri.includes("docker.io") || uri.includes("ghcr.io") || uri.includes("gitlab.com");
@@ -67,10 +69,12 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         };
         // Add service to stack (projectId is used as stackId)
         const stackId = projectId;
-        await this.apiClient.container.updateStack({
+        const updateResp = await this.apiClient.container.updateStack({
           stackId,
           data: { services: { [serviceName]: serviceRequest } },
         });
+
+        assertSuccess(updateResp);
 
         // 5. Wait for container to be healthy
         let healthy = false;
@@ -95,6 +99,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
           projectId,
           data: registryCreationPayload,
         });
+        assertSuccess(createResp);
         registry = createResp.data;
         created = true;
       } else {
@@ -104,6 +109,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       }
 
       // 7. Output credentials to user
+      // XXX: How to show intermediate step results in process renderer?
       await p.info(
         <>
           <Success>
