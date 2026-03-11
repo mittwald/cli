@@ -11,7 +11,17 @@ import { Value } from "../rendering/react/components/Value.js";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import { generatePasswordWithSpecialChars } from "../lib/util/password/generatePasswordWithSpecialChars.js";
 import { waitFlags, waitUntil } from "../lib/wait.js";
+import fs from "fs/promises";
+import path from "path";
+import { pathExists } from "../lib/util/fs/pathExists.js";
 
+
+type RepositoryData = {
+  dockerfilePath: string;
+  dockerfileContent: string;
+  dockerfileCreated: boolean;
+  buildContext: string;
+};
 
 type Result = {
   serviceId: string;
@@ -27,8 +37,15 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
   static args = {
   };
 
+  private defaultDockerfile = `FROM nginx:alpine
+COPY . /usr/share/nginx/html/
+EXPOSE 80
+`;
+
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Deploying ...");
+
+    let repositoryData: RepositoryData;
 
     await p.runStep("Setting up registry ...", async () => {
       const projectId = await this.withProjectId(Deploy);
@@ -142,18 +159,30 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     });
 
     await p.runStep("Checking repository ...", async () => {
-      /*
-      check for Dockerfile and friends, create data-package for later use.
+      const projectRoot = process.cwd();
+      const dockerfilePath = path.join(projectRoot, "Dockerfile");
+      let dockerfileContent: string;
+      let dockerfileCreated = false;
 
-      Assume we are in the project root, so we can just check for files there.
-      In the future, we might want to add a flag to specify a subdirectory or something.
+      // Check if Dockerfile exists
+      if (await pathExists(dockerfilePath)) {
+        // 1.1 Dockerfile is present, read it
+        dockerfileContent = await fs.readFile(dockerfilePath, "utf-8");
+        p.addInfo("Found existing Dockerfile.");
+      } else {
+        // 1.2 No Dockerfile, create default one for static pages
+        dockerfileContent = this.defaultDockerfile;
+        await fs.writeFile(dockerfilePath, dockerfileContent, "utf-8");
+        dockerfileCreated = true;
+        p.addInfo("Created default Dockerfile for static pages.");
+      }
 
-      1.1 Check if dockerfile is present. If so, use that
-      1.2 If no dockerfile is present, create a default one for static pages
-
-      Return structured data for later use, e.g. build context, dockerfile path, etc.
-      */
-
+      repositoryData = {
+        dockerfilePath,
+        dockerfileContent,
+        dockerfileCreated,
+        buildContext: projectRoot,
+      };
     });
 
     await p.runStep("Building Docker image ...", async () => {
