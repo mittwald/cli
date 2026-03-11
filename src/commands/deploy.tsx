@@ -6,7 +6,6 @@ import {
   processFlags,
 } from "../rendering/process/process_flags.js";
 import { projectFlags } from "../lib/resources/project/flags.js";
-import assertSuccess from "../lib/apiutil/assert_success.js";
 import { Success } from "../rendering/react/components/Success.js";
 import { Value } from "../rendering/react/components/Value.js";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
@@ -37,8 +36,14 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     ...projectFlags,
     ...waitFlags,
   };
-  static args = {
-  };
+  static args = {};
+  static examples = [
+    "Deploy from current directory (auto-detects or creates Dockerfile):",
+    "  $ mw deploy",
+    "",
+    "Deploy with explicit project context:",
+    "  $ mw deploy --project-id p-abc123",
+  ];
 
   private defaultDockerfile = `FROM nginx:alpine
 COPY . /usr/share/nginx/html/
@@ -141,22 +146,31 @@ EXPOSE 80
           svc => svc.serviceName === "project-registry"
         );
         
-        if (registryService) {
-          const serviceDetailsResp =
-            await this.apiClient.container.getService({
-              serviceId: registryService.id,
-              stackId: projectId,
-            });
-          assertStatus(serviceDetailsResp, 200);
-          
-          const service = serviceDetailsResp.data;
-          username =
-            service.deployedState?.envs?.REGISTRY_AUTH_USERNAME ?? "";
-          password =
-            service.deployedState?.envs?.REGISTRY_AUTH_PASSWORD ?? "";
+        if (!registryService) {
+          throw new Error(
+            "Registry service not found. Unable to retrieve credentials."
+          );
+        }
+        
+        const serviceDetailsResp =
+          await this.apiClient.container.getService({
+            serviceId: registryService.id,
+            stackId: projectId,
+          });
+        assertStatus(serviceDetailsResp, 200);
+        
+        const service = serviceDetailsResp.data;
+        username = service.deployedState?.envs?.REGISTRY_AUTH_USERNAME ?? "";
+        password = service.deployedState?.envs?.REGISTRY_AUTH_PASSWORD ?? "";
+        
+        if (!username || !password) {
+          throw new Error(
+            "Registry credentials not found in service environment variables."
+          );
         }
         
         uri = registry.uri;
+        // TODO: Existing registries must be exposed via domain. This setup is incomplete.
       }
 
       // 7. Output result to user
@@ -198,9 +212,8 @@ EXPOSE 80
     });
 
     await p.runStep("Building Docker image ...", async () => {
-      const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
       const registryHost = registryUri.replace(/^https?:\/\//, '');
-      const imageName = `${registryHost}/app-image:${timestamp}`;
+      const imageName = `${registryHost}/app-image:latest`;
 
       const buildResult = spawnSync('docker', [
         'build',
@@ -237,9 +250,10 @@ EXPOSE 80
     });
 
     await p.runStep("Pushing docker image ...", async () => {
+      const registryHost = registryUri.replace(/^https?:\/\//, '');
       const loginResult = spawnSync('docker', [
         'login',
-        registryUri,
+        registryHost,
         '-u', registryUsername,
         '-p', registryPassword,
       ], {
