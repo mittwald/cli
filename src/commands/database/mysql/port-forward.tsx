@@ -62,6 +62,7 @@ export class PortForward extends ExecRenderBaseCommand<
     const sshArgs = buildSSHClientFlags(sshUser, sshHost, this.flags, {
       interactive: false,
       additionalFlags: ["-L", `${port}:${hostname}:3306`],
+      configDir: this.config.configDir,
     });
 
     cp.spawnSync("ssh", [...sshArgs, "sleep", "infinity"], {

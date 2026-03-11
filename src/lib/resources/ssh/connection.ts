@@ -1,4 +1,5 @@
 import { SSHConnectionFlags } from "./flags.js";
+import { getSSHKnownHostsFlags } from "./knownhosts.js";
 
 export interface SSHClientFlagOptions {
   /**
@@ -9,6 +10,9 @@ export interface SSHClientFlagOptions {
 
   /** Additional flags to pass to the SSH client invocation. */
   additionalFlags: string[];
+
+  /** The oclif config directory for storing the known_hosts file. */
+  configDir: string;
 }
 
 /**
@@ -26,10 +30,15 @@ export function buildSSHClientFlags(
   username: string,
   hostname: string,
   inputFlags: SSHConnectionFlags,
-  opts: Partial<SSHClientFlagOptions>,
+  opts: Partial<SSHClientFlagOptions> & Pick<SSHClientFlagOptions, "configDir">,
 ): string[] {
-  const { interactive, additionalFlags = [] } = opts;
-  const flags = ["-l", username, interactive ? "-t" : "-T"];
+  const { interactive, additionalFlags = [], configDir } = opts;
+  const flags = [
+    ...getSSHKnownHostsFlags(configDir),
+    "-l",
+    username,
+    interactive ? "-t" : "-T",
+  ];
 
   if (inputFlags["ssh-identity-file"]) {
     flags.push("-i", inputFlags["ssh-identity-file"]);

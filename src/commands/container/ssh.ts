@@ -65,7 +65,12 @@ export default class Ssh extends ExtendedBaseCommand<typeof Ssh> {
 
     this.log("connecting to %o as %o", host, user);
 
-    const [cmd, args] = buildSSHCmdAndFlags(user, host, flags);
+    const [cmd, args] = buildSSHCmdAndFlags(
+      user,
+      host,
+      flags,
+      this.config.configDir,
+    );
 
     this.debug("running ssh %o, with command %o", args, cmd);
 
@@ -79,10 +84,12 @@ function buildSSHCmdAndFlags(
   user: string,
   host: string,
   flags: SSHConnectionFlags & { test: boolean; shell: string },
+  configDir: string,
 ): [string, string[]] {
   const args = buildSSHClientFlags(user, host, flags, {
     interactive: true,
     additionalFlags: flags.test ? ["-q"] : [],
+    configDir,
   });
 
   if (flags.test) {

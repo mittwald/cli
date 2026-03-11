@@ -79,6 +79,7 @@ export class Dump extends ExecRenderBaseCommand<
               { projectId: connectionDetails.project.id },
               cmd,
               { input: null, output: this.getOutputStream() },
+              this.config.configDir,
             ),
         );
 
