@@ -21,6 +21,11 @@ type AppInstallationWithDocRoot = AppInstallation & {
 
 type SystemSoftwareVersions = Record<string, string>;
 
+export type DDEVConfigBuildResult = {
+  config: Partial<DDEVConfig>;
+  warnings: string[];
+};
+
 export class DDEVConfigBuilder {
   private apiClient: MittwaldAPIV2Client;
 
@@ -32,24 +37,30 @@ export class DDEVConfigBuilder {
     appInstallationId: string,
     databaseId: string | undefined,
     type: string,
-  ): Promise<Partial<DDEVConfig>> {
+  ): Promise<DDEVConfigBuildResult> {
     const appInstallation = await this.getAppInstallation(appInstallationId);
     const systemSoftwares =
       await this.buildSystemSoftwareVersionMap(appInstallation);
 
     type = await this.determineProjectType(appInstallation, type);
 
+    const warnings: string[] = [];
+    const phpVersion = this.determinePHPVersion(systemSoftwares, warnings);
+
     return {
-      type,
-      webserver_type: "apache-fpm",
-      php_version: this.determinePHPVersion(systemSoftwares),
-      database: await this.determineDatabaseVersion(databaseId),
-      docroot: await this.determineDocumentRoot(appInstallation),
-      web_environment: [
-        `MITTWALD_APP_INSTALLATION_ID=${appInstallation.shortId}`,
-        `MITTWALD_DATABASE_ID=${databaseId ?? ""}`,
-      ],
-      hooks: this.buildHooks(type),
+      config: {
+        type,
+        webserver_type: "apache-fpm",
+        php_version: phpVersion,
+        database: await this.determineDatabaseVersion(databaseId),
+        docroot: await this.determineDocumentRoot(appInstallation),
+        web_environment: [
+          `MITTWALD_APP_INSTALLATION_ID=${appInstallation.shortId}`,
+          `MITTWALD_DATABASE_ID=${databaseId ?? ""}`,
+        ],
+        hooks: this.buildHooks(type),
+      },
+      warnings,
     };
   }
 
@@ -147,13 +158,25 @@ export class DDEVConfigBuilder {
 
   private determinePHPVersion(
     systemSoftwareVersions: SystemSoftwareVersions,
+    warnings: string[],
   ): string | undefined {
     if (!("php" in systemSoftwareVersions)) {
       return undefined;
     }
 
-    const version = systemSoftwareVersions["php"];
-    return stripPatchLevelVersion(version);
+    const originalVersion = systemSoftwareVersions["php"];
+    const normalizedVersion = stripPatchLevelVersion(originalVersion);
+
+    if (hasExtendedSupportSuffix(originalVersion)) {
+      warnings.push(
+        `The PHP version used by this project (${originalVersion}) is an extended support version ` +
+          `that is not directly supported by DDEV. ` +
+          `Falling back to PHP ${normalizedVersion}. ` +
+          `This may cause unintended side effects.`,
+      );
+    }
+
+    return normalizedVersion;
   }
 
   private async buildSystemSoftwareVersionMap(
@@ -235,7 +258,15 @@ function stripLeadingSlash(input: string): string {
   return input.replace(/^\//, "");
 }
 
-function stripPatchLevelVersion(version: string): string {
+const extendedSupportSuffixPattern = /-[a-z]+$/i;
+
+export function hasExtendedSupportSuffix(version: string): boolean {
+  return extendedSupportSuffixPattern.test(version);
+}
+
+export function stripPatchLevelVersion(version: string): string {
   const [major, minor] = version.split(".");
-  return `${major}.${minor}`;
+  // Strip any extended support suffix (e.g. "-es") from the minor version
+  const cleanMinor = minor ? minor.replace(extendedSupportSuffixPattern, "") : minor;
+  return `${major}.${cleanMinor}`;
 }

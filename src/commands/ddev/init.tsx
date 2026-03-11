@@ -230,10 +230,10 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
   ) {
     const builder = new DDEVConfigBuilder(this.apiClient);
 
-    return await r.runStep(
+    const { config, warnings } = await r.runStep(
       "creating mittwald-specific DDEV configuration",
       async () => {
-        const config = await builder.build(
+        const result = await builder.build(
           appInstallationId,
           databaseId,
           projectType,
@@ -242,12 +242,18 @@ export class Init extends ExecRenderBaseCommand<typeof Init, void> {
 
         await writeContentsToFile(
           configFile,
-          renderDDEVConfig(appInstallationId, config),
+          renderDDEVConfig(appInstallationId, result.config),
         );
 
-        return config;
+        return result;
       },
     );
+
+    for (const warning of warnings) {
+      r.addInfo(`Warning: ${warning}`);
+    }
+
+    return config;
   }
 }
 
