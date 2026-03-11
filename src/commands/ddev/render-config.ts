@@ -26,11 +26,15 @@ export class RenderConfig extends ExtendedBaseCommand<typeof RenderConfig> {
       : this.flags["database-id"];
 
     const ddevConfigBuilder = new DDEVConfigBuilder(this.apiClient);
-    const ddevConfig = await ddevConfigBuilder.build(
+    const { config: ddevConfig, warnings } = await ddevConfigBuilder.build(
       appInstallationId,
       databaseId,
       projectType,
     );
+
+    for (const warning of warnings) {
+      this.warn(warning);
+    }
 
     this.log(renderDDEVConfig(appInstallationId, ddevConfig));
   }
