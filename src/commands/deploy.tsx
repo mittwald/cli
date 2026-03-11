@@ -11,6 +11,7 @@ import { Value } from "../rendering/react/components/Value.js";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import { generatePasswordWithSpecialChars } from "../lib/util/password/generatePasswordWithSpecialChars.js";
 import { waitFlags, waitUntil } from "../lib/wait.js";
+import { getProjectShortIdFromUuid } from "../lib/resources/project/shortId.js";
 import fs from "fs/promises";
 import path from "path";
 import { pathExists } from "../lib/util/fs/pathExists.js";
@@ -59,7 +60,10 @@ EXPOSE 80
     let registryPassword = "";
 
     await p.runStep("Setting up registry ...", async () => {
+
       const projectId = await this.withProjectId(Deploy);
+      const projectShortId = await getProjectShortIdFromUuid(this.apiClient, projectId);
+
       // 1. List registries and filter out default ones
       const registriesResp = await this.apiClient.container.listRegistries({ projectId });
       assertStatus(registriesResp, 200);
@@ -81,7 +85,7 @@ EXPOSE 80
         password = generatePasswordWithSpecialChars();
 
         // 3. Build registry URL: registry.p-XXXXXX.project.space
-        const subdomain = `registry-${projectId}`;
+        const subdomain = `registry.${projectShortId}`;
         uri = `${subdomain}.project.space`;
 
         // 4. Create the registry container (service)
@@ -160,6 +164,43 @@ EXPOSE 80
         });
         assertStatus(ingressResp, 201);
         p.addInfo(`Created ingress for registry at ${uri}`);
+
+        // 6.1 Wait for ingress to be ready (IPs assigned)
+        const ingressId = ingressResp.data.id;
+        await waitUntil(async () => {
+          try {
+            const statusResp = await this.apiClient.domain.ingressGetIngress({
+              ingressId,
+            });
+
+            if (statusResp.status !== 200) {
+              p.addInfo(`[DEBUG] Ingress status: ${statusResp.status}`);
+              return null;
+            }
+
+            if (statusResp.data.ips?.v4?.length === 0) {
+              p.addInfo(`[DEBUG] Waiting for IPv4 assignment to ingress`);
+              return null;
+            }
+
+            //if (statusResp.data.tls?.isCreated !== true) {
+            if ((statusResp.data as any).tls?.isCreated !== true) {
+              p.addInfo(`[DEBUG] Waiting for TLS to be created for ingress`);
+              return null;
+            }
+
+            return true;
+          } catch (error) {
+            p.addInfo(`[DEBUG] Error polling ingress status: ${error instanceof Error ? error.message : String(error)}`);
+            return null;
+          }
+        }, this.flags["wait-timeout"]);
+
+        // Wait 2 minutes for DNS propagation and other settling
+        p.addInfo(`[DEBUG] Waiting 2 minutes for DNS propagation...`);
+        await new Promise(resolve => setTimeout(resolve, 2 * 60 * 1000));
+
+        p.addInfo(`Ingress is now ready with assigned IPs, bells and whistles`);
 
         // 7. Register the registry entry
         const registryCreationPayload = {
