@@ -73,6 +73,7 @@ EXPOSE 80
       let username: string = "";
       let password: string = "";
       let uri: string = "";
+      let registryServiceId: string = "";
 
       if (!registry) {
         // 2. Generate random credentials
@@ -118,6 +119,7 @@ EXPOSE 80
 
           const regSvc = services.find(svc => svc.serviceName === serviceName);
           if (regSvc && regSvc.status === "running") {
+            registryServiceId = regSvc.id;
             return true;
           }
         }, this.flags["wait-timeout"]);
@@ -135,6 +137,27 @@ EXPOSE 80
         assertStatus(createResp, 201);
         registry = createResp.data;
         created = true;
+
+        // 7. Create an ingress (virtual host) to expose the registry via domain
+        const ingressResp = await this.apiClient.domain.ingressCreateIngress({
+          data: {
+            projectId,
+            hostname: uri,
+            paths: [
+              {
+                path: "/",
+                target: {
+                  container: {
+                    id: registryServiceId,
+                    portProtocol: "5000/tcp",
+                  },
+                },
+              },
+            ],
+          },
+        });
+        assertStatus(ingressResp, 201);
+        p.addInfo(`Created ingress for registry at ${uri}`);
       } else {
         // Fetch the registry service and extract credentials from environment variables
         const servicesResp = await this.apiClient.container.listServices({
@@ -152,6 +175,8 @@ EXPOSE 80
           );
         }
         
+        registryServiceId = registryService.id;
+
         const serviceDetailsResp =
           await this.apiClient.container.getService({
             serviceId: registryService.id,
@@ -169,11 +194,34 @@ EXPOSE 80
           );
         }
         
-        uri = registry.uri;
-        // TODO: Existing registries must be exposed via domain. This setup is incomplete.
+        uri = registry.uri || "";
+
+        // Check if an ingress exists for the registry service
+        const ingressesResp = await this.apiClient.domain.ingressListIngresses({
+          queryParameters: { projectId },
+        });
+        assertStatus(ingressesResp, 200);
+
+        const registryIngress = ingressesResp.data.find((ingress) => {
+          return ingress.paths?.some((path) => {
+            const target = path.target as any;
+            return (
+              target?.container?.id === registryServiceId &&
+              target?.container?.portProtocol === "5000/tcp"
+            );
+          });
+        });
+
+        if (!registryIngress) {
+          throw new Error(
+            "Registry ingress not found. Registry is not exposed via domain."
+          );
+        }
+
+        p.addInfo(`Using existing registry at ${registryIngress.hostname}`);
       }
 
-      // 7. Output result to user
+      // 8. Output result to user
       p.addInfo(
             created ? "Created new registry." : "Using existing registry."
       );
