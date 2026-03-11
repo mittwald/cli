@@ -5897,6 +5897,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-xml-builder@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "fast-xml-builder@npm:1.1.0"
+  dependencies:
+    path-expression-matcher: ^1.1.2
+  checksum: c462e9354bc3d1efda1664bba3eedb6b4b60a1ba2a9d67d855b83209a9af9c9da12813c5362d07a8222f7840d3dc2ed55f83b2af6edac4b6d8bda5507f12977d
+  languageName: node
+  linkType: hard
+
 "fast-xml-parser@npm:5.4.1":
   version: 5.4.1
   resolution: "fast-xml-parser@npm:5.4.1"
@@ -5910,13 +5919,15 @@ __metadata:
   linkType: hard
 
 "fast-xml-parser@npm:^5.2.5":
-  version: 5.3.7
-  resolution: "fast-xml-parser@npm:5.3.7"
+  version: 5.5.1
+  resolution: "fast-xml-parser@npm:5.5.1"
   dependencies:
+    fast-xml-builder: ^1.1.0
+    path-expression-matcher: ^1.1.2
     strnum: ^2.1.2
   bin:
     fxparser: src/cli/cli.js
-  checksum: 0bb307bc63a01c079ae28b6b62eeea0007d787e6ab47dfca493f40305f78aeedea2906b2632bf0eb9d4d868e748c77c70393a808441fb5949c9d2e6f8f2825f0
+  checksum: d957ac6a3310f2824df8d4246d0557d1999463e74f4a601930ce666a2df1f3e8eb121b7f5fd9627593de00e2010cd95fb10ccf86f099ff371c930584246e4553
   languageName: node
   linkType: hard
 
@@ -9011,6 +9022,13 @@ __metadata:
   version: 4.0.0
   resolution: "path-exists@npm:4.0.0"
   checksum: 505807199dfb7c50737b057dd8d351b82c033029ab94cb10a657609e00c1bc53b951cfdbccab8de04c5584d5eff31128ce6afd3db79281874a5ef2adbba55ed1
+  languageName: node
+  linkType: hard
+
+"path-expression-matcher@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "path-expression-matcher@npm:1.1.2"
+  checksum: 464fb7060c794c777adb9325249eb44c06c34ab6980da16652e28ab4eedef366a68f2f33d6964f0c2f3a3b3287958fe38d3b3a226b998dd45485ed80a18b1ce2
   languageName: node
   linkType: hard
 
