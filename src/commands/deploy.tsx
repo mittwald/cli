@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { spawnSync } from "child_process";
 import { ExecRenderBaseCommand } from "../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
@@ -21,6 +22,8 @@ type RepositoryData = {
   dockerfileContent: string;
   dockerfileCreated: boolean;
   buildContext: string;
+  imageId?: string;
+  imageName?: string;
 };
 
 type Result = {
@@ -46,6 +49,9 @@ EXPOSE 80
     const p = makeProcessRenderer(this.flags, "Deploying ...");
 
     let repositoryData: RepositoryData;
+    let registryUri = "";
+    let registryUsername = "";
+    let registryPassword = "";
 
     await p.runStep("Setting up registry ...", async () => {
       const projectId = await this.withProjectId(Deploy);
@@ -59,7 +65,9 @@ EXPOSE 80
       };
       let registry = registriesResp.data.find(r => !isDefaultRegistry(r));
       let created = false;
-      let username, password, uri;
+      let username: string = "";
+      let password: string = "";
+      let uri: string = "";
 
       if (!registry) {
         // 2. Generate random credentials
@@ -143,9 +151,9 @@ EXPOSE 80
           
           const service = serviceDetailsResp.data;
           username =
-            service.deployedState?.envs?.REGISTRY_AUTH_USERNAME;
+            service.deployedState?.envs?.REGISTRY_AUTH_USERNAME ?? "";
           password =
-            service.deployedState?.envs?.REGISTRY_AUTH_PASSWORD;
+            service.deployedState?.envs?.REGISTRY_AUTH_PASSWORD ?? "";
         }
         
         uri = registry.uri;
@@ -155,6 +163,10 @@ EXPOSE 80
       p.addInfo(
             created ? "Created new registry." : "Using existing registry."
       );
+
+      registryUri = uri;
+      registryUsername = username;
+      registryPassword = password;
 
     });
 
@@ -186,27 +198,118 @@ EXPOSE 80
     });
 
     await p.runStep("Building Docker image ...", async () => {
-      // Call docker image builder ( or docker build directly )
+      const timestamp = new Date().toISOString().split('T')[0].replace(/-/g, '');
+      const registryHost = registryUri.replace(/^https?:\/\//, '');
+      const imageName = `${registryHost}/app-image:${timestamp}`;
+
+      const buildResult = spawnSync('docker', [
+        'build',
+        '-t', imageName,
+        '-f', repositoryData.dockerfilePath,
+        repositoryData.buildContext,
+      ], {
+        cwd: repositoryData.buildContext,
+        stdio: 'inherit',
+      });
+
+      if (buildResult.status !== 0) {
+        throw new Error(`Docker build failed with status ${buildResult.status}`);
+      }
+
+      const inspectResult = spawnSync('docker', [
+        'inspect',
+        '--format={{.ID}}',
+        imageName,
+      ], {
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+      });
+
+      if (inspectResult.status !== 0) {
+        throw new Error(`Failed to inspect built image: ${inspectResult.stderr}`);
+      }
+
+      const imageId = inspectResult.stdout.trim();
+      repositoryData.imageId = imageId;
+      repositoryData.imageName = imageName;
+
+      p.addInfo(`Built image ${imageName}`);
     });
 
     await p.runStep("Pushing docker image ...", async () => {
-      // Call docker image builder ( or docker build directly )
-    });
-
-    await p.runStep("deploying ...", async () => {
-      // main sequence of commands go here! OR even make several steps in order to improve UI/UX, e.g. long running steps
-
-      const r = await this.apiClient.container.stopService({
-        serviceId,
-        stackId,
+      const loginResult = spawnSync('docker', [
+        'login',
+        registryUri,
+        '-u', registryUsername,
+        '-p', registryPassword,
+      ], {
+        stdio: 'inherit',
       });
 
-      assertSuccess(r);
+      if (loginResult.status !== 0) {
+        throw new Error(`Docker login failed with status ${loginResult.status}`);
+      }
+
+      const pushResult = spawnSync('docker', [
+        'push',
+        repositoryData.imageName!,
+      ], {
+        stdio: 'inherit',
+      });
+
+      if (pushResult.status !== 0) {
+        throw new Error(`Docker push failed with status ${pushResult.status}`);
+      }
+      p.addInfo(`Pushed image ${repositoryData.imageName} to registry`);
     });
+
+    let deployedServiceId = "";
+
+    await p.runStep("deploying ...", async () => {
+      const projectId = await this.withProjectId(Deploy);
+      const serviceName = `app-${projectId}`;
+      const stackId = projectId;
+
+      // 1. Create or update the service in the stack with the built image
+      const serviceRequest = {
+        image: repositoryData.imageName!,
+        description: "Deployed application",
+        ports: ["8080:8080/tcp"],
+      };
+
+      const updateResp = await this.apiClient.container.updateStack({
+        stackId,
+        data: { services: { [serviceName]: serviceRequest } },
+      });
+
+      assertStatus(updateResp, 200);
+      p.addInfo(`Created/updated service ${serviceName}`);
+
+      // 2. Wait for the service to be running
+      await waitUntil(async () => {
+        const servicesResp = await this.apiClient.container.listServices({
+          projectId,
+        });
+        assertStatus(servicesResp, 200);
+        const services = servicesResp.data;
+
+        const deployedSvc = services.find(svc => svc.serviceName === serviceName);
+        if (deployedSvc) {
+          deployedServiceId = deployedSvc.id;
+          if (deployedSvc.status === "running") {
+            return true;
+          }
+        }
+      }, this.flags["wait-timeout"]);
+
+      p.addInfo(`Service ${serviceName} is now running`);
+    });
+
+    const serviceId = deployedServiceId;
 
     await p.complete(
       <Success>
-        Container <Value>{serviceId}</Value> was successfully stopped.
+        Container <Value>{serviceId}</Value> was successfully deployed.
       </Success>,
     );
 
