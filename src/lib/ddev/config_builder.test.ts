@@ -15,6 +15,7 @@ describe("hasExtendedSupportSuffix", () => {
     expect(hasExtendedSupportSuffix("7.2")).toBe(false);
     expect(hasExtendedSupportSuffix("8.3")).toBe(false);
     expect(hasExtendedSupportSuffix("7.2.1")).toBe(false);
+    expect(hasExtendedSupportSuffix("7.2-lts")).toBe(false);
   });
 });
 

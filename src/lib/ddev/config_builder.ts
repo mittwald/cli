@@ -44,8 +44,8 @@ export class DDEVConfigBuilder {
 
     type = await this.determineProjectType(appInstallation, type);
 
-    const warnings: string[] = [];
-    const phpVersion = this.determinePHPVersion(systemSoftwares, warnings);
+    const { version: phpVersion, warnings } =
+      this.determinePHPVersion(systemSoftwares);
 
     return {
       config: {
@@ -156,27 +156,30 @@ export class DDEVConfigBuilder {
     };
   }
 
-  private determinePHPVersion(
-    systemSoftwareVersions: SystemSoftwareVersions,
-    warnings: string[],
-  ): string | undefined {
+  private determinePHPVersion(systemSoftwareVersions: SystemSoftwareVersions): {
+    version: string | undefined;
+    warnings: string[];
+  } {
     if (!("php" in systemSoftwareVersions)) {
-      return undefined;
+      return { version: undefined, warnings: [] };
     }
 
     const originalVersion = systemSoftwareVersions["php"];
     const normalizedVersion = stripPatchLevelVersion(originalVersion);
 
     if (hasExtendedSupportSuffix(originalVersion)) {
-      warnings.push(
-        `The PHP version used by this project (${originalVersion}) is an extended support version ` +
-          `that is not directly supported by DDEV. ` +
-          `Falling back to PHP ${normalizedVersion}. ` +
-          `This may cause unintended side effects.`,
-      );
+      return {
+        version: normalizedVersion,
+        warnings: [
+          `The PHP version used by this project (${originalVersion}) is an extended support version ` +
+            `that is not directly supported by DDEV. ` +
+            `Falling back to PHP ${normalizedVersion}. ` +
+            `This may cause unintended side effects.`,
+        ],
+      };
     }
 
-    return normalizedVersion;
+    return { version: normalizedVersion, warnings: [] };
   }
 
   private async buildSystemSoftwareVersionMap(
@@ -258,7 +261,7 @@ function stripLeadingSlash(input: string): string {
   return input.replace(/^\//, "");
 }
 
-const extendedSupportSuffixPattern = /-[a-z]+$/i;
+const extendedSupportSuffixPattern = /-es$/;
 
 export function hasExtendedSupportSuffix(version: string): boolean {
   return extendedSupportSuffixPattern.test(version);
