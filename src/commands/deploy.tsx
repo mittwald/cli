@@ -134,26 +134,19 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         uri = registry.uri;
       }
 
-      // 7. Output credentials to user
-      // XXX: How to show intermediate step results in process renderer?
-      await p.addInfo(
-        <>
-          <Success>
-            {created ? "Created new registry:" : "Using existing registry:"}
-            <br />
-            URI: <Value>{uri}</Value>
-            <br />
-            Username: <Value>{username}</Value>
-            <br />
-            Password: <Value>{password || "(not retrievable)"}</Value>
-          </Success>
-        </>
+      // 7. Output result to user
+      p.addInfo(
+            created ? "Created new registry." : "Using existing registry."
       );
+
     });
 
     await p.runStep("Checking repository ...", async () => {
       /*
-      check for Dockerfile and friends, create data-package for later use
+      check for Dockerfile and friends, create data-package for later use.
+
+      Assume we are in the project root, so we can just check for files there.
+      In the future, we might want to add a flag to specify a subdirectory or something.
 
       1.1 Check if dockerfile is present. If so, use that
       1.2 If no dockerfile is present, create a default one for static pages
