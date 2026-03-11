@@ -63,7 +63,6 @@ EXPOSE 80
       // 1. List registries and filter out default ones
       const registriesResp = await this.apiClient.container.listRegistries({ projectId });
       assertStatus(registriesResp, 200);
-
       const isDefaultRegistry = (r: MittwaldAPIV2.Components.Schemas.ContainerRegistry) => {
         const uri = r.uri || "";
         return uri.includes("docker.io") || uri.includes("ghcr.io") || uri.includes("gitlab.com");
@@ -76,20 +75,21 @@ EXPOSE 80
       let registryServiceId: string = "";
 
       if (!registry) {
+        p.addInfo("No existing registry found, creating a new one...");
         // 2. Generate random credentials
         username = `user_${Math.random().toString(36).slice(2, 10)}`;
         password = generatePasswordWithSpecialChars();
 
         // 3. Build registry URL: registry.p-XXXXXX.project.space
-        const subdomain = `registry.${projectId}`;
+        const subdomain = `registry-${projectId}`;
         uri = `${subdomain}.project.space`;
 
         // 4. Create the registry container (service)
         const image = "mittwald/registry:3";
         const serviceName = "project-registry";
         const environment = {
-          REGISTRY_AUTH_USERNAME: username,
-          REGISTRY_AUTH_PASSWORD: password,
+          REGISTRY_USER: username,
+          REGISTRY_PASSWORD: password,
         };
         // Expose port 5000 (default for registry)
         const ports = ["5000:5000/tcp"];
@@ -111,22 +111,38 @@ EXPOSE 80
 
         // 5. Wait for container to be running
         await waitUntil(async () => {
-          const servicesResp = await this.apiClient.container.listServices(
-            { projectId }
-          );
-          assertStatus(servicesResp, 200);
-          const services = servicesResp.data;
+          try {
+            const servicesResp = await this.apiClient.container.listServices(
+              { projectId }
+            );
+            assertStatus(servicesResp, 200);
+            const services = servicesResp.data;
 
-          const regSvc = services.find(svc => svc.serviceName === serviceName);
-          if (regSvc && regSvc.status === "running") {
-            registryServiceId = regSvc.id;
-            return true;
+            const regSvc = services.find(svc => svc.serviceName === serviceName);
+
+            if (!regSvc) {
+              p.addInfo(`[DEBUG] Service '${serviceName}' not found yet. Available: ${services.map(s => s.serviceName).join(', ')}`);
+              return null;
+            }
+
+            p.addInfo(`[DEBUG] Service '${serviceName}' found with status: ${regSvc.status}`);
+            
+            if (regSvc.status === "running") {
+              registryServiceId = regSvc.id;
+              return true;
+            }
+            return null;
+          } catch (error) {
+            p.addInfo(`[DEBUG] Error polling service status: ${error instanceof Error ? error.message : String(error)}`);
+            return null;
           }
         }, this.flags["wait-timeout"]);
 
+        p.addInfo("Registry container is now running.");
+
         // 6. Register the registry entry
         const registryCreationPayload = {
-          uri: `https://${uri}`,
+          uri: uri,
           description: `Default registry for project ${projectId}`,
           credentials: { username, password },
         };
@@ -159,6 +175,9 @@ EXPOSE 80
         assertStatus(ingressResp, 201);
         p.addInfo(`Created ingress for registry at ${uri}`);
       } else {
+
+        p.addInfo("Found existing registry, fetching credentials ...");
+
         // Fetch the registry service and extract credentials from environment variables
         const servicesResp = await this.apiClient.container.listServices({
           projectId,
@@ -349,18 +368,30 @@ EXPOSE 80
 
       // 2. Wait for the service to be running
       await waitUntil(async () => {
-        const servicesResp = await this.apiClient.container.listServices({
-          projectId,
-        });
-        assertStatus(servicesResp, 200);
-        const services = servicesResp.data;
+        try {
+          const servicesResp = await this.apiClient.container.listServices({
+            projectId,
+          });
+          assertStatus(servicesResp, 200);
+          const services = servicesResp.data;
 
-        const deployedSvc = services.find(svc => svc.serviceName === serviceName);
-        if (deployedSvc) {
-          deployedServiceId = deployedSvc.id;
+          const deployedSvc = services.find(svc => svc.serviceName === serviceName);
+          
+          if (!deployedSvc) {
+            p.addInfo(`[DEBUG] Service '${serviceName}' not found yet. Available: ${services.map(s => s.serviceName).join(', ')}`);
+            return null;
+          }
+          
+          p.addInfo(`[DEBUG] Service '${serviceName}' found with status: ${deployedSvc.status}`);
+          
           if (deployedSvc.status === "running") {
+            deployedServiceId = deployedSvc.id;
             return true;
           }
+          return null;
+        } catch (error) {
+          p.addInfo(`[DEBUG] Error polling deployed service status: ${error instanceof Error ? error.message : String(error)}`);
+          return null;
         }
       }, this.flags["wait-timeout"]);
 
