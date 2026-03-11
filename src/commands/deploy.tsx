@@ -106,10 +106,31 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         registry = createResp.data;
         created = true;
       } else {
-        // XXX: This is not correct yet, we dont get full credentials just from service,
-        // instead check environment varubles of the service for registry credentials
-        username = registry.credentials?.username;
-        password = registry.credentials?.password;
+        // Fetch the registry service and extract credentials from environment variables
+        const servicesResp = await this.apiClient.container.listServices({
+          projectId,
+        });
+        assertStatus(servicesResp, 200);
+        
+        const registryService = servicesResp.data.find(
+          svc => svc.serviceName === "project-registry"
+        );
+        
+        if (registryService) {
+          const serviceDetailsResp =
+            await this.apiClient.container.getService({
+              serviceId: registryService.id,
+              stackId: projectId,
+            });
+          assertStatus(serviceDetailsResp, 200);
+          
+          const service = serviceDetailsResp.data;
+          username =
+            service.deployedState?.envs?.REGISTRY_AUTH_USERNAME;
+          password =
+            service.deployedState?.envs?.REGISTRY_AUTH_PASSWORD;
+        }
+        
         uri = registry.uri;
       }
 
