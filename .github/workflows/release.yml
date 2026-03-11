@@ -132,7 +132,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Download artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
 
       - name: Create release
         run:
@@ -153,7 +153,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Download artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
 
       - name: Install dependencies
         run: yarn
@@ -188,7 +188,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Download artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
 
       - name: Docker meta
         id: meta
@@ -227,7 +227,7 @@ jobs:
           token: ${{ secrets.MACHINE_USER_TOKEN }}
 
       - name: Download artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
 
       - name: Generate Homebrew formula
         run: |
