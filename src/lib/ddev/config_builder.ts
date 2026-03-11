@@ -172,9 +172,9 @@ export class DDEVConfigBuilder {
         version: normalizedVersion,
         warnings: [
           `The PHP version used by this project (${originalVersion}) is an extended support version ` +
-            `that is not directly supported by DDEV. ` +
+            "that is not directly supported by DDEV. " +
             `Falling back to PHP ${normalizedVersion}. ` +
-            `This may cause unintended side effects.`,
+            "This may cause unintended side effects.",
         ],
       };
     }
@@ -270,6 +270,8 @@ export function hasExtendedSupportSuffix(version: string): boolean {
 export function stripPatchLevelVersion(version: string): string {
   const [major, minor] = version.split(".");
   // Strip any extended support suffix (e.g. "-es") from the minor version
-  const cleanMinor = minor ? minor.replace(extendedSupportSuffixPattern, "") : minor;
+  const cleanMinor = minor
+    ? minor.replace(extendedSupportSuffixPattern, "")
+    : minor;
   return `${major}.${cleanMinor}`;
 }
