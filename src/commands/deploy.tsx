@@ -140,21 +140,7 @@ EXPOSE 80
 
         p.addInfo("Registry container is now running.");
 
-        // 6. Register the registry entry
-        const registryCreationPayload = {
-          uri: uri,
-          description: `Default registry for project ${projectId}`,
-          credentials: { username, password },
-        };
-        const createResp = await this.apiClient.container.createRegistry({
-          projectId,
-          data: registryCreationPayload,
-        });
-        assertStatus(createResp, 201);
-        registry = createResp.data;
-        created = true;
-
-        // 7. Create an ingress (virtual host) to expose the registry via domain
+        // 6. Create an ingress (virtual host) to expose the registry via domain
         const ingressResp = await this.apiClient.domain.ingressCreateIngress({
           data: {
             projectId,
@@ -174,6 +160,21 @@ EXPOSE 80
         });
         assertStatus(ingressResp, 201);
         p.addInfo(`Created ingress for registry at ${uri}`);
+
+        // 7. Register the registry entry
+        const registryCreationPayload = {
+          uri: uri,
+          description: `Default registry for project ${projectId}`,
+          credentials: { username, password },
+        };
+        const createResp = await this.apiClient.container.createRegistry({
+          projectId,
+          data: registryCreationPayload,
+        });
+        assertStatus(createResp, 201);
+        registry = createResp.data;
+        created = true;
+
       } else {
 
         p.addInfo("Found existing registry, fetching credentials ...");
