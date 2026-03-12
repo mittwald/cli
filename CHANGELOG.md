@@ -1,3 +1,11 @@
+## [1.13.4](https://github.com/mittwald/cli/compare/v1.13.3...v1.13.4) (2026-03-12)
+
+
+### Bug Fixes
+
+* **ddev:** handle PHP extended support versions in `mw ddev init` ([#1696](https://github.com/mittwald/cli/issues/1696)) ([0325053](https://github.com/mittwald/cli/commit/032505322bd0c06707e4fd1570bcca88236cc43c)), closes [mittwald/cli#1695](https://github.com/mittwald/cli/issues/1695)
+* **ssh:** embed known host keys for mittwald clusters ([#1667](https://github.com/mittwald/cli/issues/1667)) ([1ab2917](https://github.com/mittwald/cli/commit/1ab2917eaa98d095c39338c8cd2154d68fab0443)), closes [#1260](https://github.com/mittwald/cli/issues/1260)
+
 ## [1.13.3](https://github.com/mittwald/cli/compare/v1.13.2...v1.13.3) (2026-02-17)
 
 
