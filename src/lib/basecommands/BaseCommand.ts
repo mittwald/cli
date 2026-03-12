@@ -35,7 +35,10 @@ export abstract class BaseCommand extends CoreBaseCommand {
 
       // Allow overriding API base URL for local testing/mocking
       if (process.env.MITTWALD_API_BASE_URL) {
-        configureAxiosBaseURL(this.apiClient.axios, process.env.MITTWALD_API_BASE_URL);
+        configureAxiosBaseURL(
+          this.apiClient.axios,
+          process.env.MITTWALD_API_BASE_URL,
+        );
       }
 
       configureAxiosLogging(this.apiClient.axios);
