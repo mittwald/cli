@@ -23,6 +23,7 @@ type RepositoryData = {
   dockerfileContent: string;
   dockerfileCreated: boolean;
   buildContext: string;
+  ports: string[];
   imageId?: string;
   imageName?: string;
 };
@@ -51,6 +52,46 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
 COPY . /usr/share/nginx/html/
 EXPOSE 80
 `;
+
+  private extractPortsFromDockerfile(dockerfileContent: string): string[] {
+    const portMappings: string[] = [];
+    const containerPorts: Set<number> = new Set();
+    const lines = dockerfileContent.split('\n');
+
+    for (const line of lines) {
+      const match = line.match(/^\s*EXPOSE\s+(.+)$/i);
+      if (match) {
+        const portSpec = match[1].trim();
+        // Handle multiple ports on one line (e.g., "80 443")
+        const portList = portSpec.split(/\s+/);
+        for (const port of portList) {
+          if (port) {
+            // Extract just the port number (remove /udp if present)
+            const portNum = parseInt(port.split('/')[0], 10);
+            if (!isNaN(portNum) && !containerPorts.has(portNum)) {
+              containerPorts.add(portNum);
+            }
+          }
+        }
+      }
+    }
+
+    // Convert container ports to host:container mappings
+    // For ports >= 1024, map to same port; for privileged ports, use 8000+portNumber
+    containerPorts.forEach(containerPort => {
+      const protocol = '/tcp';
+      let hostPort = containerPort;
+      
+      // Avoid privileged ports on the host side
+      if (containerPort < 1024) {
+        hostPort = 8000 + containerPort;
+      }
+      
+      portMappings.push(`${hostPort}:${containerPort}${protocol}`);
+    });
+
+    return portMappings;
+  }
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Deploying ...");
@@ -321,16 +362,22 @@ EXPOSE 80
         p.addInfo("Created default Dockerfile for static pages.");
       }
 
-      // XXX: We need to check for ports here, too. If we have created the
-      // default Dockerfile, we know it exposes 80, so we can skip the
-      // check in that case. Port(s) must be added to repositoryData for
-      // later use in deployment step.
+      // Extract ports from the Dockerfile and create proper host:container mappings
+      // If we created the default Dockerfile, we know it exposes port 80
+      const ports = this.extractPortsFromDockerfile(dockerfileContent);
+      if (ports.length === 0) {
+        p.addInfo("No ports exposed in Dockerfile. Using default port mapping 8080:8080/tcp.");
+        ports.push("80:80/tcp");
+      } else {
+        p.addInfo(`Detected port mappings: ${ports.join(", ")}`);
+      }
 
       repositoryData = {
         dockerfilePath,
         dockerfileContent,
         dockerfileCreated,
         buildContext: projectRoot,
+        ports,
       };
     });
 
@@ -411,7 +458,7 @@ EXPOSE 80
       const serviceRequest = {
         image: repositoryData.imageName!,
         description: "Deployed application",
-        ports: ["8080:8080/tcp"],
+        ports: repositoryData.ports,
       };
 
       const updateResp = await this.apiClient.container.updateStack({
