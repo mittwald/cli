@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
 import { spawnSync } from "child_process";
+import fs from "fs/promises";
+import path from "path";
+
 import { ExecRenderBaseCommand } from "../lib/basecommands/ExecRenderBaseCommand.js";
 import {
   makeProcessRenderer,
@@ -12,8 +15,6 @@ import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import { generatePasswordWithSpecialChars } from "../lib/util/password/generatePasswordWithSpecialChars.js";
 import { waitFlags, waitUntil } from "../lib/wait.js";
 import { getProjectShortIdFromUuid } from "../lib/resources/project/shortId.js";
-import fs from "fs/promises";
-import path from "path";
 import { pathExists } from "../lib/util/fs/pathExists.js";
 
 
@@ -165,7 +166,7 @@ EXPOSE 80
         assertStatus(ingressResp, 201);
         p.addInfo(`Created ingress for registry at ${uri}`);
 
-        // 6.1 Wait for ingress to be ready (IPs assigned)
+        // 6.1 Wait for ingress to be ready (IPs assigned, TLS created)
         const ingressId = ingressResp.data.id;
         await waitUntil(async () => {
           try {
@@ -197,6 +198,14 @@ EXPOSE 80
         }, this.flags["wait-timeout"]);
 
         // Wait 2 minutes for DNS propagation and other settling
+        // XXX: This whole ingress creation and waiting is a bit
+        // of a black box and can be flaky, so adding extra wait
+        // time to reduce chances of "registry not found" errors in next steps
+        // XXX: Even better: The whole thing is marked in mStudio
+        // to be flaky sometimes, too. The recommended time mentioned there
+        // is 2 hours! This might be a breaking point in this sequence,
+        // so this first step must be hardened to be idempotent, avoiding to
+        // create multiple registries/domains in case of retries.
         p.addInfo(`[DEBUG] Waiting 2 minutes for DNS propagation...`);
         await new Promise(resolve => setTimeout(resolve, 2 * 60 * 1000));
 
@@ -311,6 +320,11 @@ EXPOSE 80
         dockerfileCreated = true;
         p.addInfo("Created default Dockerfile for static pages.");
       }
+
+      // XXX: We need to check for ports here, too. If we have created the
+      // default Dockerfile, we know it exposes 80, so we can skip the
+      // check in that case. Port(s) must be added to repositoryData for
+      // later use in deployment step.
 
       repositoryData = {
         dockerfilePath,
