@@ -5,6 +5,7 @@ import { CoreBaseCommand } from "./CoreBaseCommand.js";
 import { configureAxiosLogging } from "../apiutil/api_logging.js";
 import { configureAxiosRetry } from "../apiutil/api_retry.js";
 import { configureConsistencyHandling } from "../apiutil/api_consistency.js";
+import { configureAxiosBaseURL } from "../apiutil/api_baseurl.js";
 import NoTokenFoundError from "../error/NoTokenFoundError.js";
 
 /** Base command class for authenticated commands that includes the --token flag. */
@@ -31,6 +32,11 @@ export abstract class BaseCommand extends CoreBaseCommand {
       this.apiClient = MittwaldAPIV2Client.newWithToken(token);
       this.apiClient.axios.defaults.headers["User-Agent"] =
         `mittwald-cli/${this.config.version}`;
+
+      // Allow overriding API base URL for local testing/mocking
+      if (process.env.MITTWALD_API_BASE_URL) {
+        configureAxiosBaseURL(this.apiClient.axios, process.env.MITTWALD_API_BASE_URL);
+      }
 
       configureAxiosLogging(this.apiClient.axios);
       configureAxiosRetry(this.apiClient.axios);
