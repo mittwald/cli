@@ -4,7 +4,9 @@ export function configureAxiosBaseURL(axios: AxiosInstance, baseURL: string) {
   const trimmedBaseURL = baseURL.trim();
 
   if (!trimmedBaseURL) {
-    throw new Error("MITTWALD_API_BASE_URL is empty or contains only whitespace. Please provide a valid absolute URL.");
+    throw new Error(
+      "MITTWALD_API_BASE_URL is empty or contains only whitespace. Please provide a valid absolute URL.",
+    );
   }
 
   let parsedUrl: URL;
