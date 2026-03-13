@@ -50,7 +50,6 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
 
   private defaultDockerfile = `FROM nginx:alpine
 COPY . /usr/share/nginx/html/
-EXPOSE 80
 `;
 
   private extractPortsFromDockerfile(dockerfileContent: string): string[] {
@@ -81,12 +80,12 @@ EXPOSE 80
     containerPorts.forEach(containerPort => {
       const protocol = '/tcp';
       let hostPort = containerPort;
-      
+
       // Avoid privileged ports on the host side
       if (containerPort < 1024) {
         hostPort = 8000 + containerPort;
       }
-      
+
       portMappings.push(`${hostPort}:${containerPort}${protocol}`);
     });
 
@@ -172,7 +171,7 @@ EXPOSE 80
             }
 
             p.addInfo(`[DEBUG] Service '${serviceName}' found with status: ${regSvc.status}`);
-            
+
             if (regSvc.status === "running") {
               registryServiceId = regSvc.id;
               return true;
@@ -248,7 +247,7 @@ EXPOSE 80
         // so this first step must be hardened to be idempotent, avoiding to
         // create multiple registries/domains in case of retries.
         p.addInfo(`[DEBUG] Waiting 2 minutes for DNS propagation...`);
-        // await new Promise(resolve => setTimeout(resolve, 2 * 60 * 1000));
+        await new Promise(resolve => setTimeout(resolve, 2 * 60 * 1000));
 
         p.addInfo(`Ingress is now ready with assigned IPs, bells and whistles`);
 
@@ -275,17 +274,17 @@ EXPOSE 80
           projectId,
         });
         assertStatus(servicesResp, 200);
-        
+
         const registryService = servicesResp.data.find(
           svc => svc.serviceName === "project-registry"
         );
-        
+
         if (!registryService) {
           throw new Error(
             "Registry service not found. Unable to retrieve credentials."
           );
         }
-        
+
         registryServiceId = registryService.id;
 
         const serviceDetailsResp =
@@ -294,17 +293,17 @@ EXPOSE 80
             stackId: projectId,
           });
         assertStatus(serviceDetailsResp, 200);
-        
+
         const service = serviceDetailsResp.data;
-        username = service.deployedState?.envs?.REGISTRY_AUTH_USERNAME ?? "";
-        password = service.deployedState?.envs?.REGISTRY_AUTH_PASSWORD ?? "";
-        
+        username = service.deployedState?.envs?.REGISTRY_USER ?? "";
+        password = service.deployedState?.envs?.REGISTRY_PASSWORD ?? "";
+
         if (!username || !password) {
           throw new Error(
             "Registry credentials not found in service environment variables."
           );
         }
-        
+
         uri = registry.uri || "";
 
         // Check if an ingress exists for the registry service
@@ -484,14 +483,14 @@ EXPOSE 80
           const services = servicesResp.data;
 
           const deployedSvc = services.find(svc => svc.serviceName === serviceName);
-          
+
           if (!deployedSvc) {
             p.addInfo(`[DEBUG] Service '${serviceName}' not found yet. Available: ${services.map(s => s.serviceName).join(', ')}`);
             return null;
           }
-          
+
           p.addInfo(`[DEBUG] Service '${serviceName}' found with status: ${deployedSvc.status}`);
-          
+
           if (deployedSvc.status === "running") {
             deployedServiceId = deployedSvc.id;
             return true;
@@ -508,6 +507,8 @@ EXPOSE 80
 
     const serviceId = deployedServiceId;
 
+    // XXX: missing step: create ingress to expose the deployed service via domain?
+    // For now, users can do it manually if needed, or we can add it in a future iteration.
     await p.complete(
       <Success>
         Container <Value>{serviceId}</Value> was successfully deployed.
