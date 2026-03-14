@@ -117,6 +117,7 @@ USAGE
 * [`mw cronjob`](docs/cronjob.md) - Manage cronjobs of your projects
 * [`mw database`](docs/database.md) - Manage databases (like MySQL and Redis) in your projects
 * [`mw ddev`](docs/ddev.md) - Integrate your mittwald projects with DDEV
+* [`mw deploy`](docs/deploy.md) - Deploys a new container.
 * [`mw domain`](docs/domain.md) - Manage domains, virtual hosts and DNS settings in your projects
 * [`mw extension`](docs/extension.md) - Install and manage extensions in your organisations and projects
 * [`mw help`](docs/help.md) - Display help for mw.
