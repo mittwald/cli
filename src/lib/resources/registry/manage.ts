@@ -1,3 +1,13 @@
+/*
+    Helper module to manage project registries.
+    Factored out in order to reuse the registry 
+    setup logic in multiple commands,
+    e.g. deploy and registry management commands,
+    OR even in other programs, e.g. mStudio extensions
+*/
+
+import { spawnSync } from "child_process";
+
 import {
     MittwaldAPIV2Client,
     assertStatus,
@@ -14,6 +24,8 @@ import {
 } from "../../../lib/wait.js";
 
 import Duration from "../../../lib/units/Duration.js";
+
+import { RepositoryData } from "../repository/types.js";
 
 // type shorthands
 type Registry = MittwaldAPIV2.Components.Schemas.ContainerRegistry;
@@ -302,4 +314,48 @@ export async function setupProjectRegistry(apiClient: MittwaldAPIV2Client,
         ...registryInfo,
         created,
     }
+}
+
+export async function localDockerBuild(registryUri: string,
+                                       repositoryData: RepositoryData) {
+    /*
+        Build docker image from local reopsitory.
+        Later down the line this might be called remotely
+    */
+
+    const registryHost = registryUri.replace(/^https?:\/\//, '');
+    const imageName = `${registryHost}/app-image:latest`;
+
+    const buildResult = spawnSync('docker', [
+        'build',
+        '-t', imageName,
+        '-f', repositoryData.dockerfilePath,
+        repositoryData.buildContext,
+    ], {
+        cwd: repositoryData.buildContext,
+        stdio: 'inherit',
+    });
+
+    if (buildResult.status !== 0) {
+        throw new Error(`Docker build failed with status ${buildResult.status}`);
+    }
+
+    const inspectResult = spawnSync('docker', [
+        'inspect',
+        '--format={{.ID}}',
+        imageName,
+    ], {
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+    });
+
+    if (inspectResult.status !== 0) {
+        throw new Error(`Failed to inspect built image: ${inspectResult.stderr}`);
+    }
+
+    const imageId = inspectResult.stdout.trim();
+    repositoryData.imageId = imageId;
+    repositoryData.imageName = imageName;
+
+    return repositoryData;
 }
