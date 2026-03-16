@@ -19,7 +19,6 @@ import {
 } from "../../../lib/util/password/generatePasswordWithSpecialChars.js";
 
 import {
-    waitFlags,
     waitUntil
 } from "../../../lib/wait.js";
 
