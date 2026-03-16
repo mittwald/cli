@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { spawnSync } from "child_process";
-import fs from "fs/promises";
-import path from "path";
+
 
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
@@ -14,20 +13,19 @@ import { Value } from "../../rendering/react/components/Value.js";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
 import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.js";
-import { pathExists } from "../../lib/util/fs/pathExists.js";
-import { 
+
+import {
   setupProjectRegistry,
+  localDockerBuild,
  } from "../../lib/resources/registry/manage.js";
 
-type RepositoryData = {
-  dockerfilePath: string;
-  dockerfileContent: string;
-  dockerfileCreated: boolean;
-  buildContext: string;
-  ports: string[];
-  imageId?: string;
-  imageName?: string;
-};
+ import {
+  checkRepository
+} from "../../lib/resources/repository/manage.js";
+
+import {
+  RepositoryData
+} from "../../lib/resources/repository/types.js";
 
 type Result = {
   serviceId: string;
@@ -48,12 +46,6 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     "Deploy with explicit project context:",
     "  $ mw deploy --project-id p-abc123",
   ];
-
-  private defaultDockerfile = `FROM nginx:alpine
-COPY . /usr/share/nginx/html/
-`;
-
-
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Deploying ...");
@@ -88,79 +80,12 @@ COPY . /usr/share/nginx/html/
     });
 
     await p.runStep("Checking repository ...", async () => {
-      const projectRoot = process.cwd();
-      const dockerfilePath = path.join(projectRoot, "Dockerfile");
-      let dockerfileContent: string;
-      let dockerfileCreated = false;
-
-      // Check if Dockerfile exists
-      if (await pathExists(dockerfilePath)) {
-        // 1.1 Dockerfile is present, read it
-        dockerfileContent = await fs.readFile(dockerfilePath, "utf-8");
-        p.addInfo("Found existing Dockerfile.");
-      } else {
-        // 1.2 No Dockerfile, create default one for static pages
-        dockerfileContent = this.defaultDockerfile;
-        await fs.writeFile(dockerfilePath, dockerfileContent, "utf-8");
-        dockerfileCreated = true;
-        p.addInfo("Created default Dockerfile for static pages.");
-      }
-
-      // Extract ports from the Dockerfile and create proper host:container mappings
-      // If we created the default Dockerfile, we know it exposes port 80
-      const ports = this.extractPortsFromDockerfile(dockerfileContent);
-      if (ports.length === 0) {
-        p.addInfo("No ports exposed in Dockerfile. Using default port mapping 8080:8080/tcp.");
-        ports.push("80:80/tcp");
-      } else {
-        p.addInfo(`Detected port mappings: ${ports.join(", ")}`);
-      }
-
-      repositoryData = {
-        dockerfilePath,
-        dockerfileContent,
-        dockerfileCreated,
-        buildContext: projectRoot,
-        ports,
-      };
+      repositoryData = await checkRepository();
     });
 
     await p.runStep("Building Docker image ...", async () => {
-      const registryHost = registryUri.replace(/^https?:\/\//, '');
-      const imageName = `${registryHost}/app-image:latest`;
-
-      const buildResult = spawnSync('docker', [
-        'build',
-        '-t', imageName,
-        '-f', repositoryData.dockerfilePath,
-        repositoryData.buildContext,
-      ], {
-        cwd: repositoryData.buildContext,
-        stdio: 'inherit',
-      });
-
-      if (buildResult.status !== 0) {
-        throw new Error(`Docker build failed with status ${buildResult.status}`);
-      }
-
-      const inspectResult = spawnSync('docker', [
-        'inspect',
-        '--format={{.ID}}',
-        imageName,
-      ], {
-        encoding: 'utf-8',
-        stdio: ['pipe', 'pipe', 'pipe'],
-      });
-
-      if (inspectResult.status !== 0) {
-        throw new Error(`Failed to inspect built image: ${inspectResult.stderr}`);
-      }
-
-      const imageId = inspectResult.stdout.trim();
-      repositoryData.imageId = imageId;
-      repositoryData.imageName = imageName;
-
-      p.addInfo(`Built image ${imageName}`);
+      repositoryData = await localDockerBuild(registryUri, repositoryData);
+      p.addInfo(`Built image ${repositoryData.imageName}`);
     });
 
     await p.runStep("Pushing docker image ...", async () => {
