@@ -61,30 +61,26 @@ export async function createProjectRegistry(apiClient: MittwaldAPIV2Client,
     let uri: string = "";
     let registryServiceId: string = "";
 
-    // 2. Generate random credentials
     username = `user_${Math.random().toString(36).slice(2, 10)}`;
     password = generatePasswordWithSpecialChars();
 
-    // 3. Build registry URL: registry.p-XXXXXX.project.space
     const subdomain = `registry.${projectShortId}`;
     uri = `${subdomain}.project.space`;
 
-    // 4. Create the registry container (service)
     const image = MW_REGISTRY_IMAGE;
     const serviceName = MW_REGISTRY_SERVICE_NAME;
     const environment = {
         REGISTRY_USER: username,
         REGISTRY_PASSWORD: password,
     };
-    // Expose port 5000 (default for registry)
     const ports = MW_REGISTRY_PORTS;
-    // Compose service request
     const serviceRequest = {
         image,
         description: "Project private registry",
         environment,
         ports,
     };
+
     // Add service to stack (projectId is used as stackId)
     const stackId = projectId;
     const updateResp = await apiClient.container.updateStack({
@@ -94,7 +90,6 @@ export async function createProjectRegistry(apiClient: MittwaldAPIV2Client,
 
     assertStatus(updateResp, 200);
 
-    // 5. Wait for container to be running
     await waitUntil(async () => {
         try {
             const servicesResp = await apiClient.container.listServices(
@@ -103,14 +98,13 @@ export async function createProjectRegistry(apiClient: MittwaldAPIV2Client,
             assertStatus(servicesResp, 200);
             const services = servicesResp.data;
 
-            const regSvc = services.find(svc => svc.serviceName === serviceName);
+            const regSvc = services.find(
+                svc => svc.serviceName === serviceName
+            );
 
             if (!regSvc) {
-                // p.addInfo(`[DEBUG] Service '${serviceName}' not found yet. Available: ${services.map(s => s.serviceName).join(', ')}`);
                 return null;
             }
-
-            // p.addInfo(`[DEBUG] Service '${serviceName}' found with status: ${regSvc.status}`);
 
             if (regSvc.status === "running") {
                 registryServiceId = regSvc.id;
@@ -118,14 +112,10 @@ export async function createProjectRegistry(apiClient: MittwaldAPIV2Client,
             }
             return null;
         } catch (error) {
-            // p.addInfo(`[DEBUG] Error polling service status: ${error instanceof Error ? error.message : String(error)}`);
             return null;
         }
     }, timeout);
 
-    // p.addInfo("Registry container is now running.");
-
-    // 6. Create an ingress (virtual host) to expose the registry via domain
     const ingressResp = await apiClient.domain.ingressCreateIngress({
         data: {
         projectId,
@@ -144,9 +134,9 @@ export async function createProjectRegistry(apiClient: MittwaldAPIV2Client,
         },
     });
     assertStatus(ingressResp, 201);
-    // p.addInfo(`Created ingress for registry at ${uri}`);
 
-    // 6.1 Wait for ingress to be ready (IPs assigned, TLS created)
+    // XXX: Ingress waiting still flaky. Check!
+    // XXX: Plus: Maybe even make this util function?
     const ingressId = ingressResp.data.id;
     await waitUntil(async () => {
         try {
@@ -155,24 +145,19 @@ export async function createProjectRegistry(apiClient: MittwaldAPIV2Client,
             });
 
             if (statusResp.status !== 200) {
-                // p.addInfo(`[DEBUG] Ingress status: ${statusResp.status}`);
                 return null;
             }
 
             if (statusResp.data.ips?.v4?.length === 0) {
-                // p.addInfo(`[DEBUG] Waiting for IPv4 assignment to ingress`);
                 return null;
             }
 
-            //if (statusResp.data.tls?.isCreated !== true) {
             if ((statusResp.data as any).tls?.isCreated !== true) {
-                // p.addInfo(`[DEBUG] Waiting for TLS to be created for ingress`);
                 return null;
             }
 
             return true;
         } catch (error) {
-            // p.addInfo(`[DEBUG] Error polling ingress status: ${error instanceof Error ? error.message : String(error)}`);
             return null;
         }
     }, timeout);
@@ -186,12 +171,8 @@ export async function createProjectRegistry(apiClient: MittwaldAPIV2Client,
     // is 2 hours! This might be a breaking point in this sequence,
     // so this first step must be hardened to be idempotent, avoiding to
     // create multiple registries/domains in case of retries.
-    // p.addInfo(`[DEBUG] Waiting 2 minutes for DNS propagation...`);
     await new Promise(resolve => setTimeout(resolve, 2 * 60 * 1000));
 
-    // p.addInfo(`Ingress is now ready with assigned IPs, bells and whistles`);
-
-    // 7. Register the registry entry
     const registryCreationPayload = {
         uri: uri,
         description: `Default registry for project ${projectId}`,
@@ -257,7 +238,6 @@ export async function checkProjectRegistry(apiClient: MittwaldAPIV2Client,
 
     const uri = registry.uri || "";
 
-    // Check if an ingress exists for the registry service
     const ingressesResp = await apiClient.domain.ingressListIngresses({
         queryParameters: { projectId },
     });
@@ -310,14 +290,12 @@ export async function setupProjectRegistry(apiClient: MittwaldAPIV2Client,
             timeout,
         );
         created = true;
-        // p.addInfo(`Created new registry at ${registryInfo.uri}`);
     } else {
         registryInfo = await checkProjectRegistry(
             apiClient,
             projectId,
             registry,
         );
-        // p.addInfo(`Found existing registry at ${registryInfo.uri}`);
     }
 
     return {
