@@ -12,14 +12,10 @@ import { projectFlags } from "../../lib/resources/project/flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
-import { generatePasswordWithSpecialChars } from "../../lib/util/password/generatePasswordWithSpecialChars.js";
 import { waitFlags, waitUntil } from "../../lib/wait.js";
 import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.js";
 import { pathExists } from "../../lib/util/fs/pathExists.js";
 import { 
-  getProjectRegistry,
-  createProjectRegistry,
-  checkProjectRegistry,
   setupProjectRegistry,
  } from "../../lib/resources/registry/manage.js";
 
