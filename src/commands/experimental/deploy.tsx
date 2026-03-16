@@ -1,6 +1,4 @@
 import { ReactNode } from "react";
-import { spawnSync } from "child_process";
-
 
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
@@ -10,8 +8,7 @@ import {
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
-import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
-import { waitFlags, waitUntil } from "../../lib/wait.js";
+import { waitFlags } from "../../lib/wait.js";
 import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.js";
 
 import {
@@ -20,9 +17,13 @@ import {
   localDockerPush,
  } from "../../lib/resources/registry/manage.js";
 
- import {
+import {
   checkRepository
 } from "../../lib/resources/repository/manage.js";
+
+import {
+  deployService
+} from "../../lib/resources/service/manage.js";
 
 import {
   RepositoryData
@@ -32,8 +33,12 @@ import {
   RegistryData,
 } from "../../lib/resources/registry/types.js";
 
+import {
+  DeployRes
+} from "src/lib/resources/service/types.js";
+
 type Result = {
-  serviceId: string;
+  deployedServiceId: string;
 };
 
 export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
@@ -57,6 +62,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
 
     let repositoryData: RepositoryData;
     let registryData: RegistryData;
+    let deployRes: DeployRes;
+    let deployedServiceId: string = "";
 
     const projectId = await this.withProjectId(Deploy);
     const projectShortId = await getProjectShortIdFromUuid(
@@ -93,76 +100,31 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       p.addInfo(`Pushed image ${repositoryData.imageName} to registry`);
     });
 
-    let deployedServiceId = "";
-
     await p.runStep("deploying ...", async () => {
-      const projectId = await this.withProjectId(Deploy);
-      const serviceName = `app-${projectId}`;
-      const stackId = projectId;
-
-      // 1. Create or update the service in the stack with the built image
-      const serviceRequest = {
-        image: repositoryData.imageName!,
-        description: "Deployed application",
-        ports: repositoryData.ports,
-      };
-
-      const updateResp = await this.apiClient.container.updateStack({
-        stackId,
-        data: { services: { [serviceName]: serviceRequest } },
-      });
-
-      assertStatus(updateResp, 200);
-      p.addInfo(`Created/updated service ${serviceName}`);
-
-      // 2. Wait for the service to be running
-      await waitUntil(async () => {
-        try {
-          const servicesResp = await this.apiClient.container.listServices({
-            projectId,
-          });
-          assertStatus(servicesResp, 200);
-          const services = servicesResp.data;
-
-          const deployedSvc = services.find(svc => svc.serviceName === serviceName);
-
-          if (!deployedSvc) {
-            p.addInfo(`[DEBUG] Service '${serviceName}' not found yet. Available: ${services.map(s => s.serviceName).join(', ')}`);
-            return null;
-          }
-
-          p.addInfo(`[DEBUG] Service '${serviceName}' found with status: ${deployedSvc.status}`);
-
-          if (deployedSvc.status === "running") {
-            deployedServiceId = deployedSvc.id;
-            return true;
-          }
-          return null;
-        } catch (error) {
-          p.addInfo(`[DEBUG] Error polling deployed service status: ${error instanceof Error ? error.message : String(error)}`);
-          return null;
-        }
-      }, this.flags["wait-timeout"]);
-
-      p.addInfo(`Service ${serviceName} is now running`);
+      deployRes = await deployService(
+        this.apiClient,
+        projectId,
+        repositoryData,
+        this.flags["wait-timeout"]
+      )
+      deployedServiceId = deployRes.deployedServiceId;
+      p.addInfo(`Service ${deployRes.serviceName} is now running`);
     });
-
-    const serviceId = deployedServiceId;
 
     // XXX: missing step: create ingress to expose the deployed service via domain?
     // For now, users can do it manually if needed, or we can add it in a future iteration.
     await p.complete(
       <Success>
-        Container <Value>{serviceId}</Value> was successfully deployed.
+        Container <Value>{deployedServiceId}</Value> was successfully deployed.
       </Success>,
     );
 
-    return { serviceId };
+    return { deployedServiceId };
   }
 
-  protected render({ serviceId }: Result): ReactNode {
+  protected render({ deployedServiceId }: Result): ReactNode {
     if (this.flags.quiet) {
-      return serviceId;
+      return deployedServiceId;
     }
   }
 }
