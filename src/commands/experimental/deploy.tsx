@@ -17,6 +17,7 @@ import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.j
 import {
   setupProjectRegistry,
   localDockerBuild,
+  localDockerPush,
  } from "../../lib/resources/registry/manage.js";
 
  import {
@@ -26,6 +27,10 @@ import {
 import {
   RepositoryData
 } from "../../lib/resources/repository/types.js";
+
+import {
+  RegistryData,
+} from "../../lib/resources/registry/types.js";
 
 type Result = {
   serviceId: string;
@@ -51,9 +56,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     const p = makeProcessRenderer(this.flags, "Deploying ...");
 
     let repositoryData: RepositoryData;
-    let registryUri = "";
-    let registryUsername = "";
-    let registryPassword = "";
+    let registryData: RegistryData;
+
     const projectId = await this.withProjectId(Deploy);
     const projectShortId = await getProjectShortIdFromUuid(
       this.apiClient,
@@ -62,7 +66,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
 
     await p.runStep("Setting up registry ...", async () => {
 
-      const resgistrySetupInfo = await setupProjectRegistry(
+      registryData = await setupProjectRegistry(
         this.apiClient,
         projectId,
         projectShortId,
@@ -70,12 +74,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       );
 
       p.addInfo(
-          resgistrySetupInfo.created ? "Created new registry." : "Using existing registry."
+          registryData.created ? "Created new registry." : "Using existing registry."
       );
-
-      registryUri = resgistrySetupInfo.uri;
-      registryUsername = resgistrySetupInfo.username;
-      registryPassword = resgistrySetupInfo.password;
 
     });
 
@@ -84,40 +84,12 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     });
 
     await p.runStep("Building Docker image ...", async () => {
-      repositoryData = await localDockerBuild(registryUri, repositoryData);
+      repositoryData = await localDockerBuild(registryData, repositoryData);
       p.addInfo(`Built image ${repositoryData.imageName}`);
     });
 
     await p.runStep("Pushing docker image ...", async () => {
-      const registryHost = registryUri.replace(/^https?:\/\//, '');
-
-      if (process.env.MITTWALD_API_BASE_URL) {
-        return
-      }; // Skip actual docker push if we're using a mocked API (e.g., for testing), since the registry won't actually be reachable
-
-      const loginResult = spawnSync('docker', [
-        'login',
-        registryHost,
-        '-u', registryUsername,
-        '-p', registryPassword,
-      ], {
-        stdio: 'inherit',
-      });
-
-      if (loginResult.status !== 0) {
-        throw new Error(`Docker login failed with status ${loginResult.status}`);
-      }
-
-      const pushResult = spawnSync('docker', [
-        'push',
-        repositoryData.imageName!,
-      ], {
-        stdio: 'inherit',
-      });
-
-      if (pushResult.status !== 0) {
-        throw new Error(`Docker push failed with status ${pushResult.status}`);
-      }
+      await localDockerPush(repositoryData, registryData);
       p.addInfo(`Pushed image ${repositoryData.imageName} to registry`);
     });
 
