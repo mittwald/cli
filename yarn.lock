@@ -2499,7 +2499,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:4.9.0, @oclif/core@npm:^4.9.0":
+"@oclif/core@npm:4.9.0, @oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.9.0":
   version: 4.9.0
   resolution: "@oclif/core@npm:4.9.0"
   dependencies:
@@ -2522,32 +2522,6 @@ __metadata:
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
   checksum: db9a3f3fdfbc6136376346bd788125ac8307d93cba7ae12d6d7b8fb7b8539553338ef976223544f659bfb214b373a7c43c2627ad8db00f89984790f0c3659442
-  languageName: node
-  linkType: hard
-
-"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18":
-  version: 4.8.4
-  resolution: "@oclif/core@npm:4.8.4"
-  dependencies:
-    ansi-escapes: ^4.3.2
-    ansis: ^3.17.0
-    clean-stack: ^3.0.1
-    cli-spinners: ^2.9.2
-    debug: ^4.4.3
-    ejs: ^3.1.10
-    get-package-type: ^0.1.0
-    indent-string: ^4.0.0
-    is-wsl: ^2.2.0
-    lilconfig: ^3.1.3
-    minimatch: ^10.2.4
-    semver: ^7.7.3
-    string-width: ^4.2.3
-    supports-color: ^8
-    tinyglobby: ^0.2.14
-    widest-line: ^3.1.0
-    wordwrap: ^1.0.0
-    wrap-ansi: ^7.0.0
-  checksum: 9d8c53c05c9bd9ec4714d6fcd8d714d4b593b897f24a1ac6218b13294d9ef231bf936c83d4713269baf6ba263649e95d36e2cb1d029ce6337345563e57441294
   languageName: node
   linkType: hard
 
