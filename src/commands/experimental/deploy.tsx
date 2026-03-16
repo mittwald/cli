@@ -16,7 +16,12 @@ import { generatePasswordWithSpecialChars } from "../../lib/util/password/genera
 import { waitFlags, waitUntil } from "../../lib/wait.js";
 import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.js";
 import { pathExists } from "../../lib/util/fs/pathExists.js";
-
+import { 
+  getProjectRegistry,
+  createProjectRegistry,
+  checkProjectRegistry,
+  setupProjectRegistry,
+ } from "../../lib/resources/registry/manage.js";
 
 type RepositoryData = {
   dockerfilePath: string;
@@ -52,45 +57,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
 COPY . /usr/share/nginx/html/
 `;
 
-  private extractPortsFromDockerfile(dockerfileContent: string): string[] {
-    const portMappings: string[] = [];
-    const containerPorts: Set<number> = new Set();
-    const lines = dockerfileContent.split('\n');
 
-    for (const line of lines) {
-      const match = line.match(/^\s*EXPOSE\s+(.+)$/i);
-      if (match) {
-        const portSpec = match[1].trim();
-        // Handle multiple ports on one line (e.g., "80 443")
-        const portList = portSpec.split(/\s+/);
-        for (const port of portList) {
-          if (port) {
-            // Extract just the port number (remove /udp if present)
-            const portNum = parseInt(port.split('/')[0], 10);
-            if (!isNaN(portNum) && !containerPorts.has(portNum)) {
-              containerPorts.add(portNum);
-            }
-          }
-        }
-      }
-    }
-
-    // Convert container ports to host:container mappings
-    // For ports >= 1024, map to same port; for privileged ports, use 8000+portNumber
-    containerPorts.forEach(containerPort => {
-      const protocol = '/tcp';
-      let hostPort = containerPort;
-
-      // Avoid privileged ports on the host side
-      if (containerPort < 1024) {
-        hostPort = 8000 + containerPort;
-      }
-
-      portMappings.push(`${hostPort}:${containerPort}${protocol}`);
-    });
-
-    return portMappings;
-  }
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Deploying ...");
@@ -99,246 +66,28 @@ COPY . /usr/share/nginx/html/
     let registryUri = "";
     let registryUsername = "";
     let registryPassword = "";
+    const projectId = await this.withProjectId(Deploy);
+    const projectShortId = await getProjectShortIdFromUuid(
+      this.apiClient,
+      projectId
+    );
 
     await p.runStep("Setting up registry ...", async () => {
 
-      const projectId = await this.withProjectId(Deploy);
-      const projectShortId = await getProjectShortIdFromUuid(this.apiClient, projectId);
-
-      // 1. List registries and filter out default ones
-      const registriesResp = await this.apiClient.container.listRegistries({ projectId });
-      assertStatus(registriesResp, 200);
-      const isDefaultRegistry = (r: MittwaldAPIV2.Components.Schemas.ContainerRegistry) => {
-        const uri = r.uri || "";
-        return uri.includes("docker.io") || uri.includes("ghcr.io") || uri.includes("gitlab.com");
-      };
-      let registry = registriesResp.data.find(r => !isDefaultRegistry(r));
-      let created = false;
-      let username: string = "";
-      let password: string = "";
-      let uri: string = "";
-      let registryServiceId: string = "";
-
-      if (!registry) {
-        p.addInfo("No existing registry found, creating a new one...");
-        // 2. Generate random credentials
-        username = `user_${Math.random().toString(36).slice(2, 10)}`;
-        password = generatePasswordWithSpecialChars();
-
-        // 3. Build registry URL: registry.p-XXXXXX.project.space
-        const subdomain = `registry.${projectShortId}`;
-        uri = `${subdomain}.project.space`;
-
-        // 4. Create the registry container (service)
-        const image = "mittwald/registry:3";
-        const serviceName = "project-registry";
-        const environment = {
-          REGISTRY_USER: username,
-          REGISTRY_PASSWORD: password,
-        };
-        // Expose port 5000 (default for registry)
-        const ports = ["5000:5000/tcp"];
-        // Compose service request
-        const serviceRequest = {
-          image,
-          description: "Project private registry",
-          environment,
-          ports,
-        };
-        // Add service to stack (projectId is used as stackId)
-        const stackId = projectId;
-        const updateResp = await this.apiClient.container.updateStack({
-          stackId,
-          data: { services: { [serviceName]: serviceRequest } },
-        });
-
-        assertStatus(updateResp, 200);
-
-        // 5. Wait for container to be running
-        await waitUntil(async () => {
-          try {
-            const servicesResp = await this.apiClient.container.listServices(
-              { projectId }
-            );
-            assertStatus(servicesResp, 200);
-            const services = servicesResp.data;
-
-            const regSvc = services.find(svc => svc.serviceName === serviceName);
-
-            if (!regSvc) {
-              p.addInfo(`[DEBUG] Service '${serviceName}' not found yet. Available: ${services.map(s => s.serviceName).join(', ')}`);
-              return null;
-            }
-
-            p.addInfo(`[DEBUG] Service '${serviceName}' found with status: ${regSvc.status}`);
-
-            if (regSvc.status === "running") {
-              registryServiceId = regSvc.id;
-              return true;
-            }
-            return null;
-          } catch (error) {
-            p.addInfo(`[DEBUG] Error polling service status: ${error instanceof Error ? error.message : String(error)}`);
-            return null;
-          }
-        }, this.flags["wait-timeout"]);
-
-        p.addInfo("Registry container is now running.");
-
-        // 6. Create an ingress (virtual host) to expose the registry via domain
-        const ingressResp = await this.apiClient.domain.ingressCreateIngress({
-          data: {
-            projectId,
-            hostname: uri,
-            paths: [
-              {
-                path: "/",
-                target: {
-                  container: {
-                    id: registryServiceId,
-                    portProtocol: "5000/tcp",
-                  },
-                },
-              },
-            ],
-          },
-        });
-        assertStatus(ingressResp, 201);
-        p.addInfo(`Created ingress for registry at ${uri}`);
-
-        // 6.1 Wait for ingress to be ready (IPs assigned, TLS created)
-        const ingressId = ingressResp.data.id;
-        await waitUntil(async () => {
-          try {
-            const statusResp = await this.apiClient.domain.ingressGetIngress({
-              ingressId,
-            });
-
-            if (statusResp.status !== 200) {
-              p.addInfo(`[DEBUG] Ingress status: ${statusResp.status}`);
-              return null;
-            }
-
-            if (statusResp.data.ips?.v4?.length === 0) {
-              p.addInfo(`[DEBUG] Waiting for IPv4 assignment to ingress`);
-              return null;
-            }
-
-            //if (statusResp.data.tls?.isCreated !== true) {
-            if ((statusResp.data as any).tls?.isCreated !== true) {
-              p.addInfo(`[DEBUG] Waiting for TLS to be created for ingress`);
-              return null;
-            }
-
-            return true;
-          } catch (error) {
-            p.addInfo(`[DEBUG] Error polling ingress status: ${error instanceof Error ? error.message : String(error)}`);
-            return null;
-          }
-        }, this.flags["wait-timeout"]);
-
-        // Wait 2 minutes for DNS propagation and other settling
-        // XXX: This whole ingress creation and waiting is a bit
-        // of a black box and can be flaky, so adding extra wait
-        // time to reduce chances of "registry not found" errors in next steps
-        // XXX: Even better: The whole thing is marked in mStudio
-        // to be flaky sometimes, too. The recommended time mentioned there
-        // is 2 hours! This might be a breaking point in this sequence,
-        // so this first step must be hardened to be idempotent, avoiding to
-        // create multiple registries/domains in case of retries.
-        p.addInfo(`[DEBUG] Waiting 2 minutes for DNS propagation...`);
-        await new Promise(resolve => setTimeout(resolve, 2 * 60 * 1000));
-
-        p.addInfo(`Ingress is now ready with assigned IPs, bells and whistles`);
-
-        // 7. Register the registry entry
-        const registryCreationPayload = {
-          uri: uri,
-          description: `Default registry for project ${projectId}`,
-          credentials: { username, password },
-        };
-        const createResp = await this.apiClient.container.createRegistry({
-          projectId,
-          data: registryCreationPayload,
-        });
-        assertStatus(createResp, 201);
-        registry = createResp.data;
-        created = true;
-
-      } else {
-
-        p.addInfo("Found existing registry, fetching credentials ...");
-
-        // Fetch the registry service and extract credentials from environment variables
-        const servicesResp = await this.apiClient.container.listServices({
-          projectId,
-        });
-        assertStatus(servicesResp, 200);
-
-        const registryService = servicesResp.data.find(
-          svc => svc.serviceName === "project-registry"
-        );
-
-        if (!registryService) {
-          throw new Error(
-            "Registry service not found. Unable to retrieve credentials."
-          );
-        }
-
-        registryServiceId = registryService.id;
-
-        const serviceDetailsResp =
-          await this.apiClient.container.getService({
-            serviceId: registryService.id,
-            stackId: projectId,
-          });
-        assertStatus(serviceDetailsResp, 200);
-
-        const service = serviceDetailsResp.data;
-        username = service.deployedState?.envs?.REGISTRY_USER ?? "";
-        password = service.deployedState?.envs?.REGISTRY_PASSWORD ?? "";
-
-        if (!username || !password) {
-          throw new Error(
-            "Registry credentials not found in service environment variables."
-          );
-        }
-
-        uri = registry.uri || "";
-
-        // Check if an ingress exists for the registry service
-        const ingressesResp = await this.apiClient.domain.ingressListIngresses({
-          queryParameters: { projectId },
-        });
-        assertStatus(ingressesResp, 200);
-
-        const registryIngress = ingressesResp.data.find((ingress) => {
-          return ingress.paths?.some((path) => {
-            const target = path.target as any;
-            return (
-              target?.container?.id === registryServiceId &&
-              target?.container?.portProtocol === "5000/tcp"
-            );
-          });
-        });
-
-        if (!registryIngress) {
-          throw new Error(
-            "Registry ingress not found. Registry is not exposed via domain."
-          );
-        }
-
-        p.addInfo(`Using existing registry at ${registryIngress.hostname}`);
-      }
-
-      // 8. Output result to user
-      p.addInfo(
-            created ? "Created new registry." : "Using existing registry."
+      const resgistrySetupInfo = await setupProjectRegistry(
+        this.apiClient,
+        projectId,
+        projectShortId,
+        this.flags["wait-timeout"]
       );
 
-      registryUri = uri;
-      registryUsername = username;
-      registryPassword = password;
+      p.addInfo(
+          resgistrySetupInfo.created ? "Created new registry." : "Using existing registry."
+      );
+
+      registryUri = resgistrySetupInfo.uri;
+      registryUsername = resgistrySetupInfo.username;
+      registryPassword = resgistrySetupInfo.password;
 
     });
 

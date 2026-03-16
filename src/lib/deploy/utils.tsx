@@ -58,3 +58,37 @@ function runDockerContainer(imageTag: string, port: number) {
     ]);
     console.log(`Docker container running and serving on http://localhost:${port}`);
 }
+
+function extractPortsFromDockerfile(dockerfileContent: string): string[] {
+    const portMappings: string[] = [];
+    const containerPorts: Set<number> = new Set();
+    const lines = dockerfileContent.split('\n');
+
+    for (const line of lines) {
+        const match = line.match(/^\s*EXPOSE\s+(.+)$/i);
+        if (match) {
+        const portSpec = match[1].trim();
+        // Handle multiple ports on one line (e.g., "80 443")
+        const portList = portSpec.split(/\s+/);
+        for (const port of portList) {
+            if (port) {
+            // Extract just the port number (remove /udp if present)
+            const portNum = parseInt(port.split('/')[0], 10);
+            if (!isNaN(portNum) && !containerPorts.has(portNum)) {
+                containerPorts.add(portNum);
+            }
+            }
+        }
+        }
+    }
+
+    // Convert container ports to host:container mappings
+    // XXX: This is 1:1 mapping for now
+    containerPorts.forEach(containerPort => {
+        const protocol = '/tcp';
+        let hostPort = containerPort;
+        portMappings.push(`${hostPort}:${containerPort}${protocol}`);
+    });
+
+    return portMappings;
+}
