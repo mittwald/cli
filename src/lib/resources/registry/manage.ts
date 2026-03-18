@@ -410,13 +410,40 @@ export async function localBuildWithRailpack(registryData: RegistryData,
         throw new Error('Build context is required for buildx build');
     }
 
-    // TODO: Implement buildx build logic using railpackPlanPath
-    // - Load railpack plan from repositoryData.railpackPlanPath
-    // - Execute docker buildx build with appropriate flags
-    // - Return updated repositoryData with imageId and imageName
-
     const registryHost = registryData.uri;
     const imageName = `${registryHost}/app-image:latest`;
+
+    const buildResult = spawnSync('docker', [
+        'buildx', 'build',
+        '--build-arg', 'BUILDKIT_SYNTAX=ghcr.io/railwayapp/railpack-frontend',
+        '-f', repositoryData.railpackPlanPath,
+        '--output', `type=docker,name=${imageName}`,
+        repositoryData.buildContext,
+    ], {
+        cwd: repositoryData.buildContext,
+        stdio: 'inherit',
+    });
+
+    if (buildResult.status !== 0) {
+        throw new Error(`Docker buildx build failed with status ${buildResult.status}`);
+    }
+
+    const inspectResult = spawnSync('docker', [
+        'inspect',
+        '--format={{.ID}}',
+        imageName,
+    ], {
+        encoding: 'utf-8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+    });
+
+    if (inspectResult.status !== 0) {
+        throw new Error(`Failed to inspect built image: ${inspectResult.stderr}`);
+    }
+
+    const imageId = inspectResult.stdout.trim();
+    repositoryData.imageId = imageId;
+    repositoryData.imageName = imageName;
 
     return repositoryData;
 }
