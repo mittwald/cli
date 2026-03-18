@@ -9,12 +9,29 @@
 import path from "path";
 import { pathExists } from "../../../lib/util/fs/pathExists.js";
 import fs from "fs/promises";
+import { execSync } from "child_process";
 
 // assmuning a very simple static page if no dockerfile is
 // present, later this will become more complex, e.g. with buildpacks
 const MW_DEFAULT_DOCKERFILE_CONTENT = `FROM nginx:alpine
 COPY . /usr/share/nginx/html/
 `;
+
+async function runRailpack(projectRoot: string): Promise<string | null> {
+    try {
+        execSync('railpack prepare . --plan-out railpack-plan.json --info-out railpack-info.json', {
+            cwd: projectRoot,
+            stdio: 'pipe',
+        });
+        const planPath = path.join(projectRoot, 'railpack-plan.json');
+        if (await pathExists(planPath)) {
+            return planPath;
+        }
+    } catch {
+        // railpack failed or not installed, will fall back to default Dockerfile
+    }
+    return null;
+}
 
 function extractPortsFromDockerfile(dockerfileContent: string): string[] {
     const portMappings: string[] = [];
@@ -58,17 +75,25 @@ export async function checkRepository() {
     const dockerfilePath = path.join(projectRoot, "Dockerfile");
     let dockerfileContent: string;
     let dockerfileCreated = false;
+    let railpackPlanPath: string | null = null;
 
-    // Check if Dockerfile exists
+    // 1. Check if Dockerfile exists
     if (await pathExists(dockerfilePath)) {
-        // 1.1 Dockerfile is present, read it
+        // 1.1 Dockerfile is present, read it and skip railpack
         dockerfileContent = await fs.readFile(dockerfilePath, "utf-8");
     } else {
-        // 1.2 No Dockerfile, create default one for static pages
-        // XXX: In the future, this can become more complex, e.g. with buildpacks, railpack, etc.
-        dockerfileContent = MW_DEFAULT_DOCKERFILE_CONTENT;
-        await fs.writeFile(dockerfilePath, dockerfileContent, "utf-8");
-        dockerfileCreated = true;
+        // 1.2 No Dockerfile, try railpack for analysis
+        railpackPlanPath = await runRailpack(projectRoot);
+
+        // 1.3 Only create default Dockerfile if railpack failed
+        if (railpackPlanPath === null) {
+            dockerfileContent = MW_DEFAULT_DOCKERFILE_CONTENT;
+            await fs.writeFile(dockerfilePath, dockerfileContent, "utf-8");
+            dockerfileCreated = true;
+        } else {
+            // railpack succeeded, don't create default Dockerfile
+            dockerfileContent = "";
+        }
     }
 
     // Extract ports from the Dockerfile and create proper host:container mappings
@@ -84,6 +109,7 @@ export async function checkRepository() {
         dockerfileCreated,
         buildContext: projectRoot,
         ports,
+        railpackPlanPath,
     };
     return repositoryData;
 }
