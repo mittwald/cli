@@ -330,6 +330,22 @@ export function checkDocker() {
     }
 }
 
+export function checkRailpack() {
+    /*
+        Check if Railpack is installed and available in the system PATH.
+        Throws an error with actionable guidance if Railpack is not found.
+    */
+    try {
+        execSync("railpack --version", { stdio: "pipe" });
+    } catch (error) {
+        throw new Error(
+            "Railpack is not installed or not available in your PATH. " +
+            "Please install Railpack from https://railpack.io or " +
+            "ensure it is properly installed and available in your system PATH."
+        );
+    }
+}
+
 export async function localDockerBuild(registryData: RegistryData,
                                        repositoryData: RepositoryData) {
     /*

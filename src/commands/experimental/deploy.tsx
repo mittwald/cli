@@ -16,6 +16,7 @@ import {
   localDockerBuild,
   localDockerPush,
   checkDocker,
+  checkRailpack,
  } from "../../lib/resources/registry/manage.js";
 
 import {
@@ -74,6 +75,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
 
     await p.runStep("Checking dev tools ...", async () => {
       checkDocker();
+      checkRailpack();
     });
 
     await p.runStep("Setting up registry ...", async () => {
