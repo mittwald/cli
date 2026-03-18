@@ -13,7 +13,7 @@ import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.j
 
 import {
   setupProjectRegistry,
-  localDockerBuild,
+  buildDockerImage,
   localDockerPush,
   checkDocker,
   checkRailpack,
@@ -102,7 +102,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     await p.runStep("Building Docker image ...", async () => {
       // XXX: Based on result from repo check, local docker build might not even be the best,
       // maybe railpack can do better, especially for common stuff
-      repositoryData = await localDockerBuild(registryData, repositoryData);
+      repositoryData = await buildDockerImage(registryData, repositoryData);
       p.addInfo(`Built image ${repositoryData.imageName}`);
     });
 

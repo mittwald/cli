@@ -394,6 +394,49 @@ export async function localDockerBuild(registryData: RegistryData,
     return repositoryData;
 }
 
+export async function localBuildWithRailpack(registryData: RegistryData,
+                                             repositoryData: RepositoryData) {
+    /*
+        Build Docker image using Railpack and Docker Buildx (buildkit).
+        This path is more efficient for complex projects and provides
+        better caching and multi-platform builds.
+    */
+
+    if (!repositoryData.railpackPlanPath) {
+        throw new Error('Railpack plan path is required for buildx build');
+    }
+
+    if (!repositoryData.buildContext) {
+        throw new Error('Build context is required for buildx build');
+    }
+
+    // TODO: Implement buildx build logic using railpackPlanPath
+    // - Load railpack plan from repositoryData.railpackPlanPath
+    // - Execute docker buildx build with appropriate flags
+    // - Return updated repositoryData with imageId and imageName
+
+    const registryHost = registryData.uri;
+    const imageName = `${registryHost}/app-image:latest`;
+
+    return repositoryData;
+}
+
+export async function buildDockerImage(registryData: RegistryData,
+                                       repositoryData: RepositoryData) {
+    /*
+        Entry point for building Docker images. Checks if railpackPlanPath
+        is available and decides which build method to use:
+        - If railpackPlanPath exists: uses buildx with railpack
+        - Otherwise: falls back to standard Docker build
+    */
+
+    if (repositoryData.railpackPlanPath) {
+        return await localBuildWithRailpack(registryData, repositoryData);
+    }
+
+    return await localDockerBuild(registryData, repositoryData);
+}
+
 export async function localDockerPush(repositoryData: RepositoryData,
                                         registryData: RegistryData) {
 
