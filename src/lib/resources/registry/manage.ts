@@ -337,6 +337,10 @@ export async function localDockerBuild(registryData: RegistryData,
         Later down the line this might be called remotely
     */
 
+    if (!repositoryData.dockerfilePath || !repositoryData.buildContext) {
+        throw new Error('Docker build requires dockerfilePath and buildContext');
+    }
+
     const registryHost = registryData.uri;
     const imageName = `${registryHost}/app-image:latest`;
 
