@@ -92,10 +92,14 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     });
 
     await p.runStep("Checking repository ...", async () => {
+      // XXX: This step can become much more clever now, using tools like
+      // railpack, buildpacks, etc. to auto-detect how to best build the project.
       repositoryData = await checkRepository();
     });
 
     await p.runStep("Building Docker image ...", async () => {
+      // XXX: Based on result from repo check, local docker build might not even be the best,
+      // maybe railpack can do better, especially for common stuff
       repositoryData = await localDockerBuild(registryData, repositoryData);
       p.addInfo(`Built image ${repositoryData.imageName}`);
     });
@@ -118,6 +122,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
 
     // XXX: missing step: create ingress to expose the deployed service via domain?
     // For now, users can do it manually if needed, or we can add it in a future iteration.
+    // XXX: Implement this for full convenience!
+
     await p.complete(
       <Success>
         Container <Value>{deployedServiceId}</Value> was successfully deployed.

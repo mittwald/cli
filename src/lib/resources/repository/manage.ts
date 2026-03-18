@@ -65,6 +65,7 @@ export async function checkRepository() {
         dockerfileContent = await fs.readFile(dockerfilePath, "utf-8");
     } else {
         // 1.2 No Dockerfile, create default one for static pages
+        // XXX: In the future, this can become more complex, e.g. with buildpacks, railpack, etc.
         dockerfileContent = MW_DEFAULT_DOCKERFILE_CONTENT;
         await fs.writeFile(dockerfilePath, dockerfileContent, "utf-8");
         dockerfileCreated = true;
