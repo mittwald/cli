@@ -6,7 +6,7 @@
     OR even in other programs, e.g. mStudio extensions
 */
 
-import { spawnSync } from "child_process";
+import { spawnSync, execSync } from "child_process";
 
 import {
     MittwaldAPIV2Client,
@@ -312,6 +312,22 @@ export async function setupProjectRegistry(apiClient: MittwaldAPIV2Client,
     }
 
     return registryInfo;
+}
+
+export function checkDocker() {
+    /*
+        Check if Docker is installed and available in the system PATH.
+        Throws an error with actionable guidance if Docker is not found.
+    */
+    try {
+        execSync("docker --version", { stdio: "pipe" });
+    } catch (error) {
+        throw new Error(
+            "Docker is not installed or not available in your PATH. " +
+            "Please install Docker from https://www.docker.com/products/docker-desktop or " +
+            "ensure it is properly installed and available in your system PATH."
+        );
+    }
 }
 
 export async function localDockerBuild(registryData: RegistryData,

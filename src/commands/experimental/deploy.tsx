@@ -15,6 +15,7 @@ import {
   setupProjectRegistry,
   localDockerBuild,
   localDockerPush,
+  checkDocker,
  } from "../../lib/resources/registry/manage.js";
 
 import {
@@ -70,6 +71,10 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       this.apiClient,
       projectId
     );
+
+    await p.runStep("Checking dev tools ...", async () => {
+      checkDocker();
+    });
 
     await p.runStep("Setting up registry ...", async () => {
 
