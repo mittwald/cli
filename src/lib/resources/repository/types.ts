@@ -6,5 +6,5 @@ export type RepositoryData = {
   dockerfileCreated?: boolean;
   imageId?: string;
   imageName?: string;
-  railpackPlanPath?: string;
+  railpackPlanPath?: string | null;
 };
