@@ -46,7 +46,7 @@
     "dist/**/*.{js,d.ts}"
   ],
   "dependencies": {
-    "@mittwald/api-client": "^4.131.0",
+    "@mittwald/api-client": "^4.331.0",
     "@mittwald/react-use-promise": "^2.6.0",
     "@oclif/core": "^4.0.18",
     "@oclif/plugin-autocomplete": "^3.0.3",
