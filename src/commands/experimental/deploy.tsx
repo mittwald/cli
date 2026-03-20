@@ -12,32 +12,14 @@ import { waitFlags } from "../../lib/wait.js";
 import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.js";
 
 import {
-  setupProjectRegistry,
-  buildDockerImage,
-  localDockerPush,
   checkDocker,
   checkRailpack,
- } from "../../lib/resources/registry/manage.js";
-
-import {
-  checkRepository
-} from "../../lib/resources/repository/manage.js";
-
-import {
-  deployService
-} from "../../lib/resources/service/manage.js";
-
-import {
-  RepositoryData
-} from "../../lib/resources/repository/types.js";
-
-import {
-  RegistryData,
-} from "../../lib/resources/registry/types.js";
-
-import {
-  DeployRes
-} from "src/lib/resources/service/types.js";
+  setupProjectRegistry,
+  checkRepository,
+  buildDockerImage,
+  localDockerPush,
+  deployService,
+} from "container-deploy";
 
 type Result = {
   deployedServiceId: string;
@@ -62,9 +44,6 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Deploying ...");
 
-    let repositoryData: RepositoryData;
-    let registryData: RegistryData;
-    let deployRes: DeployRes;
     let deployedServiceId: string = "";
 
     const projectId = await this.withProjectId(Deploy);
@@ -78,9 +57,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       checkRailpack();
     });
 
-    await p.runStep("Setting up registry ...", async () => {
-
-      registryData = await setupProjectRegistry(
+    const registryData = await p.runStep("Setting up registry ...", async () => {
+      const registry = await setupProjectRegistry(
         this.apiClient,
         projectId,
         projectShortId,
@@ -88,38 +66,45 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       );
 
       p.addInfo(
-          registryData.created ? "Created new registry." : "Using existing registry."
+        registry.created ? "Created new registry." : "Using existing registry."
       );
 
+      return registry;
     });
 
-    await p.runStep("Checking repository ...", async () => {
-      // XXX: This step can become much more clever now, using tools like
-      // railpack, buildpacks, etc. to auto-detect how to best build the project.
-      repositoryData = await checkRepository();
-    });
+    const repositoryData = await p.runStep(
+      "Checking repository ...",
+      async () => {
+        // XXX: This step can become much more clever now, using tools like
+        // railpack, buildpacks, etc. to auto-detect how to best build the project.
+        return await checkRepository();
+      }
+    );
 
-    await p.runStep("Building Docker image ...", async () => {
-      // XXX: Based on result from repo check, local docker build might not even be the best,
-      // maybe railpack can do better, especially for common stuff
-      repositoryData = await buildDockerImage(registryData, repositoryData);
-      p.addInfo(`Built image ${repositoryData.imageName}`);
-    });
+    const builtImage = await p.runStep(
+      "Building Docker image ...",
+      async () => {
+        const result = await buildDockerImage(registryData, repositoryData);
+        p.addInfo(`Built image ${result.imageName}`);
+        return result;
+      }
+    );
 
     await p.runStep("Pushing docker image ...", async () => {
-      await localDockerPush(repositoryData, registryData);
-      p.addInfo(`Pushed image ${repositoryData.imageName} to registry`);
+      await localDockerPush(builtImage, registryData);
+      p.addInfo(`Pushed image ${builtImage.imageName} to registry`);
     });
 
-    await p.runStep("deploying ...", async () => {
-      deployRes = await deployService(
+    const deployResult = await p.runStep("Deploying ...", async () => {
+      const result = await deployService(
         this.apiClient,
         projectId,
         repositoryData,
         this.flags["wait-timeout"]
-      )
-      deployedServiceId = deployRes.deployedServiceId;
-      p.addInfo(`Service ${deployRes.serviceName} is now running`);
+      );
+      deployedServiceId = result.deployedServiceId;
+      p.addInfo(`Service ${result.serviceName} is now running`);
+      return result;
     });
 
     // XXX: missing step: create ingress to expose the deployed service via domain?
@@ -129,7 +114,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     await p.complete(
       <Success>
         Container <Value>{deployedServiceId}</Value> was successfully deployed.
-      </Success>,
+      </Success>
     );
 
     return { deployedServiceId };
