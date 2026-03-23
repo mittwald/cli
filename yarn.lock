@@ -2774,7 +2774,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:4.9.0, @oclif/core@npm:^4, @oclif/core@npm:^4.0.18":
+"@oclif/core@npm:4.9.0":
   version: 4.9.0
   resolution: "@oclif/core@npm:4.9.0"
   dependencies:
@@ -2800,7 +2800,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^4.10.2":
+"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.10.2":
   version: 4.10.2
   resolution: "@oclif/core@npm:4.10.2"
   dependencies:
