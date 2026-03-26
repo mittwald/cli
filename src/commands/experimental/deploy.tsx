@@ -19,6 +19,7 @@ import {
   buildDockerImage,
   localDockerPush,
   deployService,
+  createAndWaitForDomain,
 } from "container-deploy";
 
 type Result = {
@@ -75,8 +76,6 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     const repositoryData = await p.runStep(
       "Checking repository ...",
       async () => {
-        // XXX: This step can become much more clever now, using tools like
-        // railpack, buildpacks, etc. to auto-detect how to best build the project.
         return await checkRepository();
       }
     );
@@ -110,10 +109,23 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     // XXX: missing step: create ingress to expose the deployed service via domain?
     // For now, users can do it manually if needed, or we can add it in a future iteration.
     // XXX: Implement this for full convenience!
+    await p.runStep("Setting up domain ...", async () => {
+      const uri = `webapp.${projectShortId}.project.space`;
+      const registryServiceId = deployResult.deployedServiceId;
+      const timeout = this.flags["wait-timeout"];
+      await createAndWaitForDomain(
+        this.apiClient,
+        projectId,
+        uri,
+        registryServiceId,
+        "80/tcp",
+        timeout,
+      );
+    });
 
     await p.complete(
       <Success>
-        Container <Value>{deployedServiceId}</Value> was successfully deployed.
+        Container <Value>{deployedServiceId}</Value> was successfully deployed
       </Success>
     );
 
