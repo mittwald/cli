@@ -118,7 +118,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         projectId,
         uri,
         registryServiceId,
-        "80/tcp",
+        repositoryData.ports[0],
         timeout,
       );
     });
