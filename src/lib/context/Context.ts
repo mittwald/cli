@@ -5,6 +5,7 @@ import WritableContextProvider from "./WritableContextProvider.js";
 import UserContextProvider from "./UserContextProvider.js";
 import TerraformContextProvider from "./TerraformContextProvider.js";
 import DDEVContextProvider from "./DDEVContextProvider.js";
+import DotfileContextProvider from "./DotfileContextProvider.js";
 import InvalidContextError from "../error/InvalidContextError.js";
 
 export type ContextNames =
@@ -59,6 +60,7 @@ export default class Context {
       new UserContextProvider(config),
       new TerraformContextProvider(),
       new DDEVContextProvider(apiClient),
+      new DotfileContextProvider(),
     ];
     this.opts = {
       onInitError(err) {
