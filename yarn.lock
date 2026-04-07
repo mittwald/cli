@@ -8209,6 +8209,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash@npm:^4.18.1":
+  version: 4.18.1
+  resolution: "lodash@npm:4.18.1"
+  checksum: bb5f5b49aad29614e709af02b64c56b0f8b78c6a81434a3c1ae527d2f0f78ca08f9d9fb22aa825a053876c9d2166e9c01f31c356014b5e2bdc0556c057433102
+  languageName: node
+  linkType: hard
+
 "loose-envify@npm:^1.1.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
@@ -9125,8 +9132,8 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.14.31":
-  version: 4.22.97
-  resolution: "oclif@npm:4.22.97"
+  version: 4.23.0
+  resolution: "oclif@npm:4.23.0"
   dependencies:
     "@aws-sdk/client-cloudfront": 3.1009.0
     "@aws-sdk/client-s3": 3.1014.0
@@ -9146,7 +9153,7 @@ __metadata:
     fs-extra: ^8.1
     github-slugger: ^2
     got: ^13
-    lodash: ^4.17.23
+    lodash: ^4.18.1
     normalize-package-data: ^6
     semver: ^7.7.4
     sort-package-json: ^2.15.1
@@ -9154,7 +9161,7 @@ __metadata:
     validate-npm-package-name: ^5.0.1
   bin:
     oclif: bin/run.js
-  checksum: d878a6fac0aa4b7fa4b4284b188662d35cbad907ae91d5ff66f61d3240101716c2cb5b51e9e382f81c10c1bd8e54a3409df6e72859dba2ef979cbc9a33863fb6
+  checksum: 0b27439e4da3b0f987b4f8870d07147f2b740dc062ca07974ab50fa3c24479b5cdc8a8561a209a93b06ad85fc9c2dcbe9c01bc5cffde78b114a5a21fede15b37
   languageName: node
   linkType: hard
 
