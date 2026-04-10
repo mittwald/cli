@@ -2658,7 +2658,7 @@ __metadata:
     semver: ^7.5.4
     semver-parser: ^4.1.6
     shell-escape: ^0.2.0
-    slice-ansi: ^8.0.0
+    slice-ansi: ^9.0.0
     string-width: ^8.0.0
     tempfile: ^6.0.1
     ts-jest: ^29.2.5
@@ -10081,13 +10081,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"slice-ansi@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "slice-ansi@npm:8.0.0"
+"slice-ansi@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "slice-ansi@npm:9.0.0"
   dependencies:
     ansi-styles: ^6.2.3
     is-fullwidth-code-point: ^5.1.0
-  checksum: a3a6947f2a87ebe8fe0de234184e2ff057ecb4532666acae60c6906d8d27253016d5890b6f2b1cb10b7763376b7626b60e54f489f657eb20cdfd8797ac04d2c1
+  checksum: 93bc3bfb66d4ec1bbe9e1f185869abcc1697cbafe8807188b34bc625f3554f877e02e4a13c8c67845296946364d225f622ac8438b837bf026f11d585b7427d96
   languageName: node
   linkType: hard
 
