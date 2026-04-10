@@ -1,7 +1,7 @@
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import { stackFlags, withStackId } from "../../lib/resources/stack/flags.js";
 import { ReactNode } from "react";
-import { Flags } from "@oclif/core";
+import { Flags, ux } from "@oclif/core";
 import {
   makeProcessRenderer,
   processFlags,
@@ -65,7 +65,25 @@ This flag is mutually exclusive with --compose-file.`,
       summary: "alternative path to file with environment variables",
       default: "./.env",
     }),
+    force: Flags.boolean({
+      char: "f",
+      summary: "do not ask for confirmation when containers will be deleted",
+    }),
   };
+
+  private findServicesToDelete(
+    existingStack: ContainerStackResponse,
+    newStackDefinition: RawStackInput,
+  ): string[] {
+    const existingServiceNames = (existingStack.services ?? []).map(
+      (s) => s.serviceName,
+    );
+    const newServiceNames = Object.keys(newStackDefinition.services ?? {});
+
+    return existingServiceNames.filter(
+      (name) => !newServiceNames.includes(name),
+    );
+  }
 
   private async loadStackDefinition(
     source: { template: string } | { composeFile: string },
@@ -145,6 +163,30 @@ This flag is mutually exclusive with --compose-file.`,
     stackDefinition = await r.runStep("getting image configurations", () =>
       enrichStackDefinition(stackDefinition),
     );
+
+    // Check for containers that will be deleted
+    const servicesToDelete = this.findServicesToDelete(
+      existingStack,
+      stackDefinition,
+    );
+
+    if (servicesToDelete.length > 0) {
+      r.addInfo(
+        `The following containers will be deleted: ${servicesToDelete.join(", ")}`,
+      );
+
+      if (!this.flags.force) {
+        const confirmed = await r.addConfirmation(
+          "do you want to continue and delete these containers?",
+        );
+        if (!confirmed) {
+          r.addInfo("deployment cancelled by user");
+          await r.complete(<></>);
+          ux.exit(1);
+          return result;
+        }
+      }
+    }
 
     const declaredStack = await r.runStep("deploying stack", async () => {
       const resp = await this.apiClient.container.declareStack({
