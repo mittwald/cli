@@ -85,6 +85,87 @@ This flag is mutually exclusive with --compose-file.`,
     );
   }
 
+  private async getExistingStack(
+    stackId: string,
+    renderer: ReturnType<typeof makeProcessRenderer>,
+  ): Promise<ContainerStackResponse> {
+    return renderer.runStep("retrieving current stack state", async () => {
+      const resp = await this.apiClient.container.getStack({ stackId });
+      assertStatus(resp, 200);
+      return resp.data;
+    });
+  }
+
+  private async confirmDeletion(
+    servicesToDelete: string[],
+    renderer: ReturnType<typeof makeProcessRenderer>,
+  ): Promise<boolean> {
+    if (servicesToDelete.length === 0) {
+      return true;
+    }
+
+    renderer.addInfo(
+      `the following containers will be deleted: ${servicesToDelete.join(", ")}`,
+    );
+
+    if (this.flags.force) {
+      return true;
+    }
+
+    const confirmed = await renderer.addConfirmation(
+      "do you want to continue and delete these containers?",
+    );
+
+    if (!confirmed) {
+      renderer.addInfo("deployment cancelled by user");
+      await renderer.complete(<></>);
+      ux.exit(1);
+    }
+
+    return confirmed;
+  }
+
+  private async deployStack(
+    stackId: string,
+    stackDefinition: RawStackInput,
+    renderer: ReturnType<typeof makeProcessRenderer>,
+  ): Promise<ContainerStackResponse> {
+    return renderer.runStep("deploying stack", async () => {
+      const resp = await this.apiClient.container.declareStack({
+        stackId,
+        data: stackDefinition as StackRequest,
+      });
+      assertStatus(resp, 200);
+      return resp.data;
+    });
+  }
+
+  private async recreateServices(
+    stackId: string,
+    declaredStack: ContainerStackResponse,
+    renderer: ReturnType<typeof makeProcessRenderer>,
+  ): Promise<string[]> {
+    const restartedServices: string[] = [];
+
+    for (const service of declaredStack.services ?? []) {
+      if (service.requiresRecreate) {
+        await renderer.runStep(
+          `recreating service ${service.serviceName}`,
+          async () => {
+            const resp = await this.apiClient.container.recreateService({
+              stackId,
+              serviceId: service.id,
+            });
+            assertSuccess(resp);
+            restartedServices.push(service.serviceName);
+          },
+        );
+      }
+    }
+
+    return restartedServices;
+  }
+
   private async loadStackDefinition(
     source: { template: string } | { composeFile: string },
     envFile: string,
@@ -140,20 +221,13 @@ This flag is mutually exclusive with --compose-file.`,
     } = this.flags;
     const r = makeProcessRenderer(this.flags, "Deploying container stack");
 
-    const existingStack = await r.runStep(
-      "retrieving current stack state",
-      async () => {
-        const resp = await this.apiClient.container.getStack({ stackId });
-        assertStatus(resp, 200);
-
-        return resp.data;
-      },
-    );
-
-    const result: DeployResult = { restartedServices: [] };
+    const existingStack = await this.getExistingStack(stackId, r);
+    const stackSource = fromTemplate
+      ? { template: fromTemplate }
+      : { composeFile };
 
     let stackDefinition = await this.loadStackDefinition(
-      fromTemplate ? { template: fromTemplate } : { composeFile },
+      stackSource,
       envFile,
       existingStack,
       r,
@@ -164,57 +238,23 @@ This flag is mutually exclusive with --compose-file.`,
       enrichStackDefinition(stackDefinition),
     );
 
-    // Check for containers that will be deleted
     const servicesToDelete = this.findServicesToDelete(
       existingStack,
       stackDefinition,
     );
-
-    if (servicesToDelete.length > 0) {
-      r.addInfo(
-        `The following containers will be deleted: ${servicesToDelete.join(", ")}`,
-      );
-
-      if (!this.flags.force) {
-        const confirmed = await r.addConfirmation(
-          "do you want to continue and delete these containers?",
-        );
-        if (!confirmed) {
-          r.addInfo("deployment cancelled by user");
-          await r.complete(<></>);
-          ux.exit(1);
-          return result;
-        }
-      }
+    const confirmed = await this.confirmDeletion(servicesToDelete, r);
+    if (!confirmed) {
+      return { restartedServices: [] };
     }
 
-    const declaredStack = await r.runStep("deploying stack", async () => {
-      const resp = await this.apiClient.container.declareStack({
-        stackId,
-        data: stackDefinition as StackRequest,
-      });
+    const declaredStack = await this.deployStack(stackId, stackDefinition, r);
+    const restartedServices = await this.recreateServices(
+      stackId,
+      declaredStack,
+      r,
+    );
 
-      assertStatus(resp, 200);
-      return resp.data;
-    });
-
-    for (const service of declaredStack.services ?? []) {
-      if (service.requiresRecreate) {
-        await r.runStep(
-          `recreating service ${service.serviceName}`,
-          async () => {
-            const resp = await this.apiClient.container.recreateService({
-              stackId,
-              serviceId: service.id,
-            });
-            assertSuccess(resp);
-            result.restartedServices.push(service.serviceName);
-          },
-        );
-      }
-    }
-
-    return result;
+    return { restartedServices };
   }
 
   protected render({ restartedServices }: DeployResult): ReactNode {
