@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/mittwald/cli/compare/v1.14.0...v1.15.0) (2026-04-13)
+
+
+### Features
+
+* **stack:** warn about container deletion during stack deploy ([#1755](https://github.com/mittwald/cli/issues/1755)) ([8e3e6e6](https://github.com/mittwald/cli/commit/8e3e6e6a9e8ed632becaac17697b253784fad1fc)), closes [#1400](https://github.com/mittwald/cli/issues/1400)
+
 # [1.14.0](https://github.com/mittwald/cli/compare/v1.13.4...v1.14.0) (2026-03-30)
 
 
