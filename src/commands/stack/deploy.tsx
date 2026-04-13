@@ -19,13 +19,13 @@ import {
 import { sanitizeStackDefinition } from "../../lib/resources/stack/sanitize.js";
 import { enrichStackDefinition } from "../../lib/resources/stack/enrich.js";
 import { Success } from "../../rendering/react/components/Success.js";
-import { Value } from "../../rendering/react/components/Value.js";
 import { loadStackFromTemplate } from "../../lib/resources/stack/template-loader.js";
 import { parseEnvironmentVariablesFromStr } from "../../lib/util/parser.js";
 import { RawStackInput } from "../../lib/resources/stack/types.js";
 
 interface DeployResult {
   restartedServices: string[];
+  deletedServices: string[];
 }
 
 type StackRequest =
@@ -117,8 +117,7 @@ This flag is mutually exclusive with --compose-file.`,
     );
 
     if (!confirmed) {
-      renderer.addInfo("deployment cancelled by user");
-      await renderer.complete(<></>);
+      await renderer.error("deployment cancelled by user");
       ux.exit(1);
     }
 
@@ -244,7 +243,7 @@ This flag is mutually exclusive with --compose-file.`,
     );
     const confirmed = await this.confirmDeletion(servicesToDelete, r);
     if (!confirmed) {
-      return { restartedServices: [] };
+      return { restartedServices: [], deletedServices: [] };
     }
 
     const declaredStack = await this.deployStack(stackId, stackDefinition, r);
@@ -254,20 +253,22 @@ This flag is mutually exclusive with --compose-file.`,
       r,
     );
 
-    return { restartedServices };
+    return { restartedServices, deletedServices: servicesToDelete };
   }
 
-  protected render({ restartedServices }: DeployResult): ReactNode {
-    if (restartedServices.length === 0) {
-      return (
-        <Success>Deployment successful. No services were restarted.</Success>
-      );
-    }
-
+  protected render({
+    restartedServices,
+    deletedServices,
+  }: DeployResult): ReactNode {
     return (
       <Success>
-        Deployment successful. The following services were restarted:{" "}
-        <Value>{restartedServices.join(", ")}</Value>
+        Deployment successful.{" "}
+        {restartedServices.length > 0
+          ? `The following services were restarted: ${restartedServices.join(", ")}`
+          : "No services were restarted."}{" "}
+        {deletedServices.length > 0
+          ? `The following services were deleted: ${deletedServices.join(", ")}`
+          : "No services were deleted."}
       </Success>
     );
   }
