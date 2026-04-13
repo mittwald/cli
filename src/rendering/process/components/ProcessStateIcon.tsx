@@ -10,7 +10,7 @@ export const ProcessStateIcon: React.FC<{ step: ProcessStep }> = ({ step }) => {
     step.type === "input" ||
     step.type === "select"
   ) {
-    return <Text>❓</Text>;
+    return <Text>❓ </Text>;
   } else if (step.phase === "completed") {
     return <Text>✅ </Text>;
   } else if (step.phase === "aborted") {
