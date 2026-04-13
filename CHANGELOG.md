@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/mittwald/cli/compare/v1.13.4...v1.14.0) (2026-03-30)
+
+
+### Features
+
+* Add DotfileContextProvider (.mw-context.json) ([#1734](https://github.com/mittwald/cli/issues/1734)) ([4129200](https://github.com/mittwald/cli/commit/41292007e6cecc9874e01a15b6b95dd218eac333))
+
 ## [1.13.4](https://github.com/mittwald/cli/compare/v1.13.3...v1.13.4) (2026-03-12)
 
 

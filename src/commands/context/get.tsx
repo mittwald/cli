@@ -37,6 +37,14 @@ const ContextSourceValue: FC<{ source: ContextValueSource }> = ({ source }) => {
           relative
         />
       );
+    case "dotfile":
+      return (
+        <ContextSourceKnownValue
+          name=".mw-context.json"
+          source={source}
+          relative
+        />
+      );
     default:
       return <ContextSourceUnknown />;
   }
@@ -74,6 +82,7 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
 
   let hasTerraformSource = false;
   let hasDDEVSource = false;
+  let hasDotfileSource = false;
 
   for (const key of [
     "project-id",
@@ -94,6 +103,7 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
       hasTerraformSource =
         hasTerraformSource || value.source.type === "terraform";
       hasDDEVSource = hasDDEVSource || value.source.type === "ddev";
+      hasDotfileSource = hasDotfileSource || value.source.type === "dotfile";
     } else {
       rows[`--${key}`] = <Value notSet />;
     }
@@ -110,6 +120,7 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
       </Box>
       {hasTerraformSource && <TerraformHint />}
       {hasDDEVSource && <DDEVHint />}
+      {hasDotfileSource && <DotfileHint />}
       <ContextSetHint />
     </Box>
   );
@@ -126,6 +137,13 @@ const DDEVHint: FC = () => (
   <Note marginBottom={1}>
     You are in a directory that contains a DDEV project; some of the context
     values were read from there.
+  </Note>
+);
+
+const DotfileHint: FC = () => (
+  <Note marginBottom={1}>
+    You are in a directory that contains a .mw-context.json file; some of the
+    context values were read from there.
   </Note>
 );
 

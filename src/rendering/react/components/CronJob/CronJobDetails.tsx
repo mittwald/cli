@@ -89,14 +89,14 @@ export const CronJobDetails: CronJobComponent = ({ cronjob }) => {
     />,
   ];
 
-  if ("url" in cronjob.destination) {
+  if (cronjob.destination && "url" in cronjob.destination) {
     sections.push(
       <CronJobExecutionTargetURL
         key="destination"
         dest={cronjob.destination}
       />,
     );
-  } else {
+  } else if (cronjob.destination) {
     sections.push(
       <CronJobExecutionTargetCommand
         key="destination"
