@@ -2842,8 +2842,8 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.7.31
-  resolution: "@oclif/plugin-update@npm:4.7.31"
+  version: 4.7.32
+  resolution: "@oclif/plugin-update@npm:4.7.32"
   dependencies:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
@@ -2855,7 +2855,7 @@ __metadata:
     proxy-agent: ^6.5.0
     semver: ^7.7.4
     tar-fs: ^2.1.4
-  checksum: 23bb949c0a0dca44651f16ff8342a6454044427a4803a3ab8336c60a8f93ea62ba55d42ba28faa1316275718b2bf333dcbb5f602c3686928e6017335fd7579ef
+  checksum: 2b0a1710021fbb28046bcf156a1895d7271be021448403926466f57372630bd90cd63903559ca130a72c5e0934c57c3420b22dc771fde6fb5a8b9ed2ff5184ca
   languageName: node
   linkType: hard
 
