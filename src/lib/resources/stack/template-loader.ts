@@ -106,12 +106,13 @@ export async function loadStackFromTemplate(
       const repoName = templateNameToRepoName(templateName);
       throw new Error(
         `Template '${templateName}' not found. Repository '${repoName}' does not exist or does not contain a docker-compose.yml file.`,
+        { cause: error },
       );
     }
     throw error;
   }
 
-  let envContent: string | null = null;
+  let envContent: string | null;
   try {
     envContent = await fetchTemplateFile(envUrl);
   } catch (error) {
