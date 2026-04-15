@@ -2698,6 +2698,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nodable/entities@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@nodable/entities@npm:1.1.0"
+  checksum: 06ae11766102d4d0414d2b7760f895c26e9034cec430de042da6d30f4657d7d9d4f005e0966797e3bb949ba45874e5fc02927d4a62ac6ea096873a7eeca5752c
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -6303,15 +6310,16 @@ __metadata:
   linkType: hard
 
 "fast-xml-parser@npm:^5.2.5":
-  version: 5.5.12
-  resolution: "fast-xml-parser@npm:5.5.12"
+  version: 5.6.0
+  resolution: "fast-xml-parser@npm:5.6.0"
   dependencies:
+    "@nodable/entities": ^1.1.0
     fast-xml-builder: ^1.1.4
     path-expression-matcher: ^1.5.0
     strnum: ^2.2.3
   bin:
     fxparser: src/cli/cli.js
-  checksum: c1252435be0a5adb41b548a8905830255e591a996a93691dfacea2be44bb564b04f9304eadd7faf336b50c5384eb4f32ca8bfcd62f99cc39fa5c2d6ff21333a7
+  checksum: e12b7daeb532d64befe68bf51b9c06190c09e14e91c7bb3437cc3d73288acfe42b319e3ff5c8d5560dbec80ec24c11d38fd206459b435dab9159b55869efc133
   languageName: node
   linkType: hard
 
