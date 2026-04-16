@@ -22,7 +22,7 @@
     "node": ">=20.7.0"
   },
   "scripts": {
-    "clean": "(rimraf --glob dist tsconfig.*.tsbuildinfo) | true",
+    "clean": "rimraf --glob 'dist' 'tsconfig*.tsbuildinfo' || true",
     "compile": "tsc --build tsconfig.json",
     "format": "yarn format:prettier --write",
     "format:prettier": "prettier $@ '**/*.{ts,tsx,yaml,yml,json,md,mdx}'",
