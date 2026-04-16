@@ -58,7 +58,7 @@
     "date-fns": "^4.0.0",
     "docker-names": "^1.2.1",
     "fast-xml-parser": "^5.2.5",
-    "ink": "^6.2.3",
+    "ink": "^7.0.0",
     "ink-link": "^5.0.0",
     "ink-text-input": "^6.0.0",
     "js-yaml": "^4.1.0",
