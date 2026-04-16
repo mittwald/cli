@@ -9,4 +9,6 @@ oclif
     await oclif.flush();
     process.exit(0);
   })
-  .catch(handleError);
+  .catch(async (error) => {
+    await handleError(error);
+  });

@@ -34,7 +34,7 @@ export abstract class ExecRenderBaseCommand<
     const result = await this.exec();
     const wrappedRender = wrapRender(this.render.bind(this));
 
-    render(
+    const handle = render(
       <RenderContextProvider
         value={{
           apiClient: this.apiClient,
@@ -46,6 +46,8 @@ export abstract class ExecRenderBaseCommand<
         </Suspense>
       </RenderContextProvider>,
     );
+
+    await handle.waitUntilExit();
   }
 
   protected abstract render(executionResult: TRes): ReactNode;
