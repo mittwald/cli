@@ -1,3 +1,4 @@
+import oclif from "@oclif/core";
 import { OclifError, PrettyPrintableError } from "@oclif/core/interfaces";
 import { ApiClientError, AxiosResponse } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
@@ -8,22 +9,25 @@ type CommonsValidationErrors =
   MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
 
 // noinspection JSUnusedGlobalSymbols
-export default function handleError(
+export default async function handleError(
   error: Error &
     Partial<PrettyPrintableError> &
     Partial<OclifError> & {
       skipOclifErrorHandling?: boolean;
     },
-): void {
+): Promise<void> {
   if (!isUnexpectedError(error)) {
+    await oclif.flush();
     process.exit(1);
   }
 
   if (error instanceof ExitError) {
+    await oclif.flush();
     process.exit(error.oclif.exit);
   }
 
-  renderError(error);
+  await renderError(error);
+  await oclif.flush();
   process.exit(1);
 }
 

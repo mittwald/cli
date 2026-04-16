@@ -7,6 +7,7 @@ import { ErrorBox } from "./components/ErrorBox.js";
  * @param err The error to render. May be anything; the ErrorBox component will
  *   handle it.
  */
-export function renderError(err: unknown) {
-  render(<ErrorBox err={err} />);
+export async function renderError(err: unknown): Promise<void> {
+  const handle = render(<ErrorBox err={err} />);
+  await handle.waitUntilExit();
 }

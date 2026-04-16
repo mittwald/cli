@@ -54,9 +54,12 @@ export abstract class RenderBaseCommand<
 
   public async run(): Promise<void> {
     const onError = () => {
-      setImmediate(() => {
+      setImmediate(async () => {
         handle.unmount();
-        process.exit(1);
+        import("@oclif/core").then(async (oclif) => {
+          await oclif.default.flush();
+          process.exit(1);
+        });
       });
     };
 
