@@ -2698,6 +2698,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nodable/entities@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@nodable/entities@npm:2.1.0"
+  checksum: ae5a432a665d210bb28b3a9dbe8caf49f46be65fdc626bd14febe8f150b735182efb6967fe12f8c8f39d22e572b8b9361b4915aec094f8cea5e01f683191cf80
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -6277,6 +6284,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-xml-builder@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "fast-xml-builder@npm:1.1.5"
+  dependencies:
+    path-expression-matcher: ^1.1.3
+  checksum: 02ea4ea959ed985033895a2000555c22f91f93e30376f7e11ee384f3839f5af3c97a8a646e4d6ba585a9b42e949b13ec89ce8bda061ee48b32a1b49f1c713372
+  languageName: node
+  linkType: hard
+
 "fast-xml-parser@npm:5.4.1":
   version: 5.4.1
   resolution: "fast-xml-parser@npm:5.4.1"
@@ -6303,15 +6319,16 @@ __metadata:
   linkType: hard
 
 "fast-xml-parser@npm:^5.2.5":
-  version: 5.5.12
-  resolution: "fast-xml-parser@npm:5.5.12"
+  version: 5.7.0
+  resolution: "fast-xml-parser@npm:5.7.0"
   dependencies:
-    fast-xml-builder: ^1.1.4
+    "@nodable/entities": ^2.1.0
+    fast-xml-builder: ^1.1.5
     path-expression-matcher: ^1.5.0
     strnum: ^2.2.3
   bin:
     fxparser: src/cli/cli.js
-  checksum: c1252435be0a5adb41b548a8905830255e591a996a93691dfacea2be44bb564b04f9304eadd7faf336b50c5384eb4f32ca8bfcd62f99cc39fa5c2d6ff21333a7
+  checksum: b3c941d5ef41e504cee82b3bbce8224154d58b5018efd2fea695683cda7a4fe5c6c15d435ea1f6cb7e69aa1b27710ddb68db8c2be648647a7b6082663586f8bb
   languageName: node
   linkType: hard
 
