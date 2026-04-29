@@ -19,6 +19,7 @@ import {
 import { sanitizeStackDefinition } from "../../lib/resources/stack/sanitize.js";
 import { enrichStackDefinition } from "../../lib/resources/stack/enrich.js";
 import { Success } from "../../rendering/react/components/Success.js";
+import { JSONView } from "../../rendering/react/components/JSONView.js";
 import { loadStackFromTemplate } from "../../lib/resources/stack/template-loader.js";
 import { parseEnvironmentVariablesFromStr } from "../../lib/util/parser.js";
 import { RawStackInput } from "../../lib/resources/stack/types.js";
@@ -228,7 +229,10 @@ This flag is mutually exclusive with --compose-file.`,
       "env-file": envFile,
     } = this.flags;
     const r = makeProcessRenderer(
-      { quiet: this.flags.quiet || this.flags.output === "json", json: undefined },
+      {
+        quiet: this.flags.quiet || this.flags.output === "json",
+        json: undefined,
+      },
       "Deploying container stack",
     );
 
@@ -278,20 +282,15 @@ This flag is mutually exclusive with --compose-file.`,
     };
   }
 
-  public async run(): Promise<void> {
-    if (this.flags.output === "json") {
-      const result = await this.exec();
-      process.stdout.write(JSON.stringify(result.stackDefinition, null, 2) + "\n");
-      return;
-    }
-    return super.run();
-  }
-
   protected render({
     stackId,
+    stackDefinition,
     restartedServices,
     deletedServices,
   }: DeployResult): ReactNode {
+    if (this.flags.output === "json") {
+      return <JSONView json={stackDefinition} />;
+    }
     if (this.flags.quiet) {
       return stackId;
     }
