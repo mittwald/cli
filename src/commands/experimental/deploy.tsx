@@ -20,7 +20,7 @@ import {
   localDockerPush,
   deployService,
   createAndWaitForDomain,
-} from "container-deploy";
+} from "@mittwald/container-deploy";
 
 type Result = {
   deployedServiceId: string;
