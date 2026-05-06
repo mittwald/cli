@@ -9722,9 +9722,9 @@ __metadata:
   linkType: hard
 
 "react@npm:^19.1.1":
-  version: 19.2.5
-  resolution: "react@npm:19.2.5"
-  checksum: 95563d3ceba2b6bf18bc4bb1e515a4fd49645630f8a017eb139fa37425f673ded545a9b6d1039021cc8a545b2a697ccfa03ac37b20c3dfa60c079f67bdabbedb
+  version: 19.2.6
+  resolution: "react@npm:19.2.6"
+  checksum: e250029064bff3f3308ee61e52c44bc9a0c938f6ef11a3f39c31db487ca173eb9b4b0cd3261e32613d3498df0da5586f3c582bc83cef54ad99bc5643772c4535
   languageName: node
   linkType: hard
 
