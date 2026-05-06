@@ -2378,7 +2378,7 @@ __metadata:
     "@eslint/js": ^10.0.1
     "@jest/globals": ^30.0.4
     "@mittwald/api-client": ^4.331.0
-    "@mittwald/container-deploy": latest
+    "@mittwald/container-deploy": "github:mittwald/container-deploy#feat/pass-env"
     "@mittwald/react-use-promise": ^2.6.0
     "@oclif/core": ^4.0.18
     "@oclif/plugin-autocomplete": ^3.0.3
@@ -2439,15 +2439,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mittwald/container-deploy@npm:latest":
+"@mittwald/container-deploy@github:mittwald/container-deploy#feat/pass-env":
   version: 0.1.0
-  resolution: "@mittwald/container-deploy@npm:0.1.0"
+  resolution: "@mittwald/container-deploy@https://github.com/mittwald/container-deploy.git#commit=2ed9d97018078a1544fd689f5f9321eb23eeb811"
   peerDependencies:
     "@mittwald/api-client": ^4.331.0
   peerDependenciesMeta:
     "@mittwald/api-client":
       optional: false
-  checksum: bc2ea6adf754b190dc3839bc5f6e81a0e21e7efc55c185a20d695d179171e74c0fa4fd45f323a7ef06b451546ee289ddeefeb5068e86b3f1d1e6c3a903276ecc
+  checksum: d5bdfe12b8b6dce18d0b0764a77f78735172ac7777a5ed0d2322507c9a16a858da4a5ea2657ca899f57cb32e40b94f914505fa8c1a7d786a891a467679389f4b
   languageName: node
   linkType: hard
 
