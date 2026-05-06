@@ -47,7 +47,7 @@
   ],
   "dependencies": {
     "@mittwald/api-client": "^4.331.0",
-    "@mittwald/container-deploy": "latest",
+    "@mittwald/container-deploy": "github:mittwald/container-deploy#feat/pass-env",
     "@mittwald/react-use-promise": "^2.6.0",
     "@oclif/core": "^4.0.18",
     "@oclif/plugin-autocomplete": "^3.0.3",
