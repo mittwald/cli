@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Flags } from "@oclif/core";
 
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import {
@@ -6,6 +7,7 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
+import { parseEnvironmentVariables } from "../../lib/resources/container/containerconfig.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { waitFlags } from "../../lib/wait.js";
@@ -32,6 +34,23 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     ...processFlags,
     ...projectFlags,
     ...waitFlags,
+    env: Flags.string({
+      summary: "set environment variables in the container",
+      description:
+        "Format: KEY=VALUE. Multiple environment variables can be specified with multiple --env flags.",
+      required: false,
+      multiple: true,
+      multipleNonGreedy: true,
+      char: "e",
+    }),
+    "env-file": Flags.string({
+      summary: "read environment variables from a file",
+      description:
+        "The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file flags.",
+      multiple: true,
+      multipleNonGreedy: true,
+      required: false,
+    }),
   };
   static args = {};
   static examples = [
@@ -99,12 +118,18 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       p.addInfo(`Pushed image ${builtImage.imageName} to registry`);
     });
 
+    const environment = await parseEnvironmentVariables(
+      this.flags.env,
+      this.flags["env-file"],
+    );
+
     const deployResult = await p.runStep("Deploying ...", async () => {
       const result = await deployService(
         this.apiClient,
         projectId,
         repositoryData,
         this.flags["wait-timeout"],
+        environment,
       );
       deployedServiceId = result.deployedServiceId;
       p.addInfo(`Service ${result.serviceName} is now running`);
