@@ -3953,11 +3953,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^25.0.3":
-  version: 25.6.0
-  resolution: "@types/node@npm:25.6.0"
+  version: 25.6.1
+  resolution: "@types/node@npm:25.6.1"
   dependencies:
     undici-types: ~7.19.0
-  checksum: 98945eb59909a08868ccac203022f122b5549448ef8628de9eac3fe20481467cd6ec32af819fd432695f67ac21ebbbc69c8a141de6c6455edaf6e717e2cb89c9
+  checksum: 1578fe79da5907970801359aedcd7fe3200e2d85dabc63dc6db7a37e43e3afdb757ce0b9940de925a6df42dc6878eb1d2ecf25f66115a02d2046e41745b1049a
   languageName: node
   linkType: hard
 
