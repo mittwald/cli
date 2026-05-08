@@ -159,8 +159,9 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
 
     const downloadStep = p.addStep("downloading backup");
     const resp = await axios(backupExport.downloadURL, reqConfig);
+    const contentLength = this.getContentLength(resp.headers["content-length"]);
     const size = ByteQuantity.fromBytes(
-      parseInt(resp.headers["content-length"] || "0", 10),
+      Number.isFinite(contentLength) ? contentLength : 0,
     );
     let downloaded = ByteQuantity.fromBytes(0);
 
@@ -203,6 +204,22 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
     );
 
     return { outputFilename };
+  }
+
+  protected getContentLength(contentLengthHeader: unknown): number {
+    if (typeof contentLengthHeader === "string") {
+      return parseInt(contentLengthHeader, 10);
+    }
+
+    if (Array.isArray(contentLengthHeader)) {
+      return parseInt(contentLengthHeader[0] || "0", 10);
+    }
+
+    if (typeof contentLengthHeader === "number") {
+      return contentLengthHeader;
+    }
+
+    return 0;
   }
 
   protected getFilename(

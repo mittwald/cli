@@ -2551,12 +2551,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.356.0":
-  version: 4.356.0
-  resolution: "@mittwald/api-client-commons@npm:4.356.0"
+"@mittwald/api-client-commons@npm:^4.360.0":
+  version: 4.360.0
+  resolution: "@mittwald/api-client-commons@npm:4.360.0"
   dependencies:
     "@types/parse-path": ^7.0.3
-    axios: ^1.13.5
+    axios: ^1.15.2
     parse-path: ^7.1.0
     path-to-regexp: ^8.3.0
     type-fest: ^4.30.0
@@ -2567,22 +2567,22 @@ __metadata:
       optional: true
     "@mittwald/react-use-promise":
       optional: true
-  checksum: ac41abd7640c1e015f180cd8fb81d155c033e851580eb7541b285552a72db8b694a0c140a8b9ac0f21cda326a27f9c9f0fd9b843859e5d3a3fb7123de7e2c6d1
+  checksum: d0f4e090d1deb255c25c63b322e64eae9292bd6124bb220b09523309f9c7518a85f88fa33e06cc9e18cb7f78d86bf0a0596dfc8bc6bbc85a156a7d79f64a33b8
   languageName: node
   linkType: hard
 
 "@mittwald/api-client@npm:^4.131.0":
-  version: 4.356.0
-  resolution: "@mittwald/api-client@npm:4.356.0"
+  version: 4.360.0
+  resolution: "@mittwald/api-client@npm:4.360.0"
   dependencies:
-    "@mittwald/api-client-commons": ^4.356.0
+    "@mittwald/api-client-commons": ^4.360.0
     browser-or-node: ^3.0.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.6.0
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 810efbe04a23cc20de3f4bbec1c74c33aaf4677a96f22bfe74f1f5d00983ce443b79f95beeb3890cb939a4d5fbf5f593a9a676cdcf99962ad1b69a04b263a690
+  checksum: 96ff226761cbc0e43de97fc694267d837f83fb098a5da4f8d01ce68d6dc53e8bf9c11ae8fb2e95b177a5190fcdf86ebdd09d1370e2ee58c6439bae3d6013980a
   languageName: node
   linkType: hard
 
@@ -4785,14 +4785,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.13.5":
-  version: 1.13.6
-  resolution: "axios@npm:1.13.6"
+"axios@npm:^1.15.2":
+  version: 1.16.0
+  resolution: "axios@npm:1.16.0"
   dependencies:
-    follow-redirects: ^1.15.11
+    follow-redirects: ^1.16.0
     form-data: ^4.0.5
-    proxy-from-env: ^1.1.0
-  checksum: 72e94640e34aa9b591a47a9cc1798a1e18f179e15e39276514dd73f6d910981bdb2117c649da858bd72fc34d91db4f84318f88c8d306e395cd4ef5d6f142ab70
+    proxy-from-env: ^2.1.0
+  checksum: 93e810968167fea59750d28f458e6860973a573c14bd60fe57ee07b5241f4c16991b149ae9ce65d79765081e3004743c9e158c438edba75af6f4612197e6834b
   languageName: node
   linkType: hard
 
@@ -6499,13 +6499,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.15.11":
-  version: 1.15.11
-  resolution: "follow-redirects@npm:1.15.11"
+"follow-redirects@npm:^1.16.0":
+  version: 1.16.0
+  resolution: "follow-redirects@npm:1.16.0"
   peerDependenciesMeta:
     debug:
       optional: true
-  checksum: 20bf55e9504f59e6cc3743ba27edb2ebf41edea1baab34799408f2c050f73f0c612728db21c691276296d2795ea8a812dc532a98e8793619fcab91abe06d017f
+  checksum: e90dce4607b1f6b8b9883287f912585573c19088209ad82341d550a795b4ba514522b73b1b340cf618279df27975cd46504d09149be60291ba6767384c1fd8f8
   languageName: node
   linkType: hard
 
@@ -9689,6 +9689,13 @@ __metadata:
   version: 1.1.0
   resolution: "proxy-from-env@npm:1.1.0"
   checksum: ed7fcc2ba0a33404958e34d95d18638249a68c430e30fcb6c478497d72739ba64ce9810a24f53a7d921d0c065e5b78e3822759800698167256b04659366ca4d4
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "proxy-from-env@npm:2.1.0"
+  checksum: b106ad790f26d47ba4791af3fe8cba5c8d35d85020119c82c05b413eb11b3ab97d2393ecaed51bca97c2788fa256408283dfeb4d970b2ebcae6702310f064e7e
   languageName: node
   linkType: hard
 
