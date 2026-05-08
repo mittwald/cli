@@ -159,8 +159,17 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
 
     const downloadStep = p.addStep("downloading backup");
     const resp = await axios(backupExport.downloadURL, reqConfig);
+    const contentLengthHeader = resp.headers["content-length"];
+    const contentLength =
+      typeof contentLengthHeader === "string"
+        ? parseInt(contentLengthHeader, 10)
+        : Array.isArray(contentLengthHeader)
+          ? parseInt(contentLengthHeader[0] || "0", 10)
+          : typeof contentLengthHeader === "number"
+            ? contentLengthHeader
+            : 0;
     const size = ByteQuantity.fromBytes(
-      parseInt(resp.headers["content-length"] || "0", 10),
+      Number.isFinite(contentLength) ? contentLength : 0,
     );
     let downloaded = ByteQuantity.fromBytes(0);
 
