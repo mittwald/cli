@@ -8996,13 +8996,13 @@ __metadata:
   linkType: hard
 
 "nock@npm:^14.0.0":
-  version: 14.0.14
-  resolution: "nock@npm:14.0.14"
+  version: 14.0.15
+  resolution: "nock@npm:14.0.15"
   dependencies:
     "@mswjs/interceptors": ^0.41.0
     json-stringify-safe: ^5.0.1
     propagate: ^2.0.0
-  checksum: acc7b51cadd6399267db27e7dd692a7793577039dd30fb83aeff192d40f3e150749f9eb337af9e6dca71f8506a3a1bf2591569f23024a7b8ab09e92dad5408cf
+  checksum: e7fcdc45f5d1d7f0ab9b104ac6bbbac66a079dbde5e8b700fc341261d27582a63fc1547059223a6c4f2af528fc27ffaa6318c6e15696fffbfe01651a866c588a
   languageName: node
   linkType: hard
 
