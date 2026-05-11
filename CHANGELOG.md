@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/mittwald/cli/compare/v1.15.0...v1.16.0) (2026-05-11)
+
+
+### Features
+
+* **stack:** add `-ojson` and `--quiet` machine-readable output to `stack deploy` ([#1796](https://github.com/mittwald/cli/issues/1796)) ([431f1ea](https://github.com/mittwald/cli/commit/431f1ea78fb575b5b8b1f890140c8af6d2abab2c)), closes [#1788](https://github.com/mittwald/cli/issues/1788)
+
 # [1.15.0](https://github.com/mittwald/cli/compare/v1.14.0...v1.15.0) (2026-04-13)
 
 
