@@ -19,11 +19,14 @@ import {
 import { sanitizeStackDefinition } from "../../lib/resources/stack/sanitize.js";
 import { enrichStackDefinition } from "../../lib/resources/stack/enrich.js";
 import { Success } from "../../rendering/react/components/Success.js";
+import { JSONView } from "../../rendering/react/components/JSONView.js";
 import { loadStackFromTemplate } from "../../lib/resources/stack/template-loader.js";
 import { parseEnvironmentVariablesFromStr } from "../../lib/util/parser.js";
 import { RawStackInput } from "../../lib/resources/stack/types.js";
 
 interface DeployResult {
+  stackId: string;
+  stackDefinition: ContainerStackResponse;
   restartedServices: string[];
   deletedServices: string[];
 }
@@ -40,6 +43,13 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, DeployResult> {
   static flags = {
     ...stackFlags,
     ...processFlags,
+    output: Flags.string({
+      description:
+        "The output format to use; use 'txt' for a human readable text representation, and 'json' for a machine-readable JSON representation.",
+      char: "o",
+      default: "txt",
+      options: ["txt", "json"],
+    }),
     "compose-file": Flags.string({
       summary: 'path to a compose file, or "-" to read from stdin',
       default: "./docker-compose.yml",
@@ -218,7 +228,13 @@ This flag is mutually exclusive with --compose-file.`,
       "from-template": fromTemplate,
       "env-file": envFile,
     } = this.flags;
-    const r = makeProcessRenderer(this.flags, "Deploying container stack");
+    const r = makeProcessRenderer(
+      {
+        quiet: this.flags.quiet || this.flags.output === "json",
+        json: undefined,
+      },
+      "Deploying container stack",
+    );
 
     const existingStack = await this.getExistingStack(stackId, r);
     const stackSource = fromTemplate
@@ -243,7 +259,12 @@ This flag is mutually exclusive with --compose-file.`,
     );
     const confirmed = await this.confirmDeletion(servicesToDelete, r);
     if (!confirmed) {
-      return { restartedServices: [], deletedServices: [] };
+      return {
+        stackId,
+        stackDefinition: existingStack,
+        restartedServices: [],
+        deletedServices: [],
+      };
     }
 
     const declaredStack = await this.deployStack(stackId, stackDefinition, r);
@@ -253,13 +274,26 @@ This flag is mutually exclusive with --compose-file.`,
       r,
     );
 
-    return { restartedServices, deletedServices: servicesToDelete };
+    return {
+      stackId,
+      stackDefinition: declaredStack,
+      restartedServices,
+      deletedServices: servicesToDelete,
+    };
   }
 
   protected render({
+    stackId,
+    stackDefinition,
     restartedServices,
     deletedServices,
   }: DeployResult): ReactNode {
+    if (this.flags.output === "json") {
+      return <JSONView json={stackDefinition} />;
+    }
+    if (this.flags.quiet) {
+      return stackId;
+    }
     return (
       <Success>
         Deployment successful.{" "}

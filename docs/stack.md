@@ -51,12 +51,15 @@ Deploys a docker-compose compatible file to a mittwald container stack
 
 ```
 USAGE
-  $ mw stack deploy [--token <value>] [-s <value>] [-q] [-c <value> | --from-template <value>] [--env-file
-    <value>] [-f]
+  $ mw stack deploy [--token <value>] [-s <value>] [-q] [-o txt|json] [-c <value> | --from-template <value>]
+    [--env-file <value>] [-f]
 
 FLAGS
   -c, --compose-file=<value>   [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
   -f, --force                  do not ask for confirmation when containers will be deleted
+  -o, --output=<option>        [default: txt] The output format to use; use 'txt' for a human readable text
+                               representation, and 'json' for a machine-readable JSON representation.
+                               <options: txt|json>
   -q, --quiet                  suppress process output and only display a machine-readable summary
   -s, --stack-id=<value>       ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>       [default: ./.env] alternative path to file with environment variables
@@ -251,12 +254,15 @@ Deploys a docker-compose compatible file to a mittwald container stack
 
 ```
 USAGE
-  $ mw stack up [--token <value>] [-s <value>] [-q] [-c <value> | --from-template <value>] [--env-file
-    <value>] [-f]
+  $ mw stack up [--token <value>] [-s <value>] [-q] [-o txt|json] [-c <value> | --from-template <value>]
+    [--env-file <value>] [-f]
 
 FLAGS
   -c, --compose-file=<value>   [default: ./docker-compose.yml] path to a compose file, or "-" to read from stdin
   -f, --force                  do not ask for confirmation when containers will be deleted
+  -o, --output=<option>        [default: txt] The output format to use; use 'txt' for a human readable text
+                               representation, and 'json' for a machine-readable JSON representation.
+                               <options: txt|json>
   -q, --quiet                  suppress process output and only display a machine-readable summary
   -s, --stack-id=<value>       ID of a stack; this flag is optional if a default stack is set in the context
       --env-file=<value>       [default: ./.env] alternative path to file with environment variables
