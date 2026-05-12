@@ -2791,8 +2791,8 @@ __metadata:
   linkType: hard
 
 "@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.10.2":
-  version: 4.11.1
-  resolution: "@oclif/core@npm:4.11.1"
+  version: 4.11.2
+  resolution: "@oclif/core@npm:4.11.2"
   dependencies:
     ansi-escapes: ^4.3.2
     ansis: ^3.17.0
@@ -2805,14 +2805,14 @@ __metadata:
     is-wsl: ^2.2.0
     lilconfig: ^3.1.3
     minimatch: ^10.2.5
-    semver: ^7.7.3
+    semver: ^7.8.0
     string-width: ^4.2.3
     supports-color: ^8
     tinyglobby: ^0.2.14
     widest-line: ^3.1.0
     wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: f2ee59be8226fc809a6edfa2b5eea1a783ea67278046ddd65996c95a2bc491b52be999147a2f7272490bf35d3c5dd4ec3b89ac0c44958482cbaa6bdfd9e826f9
+  checksum: deb97117f2d8f0db609c8d7675e2cc7d39460badf20c85663313b00a2963146b64fe79a5c2c15cf2a24238a7f25f075d459583fcba485de72caea30f7bd2d3ec
   languageName: node
   linkType: hard
 
@@ -10017,6 +10017,15 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: ae47d06de28836adb9d3e25f22a92943477371292d9b665fb023fae278d345d508ca1958232af086d85e0155aee22e313e100971898bbb8d5d89b8b1d4054ca2
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.8.0":
+  version: 7.8.0
+  resolution: "semver@npm:7.8.0"
+  bin:
+    semver: bin/semver.js
+  checksum: 68e38bc26ed1191d7c78d2b711bdffc2f8b1d05a1caadda41a1d7e1a9d32e1da5ae5b645de5c5f2b27bde830d7e9c1cbeeafcb8fda091830411df7d40be405b1
   languageName: node
   linkType: hard
 
