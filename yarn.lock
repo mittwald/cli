@@ -6323,12 +6323,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-xml-builder@npm:^1.1.7":
-  version: 1.1.8
-  resolution: "fast-xml-builder@npm:1.1.8"
+"fast-xml-builder@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "fast-xml-builder@npm:1.2.0"
   dependencies:
-    path-expression-matcher: ^1.1.3
-  checksum: e2332caa8faaaf83976b8379c1afb4216bdd0a26bfe1022a3a6dae8cb5f7d51f097b39cd21d13617cbf221c37aa6360edd8549b21f3fbc17275ea37ec29bb7dd
+    path-expression-matcher: ^1.5.0
+    xml-naming: ^0.1.0
+  checksum: 3bf38faf65dee87d213b4fc096b57141d68248d6c7e64f24879fce646f2e681f1ad2669e17eebc75abc8c6147a1c84001c1b8c4d9cb3c0fea21650b74c230c7d
   languageName: node
   linkType: hard
 
@@ -6358,16 +6359,17 @@ __metadata:
   linkType: hard
 
 "fast-xml-parser@npm:^5.2.5":
-  version: 5.7.3
-  resolution: "fast-xml-parser@npm:5.7.3"
+  version: 5.8.0
+  resolution: "fast-xml-parser@npm:5.8.0"
   dependencies:
     "@nodable/entities": ^2.1.0
-    fast-xml-builder: ^1.1.7
+    fast-xml-builder: ^1.2.0
     path-expression-matcher: ^1.5.0
-    strnum: ^2.2.3
+    strnum: ^2.3.0
+    xml-naming: ^0.1.0
   bin:
     fxparser: src/cli/cli.js
-  checksum: 4b9af69a2f8d156c5479d9a366b6a6e8e022ea450703880f17c50004cf4942a5ecc1806d0085ffeebfd852960a4791a53a72d85adbd8a351ddb8ec6d836dd80f
+  checksum: 9b498d7039732d2773b907d6bb88d26f4073c65bc0cd026e82ed44f23ec5099ea0902d2de3f3ecb1a206156b02ec71938cffad757357931f4b308880040bb644
   languageName: node
   linkType: hard
 
@@ -10436,10 +10438,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strnum@npm:^2.2.3":
-  version: 2.2.3
-  resolution: "strnum@npm:2.2.3"
-  checksum: e8deb0dd6f40e4a878bdd4404bdfdd47922665fcaaf27f2b345013b30d45d86f4b93d99cbc005bfb7c96edef6173369bd76a9df40bb7758850b7864075a28156
+"strnum@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "strnum@npm:2.3.0"
+  checksum: 4d397aab0751e7cdc755dbc7d64f29dd445c849c9b0f3f1d316c6a1d24b99af860ebb0c4e15299565296894d1558ab7bc1603e5094fc45b17d741d6d37daadb7
   languageName: node
   linkType: hard
 
@@ -11334,6 +11336,13 @@ __metadata:
     is-wsl: ^3.1.0
     powershell-utils: ^0.1.0
   checksum: bea153d6aebb263097b1e11d766d61c7a6c75912f0bbb92bfc945de2229cc84feadf7c74ae9f1c3d0a09f2c407cadc153f2ec980737c59c1cfc311da44366618
+  languageName: node
+  linkType: hard
+
+"xml-naming@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "xml-naming@npm:0.1.0"
+  checksum: 8d1b5b84430f688a95f02ae1e13557d481242eed6de945569c444a6ec1553a0065afe39a1536aeffee3a787cb3cf99432e61d9fbbaa6d8d64555d550e6b4b13d
   languageName: node
   linkType: hard
 
