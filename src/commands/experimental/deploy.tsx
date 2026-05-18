@@ -14,8 +14,7 @@ import { waitFlags } from "../../lib/wait.js";
 import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.js";
 
 import {
-  checkDocker,
-  checkRailpack,
+  checkRequiredTools,
   setupProjectRegistry,
   checkRepository,
   buildDockerImage,
@@ -73,8 +72,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     );
 
     await p.runStep("Checking dev tools ...", async () => {
-      checkDocker();
-      checkRailpack();
+      checkRequiredTools();
     });
 
     const registryData = await p.runStep(
