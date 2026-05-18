@@ -2378,7 +2378,7 @@ __metadata:
     "@eslint/js": ^10.0.1
     "@jest/globals": ^30.0.4
     "@mittwald/api-client": ^4.331.0
-    "@mittwald/container-deploy": ^1.0.0
+    "@mittwald/container-deploy": ^1.2.0
     "@mittwald/react-use-promise": ^2.6.0
     "@oclif/core": ^4.0.18
     "@oclif/plugin-autocomplete": ^3.0.3
@@ -2439,15 +2439,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@mittwald/container-deploy@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@mittwald/container-deploy@npm:1.0.0"
+"@mittwald/container-deploy@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@mittwald/container-deploy@npm:1.2.0"
   peerDependencies:
     "@mittwald/api-client": ^4.331.0
   peerDependenciesMeta:
     "@mittwald/api-client":
       optional: false
-  checksum: 802708c7d8da8db8398a11bb3fd386e6ba775d02fc3067b04c9f4d9ef6d1e8aef6cada9f966db14f736e5941da3bec9d7605cd08564c6dfe957f7f8481e1d4f7
+  checksum: 13df3eeda1696d06ec3098aec0aab55dbcf2c3e679e278fdfcf7cb190e130fbcf1542120535a829e46040d7ef8e925ed72fb65fcd790f007f1d26a8cc0b3c40a
   languageName: node
   linkType: hard
 
