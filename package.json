@@ -270,6 +270,9 @@
       },
       "volume": {
         "description": "Manage volumes"
+      },
+      "experimental": {
+        "description": "Experimental features, which are not considered stable yet and might change without a major version bump"
       }
     },
     "plugins": [
