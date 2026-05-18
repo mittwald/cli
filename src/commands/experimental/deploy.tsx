@@ -50,6 +50,12 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       multipleNonGreedy: true,
       required: false,
     }),
+    "uri-prefix": Flags.string({
+      summary: "prefix for the generated default domain",
+      description: "Defaults to 'webapp'.",
+      required: false,
+      default: "webapp",
+    }),
   };
   static args = {};
   static examples = [
@@ -58,6 +64,9 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     "",
     "Deploy with explicit project context:",
     "  $ mw deploy --project-id p-abc123",
+    "",
+    "Deploy with custom default domain prefix:",
+    "  $ mw deploy --uri-prefix myapp",
   ];
 
   protected async exec(): Promise<Result> {
@@ -135,7 +144,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     });
 
     await p.runStep("Setting up domain ...", async () => {
-      const uri = `webapp.${projectShortId}.project.space`;
+      const uriPrefix = this.flags["uri-prefix"];
+      const uri = `${uriPrefix}.${projectShortId}.project.space`;
       const registryServiceId = deployResult.deployedServiceId;
       const timeout = this.flags["wait-timeout"];
       await createAndWaitForDomain(
