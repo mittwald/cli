@@ -12,7 +12,7 @@ Deploys a new container.
 ```
 USAGE
   $ mw experimental deploy [--token <value>] [-q] [-p <value>] [-w] [--wait-timeout <value>] [-e <value>...] [--env-file
-    <value>...]
+    <value>...] [--uri-prefix <value>]
 
 FLAGS
   -e, --env=<value>...        set environment variables in the container
@@ -21,6 +21,7 @@ FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --env-file=<value>...   read environment variables from a file
+      --uri-prefix=<value>    [default: webapp] prefix for the generated default domain
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 
@@ -38,6 +39,12 @@ EXAMPLES
   Deploy with explicit project context:
 
     $ mw deploy --project-id p-abc123
+
+
+
+  Deploy with custom default domain prefix:
+
+    $ mw deploy --uri-prefix myapp
 
 FLAG DESCRIPTIONS
   -e, --env=<value>...  set environment variables in the container
@@ -58,5 +65,9 @@ FLAG DESCRIPTIONS
 
     The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file
     flags.
+
+  --uri-prefix=<value>  prefix for the generated default domain
+
+    Defaults to 'webapp'.
 ```
 
