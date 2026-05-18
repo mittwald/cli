@@ -1,7 +1,7 @@
 `mw experimental`
 =================
 
-Deploys a new container.
+Experimental features, which are not considered stable yet and might change without a major version bump
 
 * [`mw experimental deploy`](#mw-experimental-deploy)
 
