@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/mittwald/cli/compare/v1.16.0...v1.16.1) (2026-05-19)
+
+
+### Bug Fixes
+
+* **ci:** fix build pipeline for Homebrew and Docker releases ([#1846](https://github.com/mittwald/cli/issues/1846)) ([10e1718](https://github.com/mittwald/cli/commit/10e171872a47ea924d1ae01d4d795c38dd2e4e9a))
+
 # [1.16.0](https://github.com/mittwald/cli/compare/v1.15.0...v1.16.0) (2026-05-11)
 
 
