@@ -84,6 +84,11 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       checkRequiredTools();
     });
 
+    const environment = await parseEnvironmentVariables(
+      this.flags.env,
+      this.flags["env-file"],
+    );
+
     const registryData = await p.runStep(
       "Setting up registry ...",
       async () => {
@@ -107,7 +112,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     const repositoryData = await p.runStep(
       "Checking repository ...",
       async () => {
-        return await checkRepository();
+        return await checkRepository(environment);
       },
     );
 
@@ -124,11 +129,6 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       await localDockerPush(builtImage, registryData);
       p.addInfo(`Pushed image ${builtImage.imageName} to registry`);
     });
-
-    const environment = await parseEnvironmentVariables(
-      this.flags.env,
-      this.flags["env-file"],
-    );
 
     const deployResult = await p.runStep("Deploying ...", async () => {
       const result = await deployService(
