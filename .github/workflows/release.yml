@@ -189,6 +189,9 @@ jobs:
 
       - name: Download artifacts
         uses: actions/download-artifact@v8
+        with:
+          name: pkg-tarballs
+          path: /pkg-tarballs
 
       - name: Docker meta
         id: meta
@@ -228,6 +231,9 @@ jobs:
 
       - name: Download artifacts
         uses: actions/download-artifact@v8
+        with:
+          name: pkg-tarballs
+          path: /pkg-tarballs
 
       - name: Generate Homebrew formula
         run: |
