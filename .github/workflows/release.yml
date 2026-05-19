@@ -190,6 +190,13 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v8
 
+      - name: Debug artifacts
+        run: |
+          echo "Artifacts in root dir?:"
+          ls -al /
+          echo "Artifacts in root workspace?:"
+          ls -al ${GITHUB_WORKSPACE}
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v6
@@ -228,6 +235,15 @@ jobs:
 
       - name: Download artifacts
         uses: actions/download-artifact@v8
+        with:
+          path: /pkg-tarballs
+
+      - name: Debug artifacts
+        run: |
+          echo "Artifacts in root dir?:"
+          ls -al /
+          echo "Artifacts in root workspace?:"
+          ls -al ${GITHUB_WORKSPACE}
 
       - name: Generate Homebrew formula
         run: |
