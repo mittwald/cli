@@ -2356,7 +2356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client@npm:^4.131.0":
+"@mittwald/api-client@npm:^4.331.0":
   version: 4.369.0
   resolution: "@mittwald/api-client@npm:4.369.0"
   dependencies:
