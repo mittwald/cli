@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/mittwald/cli/compare/v1.16.2...v1.17.0) (2026-05-20)
+
+
+### Features
+
+* **deploy:** add experimental zero-config deploy command ([#1705](https://github.com/mittwald/cli/issues/1705)) ([25a0da9](https://github.com/mittwald/cli/commit/25a0da9eff64409e961154111342972f7dc57392))
+
 ## [1.16.2](https://github.com/mittwald/cli/compare/v1.16.1...v1.16.2) (2026-05-20)
 
 
