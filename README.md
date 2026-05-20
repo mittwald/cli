@@ -118,6 +118,7 @@ USAGE
 * [`mw database`](docs/database.md) - Manage databases (like MySQL and Redis) in your projects
 * [`mw ddev`](docs/ddev.md) - Integrate your mittwald projects with DDEV
 * [`mw domain`](docs/domain.md) - Manage domains, virtual hosts and DNS settings in your projects
+* [`mw experimental`](docs/experimental.md) - Experimental features, which are not considered stable yet and might change without a major version bump
 * [`mw extension`](docs/extension.md) - Install and manage extensions in your organisations and projects
 * [`mw help`](docs/help.md) - Display help for mw.
 * [`mw login`](docs/login.md) - Manage your client authentication

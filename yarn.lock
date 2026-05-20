@@ -2356,7 +2356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client@npm:^4.131.0":
+"@mittwald/api-client@npm:^4.331.0":
   version: 4.369.0
   resolution: "@mittwald/api-client@npm:4.369.0"
   dependencies:
@@ -2377,7 +2377,8 @@ __metadata:
   dependencies:
     "@eslint/js": ^10.0.1
     "@jest/globals": ^30.0.4
-    "@mittwald/api-client": ^4.131.0
+    "@mittwald/api-client": ^4.331.0
+    "@mittwald/container-deploy": ^1.3.0
     "@mittwald/react-use-promise": ^2.6.0
     "@oclif/core": ^4.0.18
     "@oclif/plugin-autocomplete": ^3.0.3
@@ -2437,6 +2438,18 @@ __metadata:
     mw: bin/run.js
   languageName: unknown
   linkType: soft
+
+"@mittwald/container-deploy@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@mittwald/container-deploy@npm:1.3.0"
+  peerDependencies:
+    "@mittwald/api-client": ^4.331.0
+  peerDependenciesMeta:
+    "@mittwald/api-client":
+      optional: false
+  checksum: c97e2df3e5ffd63a8962c137b7f9139eac22c006c7fed4928464501803fe757a6c96bca2c5e6486317ea93029128ede9252ec2f5c446d3886f6e8012d69c5b70
+  languageName: node
+  linkType: hard
 
 "@mittwald/react-use-promise@npm:^2.6.0":
   version: 2.6.2
