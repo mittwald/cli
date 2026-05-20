@@ -1,3 +1,10 @@
+## [1.16.2](https://github.com/mittwald/cli/compare/v1.16.1...v1.16.2) (2026-05-20)
+
+
+### Bug Fixes
+
+* **ci:** use relative paths for artifact download target ([#1848](https://github.com/mittwald/cli/issues/1848)) ([3457963](https://github.com/mittwald/cli/commit/3457963038d2c5f335b3a1b17dd1423fe2d362fa))
+
 ## [1.16.1](https://github.com/mittwald/cli/compare/v1.16.0...v1.16.1) (2026-05-19)
 
 
