@@ -96,7 +96,7 @@ export default class DDEVContextProvider implements ContextProvider {
    */
   private async findDDEVConfigDir(): Promise<string | undefined> {
     let currentDir = cwd();
-    while (currentDir !== "/") {
+    while (currentDir !== path.dirname(currentDir)) {
       const ddevDir = path.join(currentDir, ".ddev", "config.yaml");
       if (await pathExists(ddevDir)) {
         return path.dirname(ddevDir);
