@@ -95,7 +95,7 @@
     "eslint-plugin-prettier": "^5.5.1",
     "globals": "^17.0.0",
     "jest": "^30.0.4",
-    "license-checker-rseidelsohn": "^4.2.6",
+    "license-checker-rseidelsohn": "^5.0.1",
     "nock": "^14.0.0",
     "oclif": "^4.14.31",
     "prettier": "~3.8.1",
