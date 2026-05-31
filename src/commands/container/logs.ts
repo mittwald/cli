@@ -3,8 +3,9 @@ import { GetBaseCommand } from "../../lib/basecommands/GetBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
 import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
-import { assertStatus } from "@mittwald/api-client";
 import { printToPager } from "../../lib/util/pager.js";
+import * as http2 from "node:http2";
+import { readApiToken } from "../../lib/auth/token.js";
 
 export class Logs extends BaseCommand {
   static summary = "Display logs of a specific container.";
@@ -34,6 +35,78 @@ export class Logs extends BaseCommand {
     }),
   };
 
+  /**
+   * Note: This entire function is just a big workaround for the mStudio logs
+   * API behaving erratically; the container logs endpoint tends to reset the
+   * HTTP/2 stream instead of correctly closing it, which confuses Axios and all
+   * other high-level HTTP client libraries.
+   *
+   * For this reason, this function bypasses the entire mittwald API client and
+   * uses low-level features of the built-in node:http2 library.
+   *
+   * @private
+   * @param stackId
+   * @param serviceId
+   * @param flags
+   */
+  private async fetchLogs(
+    stackId: string,
+    serviceId: string,
+    flags: { tail?: number },
+  ): Promise<string> {
+    const queryParams = {
+      ...(flags.tail && { tail: flags.tail.toString() }),
+    };
+    const url =
+      this.apiClient.axios.defaults.baseURL +
+      `v2/stacks/${stackId}/services/${serviceId}/logs?` +
+      new URLSearchParams(queryParams).toString();
+
+    const token = await readApiToken(this.config);
+    const logs = await new Promise<string>((resolve, reject) => {
+      const parsedUrl = new URL(url);
+      const client = http2.connect(parsedUrl.origin);
+
+      const req = client.request({
+        ":method": "GET",
+        ":path": parsedUrl.pathname + parsedUrl.search,
+        "X-Access-Token": token,
+      });
+
+      const chunks: Buffer[] = [];
+
+      req.on("data", (chunk: Buffer) => chunks.push(chunk));
+
+      // 'close' fires after all data is received, even on RST_STREAM
+      req.on("close", () => {
+        client.close();
+        resolve(Buffer.concat(chunks).toString("utf8"));
+      });
+
+      req.on("error", (err) => {
+        // Swallow RST_STREAM / aborted errors if we already have data
+        if (
+          chunks.length > 0 &&
+          (("code" in err && err.code === "ERR_HTTP2_STREAM_ERROR") ||
+            err.message?.includes("aborted"))
+        ) {
+          // 'close' will still fire and resolve — don't reject
+          return;
+        }
+        client.close();
+        reject(err);
+      });
+
+      client.on("error", (err) => {
+        reject(err);
+      });
+
+      req.end();
+    });
+
+    return logs;
+  }
+
   async run(): Promise<void> {
     const { flags, args } = await this.parse(Logs);
 
@@ -46,20 +119,7 @@ export class Logs extends BaseCommand {
     );
 
     const usePager = process.stdin.isTTY && !flags["no-pager"];
-
-    const logsResp = await this.apiClient.container.getServiceLogs({
-      stackId,
-      serviceId,
-      queryParameters: {
-        ...(flags.tail && { tail: flags.tail }),
-      },
-    });
-    assertStatus(logsResp, 200);
-
-    // This is to work around a bug which causes the response to
-    // "getServiceLogs" to contain extra NULL bytes.
-    // eslint-disable-next-line no-control-regex
-    const logs = logsResp.data.replace(/^\x00*/, "");
+    const logs = await this.fetchLogs(stackId, serviceId, flags);
 
     if (usePager) {
       printToPager(logs);
