@@ -1,3 +1,11 @@
+## [1.17.1](https://github.com/mittwald/cli/compare/v1.17.0...v1.17.1) (2026-06-01)
+
+
+### Bug Fixes
+
+* resolve hanging tight loop on windows ([#1873](https://github.com/mittwald/cli/issues/1873)) ([b863a5b](https://github.com/mittwald/cli/commit/b863a5ba2b6eb2d35fdd42befb6558bad7910de0))
+* work around broken log API endpoint by ignoring RST_STREAM data frames ([#1877](https://github.com/mittwald/cli/issues/1877)) ([8844603](https://github.com/mittwald/cli/commit/884460359d485a49990eb6c6c68439427d9178b1)), closes [#1677](https://github.com/mittwald/cli/issues/1677) [#1677](https://github.com/mittwald/cli/issues/1677)
+
 # [1.17.0](https://github.com/mittwald/cli/compare/v1.16.2...v1.17.0) (2026-05-20)
 
 
