@@ -77,7 +77,7 @@ export default class TerraformContextProvider implements ContextProvider {
   // Iterate through all parent directories and look for a terraform state file.
   private async findTerraformStateFile(): Promise<string | undefined> {
     let currentDir = cwd();
-    while (currentDir !== "/") {
+    while (currentDir !== path.dirname(currentDir)) {
       const stateFile = path.join(currentDir, "terraform.tfstate");
       if (await pathExists(stateFile)) {
         return stateFile;
