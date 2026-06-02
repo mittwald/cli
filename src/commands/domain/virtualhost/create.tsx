@@ -83,7 +83,8 @@ export default class Create extends ExecRenderBaseCommand<
     }
 
     for (const pathToUrl of this.flags["path-to-url"] ?? []) {
-      const [path, url] = pathToUrl.split(":");
+      const [path, ...urlParts] = pathToUrl.split(":");
+      const url = urlParts.join(":");
       paths.push({ path, target: { url } });
     }
 
