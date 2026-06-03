@@ -2583,7 +2583,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.11.2":
+"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.11.2, @oclif/core@npm:^4.11.4":
   version: 4.11.4
   resolution: "@oclif/core@npm:4.11.4"
   dependencies:
@@ -2660,7 +2660,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.57":
+"@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.65":
   version: 3.1.65
   resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.65"
   dependencies:
@@ -8393,18 +8393,18 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.14.31":
-  version: 4.23.8
-  resolution: "oclif@npm:4.23.8"
+  version: 4.23.10
+  resolution: "oclif@npm:4.23.10"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.1009.0
     "@aws-sdk/client-s3": ^3.1053.0
     "@inquirer/confirm": ^3.1.22
     "@inquirer/input": ^2.2.4
     "@inquirer/select": ^2.5.0
-    "@oclif/core": ^4.11.2
+    "@oclif/core": ^4.11.4
     "@oclif/plugin-help": ^6.2.49
     "@oclif/plugin-not-found": ^3.2.85
-    "@oclif/plugin-warn-if-update-available": ^3.1.57
+    "@oclif/plugin-warn-if-update-available": ^3.1.65
     ansis: ^3.16.0
     async-retry: ^1.3.3
     change-case: ^4
@@ -8422,7 +8422,7 @@ __metadata:
     validate-npm-package-name: ^5.0.1
   bin:
     oclif: bin/run.js
-  checksum: d0dbaa159f0672f8a19660aba4ce0a1cc4b5c9a2c873d80ab78e442c48eb85fa267fecaee889026c0ef1cdf63b2c127075fff3afa752d70930b1298adb13caf0
+  checksum: 2efa8d5437391589d34c33e8debaead21f58836599068da15e70dd59f0d814e450341efd4386f2039ff4033e962a7ec950ef378f3b5156012bf2cd612ff8716c
   languageName: node
   linkType: hard
 
