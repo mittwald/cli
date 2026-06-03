@@ -1,3 +1,10 @@
+## [1.17.2](https://github.com/mittwald/cli/compare/v1.17.1...v1.17.2) (2026-06-03)
+
+
+### Bug Fixes
+
+* **domain/virtualhost:** keep colons in --path-to-url values ([#1880](https://github.com/mittwald/cli/issues/1880)) ([2e30d12](https://github.com/mittwald/cli/commit/2e30d1272413847850dbec9eb5d6670834c968db))
+
 ## [1.17.1](https://github.com/mittwald/cli/compare/v1.17.0...v1.17.1) (2026-06-01)
 
 
