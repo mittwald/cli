@@ -4814,9 +4814,9 @@ __metadata:
   linkType: hard
 
 "date-fns@npm:^4.0.0":
-  version: 4.2.1
-  resolution: "date-fns@npm:4.2.1"
-  checksum: b38e1e32b0b0c79b8b19c8e649f45fd8f1c299417321385ee655d13bda9a83d4cf128b9d74070699aa123f635018ba2ad91d40358b4848cdeb262a0e96d2bfc8
+  version: 4.4.0
+  resolution: "date-fns@npm:4.4.0"
+  checksum: 9a25020573f1aeaddfa0a41bb32411e8e1e8c81ddb870865a005c37f741778c737833baee350a90f275ae806dcd227e41bc4f26337dda189ebca796ce760ba11
   languageName: node
   linkType: hard
 
