@@ -9226,11 +9226,11 @@ __metadata:
   linkType: hard
 
 "semver@npm:2 || 3 || 4 || 5 || 6 || 7, semver@npm:^7.1.2, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.7.4, semver@npm:^7.8.0, semver@npm:^7.8.1":
-  version: 7.8.1
-  resolution: "semver@npm:7.8.1"
+  version: 7.8.2
+  resolution: "semver@npm:7.8.2"
   bin:
     semver: bin/semver.js
-  checksum: c6486ac12dc85120fc1daac8001350a4cd8126933720da496b0e8b841f170a35d4856b898b5288dfe7c1771bcadbf32c582254eade40ba16f8b6d296625d2b33
+  checksum: d2c9354c4e793a3b9c74511fbb82884f95b7237a1008ccda4523ae0cd1fb6a72b4715edd4f3d4fd66943dd47226d35212949fcf064df896ea5ee5469310da728
   languageName: node
   linkType: hard
 
