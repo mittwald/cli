@@ -9123,11 +9123,11 @@ __metadata:
   linkType: hard
 
 "semver@npm:2 || 3 || 4 || 5 || 6 || 7, semver@npm:^7.1.2, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.7.4, semver@npm:^7.8.0, semver@npm:^7.8.1, semver@npm:^7.8.2":
-  version: 7.8.3
-  resolution: "semver@npm:7.8.3"
+  version: 7.8.4
+  resolution: "semver@npm:7.8.4"
   bin:
     semver: bin/semver.js
-  checksum: 71c58885666c832cc3b3c868308db29997ec6cc8fca9c8ed0f446d1b503cc10f0298eeb27be7bd3f272d89d1f36e23648d2964e4f6b8774a00fc62dc4ed527db
+  checksum: 42404642f4b892bd95859c6e2c5777a2916d6e4f0d924441593dea0911cadf5d8761d41b4ca3701793818ecdc72982df5c6d6328cba88252a1f0ebf93e375463
   languageName: node
   linkType: hard
 
