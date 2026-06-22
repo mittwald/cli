@@ -2255,7 +2255,7 @@ __metadata:
     ink-link: ^5.0.0
     ink-text-input: ^6.0.0
     jest: ^30.0.4
-    js-yaml: ^4.1.0
+    js-yaml: ^5.0.0
     license-checker-rseidelsohn: ^4.2.6
     marked: ^15.0.12
     marked-terminal: ^7.3.0
@@ -7012,14 +7012,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.1.0":
-  version: 4.2.0
-  resolution: "js-yaml@npm:4.2.0"
+"js-yaml@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "js-yaml@npm:5.0.0"
   dependencies:
     argparse: ^2.0.1
   bin:
-    js-yaml: bin/js-yaml.js
-  checksum: 86bd35548a0c19cd1f5861147c09aa1f52eb0fc9464f34023524d22bbe079c62c30fd00750e63f632e8d12c12ad36ea0dd1e6bec5171c492ecad433d8db295eb
+    js-yaml: bin/js-yaml.mjs
+  checksum: fa7654b48a8a4241d4785e0ffdb0d5e5c7d625c0c61bf35bb59be149c76e8a49d474e8f545ce4bedbb519bb2b93631ddb627c207b17d8b03bcb6be4550bcb4fc
   languageName: node
   linkType: hard
 
@@ -8969,7 +8969,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:2 || 3 || 4 || 5 || 6 || 7, semver@npm:^7.1.2, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.7.4, semver@npm:^7.8.0, semver@npm:^7.8.1, semver@npm:^7.8.4":
+"semver@npm:2 || 3 || 4 || 5 || 6 || 7, semver@npm:^7.1.2, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.0, semver@npm:^7.8.1, semver@npm:^7.8.4":
   version: 7.8.5
   resolution: "semver@npm:7.8.5"
   bin:
