@@ -2183,9 +2183,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.388.0":
-  version: 4.388.0
-  resolution: "@mittwald/api-client-commons@npm:4.388.0"
+"@mittwald/api-client-commons@npm:^4.391.0":
+  version: 4.391.0
+  resolution: "@mittwald/api-client-commons@npm:4.391.0"
   dependencies:
     "@types/parse-path": ^7.0.3
     axios: ^1.15.2
@@ -2199,22 +2199,22 @@ __metadata:
       optional: true
     "@mittwald/react-use-promise":
       optional: true
-  checksum: b04285fb0ca25dc60eb2d4a5a70be57277b7ac8ecad56bdd555c4bc2880b0de14259629196b6d6fcf1d537592bad5520241da8bd6126e4fdace47a42ae884ce2
+  checksum: f95d6e5b67dd986caa0dde9f8441825ca56952e93ad621bfa1b225d491b8fef5931a512ed4a1d9c919aed3de1e394c122d1a6f679727c60aade07f9c50dfc953
   languageName: node
   linkType: hard
 
 "@mittwald/api-client@npm:^4.331.0":
-  version: 4.388.0
-  resolution: "@mittwald/api-client@npm:4.388.0"
+  version: 4.391.0
+  resolution: "@mittwald/api-client@npm:4.391.0"
   dependencies:
-    "@mittwald/api-client-commons": ^4.388.0
+    "@mittwald/api-client-commons": ^4.391.0
     browser-or-node: ^3.0.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.6.0
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: d9382897e0d724a3fe08bbd4a5e554ba4186e4d3359fea6265c7cf1ab7f06b3769a9c60371659a6d0bea0024cf77b6f23c666a108230a5ac7c12db0778cecd22
+  checksum: c9b5ca89058fbcc7027661fd125c2d5e5f6f57b3a1989ed3fe57edc97a236f71bdc364fda177ec0a65e867a232eff9cfe571bba2f8789b752da1991584eb96dc
   languageName: node
   linkType: hard
 
@@ -8969,7 +8969,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:2 || 3 || 4 || 5 || 6 || 7, semver@npm:^7.1.2, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.7.4, semver@npm:^7.8.0, semver@npm:^7.8.1, semver@npm:^7.8.4":
+"semver@npm:2 || 3 || 4 || 5 || 6 || 7, semver@npm:^7.1.2, semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.0, semver@npm:^7.8.1, semver@npm:^7.8.4":
   version: 7.8.5
   resolution: "semver@npm:7.8.5"
   bin:
