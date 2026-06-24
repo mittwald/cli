@@ -45,7 +45,7 @@ container, etc.). Each command corresponds to a specific API operation.
 - `BaseCommand` - Authenticated commands with API client setup
 - `ListBaseCommand` - List operations with table formatting
 - `RenderBaseCommand` - Single resource display
-- `ExecRenderBaseCommand` - Long-running operations with progress
+- `ExecRenderBaseCommand` - Run an `exec()` step and render its result with Ink
 - `DeleteBaseCommand` - Delete operations with confirmation
 
 **Context System:** Context management in `src/lib/context/` allows commands to
@@ -91,3 +91,6 @@ providers:
 - Provide examples using the `static examples` property when useful
 - Keep the command summary short; do not repeat the summary at the beginning of
   the description
+- Do not assume `ExecRenderBaseCommand` provides progress handling by itself; it
+  executes first and then renders, so use dedicated process/progress rendering
+  patterns when real-time progress output is required
