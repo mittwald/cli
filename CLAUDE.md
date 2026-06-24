@@ -23,6 +23,11 @@ code in this repository.
 
 - Follow the conventional commit format when writing commit messages
 - Make sure to re-generate the documentation before each commit
+- Before wrapping up a task, run this checklist in order:
+  1. `yarn lint`
+  2. `yarn compile`
+  3. `yarn test`
+  4. `yarn generate:readme > &/dev/null`
 
 ## Architecture Overview
 
