@@ -16,7 +16,7 @@ code in this repository.
 **Development:**
 
 - `yarn clean` - Clean compiled files and build artifacts
-- `yarn generate:readme > &/dev/null` - Generate documentation from command
+- `yarn generate:readme >/dev/null 2>&1` - Generate documentation from command
   definitions
 
 ## Development best practices
@@ -27,7 +27,7 @@ code in this repository.
   1. `yarn lint`
   2. `yarn compile`
   3. `yarn test`
-  4. `yarn generate:readme > &/dev/null`
+  4. `yarn generate:readme >/dev/null 2>&1`
 
 ## Architecture Overview
 
