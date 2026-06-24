@@ -1,8 +1,12 @@
 import { Args, Flags } from "@oclif/core";
-import { BaseCommand } from "../../lib/basecommands/BaseCommand.js";
+import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
+import { ReactNode } from "react";
 
-export default class SetUpdateSchedule extends BaseCommand {
+export default class SetUpdateSchedule extends ExecRenderBaseCommand<
+  typeof SetUpdateSchedule,
+  void
+> {
   static description = "Set the update schedule of a container stack";
 
   static args = {
@@ -17,7 +21,7 @@ export default class SetUpdateSchedule extends BaseCommand {
   };
 
   static flags = {
-    ...BaseCommand.baseFlags,
+    ...ExecRenderBaseCommand.baseFlags,
     timezone: Flags.string({
       description:
         "Timezone for the update schedule (for example UTC or Europe/Berlin)",
@@ -25,19 +29,21 @@ export default class SetUpdateSchedule extends BaseCommand {
     }),
   };
 
-  async run(): Promise<void> {
-    const { args, flags } = await this.parse(SetUpdateSchedule);
-
+  protected async exec(): Promise<void> {
     const response = await this.apiClient.container.setStackUpdateSchedule({
-      stackId: args["stack-id"],
+      stackId: this.args["stack-id"],
       data: {
         updateSchedule: {
-          cron: args.schedule,
-          timezone: flags.timezone,
+          cron: this.args.schedule,
+          timezone: this.flags.timezone,
         },
       },
     });
 
     assertSuccess(response);
+  }
+
+  protected render(): ReactNode {
+    return null;
   }
 }
