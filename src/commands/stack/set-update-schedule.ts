@@ -11,7 +11,7 @@ export default class SetUpdateSchedule extends BaseCommand {
       required: true,
     }),
     schedule: Args.string({
-      description: "Cron expression for the update schedule (validated by API)",
+      description: "Cron expression for the update schedule",
       required: true,
     }),
   };
@@ -20,10 +20,11 @@ export default class SetUpdateSchedule extends BaseCommand {
     ...BaseCommand.baseFlags,
     timezone: Flags.string({
       description:
-        "Timezone for the update schedule (for example UTC or Europe/Berlin; validated by API)",
+        "Timezone for the update schedule (for example UTC or Europe/Berlin)",
       required: false,
     }),
   };
+
   async run(): Promise<void> {
     const { args, flags } = await this.parse(SetUpdateSchedule);
 

@@ -260,10 +260,10 @@ USAGE
 
 ARGUMENTS
   STACK-ID  ID of the stack
-  SCHEDULE  Cron expression for the update schedule (validated by API)
+  SCHEDULE  Cron expression for the update schedule
 
 FLAGS
-  --timezone=<value>  Timezone for the update schedule (for example UTC or Europe/Berlin; validated by API)
+  --timezone=<value>  Timezone for the update schedule (for example UTC or Europe/Berlin)
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
