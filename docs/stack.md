@@ -256,14 +256,15 @@ Set the update schedule of a container stack
 
 ```
 USAGE
-  $ mw stack set-update-schedule STACK-ID SCHEDULE [--token <value>] [--timezone <value>]
+  $ mw stack set-update-schedule STACK-ID SCHEDULE [--token <value>] [-q] [--timezone <value>]
 
 ARGUMENTS
   STACK-ID  ID of the stack
   SCHEDULE  Cron expression for the update schedule
 
 FLAGS
-  --timezone=<value>  Timezone for the update schedule (for example UTC or Europe/Berlin)
+  -q, --quiet             suppress process output and only display a machine-readable summary
+      --timezone=<value>  Timezone for the update schedule (for example UTC or Europe/Berlin)
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -271,6 +272,12 @@ AUTHENTICATION FLAGS
 
 DESCRIPTION
   Set the update schedule of a container stack
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 
@@ -280,10 +287,13 @@ Unset the update schedule of a container stack
 
 ```
 USAGE
-  $ mw stack unset-update-schedule STACK-ID [--token <value>]
+  $ mw stack unset-update-schedule STACK-ID [--token <value>] [-q]
 
 ARGUMENTS
   STACK-ID  ID of the stack
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -291,6 +301,12 @@ AUTHENTICATION FLAGS
 
 DESCRIPTION
   Unset the update schedule of a container stack
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
 
