@@ -72,6 +72,17 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
           return stack.volumes.length + " volumes";
         },
       },
+      updateSchedule: {
+        header: "Update schedule",
+        get(stack) {
+          if (!stack.updateSchedule) {
+            return "no schedule";
+          }
+
+          const { cron, timezone } = stack.updateSchedule;
+          return timezone ? `${cron} (${timezone})` : cron;
+        },
+      },
     };
   }
 }
