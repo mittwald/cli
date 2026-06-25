@@ -1,7 +1,7 @@
 import { Args, Flags } from "@oclif/core";
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
-import { createElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import {
   makeProcessRenderer,
   processFlags,
@@ -59,11 +59,9 @@ export default class SetUpdateSchedule extends ExecRenderBaseCommand<
     });
 
     await p.complete(
-      createElement(
-        Success,
-        null,
-        `Update schedule for stack ${stackId} was successfully set.`,
-      ),
+      <Success>
+        Update schedule for stack {stackId} was successfully set.
+      </Success>,
     );
 
     return { stackId };
