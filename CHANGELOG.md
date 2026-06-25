@@ -1,3 +1,16 @@
+# [1.18.0](https://github.com/mittwald/cli/compare/v1.17.2...v1.18.0) (2026-06-25)
+
+
+### Bug Fixes
+
+* **release:** formatting in release.config.cjs ([7aad175](https://github.com/mittwald/cli/commit/7aad175e95f244c35213a4c84a6874f38b16ca88))
+
+
+### Features
+
+* **stack:** add stack set-update-schedule and stack unset-update-schedule commands ([#1938](https://github.com/mittwald/cli/issues/1938)) ([d58f217](https://github.com/mittwald/cli/commit/d58f21748731bec1ace57048437beccbc4801f44))
+* **stack:** show update schedule in stack list ([#1939](https://github.com/mittwald/cli/issues/1939)) ([a5d990d](https://github.com/mittwald/cli/commit/a5d990dc91f2666006c7009827ee227026db4f07))
+
 ## [1.17.2](https://github.com/mittwald/cli/compare/v1.17.1...v1.17.2) (2026-06-03)
 
 
