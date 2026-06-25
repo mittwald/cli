@@ -16,13 +16,18 @@ code in this repository.
 **Development:**
 
 - `yarn clean` - Clean compiled files and build artifacts
-- `yarn generate:readme > &/dev/null` - Generate documentation from command
+- `yarn generate:readme >/dev/null 2>&1` - Generate documentation from command
   definitions
 
 ## Development best practices
 
 - Follow the conventional commit format when writing commit messages
 - Make sure to re-generate the documentation before each commit
+- Before wrapping up a task, run this checklist in order:
+  1. `yarn lint`
+  2. `yarn compile`
+  3. `yarn test`
+  4. `yarn generate:readme >/dev/null 2>&1`
 
 ## Architecture Overview
 
@@ -40,7 +45,7 @@ container, etc.). Each command corresponds to a specific API operation.
 - `BaseCommand` - Authenticated commands with API client setup
 - `ListBaseCommand` - List operations with table formatting
 - `RenderBaseCommand` - Single resource display
-- `ExecRenderBaseCommand` - Long-running operations with progress
+- `ExecRenderBaseCommand` - Run an `exec()` step and render its result with Ink
 - `DeleteBaseCommand` - Delete operations with confirmation
 
 **Context System:** Context management in `src/lib/context/` allows commands to
@@ -86,3 +91,6 @@ providers:
 - Provide examples using the `static examples` property when useful
 - Keep the command summary short; do not repeat the summary at the beginning of
   the description
+- Do not assume `ExecRenderBaseCommand` provides progress handling by itself; it
+  executes first and then renders, so use dedicated process/progress rendering
+  patterns when real-time progress output is required

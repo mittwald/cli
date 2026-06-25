@@ -9,6 +9,8 @@ Manage container stacks
 * [`mw stack ls`](#mw-stack-ls)
 * [`mw stack ps`](#mw-stack-ps)
 * [`mw stack rm [STACK-ID]`](#mw-stack-rm-stack-id)
+* [`mw stack set-update-schedule STACK-ID SCHEDULE`](#mw-stack-set-update-schedule-stack-id-schedule)
+* [`mw stack unset-update-schedule STACK-ID`](#mw-stack-unset-update-schedule-stack-id)
 * [`mw stack up`](#mw-stack-up)
 
 ## `mw stack delete [STACK-ID]`
@@ -247,6 +249,66 @@ FLAG DESCRIPTIONS
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
+
+## `mw stack set-update-schedule STACK-ID SCHEDULE`
+
+Set the update schedule of a container stack
+
+```
+USAGE
+  $ mw stack set-update-schedule STACK-ID SCHEDULE [--token <value>] [-q] [--timezone <value>]
+
+ARGUMENTS
+  STACK-ID  ID of the stack
+  SCHEDULE  Cron expression for the update schedule
+
+FLAGS
+  -q, --quiet             suppress process output and only display a machine-readable summary
+      --timezone=<value>  Timezone for the update schedule (for example UTC or Europe/Berlin)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Set the update schedule of a container stack
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+
+## `mw stack unset-update-schedule STACK-ID`
+
+Unset the update schedule of a container stack
+
+```
+USAGE
+  $ mw stack unset-update-schedule STACK-ID [--token <value>] [-q]
+
+ARGUMENTS
+  STACK-ID  ID of the stack
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Unset the update schedule of a container stack
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
 
 ## `mw stack up`
 
