@@ -10,6 +10,11 @@ type AppSystemSoftwareVersion =
   MittwaldAPIV2.Components.Schemas.AppSystemSoftwareVersion;
 type AppSystemSoftware = MittwaldAPIV2.Components.Schemas.AppSystemSoftware;
 
+type SystemSoftwareUpdate = {
+  systemSoftwareVersion: string;
+  updatePolicy: AppSystemSoftwareUpdatePolicy;
+};
+
 /**
  * Updates the system-software dependencies of an app installation.
  *
@@ -25,73 +30,17 @@ export async function updateAppDependencies(
   set: string[],
   updatePolicy: AppSystemSoftwareUpdatePolicy,
 ): Promise<void> {
-  const systemSoftwares = await process.runStep(
-    "fetching system softwares",
-    async () => {
-      const r = await apiClient.app.listSystemsoftwares();
-      assertStatus(r, 200);
+  const systemSoftwares = await listSystemSoftwares(apiClient, process);
 
-      return r.data;
-    },
-  );
-
-  const versionsToUpdate: {
-    [x: string]: {
-      systemSoftwareVersion: string;
-      updatePolicy: AppSystemSoftwareUpdatePolicy;
-    };
-  } = {};
-
-  for (const s of set) {
-    const [software, versionSpec] = s.split("=");
-    const parsedVersionSpec = new Range(versionSpec);
-
-    if (!parsedVersionSpec) {
-      throw new Error(
-        `version spec ${versionSpec} is not a valid semver constraint`,
-      );
-    }
-
-    const systemSoftware = systemSoftwares.find(
-      (s) => s.name.toLowerCase() === software.toLowerCase(),
-    );
-    if (!systemSoftware) {
-      throw new Error(`unknown system software ${software}`);
-    }
-
-    const versions = await getVersions(
+  const versionsToUpdate: Record<string, SystemSoftwareUpdate> = {};
+  for (const spec of set) {
+    const { name, versionSpec } = parseDependencySpec(spec);
+    const systemSoftware = findSystemSoftware(systemSoftwares, name);
+    const version = await resolveSystemSoftwareVersion(
       apiClient,
       process,
       systemSoftware,
       versionSpec,
-    );
-    const version = await process.runStep(
-      `determining version for ${software}`,
-      async () => {
-        const exactMatch = versions.find(
-          (v) => v.externalVersion === versionSpec,
-        );
-        if (exactMatch) {
-          return exactMatch;
-        }
-
-        const recommendedVersion = versions.find((v) => v.recommended);
-        if (recommendedVersion) {
-          return recommendedVersion;
-        }
-
-        if (versions.length === 0) {
-          throw new Error(
-            `no versions found for ${software} and version constraint ${versionSpec}`,
-          );
-        }
-
-        return versions[versions.length - 1];
-      },
-    );
-
-    process.addInfo(
-      `selected ${systemSoftware.name} version: ${version.externalVersion}`,
     );
 
     versionsToUpdate[systemSoftware.id] = {
@@ -100,25 +49,109 @@ export async function updateAppDependencies(
     };
   }
 
-  await process.runStep("updating app dependencies", async () => {
-    const r = await apiClient.app.patchAppinstallation({
-      appInstallationId,
-      data: {
-        systemSoftware: versionsToUpdate,
-      },
-    });
+  await patchSystemSoftwareVersions(
+    apiClient,
+    process,
+    appInstallationId,
+    versionsToUpdate,
+  );
+}
 
-    assertStatus(r, 204);
+/** Splits a `<dependency>=<version>` spec and validates the version range. */
+function parseDependencySpec(spec: string): {
+  name: string;
+  versionSpec: string;
+} {
+  const [name, versionSpec] = spec.split("=");
+
+  const parsedVersionSpec = new Range(versionSpec);
+  if (!parsedVersionSpec) {
+    throw new Error(
+      `version spec ${versionSpec} is not a valid semver constraint`,
+    );
+  }
+
+  return { name, versionSpec };
+}
+
+/** Looks up a system software by name (case-insensitive). */
+function findSystemSoftware(
+  systemSoftwares: AppSystemSoftware[],
+  name: string,
+): AppSystemSoftware {
+  const systemSoftware = systemSoftwares.find(
+    (s) => s.name.toLowerCase() === name.toLowerCase(),
+  );
+  if (!systemSoftware) {
+    throw new Error(`unknown system software ${name}`);
+  }
+
+  return systemSoftware;
+}
+
+/** Picks the best available version for the given constraint. */
+function selectVersion(
+  versions: AppSystemSoftwareVersion[],
+  versionSpec: string,
+  softwareName: string,
+): AppSystemSoftwareVersion {
+  if (versions.length === 0) {
+    throw new Error(
+      `no versions found for ${softwareName} and version constraint ${versionSpec}`,
+    );
+  }
+
+  return (
+    versions.find((v) => v.externalVersion === versionSpec) ??
+    versions.find((v) => v.recommended) ??
+    versions[versions.length - 1]
+  );
+}
+
+async function listSystemSoftwares(
+  apiClient: MittwaldAPIV2Client,
+  process: ProcessRenderer,
+): Promise<AppSystemSoftware[]> {
+  return process.runStep("fetching system softwares", async () => {
+    const r = await apiClient.app.listSystemsoftwares();
+    assertStatus(r, 200);
+
+    return r.data;
   });
 }
 
-async function getVersions(
+async function resolveSystemSoftwareVersion(
   apiClient: MittwaldAPIV2Client,
-  p: ProcessRenderer,
+  process: ProcessRenderer,
+  systemSoftware: AppSystemSoftware,
+  versionSpec: string,
+): Promise<AppSystemSoftwareVersion> {
+  const versions = await listSystemSoftwareVersions(
+    apiClient,
+    process,
+    systemSoftware,
+    versionSpec,
+  );
+
+  const version = await process.runStep(
+    `determining version for ${systemSoftware.name}`,
+    async () => selectVersion(versions, versionSpec, systemSoftware.name),
+  );
+
+  process.addInfo(
+    `selected ${systemSoftware.name} version: ${version.externalVersion}`,
+  );
+
+  return version;
+}
+
+async function listSystemSoftwareVersions(
+  apiClient: MittwaldAPIV2Client,
+  process: ProcessRenderer,
   systemSoftware: AppSystemSoftware,
   versionRange: string,
 ): Promise<AppSystemSoftwareVersion[]> {
-  const versions = await p.runStep(
+  const versions = await process.runStep(
     `fetching versions for ${systemSoftware.name}`,
     async () => {
       const r = await apiClient.app.listSystemsoftwareversions({
@@ -135,4 +168,22 @@ async function getVersions(
 
   versions.sort(compareVersionsBy("internal"));
   return versions;
+}
+
+async function patchSystemSoftwareVersions(
+  apiClient: MittwaldAPIV2Client,
+  process: ProcessRenderer,
+  appInstallationId: string,
+  versionsToUpdate: Record<string, SystemSoftwareUpdate>,
+): Promise<void> {
+  await process.runStep("updating app dependencies", async () => {
+    const r = await apiClient.app.patchAppinstallation({
+      appInstallationId,
+      data: {
+        systemSoftware: versionsToUpdate,
+      },
+    });
+
+    assertStatus(r, 204);
+  });
 }
