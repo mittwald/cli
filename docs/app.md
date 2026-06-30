@@ -73,8 +73,8 @@ Creates new custom Node.js installation.
 
 ```
 USAGE
-  $ mw app create node [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>] [-c]
+  $ mw app create node [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [--set
+    <value>...] [-w] [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
   -c, --update-context        update the CLI context to use the newly created app installation
@@ -85,6 +85,7 @@ FLAGS
       --entrypoint=<value>    [default: yarn start] the command that should be used to start your custom Node.js
                               application.
       --install-path=<value>  the installation path of your custom Node.js application
+      --set=<value>...        pin a system software (such as the custom Node.js runtime) to a specific version.
       --site-title=<value>    site title for your custom Node.js installation.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
@@ -95,6 +96,11 @@ AUTHENTICATION FLAGS
 
 DESCRIPTION
   Creates new custom Node.js installation.
+
+EXAMPLES
+  Create a Node.js app pinned to the latest 18.x release
+
+    $ mw app create node --set node=~18
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -117,6 +123,13 @@ FLAG DESCRIPTIONS
     This is the path where your application will be installed. If omitted, this will default to an
     automatically-generated path.
 
+  --set=<value>...  pin a system software (such as the custom Node.js runtime) to a specific version.
+
+    The format is <dependency>=<version>, where <dependency> is the name of the system software (use the "mw app
+    dependency list" command to get a list of available dependencies) and <version> is a semver constraint.
+    If unspecified, the newest available version of each system software is used. This flag may be specified multiple
+    times to pin multiple dependencies.
+
   --site-title=<value>  site title for your custom Node.js installation.
 
     The site title for this custom Node.js installation. It is also the title shown in the app overview in the mStudio
@@ -132,8 +145,8 @@ Creates new custom PHP installation.
 
 ```
 USAGE
-  $ mw app create php --document-root <value> [--token <value>] [-p <value>] [-q] [--site-title <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>] [-c]
+  $ mw app create php --document-root <value> [--token <value>] [-p <value>] [-q] [--site-title <value>] [--set
+    <value>...] [-w] [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
   -c, --update-context         update the CLI context to use the newly created app installation
@@ -144,6 +157,7 @@ FLAGS
       --document-root=<value>  (required) [default: /] the document root from which your custom PHP will be served
                                (relative to the installation path)
       --install-path=<value>   the installation path of your custom PHP application
+      --set=<value>...         pin a system software (such as the custom PHP runtime) to a specific version.
       --site-title=<value>     site title for your custom PHP installation.
       --wait-timeout=<value>   [default: 600s] the duration to wait for the resource to be ready (common units like
                                'ms', 's', 'm' are accepted).
@@ -154,6 +168,11 @@ AUTHENTICATION FLAGS
 
 DESCRIPTION
   Creates new custom PHP installation.
+
+EXAMPLES
+  Create a PHP app pinned to the latest PHP 8.3 release
+
+    $ mw app create php --document-root /public --set php=~8.3
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -178,6 +197,13 @@ FLAG DESCRIPTIONS
     This is the path where your application will be installed. If omitted, this will default to an
     automatically-generated path.
 
+  --set=<value>...  pin a system software (such as the custom PHP runtime) to a specific version.
+
+    The format is <dependency>=<version>, where <dependency> is the name of the system software (use the "mw app
+    dependency list" command to get a list of available dependencies) and <version> is a semver constraint.
+    If unspecified, the newest available version of each system software is used. This flag may be specified multiple
+    times to pin multiple dependencies.
+
   --site-title=<value>  site title for your custom PHP installation.
 
     The site title for this custom PHP installation. It is also the title shown in the app overview in the mStudio and
@@ -193,8 +219,8 @@ Creates new PHP worker installation.
 
 ```
 USAGE
-  $ mw app create php-worker [--token <value>] [-p <value>] [-q] [--entrypoint <value>] [--site-title <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>] [-c]
+  $ mw app create php-worker [--token <value>] [-p <value>] [-q] [--entrypoint <value>] [--site-title <value>] [--set
+    <value>...] [-w] [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
   -c, --update-context        update the CLI context to use the newly created app installation
@@ -204,6 +230,7 @@ FLAGS
   -w, --wait                  wait for the resource to be ready.
       --entrypoint=<value>    the command that should be used to start your PHP worker application.
       --install-path=<value>  the installation path of your PHP worker application
+      --set=<value>...        pin a system software (such as the PHP worker runtime) to a specific version.
       --site-title=<value>    site title for your PHP worker installation.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
@@ -236,6 +263,13 @@ FLAG DESCRIPTIONS
     This is the path where your application will be installed. If omitted, this will default to an
     automatically-generated path.
 
+  --set=<value>...  pin a system software (such as the PHP worker runtime) to a specific version.
+
+    The format is <dependency>=<version>, where <dependency> is the name of the system software (use the "mw app
+    dependency list" command to get a list of available dependencies) and <version> is a semver constraint.
+    If unspecified, the newest available version of each system software is used. This flag may be specified multiple
+    times to pin multiple dependencies.
+
   --site-title=<value>  site title for your PHP worker installation.
 
     The site title for this PHP worker installation. It is also the title shown in the app overview in the mStudio and
@@ -251,8 +285,8 @@ Creates new custom python site installation.
 
 ```
 USAGE
-  $ mw app create python [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [-w]
-    [--wait-timeout <value>] [--install-path <value>] [-c]
+  $ mw app create python [--token <value>] [-p <value>] [-q] [--site-title <value>] [--entrypoint <value>] [--set
+    <value>...] [-w] [--wait-timeout <value>] [--install-path <value>] [-c]
 
 FLAGS
   -c, --update-context        update the CLI context to use the newly created app installation
@@ -262,6 +296,7 @@ FLAGS
   -w, --wait                  wait for the resource to be ready.
       --entrypoint=<value>    the command that should be used to start your custom python site application.
       --install-path=<value>  the installation path of your custom python site application
+      --set=<value>...        pin a system software (such as the custom python site runtime) to a specific version.
       --site-title=<value>    site title for your custom python site installation.
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
@@ -272,6 +307,11 @@ AUTHENTICATION FLAGS
 
 DESCRIPTION
   Creates new custom python site installation.
+
+EXAMPLES
+  Create a Python app pinned to the latest 3.11 release
+
+    $ mw app create python --set python=~3.11
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -293,6 +333,13 @@ FLAG DESCRIPTIONS
 
     This is the path where your application will be installed. If omitted, this will default to an
     automatically-generated path.
+
+  --set=<value>...  pin a system software (such as the custom python site runtime) to a specific version.
+
+    The format is <dependency>=<version>, where <dependency> is the name of the system software (use the "mw app
+    dependency list" command to get a list of available dependencies) and <version> is a semver constraint.
+    If unspecified, the newest available version of each system software is used. This flag may be specified multiple
+    times to pin multiple dependencies.
 
   --site-title=<value>  site title for your custom python site installation.
 
