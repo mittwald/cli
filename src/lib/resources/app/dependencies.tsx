@@ -1,6 +1,6 @@
 import { assertStatus } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
-import { Range } from "semver";
+import { validRange } from "semver";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { compareVersionsBy } from "./versions.js";
 
@@ -64,8 +64,7 @@ function parseDependencySpec(spec: string): {
 } {
   const [name, versionSpec] = spec.split("=");
 
-  const parsedVersionSpec = new Range(versionSpec);
-  if (!parsedVersionSpec) {
+  if (!validRange(versionSpec)) {
     throw new Error(
       `version spec ${versionSpec} is not a valid semver constraint`,
     );
