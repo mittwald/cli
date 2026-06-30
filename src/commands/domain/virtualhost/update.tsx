@@ -3,14 +3,17 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../../rendering/process/process_flags.js";
+import {
+  buildIngressPaths,
+  pathMappingFlags,
+} from "../../../lib/resources/domain/virtualhost/flags.js";
 import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
-import { Args, Flags, ux } from "@oclif/core";
+import { Args, ux } from "@oclif/core";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 
-type IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
 type IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
 
 type UpdateResult = {
@@ -43,24 +46,7 @@ export default class Update extends ExecRenderBaseCommand<
   };
   static flags = {
     ...processFlags,
-    "path-to-app": Flags.string({
-      summary: "add a path mapping to an app",
-      description:
-        "This flag can be used to map a specific URL path to an app; the value for this flag should be the URL path and the app ID, separated by a colon, e.g. /:3ecaf1a9-6eb4-4869-b811-8a13c3a2e745. You can specify this flag multiple times to map multiple paths to different apps, and also combine it with the other --path-to-* flags.",
-      multiple: true,
-    }),
-    "path-to-url": Flags.string({
-      summary: "add a path mapping to an external url",
-      multiple: true,
-      description:
-        "This flag can be used to map a specific URL path to an external URL; the value for this flag should be the URL path and the external URL, separated by a colon, e.g. /:https://redirect.example. You can specify this flag multiple times to map multiple paths to different external URLs, and also combine it with the other --path-to-* flags.",
-    }),
-    "path-to-container": Flags.string({
-      summary: "add a path mapping to a container",
-      multiple: true,
-      description:
-        "This flag can be used to map a specific URL path to a container; the value for this flag should be the URL path, the container ID and the target port, each separated by a colon, e.g. /:3ecaf1a9-6eb4-4869-b811-8a13c3a2e745:80/tcp. You can specify this flag multiple times to map multiple paths to different containers, and also combine it with the other --path-to-* flags.",
-    }),
+    ...pathMappingFlags,
   };
 
   protected async exec(): Promise<UpdateResult> {
@@ -69,26 +55,7 @@ export default class Update extends ExecRenderBaseCommand<
       this.flags,
       "Updating the paths of a virtual host",
     );
-    const paths: IngressPath[] = [];
-
-    for (const pathToApp of this.flags["path-to-app"] ?? []) {
-      const [path, installationId] = pathToApp.split(":");
-      paths.push({ path, target: { installationId } });
-    }
-
-    for (const pathToUrl of this.flags["path-to-url"] ?? []) {
-      const [path, ...urlParts] = pathToUrl.split(":");
-      const url = urlParts.join(":");
-      paths.push({ path, target: { url } });
-    }
-
-    for (const pathToContainer of this.flags["path-to-container"] ?? []) {
-      const [path, container, portProtocol] = pathToContainer.split(":", 3);
-      paths.push({
-        path,
-        target: { container: { id: container, portProtocol } },
-      });
-    }
+    const paths = buildIngressPaths(this.flags);
 
     if (paths.length === 0) {
       process.error(
