@@ -8,6 +8,7 @@ import {
   RelevantFlagInput,
 } from "./flags.js";
 import { normalizeToAppVersionUuid } from "./versions.js";
+import { updateAppDependencies } from "./dependencies.js";
 import { triggerAppInstallation } from "./install.js";
 import { waitUntilAppStateHasNormalized } from "./wait.js";
 import { Success } from "../../../rendering/react/components/Success.js";
@@ -118,6 +119,18 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
       flags,
       appVersion,
     );
+
+    const systemSoftwareVersions =
+      "set" in flags && Array.isArray(flags.set) ? (flags.set as string[]) : [];
+    if (systemSoftwareVersions.length > 0) {
+      await updateAppDependencies(
+        apiClient,
+        process,
+        appInstallation.id,
+        systemSoftwareVersions,
+        "patchLevel",
+      );
+    }
 
     let successText: string;
     if (flags.wait) {

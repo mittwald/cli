@@ -28,10 +28,14 @@ export async function triggerAppInstallation(
           description: flags["site-title"],
           updatePolicy: "none",
           installationPath: flags["install-path"],
-          userInputs: Object.keys(flags).map((k) => ({
-            name: k.replace("-", "_"),
-            value: flags[k] as string,
-          })),
+          userInputs: Object.keys(flags)
+            // skip non-scalar flags (such as the multi-valued "set" flag),
+            // which are not valid user inputs
+            .filter((k) => typeof flags[k] !== "object")
+            .map((k) => ({
+              name: k.replace("-", "_"),
+              value: flags[k] as string,
+            })),
         },
       });
 
