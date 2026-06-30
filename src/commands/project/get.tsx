@@ -95,7 +95,6 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
     [response.id],
   );
 
-  assertStatus(customer, 200);
   assertStatus(vhosts, 200);
 
   const host = vhosts.data.find((h) => h.isDefault)?.hostname;
@@ -104,7 +103,15 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
     "Project ID": <IDAndShortID object={response} />,
     "Created At": <CreatedAt object={response} />,
     Status: <ProjectStatus project={response} />,
-    Customer: <ProjectCustomer customer={customer.data} />,
+    // The user might have access to the project, but not to the customer it
+    // belongs to. In that case, fall back to displaying just the customer ID
+    // instead of failing with a permission error (see #1955).
+    Customer:
+      customer.status === 200 ? (
+        <ProjectCustomer customer={customer.data} />
+      ) : (
+        <Value>{response.customerId}</Value>
+      ),
   };
 
   const sections = [
