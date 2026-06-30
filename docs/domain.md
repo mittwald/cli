@@ -364,8 +364,8 @@ Update the paths of an existing virtual host. The given paths replace the existi
 
 ```
 USAGE
-  $ mw domain virtualhost update VIRTUAL-HOST-ID [--token <value>] [-q] [--path-to-app <value>...] [--path-to-url
-    <value>...] [--path-to-container <value>...]
+  $ mw domain virtualhost update VIRTUAL-HOST-ID [--token <value>] [-q] [--path-to-app <value>...] [--path-to-url <value>...]
+    [--path-to-container <value>...]
 
 ARGUMENTS
   VIRTUAL-HOST-ID  ID of the virtual host to update
@@ -387,7 +387,8 @@ DESCRIPTION
 EXAMPLES
   Point the root path of a virtual host to an app
 
-    $ mw domain virtualhost update 3ecaf1a9-6eb4-4869-b811-8a13c3a2e745 --path-to-app /:fdc7e3a8-9b1c-4d2e-8f5a-6c7b8d9e0f1a
+    $ mw domain virtualhost update 3ecaf1a9-6eb4-4869-b811-8a13c3a2e745 --path-to-app \
+      /:fdc7e3a8-9b1c-4d2e-8f5a-6c7b8d9e0f1a
 
   Point the root path of a virtual host to a URL
 
@@ -418,3 +419,4 @@ FLAG DESCRIPTIONS
     and the external URL, separated by a colon, e.g. /:https://redirect.example. You can specify this flag multiple
     times to map multiple paths to different external URLs, and also combine it with the other --path-to-* flags.
 ```
+
