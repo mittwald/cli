@@ -260,6 +260,14 @@ jobs:
           git commit -m "Release ${GITHUB_REF_NAME}"
           git push
 
+  announce-discord:
+    needs:
+      - release-github
+    uses: ./.github/workflows/release-announcement.yml
+    secrets:
+      MITTWALD_AI_API_KEY: ${{ secrets.MITTWALD_AI_API_KEY }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
   cleanup-artifacts:
     runs-on: ubuntu-latest
     needs:
