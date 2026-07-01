@@ -33,27 +33,21 @@ AUTHENTICATION FLAGS
                    tokens passed via this flag might be logged in your shell history.
 
 EXAMPLES
-  Deploy from current directory (auto-detects or creates Dockerfile):
+  Deploy from current directory (auto-detects or creates Dockerfile)
 
-    $ mw deploy
+    $ mw experimental deploy
 
+  Deploy with explicit project context
 
+    $ mw experimental deploy --project-id p-abc123
 
-  Deploy with explicit project context:
+  Deploy with custom default domain prefix
 
-    $ mw deploy --project-id p-abc123
+    $ mw experimental deploy --uri-prefix myapp
 
+  Deploy a second, parallel service with a custom image and service name
 
-
-  Deploy with custom default domain prefix:
-
-    $ mw deploy --uri-prefix myapp
-
-
-
-  Deploy a second, parallel service with a custom image and service name:
-
-    $ mw deploy --service-name my-feature --image-name my-app --image-tag feature
+    $ mw experimental deploy --service-name my-feature --image-name my-app --image-tag feature
 
 FLAG DESCRIPTIONS
   -e, --env=<value>...  set environment variables in the container

@@ -77,17 +77,25 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
   };
   static args = {};
   static examples = [
-    "Deploy from current directory (auto-detects or creates Dockerfile):",
-    "  $ mw deploy",
-    "",
-    "Deploy with explicit project context:",
-    "  $ mw deploy --project-id p-abc123",
-    "",
-    "Deploy with custom default domain prefix:",
-    "  $ mw deploy --uri-prefix myapp",
-    "",
-    "Deploy a second, parallel service with a custom image and service name:",
-    "  $ mw deploy --service-name my-feature --image-name my-app --image-tag feature",
+    {
+      description:
+        "Deploy from current directory (auto-detects or creates Dockerfile)",
+      command: "$ <%= config.bin %> <%= command.id %>",
+    },
+    {
+      description: "Deploy with explicit project context",
+      command: "<%= config.bin %> <%= command.id %> --project-id p-abc123",
+    },
+    {
+      description: "Deploy with custom default domain prefix",
+      command: "<%= config.bin %> <%= command.id %> --uri-prefix myapp",
+    },
+    {
+      description:
+        "Deploy a second, parallel service with a custom image and service name",
+      command:
+        "<%= config.bin %> <%= command.id %> --service-name my-feature --image-name my-app --image-tag feature",
+    },
   ];
 
   protected async exec(): Promise<Result> {
