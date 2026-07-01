@@ -2253,7 +2253,7 @@ __metadata:
     ink-link: ^5.0.0
     ink-text-input: ^6.0.0
     jest: ^30.0.4
-    js-yaml: ^4.1.0
+    js-yaml: ^5.2.0
     license-checker-rseidelsohn: ^4.2.6
     marked: ^15.0.12
     marked-terminal: ^7.3.0
@@ -7044,14 +7044,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:^4.1.0":
-  version: 4.2.0
-  resolution: "js-yaml@npm:4.2.0"
+"js-yaml@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "js-yaml@npm:5.2.0"
   dependencies:
     argparse: ^2.0.1
   bin:
-    js-yaml: bin/js-yaml.js
-  checksum: 86bd35548a0c19cd1f5861147c09aa1f52eb0fc9464f34023524d22bbe079c62c30fd00750e63f632e8d12c12ad36ea0dd1e6bec5171c492ecad433d8db295eb
+    js-yaml: bin/js-yaml.mjs
+  checksum: 2a524de6aa50ac467b24e6dc6f6e0b302a5e11cded4ab6fbc948e679c06d0b65bb468f9de9fcd1fe97c45eccebcc5c68cf379480b1304166c145802a8ffeaae3
   languageName: node
   linkType: hard
 

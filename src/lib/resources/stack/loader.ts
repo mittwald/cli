@@ -1,4 +1,4 @@
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import * as fs from "fs";
 import { RawStackInput } from "./types.js";
 
@@ -21,7 +21,7 @@ export async function loadStackFromStr(
   input: string,
   environment: Record<string, string | undefined>,
 ): Promise<RawStackInput> {
-  const stack = yaml.load(input) as RawStackInput;
+  const stack = load(input) as RawStackInput;
 
   const stackWithSubstitutedEnvironment = substituteEnvironmentVariables(
     stack,
