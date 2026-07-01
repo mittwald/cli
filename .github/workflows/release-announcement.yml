@@ -1,0 +1,162 @@
+name: Announce release on Discord
+
+# Reusable workflow: summarizes the changes since the previous minor release
+# using the OpenCode CLI (backed by mittwald-hosted models) and posts a short
+# release note to a Discord webhook. Called from release.yml.
+on:
+  workflow_call:
+    secrets:
+      MITTWALD_AI_API_KEY:
+        description:
+          API key for the mittwald AI hosting (OpenAI-compatible) endpoint.
+        required: true
+      DISCORD_WEBHOOK_URL:
+        description: Discord webhook URL the release note is posted to.
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine release type
+        id: check
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          # Only announce stable major/minor releases (patch == 0, no pre-release suffix).
+          if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.0$ ]]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::$TAG is not a major/minor release, skipping announcement."
+          fi
+
+      - name: Checkout
+        if: steps.check.outputs.should_run == 'true'
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        if: steps.check.outputs.should_run == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Determine previous minor release and collect changes
+        if: steps.check.outputs.should_run == 'true'
+        id: changes
+        run: |
+          TAG="${{ steps.check.outputs.tag }}"
+
+          # All stable minor/major tags, sorted ascending by version.
+          MINORS=$(git tag --list 'v*' | grep -E '^v[0-9]+\.[0-9]+\.0$' | sort -V)
+
+          # The stable minor tag immediately preceding the current one.
+          PREV=$(echo "$MINORS" | grep -B1 -x "$TAG" | grep -v -x "$TAG" | tail -1)
+
+          if [[ -z "$PREV" ]]; then
+            echo "::notice::No previous minor release found; using full history."
+            RANGE="$TAG"
+          else
+            RANGE="$PREV..$TAG"
+          fi
+          echo "prev=$PREV" >> "$GITHUB_OUTPUT"
+          echo "range=$RANGE" >> "$GITHUB_OUTPUT"
+
+          # Collect the commit log for the range into a file for the model.
+          git log --no-merges --pretty=format:'- %s (%h)' $RANGE > changes.txt
+          echo "Collected $(wc -l < changes.txt) commits for range $RANGE"
+
+      - name: Install OpenCode CLI
+        if: steps.check.outputs.should_run == 'true'
+        run: npm install -g opencode-ai
+
+      - name: Configure OpenCode for mittwald-hosted models
+        if: steps.check.outputs.should_run == 'true'
+        run: |
+          mkdir -p ~/.config/opencode
+          # apiKey is resolved at runtime from the environment via {env:...},
+          # so the secret is never written to disk.
+          cat > ~/.config/opencode/opencode.json <<'EOF'
+          {
+            "$schema": "https://opencode.ai/config.json",
+            "provider": {
+              "mittwald": {
+                "npm": "@ai-sdk/openai-compatible",
+                "name": "mittwald AI",
+                "options": {
+                  "baseURL": "https://llm.aihosting.mittwald.de/v1",
+                  "apiKey": "{env:MITTWALD_AI_API_KEY}"
+                },
+                "models": {
+                  "Ministral-3-14B-Instruct-2512": {
+                    "name": "Ministral-3-14B-Instruct-2512"
+                  }
+                }
+              }
+            }
+          }
+          EOF
+
+      - name: Summarize changes with OpenCode
+        if: steps.check.outputs.should_run == 'true'
+        id: summarize
+        env:
+          MITTWALD_AI_API_KEY: ${{ secrets.MITTWALD_AI_API_KEY }}
+        run: |
+          TAG="${{ steps.check.outputs.tag }}"
+          PREV="${{ steps.changes.outputs.prev }}"
+
+          PROMPT="You are writing a release announcement for the mittwald CLI (command 'mw').
+          Below is the git commit log for release ${TAG}${PREV:+ (changes since ${PREV})}.
+          Write a short, friendly release note aimed at users, suitable for posting in Discord.
+          Rules:
+          - Use GitHub-flavored Markdown and a few tasteful emoji.
+          - Group related changes into a handful of bullet points; focus on user-facing highlights.
+          - Skip pure dependency bumps, chores and internal refactors unless notable.
+          - No preamble, no heading with the version (that is added separately), max ~1200 characters.
+
+          Commit log:
+          $(cat changes.txt)"
+
+          # 'opencode run' executes a single non-interactive prompt and prints the response.
+          opencode run -m mittwald/Ministral-3-14B-Instruct-2512 "$PROMPT" > note.md
+
+          echo "----- Generated note -----"
+          cat note.md
+
+      - name: Publish to Discord
+        if: steps.check.outputs.should_run == 'true'
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          TAG="${{ steps.check.outputs.tag }}"
+          REPO="${{ github.repository }}"
+          RELEASE_URL="https://github.com/${REPO}/releases/tag/${TAG}"
+
+          # Discord embed descriptions are capped at 4096 chars; trim defensively.
+          NOTE=$(head -c 4000 note.md)
+
+          PAYLOAD=$(jq -n \
+            --arg title "🚀 mittwald CLI ${TAG} released" \
+            --arg desc "$NOTE" \
+            --arg url "$RELEASE_URL" \
+            '{
+              embeds: [
+                {
+                  title: $title,
+                  url: $url,
+                  description: $desc,
+                  color: 3066993
+                }
+              ]
+            }')
+
+          curl -fsSL -X POST \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
+            "$DISCORD_WEBHOOK_URL"
