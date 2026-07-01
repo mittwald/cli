@@ -10,8 +10,7 @@ import { SSHConnectionFlags } from "./flags.js";
 export type RunTarget = { appInstallationId: string } | { projectId: string };
 
 export type RunCommand =
-  | { command: string; args: string[] }
-  | { shell: string };
+  { command: string; args: string[] } | { shell: string };
 
 export interface RunIO {
   input: NodeJS.ReadableStream | null;

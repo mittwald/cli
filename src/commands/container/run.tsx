@@ -290,8 +290,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
    *   limits are specified
    */
   private buildDeployResources():
-    | { resources: { limits: { cpus?: string; memory?: string } } }
-    | undefined {
+    { resources: { limits: { cpus?: string; memory?: string } } } | undefined {
     if (!this.flags.cpus && !this.flags.memory) {
       return undefined;
     }
