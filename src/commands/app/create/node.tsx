@@ -8,7 +8,7 @@ import {
 export const nodeInstaller = new AppInstaller(
   "3e7f920b-a711-4d2f-9871-661e1b41a2f0",
   "custom Node.js",
-  ["site-title", "entrypoint"] as const,
+  ["site-title", "entrypoint", "set"] as const,
 );
 
 nodeInstaller.mutateFlags = (flags) => {
@@ -21,6 +21,12 @@ export default class InstallNode extends ExecRenderBaseCommand<
 > {
   static description = nodeInstaller.description;
   static flags = nodeInstaller.flags;
+  static examples = [
+    {
+      description: "Create a Node.js app pinned to the latest 18.x release",
+      command: "<%= config.bin %> <%= command.id %> --set node=~18",
+    },
+  ];
 
   protected async exec() {
     return nodeInstaller.exec(

@@ -68,6 +68,7 @@ type AvailableFlags = typeof waitFlags & {
   "opensearch-port": OptionFlag<string>;
   entrypoint: OptionFlag<string | undefined>;
   "update-context": BooleanFlag<boolean>;
+  set: OptionFlag<string[] | undefined>;
 };
 
 function buildFlagsWithDescription(appName: string): AvailableFlags {
@@ -200,6 +201,14 @@ function buildFlagsWithDescription(appName: string): AvailableFlags {
       char: "c",
       required: false,
       default: false,
+    }),
+    set: Flags.string({
+      required: false,
+      multiple: true,
+      summary: `pin a system software (such as the ${appName} runtime) to a specific version.`,
+      description: `The format is <dependency>=<version>, where <dependency> is the name of the system software (use the "<%= config.bin %> app dependency list" command to get a list of available dependencies) and <version> is a semver constraint.
+      If unspecified, the newest available version of each system software is used. This flag may be specified multiple times to pin multiple dependencies.`,
+      default: undefined,
     }),
     ...waitFlags,
   };

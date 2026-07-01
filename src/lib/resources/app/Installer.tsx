@@ -8,7 +8,12 @@ import {
   RelevantFlagInput,
 } from "./flags.js";
 import { normalizeToAppVersionUuid } from "./versions.js";
+import {
+  resolveSystemSoftwareUpdates,
+  SystemSoftwareUpdateMap,
+} from "./dependencies.js";
 import { triggerAppInstallation } from "./install.js";
+import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { waitUntilAppStateHasNormalized } from "./wait.js";
 import { Success } from "../../../rendering/react/components/Success.js";
 import AppUsageHints from "../../../rendering/react/components/AppInstallation/AppUsageHints.js";
@@ -111,12 +116,19 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
       this.appId,
     );
 
+    const systemSoftware = await this.resolveSystemSoftware(
+      apiClient,
+      process,
+      flags,
+    );
+
     const appInstallation = await triggerAppInstallation(
       apiClient,
       process,
       projectId,
       flags,
       appVersion,
+      systemSoftware,
     );
 
     let successText: string;
@@ -149,6 +161,25 @@ export class AppInstaller<TFlagName extends AvailableFlagName> {
           ? flags.host
           : undefined,
     };
+  }
+
+  private async resolveSystemSoftware(
+    apiClient: MittwaldAPIV2Client,
+    process: ProcessRenderer,
+    flags: OutputFlags<RelevantFlagInput<(TFlagName | ImplicitDefaultFlag)[]>>,
+  ): Promise<SystemSoftwareUpdateMap | undefined> {
+    const specs =
+      "set" in flags && Array.isArray(flags.set) ? (flags.set as string[]) : [];
+    if (specs.length === 0) {
+      return undefined;
+    }
+
+    return resolveSystemSoftwareUpdates(
+      apiClient,
+      process,
+      specs,
+      "patchLevel",
+    );
   }
 
   public render(
