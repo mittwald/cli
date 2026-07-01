@@ -2,7 +2,7 @@ import { ContextMap, ContextValueSource } from "./Context.js";
 import { cwd } from "process";
 import path from "path";
 import fs from "fs/promises";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import { DDEVConfig } from "../ddev/config.js";
 import { assertStatus, MittwaldAPIV2Client } from "@mittwald/api-client";
 import ContextProvider from "./ContextProvider.js";
@@ -40,7 +40,7 @@ export default class DDEVContextProvider implements ContextProvider {
     for (const config of configs) {
       const configPath = path.join(ddevConfigDir, config);
       const contents = await fs.readFile(configPath, "utf-8");
-      const parsed = yaml.load(contents) as Partial<DDEVConfig>;
+      const parsed = load(contents) as Partial<DDEVConfig>;
       const source = { type: "ddev", identifier: configPath };
 
       for (const env of parsed.web_environment ?? []) {
