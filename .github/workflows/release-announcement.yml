@@ -7,7 +7,8 @@ on:
   workflow_call:
     secrets:
       MITTWALD_AI_API_KEY:
-        description: API key for the mittwald AI hosting (OpenAI-compatible) endpoint.
+        description:
+          API key for the mittwald AI hosting (OpenAI-compatible) endpoint.
         required: true
       DISCORD_WEBHOOK_URL:
         description: Discord webhook URL the release note is posted to.
