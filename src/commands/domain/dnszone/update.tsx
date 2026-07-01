@@ -89,11 +89,7 @@ export default class Update extends ExecRenderBaseCommand<
       this.config,
     );
     const recordSet = this.args["record-set"] as
-      | "a"
-      | "mx"
-      | "txt"
-      | "srv"
-      | "cname";
+      "a" | "mx" | "txt" | "srv" | "cname";
     const { managed, unset, ttl, record = [] } = this.flags;
 
     const settings = {

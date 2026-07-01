@@ -21,11 +21,7 @@ type AppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
 type AppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 
 type ImplicitDefaultFlag =
-  | "wait"
-  | "wait-timeout"
-  | "site-title"
-  | "install-path"
-  | "update-context";
+  "wait" | "wait-timeout" | "site-title" | "install-path" | "update-context";
 
 export interface AppInstallationResult {
   appInstallation: AppInstallation;
