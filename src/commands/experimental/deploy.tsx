@@ -21,6 +21,8 @@ import {
   localDockerPush,
   deployService,
   createAndWaitForDomain,
+  DEFAULT_IMAGE_NAME,
+  DEFAULT_IMAGE_TAG,
 } from "@mittwald/container-deploy";
 
 type Result = {
@@ -56,17 +58,44 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       required: false,
       default: "webapp",
     }),
+    "service-name": Flags.string({
+      summary: "name of the container service to deploy",
+      description:
+        "Set this to run multiple parallel deployments in the same project. Defaults to 'app-<project-id>'.",
+      required: false,
+    }),
+    "image-name": Flags.string({
+      summary: "name of the Docker image to build and push",
+      description: `Defaults to '${DEFAULT_IMAGE_NAME}'.`,
+      required: false,
+    }),
+    "image-tag": Flags.string({
+      summary: "tag of the Docker image to build and push",
+      description: `Defaults to '${DEFAULT_IMAGE_TAG}'.`,
+      required: false,
+    }),
   };
   static args = {};
   static examples = [
-    "Deploy from current directory (auto-detects or creates Dockerfile):",
-    "  $ mw deploy",
-    "",
-    "Deploy with explicit project context:",
-    "  $ mw deploy --project-id p-abc123",
-    "",
-    "Deploy with custom default domain prefix:",
-    "  $ mw deploy --uri-prefix myapp",
+    {
+      description:
+        "Deploy from current directory (auto-detects or creates Dockerfile)",
+      command: "$ <%= config.bin %> <%= command.id %>",
+    },
+    {
+      description: "Deploy with explicit project context",
+      command: "<%= config.bin %> <%= command.id %> --project-id p-abc123",
+    },
+    {
+      description: "Deploy with custom default domain prefix",
+      command: "<%= config.bin %> <%= command.id %> --uri-prefix myapp",
+    },
+    {
+      description:
+        "Deploy a second, parallel service with a custom image and service name",
+      command:
+        "<%= config.bin %> <%= command.id %> --service-name my-feature --image-name my-app --image-tag feature",
+    },
   ];
 
   protected async exec(): Promise<Result> {
@@ -119,7 +148,10 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     const builtImage = await p.runStep(
       "Building Docker image ...",
       async () => {
-        const result = await buildDockerImage(registryData, repositoryData);
+        const result = await buildDockerImage(registryData, repositoryData, {
+          name: this.flags["image-name"],
+          tag: this.flags["image-tag"],
+        });
         p.addInfo(`Built image ${result.imageName}`);
         return result;
       },
@@ -137,6 +169,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         repositoryData,
         this.flags["wait-timeout"],
         environment,
+        this.flags["service-name"],
       );
       deployedServiceId = result.deployedServiceId;
       p.addInfo(`Service ${result.serviceName} is now running`);

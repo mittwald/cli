@@ -12,7 +12,7 @@ Deploys a new container.
 ```
 USAGE
   $ mw experimental deploy [--token <value>] [-q] [-p <value>] [-w] [--wait-timeout <value>] [-e <value>...] [--env-file
-    <value>...] [--uri-prefix <value>]
+    <value>...] [--uri-prefix <value>] [--service-name <value>] [--image-name <value>] [--image-tag <value>]
 
 FLAGS
   -e, --env=<value>...        set environment variables in the container
@@ -21,6 +21,9 @@ FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --env-file=<value>...   read environment variables from a file
+      --image-name=<value>    name of the Docker image to build and push
+      --image-tag=<value>     tag of the Docker image to build and push
+      --service-name=<value>  name of the container service to deploy
       --uri-prefix=<value>    [default: webapp] prefix for the generated default domain
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
@@ -30,21 +33,21 @@ AUTHENTICATION FLAGS
                    tokens passed via this flag might be logged in your shell history.
 
 EXAMPLES
-  Deploy from current directory (auto-detects or creates Dockerfile):
+  Deploy from current directory (auto-detects or creates Dockerfile)
 
-    $ mw deploy
+    $ mw experimental deploy
 
+  Deploy with explicit project context
 
+    $ mw experimental deploy --project-id p-abc123
 
-  Deploy with explicit project context:
+  Deploy with custom default domain prefix
 
-    $ mw deploy --project-id p-abc123
+    $ mw experimental deploy --uri-prefix myapp
 
+  Deploy a second, parallel service with a custom image and service name
 
-
-  Deploy with custom default domain prefix:
-
-    $ mw deploy --uri-prefix myapp
+    $ mw experimental deploy --service-name my-feature --image-name my-app --image-tag feature
 
 FLAG DESCRIPTIONS
   -e, --env=<value>...  set environment variables in the container
@@ -65,6 +68,18 @@ FLAG DESCRIPTIONS
 
     The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file
     flags.
+
+  --image-name=<value>  name of the Docker image to build and push
+
+    Defaults to 'app-image'.
+
+  --image-tag=<value>  tag of the Docker image to build and push
+
+    Defaults to 'latest'.
+
+  --service-name=<value>  name of the container service to deploy
+
+    Set this to run multiple parallel deployments in the same project. Defaults to 'app-<project-id>'.
 
   --uri-prefix=<value>  prefix for the generated default domain
 
