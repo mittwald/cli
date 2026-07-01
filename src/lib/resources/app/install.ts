@@ -1,6 +1,7 @@
 import { assertStatus } from "@mittwald/api-client-commons";
 import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
+import { SystemSoftwareUpdateMap } from "./dependencies.js";
 
 type AppAppInstallation = MittwaldAPIV2.Components.Schemas.AppAppInstallation;
 type AppAppVersion = MittwaldAPIV2.Components.Schemas.AppAppVersion;
@@ -17,6 +18,7 @@ export async function triggerAppInstallation(
     [k: string]: unknown;
   },
   appVersion: AppAppVersion,
+  systemSoftware?: SystemSoftwareUpdateMap,
 ): Promise<AppAppInstallation> {
   const appInstallationId = await process.runStep(
     "starting installation",
@@ -28,6 +30,7 @@ export async function triggerAppInstallation(
           description: flags["site-title"],
           updatePolicy: "none",
           installationPath: flags["install-path"],
+          systemSoftware,
           userInputs: Object.keys(flags)
             // skip non-scalar flags (such as the multi-valued "set" flag),
             // which are not valid user inputs

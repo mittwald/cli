@@ -15,24 +15,26 @@ type SystemSoftwareUpdate = {
   updatePolicy: AppSystemSoftwareUpdatePolicy;
 };
 
+/** A map of system-software id to the version it should be pinned to. */
+export type SystemSoftwareUpdateMap = Record<string, SystemSoftwareUpdate>;
+
 /**
- * Updates the system-software dependencies of an app installation.
+ * Resolves a list of `<dependency>=<version>` specifications into a map of
+ * system-software id to the concrete version it should be pinned to.
  *
- * Each entry in `set` is a `<dependency>=<version>` specification, where
  * `<dependency>` is the name of a system software (e.g. `php`) and `<version>`
  * is a semver constraint (e.g. `~8.3`). For each spec, the matching available
- * version is resolved and the installation is patched accordingly.
+ * version is resolved.
  */
-export async function updateAppDependencies(
+export async function resolveSystemSoftwareUpdates(
   apiClient: MittwaldAPIV2Client,
   process: ProcessRenderer,
-  appInstallationId: string,
   set: string[],
   updatePolicy: AppSystemSoftwareUpdatePolicy,
-): Promise<void> {
+): Promise<SystemSoftwareUpdateMap> {
   const systemSoftwares = await listSystemSoftwares(apiClient, process);
 
-  const versionsToUpdate: Record<string, SystemSoftwareUpdate> = {};
+  const updates: SystemSoftwareUpdateMap = {};
   for (const spec of set) {
     const { name, versionSpec } = parseDependencySpec(spec);
     const systemSoftware = findSystemSoftware(systemSoftwares, name);
@@ -43,17 +45,39 @@ export async function updateAppDependencies(
       versionSpec,
     );
 
-    versionsToUpdate[systemSoftware.id] = {
+    updates[systemSoftware.id] = {
       systemSoftwareVersion: version.id,
       updatePolicy,
     };
   }
 
+  return updates;
+}
+
+/**
+ * Updates the system-software dependencies of an existing app installation by
+ * resolving the given specifications and patching the installation
+ * accordingly.
+ */
+export async function updateAppDependencies(
+  apiClient: MittwaldAPIV2Client,
+  process: ProcessRenderer,
+  appInstallationId: string,
+  set: string[],
+  updatePolicy: AppSystemSoftwareUpdatePolicy,
+): Promise<void> {
+  const updates = await resolveSystemSoftwareUpdates(
+    apiClient,
+    process,
+    set,
+    updatePolicy,
+  );
+
   await patchSystemSoftwareVersions(
     apiClient,
     process,
     appInstallationId,
-    versionsToUpdate,
+    updates,
   );
 }
 
@@ -173,13 +197,13 @@ async function patchSystemSoftwareVersions(
   apiClient: MittwaldAPIV2Client,
   process: ProcessRenderer,
   appInstallationId: string,
-  versionsToUpdate: Record<string, SystemSoftwareUpdate>,
+  updates: SystemSoftwareUpdateMap,
 ): Promise<void> {
   await process.runStep("updating app dependencies", async () => {
     const r = await apiClient.app.patchAppinstallation({
       appInstallationId,
       data: {
-        systemSoftware: versionsToUpdate,
+        systemSoftware: updates,
       },
     });
 

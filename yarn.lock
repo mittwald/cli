@@ -2196,8 +2196,8 @@ __metadata:
   linkType: hard
 
 "@mittwald/api-client-commons@npm:^4.400.0":
-  version: 4.400.0
-  resolution: "@mittwald/api-client-commons@npm:4.400.0"
+  version: 4.401.0
+  resolution: "@mittwald/api-client-commons@npm:4.401.0"
   dependencies:
     "@types/parse-path": ^7.0.3
     axios: ^1.15.2
@@ -2211,11 +2211,11 @@ __metadata:
       optional: true
     "@mittwald/react-use-promise":
       optional: true
-  checksum: b23aaf2c76a50ed5fc9c859f6f655dcffed26d2d9657dc4c6b5785c3a2fde1197ad01bf4ae6027c20f92cb7a76c364c5105f48947da1df6c985625330558e04b
+  checksum: c23c7d3908d398991fb9362d5452104848f797b42c39b2bfde405f6f9025c494b8ed21fae0ce7eed23b35407e5083eabe57039052262657bd09fa8a4cca5d138
   languageName: node
   linkType: hard
 
-"@mittwald/api-client@npm:^4.331.0":
+"@mittwald/api-client@npm:^4.400.0":
   version: 4.400.0
   resolution: "@mittwald/api-client@npm:4.400.0"
   dependencies:
@@ -2236,7 +2236,7 @@ __metadata:
   dependencies:
     "@eslint/js": ^10.0.1
     "@jest/globals": ^30.0.4
-    "@mittwald/api-client": ^4.331.0
+    "@mittwald/api-client": ^4.400.0
     "@mittwald/container-deploy": ^1.3.0
     "@mittwald/react-use-promise": ^2.6.0
     "@oclif/core": ^4.0.18
