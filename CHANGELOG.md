@@ -1,3 +1,16 @@
+# [1.19.0](https://github.com/mittwald/cli/compare/v1.18.0...v1.19.0) (2026-07-01)
+
+
+### Bug Fixes
+
+* **project:** handle inaccessible customer in project get ([#1956](https://github.com/mittwald/cli/issues/1956)) ([203a95b](https://github.com/mittwald/cli/commit/203a95b9765d3d1ac8d85dc13ac2c38ab703c014))
+
+
+### Features
+
+* **app:** allow pinning system-software versions on app create ([#1954](https://github.com/mittwald/cli/issues/1954)) ([5bd527b](https://github.com/mittwald/cli/commit/5bd527b95d8f2ff0310256f61753d8bb8b9e2e1e))
+* **experimental/deploy:** make image and service name configurable ([#1962](https://github.com/mittwald/cli/issues/1962)) ([47ba831](https://github.com/mittwald/cli/commit/47ba8310baaac8743c03fc5fb6179574a10256a4)), closes [#1960](https://github.com/mittwald/cli/issues/1960)
+
 # [1.18.0](https://github.com/mittwald/cli/compare/v1.17.2...v1.18.0) (2026-06-25)
 
 
