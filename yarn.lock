@@ -7394,25 +7394,25 @@ __metadata:
   linkType: hard
 
 "js-yaml@npm:^3.10.0, js-yaml@npm:^3.13.1":
-  version: 3.14.2
-  resolution: "js-yaml@npm:3.14.2"
+  version: 3.15.0
+  resolution: "js-yaml@npm:3.15.0"
   dependencies:
     argparse: ^1.0.7
     esprima: ^4.0.0
   bin:
     js-yaml: bin/js-yaml.js
-  checksum: 626fc207734a3452d6ba84e1c8c226240e6d431426ed94d0ab043c50926d97c509629c08b1d636f5d27815833b7cfd225865631da9fb33cb957374490bf3e90b
+  checksum: 0209830c3ce51cec4c2cefee4b2b68c547b56b36920004efbf7c6a91ae7eee784bf64341738ef1acffa975d16e7882e9b69234b9a4411f455b72b33d4d74771e
   languageName: node
   linkType: hard
 
 "js-yaml@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "js-yaml@npm:5.2.0"
+  version: 5.2.1
+  resolution: "js-yaml@npm:5.2.1"
   dependencies:
     argparse: ^2.0.1
   bin:
     js-yaml: bin/js-yaml.mjs
-  checksum: 2a524de6aa50ac467b24e6dc6f6e0b302a5e11cded4ab6fbc948e679c06d0b65bb468f9de9fcd1fe97c45eccebcc5c68cf379480b1304166c145802a8ffeaae3
+  checksum: 8cbefb87c31db3fc177ce5ecf92c072d124be9247f1164ea50cb446d56037d3f4c086a4167cd127f20bb2b4281d9c64d051a8e148f8f4c841c074d3b06492bcf
   languageName: node
   linkType: hard
 
