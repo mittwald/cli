@@ -8,7 +8,15 @@ import {
 import { Success } from "../../../rendering/react/components/Success.js";
 import assertSuccess from "../../../lib/apiutil/assert_success.js";
 import { appInstallationArgs } from "../../../lib/resources/app/flags.js";
-import { adminUserIdFlag } from "../../../lib/resources/app/database/flags.js";
+import { getAppInstallationFromUuid } from "../../../lib/resources/app/uuid.js";
+import {
+  adminUserIdFlag,
+  databasePurposeSelectorFlag,
+} from "../../../lib/resources/app/database/flags.js";
+import {
+  resolveDatabaseId,
+  selectLinkedDatabase,
+} from "../../../lib/resources/app/database/lookup.js";
 
 export default class Replace extends ExecRenderBaseCommand<
   typeof Replace,
@@ -16,13 +24,13 @@ export default class Replace extends ExecRenderBaseCommand<
 > {
   static summary = "Replace the database linked to an app installation.";
   static description =
-    "Replaces a database that is currently linked to an app installation with another one, keeping the same purpose.";
+    "Replaces the database that is currently linked to an app installation with another one, keeping the same purpose. The currently linked database is determined automatically.";
 
   static examples = [
     {
       description: "Replace the linked database of an app installation",
       command:
-        "<%= config.bin %> <%= command.id %> a-XXXXXX --old-database-id d-OLDXXX --new-database-id d-NEWXXX --admin-user-id dbu-XXXXXX",
+        "<%= config.bin %> <%= command.id %> a-XXXXXX --new-database-id my-new-database --admin-user-id dbu-XXXXXX",
     },
   ];
 
@@ -32,16 +40,11 @@ export default class Replace extends ExecRenderBaseCommand<
 
   static flags = {
     ...processFlags,
-    "old-database-id": Flags.string({
-      summary: "the ID of the database that is currently linked.",
-      description:
-        "The ID (UUID) of the database that is currently linked to the app installation and should be replaced.",
-      required: true,
-    }),
+    purpose: databasePurposeSelectorFlag,
     "new-database-id": Flags.string({
-      summary: "the ID of the database to link instead.",
+      summary: "the ID or name of the database to link instead.",
       description:
-        "The ID (UUID) of the database that should replace the currently linked database.",
+        "The ID (UUID) or name of the database that should replace the currently linked database. When a name is given, it is resolved against the databases of the app installation's project.",
       required: true,
     }),
     "admin-user-id": adminUserIdFlag,
@@ -55,10 +58,33 @@ export default class Replace extends ExecRenderBaseCommand<
 
     const appInstallationId = await this.withAppInstallationId(Replace);
     const {
-      "old-database-id": oldDatabaseId,
-      "new-database-id": newDatabaseId,
+      "new-database-id": newDatabaseIdentifier,
       "admin-user-id": adminUserId,
+      purpose,
     } = this.flags;
+
+    const { oldDatabaseId, newDatabaseId } = await process.runStep(
+      "resolving databases",
+      async () => {
+        const appInstallation = await getAppInstallationFromUuid(
+          this.apiClient,
+          appInstallationId,
+        );
+        const linkedDatabase = selectLinkedDatabase(
+          appInstallation.linkedDatabases,
+          purpose,
+        );
+        const resolvedNewDatabaseId = await resolveDatabaseId(
+          this.apiClient,
+          appInstallation.projectId,
+          newDatabaseIdentifier,
+        );
+        return {
+          oldDatabaseId: linkedDatabase.databaseId,
+          newDatabaseId: resolvedNewDatabaseId,
+        };
+      },
+    );
 
     await process.runStep("replacing database", async () => {
       const response = await this.apiClient.app.replaceDatabase({

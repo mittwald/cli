@@ -1,19 +1,20 @@
-import { Flags } from "@oclif/core";
 import { DeleteBaseCommand } from "../../../lib/basecommands/DeleteBaseCommand.js";
 import assertSuccess from "../../../lib/apiutil/assert_success.js";
 import { appInstallationArgs } from "../../../lib/resources/app/flags.js";
+import { getAppInstallationFromUuid } from "../../../lib/resources/app/uuid.js";
+import { databasePurposeSelectorFlag } from "../../../lib/resources/app/database/flags.js";
+import { selectLinkedDatabase } from "../../../lib/resources/app/database/lookup.js";
 
 export default class Unlink extends DeleteBaseCommand<typeof Unlink> {
   static summary = "Unlink a database from an app installation.";
   static description =
-    "Removes the linkage between an app installation and a database. The database itself is not deleted.";
+    "Removes the linkage between an app installation and its database. The currently linked database is determined automatically; the database itself is not deleted.";
   static resourceName = "database link";
 
   static examples = [
     {
-      description: "Unlink a database from an app installation",
-      command:
-        "<%= config.bin %> <%= command.id %> a-XXXXXX --database-id d-XXXXXX",
+      description: "Unlink the database from an app installation",
+      command: "<%= config.bin %> <%= command.id %> a-XXXXXX",
     },
   ];
 
@@ -23,19 +24,23 @@ export default class Unlink extends DeleteBaseCommand<typeof Unlink> {
 
   static flags = {
     ...DeleteBaseCommand.baseFlags,
-    "database-id": Flags.string({
-      summary: "the ID of the database to unlink from the app installation.",
-      description:
-        "The ID (UUID) of the database that should be unlinked from the app installation.",
-      required: true,
-    }),
+    purpose: databasePurposeSelectorFlag,
   };
 
   protected async deleteResource(): Promise<void> {
     const appInstallationId = await this.withAppInstallationId(Unlink);
+    const appInstallation = await getAppInstallationFromUuid(
+      this.apiClient,
+      appInstallationId,
+    );
+    const linkedDatabase = selectLinkedDatabase(
+      appInstallation.linkedDatabases,
+      this.flags.purpose,
+    );
+
     const response = await this.apiClient.app.unlinkDatabase({
       appInstallationId,
-      databaseId: this.flags["database-id"],
+      databaseId: linkedDatabase.databaseId,
     });
 
     assertSuccess(response);

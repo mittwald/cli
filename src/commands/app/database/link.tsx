@@ -8,10 +8,12 @@ import {
 import { Success } from "../../../rendering/react/components/Success.js";
 import assertSuccess from "../../../lib/apiutil/assert_success.js";
 import { appInstallationArgs } from "../../../lib/resources/app/flags.js";
+import { getAppInstallationFromUuid } from "../../../lib/resources/app/uuid.js";
 import {
   adminUserIdFlag,
   databasePurposeFlag,
 } from "../../../lib/resources/app/database/flags.js";
+import { resolveDatabaseId } from "../../../lib/resources/app/database/lookup.js";
 
 export default class Link extends ExecRenderBaseCommand<typeof Link, void> {
   static summary = "Link a database to an app installation.";
@@ -22,7 +24,7 @@ export default class Link extends ExecRenderBaseCommand<typeof Link, void> {
     {
       description: "Link a database as the primary database of an app",
       command:
-        "<%= config.bin %> <%= command.id %> a-XXXXXX --database-id d-XXXXXX --admin-user-id dbu-XXXXXX",
+        "<%= config.bin %> <%= command.id %> a-XXXXXX --database-id my-database --admin-user-id dbu-XXXXXX",
     },
   ];
 
@@ -33,9 +35,10 @@ export default class Link extends ExecRenderBaseCommand<typeof Link, void> {
   static flags = {
     ...processFlags,
     "database-id": Flags.string({
-      summary: "the ID of the database to link to the app installation.",
+      summary:
+        "the ID or name of the database to link to the app installation.",
       description:
-        "The ID (UUID) of an existing database that should be linked to the app installation.",
+        "The ID (UUID) or name of an existing database that should be linked to the app installation. When a name is given, it is resolved against the databases of the app installation's project.",
       required: true,
     }),
     purpose: databasePurposeFlag,
@@ -50,10 +53,22 @@ export default class Link extends ExecRenderBaseCommand<typeof Link, void> {
 
     const appInstallationId = await this.withAppInstallationId(Link);
     const {
-      "database-id": databaseId,
+      "database-id": databaseIdentifier,
       purpose,
       "admin-user-id": adminUserId,
     } = this.flags;
+
+    const databaseId = await process.runStep("resolving database", async () => {
+      const appInstallation = await getAppInstallationFromUuid(
+        this.apiClient,
+        appInstallationId,
+      );
+      return resolveDatabaseId(
+        this.apiClient,
+        appInstallation.projectId,
+        databaseIdentifier,
+      );
+    });
 
     await process.runStep("linking database", async () => {
       const response = await this.apiClient.app.linkDatabase({

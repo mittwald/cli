@@ -9,9 +9,17 @@ export const databasePurposeFlag = Flags.string({
   required: true,
 });
 
+export const databasePurposeSelectorFlag = Flags.string({
+  summary: "the purpose of the linked database to act on.",
+  description:
+    "Selects which linked database to act on by its purpose ('primary', 'cache' or 'custom'). Only needed when the app installation has more than one linked database.",
+  options: ["primary", "cache", "custom"],
+  required: false,
+});
+
 export const adminUserIdFlag = Flags.string({
   summary: "the ID of the database user to link as the administrative user.",
   description:
-    "The ID of the database user that should be used as the administrative ('admin') user for the linked database. This is required by the API even though it is not marked as such in the API schema.",
+    "The ID of the database user that should be used as the administrative ('admin') user for the linked database.",
   required: true,
 });
