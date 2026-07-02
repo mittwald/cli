@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/mittwald/cli/compare/v1.19.0...v1.20.0) (2026-07-02)
+
+
+### Features
+
+* **domain:** add command to update a virtual host's paths ([#1953](https://github.com/mittwald/cli/issues/1953)) ([996c5be](https://github.com/mittwald/cli/commit/996c5be0d66eee700d228351b1a54530167b6fe9))
+
 # [1.19.0](https://github.com/mittwald/cli/compare/v1.18.0...v1.19.0) (2026-07-01)
 
 
