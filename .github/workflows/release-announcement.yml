@@ -46,31 +46,6 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Determine previous minor release and collect changes
-        if: steps.check.outputs.should_run == 'true'
-        id: changes
-        run: |
-          TAG="${{ steps.check.outputs.tag }}"
-
-          # All stable minor/major tags, sorted ascending by version.
-          MINORS=$(git tag --list 'v*' | grep -E '^v[0-9]+\.[0-9]+\.0$' | sort -V)
-
-          # The stable minor tag immediately preceding the current one.
-          PREV=$(echo "$MINORS" | grep -B1 -x "$TAG" | grep -v -x "$TAG" | tail -1)
-
-          if [[ -z "$PREV" ]]; then
-            echo "::notice::No previous minor release found; using full history."
-            RANGE="$TAG"
-          else
-            RANGE="$PREV..$TAG"
-          fi
-          echo "prev=$PREV" >> "$GITHUB_OUTPUT"
-          echo "range=$RANGE" >> "$GITHUB_OUTPUT"
-
-          # Collect the commit log for the range into a file for the model.
-          git log --no-merges --pretty=format:'- %s (%h)' $RANGE > changes.txt
-          echo "Collected $(wc -l < changes.txt) commits for range $RANGE"
-
       - name: Install OpenCode CLI
         if: steps.check.outputs.should_run == 'true'
         run: npm install -g opencode-ai
@@ -93,11 +68,18 @@ jobs:
                   "apiKey": "{env:MITTWALD_AI_API_KEY}"
                 },
                 "models": {
-                  "Ministral-3-14B-Instruct-2512": {
-                    "name": "Ministral-3-14B-Instruct-2512"
+                  "Mistral-Medium-3.5-128B": {
+                    "name": "mistral-medium-3.5"
                   }
                 }
               }
+            },
+            "permission": {
+              "skill": "allow",
+              "read": "allow",
+              "write": "allow",
+              "edit": "allow",
+              "bash": "allow"
             }
           }
           EOF
@@ -109,22 +91,17 @@ jobs:
           MITTWALD_AI_API_KEY: ${{ secrets.MITTWALD_AI_API_KEY }}
         run: |
           TAG="${{ steps.check.outputs.tag }}"
-          PREV="${{ steps.changes.outputs.prev }}"
 
-          PROMPT="You are writing a release announcement for the mittwald CLI (command 'mw').
-          Below is the git commit log for release ${TAG}${PREV:+ (changes since ${PREV})}.
-          Write a short, friendly release note aimed at users, suitable for posting in Discord.
-          Rules:
-          - Use GitHub-flavored Markdown and a few tasteful emoji.
-          - Group related changes into a handful of bullet points; focus on user-facing highlights.
-          - Skip pure dependency bumps, chores and internal refactors unless notable.
-          - No preamble, no heading with the version (that is added separately), max ~1200 characters.
+          # Make sure a stale note.md can't leak into the announcement.
+          rm -f note.md
 
-          Commit log:
-          $(cat changes.txt)"
+          # 'opencode run' executes a single non-interactive prompt.
+          opencode run -m mittwald/mistral-medium-3.5 "/release-note ${TAG}"
 
-          # 'opencode run' executes a single non-interactive prompt and prints the response.
-          opencode run -m mittwald/Ministral-3-14B-Instruct-2512 "$PROMPT" > note.md
+          if [[ ! -s note.md ]]; then
+            echo "::error::OpenCode did not produce a note.md file."
+            exit 1
+          fi
 
           echo "----- Generated note -----"
           cat note.md
