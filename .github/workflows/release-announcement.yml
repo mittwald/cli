@@ -96,7 +96,7 @@ jobs:
           rm -f note.md
 
           # 'opencode run' executes a single non-interactive prompt.
-          opencode run -m mittwald/mistral-medium-3.5 "/release-note ${TAG}"
+          opencode run "/release-note ${TAG}"
 
           if [[ ! -s note.md ]]; then
             echo "::error::OpenCode did not produce a note.md file."
