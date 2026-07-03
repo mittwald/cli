@@ -760,6 +760,8 @@ FLAG DESCRIPTIONS
   --admin-pass=<value>  password of your administrator user.
 
     The password that will be used for the first administrator user that is created during the Contao installation.
+    The password must satisfy the platform's password-complexity policy, which may vary depending on the application; a
+    password that is too weak (for example too short, or missing a mix of character types) may be rejected by the API.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
@@ -863,6 +865,8 @@ FLAG DESCRIPTIONS
   --admin-pass=<value>  password of your administrator user.
 
     The password that will be used for the first administrator user that is created during the Joomla! installation.
+    The password must satisfy the platform's password-complexity policy, which may vary depending on the application; a
+    password that is too weak (for example too short, or missing a mix of character types) may be rejected by the API.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
@@ -951,6 +955,8 @@ FLAG DESCRIPTIONS
   --admin-pass=<value>  password of your administrator user.
 
     The password that will be used for the first administrator user that is created during the Matomo installation.
+    The password must satisfy the platform's password-complexity policy, which may vary depending on the application; a
+    password that is too weak (for example too short, or missing a mix of character types) may be rejected by the API.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
@@ -1040,6 +1046,8 @@ FLAG DESCRIPTIONS
   --admin-pass=<value>  password of your administrator user.
 
     The password that will be used for the first administrator user that is created during the Nextcloud installation.
+    The password must satisfy the platform's password-complexity policy, which may vary depending on the application; a
+    password that is too weak (for example too short, or missing a mix of character types) may be rejected by the API.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
@@ -1148,6 +1156,8 @@ FLAG DESCRIPTIONS
   --admin-pass=<value>  password of your administrator user.
 
     The password that will be used for the first administrator user that is created during the Shopware 5 installation.
+    The password must satisfy the platform's password-complexity policy, which may vary depending on the application; a
+    password that is too weak (for example too short, or missing a mix of character types) may be rejected by the API.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
@@ -1273,6 +1283,8 @@ FLAG DESCRIPTIONS
   --admin-pass=<value>  password of your administrator user.
 
     The password that will be used for the first administrator user that is created during the Shopware 6 installation.
+    The password must satisfy the platform's password-complexity policy, which may vary depending on the application; a
+    password that is too weak (for example too short, or missing a mix of character types) may be rejected by the API.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
@@ -1380,6 +1392,8 @@ FLAG DESCRIPTIONS
   --admin-pass=<value>  password of your administrator user.
 
     The password that will be used for the first administrator user that is created during the TYPO3 installation.
+    The password must satisfy the platform's password-complexity policy, which may vary depending on the application; a
+    password that is too weak (for example too short, or missing a mix of character types) may be rejected by the API.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
@@ -1475,6 +1489,8 @@ FLAG DESCRIPTIONS
   --admin-pass=<value>  password of your administrator user.
 
     The password that will be used for the first administrator user that is created during the WordPress installation.
+    The password must satisfy the platform's password-complexity policy, which may vary depending on the application; a
+    password that is too weak (for example too short, or missing a mix of character types) may be rejected by the API.
     If unspecified, a random secure password will be generated and printed to stdout. This password can be changed after
     the installation is finished
 
