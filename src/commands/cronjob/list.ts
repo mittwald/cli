@@ -25,7 +25,10 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
   public async getData(): Promise<Response> {
     const projectId = await this.withProjectId(List);
-    return await this.apiClient.cronjob.listCronjobs({ projectId });
+    return await this.apiClient.cronjob.listCronjobs({
+      projectId,
+      queryParameters: { includeServiceCronjobs: true },
+    });
   }
 
   protected getColumns(data: ResponseItem[]): ListColumns<ResponseItem> {
