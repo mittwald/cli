@@ -1,3 +1,12 @@
+## [1.20.1](https://github.com/mittwald/cli/compare/v1.20.0...v1.20.1) (2026-07-03)
+
+
+### Bug Fixes
+
+* **cronjob:** include container (service) cronjobs in list ([#1981](https://github.com/mittwald/cli/issues/1981)) ([5c03091](https://github.com/mittwald/cli/commit/5c03091fd2083416716180b48c86580bb36c3153)), closes [#1980](https://github.com/mittwald/cli/issues/1980)
+* **cronjob:** render container cron jobs in "cronjob get" ([#1982](https://github.com/mittwald/cli/issues/1982)) ([97f5475](https://github.com/mittwald/cli/commit/97f5475982179aee8ffa3f478219ae95731dd289)), closes [#1981](https://github.com/mittwald/cli/issues/1981)
+* **release:** do not specify model explicitly when announcing release ([b21740f](https://github.com/mittwald/cli/commit/b21740f1cd95e99671ae30630ec6accb140790f8))
+
 # [1.20.0](https://github.com/mittwald/cli/compare/v1.19.0...v1.20.0) (2026-07-02)
 
 
