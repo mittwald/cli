@@ -9,9 +9,6 @@ import { useProject } from "../../../../lib/resources/project/hooks.js";
 import { useAppInstallation } from "../../../../lib/resources/app/hooks.js";
 import { FormattedDate } from "../FormattedDate.js";
 type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
-type CronjobCronjobUrl = MittwaldAPIV2.Components.Schemas.CronjobCronjobUrl;
-type CronjobCronjobCommand =
-  MittwaldAPIV2.Components.Schemas.CronjobCronjobCommand;
 type CronjobServiceTargetResponse =
   MittwaldAPIV2.Components.Schemas.CronjobServiceTargetResponse;
 
@@ -46,49 +43,48 @@ const CronJobAppTarget: FC<{ appInstallationId: string }> = ({
   return <IDAndShortID object={app} />;
 };
 
-const CronJobExecutionTargetContainer: FC<{
-  target: CronjobServiceTargetResponse;
-}> = ({ target }) => {
-  return (
-    <SingleResult
-      title="EXECUTION TARGET"
-      rows={{
-        Command: <Value>{target.command}</Value>,
-      }}
-    />
-  );
-};
+// Rows describing where and how the cron job is executed. For container cron
+// jobs this is the stack/container running the command; for app cron jobs it
+// is the app installation together with the invoked URL or command.
+const buildExecutionTargetRows = (
+  cronjob: CronjobCronjob,
+  serviceTarget: CronjobServiceTargetResponse | undefined,
+): Record<string, ReactNode> => {
+  if (serviceTarget) {
+    return {
+      Stack: <Value>{serviceTarget.stackId}</Value>,
+      Container: <Value>{serviceTarget.serviceShortId}</Value>,
+      Command: <Value>{serviceTarget.command}</Value>,
+    };
+  }
 
-const CronJobExecutionTargetURL: FC<{ dest: CronjobCronjobUrl }> = ({
-  dest,
-}) => {
-  return (
-    <SingleResult
-      title="EXECUTION TARGET"
-      rows={{
-        URL: <Value>{dest.url}</Value>,
-      }}
+  const app = (
+    <CronJobAppTarget
+      appInstallationId={cronjob.appInstallationId ?? cronjob.appId}
     />
   );
-};
 
-const CronJobExecutionTargetCommand: FC<{ command: CronjobCronjobCommand }> = ({
-  command,
-}) => {
-  return (
-    <SingleResult
-      title="EXECUTION TARGET"
-      rows={{
-        Interpreter: <Value>{command.interpreter}</Value>,
-        Script: <Value>{command.path}</Value>,
-        Parameters: command.parameters ? (
-          <Value>{command.parameters} </Value>
-        ) : (
-          <Value notSet />
-        ),
-      }}
-    />
-  );
+  const { destination } = cronjob;
+  if (destination && "url" in destination) {
+    return {
+      App: app,
+      URL: <Value>{destination.url}</Value>,
+    };
+  }
+  if (destination) {
+    return {
+      App: app,
+      Interpreter: <Value>{destination.interpreter}</Value>,
+      Script: <Value>{destination.path}</Value>,
+      Parameters: destination.parameters ? (
+        <Value>{destination.parameters} </Value>
+      ) : (
+        <Value notSet />
+      ),
+    };
+  }
+
+  return { App: app };
 };
 
 export const CronJobDetails: CronJobComponent = ({ cronjob }) => {
@@ -99,18 +95,6 @@ export const CronJobDetails: CronJobComponent = ({ cronjob }) => {
     "Cron Job ID": <IDAndShortID object={cronjob} />,
     "Created At": <CreatedAt object={cronjob} />,
     Project: project ? <IDAndShortID object={project} /> : <Value notSet />,
-    ...(serviceTarget
-      ? {
-          Stack: <Value>{serviceTarget.stackId}</Value>,
-          Container: <Value>{serviceTarget.serviceShortId}</Value>,
-        }
-      : {
-          App: (
-            <CronJobAppTarget
-              appInstallationId={cronjob.appInstallationId ?? cronjob.appId}
-            />
-          ),
-        }),
     Schedule: (
       <Text>
         <Value>{cronjob.interval}</Value> (next execution:{" "}
@@ -120,44 +104,20 @@ export const CronJobDetails: CronJobComponent = ({ cronjob }) => {
     Timezone: <Value>{cronjob.timeZone || "UTC"}</Value>,
   };
 
-  const sections = [
-    <SingleResult
-      key="primary"
-      title={
-        <>
-          CRON JOB DETAILS: <Value>{cronjob.description}</Value>
-        </>
-      }
-      rows={rows}
-    />,
-  ];
-
-  if (serviceTarget) {
-    sections.push(
-      <CronJobExecutionTargetContainer
-        key="destination"
-        target={serviceTarget}
-      />,
-    );
-  } else if (cronjob.destination && "url" in cronjob.destination) {
-    sections.push(
-      <CronJobExecutionTargetURL
-        key="destination"
-        dest={cronjob.destination}
-      />,
-    );
-  } else if (cronjob.destination) {
-    sections.push(
-      <CronJobExecutionTargetCommand
-        key="destination"
-        command={cronjob.destination}
-      />,
-    );
-  }
-
   return (
     <Box flexDirection="column" marginBottom={1}>
-      {sections}
+      <SingleResult
+        title={
+          <>
+            CRON JOB DETAILS: <Value>{cronjob.description}</Value>
+          </>
+        }
+        rows={rows}
+      />
+      <SingleResult
+        title="EXECUTION TARGET"
+        rows={buildExecutionTargetRows(cronjob, serviceTarget)}
+      />
     </Box>
   );
 };
