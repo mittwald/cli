@@ -1,3 +1,10 @@
+## [1.20.2](https://github.com/mittwald/cli/compare/v1.20.1...v1.20.2) (2026-07-07)
+
+
+### Bug Fixes
+
+* **project:** handle thrown 403 for inaccessible customer in project get ([#1988](https://github.com/mittwald/cli/issues/1988)) ([99f21a7](https://github.com/mittwald/cli/commit/99f21a733e27a1ab9d6f216fb8a43e430abf178e)), closes [#1956](https://github.com/mittwald/cli/issues/1956) [#1955](https://github.com/mittwald/cli/issues/1955)
+
 ## [1.20.1](https://github.com/mittwald/cli/compare/v1.20.0...v1.20.1) (2026-07-03)
 
 
