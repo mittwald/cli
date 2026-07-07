@@ -13,7 +13,7 @@ import { useRenderContext } from "../../rendering/react/context.js";
 import { usePromise } from "@mittwald/react-use-promise";
 import { ComponentPrinter } from "../../rendering/react/ComponentPrinter.js";
 import { RenderBaseCommand } from "../../lib/basecommands/RenderBaseCommand.js";
-import { assertStatus } from "@mittwald/api-client-commons";
+import { assertStatus, isAxiosError } from "@mittwald/api-client-commons";
 import { RenderJson } from "../../rendering/react/json/RenderJson.js";
 import Link from "ink-link";
 import { ProjectStatus } from "../../rendering/react/components/Project/ProjectStatus.js";
@@ -83,7 +83,21 @@ const ProjectCustomer: FC<{ customer: CustomerCustomer }> = ({ customer }) => {
 const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
   const { apiClient } = useRenderContext();
   const customer = usePromise(
-    (id) => apiClient.customer.getCustomer({ customerId: id }),
+    async (id) => {
+      try {
+        return await apiClient.customer.getCustomer({ customerId: id });
+      } catch (e) {
+        // The user might have access to the project, but not to the customer
+        // it belongs to. The API client is configured to throw on non-2xx
+        // responses (see api_retry.ts), so a 403 rejects here rather than
+        // returning a response. Swallow the permission error and fall back to
+        // displaying just the customer ID (see #1955).
+        if (isAxiosError(e) && e.response?.status === 403) {
+          return null;
+        }
+        throw e;
+      }
+    },
     [response.customerId],
   );
 
@@ -103,14 +117,13 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
     "Project ID": <IDAndShortID object={response} />,
     "Created At": <CreatedAt object={response} />,
     Status: <ProjectStatus project={response} />,
-    // The user might have access to the project, but not to the customer it
-    // belongs to. In that case, fall back to displaying just the customer ID
-    // instead of failing with a permission error (see #1955).
+    // Indicate missing access when the user can see the project but not the
+    // customer it belongs to (see the loader above and #1955).
     Customer:
-      customer.status === 200 ? (
+      customer && customer.status === 200 ? (
         <ProjectCustomer customer={customer.data} />
       ) : (
-        <Value>{response.customerId}</Value>
+        <Text color="gray">no access</Text>
       ),
   };
 
