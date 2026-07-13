@@ -1870,9 +1870,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mittwald/api-client-commons@npm:^4.409.0":
-  version: 4.409.0
-  resolution: "@mittwald/api-client-commons@npm:4.409.0"
+"@mittwald/api-client-commons@npm:^4.411.0":
+  version: 4.411.0
+  resolution: "@mittwald/api-client-commons@npm:4.411.0"
   dependencies:
     "@types/parse-path": ^7.0.3
     axios: ^1.15.2
@@ -1886,22 +1886,22 @@ __metadata:
       optional: true
     "@mittwald/react-use-promise":
       optional: true
-  checksum: 52ee047b32fcbcf9e0cf22a51d90ec9fbc84af21a89f51c7a5da371ee8a224138287a02bae0ce5be1412b2149cf1cd27c71adcb28566085b7561e8778ca41ef3
+  checksum: 6fc2c3ce531d3d0763d0b4255a64a9799e0d7525f480d32fc1a9a7e03ef312d9fb9a078a4bc327e77c0ab196daf225ef4c9d10168d38ce59f95b305b9bc7a012
   languageName: node
   linkType: hard
 
 "@mittwald/api-client@npm:^4.400.0":
-  version: 4.409.0
-  resolution: "@mittwald/api-client@npm:4.409.0"
+  version: 4.411.0
+  resolution: "@mittwald/api-client@npm:4.411.0"
   dependencies:
-    "@mittwald/api-client-commons": ^4.409.0
+    "@mittwald/api-client-commons": ^4.411.0
     browser-or-node: ^3.0.0
   peerDependencies:
     "@mittwald/react-use-promise": ^2.6.0
   peerDependenciesMeta:
     "@mittwald/react-use-promise":
       optional: true
-  checksum: eb0aa4323b4a6d9cc14bcd747db4b16f84ba73c2773648b40c8452ed707ea71e2666c27246584c589b4d0f5203f5da3fab1502475369dc9c109ce21234da1ee0
+  checksum: d71acecd60c0ba062b7a0d9a71d81062eb6253f2d2d38209a995a9db9916f1296ebdea45d1d780540a55969d295de919246373cf9d35a3086d05954ef64a1e96
   languageName: node
   linkType: hard
 
