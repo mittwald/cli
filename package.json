@@ -106,7 +106,7 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.7.1",
-    "typescript": "^6.0.2"
+    "typescript": "^7.0.2"
   },
   "oclif": {
     "bin": "mw",
