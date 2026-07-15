@@ -31,6 +31,13 @@ updates:
           - "eslint"
           - "@eslint/*"
           - "@typescript-eslint/*"
+    ignore:
+      # typescript 7 is the native (Go) port: the package ships only the tsgo
+      # binary and no longer exposes the JS compiler API. typescript-eslint
+      # (peer: <6.1.0) and ts-jest (peer: <7) both read that API and crash on
+      # it, so lint and unit tests break. Drop this once both support v7.
+      - dependency-name: "typescript"
+        versions: ["7.x"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
