@@ -7,6 +7,7 @@ import {
   getUpgradeCandidatesForVersion,
   compareVersions,
 } from "../../../lib/resources/database/mysql/versions.js";
+import { isUpgradeComplete } from "../../../lib/resources/database/mysql/upgrade.js";
 import {
   makeProcessRenderer,
   processFlags,
@@ -113,7 +114,12 @@ Upgrading a database is disruptive; the database will be unavailable while the u
     });
 
     if (this.flags.wait) {
-      await this.waitUntilUpgraded(p, mysqlDatabaseId, targetVersion);
+      await this.waitUntilUpgraded(
+        p,
+        mysqlDatabaseId,
+        targetVersion,
+        database.statusSetAt,
+      );
       await p.complete(
         <Success>
           The database <Value>{database.name}</Value> was upgraded to version{" "}
@@ -163,15 +169,11 @@ Upgrading a database is disruptive; the database will be unavailable while the u
     );
   }
 
-  /**
-   * The API reports a single `version` field rather than a current/desired
-   * pair, so the upgrade is considered done once the database reports the
-   * target version and has left the transitional states.
-   */
   private async waitUntilUpgraded(
     p: ProcessRenderer,
     mysqlDatabaseId: string,
     targetVersion: MySqlVersion,
+    statusSetAtBeforeUpgrade: string,
   ): Promise<void> {
     const step = p.addStep("waiting for the upgrade to complete");
 
@@ -182,9 +184,11 @@ Upgrading a database is disruptive; the database will be unavailable while the u
 
       if (
         response.status === 200 &&
-        response.data.version === targetVersion.number &&
-        response.data.status === "ready" &&
-        response.data.isReady
+        isUpgradeComplete(
+          response.data,
+          targetVersion.number,
+          statusSetAtBeforeUpgrade,
+        )
       ) {
         return response.data;
       }
