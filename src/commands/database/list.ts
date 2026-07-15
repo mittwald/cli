@@ -1,5 +1,5 @@
 import { assertStatus } from "@mittwald/api-client-commons";
-import { MittwaldAPIV2Client } from "@mittwald/api-client";
+import { MittwaldAPIV2, MittwaldAPIV2Client } from "@mittwald/api-client";
 import { ListColumns } from "../../rendering/formatter/Table.js";
 import { ListBaseCommand } from "../../lib/basecommands/ListBaseCommand.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
@@ -11,7 +11,7 @@ type ResponseItem = {
   version: string;
   description: string;
   hostname: string;
-  isReady: boolean;
+  status: MittwaldAPIV2.Components.Schemas.DatabaseDatabaseStatus;
   createdAt: string;
 };
 type Response = Awaited<
@@ -43,11 +43,7 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
 
     databases.push(
       ...mysqlResponse.data.map((d) => ({ ...d, kind: "mysql" as const })),
-      ...redisResponse.data.map((d) => ({
-        ...d,
-        kind: "redis" as const,
-        isReady: true,
-      })),
+      ...redisResponse.data.map((d) => ({ ...d, kind: "redis" as const })),
     );
 
     return databases;
@@ -80,12 +76,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       },
       status: {
         header: "Status",
-        get: (row) => {
-          if (!row.isReady) {
-            return "pending";
-          }
-          return "ready";
-        },
       },
       createdAt,
     };
