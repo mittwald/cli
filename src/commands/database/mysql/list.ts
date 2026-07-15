@@ -45,12 +45,6 @@ export class List extends ListBaseCommand<typeof List, ResponseItem, Response> {
       },
       status: {
         header: "Status",
-        get: (row) => {
-          if (!row.isReady) {
-            return "pending";
-          }
-          return "ready";
-        },
       },
       characterSet: {
         header: "Character Set",
