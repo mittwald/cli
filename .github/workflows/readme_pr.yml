@@ -19,7 +19,7 @@ jobs:
         with:
           token: ${{ secrets.MACHINE_USER_TOKEN }}
           fetch-tags: "true"
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 20
       - run: gh pr checkout ${{ github.event.pull_request.number }}
