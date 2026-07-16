@@ -34,8 +34,7 @@ describe("database:mysql:create", () => {
     nock.cleanAll();
   });
 
-  // Skipped, to be fixed later
-  it.skip("creates a database and prints database and user name", async () => {
+  it("creates a database and prints database and user name", async () => {
     const scope = nock("https://api.mittwald.de");
 
     scope.get(`/v2/projects/${projectId}`).reply(200, {
@@ -86,7 +85,7 @@ describe("database:mysql:create", () => {
   });
 
   // Skipped, to be fixed later
-  it.skip("retries fetching user until successful", async () => {
+  it("retries fetching user until successful", async () => {
     const scope = nock("https://api.mittwald.de");
 
     scope.get(`/v2/projects/${projectId}`).reply(200, {
