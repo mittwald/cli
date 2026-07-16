@@ -1,3 +1,10 @@
+## [1.20.3](https://github.com/mittwald/cli/compare/v1.20.2...v1.20.3) (2026-07-16)
+
+
+### Bug Fixes
+
+* **database:** report the actual database status in list commands ([#2006](https://github.com/mittwald/cli/issues/2006)) ([2b17ba6](https://github.com/mittwald/cli/commit/2b17ba67690880cb50f823e9e49a777328cb43ec)), closes [#2005](https://github.com/mittwald/cli/issues/2005)
+
 ## [1.20.2](https://github.com/mittwald/cli/compare/v1.20.1...v1.20.2) (2026-07-07)
 
 
