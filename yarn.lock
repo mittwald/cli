@@ -2030,10 +2030,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nodable/entities@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "@nodable/entities@npm:2.2.0"
-  checksum: 60e7e0f7c9007d5f5e2f67c851627357618e368901a4bcaecbfdb9d6708e71b8ddbedcab356fe04d4fe2367a1bc687cc999e32d85a3685f7b7dc6036743ec7f5
+"@nodable/entities@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@nodable/entities@npm:3.0.0"
+  checksum: ac37bc86140f8e0074a4595598b553aecd607889abdf996f24cdb37e220973c8d233a56af79fe1b6b35319512ca986c442018eb22e7a6c3c6a51352d77718b92
   languageName: node
   linkType: hard
 
@@ -5293,10 +5293,10 @@ __metadata:
   linkType: hard
 
 "fast-xml-parser@npm:^5.2.5":
-  version: 5.10.0
-  resolution: "fast-xml-parser@npm:5.10.0"
+  version: 5.10.1
+  resolution: "fast-xml-parser@npm:5.10.1"
   dependencies:
-    "@nodable/entities": ^2.2.0
+    "@nodable/entities": ^3.0.0
     fast-xml-builder: ^1.2.0
     is-unsafe: ^2.0.0
     path-expression-matcher: ^1.6.2
@@ -5304,7 +5304,7 @@ __metadata:
     xml-naming: ^0.3.0
   bin:
     fxparser: src/cli/cli.js
-  checksum: f58863e0226e8faf6bf069cc0dc14d73551abb98241c626853afa8c8ae99b61e3bbdbe61f970314ed24f68bb6cb76026c78f3b57d7e46f9ed947c181bb6484fa
+  checksum: 9bbcf724856b63913bdc5b9f067fa695db2e11fe8295c664bbc2eef1852e217670bc485f62805d6ec406f8223e3a0b8251d899b39825fa8d2ed69040be48c32f
   languageName: node
   linkType: hard
 
