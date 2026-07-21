@@ -232,7 +232,11 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     };
   }
 
-  protected render({ deployedServiceId, builtImageName, buildOnly }: Result): ReactNode {
+  protected render({
+    deployedServiceId,
+    builtImageName,
+    buildOnly,
+  }: Result): ReactNode {
     if (this.flags.quiet) {
       return buildOnly ? builtImageName : deployedServiceId;
     }
