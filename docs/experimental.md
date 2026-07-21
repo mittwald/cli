@@ -58,7 +58,8 @@ EXAMPLES
 FLAG DESCRIPTIONS
   -e, --env=<value>...  set environment variables in the container
 
-    Format: KEY=VALUE. Multiple environment variables can be specified with multiple --env flags.
+    Format: KEY=VALUE or KEY. If only KEY is provided, the value is resolved from the caller environment (exported
+    variables only). Multiple environment variables can be specified with multiple --env flags.
 
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
 
