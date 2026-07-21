@@ -2,17 +2,37 @@
  * Parses environment variables from array and strips unnecessary quotes from
  * values.
  *
- * @param envFlags Array of environment variable strings in KEY=VALUE format
+ * Supports both KEY=VALUE and KEY formats. For KEY entries, values are resolved
+ * from sourceEnv (defaults to process.env), matching docker run behavior.
+ *
+ * @param envFlags Array of environment variable strings in KEY=VALUE or KEY
+ *   format
+ * @param sourceEnv Source environment for KEY passthrough entries
  * @returns An object containing environment variable key-value pairs
  */
 export function parseEnvironmentVariablesFromArray(
   envFlags: string[] = [],
+  sourceEnv: NodeJS.ProcessEnv = process.env,
 ): Record<string, string> {
-  const splitIntoKeyAndValue = (e: string) => {
+  const splitIntoKeyAndValue = (e: string): [string, string] => {
     const index = e.indexOf("=");
     if (index < 0) {
-      throw new Error(`Invalid environment variable format: ${e}`);
+      const key = e.trim();
+      if (!key) {
+        throw new Error(`Invalid environment variable format: ${e}`);
+      }
+
+      const value = sourceEnv[key];
+      if (value === undefined) {
+        throw new Error(
+          `Environment variable ${key} is not set in the caller environment. ` +
+            `If you are using fish, export it first with: set -x ${key} <value>`,
+        );
+      }
+
+      return [key, value];
     }
+
     const key = e.slice(0, index);
     const rawValue = e.slice(index + 1);
 

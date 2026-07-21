@@ -23,11 +23,28 @@ describe("Containerconfig handling", () => {
       });
     });
 
-    test("throw error for invalid flag format", () => {
-      const args = ["invalidFlagWithoutEqualsSign"];
+    test("resolve value from source environment for KEY format", () => {
+      const args = ["POSTGRES_PASSWORD"];
+      const res = parseEnvironmentVariablesFromArray(args, {
+        POSTGRES_PASSWORD: "butterbrot",
+      });
+      expect(res).toStrictEqual({
+        POSTGRES_PASSWORD: "butterbrot",
+      });
+    });
 
-      expect(() => parseEnvironmentVariablesFromArray(args)).toThrow(
-        "Invalid environment variable format: invalidFlagWithoutEqualsSign",
+    test("throw error for KEY format when variable is not set", () => {
+      const args = ["POSTGRES_PASSWORD"];
+      expect(() => parseEnvironmentVariablesFromArray(args, {})).toThrow(
+        "Environment variable POSTGRES_PASSWORD is not set in the caller environment.",
+      );
+    });
+
+    test("throw error for empty key format", () => {
+      const args = ["  "];
+
+      expect(() => parseEnvironmentVariablesFromArray(args, {})).toThrow(
+        "Invalid environment variable format:   ",
       );
     });
 
