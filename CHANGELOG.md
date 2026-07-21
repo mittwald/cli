@@ -1,3 +1,17 @@
+# [1.21.0](https://github.com/mittwald/cli/compare/v1.20.3...v1.21.0) (2026-07-21)
+
+
+### Bug Fixes
+
+* **database:** adapt MySQL user update to @mittwald/api-client 4.420 ([#2020](https://github.com/mittwald/cli/issues/2020)) ([d1980b9](https://github.com/mittwald/cli/commit/d1980b97dec4d9ea9100d5cc1884033abb03ad04)), closes [#2017](https://github.com/mittwald/cli/issues/2017)
+
+
+### Features
+
+* **app:** add commands to link, unlink and replace an app's database ([#1971](https://github.com/mittwald/cli/issues/1971)) ([20bbbcd](https://github.com/mittwald/cli/commit/20bbbcd4650123ac528666dd5f16f4db4c7ac7cc)), closes [#1969](https://github.com/mittwald/cli/issues/1969)
+* **database:** add "database mysql upgrade" command ([#2005](https://github.com/mittwald/cli/issues/2005)) ([1265923](https://github.com/mittwald/cli/commit/1265923076703c43aad4060624081cee1ed0ee08))
+* **deploy:** build and push early exit for experimental deploy ([#2021](https://github.com/mittwald/cli/issues/2021)) ([225c8e0](https://github.com/mittwald/cli/commit/225c8e053f6345cfe320248fac141105ea03a9e0)), closes [#1990](https://github.com/mittwald/cli/issues/1990)
+
 ## [1.20.3](https://github.com/mittwald/cli/compare/v1.20.2...v1.20.3) (2026-07-16)
 
 
