@@ -10,9 +10,9 @@ import assertSuccess from "../../../../lib/apiutil/assert_success.js";
 import type { MittwaldAPIV2Client } from "@mittwald/api-client";
 import { mysqlUserFlagDefinitions } from "../../../../lib/resources/database/mysql/user/flags.js";
 type UpdateResult = void;
-type MyQSLUserUpdateData = Parameters<
-  MittwaldAPIV2Client["database"]["updateMysqlUser"]
->[0]["data"];
+type MyQSLUserUpdateData = NonNullable<
+  Parameters<MittwaldAPIV2Client["database"]["updateMysqlUser"]>[0]["data"]
+>;
 
 export default class Update extends ExecRenderBaseCommand<
   typeof Update,
@@ -82,7 +82,7 @@ export default class Update extends ExecRenderBaseCommand<
         .externalAccess as boolean;
     }
 
-    const updateMysqlUserPayload: Required<MyQSLUserUpdateData> = {
+    const updateMysqlUserPayload: MyQSLUserUpdateData = {
       accessLevel:
         accessLevel == "full" || accessLevel == "readonly"
           ? accessLevel
@@ -95,25 +95,13 @@ export default class Update extends ExecRenderBaseCommand<
         ? accessIpMask
         : (currentMysqlUserData.data.accessIpMask as string),
       externalAccess: externalAccessActive,
+      ...(password ? { password } : {}),
     };
-
-    if (password) {
-      changesNecessary = true;
-      await process.runStep("Updating MySQL user password", async () => {
-        const updatePasswordResponse =
-          await this.apiClient.database.updateMysqlUserPassword({
-            mysqlUserId,
-            data: {
-              password,
-            },
-          });
-        assertSuccess(updatePasswordResponse);
-      });
-    }
 
     if (
       accessLevel ||
       description ||
+      password ||
       accessIpMask ||
       enableExternalAccess ||
       disableExternalAccess
