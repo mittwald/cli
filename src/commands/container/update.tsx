@@ -39,7 +39,7 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
     env: Flags.string({
       summary: "set environment variables in the container",
       description:
-        "Format: KEY=VALUE. Multiple environment variables can be specified with multiple --env flags.",
+        "Format: KEY=VALUE or KEY. If only KEY is provided, the value is resolved from the caller environment (exported variables only). Multiple environment variables can be specified with multiple --env flags.",
       required: false,
       multiple: true,
       char: "e",
