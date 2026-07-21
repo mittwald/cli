@@ -9,6 +9,9 @@ Manage apps, and app installations in your projects
 * [`mw app create php-worker`](#mw-app-create-php-worker)
 * [`mw app create python`](#mw-app-create-python)
 * [`mw app create static`](#mw-app-create-static)
+* [`mw app database link [INSTALLATION-ID]`](#mw-app-database-link-installation-id)
+* [`mw app database replace [INSTALLATION-ID]`](#mw-app-database-replace-installation-id)
+* [`mw app database unlink [INSTALLATION-ID]`](#mw-app-database-unlink-installation-id)
 * [`mw app dependency list`](#mw-app-dependency-list)
 * [`mw app dependency update [INSTALLATION-ID]`](#mw-app-dependency-update-installation-id)
 * [`mw app dependency versions SYSTEMSOFTWARE`](#mw-app-dependency-versions-systemsoftware)
@@ -408,6 +411,164 @@ FLAG DESCRIPTIONS
     mStudio and the CLI.
     If unspecified, the application name and the given project ID will be used. The title can be changed after the
     installation is finished
+```
+
+
+## `mw app database link [INSTALLATION-ID]`
+
+Link a database to an app installation.
+
+```
+USAGE
+  $ mw app database link [INSTALLATION-ID] --database-id <value> --purpose primary|cache|custom --admin-user-id <value>
+    [--token <value>] [-q]
+
+ARGUMENTS
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
+
+FLAGS
+  -q, --quiet                  suppress process output and only display a machine-readable summary
+      --admin-user-id=<value>  (required) the ID of the database user to link as the administrative user.
+      --database-id=<value>    (required) the ID or name of the database to link to the app installation.
+      --purpose=<option>       (required) [default: primary] the purpose the database serves for the app installation.
+                               <options: primary|cache|custom>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Link a database to an app installation.
+
+  Creates a linkage between an app installation and an existing database, so the app can use it for the given purpose.
+
+EXAMPLES
+  Link a database as the primary database of an app
+
+    $ mw app database link a-XXXXXX --database-id my-database --admin-user-id dbu-XXXXXX
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-user-id=<value>  the ID of the database user to link as the administrative user.
+
+    The ID of the database user that should be used as the administrative ('admin') user for the linked database.
+
+  --database-id=<value>  the ID or name of the database to link to the app installation.
+
+    The ID (UUID) or name of an existing database that should be linked to the app installation. When a name is given,
+    it is resolved against the databases of the app installation's project.
+
+  --purpose=primary|cache|custom  the purpose the database serves for the app installation.
+
+    Describes how the app installation uses the linked database. Must be one of 'primary', 'cache' or 'custom'.
+```
+
+
+## `mw app database replace [INSTALLATION-ID]`
+
+Replace the database linked to an app installation.
+
+```
+USAGE
+  $ mw app database replace [INSTALLATION-ID] --new-database-id <value> --admin-user-id <value> [--token <value>] [-q]
+    [--purpose primary|cache|custom]
+
+ARGUMENTS
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
+
+FLAGS
+  -q, --quiet                    suppress process output and only display a machine-readable summary
+      --admin-user-id=<value>    (required) the ID of the database user to link as the administrative user.
+      --new-database-id=<value>  (required) the ID or name of the database to link instead.
+      --purpose=<option>         the purpose of the linked database to act on.
+                                 <options: primary|cache|custom>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Replace the database linked to an app installation.
+
+  Replaces the database that is currently linked to an app installation with another one, keeping the same purpose. The
+  currently linked database is determined automatically.
+
+EXAMPLES
+  Replace the linked database of an app installation
+
+    $ mw app database replace a-XXXXXX --new-database-id my-new-database --admin-user-id dbu-XXXXXX
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --admin-user-id=<value>  the ID of the database user to link as the administrative user.
+
+    The ID of the database user that should be used as the administrative ('admin') user for the linked database.
+
+  --new-database-id=<value>  the ID or name of the database to link instead.
+
+    The ID (UUID) or name of the database that should replace the currently linked database. When a name is given, it is
+    resolved against the databases of the app installation's project.
+
+  --purpose=primary|cache|custom  the purpose of the linked database to act on.
+
+    Selects which linked database to act on by its purpose ('primary', 'cache' or 'custom'). Only needed when the app
+    installation has more than one linked database.
+```
+
+
+## `mw app database unlink [INSTALLATION-ID]`
+
+Unlink a database from an app installation.
+
+```
+USAGE
+  $ mw app database unlink [INSTALLATION-ID] [--token <value>] [-q] [-f] [--purpose primary|cache|custom]
+
+ARGUMENTS
+  [INSTALLATION-ID]  ID or short ID of an app installation; this argument is optional if a default app installation is
+                     set in the context.
+
+FLAGS
+  -f, --force             do not ask for confirmation
+  -q, --quiet             suppress process output and only display a machine-readable summary
+      --purpose=<option>  the purpose of the linked database to act on.
+                          <options: primary|cache|custom>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Unlink a database from an app installation.
+
+  Removes the linkage between an app installation and its database. The currently linked database is determined
+  automatically; the database itself is not deleted.
+
+EXAMPLES
+  Unlink the database from an app installation
+
+    $ mw app database unlink a-XXXXXX
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --purpose=primary|cache|custom  the purpose of the linked database to act on.
+
+    Selects which linked database to act on by its purpose ('primary', 'cache' or 'custom'). Only needed when the app
+    installation has more than one linked database.
 ```
 
 
