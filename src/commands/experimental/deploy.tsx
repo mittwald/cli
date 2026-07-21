@@ -26,7 +26,9 @@ import {
 } from "@mittwald/container-deploy";
 
 type Result = {
-  deployedServiceId: string;
+  deployedServiceId?: string;
+  builtImageName?: string;
+  buildOnly: boolean;
 };
 
 export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
@@ -74,6 +76,13 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       description: `Defaults to '${DEFAULT_IMAGE_TAG}'.`,
       required: false,
     }),
+    "build-only": Flags.boolean({
+      summary: "build and push the image only",
+      description:
+        "Skips service deployment and domain creation after the image is pushed.",
+      default: false,
+      required: false,
+    }),
   };
   static args = {};
   static examples = [
@@ -96,12 +105,16 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       command:
         "<%= config.bin %> <%= command.id %> --service-name my-feature --image-name my-app --image-tag feature",
     },
+    {
+      description: "Build and push image only, without deploying a service",
+      command: "<%= config.bin %> <%= command.id %> --build-only",
+    },
   ];
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Deploying ...");
 
-    let deployedServiceId: string = "";
+    let deployedServiceId: string | undefined;
 
     const projectId = await this.withProjectId(Deploy);
     const projectShortId = await getProjectShortIdFromUuid(
@@ -162,6 +175,21 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       p.addInfo(`Pushed image ${builtImage.imageName} to registry`);
     });
 
+    if (this.flags["build-only"]) {
+      await p.complete(
+        <Success>
+          Image <Value>{builtImage.imageName}</Value> was successfully built and
+          pushed
+        </Success>,
+      );
+
+      return {
+        deployedServiceId,
+        builtImageName: builtImage.imageName,
+        buildOnly: true,
+      };
+    }
+
     const deployResult = await p.runStep("Deploying ...", async () => {
       const result = await deployService(
         this.apiClient,
@@ -197,12 +225,20 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       </Success>,
     );
 
-    return { deployedServiceId };
+    return {
+      deployedServiceId,
+      builtImageName: builtImage.imageName,
+      buildOnly: false,
+    };
   }
 
-  protected render({ deployedServiceId }: Result): ReactNode {
+  protected render({
+    deployedServiceId,
+    builtImageName,
+    buildOnly,
+  }: Result): ReactNode {
     if (this.flags.quiet) {
-      return deployedServiceId;
+      return buildOnly ? builtImageName : deployedServiceId;
     }
   }
 }

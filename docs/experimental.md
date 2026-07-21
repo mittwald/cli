@@ -13,6 +13,7 @@ Deploys a new container.
 USAGE
   $ mw experimental deploy [--token <value>] [-q] [-p <value>] [-w] [--wait-timeout <value>] [-e <value>...] [--env-file
     <value>...] [--uri-prefix <value>] [--service-name <value>] [--image-name <value>] [--image-tag <value>]
+    [--build-only]
 
 FLAGS
   -e, --env=<value>...        set environment variables in the container
@@ -20,6 +21,7 @@ FLAGS
                               context
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
+      --build-only            build and push the image only
       --env-file=<value>...   read environment variables from a file
       --image-name=<value>    name of the Docker image to build and push
       --image-tag=<value>     tag of the Docker image to build and push
@@ -49,6 +51,10 @@ EXAMPLES
 
     $ mw experimental deploy --service-name my-feature --image-name my-app --image-tag feature
 
+  Build and push image only, without deploying a service
+
+    $ mw experimental deploy --build-only
+
 FLAG DESCRIPTIONS
   -e, --env=<value>...  set environment variables in the container
 
@@ -63,6 +69,10 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --build-only  build and push the image only
+
+    Skips service deployment and domain creation after the image is pushed.
 
   --env-file=<value>...  read environment variables from a file
 
