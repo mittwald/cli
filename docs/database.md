@@ -14,6 +14,7 @@ Manage databases (like MySQL and Redis) in your projects
 * [`mw database mysql phpmyadmin DATABASE-ID`](#mw-database-mysql-phpmyadmin-database-id)
 * [`mw database mysql port-forward DATABASE-ID`](#mw-database-mysql-port-forward-database-id)
 * [`mw database mysql shell DATABASE-ID`](#mw-database-mysql-shell-database-id)
+* [`mw database mysql upgrade DATABASE-ID`](#mw-database-mysql-upgrade-database-id)
 * [`mw database mysql user create`](#mw-database-mysql-user-create)
 * [`mw database mysql user delete USER-ID`](#mw-database-mysql-user-delete-user-id)
 * [`mw database mysql user get ID`](#mw-database-mysql-user-get-id)
@@ -567,6 +568,60 @@ FLAG DESCRIPTIONS
     will be used for this.
 
     You can also set this value by setting the MITTWALD_SSH_USER environment variable.
+```
+
+
+## `mw database mysql upgrade DATABASE-ID`
+
+Upgrade a MySQL database to a newer version
+
+```
+USAGE
+  $ mw database mysql upgrade DATABASE-ID [--token <value>] [--version <value>] [-f] [-q] [-w] [--wait-timeout <value>]
+
+ARGUMENTS
+  DATABASE-ID  The ID or name of the database
+
+FLAGS
+  -f, --force                 do not ask for confirmation
+  -q, --quiet                 suppress process output and only display a machine-readable summary
+  -w, --wait                  wait for the resource to be ready.
+      --version=<value>       the MySQL version to upgrade to
+      --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
+                              's', 'm' are accepted).
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Upgrade a MySQL database to a newer version
+
+  MySQL does not support downgrades, so only versions newer than the one the database is currently running can be
+  selected. If the target version is omitted, it will be prompted for interactively.
+
+  Upgrading a database is disruptive; the database will be unavailable while the upgrade is running. Consider creating a
+  backup ("mw backup create") before upgrading.
+
+EXAMPLES
+  Upgrade a database to a specific version
+
+    $ mw database mysql upgrade <database-id> --version 8.0
+
+  Upgrade a database to the latest available version, and wait for the upgrade to complete
+
+    $ mw database mysql upgrade <database-id> --version latest --wait
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --version=<value>  the MySQL version to upgrade to
+
+    Use the "database mysql versions" command to list available versions. If set to "latest", the most recent version
+    available for this database will be used.
 ```
 
 
