@@ -1,41 +1,57 @@
 import { describe, expect, it } from "@jest/globals";
-import { AxiosError, AxiosHeaders } from "axios";
 import { mapUninstallError } from "./uninstall.js";
 
-function axiosErrorWithStatus(status: number): AxiosError {
-  const headers = new AxiosHeaders();
-  const config = { headers };
-  return new AxiosError(
-    `Request failed with status code ${status}`,
-    "ERR_BAD_RESPONSE",
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    config as any,
-    {},
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    { status, data: {}, statusText: "", headers, config } as any,
-  );
+function apiErrorLike(options: {
+  message?: string;
+  status: number;
+  type?: string;
+}) {
+  return {
+    response: {
+      data: {
+        message: options.message,
+        type: options.type,
+      },
+      status: options.status,
+    },
+  };
 }
 
 describe("mapUninstallError", () => {
-  it("maps an HTTP 412 to a linked-primary-database hint", () => {
-    const original = axiosErrorWithStatus(412);
+  it("maps matching HTTP 412 primary-database preconditions", () => {
+    const original = apiErrorLike({
+      status: 412,
+      type: "PreconditionFailed",
+      message: "App has a linked primary database",
+    });
     const mapped = mapUninstallError(original);
 
     expect(mapped).toBeInstanceOf(Error);
     expect((mapped as Error).message).toContain("cannot uninstall");
     expect((mapped as Error).message).toContain("primary database");
-    // The original error is preserved as the cause and not swallowed.
+    // The original error is preserved as the cause.
     expect((mapped as Error).cause).toBe(original);
   });
 
-  it("passes through other Axios errors unchanged", () => {
-    const original = axiosErrorWithStatus(409);
+  it("passes through unrelated HTTP 412 errors unchanged", () => {
+    const original = apiErrorLike({
+      status: 412,
+      type: "PreconditionFailed",
+      message: "Some other precondition failed",
+    });
     const mapped = mapUninstallError(original);
 
     expect(mapped).toBe(original);
   });
 
-  it("passes through non-Axios errors unchanged", () => {
+  it("passes through non-412 API errors unchanged", () => {
+    const original = apiErrorLike({ status: 409, type: "Conflict" });
+    const mapped = mapUninstallError(original);
+
+    expect(mapped).toBe(original);
+  });
+
+  it("passes through unrelated errors unchanged", () => {
     const original = new Error("something else");
     const mapped = mapUninstallError(original);
 

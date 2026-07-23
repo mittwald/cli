@@ -1,17 +1,63 @@
 import { assertStatus } from "@mittwald/api-client-commons";
-import axios from "axios";
 import { DeleteBaseCommand } from "../../lib/basecommands/DeleteBaseCommand.js";
 import { appInstallationArgs } from "../../lib/resources/app/flags.js";
+
+interface APIErrorBody {
+  message?: string;
+  type?: string;
+}
+
+interface APIErrorLike {
+  response?: {
+    data?: unknown;
+    status?: number;
+  };
+}
+
+function getAPIErrorDetails(err: unknown): {
+  body: APIErrorBody | undefined;
+  status: number;
+} | null {
+  if (typeof err !== "object" || err === null) {
+    return null;
+  }
+
+  const response = (err as APIErrorLike).response;
+  if (typeof response?.status !== "number") {
+    return null;
+  }
+
+  const body =
+    typeof response.data === "object" && response.data !== null
+      ? (response.data as APIErrorBody)
+      : undefined;
+
+  return {
+    status: response.status,
+    body,
+  };
+}
+
+function isPrimaryDatabasePreconditionError(
+  body: APIErrorBody | undefined,
+): boolean {
+  const signature = `${body?.type ?? ""} ${body?.message ?? ""}`.toLowerCase();
+  return signature.includes("primary") && signature.includes("database");
+}
 
 /**
  * Maps an error raised while uninstalling an app installation to a more
  * actionable one. The API answers with an HTTP 412 (Precondition Failed) when
- * the app still has a linked _primary_ database; in that case we surface a
- * clear hint instead of a raw Axios error. All other errors are passed through
- * unchanged so they are not accidentally swallowed.
+ * the app still has a linked _primary_ database. We therefore require both the
+ * precondition status and a matching error signature before rewriting the
+ * message, so unrelated 412 cases are not accidentally swallowed.
  */
 export function mapUninstallError(err: unknown): unknown {
-  if (axios.isAxiosError(err) && err.response?.status === 412) {
+  const details = getAPIErrorDetails(err);
+  if (
+    details?.status === 412 &&
+    isPrimaryDatabasePreconditionError(details.body)
+  ) {
     return new Error(
       "cannot uninstall: app has a linked primary database — " +
         "unlink or repurpose it first (a primary database must be " +
