@@ -1,49 +1,7 @@
 import { assertStatus } from "@mittwald/api-client-commons";
 import { DeleteBaseCommand } from "../../lib/basecommands/DeleteBaseCommand.js";
+import { matchesAPIError } from "../../lib/error/apiError.js";
 import { appInstallationArgs } from "../../lib/resources/app/flags.js";
-
-interface APIErrorBody {
-  message?: string;
-  type?: string;
-}
-
-interface APIErrorLike {
-  response?: {
-    data?: unknown;
-    status?: number;
-  };
-}
-
-function getAPIErrorDetails(err: unknown): {
-  body: APIErrorBody | undefined;
-  status: number;
-} | null {
-  if (typeof err !== "object" || err === null) {
-    return null;
-  }
-
-  const response = (err as APIErrorLike).response;
-  if (typeof response?.status !== "number") {
-    return null;
-  }
-
-  const body =
-    typeof response.data === "object" && response.data !== null
-      ? (response.data as APIErrorBody)
-      : undefined;
-
-  return {
-    status: response.status,
-    body,
-  };
-}
-
-function isPrimaryDatabasePreconditionError(
-  body: APIErrorBody | undefined,
-): boolean {
-  const signature = `${body?.type ?? ""} ${body?.message ?? ""}`.toLowerCase();
-  return signature.includes("primary") && signature.includes("database");
-}
 
 /**
  * Maps an error raised while uninstalling an app installation to a more
@@ -53,10 +11,11 @@ function isPrimaryDatabasePreconditionError(
  * message, so unrelated 412 cases are not accidentally swallowed.
  */
 export function mapUninstallError(err: unknown): unknown {
-  const details = getAPIErrorDetails(err);
   if (
-    details?.status === 412 &&
-    isPrimaryDatabasePreconditionError(details.body)
+    matchesAPIError(err, {
+      status: 412,
+      keywords: ["primary", "database"],
+    })
   ) {
     return new Error(
       "cannot uninstall: app has a linked primary database — " +
