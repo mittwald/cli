@@ -1036,12 +1036,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/config-helpers@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@eslint/config-helpers@npm:0.6.0"
+"@eslint/config-helpers@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@eslint/config-helpers@npm:0.7.0"
   dependencies:
     "@eslint/core": ^1.2.1
-  checksum: 5ef7834c45975c7236d2c8fd7f2f9f02c05699df19930397c9dc42ef0005e8fefe0e6e8d88ecd808ddeb74d9fdefcf0473b196ad918627dd3963358597c4a9e7
+  checksum: 4367648fb52061a7142404eab8c4f5d7406a75c0e6aa6f90fd38846f7f07b8be3755c05b1e7d601fabbbb4e5a95f97e3b4aa865ab359e80dcc24d659489f1173
   languageName: node
   linkType: hard
 
@@ -5090,13 +5090,13 @@ __metadata:
   linkType: hard
 
 "eslint@npm:^10.2.0":
-  version: 10.7.0
-  resolution: "eslint@npm:10.7.0"
+  version: 10.8.0
+  resolution: "eslint@npm:10.8.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.8.0
     "@eslint-community/regexpp": ^4.12.2
     "@eslint/config-array": ^0.23.5
-    "@eslint/config-helpers": ^0.6.0
+    "@eslint/config-helpers": ^0.7.0
     "@eslint/core": ^1.2.1
     "@eslint/plugin-kit": ^0.7.2
     "@humanfs/node": ^0.16.6
@@ -5120,7 +5120,7 @@ __metadata:
     imurmurhash: ^0.1.4
     is-glob: ^4.0.0
     json-stable-stringify-without-jsonify: ^1.0.1
-    minimatch: ^10.2.4
+    minimatch: ^10.2.5
     natural-compare: ^1.4.0
     optionator: ^0.9.3
   peerDependencies:
@@ -5130,7 +5130,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: f07102501b3b68f006e1d89b34a101a519ecc55baf9fb65ccdffcb59ad25c29c11e6735d336ffa0182de47b74dc260d15e2967f5f0a63b217700738fb5b4b4d5
+  checksum: 3c746957d5e95fc888c44c2cd3e61696d7c152273b4c521ee36a4b6ed8f58a34d0ccd3d85a2924404d8c0731cff687d2a64047842cda4e76d34ffe0c453e0b25
   languageName: node
   linkType: hard
 
