@@ -1934,7 +1934,7 @@ __metadata:
     docker-names: ^1.2.1
     eslint: ^10.2.0
     eslint-config-prettier: ^10.1.5
-    eslint-plugin-json: ^4.0.1
+    eslint-plugin-json: ^5.0.0
     eslint-plugin-prettier: ^5.5.1
     fast-xml-parser: ^5.2.5
     globals: ^17.0.0
@@ -5033,13 +5033,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-json@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "eslint-plugin-json@npm:4.0.1"
+"eslint-plugin-json@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "eslint-plugin-json@npm:5.0.0"
   dependencies:
     lodash: ^4.17.21
     vscode-json-languageservice: ^4.1.6
-  checksum: f65e94ab73fccced9b662268ed73830e6d49290f6d6c2ea78fdc55ed13ccdc456095db3ee47b4f622668d183b1d01698139a73ab7713445ef15cf66a7637e8d6
+  checksum: 10148b32595758b421121f04b83b7dcf6a6311686de4c6d18eea733f24270ca78dae6e061fba94a3d843ae1af84b0d8fba015adac435b23cccb1accf66171a14
   languageName: node
   linkType: hard
 
