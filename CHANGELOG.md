@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/mittwald/cli/compare/v1.21.0...v1.21.1) (2026-07-24)
+
+
+### Bug Fixes
+
+* **app:** surface uninstall failures instead of reporting false success ([#1973](https://github.com/mittwald/cli/issues/1973)) ([9a7aaad](https://github.com/mittwald/cli/commit/9a7aaad59f3c2b9f8138281b298a130943a86eba)), closes [#1970](https://github.com/mittwald/cli/issues/1970)
+
 # [1.21.0](https://github.com/mittwald/cli/compare/v1.20.3...v1.21.0) (2026-07-21)
 
 
