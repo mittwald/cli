@@ -7,7 +7,6 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
-import { Text } from "ink";
 import React from "react";
 
 export abstract class DeleteBaseCommand<
@@ -56,7 +55,7 @@ export abstract class DeleteBaseCommand<
       );
     } catch (err) {
       deletingStep.error(err);
-      process.complete(<Text>Failed to delete {resourceName}</Text>);
+      await process.error(err);
       ux.exit(1);
     }
   }
