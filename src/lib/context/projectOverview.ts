@@ -56,6 +56,22 @@ export type ProjectOverview = {
   unavailableReason?: string;
 };
 
+export type OverviewEntryData = {
+  shortId?: string;
+  name: string;
+  status: string;
+  id: string;
+};
+
+export function formatOverviewEntry({
+  shortId,
+  name,
+  status,
+  id,
+}: OverviewEntryData): string {
+  return `${shortId ?? ""} ( ${name} ): ${status} ( ${id} )`;
+}
+
 export async function resolveProjectContext(
   apiClient: MittwaldAPIV2Client,
   contextProjectId: string | undefined,
