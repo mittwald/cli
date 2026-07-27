@@ -169,9 +169,11 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
         </Text>
         {overview.containers.slice(0, 8).map((container) => {
           const stackShortId = container.stackId
-            ? stackDisplayById.get(container.stackId) ?? ""
+            ? (stackDisplayById.get(container.stackId) ?? "")
             : "";
-          const stackSuffix = container.stackId ? ` | stack ${stackShortId}` : "";
+          const stackSuffix = container.stackId
+            ? ` | stack ${stackShortId}`
+            : "";
 
           return (
             <Text key={container.id} color="gray">
