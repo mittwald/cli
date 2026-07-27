@@ -101,11 +101,11 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
       <Text>
         <Value>{overview.projectName ?? overview.projectId}</Value>{" "}
         <Text color="gray">
-          ({overview.projectShortId ?? overview.projectId})
+          ({overview.projectShortId ?? overview.projectId}, resolved from{" "}
+          {overview.resolvedFrom ?? "project-id"})
         </Text>
       </Text>
     ),
-    "Resolved from": <Value>{overview.resolvedFrom ?? "project-id"}</Value>,
   };
 
   rows["Apps"] =
