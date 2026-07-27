@@ -16,6 +16,7 @@ import Context, {
 } from "../../lib/context/Context.js";
 import {
   fetchProjectOverview,
+  formatOverviewEntry,
   ProjectOverview,
   resolveProjectContext,
 } from "../../lib/context/projectOverview.js";
@@ -84,7 +85,7 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
   overview,
 }) => {
   const stackDisplayById = new Map(
-    overview.stacks.map((stack) => [stack.id, stack.shortId ?? stack.id]),
+    overview.stacks.map((stack) => [stack.id, stack.shortId ?? ""]),
   );
 
   if (overview.unavailableReason) {
@@ -112,12 +113,13 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
       <Box flexDirection="column">
         {overview.apps.map((app) => (
           <Box key={app.installationId} flexDirection="column" marginBottom={1}>
-            <Text>
-              <Value>{app.appName}</Value>{" "}
-              <Text color="gray">
-                ({app.installationPath},{" "}
-                {app.installationShortId ?? app.installationId})
-              </Text>
+            <Text color="green">
+              {formatOverviewEntry({
+                shortId: app.installationShortId,
+                name: app.appName,
+                status: `installed at ${app.installationPath}`,
+                id: app.installationId,
+              })}
             </Text>
             {app.linkedDatabases.length > 0 ? (
               app.linkedDatabases.map((db) => (
@@ -146,9 +148,12 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
         </Text>
         {overview.stacks.slice(0, 5).map((stack) => (
           <Text key={stack.id} color="gray">
-            {stack.shortId ?? stack.id}: {stack.services} services,{" "}
-            {stack.volumes} volumes
-            {stack.description ? ` (${stack.description})` : ""}
+            {formatOverviewEntry({
+              shortId: stack.shortId,
+              name: stack.description ?? "stack",
+              status: `${stack.services} services, ${stack.volumes} volumes`,
+              id: stack.id,
+            })}
           </Text>
         ))}
       </Box>
@@ -162,17 +167,23 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
         <Text>
           <Value>{overview.containers.length}</Value> total
         </Text>
-        {overview.containers.slice(0, 8).map((container) => (
-          <Text key={container.id} color="gray">
-            {container.shortId
-              ? `${container.shortId} (${container.name})`
-              : container.name}
-            : {container.status}
-            {container.stackId
-              ? ` (stack ${stackDisplayById.get(container.stackId) ?? container.stackId})`
-              : ""}
-          </Text>
-        ))}
+        {overview.containers.slice(0, 8).map((container) => {
+          const stackShortId = container.stackId
+            ? stackDisplayById.get(container.stackId) ?? ""
+            : "";
+          const stackSuffix = container.stackId ? ` | stack ${stackShortId}` : "";
+
+          return (
+            <Text key={container.id} color="gray">
+              {formatOverviewEntry({
+                shortId: container.shortId,
+                name: container.name,
+                status: `${container.status}${stackSuffix}`,
+                id: container.id,
+              })}
+            </Text>
+          );
+        })}
       </Box>
     ) : (
       <Text color="gray">none found in this project</Text>
