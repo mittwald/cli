@@ -5744,9 +5744,9 @@ __metadata:
   linkType: hard
 
 "globals@npm:^17.0.0":
-  version: 17.7.0
-  resolution: "globals@npm:17.7.0"
-  checksum: cdedb484e093bf34e819d571de7ae659fa85fa5fc0d51b99f6b23397cf6511982658d4b9bdc90e967acd7ca9704e12d5c8c117c281db757fec90e2ad83117347
+  version: 17.8.0
+  resolution: "globals@npm:17.8.0"
+  checksum: 07d1170c20977e663fb45255fa105230f7860b96b97b991fad23cdbce56cd504b28e1cd86ea58638c52e4d8bfbd93a3ef264e4869f185b417f2192158ae824fb
   languageName: node
   linkType: hard
 
