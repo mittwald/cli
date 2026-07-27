@@ -1929,7 +1929,7 @@ __metadata:
     "@typescript-eslint/parser": ^8.58.0
     "@yarnpkg/pnpify": ^4.0.0-rc.48
     axios-retry: ^4.0.0
-    chalk: ^5.3.0
+    chalk: ^6.0.0
     date-fns: ^4.0.0
     docker-names: ^1.2.1
     eslint: ^10.2.0
@@ -4142,6 +4142,13 @@ __metadata:
   version: 5.6.2
   resolution: "chalk@npm:5.6.2"
   checksum: 4ee2d47a626d79ca27cb5299ecdcce840ef5755e287412536522344db0fc51ca0f6d6433202332c29e2288c6a90a2b31f3bd626bc8c14743b6b6ee28abd3b796
+  languageName: node
+  linkType: hard
+
+"chalk@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "chalk@npm:6.0.0"
+  checksum: d7f2d436a04357b3905ef253befc175e3cab68c4731bbbef40eb412d1dea2d5e853995364cdaf8c67fd0e84d051e767c089898788866136119c8664aae1a06bb
   languageName: node
   linkType: hard
 
