@@ -8,6 +8,10 @@ import {
 } from "../../rendering/process/process_flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { parseEnvironmentVariables } from "../../lib/resources/container/containerconfig.js";
+import {
+  makeContainerEnvFileFlag,
+  makeContainerEnvFlag,
+} from "../../lib/resources/container/common-flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { waitFlags } from "../../lib/wait.js";
@@ -37,23 +41,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     ...processFlags,
     ...projectFlags,
     ...waitFlags,
-    env: Flags.string({
-      summary: "set environment variables in the container",
-      description:
-        "Format: KEY=VALUE or KEY. If only KEY is provided, the value is resolved from the caller environment (exported variables only). Multiple environment variables can be specified with multiple --env flags.",
-      required: false,
-      multiple: true,
-      multipleNonGreedy: true,
-      char: "e",
-    }),
-    "env-file": Flags.string({
-      summary: "read environment variables from a file",
-      description:
-        "The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file flags.",
-      multiple: true,
-      multipleNonGreedy: true,
-      required: false,
-    }),
+    env: makeContainerEnvFlag({ multipleNonGreedy: true }),
+    "env-file": makeContainerEnvFileFlag({ multipleNonGreedy: true }),
     "uri-prefix": Flags.string({
       summary: "prefix for the generated default domain",
       description: "Defaults to 'webapp'.",
