@@ -16,8 +16,8 @@ to.
 1. Define shared reusable flags as exported constants in shared modules.
 2. Invoke those constants at command usage sites to provide command-specific
    metadata (for example summary or description).
-3. Keep shared defaults in one place (required, multiple, non-greedy, chars
-   that are truly global).
+3. Keep shared defaults in one place (required, multiple, non-greedy, chars that
+   are truly global).
 4. Keep command wording local to the command (summary text and context wording).
 
 Example:
