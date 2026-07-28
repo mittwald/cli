@@ -1,10 +1,6 @@
 import { Flags } from "@oclif/core";
 import { AlphabetLowercase } from "@oclif/core/interfaces";
 
-type MultiValueFlagOptions = {
-  multipleNonGreedy?: boolean;
-};
-
 type ContainerStringFlagOptions = {
   summary: string;
   description: string;
@@ -12,34 +8,31 @@ type ContainerStringFlagOptions = {
 
 type ContainerPublishFlagOptions = ContainerStringFlagOptions & {
   char?: AlphabetLowercase;
-  multipleNonGreedy?: boolean;
 };
 
-type ContainerVolumeFlagOptions = ContainerStringFlagOptions & {
-  multipleNonGreedy?: boolean;
-};
+type ContainerVolumeFlagOptions = ContainerStringFlagOptions;
 
-export function makeContainerEnvFlag(options: MultiValueFlagOptions = {}) {
-  return Flags.string({
+export function makeContainerEnvFlag() {
+  return Flags.custom<string[]>({
     summary: "set environment variables in the container",
     description:
       "Format: KEY=VALUE or KEY. If only KEY is provided, the value is resolved from the caller environment (exported variables only). Multiple environment variables can be specified with multiple --env flags.",
     required: false,
     multiple: true,
-    multipleNonGreedy: options.multipleNonGreedy,
+    multipleNonGreedy: true,
     char: "e",
-  });
+  })();
 }
 
-export function makeContainerEnvFileFlag(options: MultiValueFlagOptions = {}) {
-  return Flags.string({
+export function makeContainerEnvFileFlag() {
+  return Flags.custom<string[]>({
     summary: "read environment variables from a file",
     description:
       "The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file flags.",
     multiple: true,
-    multipleNonGreedy: options.multipleNonGreedy,
+    multipleNonGreedy: true,
     required: false,
-  });
+  })();
 }
 
 export function makeContainerPublishAllFlag() {
@@ -58,49 +51,45 @@ export const containerVolumeFormatDescription =
   "You can also specify a named volume, which needs to be created beforehand.";
 
 export function makeContainerDescriptionFlagOptions(summary: string) {
-  return {
+  return Flags.custom<string>({
     summary,
     description: "This helps identify the container's purpose or contents.",
     required: false,
-  };
+  })();
 }
 
 export function makeContainerEntrypointFlagOptions(
   options: ContainerStringFlagOptions,
-): ContainerStringFlagOptions & { required: boolean } {
-  return {
+) {
+  return Flags.custom<string>({
     summary: options.summary,
     description: options.description,
     required: false,
-  };
+  })();
 }
 
 export function makeContainerPublishFlagOptions(
   options: ContainerPublishFlagOptions,
-): ContainerPublishFlagOptions & { required: false; multiple: true } {
-  return {
+) {
+  return Flags.custom<string[]>({
     summary: options.summary,
     description: options.description,
     required: false,
     multiple: true,
-    multipleNonGreedy: options.multipleNonGreedy,
+    multipleNonGreedy: true,
     char: options.char,
-  };
+  })();
 }
 
 export function makeContainerVolumeFlagOptions(
   options: ContainerVolumeFlagOptions,
-): ContainerVolumeFlagOptions & {
-  required: false;
-  char: "v";
-  multiple: true;
-} {
-  return {
+) {
+  return Flags.custom<string[]>({
     summary: options.summary,
     description: options.description + containerVolumeFormatDescription,
     required: false,
     char: "v",
     multiple: true,
-    multipleNonGreedy: options.multipleNonGreedy,
-  };
+    multipleNonGreedy: true,
+  })();
 }

@@ -47,42 +47,34 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
     }),
     env: makeContainerEnvFlag(),
     "env-file": makeContainerEnvFileFlag(),
-    description: Flags.string(
-      makeContainerDescriptionFlagOptions(
-        "update the descriptive label of the container",
-      ),
+    description: makeContainerDescriptionFlagOptions(
+      "update the descriptive label of the container",
     ),
-    entrypoint: Flags.string(
-      makeContainerEntrypointFlagOptions({
-        summary: "override the entrypoint of the container",
-        description:
-          "The entrypoint is the command that will be executed when the container starts.",
-      }),
-    ),
+    entrypoint: makeContainerEntrypointFlagOptions({
+      summary: "override the entrypoint of the container",
+      description:
+        "The entrypoint is the command that will be executed when the container starts.",
+    }),
     command: Flags.string({
       summary: "update the command to run in the container",
       description:
         "This overrides the default command specified in the container image.",
       required: false,
     }),
-    publish: Flags.string(
-      makeContainerPublishFlagOptions({
-        summary: "update the container's port mappings",
-        description:
-          "Expose a container's port within the cluster. " +
-          "Format: <cluster-port>:<container-port> or just <port> (in which case the same port is used for both cluster and container). " +
-          "Use multiple -p flags to publish multiple ports.",
-        char: "p",
-      }),
-    ),
+    publish: makeContainerPublishFlagOptions({
+      summary: "update the container's port mappings",
+      description:
+        "Expose a container's port within the cluster. " +
+        "Format: <cluster-port>:<container-port> or just <port> (in which case the same port is used for both cluster and container). " +
+        "Use multiple -p flags to publish multiple ports.",
+      char: "p",
+    }),
     "publish-all": makeContainerPublishAllFlag(),
-    volume: Flags.string(
-      makeContainerVolumeFlagOptions({
-        summary: "update volume mounts for the container",
-        description:
-          "This flag can be used to replace volume mounts of the container. It can be used multiple times to mount multiple volumes.",
-      }),
-    ),
+    volume: makeContainerVolumeFlagOptions({
+      summary: "update volume mounts for the container",
+      description:
+        "This flag can be used to replace volume mounts of the container. It can be used multiple times to mount multiple volumes.",
+    }),
     recreate: Flags.boolean({
       summary: "recreate the container after updating",
       description:

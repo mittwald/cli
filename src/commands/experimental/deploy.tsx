@@ -41,8 +41,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     ...processFlags,
     ...projectFlags,
     ...waitFlags,
-    env: makeContainerEnvFlag({ multipleNonGreedy: true }),
-    "env-file": makeContainerEnvFileFlag({ multipleNonGreedy: true }),
+    env: makeContainerEnvFlag(),
+    "env-file": makeContainerEnvFileFlag(),
     "uri-prefix": Flags.string({
       summary: "prefix for the generated default domain",
       description: "Defaults to 'webapp'.",
