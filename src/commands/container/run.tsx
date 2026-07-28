@@ -18,13 +18,14 @@ import {
   parseEnvironmentVariables,
 } from "../../lib/resources/container/containerconfig.js";
 import {
-  makeContainerDescriptionFlagOptions,
-  makeContainerEntrypointFlagOptions,
-  makeContainerEnvFileFlag,
-  makeContainerEnvFlag,
-  makeContainerPublishFlagOptions,
-  makeContainerPublishAllFlag,
-  makeContainerVolumeFlagOptions,
+  containerDescriptionFlag,
+  containerEntrypointFlag,
+  containerEnvFileFlag,
+  containerEnvFlag,
+  containerPublishFlag,
+  containerPublishAllFlag,
+  containerVolumeFlag,
+  containerVolumeFormatDescription,
 } from "../../lib/resources/container/common-flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
@@ -57,12 +58,12 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     ...processFlags,
     ...projectFlags,
     ...optionalStackFlags,
-    env: makeContainerEnvFlag(),
-    "env-file": makeContainerEnvFileFlag(),
-    description: makeContainerDescriptionFlagOptions(
-      "add a descriptive label to the container",
-    ),
-    entrypoint: makeContainerEntrypointFlagOptions({
+    env: containerEnvFlag(),
+    "env-file": containerEnvFileFlag(),
+    description: containerDescriptionFlag({
+      summary: "add a descriptive label to the container",
+    }),
+    entrypoint: containerEntrypointFlag({
       summary: "override the default entrypoint of the container image",
       description:
         "The entrypoint is the command that will be executed when the container starts. If omitted, the entrypoint defined in the image will be used.",
@@ -73,7 +74,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
         "This makes it easier to reference the container in subsequent commands. If omitted, a random name will be generated automatically.",
       required: false,
     }),
-    publish: makeContainerPublishFlagOptions({
+    publish: containerPublishFlag({
       summary: "publish a container's port(s)",
       description:
         "Expose a container's port within the cluster. " +
@@ -82,11 +83,12 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
         "Use multiple --publish flags to publish multiple ports.\n\n" +
         "NOTE: Please note that the usual shorthand -p is not supported for this flag, as it would conflict with the --project flag.",
     }),
-    "publish-all": makeContainerPublishAllFlag(),
-    volume: makeContainerVolumeFlagOptions({
+    "publish-all": containerPublishAllFlag,
+    volume: containerVolumeFlag({
       summary: "bind mount a volume to the container",
       description:
-        "This flag can be used to add volume mounts to the container. It can be used multiple times to mount multiple volumes.",
+        "This flag can be used to add volume mounts to the container. It can be used multiple times to mount multiple volumes." +
+        containerVolumeFormatDescription,
     }),
     "create-volumes": Flags.boolean({
       summary: "automatically create named volumes that do not exist",

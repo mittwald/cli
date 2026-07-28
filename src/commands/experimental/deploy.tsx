@@ -9,8 +9,8 @@ import {
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import { parseEnvironmentVariables } from "../../lib/resources/container/containerconfig.js";
 import {
-  makeContainerEnvFileFlag,
-  makeContainerEnvFlag,
+  containerEnvFileFlag,
+  containerEnvFlag,
 } from "../../lib/resources/container/common-flags.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
@@ -41,8 +41,8 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     ...processFlags,
     ...projectFlags,
     ...waitFlags,
-    env: makeContainerEnvFlag(),
-    "env-file": makeContainerEnvFileFlag(),
+    env: containerEnvFlag(),
+    "env-file": containerEnvFileFlag(),
     "uri-prefix": Flags.string({
       summary: "prefix for the generated default domain",
       description: "Defaults to 'webapp'.",
