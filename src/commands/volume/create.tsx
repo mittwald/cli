@@ -9,6 +9,10 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
+import {
+  optionalStackFlags,
+  withStackIdOrDefault,
+} from "../../lib/resources/stack/flags.js";
 
 type Result = {
   volumeName: string;
@@ -18,10 +22,11 @@ type Result = {
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static summary = "Create a new volume";
   static description =
-    "Creates a new named volume in the project stack. The volume will be available for use by containers.";
+    "Creates a new named volume in a container stack. The volume will be available for use by containers of that stack.";
 
   static flags = {
     ...projectFlags,
+    ...optionalStackFlags,
     ...processFlags,
   };
 
@@ -35,7 +40,12 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   protected async exec(): Promise<Result> {
     const process = makeProcessRenderer(this.flags, "Creating a new volume");
     const projectId = await this.withProjectId(Create);
-    const stackId = projectId; // In mStudio, project and stack are the same for volumes
+    const stackId = await withStackIdOrDefault(
+      this.apiClient,
+      this.flags,
+      projectId,
+      this.config,
+    );
     const { name: volumeName } = this.args;
 
     // Get current stack state
