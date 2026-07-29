@@ -39,7 +39,7 @@ export default class UnsetUpdateSchedule extends ExecRenderBaseCommand<
     const stackId = this.args["stack-id"];
 
     await p.runStep("removing stack schedule", async () => {
-      const response = await this.apiClient.container.setStackUpdateSchedule({
+      const response = await this.apiClient.container.updateStack({
         stackId,
         data: {
           updateSchedule: null as unknown as {
