@@ -13,6 +13,8 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
     ...DeleteBaseCommand.baseFlags,
     "with-volumes": Flags.boolean({
       summary: "also include remove volumes in removal",
+      description:
+        "Only relevant for a project's default stack, which is emptied instead of removed; the volumes of any other stack are removed together with the stack itself.",
       default: false,
       char: "v",
     }),
@@ -24,20 +26,25 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
     const stackResponse = await this.apiClient.container.getStack({ stackId });
     assertStatus(stackResponse, 200);
 
-    if (this.flags["with-volumes"]) {
-      // Empty the stack first so that its services release the volumes, then
-      // remove the volumes while the stack (and thus their delete endpoint)
-      // still exists.
-      const declareResp = await this.apiClient.container.declareStack({
+    const { id, projectId } = stackResponse.data;
+
+    // A project's default stack cannot be removed; it is emptied instead by
+    // declaring it without any services or volumes.
+    if (id === projectId) {
+      const resp = await this.apiClient.container.declareStack({
         stackId,
         data: {
           services: {},
           volumes: {},
         },
       });
-      assertSuccess(declareResp);
+      assertSuccess(resp);
 
-      await this.deleteVolumes(stackId, stackResponse.data.projectId);
+      if (this.flags["with-volumes"]) {
+        await this.deleteVolumes(stackId, projectId);
+      }
+
+      return;
     }
 
     const resp = await this.apiClient.container.deleteStack({ stackId });
