@@ -11,9 +11,9 @@ Manage container stacks
 * [`mw stack ps`](#mw-stack-ps)
 * [`mw stack rm [STACK-ID]`](#mw-stack-rm-stack-id)
 * [`mw stack set-update-schedule STACK-ID SCHEDULE`](#mw-stack-set-update-schedule-stack-id-schedule)
-* [`mw stack templates install TEMPLATE-ID`](#mw-stack-templates-install-template-id)
-* [`mw stack templates list`](#mw-stack-templates-list)
-* [`mw stack templates ls`](#mw-stack-templates-ls)
+* [`mw stack template install TEMPLATE-ID`](#mw-stack-template-install-template-id)
+* [`mw stack template list`](#mw-stack-template-list)
+* [`mw stack template ls`](#mw-stack-template-ls)
 * [`mw stack unset-update-schedule STACK-ID`](#mw-stack-unset-update-schedule-stack-id)
 * [`mw stack up`](#mw-stack-up)
 
@@ -48,8 +48,8 @@ DESCRIPTION
   with one or more --input flags in 'name=value' format; any required inputs that are neither provided nor have a
   default value are prompted for interactively.
 
-  Use "mw stack templates list" to discover available templates and their IDs. To add a template to a stack that already
-  exists, use "mw stack templates install" instead.
+  Use "mw stack template list" to discover available templates and their IDs. To add a template to a stack that already
+  exists, use "mw stack template install" instead.
 
 EXAMPLES
   Create an empty stack
@@ -363,13 +363,13 @@ FLAG DESCRIPTIONS
 ```
 
 
-## `mw stack templates install TEMPLATE-ID`
+## `mw stack template install TEMPLATE-ID`
 
 Install a template into an existing container stack
 
 ```
 USAGE
-  $ mw stack templates install TEMPLATE-ID [--token <value>] [-s <value>] [-q] [--input <value>...]
+  $ mw stack template install TEMPLATE-ID [--token <value>] [-s <value>] [-q] [--input <value>...]
 
 ARGUMENTS
   TEMPLATE-ID  ID of the container template to install
@@ -398,11 +398,11 @@ DESCRIPTION
 EXAMPLES
   Install a template into the stack from the current context
 
-    $ mw stack templates install <template-id>
+    $ mw stack template install <template-id>
 
   Install a template into a specific stack, with inputs
 
-    $ mw stack templates install <template-id> --stack-id <stack-id> --input DB_NAME=mydb
+    $ mw stack template install <template-id> --stack-id <stack-id> --input DB_NAME=mydb
 
 FLAG DESCRIPTIONS
   -q, --quiet  suppress process output and only display a machine-readable summary
@@ -422,13 +422,13 @@ FLAG DESCRIPTIONS
 ```
 
 
-## `mw stack templates list`
+## `mw stack template list`
 
 List container templates that stacks can be created from.
 
 ```
 USAGE
-  $ mw stack templates list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+  $ mw stack template list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
     [--no-relative-dates] [--csv-separator ,|;] [--category <value>] [--type component|standalone]
 
 FLAGS
@@ -452,26 +452,26 @@ DESCRIPTION
   List container templates that stacks can be created from.
 
 ALIASES
-  $ mw stack templates ls
+  $ mw stack template ls
 
 EXAMPLES
   List all templates of a given category
 
-    $ mw stack templates list --category cms
+    $ mw stack template list --category cms
 
   List only standalone templates
 
-    $ mw stack templates list --type standalone
+    $ mw stack template list --type standalone
 ```
 
 
-## `mw stack templates ls`
+## `mw stack template ls`
 
 List container templates that stacks can be created from.
 
 ```
 USAGE
-  $ mw stack templates ls -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+  $ mw stack template ls -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
     [--no-relative-dates] [--csv-separator ,|;] [--category <value>] [--type component|standalone]
 
 FLAGS
@@ -495,16 +495,16 @@ DESCRIPTION
   List container templates that stacks can be created from.
 
 ALIASES
-  $ mw stack templates ls
+  $ mw stack template ls
 
 EXAMPLES
   List all templates of a given category
 
-    $ mw stack templates ls --category cms
+    $ mw stack template ls --category cms
 
   List only standalone templates
 
-    $ mw stack templates ls --type standalone
+    $ mw stack template ls --type standalone
 ```
 
 ## `mw stack unset-update-schedule STACK-ID`
