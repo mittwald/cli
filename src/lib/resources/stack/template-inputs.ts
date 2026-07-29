@@ -1,6 +1,5 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
-import { isSensitiveName } from "../../util/isSensitiveName.js";
 
 type ContainerTemplate = MittwaldAPIV2.Components.Schemas.ContainerTemplate;
 type TemplateUserInputDefinition = NonNullable<
@@ -10,6 +9,32 @@ type TemplateUserInputDefinition = NonNullable<
 export interface TemplateUserInput {
   name: string;
   value: string;
+}
+
+/**
+ * Determines whether an input holds a sensitive value, and should therefore be
+ * masked when prompting for it. Templates mark these inputs with a validation
+ * schema of format "password".
+ */
+export function isSensitiveInput(
+  definition: TemplateUserInputDefinition,
+): boolean {
+  const { validationSchema } = definition;
+  if (!validationSchema) {
+    return false;
+  }
+
+  try {
+    const parsed: unknown = JSON.parse(validationSchema);
+    return (
+      typeof parsed === "object" &&
+      parsed !== null &&
+      "format" in parsed &&
+      parsed.format === "password"
+    );
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -62,7 +87,7 @@ export async function collectTemplateUserInputs(
     const suffix = label ? ` (${label})` : "";
     const value = await renderer.addInput(
       `enter value for required template input '${definition.name}'${suffix}`,
-      isSensitiveName(definition.name),
+      isSensitiveInput(definition),
     );
     result.push({ name: definition.name, value });
   }

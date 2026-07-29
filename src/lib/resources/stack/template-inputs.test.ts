@@ -1,5 +1,8 @@
 import { describe, it, expect, jest } from "@jest/globals";
-import { collectTemplateUserInputs } from "./template-inputs.js";
+import {
+  collectTemplateUserInputs,
+  isSensitiveInput,
+} from "./template-inputs.js";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 
@@ -67,10 +70,24 @@ describe("collectTemplateUserInputs", () => {
     expect(addInput).toHaveBeenCalledWith(expect.any(String), false);
   });
 
-  it("masks the prompt for sensitive inputs", async () => {
+  it("masks the prompt for inputs with a password validation schema", async () => {
     const definitions: TemplateUserInputDefinition[] = [
-      { name: "ADMIN_PASSWORD", required: true },
-      { name: "ADMIN_EMAIL", required: true },
+      {
+        name: "ADMIN_PASSWORD",
+        required: true,
+        validationSchema: JSON.stringify({
+          type: "string",
+          format: "password",
+        }),
+      },
+      {
+        name: "ADMIN_EMAIL",
+        required: true,
+        validationSchema: JSON.stringify({
+          type: "string",
+          format: "email",
+        }),
+      },
     ];
     const { renderer, addInput } = makeRenderer(["s3cret", "a@example.com"]);
 
@@ -113,5 +130,41 @@ describe("collectTemplateUserInputs", () => {
 
     expect(addInfo).toHaveBeenCalledTimes(1);
     expect(addInfo).toHaveBeenCalledWith(expect.stringContaining("UNKNOWN"));
+  });
+});
+
+describe("isSensitiveInput", () => {
+  it("detects a password format", () => {
+    expect(
+      isSensitiveInput({
+        name: "PASSWORD",
+        required: true,
+        validationSchema: '{"type":"string","format":"password"}',
+      }),
+    ).toBe(true);
+  });
+
+  it("does not treat other formats as sensitive", () => {
+    expect(
+      isSensitiveInput({
+        name: "EMAIL",
+        required: true,
+        validationSchema: '{"type":"string","format":"email"}',
+      }),
+    ).toBe(false);
+  });
+
+  it("is not sensitive without a validation schema", () => {
+    expect(isSensitiveInput({ name: "PASSWORD", required: true })).toBe(false);
+  });
+
+  it("tolerates a malformed validation schema", () => {
+    expect(
+      isSensitiveInput({
+        name: "PASSWORD",
+        required: true,
+        validationSchema: "not json",
+      }),
+    ).toBe(false);
   });
 });
