@@ -254,7 +254,7 @@
       "stack": {
         "description": "Manage container stacks",
         "subtopics": {
-          "templates": {
+          "template": {
             "description": "Browse container templates that stacks can be created from"
           }
         }

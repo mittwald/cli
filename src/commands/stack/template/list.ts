@@ -13,7 +13,7 @@ type ListItem = Simplify<Template>;
 export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
   static description =
     "List container templates that stacks can be created from.";
-  static aliases = ["stack:templates:ls"];
+  static aliases = ["stack:template:ls"];
 
   static examples = [
     {
