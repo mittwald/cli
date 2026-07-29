@@ -15,7 +15,7 @@ Create a new volume
 
 ```
 USAGE
-  $ mw volume create NAME [--token <value>] [-p <value>] [-q]
+  $ mw volume create NAME [--token <value>] [-p <value>] [-s <value>] [-q]
 
 ARGUMENTS
   NAME  name of the volume to create
@@ -24,6 +24,7 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
+  -s, --stack-id=<value>    ID of the stack to operate on
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -32,7 +33,7 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Create a new volume
 
-  Creates a new named volume in the project stack. The volume will be available for use by containers.
+  Creates a new named volume in a container stack. The volume will be available for use by containers of that stack.
 
 FLAG DESCRIPTIONS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
@@ -44,6 +45,11 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  -s, --stack-id=<value>  ID of the stack to operate on
+
+    If omitted, the stack set in the CLI context is used; when that is not set either, the project's default stack is
+    used.
 ```
 
 
@@ -53,7 +59,7 @@ Remove one or more volumes
 
 ```
 USAGE
-  $ mw volume delete NAME [--token <value>] [-p <value>] [-q] [-f]
+  $ mw volume delete NAME [--token <value>] [-p <value>] [-s <value>] [-q] [-f]
 
 ARGUMENTS
   NAME  name of the volume to remove
@@ -63,6 +69,7 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
+  -s, --stack-id=<value>    ID of the stack to operate on
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -71,7 +78,7 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Remove one or more volumes
 
-  Removes named volumes from the project stack. Be careful as this will permanently delete the volume data.
+  Removes named volumes from a container stack. Be careful as this will permanently delete the volume data.
 
 ALIASES
   $ mw volume rm
@@ -86,6 +93,11 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  -s, --stack-id=<value>  ID of the stack to operate on
+
+    If omitted, the stack set in the CLI context is used; when that is not set either, the project's default stack is
+    used.
 ```
 
 
@@ -172,7 +184,7 @@ Remove one or more volumes
 
 ```
 USAGE
-  $ mw volume rm NAME [--token <value>] [-p <value>] [-q] [-f]
+  $ mw volume rm NAME [--token <value>] [-p <value>] [-s <value>] [-q] [-f]
 
 ARGUMENTS
   NAME  name of the volume to remove
@@ -182,6 +194,7 @@ FLAGS
   -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the
                             context
   -q, --quiet               suppress process output and only display a machine-readable summary
+  -s, --stack-id=<value>    ID of the stack to operate on
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -190,7 +203,7 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Remove one or more volumes
 
-  Removes named volumes from the project stack. Be careful as this will permanently delete the volume data.
+  Removes named volumes from a container stack. Be careful as this will permanently delete the volume data.
 
 ALIASES
   $ mw volume rm
@@ -205,4 +218,9 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  -s, --stack-id=<value>  ID of the stack to operate on
+
+    If omitted, the stack set in the CLI context is used; when that is not set either, the project's default stack is
+    used.
 ```

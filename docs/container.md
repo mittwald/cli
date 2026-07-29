@@ -531,6 +531,7 @@ FLAGS
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
   -q, --quiet                suppress process output and only display a machine-readable summary
+  -s, --stack-id=<value>     ID of the stack to operate on
   -v, --volume=<value>...    bind mount a volume to the container
       --cpus=<value>         set CPU limit for the container
       --create-volumes       automatically create named volumes that do not exist
@@ -567,6 +568,11 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  -s, --stack-id=<value>  ID of the stack to operate on
+
+    If omitted, the stack set in the CLI context is used; when that is not set either, the project's default stack is
+    used.
 
   -v, --volume=<value>...  bind mount a volume to the container
 
