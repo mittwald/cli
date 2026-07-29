@@ -114,6 +114,11 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  -v, --with-volumes  also include remove volumes in removal
+
+    Only relevant for a project's default stack, which is emptied instead of removed; the volumes of any other stack are
+    removed together with the stack itself.
 ```
 
 
@@ -320,6 +325,11 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  -v, --with-volumes  also include remove volumes in removal
+
+    Only relevant for a project's default stack, which is emptied instead of removed; the volumes of any other stack are
+    removed together with the stack itself.
 ```
 
 ## `mw stack set-update-schedule STACK-ID SCHEDULE`
