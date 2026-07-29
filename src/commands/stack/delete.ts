@@ -24,23 +24,24 @@ export default class Delete extends DeleteBaseCommand<typeof Delete> {
     const stackResponse = await this.apiClient.container.getStack({ stackId });
     assertStatus(stackResponse, 200);
 
-    if (stackResponse.data.projectId !== stackResponse.data.id) {
-      throw new Error("not implemented");
-    }
-
-    const resp = await this.apiClient.container.declareStack({
-      stackId,
-      data: {
-        services: {},
-        volumes: {},
-      },
-    });
-
-    assertSuccess(resp);
-
     if (this.flags["with-volumes"]) {
+      // Empty the stack first so that its services release the volumes, then
+      // remove the volumes while the stack (and thus their delete endpoint)
+      // still exists.
+      const declareResp = await this.apiClient.container.declareStack({
+        stackId,
+        data: {
+          services: {},
+          volumes: {},
+        },
+      });
+      assertSuccess(declareResp);
+
       await this.deleteVolumes(stackId, stackResponse.data.projectId);
     }
+
+    const resp = await this.apiClient.container.deleteStack({ stackId });
+    assertSuccess(resp);
   }
 
   protected async deleteVolumes(

@@ -3,15 +3,85 @@
 
 Manage container stacks
 
+* [`mw stack create`](#mw-stack-create)
 * [`mw stack delete [STACK-ID]`](#mw-stack-delete-stack-id)
 * [`mw stack deploy`](#mw-stack-deploy)
 * [`mw stack list`](#mw-stack-list)
+* [`mw stack list-templates`](#mw-stack-list-templates)
 * [`mw stack ls`](#mw-stack-ls)
 * [`mw stack ps`](#mw-stack-ps)
 * [`mw stack rm [STACK-ID]`](#mw-stack-rm-stack-id)
 * [`mw stack set-update-schedule STACK-ID SCHEDULE`](#mw-stack-set-update-schedule-stack-id-schedule)
+* [`mw stack templates`](#mw-stack-templates)
 * [`mw stack unset-update-schedule STACK-ID`](#mw-stack-unset-update-schedule-stack-id)
 * [`mw stack up`](#mw-stack-up)
+
+## `mw stack create`
+
+Create a new container stack
+
+```
+USAGE
+  $ mw stack create -d <value> [--token <value>] [-p <value>] [-q] [--input <value>... --from-template <value>]
+    [-c]
+
+FLAGS
+  -c, --update-context         update the CLI context to use the newly created stack
+  -d, --description=<value>    (required) description of the stack
+  -p, --project-id=<value>     ID or short ID of a project; this flag is optional if a default project is set in the
+                               context
+  -q, --quiet                  suppress process output and only display a machine-readable summary
+      --from-template=<value>  ID of a container template to create the stack from
+      --input=<value>...       user input for a template, in 'name=value' format
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Create a new container stack
+
+  Creates a new, empty container stack, or a stack based on a container template.
+
+  When --from-template is given, the referenced template may define user inputs.
+  These can be supplied non-interactively with one or more --input flags in
+  'name=value' format; any required inputs that are neither provided nor have a
+  default value are prompted for interactively.
+
+  Use "mw stack list-templates" to discover available templates and
+  their IDs.
+
+EXAMPLES
+  Create an empty stack
+
+    $ mw stack create --description "my stack"
+
+  Create a stack from a template, providing user inputs
+
+    $ mw stack create --description "my n8n" --from-template <template-id> --input DOMAIN=example.com --input \
+      ADMIN_EMAIL=admin@example.com
+
+FLAG DESCRIPTIONS
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  --from-template=<value>  ID of a container template to create the stack from
+
+    When set, the stack is created from the given container template. Omit this flag to create an empty stack.
+
+  --input=<value>...  user input for a template, in 'name=value' format
+
+    May be repeated to provide multiple inputs. Only applicable together with --from-template. Required inputs that are
+    not provided (and have no default) are prompted for interactively.
+```
+
 
 ## `mw stack delete [STACK-ID]`
 
@@ -90,6 +160,8 @@ FLAG DESCRIPTIONS
 
   --from-template=<value>  deploy from a GitHub template (e.g., mittwald/n8n)
 
+    DEPRECATED: use "mw stack create --from-template" instead. This flag uses an older, GitHub-based template mechanism.
+
     Fetch and deploy a stack from a GitHub template repository. Template names are automatically converted to repository
     names by prefixing "stack-template-" to the name part.
 
@@ -141,6 +213,37 @@ FLAG DESCRIPTIONS
 
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
+```
+
+
+## `mw stack list-templates`
+
+List container templates that stacks can be created from.
+
+```
+USAGE
+  $ mw stack list-templates -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
+
+FLAGS
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  List container templates that stacks can be created from.
+
+ALIASES
+  $ mw stack templates
 ```
 
 
@@ -281,6 +384,36 @@ FLAG DESCRIPTIONS
 ```
 
 
+## `mw stack templates`
+
+List container templates that stacks can be created from.
+
+```
+USAGE
+  $ mw stack templates -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;]
+
+FLAGS
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  List container templates that stacks can be created from.
+
+ALIASES
+  $ mw stack templates
+```
+
 ## `mw stack unset-update-schedule STACK-ID`
 
 Unset the update schedule of a container stack
@@ -352,6 +485,8 @@ FLAG DESCRIPTIONS
     default stack for all commands that accept this flag.
 
   --from-template=<value>  deploy from a GitHub template (e.g., mittwald/n8n)
+
+    DEPRECATED: use "mw stack create --from-template" instead. This flag uses an older, GitHub-based template mechanism.
 
     Fetch and deploy a stack from a GitHub template repository. Template names are automatically converted to repository
     names by prefixing "stack-template-" to the name part.

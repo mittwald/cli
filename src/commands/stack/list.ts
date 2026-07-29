@@ -34,6 +34,12 @@ export class List extends ListBaseCommand<typeof List, ListItem, ListResponse> {
     return {
       id,
       description: {},
+      template: {
+        header: "Template",
+        get(stack) {
+          return stack.templateId ?? "no template";
+        },
+      },
       services: {
         get(stack) {
           if (stack.services === undefined || stack.services.length === 0) {
