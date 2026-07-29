@@ -7,12 +7,12 @@ Manage container stacks
 * [`mw stack delete [STACK-ID]`](#mw-stack-delete-stack-id)
 * [`mw stack deploy`](#mw-stack-deploy)
 * [`mw stack list`](#mw-stack-list)
-* [`mw stack list-templates`](#mw-stack-list-templates)
 * [`mw stack ls`](#mw-stack-ls)
 * [`mw stack ps`](#mw-stack-ps)
 * [`mw stack rm [STACK-ID]`](#mw-stack-rm-stack-id)
 * [`mw stack set-update-schedule STACK-ID SCHEDULE`](#mw-stack-set-update-schedule-stack-id-schedule)
-* [`mw stack templates`](#mw-stack-templates)
+* [`mw stack templates list`](#mw-stack-templates-list)
+* [`mw stack templates ls`](#mw-stack-templates-ls)
 * [`mw stack unset-update-schedule STACK-ID`](#mw-stack-unset-update-schedule-stack-id)
 * [`mw stack up`](#mw-stack-up)
 
@@ -48,7 +48,7 @@ DESCRIPTION
   'name=value' format; any required inputs that are neither provided nor have a
   default value are prompted for interactively.
 
-  Use "mw stack list-templates" to discover available templates and
+  Use "mw stack templates list" to discover available templates and
   their IDs.
 
 EXAMPLES
@@ -216,37 +216,6 @@ FLAG DESCRIPTIONS
 ```
 
 
-## `mw stack list-templates`
-
-List container templates that stacks can be created from.
-
-```
-USAGE
-  $ mw stack list-templates -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
-    [--no-relative-dates] [--csv-separator ,|;]
-
-FLAGS
-  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
-                                <options: txt|json|yaml|csv|tsv>
-  -x, --extended                show extended information
-      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
-                                <options: ,|;>
-      --no-header               hide table header
-      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
-      --no-truncate             do not truncate output (only relevant for txt output)
-
-AUTHENTICATION FLAGS
-  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
-                   tokens passed via this flag might be logged in your shell history.
-
-DESCRIPTION
-  List container templates that stacks can be created from.
-
-ALIASES
-  $ mw stack templates
-```
-
-
 ## `mw stack ls`
 
 List container stacks for a given project.
@@ -384,24 +353,27 @@ FLAG DESCRIPTIONS
 ```
 
 
-## `mw stack templates`
+## `mw stack templates list`
 
 List container templates that stacks can be created from.
 
 ```
 USAGE
-  $ mw stack templates -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
-    [--no-relative-dates] [--csv-separator ,|;]
+  $ mw stack templates list -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [--category <value>] [--type component|standalone]
 
 FLAGS
   -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
                                 <options: txt|json|yaml|csv|tsv>
   -x, --extended                show extended information
+      --category=<value>        only list templates belonging to the given category
       --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
                                 <options: ,|;>
       --no-header               hide table header
       --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
       --no-truncate             do not truncate output (only relevant for txt output)
+      --type=<option>           only list templates of the given type
+                                <options: component|standalone>
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
@@ -411,7 +383,59 @@ DESCRIPTION
   List container templates that stacks can be created from.
 
 ALIASES
-  $ mw stack templates
+  $ mw stack templates ls
+
+EXAMPLES
+  List all templates of a given category
+
+    $ mw stack templates list --category cms
+
+  List only standalone templates
+
+    $ mw stack templates list --type standalone
+```
+
+
+## `mw stack templates ls`
+
+List container templates that stacks can be created from.
+
+```
+USAGE
+  $ mw stack templates ls -o txt|json|yaml|csv|tsv [--token <value>] [-x] [--no-header] [--no-truncate]
+    [--no-relative-dates] [--csv-separator ,|;] [--category <value>] [--type component|standalone]
+
+FLAGS
+  -o, --output=<option>         (required) [default: txt] output in a more machine friendly format
+                                <options: txt|json|yaml|csv|tsv>
+  -x, --extended                show extended information
+      --category=<value>        only list templates belonging to the given category
+      --csv-separator=<option>  [default: ,] separator for CSV output (only relevant for CSV output)
+                                <options: ,|;>
+      --no-header               hide table header
+      --no-relative-dates       show dates in absolute format, not relative (only relevant for txt output)
+      --no-truncate             do not truncate output (only relevant for txt output)
+      --type=<option>           only list templates of the given type
+                                <options: component|standalone>
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  List container templates that stacks can be created from.
+
+ALIASES
+  $ mw stack templates ls
+
+EXAMPLES
+  List all templates of a given category
+
+    $ mw stack templates ls --category cms
+
+  List only standalone templates
+
+    $ mw stack templates ls --type standalone
 ```
 
 ## `mw stack unset-update-schedule STACK-ID`
