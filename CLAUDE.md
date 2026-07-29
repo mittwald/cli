@@ -16,18 +16,17 @@ code in this repository.
 **Development:**
 
 - `yarn clean` - Clean compiled files and build artifacts
-- `yarn generate:readme >/dev/null 2>&1` - Generate documentation from command
-  definitions
 
 ## Development best practices
 
 - Follow the conventional commit format when writing commit messages
-- Make sure to re-generate the documentation before each commit
+- Do not re-generate the documentation (`yarn generate:readme`) yourself; the
+  `Update README for pull requests` GitHub workflow re-generates `README.md` and
+  `docs/*.md` on every pull request and commits the result back to the branch
 - Before wrapping up a task, run this checklist in order:
   1. `yarn lint`
   2. `yarn compile`
   3. `yarn test`
-  4. `yarn generate:readme >/dev/null 2>&1`
 
 ## Architecture Overview
 
