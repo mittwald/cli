@@ -252,7 +252,12 @@
         "description": "Manage SSH users of your projects"
       },
       "stack": {
-        "description": "Manage container stacks"
+        "description": "Manage container stacks",
+        "subtopics": {
+          "templates": {
+            "description": "Browse container templates that stacks can be created from"
+          }
+        }
       },
       "user": {
         "description": "Manage your own user account",

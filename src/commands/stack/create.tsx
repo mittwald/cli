@@ -31,7 +31,7 @@ These can be supplied non-interactively with one or more --input flags in
 'name=value' format; any required inputs that are neither provided nor have a
 default value are prompted for interactively.
 
-Use "<%= config.bin %> stack list-templates" to discover available templates and
+Use "<%= config.bin %> stack templates list" to discover available templates and
 their IDs.`;
 
   static examples = [
