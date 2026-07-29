@@ -40,7 +40,7 @@ export default class Update extends ExecRenderBaseCommand<
       );
     } else {
       await process.runStep("Updating project description", async () => {
-        const response = await this.apiClient.project.updateProjectDescription({
+        const response = await this.apiClient.project.updateProject({
           projectId,
           data: {
             description,

@@ -45,7 +45,7 @@ export default class SetUpdateSchedule extends ExecRenderBaseCommand<
     const stackId = this.args["stack-id"];
 
     await p.runStep("updating stack schedule", async () => {
-      const response = await this.apiClient.container.setStackUpdateSchedule({
+      const response = await this.apiClient.container.updateStack({
         stackId,
         data: {
           updateSchedule: {
