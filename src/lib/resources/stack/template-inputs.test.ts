@@ -64,6 +64,28 @@ describe("collectTemplateUserInputs", () => {
       { name: "ADMIN_EMAIL", value: "admin@example.com" },
     ]);
     expect(addInput).toHaveBeenCalledTimes(1);
+    expect(addInput).toHaveBeenCalledWith(expect.any(String), false);
+  });
+
+  it("masks the prompt for sensitive inputs", async () => {
+    const definitions: TemplateUserInputDefinition[] = [
+      { name: "ADMIN_PASSWORD", required: true },
+      { name: "ADMIN_EMAIL", required: true },
+    ];
+    const { renderer, addInput } = makeRenderer(["s3cret", "a@example.com"]);
+
+    await collectTemplateUserInputs(definitions, {}, renderer);
+
+    expect(addInput).toHaveBeenNthCalledWith(
+      1,
+      expect.stringContaining("ADMIN_PASSWORD"),
+      true,
+    );
+    expect(addInput).toHaveBeenNthCalledWith(
+      2,
+      expect.stringContaining("ADMIN_EMAIL"),
+      false,
+    );
   });
 
   it("omits optional inputs without a provided value", async () => {

@@ -3,6 +3,7 @@ import { pathExists } from "../../util/fs/pathExists.js";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
 import { getRandomValues } from "node:crypto";
 import { parseEnvironmentVariablesFromStr } from "../../util/parser.js";
+import { isSensitiveName } from "../../util/isSensitiveName.js";
 
 export async function collectEnvironment(
   base: NodeJS.ProcessEnv,
@@ -36,7 +37,7 @@ export async function fillMissingEnvironmentVariables(
     if (value === "__PROMPT__") {
       output[key] = await renderer.addInput(
         `enter value for environment variable ${key}`,
-        false,
+        isSensitiveName(key),
       );
     }
 

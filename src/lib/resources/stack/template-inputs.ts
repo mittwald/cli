@@ -1,5 +1,6 @@
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { ProcessRenderer } from "../../../rendering/process/process.js";
+import { isSensitiveName } from "../../util/isSensitiveName.js";
 
 type ContainerTemplate = MittwaldAPIV2.Components.Schemas.ContainerTemplate;
 type TemplateUserInputDefinition = NonNullable<
@@ -61,6 +62,7 @@ export async function collectTemplateUserInputs(
     const suffix = label ? ` (${label})` : "";
     const value = await renderer.addInput(
       `enter value for required template input '${definition.name}'${suffix}`,
+      isSensitiveName(definition.name),
     );
     result.push({ name: definition.name, value });
   }
