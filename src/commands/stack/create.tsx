@@ -26,13 +26,9 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static description = `\
 Creates a new, empty container stack, or a stack based on a container template.
 
-When --from-template is given, the referenced template may define user inputs.
-These can be supplied non-interactively with one or more --input flags in
-'name=value' format; any required inputs that are neither provided nor have a
-default value are prompted for interactively.
+When --from-template is given, the referenced template may define user inputs. These can be supplied non-interactively with one or more --input flags in 'name=value' format; any required inputs that are neither provided nor have a default value are prompted for interactively.
 
-Use "<%= config.bin %> stack templates list" to discover available templates and
-their IDs.`;
+Use "<%= config.bin %> stack templates list" to discover available templates and their IDs. To add a template to a stack that already exists, use "<%= config.bin %> stack templates install" instead.`;
 
   static examples = [
     {
