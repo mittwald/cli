@@ -2883,7 +2883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.17.15":
+"@types/node@npm:^18.19.124":
   version: 18.19.130
   resolution: "@types/node@npm:18.19.130"
   dependencies:
@@ -3280,50 +3280,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.4.2":
-  version: 4.4.2
-  resolution: "@yarnpkg/core@npm:4.4.2"
+"@yarnpkg/core@npm:^4.9.1":
+  version: 4.9.1
+  resolution: "@yarnpkg/core@npm:4.9.1"
   dependencies:
     "@arcanis/slice-ansi": ^1.1.1
     "@types/semver": ^7.1.0
     "@types/treeify": ^1.0.0
-    "@yarnpkg/fslib": ^3.1.2
-    "@yarnpkg/libzip": ^3.2.1
-    "@yarnpkg/parsers": ^3.0.3
-    "@yarnpkg/shell": ^4.1.3
-    camelcase: ^5.3.1
-    chalk: ^4.1.2
-    ci-info: ^4.0.0
-    clipanion: ^4.0.0-rc.2
-    cross-spawn: ^7.0.3
-    diff: ^5.1.0
-    dotenv: ^16.3.1
-    fast-glob: ^3.2.2
-    got: ^11.7.0
-    hpagent: ^1.2.0
-    lodash: ^4.17.15
-    micromatch: ^4.0.2
-    p-limit: ^2.2.0
-    semver: ^7.1.2
-    strip-ansi: ^6.0.0
-    tar: ^6.0.5
-    tinylogic: ^2.0.0
-    treeify: ^1.1.0
-    tslib: ^2.4.0
-  checksum: 8e94a3409ef027ac802972ac65355cfb37bfaebc2a99189a1d938e1cd9d14f8df49b904bad6ebfcbd75dd5edd867363a2e6337b90c817d6edf050cd8c4866fab
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/core@npm:^4.4.4":
-  version: 4.4.4
-  resolution: "@yarnpkg/core@npm:4.4.4"
-  dependencies:
-    "@arcanis/slice-ansi": ^1.1.1
-    "@types/semver": ^7.1.0
-    "@types/treeify": ^1.0.0
-    "@yarnpkg/fslib": ^3.1.3
+    "@yarnpkg/fslib": ^3.1.5
     "@yarnpkg/libzip": ^3.2.2
-    "@yarnpkg/parsers": ^3.0.3
+    "@yarnpkg/parsers": ^3.1.0
     "@yarnpkg/shell": ^4.1.3
     camelcase: ^5.3.1
     chalk: ^4.1.2
@@ -3338,13 +3304,13 @@ __metadata:
     hpagent: ^1.2.0
     micromatch: ^4.0.2
     p-limit: ^2.2.0
-    semver: ^7.1.2
+    semver: ^7.8.5
     strip-ansi: ^6.0.0
-    tar: ^6.0.5
+    tar: ^7.5.3
     tinylogic: ^2.0.0
     treeify: ^1.1.0
     tslib: ^2.4.0
-  checksum: 0ed1c0fa9cb590de700b26c50ee021af19a29c7b4d04a0d121864ca1a47ce09280c56619eb947a28454731a0d7eec4ab08b7dda6eba68782f12a5e88e05bebc6
+  checksum: a8329ea33cc681b36812af0505c1df24013679f41bfffb7f6a5fbff2b7fa0e9c108cdad593003a5769a6f4d4247d4d6a4cc76f880c29c29fe1b987ec6c436d2c
   languageName: node
   linkType: hard
 
@@ -3366,16 +3332,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/libzip@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "@yarnpkg/libzip@npm:3.2.1"
+"@yarnpkg/fslib@npm:^3.1.5":
+  version: 3.1.5
+  resolution: "@yarnpkg/fslib@npm:3.1.5"
   dependencies:
-    "@types/emscripten": ^1.39.6
-    "@yarnpkg/fslib": ^3.1.2
     tslib: ^2.4.0
-  peerDependencies:
-    "@yarnpkg/fslib": ^3.1.2
-  checksum: 2d24000255ae90c40f58656e5ce3b901e8cd2ef41751c9ebbe80c96fd3fd432fac0c01bfd05e02b179058fc9c73ef9f2c08d9e7fa8e94b181a9bdaa7369e9175
+  checksum: ca764a977fe7c43306df52ff591c703286ee78b61aed6d86d6909e62f29355da6c00924426ce3c5c78595881f4a8c5828650e5c901673188e26305132a3f8a88
   languageName: node
   linkType: hard
 
@@ -3392,14 +3354,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/nm@npm:^4.0.7":
-  version: 4.0.7
-  resolution: "@yarnpkg/nm@npm:4.0.7"
+"@yarnpkg/nm@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "@yarnpkg/nm@npm:4.1.1"
   dependencies:
-    "@yarnpkg/core": ^4.4.2
-    "@yarnpkg/fslib": ^3.1.2
-    "@yarnpkg/pnp": ^4.1.1
-  checksum: d50980330ffbeab015ef034f00638c76eefe97326ffaf8976879740265bef9920527cecd7f024da293969f6761efda8583ea2cdcfb5ac359e250d05b53437dd4
+    "@yarnpkg/core": ^4.9.1
+    "@yarnpkg/fslib": ^3.1.5
+    "@yarnpkg/pnp": ^4.1.7
+  checksum: d3ff6184c57ba7b51254ed855305808de9026fce0b68f7c089b944d7c79963ad4f7666bd3446be93d876aeb7e44baac7661e4ea50511c3c1fb731ffb138cdcbb
   languageName: node
   linkType: hard
 
@@ -3413,28 +3375,38 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/pnp@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "@yarnpkg/pnp@npm:4.1.1"
+"@yarnpkg/parsers@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@yarnpkg/parsers@npm:3.1.0"
   dependencies:
-    "@types/node": ^18.17.15
-    "@yarnpkg/fslib": ^3.1.2
-  checksum: 91e8d9f727bb60c8a70e4db995e07d3c8daf87de3e98c3d96df5971218c862094362b6ebaf757e724ecd01b96a5733d00cd1a0c2acb4f00ac5103568e91cf3df
+    js-yaml: ^4.3.0
+    tslib: ^2.4.0
+  checksum: 8777c9826c3dd0e17f73369a358408e0d7e1052c3fc8db71a8f8080981c4c6dae309265e3cb827744f2d1f82610bbe409479a91ff399ac926083433847359d1f
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/pnp@npm:^4.1.7":
+  version: 4.1.7
+  resolution: "@yarnpkg/pnp@npm:4.1.7"
+  dependencies:
+    "@types/node": ^18.19.124
+    "@yarnpkg/fslib": ^3.1.5
+  checksum: e9067513ffddbb8f9b0c7c5897776d84a51fcf4e388e22ab639ae2904465ab90db9255011a2edafafbc6c0f116a1e70a1ce5defbccc2119d75feb09d99334cf6
   languageName: node
   linkType: hard
 
 "@yarnpkg/pnpify@npm:^4.0.0-rc.48":
-  version: 4.1.6
-  resolution: "@yarnpkg/pnpify@npm:4.1.6"
+  version: 4.1.7
+  resolution: "@yarnpkg/pnpify@npm:4.1.7"
   dependencies:
-    "@yarnpkg/core": ^4.4.4
-    "@yarnpkg/fslib": ^3.1.3
-    "@yarnpkg/nm": ^4.0.7
+    "@yarnpkg/core": ^4.9.1
+    "@yarnpkg/fslib": ^3.1.5
+    "@yarnpkg/nm": ^4.1.1
     clipanion: ^4.0.0-rc.2
     tslib: ^2.4.0
   bin:
     pnpify: ./lib/cli.js
-  checksum: 0b417485cbabf6a46b07b860422ab50c5e900ffbb6a4285c80315d6aed64b8cbd7af523b5b54e8d3071eebb300a9e15b3ae41b733dba3191db7a3a56839e0d1e
+  checksum: 1c66388c828b95409734ea3723e504a1fb259befeacf879e346e986e46a11182c37cf8f3bcab67fa8a4011d12ee72a57877bbf12bf93fc2bf362bab608e8d78a
   languageName: node
   linkType: hard
 
@@ -4204,13 +4176,6 @@ __metadata:
   version: 1.1.4
   resolution: "chownr@npm:1.1.4"
   checksum: 115648f8eb38bac5e41c3857f3e663f9c39ed6480d1349977c4d96c95a47266fcacc5a5aabf3cb6c481e22d72f41992827db47301851766c4fd77ac21a4f081d
-  languageName: node
-  linkType: hard
-
-"chownr@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "chownr@npm:2.0.0"
-  checksum: c57cf9dd0791e2f18a5ee9c1a299ae6e801ff58fee96dc8bfd0dcb4738a6ce58dd252a3605b1c93c6418fe4f9d5093b28ffbf4d66648cb2a9c67eaef9679be2f
   languageName: node
   linkType: hard
 
@@ -5499,15 +5464,6 @@ __metadata:
     jsonfile: ^4.0.0
     universalify: ^0.1.0
   checksum: bf44f0e6cea59d5ce071bba4c43ca76d216f89e402dc6285c128abc0902e9b8525135aa808adad72c9d5d218e9f4bcc63962815529ff2f684ad532172a284880
-  languageName: node
-  linkType: hard
-
-"fs-minipass@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "fs-minipass@npm:2.1.0"
-  dependencies:
-    minipass: ^3.0.0
-  checksum: 1b8d128dae2ac6cc94230cc5ead341ba3e0efaef82dab46a33d171c044caaa6ca001364178d42069b2809c35a1c3c35079a32107c770e9ffab3901b59af8c8b1
   languageName: node
   linkType: hard
 
@@ -6984,6 +6940,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-yaml@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "js-yaml@npm:4.3.0"
+  dependencies:
+    argparse: ^2.0.1
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: 1268fb22ae8504646cedc0823c18816d4af056029578e855b9a4d3e19bcafc3e9ba9e391f70dea4a29b023bb09f23639766071199cb89e853266b90a6ec25f9a
+  languageName: node
+  linkType: hard
+
 "js-yaml@npm:^5.2.0":
   version: 5.2.2
   resolution: "js-yaml@npm:5.2.2"
@@ -7210,7 +7177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15, lodash@npm:^4.17.21":
+"lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -7886,7 +7853,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minipass@npm:^5.0.0, minipass@npm:^5.0.0 || ^6.0.2 || ^7.0.0":
+"minipass@npm:^5.0.0 || ^6.0.2 || ^7.0.0":
   version: 5.0.0
   resolution: "minipass@npm:5.0.0"
   checksum: 425dab288738853fded43da3314a0b5c035844d6f3097a8e3b5b29b328da8f3c1af6fc70618b32c29ff906284cf6406b6841376f21caaadd0793c1d5a6a620ea
@@ -7904,16 +7871,6 @@ __metadata:
   version: 7.1.3
   resolution: "minipass@npm:7.1.3"
   checksum: 2ede17c0bf8fec499be3360fd07f0ec7666189e3907320a9b653f1530cf84af98928c5b12d80bfb75f321833bf2e97785b940540213ebdafe97a5f10327e664d
-  languageName: node
-  linkType: hard
-
-"minizlib@npm:^2.1.1":
-  version: 2.1.2
-  resolution: "minizlib@npm:2.1.2"
-  dependencies:
-    minipass: ^3.0.0
-    yallist: ^4.0.0
-  checksum: f1fdeac0b07cf8f30fcf12f4b586795b97be856edea22b5e9072707be51fc95d41487faec3f265b42973a304fe3a64acd91a44a3826a963e37b37bafde0212c3
   languageName: node
   linkType: hard
 
@@ -7942,7 +7899,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mkdirp@npm:^1.0.3, mkdirp@npm:^1.0.4":
+"mkdirp@npm:^1.0.4":
   version: 1.0.4
   resolution: "mkdirp@npm:1.0.4"
   bin:
@@ -9205,7 +9162,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.1.1, semver@npm:^7.1.2, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.1, semver@npm:^7.8.5":
+"semver@npm:^7.1.1, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.2, semver@npm:^7.7.3, semver@npm:^7.8.1, semver@npm:^7.8.5":
   version: 7.8.5
   resolution: "semver@npm:7.8.5"
   bin:
@@ -9721,20 +9678,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^6.0.5":
-  version: 6.2.1
-  resolution: "tar@npm:6.2.1"
-  dependencies:
-    chownr: ^2.0.0
-    fs-minipass: ^2.0.0
-    minipass: ^5.0.0
-    minizlib: ^2.1.1
-    mkdirp: ^1.0.3
-    yallist: ^4.0.0
-  checksum: f1322768c9741a25356c11373bce918483f40fa9a25c69c59410c8a1247632487edef5fe76c5f12ac51a6356d2f1829e96d2bc34098668a2fc34d76050ac2b6c
-  languageName: node
-  linkType: hard
-
 "tar@npm:^7.4.3":
   version: 7.4.3
   resolution: "tar@npm:7.4.3"
@@ -9746,6 +9689,19 @@ __metadata:
     mkdirp: ^3.0.1
     yallist: ^5.0.0
   checksum: 8485350c0688331c94493031f417df069b778aadb25598abdad51862e007c39d1dd5310702c7be4a6784731a174799d8885d2fde0484269aea205b724d7b2ffa
+  languageName: node
+  linkType: hard
+
+"tar@npm:^7.5.3":
+  version: 7.5.22
+  resolution: "tar@npm:7.5.22"
+  dependencies:
+    "@isaacs/fs-minipass": ^4.0.0
+    chownr: ^3.0.0
+    minipass: ^7.1.2
+    minizlib: ^3.1.0
+    yallist: ^5.0.0
+  checksum: e1434f40954410d191ab6d89017bfd40c24869cfd319d19dd74f84db13cbea15370a22bc9b8ecd699d05c2777ec6297f35dac318ed4829b6e776a7cb4f1f7c68
   languageName: node
   linkType: hard
 
