@@ -11,6 +11,7 @@ Manage container stacks
 * [`mw stack ps`](#mw-stack-ps)
 * [`mw stack rm [STACK-ID]`](#mw-stack-rm-stack-id)
 * [`mw stack set-update-schedule STACK-ID SCHEDULE`](#mw-stack-set-update-schedule-stack-id-schedule)
+* [`mw stack templates install TEMPLATE-ID`](#mw-stack-templates-install-template-id)
 * [`mw stack templates list`](#mw-stack-templates-list)
 * [`mw stack templates ls`](#mw-stack-templates-ls)
 * [`mw stack unset-update-schedule STACK-ID`](#mw-stack-unset-update-schedule-stack-id)
@@ -43,13 +44,12 @@ DESCRIPTION
 
   Creates a new, empty container stack, or a stack based on a container template.
 
-  When --from-template is given, the referenced template may define user inputs.
-  These can be supplied non-interactively with one or more --input flags in
-  'name=value' format; any required inputs that are neither provided nor have a
+  When --from-template is given, the referenced template may define user inputs. These can be supplied non-interactively
+  with one or more --input flags in 'name=value' format; any required inputs that are neither provided nor have a
   default value are prompted for interactively.
 
-  Use "mw stack templates list" to discover available templates and
-  their IDs.
+  Use "mw stack templates list" to discover available templates and their IDs. To add a template to a stack that already
+  exists, use "mw stack templates install" instead.
 
 EXAMPLES
   Create an empty stack
@@ -360,6 +360,65 @@ FLAG DESCRIPTIONS
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
     scripts), you can use this flag to easily get the IDs of created resources for further processing.
+```
+
+
+## `mw stack templates install TEMPLATE-ID`
+
+Install a template into an existing container stack
+
+```
+USAGE
+  $ mw stack templates install TEMPLATE-ID [--token <value>] [-s <value>] [-q] [--input <value>...]
+
+ARGUMENTS
+  TEMPLATE-ID  ID of the container template to install
+
+FLAGS
+  -q, --quiet             suppress process output and only display a machine-readable summary
+  -s, --stack-id=<value>  ID of a stack; this flag is optional if a default stack is set in the context
+      --input=<value>...  user input for the template, in 'name=value' format
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Install a template into an existing container stack
+
+  Adds the services and volumes of a container template to a stack that already exists, instead of creating a new stack
+  for it.
+
+  This is intended for templates of type "component"; use "mw stack create --from-template" to create a new stack from a
+  standalone template.
+
+  Template user inputs can be supplied non-interactively with one or more --input flags in 'name=value' format; any
+  required inputs that are neither provided nor have a default value are prompted for interactively.
+
+EXAMPLES
+  Install a template into the stack from the current context
+
+    $ mw stack templates install <template-id>
+
+  Install a template into a specific stack, with inputs
+
+    $ mw stack templates install <template-id> --stack-id <stack-id> --input DB_NAME=mydb
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
+
+  -s, --stack-id=<value>  ID of a stack; this flag is optional if a default stack is set in the context
+
+    May contain a ID of a stack; you can also use the "mw context set --stack-id=<VALUE>" command to persistently set a
+    default stack for all commands that accept this flag.
+
+  --input=<value>...  user input for the template, in 'name=value' format
+
+    May be repeated to provide multiple inputs. Required inputs that are not provided (and have no default) are prompted
+    for interactively.
 ```
 
 
