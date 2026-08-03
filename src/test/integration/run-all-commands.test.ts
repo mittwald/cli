@@ -19,6 +19,13 @@ type FailureCategory = WaiverCategory;
 
 type MachineLogEntry = Record<string, unknown>;
 
+type NonWaivedFailure = {
+  commandId: string;
+  kind: "failure" | "spawn-error";
+  category?: FailureCategory;
+  details: string;
+};
+
 const FAILURE_CATEGORIES: FailureCategory[] = [
   "ARG_MISUSE",
   "INTERACTIVE_REQUIRED",
@@ -206,6 +213,22 @@ function logProgress(message: string): void {
   process.stderr.write(`${message}\n`);
 }
 
+function formatNonWaivedFailureSummary(failures: NonWaivedFailure[]): string {
+  if (failures.length === 0) {
+    return "<none>";
+  }
+
+  return failures
+    .map((failure) => {
+      const base =
+        failure.kind === "failure"
+          ? `${failure.commandId} [${failure.category}]`
+          : `${failure.commandId} [spawn-error]`;
+      return `${base}: ${failure.details}`;
+    })
+    .join("\n");
+}
+
 function formatOutputBlock(output: string): string {
   const trimmed = output.trim();
   return trimmed.length > 0 ? trimmed : "<empty>";
@@ -343,6 +366,7 @@ describe("integration: run all commands", () => {
     const infrastructureFailures: string[] = [];
     const failuresByCategory = createFailureBuckets();
     const waivedByCategory = createFailureBuckets();
+    const nonWaivedFailures: NonWaivedFailure[] = [];
     let successfulCommands = 0;
     let failedCommands = 0;
     let waivedSkippedCommands = 0;
@@ -417,6 +441,12 @@ describe("integration: run all commands", () => {
       if (invocation.interactiveDecision === "INTERACTIVE_REQUIRED") {
         failedCommands += 1;
         failuresByCategory.INTERACTIVE_REQUIRED.push(command.commandId);
+        nonWaivedFailures.push({
+          commandId: command.commandId,
+          kind: "failure",
+          category: "INTERACTIVE_REQUIRED",
+          details: "classified INTERACTIVE_REQUIRED but no waiver entry exists",
+        });
         infrastructureFailures.push(
           `[waivers] ${command.commandId} was classified INTERACTIVE_REQUIRED but has no waiver entry`,
         );
@@ -441,6 +471,12 @@ describe("integration: run all commands", () => {
       if (staticInvocationIssues.length > 0) {
         failedCommands += 1;
         failuresByCategory.ARG_MISUSE.push(command.commandId);
+        nonWaivedFailures.push({
+          commandId: command.commandId,
+          kind: "failure",
+          category: "ARG_MISUSE",
+          details: staticInvocationIssues.join("; "),
+        });
         logProgress(
           `[${position}] preflight ${command.commandId} classified as ARG_MISUSE (${staticInvocationIssues.join("; ")})`,
         );
@@ -465,6 +501,12 @@ describe("integration: run all commands", () => {
       if (result.timedOut) {
         failedCommands += 1;
         failuresByCategory.COMMAND_BUG.push(command.commandId);
+        nonWaivedFailures.push({
+          commandId: command.commandId,
+          kind: "failure",
+          category: "COMMAND_BUG",
+          details: "timed out after 30000ms",
+        });
         logProgress(`[${position}] timeout ${command.commandId}`);
         logCommandFailureOutput(position, command.commandId, result);
         await appendMachineLogEntry(machineLogPath, {
@@ -485,11 +527,17 @@ describe("integration: run all commands", () => {
 
       if (result.exitCode === null) {
         failedCommands += 1;
+        const errorMessage = result.error?.message ?? "unknown error";
+        nonWaivedFailures.push({
+          commandId: command.commandId,
+          kind: "spawn-error",
+          details: errorMessage,
+        });
         infrastructureFailures.push(
-          `${command.commandId} failed to execute (source=${invocation.argumentSource}): ${result.error?.message ?? "unknown error"}`,
+          `${command.commandId} failed to execute (source=${invocation.argumentSource}): ${errorMessage}`,
         );
         logProgress(
-          `[${position}] spawn-error ${command.commandId}: ${result.error?.message ?? "unknown error"}`,
+          `[${position}] spawn-error ${command.commandId}: ${errorMessage}`,
         );
         logCommandFailureOutput(position, command.commandId, result);
         await appendMachineLogEntry(machineLogPath, {
@@ -511,6 +559,12 @@ describe("integration: run all commands", () => {
         failedCommands += 1;
         const category = classifyFailure(result);
         failuresByCategory[category].push(command.commandId);
+        nonWaivedFailures.push({
+          commandId: command.commandId,
+          kind: "failure",
+          category,
+          details: `exitCode=${result.exitCode}`,
+        });
         logProgress(
           `[${position}] classified ${command.commandId} as ${category}`,
         );
@@ -590,5 +644,14 @@ describe("integration: run all commands", () => {
     }
 
     expect(infrastructureFailures).toEqual([]);
+
+    if (nonWaivedFailures.length > 0) {
+      throw new Error(
+        [
+          "[run-all] non-waived command failures detected:",
+          formatNonWaivedFailureSummary(nonWaivedFailures),
+        ].join("\n"),
+      );
+    }
   });
 });

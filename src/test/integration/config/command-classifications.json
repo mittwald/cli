@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T07:37:35.513Z",
+  "generatedAt": "2026-08-03T09:06:47.147Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 119,
-    "failed": 0,
+    "successful": 118,
+    "failed": 1,
     "waivedSkipped": 66,
     "total": 185
   },
@@ -240,6 +240,11 @@
       "commandId": "database mysql phpmyadmin",
       "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
+    },
+    {
+      "commandId": "database mysql port-forward",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "failure"
     },
     {
       "commandId": "database mysql shell",
