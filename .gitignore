@@ -65,3 +65,9 @@ atlassian-ide-plugin.xml
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+# integration testing artifacts
+openapi.json
+run-all-commands.ndjson
+command-endpoint-map.json
+command-endpoint-map.md
