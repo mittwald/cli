@@ -1,0 +1,345 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-03T07:37:35.513Z",
+  "source": {
+    "kind": "run-all-summary"
+  },
+  "statistics": {
+    "successful": 119,
+    "failed": 0,
+    "waivedSkipped": 66,
+    "total": 185
+  },
+  "entries": [
+    {
+      "commandId": "app create node",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app create php",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app create php-worker",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app create python",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app create static",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app database link",
+      "category": "DEPRECATED_ENDPOINT",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app database replace",
+      "category": "DEPRECATED_ENDPOINT",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app dependency update",
+      "category": "COMMAND_BUG",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app dependency versions",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app download",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app exec",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app get",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app install contao",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app install joomla",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app install matomo",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app install nextcloud",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app install shopware5",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app install shopware6",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app install typo3",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app install wordpress",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app list-upgrade-candidates",
+      "category": "COMMAND_BUG",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app open",
+      "category": "COMMAND_BUG",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app ssh",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app upgrade",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app upload",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app version-info",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app versions",
+      "category": "COMMAND_BUG",
+      "source": "waiver"
+    },
+    {
+      "commandId": "backup download",
+      "category": "COMMAND_BUG",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container cp",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container delete",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container exec",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container logs",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container port-forward",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container recreate",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container restart",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container run",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container ssh",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container start",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container stop",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container update",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "conversation create",
+      "category": "COMMAND_BUG",
+      "source": "waiver"
+    },
+    {
+      "commandId": "conversation reply",
+      "category": "COMMAND_BUG",
+      "source": "waiver"
+    },
+    {
+      "commandId": "cronjob execution logs",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql dump",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql import",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql phpmyadmin",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql shell",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql upgrade",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql user delete",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "ddev init",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "ddev render-config",
+      "category": "CONTRACT_SHAPE",
+      "source": "waiver"
+    },
+    {
+      "commandId": "domain dnszone get",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "domain dnszone update",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "domain get",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "experimental deploy",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "login token",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "mail address update",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "org delete",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "sftp-user create",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "ssh-user create",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "stack delete",
+      "category": "COMMAND_BUG",
+      "source": "waiver"
+    },
+    {
+      "commandId": "stack deploy",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "stack set-update-schedule",
+      "category": "DEPRECATED_ENDPOINT",
+      "source": "waiver"
+    },
+    {
+      "commandId": "stack unset-update-schedule",
+      "category": "DEPRECATED_ENDPOINT",
+      "source": "waiver"
+    },
+    {
+      "commandId": "user ssh-key create",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "volume delete",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    }
+  ]
+}

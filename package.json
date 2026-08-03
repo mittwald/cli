@@ -38,7 +38,9 @@
     "test:format": "yarn lint && yarn format:prettier --check",
     "test:licenses": "yarn license-check --summary --unknown --failOn 'UNLICENSED;UNKNOWN'",
     "test:readme": "yarn generate:readme && git diff --exit-code README.md docs/*.md",
-    "test:unit": "NODE_NO_WARNINGS=1 yarn node --experimental-vm-modules $(yarn bin jest) ./src"
+    "test:unit": "NODE_NO_WARNINGS=1 yarn node --experimental-vm-modules $(yarn bin jest) ./src",
+    "tool:integration:generate-command-endpoint-map": "yarn compile && node dist/test/integration/tools/generate-command-endpoint-map.js",
+    "tool:integration:generate-resource-precondition-map": "yarn compile && node dist/test/integration/tools/generate-command-endpoint-map.js --category RESOURCE_PRECONDITION"
   },
   "files": [
     ".deps",
