@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-03T09:06:47.147Z",
+  "generatedAt": "2026-08-03T11:15:33.501Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
     "successful": 118,
-    "failed": 1,
-    "waivedSkipped": 66,
+    "failed": 0,
+    "waivedSkipped": 67,
     "total": 185
   },
   "entries": [
@@ -244,7 +244,7 @@
     {
       "commandId": "database mysql port-forward",
       "category": "RESOURCE_PRECONDITION",
-      "source": "failure"
+      "source": "waiver"
     },
     {
       "commandId": "database mysql shell",

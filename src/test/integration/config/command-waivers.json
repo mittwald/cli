@@ -378,6 +378,13 @@
     "issue": "seed-mysql-main-user-fixture"
   },
   {
+    "id": "resource-precondition-database-mysql-port-forward-main-user-missing",
+    "commandId": "database mysql port-forward",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The MySQL port-forward flow requires a resolvable main user in fixtures. In this run the command fails with 'No main user found'.",
+    "issue": "seed-mysql-main-user-fixture"
+  },
+  {
     "id": "resource-precondition-database-mysql-user-delete-main-user-protected",
     "commandId": "database mysql user delete",
     "category": "RESOURCE_PRECONDITION",
