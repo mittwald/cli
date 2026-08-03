@@ -1,0 +1,464 @@
+[
+  {
+    "id": "interactive-app-upgrade",
+    "commandId": "app upgrade",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Upgrade target selection is interactive and has no stable non-interactive override yet.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-container-logs",
+    "commandId": "container logs",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Log follow behavior depends on interactive terminal controls in current implementation.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-cronjob-execution-logs",
+    "commandId": "cronjob execution logs",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Execution log access path prompts or expects interactive I/O in this test setup.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-database-mysql-import",
+    "commandId": "database mysql import",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Import flow expects interactive input or file prompt handling not available in the simple renderer.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-database-mysql-shell",
+    "commandId": "database mysql shell",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "MySQL shell requires password prompt interaction and cannot run headless yet.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-database-mysql-upgrade",
+    "commandId": "database mysql upgrade",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Upgrade confirmation and version choice currently requires interactive input.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-ddev-init",
+    "commandId": "ddev init",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Project type and configuration selection still enters interactive decision branches.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-login-token",
+    "commandId": "login token",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Token acquisition flow is intentionally interactive for secure input handling.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-stack-deploy",
+    "commandId": "stack deploy",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Deploy flow requires interactive input in current command implementation.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-user-ssh-key-create",
+    "commandId": "user ssh-key create",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "SSH key creation relies on interactive prompts for key source and confirmation.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "deprecated-endpoint-app-database-link",
+    "commandId": "app database link",
+    "category": "DEPRECATED_ENDPOINT",
+    "reason": "Command currently uses a deprecated API endpoint that is filtered by the mockoon setup and therefore not served in integration runs. The command should be reworked to use a current non-deprecated endpoint.",
+    "issue": "rework-deprecated-endpoint"
+  },
+  {
+    "id": "deprecated-endpoint-app-database-replace",
+    "commandId": "app database replace",
+    "category": "DEPRECATED_ENDPOINT",
+    "reason": "Command currently uses a deprecated API endpoint that is filtered by the mockoon setup and therefore not served in integration runs. The command should be reworked to use a current non-deprecated endpoint.",
+    "issue": "rework-deprecated-endpoint"
+  },
+  {
+    "id": "deprecated-endpoint-stack-set-update-schedule",
+    "commandId": "stack set-update-schedule",
+    "category": "DEPRECATED_ENDPOINT",
+    "reason": "Command currently uses a deprecated API endpoint that is filtered by the mockoon setup and therefore not served in integration runs. The command should be reworked to use a current non-deprecated endpoint.",
+    "issue": "rework-deprecated-endpoint"
+  },
+  {
+    "id": "deprecated-endpoint-stack-unset-update-schedule",
+    "commandId": "stack unset-update-schedule",
+    "category": "DEPRECATED_ENDPOINT",
+    "reason": "Command currently uses a deprecated API endpoint that is filtered by the mockoon setup and therefore not served in integration runs. The command should be reworked to use a current non-deprecated endpoint.",
+    "issue": "rework-deprecated-endpoint"
+  },
+  {
+    "id": "contract-shape-app-create-node-invalid-version",
+    "commandId": "app create node",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-create-php-invalid-version",
+    "commandId": "app create php",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-create-php-worker-invalid-version",
+    "commandId": "app create php-worker",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-create-python-invalid-version",
+    "commandId": "app create python",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-create-static-invalid-version",
+    "commandId": "app create static",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-install-contao-invalid-version",
+    "commandId": "app install contao",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-install-shopware5-invalid-version",
+    "commandId": "app install shopware5",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-install-shopware6-invalid-version",
+    "commandId": "app install shopware6",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-install-typo3-invalid-version",
+    "commandId": "app install typo3",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-install-wordpress-invalid-version",
+    "commandId": "app install wordpress",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "resource-precondition-container-cp-container-not-found",
+    "commandId": "container cp",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container mycontainer found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "resource-precondition-container-delete-container-not-found",
+    "commandId": "container delete",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run shows deletion flow failing because the requested container identifier does not exist in project p-f0ob4r. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "resource-precondition-container-exec-container-not-found",
+    "commandId": "container exec",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "resource-precondition-container-port-forward-container-not-found",
+    "commandId": "container port-forward",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "resource-precondition-container-recreate-container-not-found",
+    "commandId": "container recreate",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "resource-precondition-container-restart-container-not-found",
+    "commandId": "container restart",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "resource-precondition-container-ssh-container-not-found",
+    "commandId": "container ssh",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "resource-precondition-container-start-container-not-found",
+    "commandId": "container start",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "resource-precondition-container-stop-container-not-found",
+    "commandId": "container stop",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "resource-precondition-container-update-container-not-found",
+    "commandId": "container update",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
+    "issue": "seed-known-container-fixture"
+  },
+  {
+    "id": "contract-shape-app-download-missing-web-directory",
+    "commandId": "app download",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Command fails with TypeError [ERR_INVALID_ARG_TYPE] in a shared path.join call because integration response shape does not provide all path inputs expected by shared SSH/app-installation rendering logic. Primary shared callsite: src/lib/resources/ssh/appinstall.ts (getSSHConnectionForAppInstallation) builds directory via path.join(projectResponse.data.directories['Web'], appInstallation.installationPath). If directories['Web'] or installationPath is missing/undefined, multiple commands crash with the same signature. Preferred fix is fixture-side: seed deterministic project/app-installation payloads that always include project.directories['Web'] and appInstallation.installationPath for the known test project.",
+    "issue": "seed-appinstall-web-directory-fixture"
+  },
+  {
+    "id": "contract-shape-app-exec-missing-web-directory",
+    "commandId": "app exec",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Command fails with TypeError [ERR_INVALID_ARG_TYPE] in a shared path.join call because integration response shape does not provide all path inputs expected by shared SSH/app-installation rendering logic. Primary shared callsite: src/lib/resources/ssh/appinstall.ts (getSSHConnectionForAppInstallation) builds directory via path.join(projectResponse.data.directories['Web'], appInstallation.installationPath). If directories['Web'] or installationPath is missing/undefined, multiple commands crash with the same signature. Preferred fix is fixture-side: seed deterministic project/app-installation payloads that always include project.directories['Web'] and appInstallation.installationPath for the known test project.",
+    "issue": "seed-appinstall-web-directory-fixture"
+  },
+  {
+    "id": "contract-shape-app-ssh-missing-web-directory",
+    "commandId": "app ssh",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Command fails with TypeError [ERR_INVALID_ARG_TYPE] in a shared path.join call because integration response shape does not provide all path inputs expected by shared SSH/app-installation rendering logic. Primary shared callsite: src/lib/resources/ssh/appinstall.ts (getSSHConnectionForAppInstallation) builds directory via path.join(projectResponse.data.directories['Web'], appInstallation.installationPath). If directories['Web'] or installationPath is missing/undefined, multiple commands crash with the same signature. Preferred fix is fixture-side: seed deterministic project/app-installation payloads that always include project.directories['Web'] and appInstallation.installationPath for the known test project.",
+    "issue": "seed-appinstall-web-directory-fixture"
+  },
+  {
+    "id": "contract-shape-app-get-missing-web-directory",
+    "commandId": "app get",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Command fails with TypeError [ERR_INVALID_ARG_TYPE] from AppInstallationDetails rendering when absolute installation path is built with path.join(project.directories['Web'], appInstallation.installationPath). This is the same fixture data-shape gap as the shared SSH app-installation path handling cluster: missing directories['Web'] and/or installationPath in test payloads causes deterministic crash. Preferred fix is fixture-side: seed deterministic project/app-installation payloads that always include project.directories['Web'] and appInstallation.installationPath for the known test project.",
+    "issue": "seed-appinstall-web-directory-fixture"
+  },
+  {
+    "id": "contract-shape-app-install-joomla-invalid-version",
+    "commandId": "app install joomla",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "contract-shape-app-install-nextcloud-invalid-version",
+    "commandId": "app install nextcloud",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "command-bug-app-dependency-update-invalid-installation-id",
+    "commandId": "app dependency update",
+    "category": "COMMAND_BUG",
+    "reason": "Integration invocation currently passes a placeholder that does not resolve to a valid app installation identifier for this command path. The command exits with an app-installation ID validation error in this test setup.",
+    "issue": "fix-integration-invocation-profiles"
+  },
+  {
+    "id": "resource-precondition-app-dependency-versions-systemsoftware-not-found",
+    "commandId": "app dependency versions",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The integration fixture set does not provide a resolvable system software entry for the placeholder value used in this command run. The command fails with 'system software ... not found'.",
+    "issue": "seed-known-resource-fixtures"
+  },
+  {
+    "id": "contract-shape-app-install-matomo-invalid-version",
+    "commandId": "app install matomo",
+    "category": "CONTRACT_SHAPE",
+    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
+    "issue": "harden-app-version-selection"
+  },
+  {
+    "id": "command-bug-app-list-upgrade-candidates-versions-not-array",
+    "commandId": "app list-upgrade-candidates",
+    "category": "COMMAND_BUG",
+    "reason": "The command expects a sortable versions array, but the current integration response shape provides a non-array value and execution fails with 'versions.sort is not a function'.",
+    "issue": "harden-response-shape-handling"
+  },
+  {
+    "id": "command-bug-app-open-missing-virtualhost-link",
+    "commandId": "app open",
+    "category": "COMMAND_BUG",
+    "reason": "The test fixture app installation used in integration is not linked to a virtual host, and this command currently fails along that path in run-all execution.",
+    "issue": "seed-known-resource-fixtures"
+  },
+  {
+    "id": "resource-precondition-app-upload-source-placeholder-not-available",
+    "commandId": "app upload",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The integration invocation for this command does not provide a usable source path in the run-all environment. The command fails while parsing the source input.",
+    "issue": "fix-integration-invocation-profiles"
+  },
+  {
+    "id": "resource-precondition-app-version-info-app-not-found",
+    "commandId": "app version-info",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The fixture app identifier used in integration cannot be resolved in the mocked dataset, and the command fails with 'app ... not found'.",
+    "issue": "seed-known-resource-fixtures"
+  },
+  {
+    "id": "command-bug-app-versions-access-denied",
+    "commandId": "app versions",
+    "category": "COMMAND_BUG",
+    "reason": "The command path fails with an access denied error in the current integration authorization/fixture setup.",
+    "issue": "seed-permissions-fixtures"
+  },
+  {
+    "id": "command-bug-backup-download-not-ready",
+    "commandId": "backup download",
+    "category": "COMMAND_BUG",
+    "reason": "This command currently terminates with 'backup download is not ready' in the integration scenario, indicating an unfinished command path for this fixture state.",
+    "issue": "implement-backup-download-path"
+  },
+  {
+    "id": "resource-precondition-container-run-service-id-not-found",
+    "commandId": "container run",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The created stack in integration fixtures does not expose the expected service mapping for this flow. The command fails with 'Service ID not found in the created stack'.",
+    "issue": "seed-stack-service-fixture"
+  },
+  {
+    "id": "command-bug-conversation-create-tempfile-unlink-enoent",
+    "commandId": "conversation create",
+    "category": "COMMAND_BUG",
+    "reason": "The command hits a temporary-file cleanup race in this run path and fails with ENOENT on unlink of a generated markdown file.",
+    "issue": "stabilize-tempfile-lifecycle"
+  },
+  {
+    "id": "command-bug-conversation-reply-tempfile-unlink-enoent",
+    "commandId": "conversation reply",
+    "category": "COMMAND_BUG",
+    "reason": "The command hits a temporary-file cleanup race in this run path and fails with ENOENT on unlink of a generated markdown file.",
+    "issue": "stabilize-tempfile-lifecycle"
+  },
+  {
+    "id": "resource-precondition-database-mysql-dump-main-user-missing",
+    "commandId": "database mysql dump",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The MySQL dump flow requires a resolvable main user in fixtures. In this run the command fails with 'No main user found'.",
+    "issue": "seed-mysql-main-user-fixture"
+  },
+  {
+    "id": "resource-precondition-database-mysql-phpmyadmin-main-user-missing",
+    "commandId": "database mysql phpmyadmin",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The phpMyAdmin flow requires a resolvable main user in fixtures. In this run the command fails with 'no main user found'.",
+    "issue": "seed-mysql-main-user-fixture"
+  },
+  {
+    "id": "resource-precondition-database-mysql-user-delete-main-user-protected",
+    "commandId": "database mysql user delete",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Integration currently targets the main MySQL user, which is protected by API rules and cannot be deleted manually in this flow.",
+    "issue": "seed-mysql-non-main-user-fixture"
+  },
+  {
+    "id": "contract-shape-ddev-render-config-missing-document-root-input",
+    "commandId": "ddev render-config",
+    "category": "CONTRACT_SHAPE",
+    "reason": "DDEV config generation currently receives fixture data with missing path fields and fails with 'Cannot read properties of undefined (reading replace)' in config builder path normalization.",
+    "issue": "seed-ddev-config-shape-fixture"
+  },
+  {
+    "id": "resource-precondition-domain-dnszone-get-zone-not-found",
+    "commandId": "domain dnszone get",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The integration fixture dataset does not include the requested DNS zone domain in this run context, causing a deterministic 'DNS zone ... not found' failure.",
+    "issue": "seed-known-domain-fixture"
+  },
+  {
+    "id": "resource-precondition-domain-dnszone-update-zone-not-found",
+    "commandId": "domain dnszone update",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The integration fixture dataset does not include the requested DNS zone domain in this run context, causing a deterministic 'DNS zone ... not found' failure.",
+    "issue": "seed-known-domain-fixture"
+  },
+  {
+    "id": "resource-precondition-domain-get-zone-not-found",
+    "commandId": "domain get",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Domain lookup in this integration path depends on a DNS zone fixture that is not present for the placeholder value, producing 'DNS zone ... not found'.",
+    "issue": "seed-known-domain-fixture"
+  },
+  {
+    "id": "resource-precondition-experimental-deploy-registry-service-missing",
+    "commandId": "experimental deploy",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The deploy orchestration expects a registry service fixture that is not returned in this integration environment and fails with 'Service not found in response'.",
+    "issue": "seed-stack-service-fixture"
+  },
+  {
+    "id": "resource-precondition-mail-address-update-mail-address-not-found",
+    "commandId": "mail address update",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The mail address used by integration placeholders is not present in the mocked dataset during this run, causing a deterministic not-found failure.",
+    "issue": "seed-known-resource-fixtures"
+  },
+  {
+    "id": "resource-precondition-org-delete-org-not-found",
+    "commandId": "org delete",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The organization targeted by integration placeholders does not exist in the fixture state at deletion time, resulting in a 404 failure.",
+    "issue": "seed-known-resource-fixtures"
+  },
+  {
+    "id": "resource-precondition-sftp-user-create-readback-404",
+    "commandId": "sftp-user create",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Creation step succeeds, but follow-up readback in integration fixtures returns 404, indicating inconsistent fixture state for immediate lookup.",
+    "issue": "align-user-create-fixture-readback"
+  },
+  {
+    "id": "resource-precondition-ssh-user-create-readback-404",
+    "commandId": "ssh-user create",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Creation step succeeds, but follow-up readback in integration fixtures returns 404, indicating inconsistent fixture state for immediate lookup.",
+    "issue": "align-user-create-fixture-readback"
+  },
+  {
+    "id": "command-bug-stack-delete-not-implemented",
+    "commandId": "stack delete",
+    "category": "COMMAND_BUG",
+    "reason": "Command flow reaches deletion step and fails with 'not implemented' in current implementation.",
+    "issue": "implement-stack-delete"
+  },
+  {
+    "id": "resource-precondition-volume-delete-volume-not-found",
+    "commandId": "volume delete",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The requested volume placeholder does not exist in integration fixtures for the active stack state, causing deterministic not-found failure.",
+    "issue": "seed-known-resource-fixtures"
+  }
+]
