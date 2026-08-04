@@ -182,4 +182,6 @@ jobs:
           '
 
       - name: Run integration tests
-        run: yarn test:unit --runTestsByPath src/test/integration/run-all-commands.test.ts
+        run:
+          yarn test:unit --runTestsByPath
+          src/test/integration/run-all-commands.test.ts
