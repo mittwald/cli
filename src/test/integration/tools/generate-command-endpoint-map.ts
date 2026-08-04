@@ -206,15 +206,15 @@ function parseFailureCategory(value: string): FailureCategory {
 
 function printHelp(): void {
   process.stdout.write(
-    `Usage:\n` +
-      `  yarn tool:integration:generate-command-endpoint-map [options]\n\n` +
-      `Options:\n` +
+    "Usage:\n" +
+      "  yarn tool:integration:generate-command-endpoint-map [options]\n\n" +
+      "Options:\n" +
       `  --machine-log <path>   NDJSON log from run-all integration test (default: ${DEFAULT_MACHINE_LOG_PATH})\n` +
-      `  --category <name>      Optional failure category filter\n` +
+      "  --category <name>      Optional failure category filter\n" +
       `  --openapi <path>       OpenAPI JSON file (default: ${DEFAULT_OPENAPI_PATH})\n` +
       `  --output-json <path>   Output JSON mapping (default: ${DEFAULT_OUTPUT_JSON_PATH})\n` +
       `  --output-md <path>     Output markdown summary (default: ${DEFAULT_OUTPUT_MARKDOWN_PATH})\n` +
-      `  -h, --help             Show this help\n`,
+      "  -h, --help             Show this help\n",
   );
 }
 
@@ -361,6 +361,7 @@ function loadMachineLogData(machineLogPath: string): {
       const message = error instanceof Error ? error.message : String(error);
       throw new Error(
         `Invalid NDJSON at ${machineLogPath}:${idx + 1}: ${message}`,
+        { cause: error },
       );
     }
 
