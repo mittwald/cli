@@ -28,5 +28,8 @@ export function requireIntegrationEnv(
 }
 
 export function configureIntegrationEnv(context: string): void {
-  requireIntegrationEnv(["MITTWALD_API_TOKEN", "MITTWALD_API_BASE_URL"], context);
+  requireIntegrationEnv(
+    ["MITTWALD_API_TOKEN", "MITTWALD_API_BASE_URL"],
+    context,
+  );
 }

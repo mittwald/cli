@@ -1,10 +1,17 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { CommandWaiver, InvocationProfile, WaiverCategory } from "../command-discovery/types.js";
+import type {
+  CommandWaiver,
+  InvocationProfile,
+  WaiverCategory,
+} from "../command-discovery/types.js";
 
 const CONFIG_DIR = path.dirname(fileURLToPath(import.meta.url));
-const INVOCATION_PROFILES_PATH = path.join(CONFIG_DIR, "invocation-profiles.json");
+const INVOCATION_PROFILES_PATH = path.join(
+  CONFIG_DIR,
+  "invocation-profiles.json",
+);
 const COMMAND_WAIVERS_PATH = path.join(CONFIG_DIR, "command-waivers.json");
 
 const WAIVER_CATEGORIES: Set<WaiverCategory> = new Set([
@@ -26,7 +33,9 @@ export function loadInvocationProfiles(): InvocationProfile[] {
 
   const raw = readJsonFile(INVOCATION_PROFILES_PATH, "invocation profiles");
   if (!Array.isArray(raw)) {
-    throw new Error("[integration-config] invocation profiles must be an array.");
+    throw new Error(
+      "[integration-config] invocation profiles must be an array.",
+    );
   }
 
   invocationProfilesCache = raw.map((value, index) =>
@@ -46,13 +55,17 @@ export function loadCommandWaivers(): CommandWaiver[] {
     throw new Error("[integration-config] command waivers must be an array.");
   }
 
-  const validated = raw.map((value, index) => validateCommandWaiver(value, index));
+  const validated = raw.map((value, index) =>
+    validateCommandWaiver(value, index),
+  );
 
   const ids = new Set<string>();
   const commandIds = new Set<string>();
   for (const waiver of validated) {
     if (ids.has(waiver.id)) {
-      throw new Error(`[integration-config] duplicate waiver id '${waiver.id}'.`);
+      throw new Error(
+        `[integration-config] duplicate waiver id '${waiver.id}'.`,
+      );
     }
 
     if (commandIds.has(waiver.commandId)) {
@@ -80,13 +93,22 @@ function readJsonFile(filePath: string, label: string): unknown {
   }
 }
 
-function validateInvocationProfile(value: unknown, index: number): InvocationProfile {
+function validateInvocationProfile(
+  value: unknown,
+  index: number,
+): InvocationProfile {
   const record = asRecord(value, `invocation profile at index ${index}`);
   const id = asNonEmptyString(record.id, `${profileLabel(index)}.id`);
 
   const matchRaw = asRecord(record.match, `${profileLabel(index)}.match`);
-  const exact = asOptionalString(matchRaw.exact, `${profileLabel(index)}.match.exact`);
-  const prefix = asOptionalString(matchRaw.prefix, `${profileLabel(index)}.match.prefix`);
+  const exact = asOptionalString(
+    matchRaw.exact,
+    `${profileLabel(index)}.match.exact`,
+  );
+  const prefix = asOptionalString(
+    matchRaw.prefix,
+    `${profileLabel(index)}.match.prefix`,
+  );
   if (!exact && !prefix) {
     throw new Error(
       `[integration-config] ${profileLabel(index)}.match requires 'exact' or 'prefix'.`,
@@ -153,9 +175,15 @@ function validateCommandWaiver(value: unknown, index: number): CommandWaiver {
     );
   }
 
-  const reason = asNonEmptyString(record.reason, `${waiverLabel(index)}.reason`);
+  const reason = asNonEmptyString(
+    record.reason,
+    `${waiverLabel(index)}.reason`,
+  );
   const issue = asOptionalString(record.issue, `${waiverLabel(index)}.issue`);
-  const expiresOn = asOptionalString(record.expiresOn, `${waiverLabel(index)}.expiresOn`);
+  const expiresOn = asOptionalString(
+    record.expiresOn,
+    `${waiverLabel(index)}.expiresOn`,
+  );
 
   return {
     id,
@@ -177,7 +205,9 @@ function asRecord(value: unknown, label: string): Record<string, unknown> {
 
 function asNonEmptyString(value: unknown, label: string): string {
   if (typeof value !== "string" || value.trim().length === 0) {
-    throw new Error(`[integration-config] ${label} must be a non-empty string.`);
+    throw new Error(
+      `[integration-config] ${label} must be a non-empty string.`,
+    );
   }
 
   return value.trim();
@@ -189,7 +219,9 @@ function asOptionalString(value: unknown, label: string): string | undefined {
   }
 
   if (typeof value !== "string") {
-    throw new Error(`[integration-config] ${label} must be a string when provided.`);
+    throw new Error(
+      `[integration-config] ${label} must be a string when provided.`,
+    );
   }
 
   return value;
@@ -201,7 +233,9 @@ function asOptionalBoolean(value: unknown, label: string): boolean | undefined {
   }
 
   if (typeof value !== "boolean") {
-    throw new Error(`[integration-config] ${label} must be a boolean when provided.`);
+    throw new Error(
+      `[integration-config] ${label} must be a boolean when provided.`,
+    );
   }
 
   return value;
@@ -258,7 +292,9 @@ function asOptionalStringBooleanMap(
 
   for (const [key, entry] of Object.entries(record)) {
     if (typeof entry !== "string" && typeof entry !== "boolean") {
-      throw new Error(`[integration-config] ${label}.${key} must be a string or boolean.`);
+      throw new Error(
+        `[integration-config] ${label}.${key} must be a string or boolean.`,
+      );
     }
 
     result[key] = entry;

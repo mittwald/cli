@@ -16,7 +16,9 @@ export function extractExampleCandidate(
   source: string,
   commandId: string,
 ): ExampleCandidate | undefined {
-  const examplesMatch = source.match(/static\s+examples\s*=\s*\[([\s\S]*?)\];/m);
+  const examplesMatch = source.match(
+    /static\s+examples\s*=\s*\[([\s\S]*?)\];/m,
+  );
   if (!examplesMatch) {
     return undefined;
   }
@@ -38,11 +40,15 @@ export function extractExampleCandidate(
   }
 
   if (commandStrings.length === 0) {
-    const stringLiteralRegex = /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`[\s\S]*?`)/g;
+    const stringLiteralRegex =
+      /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`[\s\S]*?`)/g;
     let stringMatch = stringLiteralRegex.exec(block);
     while (stringMatch) {
       const decoded = decodeStringLiteral(stringMatch[1]);
-      if (decoded && (decoded.includes("<%= command.id %>") || decoded.includes("mw "))) {
+      if (
+        decoded &&
+        (decoded.includes("<%= command.id %>") || decoded.includes("mw "))
+      ) {
         commandStrings.push(decoded);
       }
 
@@ -56,7 +62,9 @@ export function extractExampleCandidate(
       continue;
     }
 
-    const { positionalValues, flagValues } = parseInvocationParts(args.slice(commandId.split(" ").length));
+    const { positionalValues, flagValues } = parseInvocationParts(
+      args.slice(commandId.split(" ").length),
+    );
     return {
       args,
       positionalValues,
@@ -67,7 +75,10 @@ export function extractExampleCandidate(
   return undefined;
 }
 
-export function extractArgsSchema(source: string, diagnostics: string[]): ParsedArg[] {
+export function extractArgsSchema(
+  source: string,
+  diagnostics: string[],
+): ParsedArg[] {
   const block = extractStaticObjectBlock(source, /static\s+args\s*=\s*{/m);
   if (!block) {
     return [];
@@ -124,7 +135,10 @@ export function extractArgsSchema(source: string, diagnostics: string[]): Parsed
   return [...args.values()];
 }
 
-export function extractFlagsSchema(source: string, diagnostics: string[]): ParsedFlag[] {
+export function extractFlagsSchema(
+  source: string,
+  diagnostics: string[],
+): ParsedFlag[] {
   const block = extractStaticObjectBlock(source, /static\s+flags\s*=\s*{/m);
   if (!block) {
     diagnostics.push("flags: static flags block not found");
@@ -168,7 +182,9 @@ export function extractFlagsSchema(source: string, diagnostics: string[]): Parse
 
     const split = splitObjectEntry(entry);
     if (!split) {
-      diagnostics.push(`flags: could not parse entry '${entry.trim().slice(0, 80)}'`);
+      diagnostics.push(
+        `flags: could not parse entry '${entry.trim().slice(0, 80)}'`,
+      );
       continue;
     }
 
@@ -264,7 +280,9 @@ function parseLocalArgObject(
   }
 
   if (args.size === 0) {
-    diagnostics.push(`args: local spread '${objectName}' contained no extractable args`);
+    diagnostics.push(
+      `args: local spread '${objectName}' contained no extractable args`,
+    );
   }
 
   return [...args.values()];
@@ -301,7 +319,9 @@ function parseLocalFlagObject(
   }
 
   if (flags.size === 0) {
-    diagnostics.push(`flags: local spread '${objectName}' contained no extractable flags`);
+    diagnostics.push(
+      `flags: local spread '${objectName}' contained no extractable flags`,
+    );
   }
 
   return [...flags.values()];
@@ -409,7 +429,11 @@ function makeTypedPlaceholderValue(
     .replace(/-+$/, "")
     .toLowerCase();
 
-  if (normalized.includes("uuid") || normalized.endsWith("id") || normalized.includes("-id")) {
+  if (
+    normalized.includes("uuid") ||
+    normalized.endsWith("id") ||
+    normalized.includes("-id")
+  ) {
     return "00000000-0000-4000-8000-000000000000";
   }
 
@@ -452,7 +476,10 @@ function makeTypedPlaceholderValue(
   return normalized.length > 0 ? `example-${normalized}` : "example-value";
 }
 
-function extractStaticObjectBlock(source: string, anchor: RegExp): string | undefined {
+function extractStaticObjectBlock(
+  source: string,
+  anchor: RegExp,
+): string | undefined {
   const match = anchor.exec(source);
   if (!match) {
     return undefined;
@@ -471,8 +498,14 @@ function extractStaticObjectBlock(source: string, anchor: RegExp): string | unde
   return source.slice(start + 1, end);
 }
 
-function extractConstObjectBlock(source: string, objectName: string): string | undefined {
-  const anchor = new RegExp(`(?:const|let|var)\\s+${escapeRegExp(objectName)}\\s*=\\s*{`, "m");
+function extractConstObjectBlock(
+  source: string,
+  objectName: string,
+): string | undefined {
+  const anchor = new RegExp(
+    `(?:const|let|var)\\s+${escapeRegExp(objectName)}\\s*=\\s*{`,
+    "m",
+  );
   const match = anchor.exec(source);
   if (!match) {
     return undefined;
@@ -603,7 +636,12 @@ function splitTopLevelEntries(input: string): string[] {
       continue;
     }
 
-    if (char === "," && braceDepth === 0 && parenDepth === 0 && bracketDepth === 0) {
+    if (
+      char === "," &&
+      braceDepth === 0 &&
+      parenDepth === 0 &&
+      bracketDepth === 0
+    ) {
       const part = input.slice(start, i).trim();
       if (part.length > 0) {
         entries.push(part);
@@ -620,7 +658,9 @@ function splitTopLevelEntries(input: string): string[] {
   return entries;
 }
 
-function splitObjectEntry(entry: string): { key: string; expression: string } | undefined {
+function splitObjectEntry(
+  entry: string,
+): { key: string; expression: string } | undefined {
   let quote: "'" | '"' | "`" | undefined;
   let escaped = false;
   let braceDepth = 0;
@@ -683,7 +723,12 @@ function splitObjectEntry(entry: string): { key: string; expression: string } | 
       continue;
     }
 
-    if (char === ":" && braceDepth === 0 && parenDepth === 0 && bracketDepth === 0) {
+    if (
+      char === ":" &&
+      braceDepth === 0 &&
+      parenDepth === 0 &&
+      bracketDepth === 0
+    ) {
       const keyRaw = entry.slice(0, i).trim();
       const expression = entry.slice(i + 1).trim();
       const key = keyRaw.replace(/^['"]/, "").replace(/['"]$/, "");
@@ -698,7 +743,10 @@ function splitObjectEntry(entry: string): { key: string; expression: string } | 
   return undefined;
 }
 
-function parseFlagDefinition(name: string, expression: string): ParsedFlag | undefined {
+function parseFlagDefinition(
+  name: string,
+  expression: string,
+): ParsedFlag | undefined {
   const named = resolveNamedFlagSchemaFromExpression(expression);
   if (named) {
     return {
@@ -760,7 +808,10 @@ function detectFlagType(expression: string): FlagValueType | undefined {
     return "string";
   }
 
-  if (/\.absoluteFlag\s*\(/.test(expression) || /\.relativeFlag\s*\(/.test(expression)) {
+  if (
+    /\.absoluteFlag\s*\(/.test(expression) ||
+    /\.relativeFlag\s*\(/.test(expression)
+  ) {
     return "string";
   }
 
@@ -818,18 +869,25 @@ function readStringProp(config: string, key: string): string | undefined {
   return match?.[2];
 }
 
-function readLiteralStringProp(config: string, key: string): string | undefined {
+function readLiteralStringProp(
+  config: string,
+  key: string,
+): string | undefined {
   const stringValue = readStringProp(config, key);
   if (stringValue !== undefined) {
     return stringValue;
   }
 
-  const boolMatch = config.match(new RegExp(`${escapeRegExp(key)}\\s*:\\s*(true|false)`));
+  const boolMatch = config.match(
+    new RegExp(`${escapeRegExp(key)}\\s*:\\s*(true|false)`),
+  );
   if (boolMatch) {
     return boolMatch[1];
   }
 
-  const numberMatch = config.match(new RegExp(`${escapeRegExp(key)}\\s*:\\s*([0-9]+(?:\\.[0-9]+)?)`));
+  const numberMatch = config.match(
+    new RegExp(`${escapeRegExp(key)}\\s*:\\s*([0-9]+(?:\\.[0-9]+)?)`),
+  );
   if (numberMatch) {
     return numberMatch[1];
   }
@@ -837,7 +895,10 @@ function readLiteralStringProp(config: string, key: string): string | undefined 
   return undefined;
 }
 
-function readStringArrayProp(config: string, key: string): string[] | undefined {
+function readStringArrayProp(
+  config: string,
+  key: string,
+): string[] | undefined {
   if (!config) {
     return undefined;
   }
@@ -856,7 +917,11 @@ function readStringArrayProp(config: string, key: string): string[] | undefined 
 
 function inferPlaceholderKind(name: string): PlaceholderKind {
   const normalized = name.toLowerCase();
-  if (normalized.includes("uuid") || normalized.endsWith("id") || normalized.includes("-id")) {
+  if (
+    normalized.includes("uuid") ||
+    normalized.endsWith("id") ||
+    normalized.includes("-id")
+  ) {
     return "uuid";
   }
   if (normalized.includes("email")) {
@@ -865,7 +930,11 @@ function inferPlaceholderKind(name: string): PlaceholderKind {
   if (normalized.includes("url") || normalized.includes("uri")) {
     return "url";
   }
-  if (normalized.includes("duration") || normalized.includes("ttl") || normalized.includes("interval")) {
+  if (
+    normalized.includes("duration") ||
+    normalized.includes("ttl") ||
+    normalized.includes("interval")
+  ) {
     return "duration";
   }
   if (normalized.includes("directory")) {
@@ -874,7 +943,11 @@ function inferPlaceholderKind(name: string): PlaceholderKind {
   if (normalized.includes("file")) {
     return "file";
   }
-  if (normalized.includes("password") || normalized.includes("passphrase") || normalized.includes("token")) {
+  if (
+    normalized.includes("password") ||
+    normalized.includes("passphrase") ||
+    normalized.includes("token")
+  ) {
     return "password";
   }
   if (normalized.includes("port")) {

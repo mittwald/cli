@@ -64,7 +64,8 @@ type ResolvedEndpoint = {
   descriptorOperationId: string | null;
   openapiOperationId: string | null;
   openapiDeprecated: boolean | null;
-  openapiStatus: "FOUND" | "MISSING_PATH" | "MISSING_METHOD" | "MISSING_DESCRIPTOR";
+  openapiStatus:
+    "FOUND" | "MISSING_PATH" | "MISSING_METHOD" | "MISSING_DESCRIPTOR";
 };
 
 type CommandMappingEntry = {
@@ -195,22 +196,26 @@ function parseFailureCategory(value: string): FailureCategory {
   ];
 
   if (!categories.includes(value as FailureCategory)) {
-    throw new Error(`Invalid category '${value}'. Expected one of ${categories.join(", ")}`);
+    throw new Error(
+      `Invalid category '${value}'. Expected one of ${categories.join(", ")}`,
+    );
   }
 
   return value as FailureCategory;
 }
 
 function printHelp(): void {
-  process.stdout.write(`Usage:\n` +
-    `  yarn tool:integration:generate-command-endpoint-map [options]\n\n` +
-    `Options:\n` +
-    `  --machine-log <path>   NDJSON log from run-all integration test (default: ${DEFAULT_MACHINE_LOG_PATH})\n` +
-    `  --category <name>      Optional failure category filter\n` +
-    `  --openapi <path>       OpenAPI JSON file (default: ${DEFAULT_OPENAPI_PATH})\n` +
-    `  --output-json <path>   Output JSON mapping (default: ${DEFAULT_OUTPUT_JSON_PATH})\n` +
-    `  --output-md <path>     Output markdown summary (default: ${DEFAULT_OUTPUT_MARKDOWN_PATH})\n` +
-    `  -h, --help             Show this help\n`);
+  process.stdout.write(
+    `Usage:\n` +
+      `  yarn tool:integration:generate-command-endpoint-map [options]\n\n` +
+      `Options:\n` +
+      `  --machine-log <path>   NDJSON log from run-all integration test (default: ${DEFAULT_MACHINE_LOG_PATH})\n` +
+      `  --category <name>      Optional failure category filter\n` +
+      `  --openapi <path>       OpenAPI JSON file (default: ${DEFAULT_OPENAPI_PATH})\n` +
+      `  --output-json <path>   Output JSON mapping (default: ${DEFAULT_OUTPUT_JSON_PATH})\n` +
+      `  --output-md <path>     Output markdown summary (default: ${DEFAULT_OUTPUT_MARKDOWN_PATH})\n` +
+      `  -h, --help             Show this help\n`,
+  );
 }
 
 async function main(): Promise<void> {
@@ -240,11 +245,18 @@ async function main(): Promise<void> {
   const groupMethodToDescriptor = buildGroupMethodToDescriptorIndex();
   const descriptorMetaByName = buildDescriptorMetaIndex();
   const openapi = JSON.parse(fs.readFileSync(openapiPath, "utf8")) as {
-    paths?: Record<string, Record<string, { operationId?: string; deprecated?: boolean }>>;
+    paths?: Record<
+      string,
+      Record<string, { operationId?: string; deprecated?: boolean }>
+    >;
   };
 
   const entries = filteredCommands.map((command) => {
-    const sourceAbsPath = path.resolve(process.cwd(), "src/commands", command.sourceFile);
+    const sourceAbsPath = path.resolve(
+      process.cwd(),
+      "src/commands",
+      command.sourceFile,
+    );
     const analysis = analyzeCommandTransitive(sourceAbsPath);
     const uniqueApiCalls = deduplicateApiCalls(analysis.apiCalls);
 
@@ -276,7 +288,9 @@ async function main(): Promise<void> {
         }))
         .sort((a, b) => {
           const methodCmp = a.groupMethod.localeCompare(b.groupMethod);
-          return methodCmp !== 0 ? methodCmp : a.filePath.localeCompare(b.filePath);
+          return methodCmp !== 0
+            ? methodCmp
+            : a.filePath.localeCompare(b.filePath);
         }),
       resolvedEndpoints,
       unresolvedGroupMethods,
@@ -294,7 +308,8 @@ async function main(): Promise<void> {
     },
     statistics: {
       commandCount: entries.length,
-      commandWithApiCalls: entries.filter((entry) => entry.apiCalls.length > 0).length,
+      commandWithApiCalls: entries.filter((entry) => entry.apiCalls.length > 0)
+        .length,
       unresolvedGroupMethodCount: entries.reduce(
         (sum, entry) => sum + entry.unresolvedGroupMethods.length,
         0,
@@ -302,15 +317,20 @@ async function main(): Promise<void> {
       deprecatedEndpointCount: entries.reduce(
         (sum, entry) =>
           sum +
-          entry.resolvedEndpoints.filter((endpoint) => endpoint.openapiDeprecated === true)
-            .length,
+          entry.resolvedEndpoints.filter(
+            (endpoint) => endpoint.openapiDeprecated === true,
+          ).length,
         0,
       ),
     },
     entries,
   };
 
-  fs.writeFileSync(outputJsonPath, `${JSON.stringify(output, null, 2)}\n`, "utf8");
+  fs.writeFileSync(
+    outputJsonPath,
+    `${JSON.stringify(output, null, 2)}\n`,
+    "utf8",
+  );
   fs.writeFileSync(outputMarkdownPath, renderMarkdown(output), "utf8");
 
   process.stdout.write(
@@ -339,11 +359,16 @@ function loadMachineLogData(machineLogPath: string): {
       parsed = JSON.parse(line) as NdjsonRecord;
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      throw new Error(`Invalid NDJSON at ${machineLogPath}:${idx + 1}: ${message}`);
+      throw new Error(
+        `Invalid NDJSON at ${machineLogPath}:${idx + 1}: ${message}`,
+      );
     }
 
     if (parsed.event === "command-start") {
-      if (typeof parsed.commandId !== "string" || typeof parsed.sourceFile !== "string") {
+      if (
+        typeof parsed.commandId !== "string" ||
+        typeof parsed.sourceFile !== "string"
+      ) {
         continue;
       }
 
@@ -626,7 +651,10 @@ function followLocalFunction(
   }
 }
 
-function followImportedBinding(binding: FileImportBinding, state: TraversalState): void {
+function followImportedBinding(
+  binding: FileImportBinding,
+  state: TraversalState,
+): void {
   if (binding.importedName === "*") {
     return;
   }
@@ -654,7 +682,9 @@ function analyzeFile(filePath: string): FileAnalysis {
   }
 
   const sourceText = fs.readFileSync(normalized, "utf8");
-  const scriptKind = normalized.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
+  const scriptKind = normalized.endsWith(".tsx")
+    ? ts.ScriptKind.TSX
+    : ts.ScriptKind.TS;
   const sourceFile = ts.createSourceFile(
     normalized,
     sourceText,
@@ -668,7 +698,11 @@ function analyzeFile(filePath: string): FileAnalysis {
   const exports = new Map<string, string>();
 
   for (const stmt of sourceFile.statements) {
-    if (ts.isImportDeclaration(stmt) && stmt.importClause && ts.isStringLiteral(stmt.moduleSpecifier)) {
+    if (
+      ts.isImportDeclaration(stmt) &&
+      stmt.importClause &&
+      ts.isStringLiteral(stmt.moduleSpecifier)
+    ) {
       const moduleName = stmt.moduleSpecifier.text;
       const resolvedImport = resolveRelativeImport(normalized, moduleName);
       if (!resolvedImport) {
@@ -759,14 +793,20 @@ function collectLocalAndExportedFunctions(
     return;
   }
 
-  if (ts.isExportDeclaration(stmt) && stmt.exportClause && ts.isNamedExports(stmt.exportClause)) {
+  if (
+    ts.isExportDeclaration(stmt) &&
+    stmt.exportClause &&
+    ts.isNamedExports(stmt.exportClause)
+  ) {
     if (stmt.moduleSpecifier) {
       return;
     }
 
     for (const specifier of stmt.exportClause.elements) {
       const exportName = specifier.name.text;
-      const localName = specifier.propertyName ? specifier.propertyName.text : exportName;
+      const localName = specifier.propertyName
+        ? specifier.propertyName.text
+        : exportName;
       exports.set(exportName, localName);
     }
     return;
@@ -778,7 +818,9 @@ function collectLocalAndExportedFunctions(
 }
 
 function hasExportModifier(node: ts.Node): boolean {
-  const modifiers = ts.canHaveModifiers(node) ? ts.getModifiers(node) : undefined;
+  const modifiers = ts.canHaveModifiers(node)
+    ? ts.getModifiers(node)
+    : undefined;
   return !!modifiers?.some(
     (modifier: ts.Modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword,
   );
@@ -809,7 +851,11 @@ function extractRootInfo(
         addCall(callTarget.group, callTarget.method);
       }
 
-      const callRefs = extractCallReferences(node.expression, imports, localFunctions);
+      const callRefs = extractCallReferences(
+        node.expression,
+        imports,
+        localFunctions,
+      );
       for (const localName of callRefs.localCallNames) {
         localCalls.add(localName);
       }
@@ -852,7 +898,11 @@ function extractFunctionInfo(
         });
       }
 
-      const callRefs = extractCallReferences(child.expression, imports, new Map());
+      const callRefs = extractCallReferences(
+        child.expression,
+        imports,
+        new Map(),
+      );
       for (const localName of callRefs.localCallNames) {
         localCalls.add(localName);
       }
@@ -877,7 +927,10 @@ function extractCallReferences(
   expression: ts.Expression,
   imports: Map<string, FileImportBinding>,
   localFunctions: Map<string, ts.Node>,
-): { localCallNames: Set<string>; importedCalls: Map<string, FileImportBinding> } {
+): {
+  localCallNames: Set<string>;
+  importedCalls: Map<string, FileImportBinding>;
+} {
   const localCallNames = new Set<string>();
   const importedCalls = new Map<string, FileImportBinding>();
 
@@ -892,7 +945,10 @@ function extractCallReferences(
     return { localCallNames, importedCalls };
   }
 
-  if (ts.isPropertyAccessExpression(expression) && ts.isIdentifier(expression.expression)) {
+  if (
+    ts.isPropertyAccessExpression(expression) &&
+    ts.isIdentifier(expression.expression)
+  ) {
     const namespaceBinding = imports.get(expression.expression.text);
     if (namespaceBinding && namespaceBinding.importedName === "*") {
       importedCalls.set(
@@ -956,7 +1012,10 @@ function flattenPropertyAccess(expression: ts.Expression): string[] | null {
     return [...left, expression.name.text];
   }
 
-  if (ts.isElementAccessExpression(expression) && ts.isStringLiteral(expression.argumentExpression)) {
+  if (
+    ts.isElementAccessExpression(expression) &&
+    ts.isStringLiteral(expression.argumentExpression)
+  ) {
     const left = flattenPropertyAccess(expression.expression);
     if (!left) {
       return null;
@@ -967,7 +1026,10 @@ function flattenPropertyAccess(expression: ts.Expression): string[] | null {
   return null;
 }
 
-function resolveRelativeImport(fromFilePath: string, specifier: string): string | null {
+function resolveRelativeImport(
+  fromFilePath: string,
+  specifier: string,
+): string | null {
   if (!specifier.startsWith(".")) {
     return null;
   }
@@ -1016,7 +1078,10 @@ function resolveEndpoints(
   groupMethodToDescriptor: Map<string, string>,
   descriptorMetaByName: Map<string, DescriptorMeta>,
   openapi: {
-    paths?: Record<string, Record<string, { operationId?: string; deprecated?: boolean }>>;
+    paths?: Record<
+      string,
+      Record<string, { operationId?: string; deprecated?: boolean }>
+    >;
   },
 ): ResolvedEndpoint[] {
   return apiCalls.map((call) => {
@@ -1049,7 +1114,11 @@ function resolveEndpoints(
       };
     }
 
-    const operation = getOpenApiOperation(openapi, descriptor.path, descriptor.httpMethod);
+    const operation = getOpenApiOperation(
+      openapi,
+      descriptor.path,
+      descriptor.httpMethod,
+    );
 
     return {
       groupMethod: call.groupMethod,
@@ -1070,7 +1139,10 @@ function resolveEndpoints(
 
 function getOpenApiOperation(
   openapi: {
-    paths?: Record<string, Record<string, { operationId?: string; deprecated?: boolean }>>;
+    paths?: Record<
+      string,
+      Record<string, { operationId?: string; deprecated?: boolean }>
+    >;
   },
   apiPath: string,
   httpMethod: string,
@@ -1086,7 +1158,10 @@ function getOpenApiOperation(
   }
 
   return {
-    operationId: typeof methodItem.operationId === "string" ? methodItem.operationId : null,
+    operationId:
+      typeof methodItem.operationId === "string"
+        ? methodItem.operationId
+        : null,
     deprecated: methodItem.deprecated === true,
   };
 }
@@ -1105,9 +1180,15 @@ function renderMarkdown(output: MappingOutput): string {
   lines.push("## Statistics");
   lines.push("");
   lines.push(`- Commands: ${output.statistics.commandCount}`);
-  lines.push(`- Commands with API calls: ${output.statistics.commandWithApiCalls}`);
-  lines.push(`- Unresolved group methods: ${output.statistics.unresolvedGroupMethodCount}`);
-  lines.push(`- Deprecated endpoints: ${output.statistics.deprecatedEndpointCount}`);
+  lines.push(
+    `- Commands with API calls: ${output.statistics.commandWithApiCalls}`,
+  );
+  lines.push(
+    `- Unresolved group methods: ${output.statistics.unresolvedGroupMethodCount}`,
+  );
+  lines.push(
+    `- Deprecated endpoints: ${output.statistics.deprecatedEndpointCount}`,
+  );
   lines.push("");
 
   for (const entry of output.entries) {

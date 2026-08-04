@@ -1,4 +1,11 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest,
+} from "@jest/globals";
 import { appendFile, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -9,9 +16,17 @@ import {
 } from "./classification-catalog.js";
 import { runDevCommand } from "./command.js";
 import { discoverRunnableCommands } from "./command-discovery.js";
-import type { CommandWaiver, WaiverCategory } from "./command-discovery/types.js";
+import type {
+  CommandWaiver,
+  WaiverCategory,
+} from "./command-discovery/types.js";
 import { loadCommandWaivers } from "./config/loader.js";
-import { configureIntegrationEnv, requireIntegrationEnv, restoreEnv, snapshotEnv } from "./env.js";
+import {
+  configureIntegrationEnv,
+  requireIntegrationEnv,
+  restoreEnv,
+  snapshotEnv,
+} from "./env.js";
 
 jest.setTimeout(20 * 60 * 1000);
 
@@ -89,7 +104,10 @@ function createFailureBuckets(): Record<FailureCategory, string[]> {
   };
 }
 
-function classifyFailure(output: { stderr: string; stdout: string }): FailureCategory {
+function classifyFailure(output: {
+  stderr: string;
+  stdout: string;
+}): FailureCategory {
   const text = `${output.stderr}\n${output.stdout}`.toLowerCase();
 
   if (
@@ -166,7 +184,9 @@ function parseInvocationPartsFromArgs(
   return { positionalValues, flagValues };
 }
 
-function validateInvocationCompleteness(command: Awaited<ReturnType<typeof discoverRunnableCommands>>[number]): string[] {
+function validateInvocationCompleteness(
+  command: Awaited<ReturnType<typeof discoverRunnableCommands>>[number],
+): string[] {
   const issues: string[] = [];
   const { positionalValues, flagValues } = parseInvocationPartsFromArgs(
     command.synthesizedInvocation.args,
@@ -240,7 +260,9 @@ function mapCommandWaivers(waivers: CommandWaiver[]): {
   return { waiversByCommandId, duplicates };
 }
 
-function logWaiverSummary(waivedByCategory: Record<FailureCategory, string[]>): void {
+function logWaiverSummary(
+  waivedByCategory: Record<FailureCategory, string[]>,
+): void {
   logProgress("[run-all] waiver summary:");
 
   for (const category of FAILURE_CATEGORIES) {
@@ -399,9 +421,9 @@ describeRunAllCommands("integration: run all commands", () => {
     const staleExampleCommands = commands.filter(
       (command) => command.synthesizedInvocation.staleExample,
     );
-    const extractionDiagnostics = commands
-      .flatMap((command) => command.extractionDiagnostics)
-      .length;
+    const extractionDiagnostics = commands.flatMap(
+      (command) => command.extractionDiagnostics,
+    ).length;
     logProgress(
       `[run-all] stale examples detected=${staleExampleCommands.length}; extraction diagnostics=${extractionDiagnostics}`,
     );
@@ -421,7 +443,9 @@ describeRunAllCommands("integration: run all commands", () => {
         );
       }
 
-      const discoveredCommandIds = new Set(commands.map((command) => command.commandId));
+      const discoveredCommandIds = new Set(
+        commands.map((command) => command.commandId),
+      );
       for (const waiver of waivers) {
         if (!discoveredCommandIds.has(waiver.commandId)) {
           infrastructureFailures.push(
@@ -430,7 +454,9 @@ describeRunAllCommands("integration: run all commands", () => {
         }
       }
     } else {
-      logProgress("[waivers] strict waiver integrity checks skipped (category filter active)");
+      logProgress(
+        "[waivers] strict waiver integrity checks skipped (category filter active)",
+      );
     }
 
     for (const [index, command] of commands.entries()) {
@@ -683,7 +709,9 @@ describeRunAllCommands("integration: run all commands", () => {
         `[run-all] wrote classification catalog with ${classificationCatalog.entries.length} entries`,
       );
     } else {
-      logProgress("[run-all] skipped classification catalog write (category filter active)");
+      logProgress(
+        "[run-all] skipped classification catalog write (category filter active)",
+      );
     }
 
     expect(infrastructureFailures).toEqual([]);

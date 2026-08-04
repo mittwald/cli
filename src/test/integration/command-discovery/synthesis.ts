@@ -19,7 +19,10 @@ export function resolveProfiles(commandId: string): InvocationProfile[] {
       return true;
     }
 
-    if (profile.match.prefix && commandId.startsWith(`${profile.match.prefix} `)) {
+    if (
+      profile.match.prefix &&
+      commandId.startsWith(`${profile.match.prefix} `)
+    ) {
       return true;
     }
 
@@ -49,11 +52,17 @@ export function synthesizeInvocation(input: {
   const staleExampleReasons: string[] = [];
   let validatedExample: ExampleCandidate | undefined;
   if (exampleCandidate) {
-    const validationErrors = validateExampleCandidate(exampleCandidate, parsedArgs, parsedFlags);
+    const validationErrors = validateExampleCandidate(
+      exampleCandidate,
+      parsedArgs,
+      parsedFlags,
+    );
     if (validationErrors.length === 0) {
       validatedExample = exampleCandidate;
     } else {
-      staleExampleReasons.push(...validationErrors.map((reason) => `stale-example: ${reason}`));
+      staleExampleReasons.push(
+        ...validationErrors.map((reason) => `stale-example: ${reason}`),
+      );
     }
   }
 
@@ -87,7 +96,12 @@ export function synthesizeInvocation(input: {
 
     const fromProfile = getProfileFlagValue(profiles, flag.name);
     if (fromProfile !== undefined) {
-      setFlagValue(selectedFlags, flag.name, normalizeFlagValue(fromProfile), "profile");
+      setFlagValue(
+        selectedFlags,
+        flag.name,
+        normalizeFlagValue(fromProfile),
+        "profile",
+      );
       strongestSource = selectStrongerSource(strongestSource, "profile");
       continue;
     }
@@ -103,7 +117,13 @@ export function synthesizeInvocation(input: {
     setFlagValue(selectedFlags, flag.name, heuristic, "heuristic");
   }
 
-  resolveExactlyOneGroups(commandId, parsedFlags, selectedFlags, profiles, interactiveSignals);
+  resolveExactlyOneGroups(
+    commandId,
+    parsedFlags,
+    selectedFlags,
+    profiles,
+    interactiveSignals,
+  );
   resolveDependencies(parsedFlags, selectedFlags, profiles);
   resolveExclusiveGroups(parsedFlags, selectedFlags);
   applyProfileOverrides(parsedFlags, selectedFlags, profiles);
@@ -115,7 +135,12 @@ export function synthesizeInvocation(input: {
     profiles,
   );
 
-  const invocation = renderInvocation(commandTokens, positionalValues, parsedFlags, selectedFlags);
+  const invocation = renderInvocation(
+    commandTokens,
+    positionalValues,
+    parsedFlags,
+    selectedFlags,
+  );
   return {
     args: invocation,
     argumentSource: strongestSource,
@@ -159,7 +184,10 @@ function validateExampleCandidate(
 
     if (flag.exclusive) {
       for (const conflicting of flag.exclusive) {
-        if (example.flagValues.has(flag.name) && example.flagValues.has(conflicting)) {
+        if (
+          example.flagValues.has(flag.name) &&
+          example.flagValues.has(conflicting)
+        ) {
           errors.push(`--${flag.name} is exclusive with --${conflicting}`);
         }
       }
@@ -167,7 +195,9 @@ function validateExampleCandidate(
   }
 
   for (const group of collectExactlyOneGroups(flagSchema)) {
-    const count = group.members.filter((name) => example.flagValues.has(name)).length;
+    const count = group.members.filter((name) =>
+      example.flagValues.has(name),
+    ).length;
     if (count !== 1) {
       errors.push(`exactly one of [${group.members.join(", ")}] must be set`);
     }
@@ -176,7 +206,9 @@ function validateExampleCandidate(
   return errors;
 }
 
-function collectExactlyOneGroups(flagSchema: ParsedFlag[]): Array<{ key: string; members: string[] }> {
+function collectExactlyOneGroups(
+  flagSchema: ParsedFlag[],
+): Array<{ key: string; members: string[] }> {
   const groups = new Map<string, string[]>();
 
   for (const flag of flagSchema) {
@@ -200,7 +232,9 @@ function resolveExactlyOneGroups(
   interactiveSignals: InteractiveSignal[],
 ): void {
   for (const group of collectExactlyOneGroups(flagSchema)) {
-    const selectedMembers = group.members.filter((member) => selectedFlags.has(member));
+    const selectedMembers = group.members.filter((member) =>
+      selectedFlags.has(member),
+    );
 
     if (selectedMembers.length === 1) {
       continue;
@@ -209,7 +243,9 @@ function resolveExactlyOneGroups(
     const preferredByProfile = getProfileExactlyOneChoice(profiles, group.key);
     if (preferredByProfile && group.members.includes(preferredByProfile)) {
       selectedFlags.set(preferredByProfile, {
-        values: [makeTypedPlaceholderValue(preferredByProfile, "string", undefined)],
+        values: [
+          makeTypedPlaceholderValue(preferredByProfile, "string", undefined),
+        ],
         source: "profile",
       });
       for (const member of group.members) {
@@ -255,7 +291,10 @@ function chooseExactlyOneMember(
 
   const scored = members.map((member) => {
     const closure = dependencyClosureSize(member, flagSchema);
-    const nonInteractiveBonus = scoreNonInteractiveMember(member, interactiveSignals);
+    const nonInteractiveBonus = scoreNonInteractiveMember(
+      member,
+      interactiveSignals,
+    );
     return {
       member,
       score: closure - nonInteractiveBonus,
@@ -273,7 +312,10 @@ function chooseExactlyOneMember(
   return scored[0]?.member ?? members[0] ?? commandId;
 }
 
-function scoreNonInteractiveMember(member: string, interactiveSignals: InteractiveSignal[]): number {
+function scoreNonInteractiveMember(
+  member: string,
+  interactiveSignals: InteractiveSignal[],
+): number {
   if (member === "consent" && interactiveSignals.includes("addConfirmation")) {
     return 3;
   }
@@ -293,7 +335,10 @@ function scoreNonInteractiveMember(member: string, interactiveSignals: Interacti
   return 0;
 }
 
-function dependencyClosureSize(member: string, flagSchema: ParsedFlag[]): number {
+function dependencyClosureSize(
+  member: string,
+  flagSchema: ParsedFlag[],
+): number {
   const visited = new Set<string>();
 
   const visit = (flagName: string): void => {
@@ -332,10 +377,17 @@ function resolveDependencies(
           continue;
         }
 
-        const dependencySpec = flagSchema.find((candidate) => candidate.name === dependency);
+        const dependencySpec = flagSchema.find(
+          (candidate) => candidate.name === dependency,
+        );
         const profileValue = getProfileFlagValue(profiles, dependency);
         if (profileValue !== undefined) {
-          setFlagValue(selectedFlags, dependency, normalizeFlagValue(profileValue), "profile");
+          setFlagValue(
+            selectedFlags,
+            dependency,
+            normalizeFlagValue(profileValue),
+            "profile",
+          );
           changed = true;
           continue;
         }
@@ -346,7 +398,12 @@ function resolveDependencies(
           continue;
         }
 
-        setFlagValue(selectedFlags, dependency, buildHeuristicFlagValue(dependencySpec), "heuristic");
+        setFlagValue(
+          selectedFlags,
+          dependency,
+          buildHeuristicFlagValue(dependencySpec),
+          "heuristic",
+        );
         changed = true;
       }
     }
@@ -384,13 +441,20 @@ function applyProfileOverrides(
   profiles: InvocationProfile[],
 ): void {
   for (const profile of profiles) {
-    for (const [flagName, profileValue] of Object.entries(profile.requiredFlagDefaults ?? {})) {
+    for (const [flagName, profileValue] of Object.entries(
+      profile.requiredFlagDefaults ?? {},
+    )) {
       const spec = flagSchema.find((flag) => flag.name === flagName);
       if (!spec) {
         continue;
       }
 
-      setFlagValue(selectedFlags, flagName, normalizeFlagValue(profileValue), "profile");
+      setFlagValue(
+        selectedFlags,
+        flagName,
+        normalizeFlagValue(profileValue),
+        "profile",
+      );
     }
   }
 }
@@ -406,13 +470,22 @@ function decideInteractivePolicy(
     return "NON_INTERACTIVE_RESOLVED";
   }
 
-  const policy = profiles.find((profile) => profile.interactivePolicy)?.interactivePolicy;
+  const policy = profiles.find(
+    (profile) => profile.interactivePolicy,
+  )?.interactivePolicy;
   if (policy === "classify") {
     return "INTERACTIVE_REQUIRED";
   }
 
-  const unresolved = resolveInteractiveSignals(commandId, flagSchema, selectedFlags, interactiveSignals);
-  return unresolved.length === 0 ? "NON_INTERACTIVE_RESOLVED" : "INTERACTIVE_REQUIRED";
+  const unresolved = resolveInteractiveSignals(
+    commandId,
+    flagSchema,
+    selectedFlags,
+    interactiveSignals,
+  );
+  return unresolved.length === 0
+    ? "NON_INTERACTIVE_RESOLVED"
+    : "INTERACTIVE_REQUIRED";
 }
 
 function resolveInteractiveSignals(
@@ -423,7 +496,8 @@ function resolveInteractiveSignals(
 ): InteractiveSignal[] {
   const unresolved: InteractiveSignal[] = [];
 
-  const hasFlag = (name: string): boolean => flagSchema.some((flag) => flag.name === name);
+  const hasFlag = (name: string): boolean =>
+    flagSchema.some((flag) => flag.name === name);
 
   for (const signal of interactiveSignals) {
     if (signal === "addConfirmation") {
@@ -443,12 +517,22 @@ function resolveInteractiveSignals(
 
     if (signal === "addInput") {
       if (hasFlag("password")) {
-        setFlagValue(selectedFlags, "password", ["integration-password"], "heuristic");
+        setFlagValue(
+          selectedFlags,
+          "password",
+          ["integration-password"],
+          "heuristic",
+        );
         continue;
       }
 
       if (hasFlag("user-password")) {
-        setFlagValue(selectedFlags, "user-password", ["integration-password"], "heuristic");
+        setFlagValue(
+          selectedFlags,
+          "user-password",
+          ["integration-password"],
+          "heuristic",
+        );
         continue;
       }
 
@@ -545,7 +629,10 @@ function buildHeuristicFlagValue(flag: ParsedFlag): string[] {
   return [makeTypedPlaceholderValue(flag.name, flag.type, flag.options)];
 }
 
-function getProfileArgValue(profiles: InvocationProfile[], argName: string): string | undefined {
+function getProfileArgValue(
+  profiles: InvocationProfile[],
+  argName: string,
+): string | undefined {
   for (const profile of profiles) {
     const value = profile.requiredArgDefaults?.[argName];
     if (value !== undefined) {
@@ -594,11 +681,17 @@ function compareSourcePrecedence(a: ValueSource, b: ValueSource): number {
   return precedence[a] - precedence[b];
 }
 
-function selectStrongerSource(current: ValueSource, candidate: ValueSource): ValueSource {
+function selectStrongerSource(
+  current: ValueSource,
+  candidate: ValueSource,
+): ValueSource {
   return compareSourcePrecedence(candidate, current) >= 0 ? candidate : current;
 }
 
-function defaultValueForPlaceholderKind(kind: PlaceholderKind, name: string): string {
+function defaultValueForPlaceholderKind(
+  kind: PlaceholderKind,
+  name: string,
+): string {
   if (kind === "uuid") {
     return DEFAULT_UUID;
   }
@@ -650,7 +743,11 @@ function makeTypedPlaceholderValue(
     .replace(/-+$/, "")
     .toLowerCase();
 
-  if (normalized.includes("uuid") || normalized.endsWith("id") || normalized.includes("-id")) {
+  if (
+    normalized.includes("uuid") ||
+    normalized.endsWith("id") ||
+    normalized.includes("-id")
+  ) {
     return DEFAULT_UUID;
   }
 

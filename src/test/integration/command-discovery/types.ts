@@ -1,11 +1,5 @@
 export type FlagValueType =
-  | "boolean"
-  | "string"
-  | "integer"
-  | "file"
-  | "directory"
-  | "url"
-  | "custom";
+  "boolean" | "string" | "integer" | "file" | "directory" | "url" | "custom";
 
 export type ValueSource = "profile" | "example" | "heuristic";
 
