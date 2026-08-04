@@ -17,6 +17,7 @@ jobs:
       - run: yarn
       - run: yarn compile
 
+  # Move this action to mw namespace once it is stable and we can rely on it.
   build-mockoon:
     uses: gandie/mw-api-mockoon-gen/.github/workflows/build-mockoon-env-reusable.yml@master
     with:
