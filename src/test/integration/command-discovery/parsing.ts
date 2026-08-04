@@ -816,7 +816,7 @@ function detectFlagType(expression: string): FlagValueType | undefined {
   }
 
   // Fallback for wrapped/custom flag factories, e.g. `flagDefinitions.name({ required: true })`.
-  if (/^[A-Za-z0-9_.$\[\]"'-]+\s*\(/.test(expression)) {
+  if (/^[A-Za-z0-9_.$[\]"'-]+\s*\(/.test(expression)) {
     return "string";
   }
 

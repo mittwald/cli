@@ -89,6 +89,7 @@ function readJsonFile(filePath: string, label: string): unknown {
   } catch (error) {
     throw new Error(
       `[integration-config] failed to load ${label} at ${filePath}: ${(error as Error).message}`,
+      { cause: error },
     );
   }
 }
