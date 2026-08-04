@@ -144,7 +144,7 @@ jobs:
           }
           trap cleanup EXIT
 
-          npx --yes mockoon-cli start -d "$ENV_FILE" -p 3000 > mockoon.log 2>&1 &
+          npx --yes mockoon-cli start -d "$ENV_FILE"
           MOCKOON_PID=$!
 
           for i in {1..30}; do
