@@ -10,7 +10,10 @@ import {
   extractExampleCandidate,
   extractFlagsSchema,
 } from "./command-discovery/parsing.js";
-import { resolveProfiles, synthesizeInvocation } from "./command-discovery/synthesis.js";
+import {
+  resolveProfiles,
+  synthesizeInvocation,
+} from "./command-discovery/synthesis.js";
 import type { DiscoveredCommand } from "./command-discovery/types.js";
 
 export type {
@@ -64,7 +67,9 @@ export async function discoverRunnableCommands(
     const parsedArgs = extractArgsSchema(source, extractionDiagnostics);
     const parsedFlags = extractFlagsSchema(source, extractionDiagnostics);
     const interactiveSignals = detectInteractiveSignals(source);
-    const exampleCandidate = profiles.some((profile) => profile.disableExampleSource)
+    const exampleCandidate = profiles.some(
+      (profile) => profile.disableExampleSource,
+    )
       ? undefined
       : extractExampleCandidate(source, commandId);
 
@@ -95,7 +100,9 @@ export async function discoverRunnableCommands(
     );
   }
 
-  const sorted = discovered.sort((a, b) => a.commandId.localeCompare(b.commandId));
+  const sorted = discovered.sort((a, b) =>
+    a.commandId.localeCompare(b.commandId),
+  );
 
   if (!categoryFilter) {
     onProgress?.(`[discovery] completed ${sorted.length} commands`);
@@ -112,7 +119,9 @@ export async function discoverRunnableCommands(
       .map((entry) => entry.commandId),
   );
 
-  const filtered = sorted.filter((command) => selectedCommandIds.has(command.commandId));
+  const filtered = sorted.filter((command) =>
+    selectedCommandIds.has(command.commandId),
+  );
 
   onProgress?.(
     `[discovery] completed ${sorted.length} commands; category filter ${categoryFilter} => ${filtered.length}`,
@@ -151,6 +160,9 @@ async function collectCommandFiles(rootDir: string): Promise<string[]> {
 }
 
 function toCommandId(relativeFilePath: string): string {
-  const withoutExtension = relativeFilePath.replace(COMMAND_FILE_EXTENSION_REGEX, "");
+  const withoutExtension = relativeFilePath.replace(
+    COMMAND_FILE_EXTENSION_REGEX,
+    "",
+  );
   return withoutExtension.split(path.sep).join(" ");
 }

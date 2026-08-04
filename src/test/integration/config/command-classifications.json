@@ -1,15 +1,4 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-08-03T11:15:33.501Z",
-  "source": {
-    "kind": "run-all-summary"
-  },
-  "statistics": {
-    "successful": 118,
-    "failed": 0,
-    "waivedSkipped": 67,
-    "total": 185
-  },
   "entries": [
     {
       "commandId": "app create node",
@@ -346,5 +335,16 @@
       "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
     }
-  ]
+  ],
+  "generatedAt": "2026-08-03T11:15:33.501Z",
+  "schemaVersion": 1,
+  "source": {
+    "kind": "run-all-summary"
+  },
+  "statistics": {
+    "successful": 118,
+    "failed": 0,
+    "waivedSkipped": 67,
+    "total": 185
+  }
 }
