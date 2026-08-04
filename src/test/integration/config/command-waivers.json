@@ -70,6 +70,13 @@
     "issue": "defer-interactive-support"
   },
   {
+    "id": "resource-precondition-user-ssh-key-import-default-key-file-missing",
+    "commandId": "user ssh-key import",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Remote integration runners do not guarantee a default local SSH public key at ~/.ssh/id_rsa.pub. The current invocation path attempts to read that default and fails with ENOENT in headless CI environments.",
+    "issue": "fix-integration-invocation-profiles"
+  },
+  {
     "id": "deprecated-endpoint-app-database-link",
     "commandId": "app database link",
     "category": "DEPRECATED_ENDPOINT",
