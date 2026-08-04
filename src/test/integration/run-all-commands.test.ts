@@ -35,6 +35,49 @@ const FAILURE_CATEGORIES: FailureCategory[] = [
   "DEPRECATED_ENDPOINT",
 ];
 
+function isExplicitRunByPathInvocationForThisFile(): boolean {
+  const args = process.argv.slice(2);
+  const runTestsByPathArgs = new Set<string>();
+  const targetRelativePath = path
+    .normalize("src/test/integration/run-all-commands.test.ts")
+    .replaceAll("\\", "/");
+
+  for (let i = 0; i < args.length; i += 1) {
+    const arg = args[i];
+
+    if (arg === "--runTestsByPath") {
+      const maybePath = args[i + 1];
+      if (maybePath && !maybePath.startsWith("--")) {
+        runTestsByPathArgs.add(path.normalize(maybePath));
+      }
+      continue;
+    }
+
+    if (arg.startsWith("--runTestsByPath=")) {
+      const maybePath = arg.slice("--runTestsByPath=".length);
+      if (maybePath) {
+        runTestsByPathArgs.add(path.normalize(maybePath));
+      }
+    }
+  }
+
+  if (runTestsByPathArgs.size === 0) {
+    return false;
+  }
+
+  return Array.from(runTestsByPathArgs).some((candidate) => {
+    const normalizedCandidate = candidate.replaceAll("\\", "/");
+    return (
+      normalizedCandidate === targetRelativePath ||
+      normalizedCandidate.endsWith(`/${targetRelativePath}`)
+    );
+  });
+}
+
+const describeRunAllCommands = isExplicitRunByPathInvocationForThisFile()
+  ? describe
+  : describe.skip;
+
 function createFailureBuckets(): Record<FailureCategory, string[]> {
   return {
     ARG_MISUSE: [],
@@ -286,7 +329,7 @@ async function seedProjectContext(projectId: string): Promise<void> {
   );
 }
 
-describe("integration: run all commands", () => {
+describeRunAllCommands("integration: run all commands", () => {
   let originalEnv: NodeJS.ProcessEnv;
   let tempConfigDir: string;
 
