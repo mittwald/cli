@@ -6,6 +6,10 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
+import {
+  optionalStackFlags,
+  withStackIdOrDefault,
+} from "../../lib/resources/stack/flags.js";
 import dockerNames from "docker-names";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import {
@@ -43,6 +47,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
   static flags = {
     ...processFlags,
     ...projectFlags,
+    ...optionalStackFlags,
     env: Flags.string({
       summary: "set environment variables in the container",
       description:
@@ -158,7 +163,12 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     const p = makeProcessRenderer(this.flags, "Creating a container");
 
     const projectId = await this.withProjectId(Run);
-    const stackId = projectId;
+    const stackId = await withStackIdOrDefault(
+      this.apiClient,
+      this.flags,
+      projectId,
+      this.config,
+    );
     const serviceName = this.getServiceName();
 
     const { image, meta: imageMeta } = await p.runStep(

@@ -58,7 +58,14 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, DeployResult> {
     }),
     "from-template": Flags.string({
       summary: "deploy from a GitHub template (e.g., mittwald/n8n)",
+      deprecated: {
+        message:
+          'The "--from-template" flag of "stack deploy" is deprecated. Use "stack create --from-template" to create a stack from a container template instead.',
+        to: "stack create --from-template",
+      },
       description: `\
+DEPRECATED: use "mw stack create --from-template" instead. This flag uses an older, GitHub-based template mechanism.
+
 Fetch and deploy a stack from a GitHub template repository. Template names are automatically converted to repository names by prefixing "stack-template-" to the name part.
 
 For example, "mittwald/n8n" resolves to the repository "mittwald/stack-template-n8n". The command fetches both docker-compose.yml and .env files from the main branch.
