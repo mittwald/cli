@@ -2946,9 +2946,9 @@ __metadata:
   linkType: hard
 
 "@types/semver@npm:^7.1.0, @types/semver@npm:^7.5.0":
-  version: 7.7.1
-  resolution: "@types/semver@npm:7.7.1"
-  checksum: 76d218e414482a398148d5c28f2bfa017108869f3fc18cda379c9d8d062348f8b9653ae2fa8642d3b5b52e211928fe8be34f22da4e1f08245c84e0e51e040673
+  version: 7.8.0
+  resolution: "@types/semver@npm:7.8.0"
+  checksum: 30e178f8d9af07e86f589219acf4fe8dff3fe763995a69b6501983dc06bcacf40373767125a6a8437b2fd77b4660f298f9ea0afc21ce09739e0d0c6dd36e32b6
   languageName: node
   linkType: hard
 
