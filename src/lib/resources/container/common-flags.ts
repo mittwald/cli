@@ -38,10 +38,20 @@ export const containerDescriptionFlag = Flags.custom<string>({
 });
 
 export const containerEntrypointFlag = Flags.custom<string>({
+  summary: "override the default entrypoint of the container image",
+  description:
+    "The entrypoint is the command that will be executed when the container starts. If omitted, the entrypoint defined in the image will be used.",
   required: false,
 });
 
 export const containerPublishFlag = Flags.custom<string[]>({
+  summary: "publish a container's port(s)",
+  description:
+    "Expose a container's port within the cluster. " +
+    "Format: <cluster-port>:<container-port> or just <port> (in which case the same port is used for both cluster and container). " +
+    "For example, --publish 8080:80 maps port 80 in the container to port 8080 within the cluster, while --publish 8080 exposes port 8080 as port 8080. " +
+    "Use multiple --publish flags to publish multiple ports.\n\n" +
+    "NOTE: Please note that the usual shorthand -p is not supported for this flag, as it would conflict with the --project flag.",
   required: false,
   multiple: true,
   multipleNonGreedy: true,

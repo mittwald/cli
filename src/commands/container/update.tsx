@@ -51,11 +51,7 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
     description: containerDescriptionFlag({
       summary: "update the descriptive label of the container",
     }),
-    entrypoint: containerEntrypointFlag({
-      summary: "override the entrypoint of the container",
-      description:
-        "The entrypoint is the command that will be executed when the container starts.",
-    }),
+    entrypoint: containerEntrypointFlag(),
     command: Flags.string({
       summary: "update the command to run in the container",
       description:
@@ -63,11 +59,6 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
       required: false,
     }),
     publish: containerPublishFlag({
-      summary: "update the container's port mappings",
-      description:
-        "Expose a container's port within the cluster. " +
-        "Format: <cluster-port>:<container-port> or just <port> (in which case the same port is used for both cluster and container). " +
-        "Use multiple -p flags to publish multiple ports.",
       char: "p",
     }),
     "publish-all": containerPublishAllFlag,
