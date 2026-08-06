@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/mittwald/cli/compare/v1.21.1...v1.22.0) (2026-08-06)
+
+
+### Features
+
+* **stack:** add support for container templates ([#2049](https://github.com/mittwald/cli/issues/2049)) ([57d9a3f](https://github.com/mittwald/cli/commit/57d9a3f87c18271d717a7626f76d249a72298553))
+
 ## [1.21.1](https://github.com/mittwald/cli/compare/v1.21.0...v1.21.1) (2026-07-24)
 
 
