@@ -6,20 +6,19 @@ import {
   it,
   jest,
 } from "@jest/globals";
-import { appendFile, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import {
   buildClassificationCatalogFromBuckets,
+  createFailureBuckets,
+  FAILURE_CATEGORIES,
   parseFailureCategory,
   saveClassificationCatalog,
 } from "./classification-catalog.js";
 import { runDevCommand } from "./command.js";
 import { discoverRunnableCommands } from "./command-discovery.js";
-import type {
-  CommandWaiver,
-  WaiverCategory,
-} from "./command-discovery/types.js";
+import type { WaiverCategory } from "./command-discovery/types.js";
 import { loadCommandWaivers } from "./config/loader.js";
 import {
   configureIntegrationEnv,
@@ -27,28 +26,30 @@ import {
   restoreEnv,
   snapshotEnv,
 } from "./env.js";
+import { seedProjectContext } from "./run-all-commands/context.js";
+import {
+  classifyFailure,
+  formatNonWaivedFailureSummary,
+  logBucketSummary,
+  logCommandFailureOutput,
+  mapCommandWaivers,
+  type NonWaivedFailure,
+  validateInvocationCompleteness,
+} from "./run-all-commands/helpers.js";
+import {
+  appendMachineLogEntry,
+  initializeMachineLogFile,
+} from "./run-all-commands/machine-log.js";
+import {
+  applyCommandOverride,
+  loadRunAllOverrides,
+  resolveInvocationArgs,
+  shouldBypassWaiverForCommand,
+} from "./run-all-commands/overrides.js";
 
 jest.setTimeout(20 * 60 * 1000);
 
 type FailureCategory = WaiverCategory;
-
-type MachineLogEntry = Record<string, unknown>;
-
-type NonWaivedFailure = {
-  commandId: string;
-  kind: "failure" | "spawn-error";
-  category?: FailureCategory;
-  details: string;
-};
-
-const FAILURE_CATEGORIES: FailureCategory[] = [
-  "ARG_MISUSE",
-  "INTERACTIVE_REQUIRED",
-  "RESOURCE_PRECONDITION",
-  "CONTRACT_SHAPE",
-  "COMMAND_BUG",
-  "DEPRECATED_ENDPOINT",
-];
 
 function isExplicitRunByPathInvocationForThisFile(): boolean {
   const args = process.argv.slice(2);
@@ -93,262 +94,8 @@ const describeRunAllCommands = isExplicitRunByPathInvocationForThisFile()
   ? describe
   : describe.skip;
 
-function createFailureBuckets(): Record<FailureCategory, string[]> {
-  return {
-    ARG_MISUSE: [],
-    INTERACTIVE_REQUIRED: [],
-    RESOURCE_PRECONDITION: [],
-    CONTRACT_SHAPE: [],
-    COMMAND_BUG: [],
-    DEPRECATED_ENDPOINT: [],
-  };
-}
-
-function classifyFailure(output: {
-  stderr: string;
-  stdout: string;
-}): FailureCategory {
-  const text = `${output.stderr}\n${output.stdout}`.toLowerCase();
-
-  if (
-    /missing\s+(?:\d+\s+)?required arg|missing\s+(?:\d+\s+)?required flag|exactly one of|required options|unexpected argument|unknown flag|nonexistent flag|invalid flag|flag .* expects|no .* id given|you need to specify at least one/i.test(
-      text,
-    )
-  ) {
-    return "ARG_MISUSE";
-  }
-
-  if (
-    /prompt|interactive|addinput|addselect|addconfirmation|overwrite\?|token file already exists|tty/i.test(
-      text,
-    )
-  ) {
-    return "INTERACTIVE_REQUIRED";
-  }
-
-  if (
-    /not found|does not exist|no .* found|resource.*missing|404|forbidden|unauthorized|no project found|failed to connect|could not resolve hostname|name or service not known|no main user found|main mysql user can not be deleted manually/i.test(
-      text,
-    )
-  ) {
-    return "RESOURCE_PRECONDITION";
-  }
-
-  if (
-    /invalid version|not iterable|cannot read properties|undefined.*data|validation|invalid type|schema/i.test(
-      text,
-    )
-  ) {
-    return "CONTRACT_SHAPE";
-  }
-
-  return "COMMAND_BUG";
-}
-
-function parseInvocationPartsFromArgs(
-  args: string[],
-  commandTokenCount: number,
-): { positionalValues: string[]; flagValues: Map<string, string[]> } {
-  const positionalValues: string[] = [];
-  const flagValues = new Map<string, string[]>();
-
-  const invocationArgs = args.slice(commandTokenCount);
-  for (let i = 0; i < invocationArgs.length; i += 1) {
-    const token = invocationArgs[i];
-    if (!token.startsWith("--")) {
-      positionalValues.push(token);
-      continue;
-    }
-
-    const withoutPrefix = token.slice(2);
-    const eqIndex = withoutPrefix.indexOf("=");
-    let name = withoutPrefix;
-    let value: string | undefined;
-
-    if (eqIndex >= 0) {
-      name = withoutPrefix.slice(0, eqIndex);
-      value = withoutPrefix.slice(eqIndex + 1);
-    } else {
-      const nextToken = invocationArgs[i + 1];
-      if (nextToken && !nextToken.startsWith("--")) {
-        value = nextToken;
-        i += 1;
-      }
-    }
-
-    const values = flagValues.get(name) ?? [];
-    values.push(value ?? "true");
-    flagValues.set(name, values);
-  }
-
-  return { positionalValues, flagValues };
-}
-
-function validateInvocationCompleteness(
-  command: Awaited<ReturnType<typeof discoverRunnableCommands>>[number],
-): string[] {
-  const issues: string[] = [];
-  const { positionalValues, flagValues } = parseInvocationPartsFromArgs(
-    command.synthesizedInvocation.args,
-    command.commandTokens.length,
-  );
-
-  command.parsedArgs.forEach((arg, index) => {
-    if (!arg.required) {
-      return;
-    }
-    if (positionalValues[index] === undefined) {
-      issues.push(`missing required arg ${arg.name}`);
-    }
-  });
-
-  for (const flag of command.parsedFlags) {
-    if (flag.required && !flagValues.has(flag.name)) {
-      issues.push(`missing required flag --${flag.name}`);
-    }
-  }
-
-  const exactlyOneGroups = new Map<string, string[]>();
-  for (const flag of command.parsedFlags) {
-    if (!flag.exactlyOne || flag.exactlyOne.length < 2) {
-      continue;
-    }
-    const members = [...new Set(flag.exactlyOne)].sort();
-    exactlyOneGroups.set(members.join("|"), members);
-  }
-
-  for (const members of exactlyOneGroups.values()) {
-    const selected = members.filter((member) => flagValues.has(member));
-    if (selected.length !== 1) {
-      issues.push(`exactly-one unresolved [${members.join(",")}]`);
-    }
-  }
-
-  return issues;
-}
-
-function logFailureTaxonomySummary(
-  failuresByCategory: Record<FailureCategory, string[]>,
-): void {
-  logProgress("[run-all] failure taxonomy summary:");
-
-  for (const category of FAILURE_CATEGORIES) {
-    const commands = failuresByCategory[category];
-    const sample = commands.slice(0, 5).join(", ");
-    logProgress(
-      `[run-all]   ${category.padEnd(22, " ")} count=${String(commands.length).padStart(3, " ")} sample=${sample || "-"}`,
-    );
-  }
-}
-
-function mapCommandWaivers(waivers: CommandWaiver[]): {
-  waiversByCommandId: Map<string, CommandWaiver>;
-  duplicates: string[];
-} {
-  const waiversByCommandId = new Map<string, CommandWaiver>();
-  const duplicates: string[] = [];
-
-  for (const waiver of waivers) {
-    if (waiversByCommandId.has(waiver.commandId)) {
-      duplicates.push(waiver.commandId);
-      continue;
-    }
-
-    waiversByCommandId.set(waiver.commandId, waiver);
-  }
-
-  return { waiversByCommandId, duplicates };
-}
-
-function logWaiverSummary(
-  waivedByCategory: Record<FailureCategory, string[]>,
-): void {
-  logProgress("[run-all] waiver summary:");
-
-  for (const category of FAILURE_CATEGORIES) {
-    const commands = waivedByCategory[category];
-    const sample = commands.slice(0, 5).join(", ");
-    logProgress(
-      `[run-all]   ${category.padEnd(22, " ")} count=${String(commands.length).padStart(3, " ")} sample=${sample || "-"}`,
-    );
-  }
-}
-
 function logProgress(message: string): void {
   process.stderr.write(`${message}\n`);
-}
-
-function formatNonWaivedFailureSummary(failures: NonWaivedFailure[]): string {
-  if (failures.length === 0) {
-    return "<none>";
-  }
-
-  return failures
-    .map((failure) => {
-      const base =
-        failure.kind === "failure"
-          ? `${failure.commandId} [${failure.category}]`
-          : `${failure.commandId} [spawn-error]`;
-      return `${base}: ${failure.details}`;
-    })
-    .join("\n");
-}
-
-function formatOutputBlock(output: string): string {
-  const trimmed = output.trim();
-  return trimmed.length > 0 ? trimmed : "<empty>";
-}
-
-function logCommandFailureOutput(
-  position: string,
-  commandId: string,
-  result: { stdout: string; stderr: string },
-): void {
-  logProgress(`[${position}] diagnostics ${commandId}: stderr >>>`);
-  logProgress(formatOutputBlock(result.stderr));
-  logProgress(`[${position}] diagnostics ${commandId}: stdout >>>`);
-  logProgress(formatOutputBlock(result.stdout));
-  logProgress(`[${position}] diagnostics ${commandId}: <<<`);
-}
-
-async function initializeMachineLogFile(filePath: string): Promise<void> {
-  await mkdir(path.dirname(filePath), { recursive: true });
-  await writeFile(filePath, "", "utf-8");
-}
-
-async function appendMachineLogEntry(
-  filePath: string,
-  entry: MachineLogEntry,
-): Promise<void> {
-  const line = JSON.stringify({
-    timestamp: new Date().toISOString(),
-    ...entry,
-  });
-  await appendFile(filePath, `${line}\n`, "utf-8");
-}
-
-async function seedProjectContext(projectId: string): Promise<void> {
-  const configDir = process.env.MW_CONFIG_DIR;
-
-  if (!configDir) {
-    throw new Error(
-      "[integration:run-all-commands] MW_CONFIG_DIR was not set before seeding project context.",
-    );
-  }
-
-  const contextFile = path.join(configDir, "context.json");
-
-  await mkdir(configDir, { recursive: true });
-  await writeFile(
-    contextFile,
-    JSON.stringify({
-      "project-id": projectId,
-      "server-id": "6b4f48f5-d80c-4d20-9db8-fecf4c9e6221",
-      "installation-id": "f7b47c12-7d11-4f3a-b9bc-1b3c706e1d55",
-      "org-id": "88e8d927-7db4-42ef-ae02-f8a7ef0b4d77",
-    }),
-    "utf-8",
-  );
 }
 
 describeRunAllCommands("integration: run all commands", () => {
@@ -379,6 +126,7 @@ describeRunAllCommands("integration: run all commands", () => {
     const machineLogPath =
       process.env.MW_TEST_MACHINE_LOG_PATH?.trim() ||
       path.resolve("run-all-commands.ndjson");
+    const runtimeOverrides = loadRunAllOverrides();
 
     await initializeMachineLogFile(machineLogPath);
     logProgress(`[run-all] machine log path=${machineLogPath}`);
@@ -390,16 +138,24 @@ describeRunAllCommands("integration: run all commands", () => {
     );
 
     logProgress("[run-all] starting command discovery");
-    const commands = await discoverRunnableCommands({
+    const discoveredCommands = await discoverRunnableCommands({
       onProgress: logProgress,
       categoryFilter,
       classificationCatalogPath,
     });
+
+    const commands = applyCommandOverride(discoveredCommands, runtimeOverrides);
     expect(commands.length).toBeGreaterThan(0);
 
     if (categoryFilter) {
       logProgress(
         `[run-all] category filter active: ${categoryFilter}${classificationCatalogPath ? ` (catalog=${classificationCatalogPath})` : ""}`,
+      );
+    }
+
+    if (runtimeOverrides.commandId) {
+      logProgress(
+        `[run-all] command override active: ${runtimeOverrides.commandId}${runtimeOverrides.invocationArgs ? " (custom invocation args)" : ""}`,
       );
     }
 
@@ -413,6 +169,7 @@ describeRunAllCommands("integration: run all commands", () => {
       projectId,
       commandCount: commands.length,
       waiverCount: waivers.length,
+      runtimeOverrides,
     });
 
     logProgress(`[run-all] discovered ${commands.length} commands to execute`);
@@ -436,7 +193,10 @@ describeRunAllCommands("integration: run all commands", () => {
     let failedCommands = 0;
     let waivedSkippedCommands = 0;
 
-    if (!categoryFilter) {
+    const strictWaiverIntegrityMode =
+      !categoryFilter && runtimeOverrides.commandId === undefined;
+
+    if (strictWaiverIntegrityMode) {
       if (duplicates.length > 0) {
         infrastructureFailures.push(
           `[waivers] duplicate waiver commandId entries: ${duplicates.join(", ")}`,
@@ -455,19 +215,24 @@ describeRunAllCommands("integration: run all commands", () => {
       }
     } else {
       logProgress(
-        "[waivers] strict waiver integrity checks skipped (category filter active)",
+        "[waivers] strict waiver integrity checks skipped (category filter or command override active)",
       );
     }
 
     for (const [index, command] of commands.entries()) {
       const position = `${index + 1}/${commands.length}`;
-      const invocation = command.synthesizedInvocation;
+      const synthesizedInvocation = command.synthesizedInvocation;
+      const effectiveInvocationArgs = resolveInvocationArgs(
+        command,
+        runtimeOverrides,
+      );
       const waiver = waiversByCommandId.get(command.commandId);
+      const bypassWaiver = shouldBypassWaiverForCommand(command, runtimeOverrides);
       const commandStartedAt = Date.now();
 
       await seedProjectContext(projectId);
       logProgress(
-        `[${position}] running ${command.commandId} (source=${invocation.argumentSource}; interactive=${invocation.interactiveDecision}; re-seeded project context)`,
+        `[${position}] running ${command.commandId} (source=${synthesizedInvocation.argumentSource}; interactive=${synthesizedInvocation.interactiveDecision}; re-seeded project context)`,
       );
 
       await appendMachineLogEntry(machineLogPath, {
@@ -483,12 +248,14 @@ describeRunAllCommands("integration: run all commands", () => {
         interactiveSignals: command.interactiveSignals,
         invocationProfilesApplied: command.invocationProfilesApplied,
         extractionDiagnostics: command.extractionDiagnostics,
-        invocationArgs: invocation.args,
-        argumentSource: invocation.argumentSource,
-        interactiveDecision: invocation.interactiveDecision,
+        invocationArgs: effectiveInvocationArgs,
+        synthesizedInvocationArgs: synthesizedInvocation.args,
+        argumentSource: synthesizedInvocation.argumentSource,
+        interactiveDecision: synthesizedInvocation.interactiveDecision,
+        overrideApplied: effectiveInvocationArgs !== synthesizedInvocation.args,
       });
 
-      if (waiver) {
+      if (waiver && !bypassWaiver) {
         waivedSkippedCommands += 1;
         waivedByCategory[waiver.category].push(command.commandId);
         logProgress(
@@ -507,7 +274,16 @@ describeRunAllCommands("integration: run all commands", () => {
         continue;
       }
 
-      if (invocation.interactiveDecision === "INTERACTIVE_REQUIRED") {
+      if (waiver && bypassWaiver) {
+        logProgress(
+          `[${position}] waiver bypass ${command.commandId} (category=${waiver.category}; reason=${waiver.reason})`,
+        );
+      }
+
+      if (
+        synthesizedInvocation.interactiveDecision === "INTERACTIVE_REQUIRED" &&
+        !bypassWaiver
+      ) {
         failedCommands += 1;
         failuresByCategory.INTERACTIVE_REQUIRED.push(command.commandId);
         nonWaivedFailures.push({
@@ -536,7 +312,10 @@ describeRunAllCommands("integration: run all commands", () => {
         continue;
       }
 
-      const staticInvocationIssues = validateInvocationCompleteness(command);
+      const staticInvocationIssues = validateInvocationCompleteness(
+        command,
+        effectiveInvocationArgs,
+      );
       if (staticInvocationIssues.length > 0) {
         failedCommands += 1;
         failuresByCategory.ARG_MISUSE.push(command.commandId);
@@ -563,7 +342,7 @@ describeRunAllCommands("integration: run all commands", () => {
         continue;
       }
 
-      const result = await runDevCommand(invocation.args, {
+      const result = await runDevCommand(effectiveInvocationArgs, {
         timeoutMs: 30_000,
       });
 
@@ -577,7 +356,7 @@ describeRunAllCommands("integration: run all commands", () => {
           details: "timed out after 30000ms",
         });
         logProgress(`[${position}] timeout ${command.commandId}`);
-        logCommandFailureOutput(position, command.commandId, result);
+        logCommandFailureOutput(position, command.commandId, result, logProgress);
         await appendMachineLogEntry(machineLogPath, {
           event: "command-result",
           index: index + 1,
@@ -603,12 +382,12 @@ describeRunAllCommands("integration: run all commands", () => {
           details: errorMessage,
         });
         infrastructureFailures.push(
-          `${command.commandId} failed to execute (source=${invocation.argumentSource}): ${errorMessage}`,
+          `${command.commandId} failed to execute (source=${synthesizedInvocation.argumentSource}): ${errorMessage}`,
         );
         logProgress(
           `[${position}] spawn-error ${command.commandId}: ${errorMessage}`,
         );
-        logCommandFailureOutput(position, command.commandId, result);
+        logCommandFailureOutput(position, command.commandId, result, logProgress);
         await appendMachineLogEntry(machineLogPath, {
           event: "command-result",
           index: index + 1,
@@ -637,7 +416,7 @@ describeRunAllCommands("integration: run all commands", () => {
         logProgress(
           `[${position}] classified ${command.commandId} as ${category}`,
         );
-        logCommandFailureOutput(position, command.commandId, result);
+        logCommandFailureOutput(position, command.commandId, result, logProgress);
 
         await appendMachineLogEntry(machineLogPath, {
           event: "command-result",
@@ -676,8 +455,18 @@ describeRunAllCommands("integration: run all commands", () => {
     logProgress(
       `[run-all] statistics: successful=${successfulCommands}, failed=${failedCommands}, waived-skipped=${waivedSkippedCommands}, total=${commands.length}`,
     );
-    logFailureTaxonomySummary(failuresByCategory);
-    logWaiverSummary(waivedByCategory);
+    logBucketSummary(
+      "[run-all] failure taxonomy summary:",
+      FAILURE_CATEGORIES,
+      failuresByCategory,
+      logProgress,
+    );
+    logBucketSummary(
+      "[run-all] waiver summary:",
+      FAILURE_CATEGORIES,
+      waivedByCategory,
+      logProgress,
+    );
 
     await appendMachineLogEntry(machineLogPath, {
       event: "run-summary",
@@ -690,9 +479,10 @@ describeRunAllCommands("integration: run all commands", () => {
       failuresByCategory,
       waivedByCategory,
       infrastructureFailures,
+      runtimeOverrides,
     });
 
-    if (!categoryFilter) {
+    if (!categoryFilter && !runtimeOverrides.commandId) {
       const classificationCatalog = buildClassificationCatalogFromBuckets({
         failuresByCategory,
         waivedByCategory,
@@ -710,7 +500,7 @@ describeRunAllCommands("integration: run all commands", () => {
       );
     } else {
       logProgress(
-        "[run-all] skipped classification catalog write (category filter active)",
+        "[run-all] skipped classification catalog write (category filter or command override active)",
       );
     }
 
