@@ -770,12 +770,12 @@ FLAGS
   -e, --env=<value>...       set environment variables in the container
   -p, --project-id=<value>   ID or short ID of a project; this flag is optional if a default project is set in the
                              context
-  -p, --publish=<value>...   update the container's port mappings
+  -p, --publish=<value>...   publish a container's port(s)
   -q, --quiet                suppress process output and only display a machine-readable summary
   -v, --volume=<value>...    update volume mounts for the container
       --command=<value>      update the command to run in the container
       --description=<value>  update the descriptive label of the container
-      --entrypoint=<value>   override the entrypoint of the container
+      --entrypoint=<value>   override the default entrypoint of the container image
       --env-file=<value>...  read environment variables from a file
       --image=<value>        update the container image
       --recreate             recreate the container after updating
@@ -804,10 +804,15 @@ FLAG DESCRIPTIONS
     May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
     to persistently set a default project for all commands that accept this flag.
 
-  -p, --publish=<value>...  update the container's port mappings
+  -p, --publish=<value>...  publish a container's port(s)
 
     Expose a container's port within the cluster. Format: <cluster-port>:<container-port> or just <port> (in which case
-    the same port is used for both cluster and container). Use multiple -p flags to publish multiple ports.
+    the same port is used for both cluster and container). For example, --publish 8080:80 maps port 80 in the container
+    to port 8080 within the cluster, while --publish 8080 exposes port 8080 as port 8080. Use multiple --publish flags
+    to publish multiple ports.
+
+    NOTE: Please note that the usual shorthand -p is not supported for this flag, as it would conflict with the
+    --project flag.
 
   -q, --quiet  suppress process output and only display a machine-readable summary
 
@@ -829,9 +834,10 @@ FLAG DESCRIPTIONS
 
     This helps identify the container's purpose or contents.
 
-  --entrypoint=<value>  override the entrypoint of the container
+  --entrypoint=<value>  override the default entrypoint of the container image
 
-    The entrypoint is the command that will be executed when the container starts.
+    The entrypoint is the command that will be executed when the container starts. If omitted, the entrypoint defined in
+    the image will be used.
 
   --env-file=<value>...  read environment variables from a file
 
