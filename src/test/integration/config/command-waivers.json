@@ -91,20 +91,6 @@
     "issue": "rework-deprecated-endpoint-PR-2055"
   },
   {
-    "id": "deprecated-endpoint-stack-set-update-schedule",
-    "commandId": "stack set-update-schedule",
-    "category": "DEPRECATED_ENDPOINT",
-    "reason": "Command currently uses a deprecated API endpoint that is filtered by the mockoon setup and therefore not served in integration runs. The command should be reworked to use a current non-deprecated endpoint.",
-    "issue": "rework-deprecated-endpoint"
-  },
-  {
-    "id": "deprecated-endpoint-stack-unset-update-schedule",
-    "commandId": "stack unset-update-schedule",
-    "category": "DEPRECATED_ENDPOINT",
-    "reason": "Command currently uses a deprecated API endpoint that is filtered by the mockoon setup and therefore not served in integration runs. The command should be reworked to use a current non-deprecated endpoint.",
-    "issue": "rework-deprecated-endpoint"
-  },
-  {
     "id": "contract-shape-app-create-node-invalid-version",
     "commandId": "app create node",
     "category": "CONTRACT_SHAPE",
