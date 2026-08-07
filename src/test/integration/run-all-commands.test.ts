@@ -195,6 +195,7 @@ describeRunAllCommands("integration: run all commands", () => {
 
     const strictWaiverIntegrityMode =
       !categoryFilter && runtimeOverrides.commandId === undefined;
+    const disableWaiversForCategoryFilter = categoryFilter !== undefined;
 
     if (strictWaiverIntegrityMode) {
       if (duplicates.length > 0) {
@@ -219,6 +220,12 @@ describeRunAllCommands("integration: run all commands", () => {
       );
     }
 
+    if (disableWaiversForCategoryFilter) {
+      logProgress(
+        "[waivers] waiver application disabled because MW_TEST_CATEGORY is active",
+      );
+    }
+
     for (const [index, command] of commands.entries()) {
       const position = `${index + 1}/${commands.length}`;
       const synthesizedInvocation = command.synthesizedInvocation;
@@ -227,7 +234,9 @@ describeRunAllCommands("integration: run all commands", () => {
         runtimeOverrides,
       );
       const waiver = waiversByCommandId.get(command.commandId);
-      const bypassWaiver = shouldBypassWaiverForCommand(command, runtimeOverrides);
+      const bypassWaiver =
+        disableWaiversForCategoryFilter ||
+        shouldBypassWaiverForCommand(command, runtimeOverrides);
       const commandStartedAt = Date.now();
 
       await seedProjectContext(projectId);
@@ -275,8 +284,11 @@ describeRunAllCommands("integration: run all commands", () => {
       }
 
       if (waiver && bypassWaiver) {
+        const bypassReason = disableWaiversForCategoryFilter
+          ? "category filter active"
+          : "command override";
         logProgress(
-          `[${position}] waiver bypass ${command.commandId} (category=${waiver.category}; reason=${waiver.reason})`,
+          `[${position}] waiver bypass ${command.commandId} (category=${waiver.category}; reason=${waiver.reason}; bypass=${bypassReason})`,
         );
       }
 
