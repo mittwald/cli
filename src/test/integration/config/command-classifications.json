@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-07T12:30:46.037Z",
+  "generatedAt": "2026-08-07T14:09:20.969Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 135,
+    "successful": 136,
     "failed": 0,
-    "waivedSkipped": 53,
+    "waivedSkipped": 52,
     "total": 188
   },
   "entries": [
@@ -199,11 +199,6 @@
     {
       "commandId": "ddev init",
       "category": "INTERACTIVE_REQUIRED",
-      "source": "waiver"
-    },
-    {
-      "commandId": "ddev render-config",
-      "category": "CONTRACT_SHAPE",
       "source": "waiver"
     },
     {
