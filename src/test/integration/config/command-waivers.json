@@ -91,76 +91,6 @@
     "issue": "rework-deprecated-endpoint-PR-2055"
   },
   {
-    "id": "contract-shape-app-create-node-invalid-version",
-    "commandId": "app create node",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-create-php-invalid-version",
-    "commandId": "app create php",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-create-php-worker-invalid-version",
-    "commandId": "app create php-worker",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-create-python-invalid-version",
-    "commandId": "app create python",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-create-static-invalid-version",
-    "commandId": "app create static",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-install-contao-invalid-version",
-    "commandId": "app install contao",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-install-shopware5-invalid-version",
-    "commandId": "app install shopware5",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-install-shopware6-invalid-version",
-    "commandId": "app install shopware6",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-install-typo3-invalid-version",
-    "commandId": "app install typo3",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-install-wordpress-invalid-version",
-    "commandId": "app install wordpress",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
     "id": "resource-precondition-container-cp-container-not-found",
     "commandId": "container cp",
     "category": "RESOURCE_PRECONDITION",
@@ -259,20 +189,6 @@
     "issue": "seed-appinstall-web-directory-fixture"
   },
   {
-    "id": "contract-shape-app-install-joomla-invalid-version",
-    "commandId": "app install joomla",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
-    "id": "contract-shape-app-install-nextcloud-invalid-version",
-    "commandId": "app install nextcloud",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
-  },
-  {
     "id": "command-bug-app-dependency-update-invalid-installation-id",
     "commandId": "app dependency update",
     "category": "COMMAND_BUG",
@@ -285,13 +201,6 @@
     "category": "RESOURCE_PRECONDITION",
     "reason": "The integration fixture set does not provide a resolvable system software entry for the placeholder value used in this command run. The command fails with 'system software ... not found'.",
     "issue": "seed-known-resource-fixtures"
-  },
-  {
-    "id": "contract-shape-app-install-matomo-invalid-version",
-    "commandId": "app install matomo",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Version fields in the app version contract are typed as generic strings (openapi schema), but client selection logic assumes semver-compatible internalVersion values and calls semver.gt directly. In integration fixtures this can surface as empty or non-semver values and crashes with TypeError: Invalid Version before command-specific logic can proceed.",
-    "issue": "harden-app-version-selection"
   },
   {
     "id": "command-bug-app-list-upgrade-candidates-versions-not-array",
