@@ -294,13 +294,6 @@
     "issue": "seed-mysql-non-main-user-fixture"
   },
   {
-    "id": "contract-shape-ddev-render-config-missing-document-root-input",
-    "commandId": "ddev render-config",
-    "category": "CONTRACT_SHAPE",
-    "reason": "DDEV config generation currently receives fixture data with missing path fields and fails with 'Cannot read properties of undefined (reading replace)' in config builder path normalization.",
-    "issue": "seed-ddev-config-shape-fixture"
-  },
-  {
     "id": "resource-precondition-domain-dnszone-get-zone-not-found",
     "commandId": "domain dnszone get",
     "category": "RESOURCE_PRECONDITION",
