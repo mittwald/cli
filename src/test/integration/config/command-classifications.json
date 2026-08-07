@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-07T11:53:31.770Z",
+  "generatedAt": "2026-08-07T12:30:46.037Z",
   "source": {
     "kind": "run-all-summary"
   },
@@ -33,17 +33,17 @@
     },
     {
       "commandId": "app download",
-      "category": "CONTRACT_SHAPE",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
       "commandId": "app exec",
-      "category": "CONTRACT_SHAPE",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
       "commandId": "app get",
-      "category": "CONTRACT_SHAPE",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
@@ -58,7 +58,7 @@
     },
     {
       "commandId": "app ssh",
-      "category": "CONTRACT_SHAPE",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {

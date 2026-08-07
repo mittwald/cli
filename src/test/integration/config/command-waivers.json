@@ -163,29 +163,29 @@
   {
     "id": "contract-shape-app-download-missing-web-directory",
     "commandId": "app download",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Command fails with TypeError [ERR_INVALID_ARG_TYPE] in a shared path.join call because integration response shape does not provide all path inputs expected by shared SSH/app-installation rendering logic. Primary shared callsite: src/lib/resources/ssh/appinstall.ts (getSSHConnectionForAppInstallation) builds directory via path.join(projectResponse.data.directories['Web'], appInstallation.installationPath). If directories['Web'] or installationPath is missing/undefined, multiple commands crash with the same signature. Preferred fix is fixture-side: seed deterministic project/app-installation payloads that always include project.directories['Web'] and appInstallation.installationPath for the known test project.",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Beyond overlapping path-shape issues, this command enters SSH/rsync execution paths that are interactive/system-dependent and not intended to run in headless integration matrix mode.",
     "issue": "seed-appinstall-web-directory-fixture"
   },
   {
     "id": "contract-shape-app-exec-missing-web-directory",
     "commandId": "app exec",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Command fails with TypeError [ERR_INVALID_ARG_TYPE] in a shared path.join call because integration response shape does not provide all path inputs expected by shared SSH/app-installation rendering logic. Primary shared callsite: src/lib/resources/ssh/appinstall.ts (getSSHConnectionForAppInstallation) builds directory via path.join(projectResponse.data.directories['Web'], appInstallation.installationPath). If directories['Web'] or installationPath is missing/undefined, multiple commands crash with the same signature. Preferred fix is fixture-side: seed deterministic project/app-installation payloads that always include project.directories['Web'] and appInstallation.installationPath for the known test project.",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Beyond overlapping path-shape issues, this command enters SSH/rsync execution paths that are interactive/system-dependent and not intended to run in headless integration matrix mode.",
     "issue": "seed-appinstall-web-directory-fixture"
   },
   {
     "id": "contract-shape-app-ssh-missing-web-directory",
     "commandId": "app ssh",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Command fails with TypeError [ERR_INVALID_ARG_TYPE] in a shared path.join call because integration response shape does not provide all path inputs expected by shared SSH/app-installation rendering logic. Primary shared callsite: src/lib/resources/ssh/appinstall.ts (getSSHConnectionForAppInstallation) builds directory via path.join(projectResponse.data.directories['Web'], appInstallation.installationPath). If directories['Web'] or installationPath is missing/undefined, multiple commands crash with the same signature. Preferred fix is fixture-side: seed deterministic project/app-installation payloads that always include project.directories['Web'] and appInstallation.installationPath for the known test project.",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Beyond overlapping path-shape issues, this command enters SSH/rsync execution paths that are interactive/system-dependent and not intended to run in headless integration matrix mode.",
     "issue": "seed-appinstall-web-directory-fixture"
   },
   {
     "id": "contract-shape-app-get-missing-web-directory",
     "commandId": "app get",
-    "category": "CONTRACT_SHAPE",
-    "reason": "Command fails with TypeError [ERR_INVALID_ARG_TYPE] from AppInstallationDetails rendering when absolute installation path is built with path.join(project.directories['Web'], appInstallation.installationPath). This is the same fixture data-shape gap as the shared SSH app-installation path handling cluster: missing directories['Web'] and/or installationPath in test payloads causes deterministic crash. Preferred fix is fixture-side: seed deterministic project/app-installation payloads that always include project.directories['Web'] and appInstallation.installationPath for the known test project.",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Beyond overlapping path-shape issues, this command enters SSH/rsync execution paths that are interactive/system-dependent and not intended to run in headless integration matrix mode.",
     "issue": "seed-appinstall-web-directory-fixture"
   },
   {
