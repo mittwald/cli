@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-07T14:09:20.969Z",
+  "generatedAt": "2026-08-07T15:27:30.357Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 136,
+    "successful": 144,
     "failed": 0,
-    "waivedSkipped": 52,
+    "waivedSkipped": 44,
     "total": 188
   },
   "entries": [
@@ -88,17 +88,12 @@
     },
     {
       "commandId": "container cp",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "container delete",
-      "category": "RESOURCE_PRECONDITION",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
       "commandId": "container exec",
-      "category": "RESOURCE_PRECONDITION",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
@@ -107,42 +102,7 @@
       "source": "waiver"
     },
     {
-      "commandId": "container port-forward",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "container recreate",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "container restart",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
       "commandId": "container run",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "container ssh",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "container start",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "container stop",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "container update",
       "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
     },
