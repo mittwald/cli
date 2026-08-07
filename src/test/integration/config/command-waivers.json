@@ -14,6 +14,20 @@
     "issue": "defer-interactive-support"
   },
   {
+    "id": "interactive-container-cp-filesystem-io",
+    "commandId": "container cp",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "It requires more I/O with filesystem under the hood.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-container-exec-unmockable-remote-call",
+    "commandId": "container exec",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Execution path depends on an interactive remote call chain that cannot be reliably mocked in the current integration harness.",
+    "issue": "defer-interactive-support"
+  },
+  {
     "id": "interactive-cronjob-execution-logs",
     "commandId": "cronjob execution logs",
     "category": "INTERACTIVE_REQUIRED",
@@ -89,76 +103,6 @@
     "category": "DEPRECATED_ENDPOINT",
     "reason": "Command currently uses a deprecated API endpoint that is filtered by the mockoon setup and therefore not served in integration runs. The command should be reworked to use a current non-deprecated endpoint.",
     "issue": "rework-deprecated-endpoint-PR-2055"
-  },
-  {
-    "id": "resource-precondition-container-cp-container-not-found",
-    "commandId": "container cp",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container mycontainer found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
-  },
-  {
-    "id": "resource-precondition-container-delete-container-not-found",
-    "commandId": "container delete",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run shows deletion flow failing because the requested container identifier does not exist in project p-f0ob4r. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
-  },
-  {
-    "id": "resource-precondition-container-exec-container-not-found",
-    "commandId": "container exec",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
-  },
-  {
-    "id": "resource-precondition-container-port-forward-container-not-found",
-    "commandId": "container port-forward",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
-  },
-  {
-    "id": "resource-precondition-container-recreate-container-not-found",
-    "commandId": "container recreate",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
-  },
-  {
-    "id": "resource-precondition-container-restart-container-not-found",
-    "commandId": "container restart",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
-  },
-  {
-    "id": "resource-precondition-container-ssh-container-not-found",
-    "commandId": "container ssh",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
-  },
-  {
-    "id": "resource-precondition-container-start-container-not-found",
-    "commandId": "container start",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
-  },
-  {
-    "id": "resource-precondition-container-stop-container-not-found",
-    "commandId": "container stop",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
-  },
-  {
-    "id": "resource-precondition-container-update-container-not-found",
-    "commandId": "container update",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Shared container resolution precondition is not satisfied in integration fixtures. The resolver in src/lib/resources/container/flags.ts (withContainerAndStackId) lists project services and throws when no matching container shortId/id/serviceName exists. Current run fails with 'no container 00000000-0000-4000-8000-000000000000 found in project p-f0ob4r'. Preferred fix is to seed a deterministic known container fixture for project p-f0ob4r and align invocation profiles/examples to that known container identifier.",
-    "issue": "seed-known-container-fixture"
   },
   {
     "id": "contract-shape-app-download-missing-web-directory",
