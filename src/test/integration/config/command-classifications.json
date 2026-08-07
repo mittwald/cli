@@ -1,41 +1,16 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-07T07:32:56.213Z",
+  "generatedAt": "2026-08-07T11:53:31.770Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 122,
+    "successful": 135,
     "failed": 0,
-    "waivedSkipped": 66,
+    "waivedSkipped": 53,
     "total": 188
   },
   "entries": [
-    {
-      "commandId": "app create node",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app create php",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app create php-worker",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app create python",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app create static",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
     {
       "commandId": "app database link",
       "category": "DEPRECATED_ENDPOINT",
@@ -68,46 +43,6 @@
     },
     {
       "commandId": "app get",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app install contao",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app install joomla",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app install matomo",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app install nextcloud",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app install shopware5",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app install shopware6",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app install typo3",
-      "category": "CONTRACT_SHAPE",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app install wordpress",
       "category": "CONTRACT_SHAPE",
       "source": "waiver"
     },
