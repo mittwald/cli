@@ -68,6 +68,7 @@ Note:
 When MW_TEST_CATEGORY is set:
 - discovery still enumerates all commands
 - execution list is filtered to command IDs from classification catalog entries matching category
+- waiver application is disabled for the scoped run (commands execute instead of being waived)
 - strict global waiver integrity checks are skipped for partial scope
 
 ## Single-Command Override Contract
