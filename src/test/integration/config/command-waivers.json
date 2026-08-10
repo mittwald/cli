@@ -84,6 +84,20 @@
     "issue": "defer-interactive-support"
   },
   {
+    "id": "command-bug-conversation-create-tempfile-unlink-enoent",
+    "commandId": "conversation create",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Conversation files are handled in filesystem temp paths. Additional work needed to mock.",
+    "issue": "conversation-file-handling"
+  },
+  {
+    "id": "command-bug-conversation-reply-tempfile-unlink-enoent",
+    "commandId": "conversation reply",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Conversation files are handled in filesystem temp paths. Additional work needed to mock.",
+    "issue": "conversation-file-handling"
+  },
+  {
     "id": "deprecated-endpoint-app-database-link",
     "commandId": "app database link",
     "category": "DEPRECATED_ENDPOINT",
@@ -187,20 +201,6 @@
     "category": "RESOURCE_PRECONDITION",
     "reason": "The created stack in integration fixtures does not expose the expected service mapping for this flow. The command fails with 'Service ID not found in the created stack'.",
     "issue": "seed-stack-service-fixture"
-  },
-  {
-    "id": "command-bug-conversation-create-tempfile-unlink-enoent",
-    "commandId": "conversation create",
-    "category": "COMMAND_BUG",
-    "reason": "The command hits a temporary-file cleanup race in this run path and fails with ENOENT on unlink of a generated markdown file.",
-    "issue": "stabilize-tempfile-lifecycle"
-  },
-  {
-    "id": "command-bug-conversation-reply-tempfile-unlink-enoent",
-    "commandId": "conversation reply",
-    "category": "COMMAND_BUG",
-    "reason": "The command hits a temporary-file cleanup race in this run path and fails with ENOENT on unlink of a generated markdown file.",
-    "issue": "stabilize-tempfile-lifecycle"
   },
   {
     "id": "resource-precondition-database-mysql-dump-main-user-missing",
