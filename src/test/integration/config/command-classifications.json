@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T12:29:52.229Z",
+  "generatedAt": "2026-08-10T13:03:08.089Z",
   "source": {
     "kind": "run-all-summary"
   },
@@ -103,12 +103,12 @@
     },
     {
       "commandId": "conversation create",
-      "category": "COMMAND_BUG",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
       "commandId": "conversation reply",
-      "category": "COMMAND_BUG",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
