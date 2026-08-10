@@ -210,13 +210,6 @@
     "issue": "seed-mysql-main-user-fixture"
   },
   {
-    "id": "resource-precondition-database-mysql-phpmyadmin-main-user-missing",
-    "commandId": "database mysql phpmyadmin",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The phpMyAdmin flow requires a resolvable main user in fixtures. In this run the command fails with 'no main user found'.",
-    "issue": "seed-mysql-main-user-fixture"
-  },
-  {
     "id": "resource-precondition-domain-dnszone-get-zone-not-found",
     "commandId": "domain dnszone get",
     "category": "RESOURCE_PRECONDITION",
@@ -240,9 +233,9 @@
   {
     "id": "resource-precondition-experimental-deploy-registry-service-missing",
     "commandId": "experimental deploy",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The deploy orchestration expects a registry service fixture that is not returned in this integration environment and fails with 'Service not found in response'.",
-    "issue": "seed-stack-service-fixture"
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Calls further tooling down the line, e.g. railpack and/or docker",
+    "issue": "deeper-mocking-needed"
   },
   {
     "id": "resource-precondition-mail-address-update-mail-address-not-found",

@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-10T11:29:19.455Z",
+  "generatedAt": "2026-08-10T12:29:52.229Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 149,
+    "successful": 150,
     "failed": 0,
-    "waivedSkipped": 39,
+    "waivedSkipped": 38,
     "total": 188
   },
   "entries": [
@@ -127,11 +127,6 @@
       "source": "waiver"
     },
     {
-      "commandId": "database mysql phpmyadmin",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
       "commandId": "database mysql shell",
       "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
@@ -168,7 +163,7 @@
     },
     {
       "commandId": "experimental deploy",
-      "category": "RESOURCE_PRECONDITION",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
