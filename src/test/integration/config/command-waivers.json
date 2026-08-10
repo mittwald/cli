@@ -84,13 +84,6 @@
     "issue": "defer-interactive-support"
   },
   {
-    "id": "resource-precondition-user-ssh-key-import-default-key-file-missing",
-    "commandId": "user ssh-key import",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Remote integration runners do not guarantee a default local SSH public key at ~/.ssh/id_rsa.pub. The current invocation path attempts to read that default and fails with ENOENT in headless CI environments.",
-    "issue": "fix-integration-invocation-profiles"
-  },
-  {
     "id": "deprecated-endpoint-app-database-link",
     "commandId": "app database link",
     "category": "DEPRECATED_ENDPOINT",
@@ -131,6 +124,13 @@
     "category": "INTERACTIVE_REQUIRED",
     "reason": "Beyond overlapping path-shape issues, this command enters SSH/rsync execution paths that are interactive/system-dependent and not intended to run in headless integration matrix mode.",
     "issue": "seed-appinstall-web-directory-fixture"
+  },
+  {
+    "id": "resource-precondition-database-mysql-user-delete-main-user-protected",
+    "commandId": "database mysql user delete",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Integration currently targets the main MySQL user, which is protected by API rules and cannot be deleted manually in this flow.",
+    "issue": "seed-mysql-non-main-user-fixture"
   },
   {
     "id": "resource-precondition-app-dependency-versions-systemsoftware-not-found",
@@ -217,20 +217,6 @@
     "issue": "seed-mysql-main-user-fixture"
   },
   {
-    "id": "resource-precondition-database-mysql-port-forward-main-user-missing",
-    "commandId": "database mysql port-forward",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The MySQL port-forward flow requires a resolvable main user in fixtures. In this run the command fails with 'No main user found'.",
-    "issue": "seed-mysql-main-user-fixture"
-  },
-  {
-    "id": "resource-precondition-database-mysql-user-delete-main-user-protected",
-    "commandId": "database mysql user delete",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Integration currently targets the main MySQL user, which is protected by API rules and cannot be deleted manually in this flow.",
-    "issue": "seed-mysql-non-main-user-fixture"
-  },
-  {
     "id": "resource-precondition-domain-dnszone-get-zone-not-found",
     "commandId": "domain dnszone get",
     "category": "RESOURCE_PRECONDITION",
@@ -271,13 +257,6 @@
     "category": "RESOURCE_PRECONDITION",
     "reason": "The organization targeted by integration placeholders does not exist in the fixture state at deletion time, resulting in a 404 failure.",
     "issue": "seed-known-resource-fixtures"
-  },
-  {
-    "id": "resource-precondition-sftp-user-create-readback-404",
-    "commandId": "sftp-user create",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Creation step succeeds, but follow-up readback in integration fixtures returns 404, indicating inconsistent fixture state for immediate lookup.",
-    "issue": "align-user-create-fixture-readback"
   },
   {
     "id": "resource-precondition-ssh-user-create-readback-404",
