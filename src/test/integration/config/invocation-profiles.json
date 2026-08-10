@@ -214,5 +214,15 @@
     "match": { "exact": "conversation reply" },
     "interactivePolicy": "classify",
     "disableExampleSource": true
+  },
+  {
+    "id": "app-dependency-update",
+    "match": { "exact": "app dependency update" },
+    "requiredArgDefaults": {
+      "installation-id": "f7b47c12-7d11-4f3a-b9bc-1b3c706e1d55"
+    },
+    "requiredFlagDefaults": {
+      "set": "node=~18"
+    }
   }
 ]
