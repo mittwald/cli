@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-07T15:27:30.357Z",
+  "generatedAt": "2026-08-10T09:31:50.254Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 144,
+    "successful": 146,
     "failed": 0,
-    "waivedSkipped": 44,
+    "waivedSkipped": 42,
     "total": 188
   },
   "entries": [
@@ -19,11 +19,6 @@
     {
       "commandId": "app database replace",
       "category": "DEPRECATED_ENDPOINT",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app dependency update",
-      "category": "COMMAND_BUG",
       "source": "waiver"
     },
     {
@@ -204,11 +199,6 @@
     {
       "commandId": "ssh-user create",
       "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "stack delete",
-      "category": "COMMAND_BUG",
       "source": "waiver"
     },
     {

@@ -133,13 +133,6 @@
     "issue": "seed-appinstall-web-directory-fixture"
   },
   {
-    "id": "command-bug-app-dependency-update-invalid-installation-id",
-    "commandId": "app dependency update",
-    "category": "COMMAND_BUG",
-    "reason": "Integration invocation currently passes a placeholder that does not resolve to a valid app installation identifier for this command path. The command exits with an app-installation ID validation error in this test setup.",
-    "issue": "fix-integration-invocation-profiles"
-  },
-  {
     "id": "resource-precondition-app-dependency-versions-systemsoftware-not-found",
     "commandId": "app dependency versions",
     "category": "RESOURCE_PRECONDITION",
@@ -292,13 +285,6 @@
     "category": "RESOURCE_PRECONDITION",
     "reason": "Creation step succeeds, but follow-up readback in integration fixtures returns 404, indicating inconsistent fixture state for immediate lookup.",
     "issue": "align-user-create-fixture-readback"
-  },
-  {
-    "id": "command-bug-stack-delete-not-implemented",
-    "commandId": "stack delete",
-    "category": "COMMAND_BUG",
-    "reason": "Command flow reaches deletion step and fails with 'not implemented' in current implementation.",
-    "issue": "implement-stack-delete"
   },
   {
     "id": "resource-precondition-volume-delete-volume-not-found",
