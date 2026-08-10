@@ -189,13 +189,6 @@
     "issue": "seed-permissions-fixtures"
   },
   {
-    "id": "command-bug-backup-download-not-ready",
-    "commandId": "backup download",
-    "category": "COMMAND_BUG",
-    "reason": "This command currently terminates with 'backup download is not ready' in the integration scenario, indicating an unfinished command path for this fixture state.",
-    "issue": "implement-backup-download-path"
-  },
-  {
     "id": "resource-precondition-container-run-service-id-not-found",
     "commandId": "container run",
     "category": "RESOURCE_PRECONDITION",
