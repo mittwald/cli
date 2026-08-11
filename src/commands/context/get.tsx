@@ -81,9 +81,12 @@ const ContextSource: FC<{ source: ContextValueSource }> = ({ source }) => {
   );
 };
 
-const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
-  overview,
-}) => {
+type ContextValues = Record<string, ContextValue | undefined>;
+
+const ProjectOverviewSection: FC<{
+  overview: ProjectOverview;
+  contextValues: ContextValues;
+}> = ({ overview, contextValues }) => {
   const stackDisplayById = new Map(
     overview.stacks.map((stack) => [stack.id, stack.shortId ?? ""]),
   );
@@ -96,10 +99,16 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
     );
   }
 
+  const installationIdContext = contextValues["installation-id"]?.value;
+  const stackIdContext = contextValues["stack-id"]?.value;
+  const projectIdContext = contextValues["project-id"]?.value;
+
   const rows: Record<string, ReactNode> = {
     Project: (
       <Text>
-        <Value>{overview.projectName ?? overview.projectId}</Value>{" "}
+        <Text color={projectIdContext ? "green" : "gray"}>
+          <Value>{overview.projectName ?? overview.projectId}</Value>
+        </Text>{" "}
         <Text color="gray">
           ({overview.projectShortId ?? overview.projectId}, resolved from{" "}
           {overview.resolvedFrom ?? "project-id"})
@@ -111,30 +120,34 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
   rows["Apps"] =
     overview.apps.length > 0 ? (
       <Box flexDirection="column">
-        {overview.apps.map((app) => (
-          <Box key={app.installationId} flexDirection="column" marginBottom={1}>
-            <Text color="green">
-              {formatOverviewEntry({
-                shortId: app.installationShortId,
-                name: app.appName,
-                status: `installed at ${app.installationPath}`,
-                id: app.installationId,
-              })}
-            </Text>
-            {app.linkedDatabases.length > 0 ? (
-              app.linkedDatabases.map((db) => (
-                <Text
-                  key={`${app.installationId}-${db.databaseId}-${db.purpose}`}
-                  color="gray"
-                >
-                  database {db.purpose}: {db.name ?? db.databaseId} ({db.kind})
-                </Text>
-              ))
-            ) : (
-              <Text color="gray">no linked databases</Text>
-            )}
-          </Box>
-        ))}
+        {overview.apps.map((app) => {
+          const isDirectContext = app.installationId === installationIdContext;
+          const textColor = isDirectContext ? "green" : "gray";
+          return (
+            <Box key={app.installationId} flexDirection="column" marginBottom={1}>
+              <Text color={textColor}>
+                {formatOverviewEntry({
+                  shortId: app.installationShortId,
+                  name: app.appName,
+                  status: `installed at ${app.installationPath}`,
+                  id: app.installationId,
+                })}
+              </Text>
+              {app.linkedDatabases.length > 0 ? (
+                app.linkedDatabases.map((db) => (
+                  <Text
+                    key={`${app.installationId}-${db.databaseId}-${db.purpose}`}
+                    color="gray"
+                  >
+                    database {db.purpose}: {db.name ?? db.databaseId} ({db.kind})
+                  </Text>
+                ))
+              ) : (
+                <Text color="gray">no linked databases</Text>
+              )}
+            </Box>
+          );
+        })}
       </Box>
     ) : (
       <Text color="gray">none found in this project</Text>
@@ -146,16 +159,20 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
         <Text>
           <Value>{overview.stacks.length}</Value> total
         </Text>
-        {overview.stacks.slice(0, 5).map((stack) => (
-          <Text key={stack.id} color="gray">
-            {formatOverviewEntry({
-              shortId: stack.shortId,
-              name: stack.description ?? "stack",
-              status: `${stack.services} services, ${stack.volumes} volumes`,
-              id: stack.id,
-            })}
-          </Text>
-        ))}
+        {overview.stacks.slice(0, 5).map((stack) => {
+          const isDirectContext = stack.id === stackIdContext;
+          const textColor = isDirectContext ? "green" : "gray";
+          return (
+            <Text key={stack.id} color={textColor}>
+              {formatOverviewEntry({
+                shortId: stack.shortId,
+                name: stack.description ?? "stack",
+                status: `${stack.services} services, ${stack.volumes} volumes`,
+                id: stack.id,
+              })}
+            </Text>
+          );
+        })}
       </Box>
     ) : (
       <Text color="gray">none found in this project</Text>
@@ -174,9 +191,11 @@ const ProjectOverviewSection: FC<{ overview: ProjectOverview }> = ({
           const stackSuffix = container.stackId
             ? ` | stack ${stackShortId}`
             : "";
+          const isDirectContext = container.stackId === stackIdContext;
+          const textColor = isDirectContext ? "green" : "gray";
 
           return (
-            <Text key={container.id} color="gray">
+            <Text key={container.id} color={textColor}>
               {formatOverviewEntry({
                 shortId: container.shortId,
                 name: container.name,
@@ -264,7 +283,10 @@ const GetContext: FC<{ ctx: Context }> = ({ ctx }) => {
         <SingleResult title="Current CLI context" rows={rows} />
       </Box>
       <Box marginBottom={1}>
-        <ProjectOverviewSection overview={overview} />
+        <ProjectOverviewSection
+          overview={overview}
+          contextValues={values}
+        />
       </Box>
       {hasTerraformSource && <TerraformHint />}
       {hasDDEVSource && <DDEVHint />}
