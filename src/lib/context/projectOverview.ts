@@ -54,7 +54,107 @@ export type ProjectOverview = {
   stacks: StackSummary[];
   containers: ContainerSummary[];
   unavailableReason?: string;
+  warnings?: string[];
 };
+
+async function fetchDatabaseLookup(
+  apiClient: MittwaldAPIV2Client,
+  projectId: string,
+  warnings: string[],
+): Promise<Map<string, { name: string; kind: "mysql" | "redis" }>> {
+  const databaseById = new Map<string, { name: string; kind: "mysql" | "redis" }>();
+
+  try {
+    const mysqlResponse = await apiClient.database.listMysqlDatabases({
+      projectId,
+    });
+    assertStatus(mysqlResponse, 200);
+    for (const db of mysqlResponse.data) {
+      databaseById.set(db.id, { name: db.name, kind: "mysql" });
+    }
+  } catch {
+    warnings.push("Could not fetch MySQL databases for project overview.");
+  }
+
+  try {
+    const redisResponse = await apiClient.database.listRedisDatabases({
+      projectId,
+    });
+    assertStatus(redisResponse, 200);
+    for (const db of redisResponse.data) {
+      databaseById.set(db.id, { name: db.name, kind: "redis" });
+    }
+  } catch {
+    warnings.push("Could not fetch Redis databases for project overview.");
+  }
+
+  return databaseById;
+}
+
+async function fetchStacksAndContainers(
+  apiClient: MittwaldAPIV2Client,
+  projectId: string,
+  warnings: string[],
+): Promise<{ stacks: StackSummary[]; containers: ContainerSummary[] }> {
+  try {
+    const stackResponse = await apiClient.container.listStacks({
+      projectId,
+    });
+    assertStatus(stackResponse, 200);
+
+    const stacks: StackSummary[] = stackResponse.data.map((stack) => ({
+      id: stack.id,
+      shortId: (stack as { shortId?: string }).shortId,
+      description: stack.description,
+      services: stack.services?.length ?? 0,
+      volumes: stack.volumes?.length ?? 0,
+    }));
+
+    const containers: ContainerSummary[] = stackResponse.data.flatMap((stack) =>
+      (stack.services ?? []).map((service) => ({
+        id: service.id,
+        shortId: service.shortId,
+        name: service.serviceName,
+        status: service.status,
+        stackId: service.stackId,
+      })),
+    );
+
+    return { stacks, containers };
+  } catch {
+    warnings.push("Could not fetch container stacks for project overview.");
+    return { stacks: [], containers: [] };
+  }
+}
+
+async function fetchAppNames(
+  apiClient: MittwaldAPIV2Client,
+  appIds: string[],
+  warnings: string[],
+): Promise<Map<string, string>> {
+  const appNames = new Map<string, string>();
+  let failedLookups = 0;
+
+  await Promise.all(
+    appIds.map(async (appId) => {
+      try {
+        const app = await getAppFromUuid(apiClient, appId);
+        appNames.set(appId, app.name);
+      } catch {
+        failedLookups += 1;
+        appNames.set(appId, appId);
+      }
+    }),
+  );
+
+  if (failedLookups > 0) {
+    warnings.push(
+      `Could not resolve ${failedLookups} app name${failedLookups === 1 ? "" : "s"}; falling back to app IDs.`,
+    );
+  }
+
+  return appNames;
+}
 
 export type OverviewEntryData = {
   shortId?: string;
@@ -109,6 +209,7 @@ export async function fetchProjectOverview(
   resolvedProject: ResolvedProjectContext,
 ): Promise<ProjectOverview> {
   const { projectId, resolvedFrom, unavailableReason } = resolvedProject;
+  const warnings: string[] = [];
 
   if (!projectId) {
     return {
@@ -116,18 +217,20 @@ export async function fetchProjectOverview(
       stacks: [],
       containers: [],
       unavailableReason: unavailableReason ?? "project could not be resolved",
+      warnings,
     };
   }
 
   try {
-    const projectResponse = await apiClient.project.getProject({
-      projectId,
-    });
+    const [projectResponse, appInstallationsResponse] = await Promise.all([
+      apiClient.project.getProject({
+        projectId,
+      }),
+      apiClient.app.listAppinstallations({
+        projectId,
+      }),
+    ]);
     assertStatus(projectResponse, 200);
-
-    const appInstallationsResponse = await apiClient.app.listAppinstallations({
-      projectId,
-    });
     assertStatus(appInstallationsResponse, 200);
 
     const appInstallations = appInstallationsResponse.data;
@@ -135,46 +238,11 @@ export async function fetchProjectOverview(
       new Set(appInstallations.map((installation) => installation.appId)),
     );
 
-    const appNames = new Map<string, string>();
-    await Promise.all(
-      uniqueAppIds.map(async (appId) => {
-        try {
-          const app = await getAppFromUuid(apiClient, appId);
-          appNames.set(appId, app.name);
-        } catch {
-          appNames.set(appId, appId);
-        }
-      }),
-    );
-
-    const databaseById = new Map<
-      string,
-      { name: string; kind: "mysql" | "redis" }
-    >();
-
-    try {
-      const mysqlResponse = await apiClient.database.listMysqlDatabases({
-        projectId,
-      });
-      assertStatus(mysqlResponse, 200);
-      for (const db of mysqlResponse.data) {
-        databaseById.set(db.id, { name: db.name, kind: "mysql" });
-      }
-    } catch {
-      // best effort
-    }
-
-    try {
-      const redisResponse = await apiClient.database.listRedisDatabases({
-        projectId,
-      });
-      assertStatus(redisResponse, 200);
-      for (const db of redisResponse.data) {
-        databaseById.set(db.id, { name: db.name, kind: "redis" });
-      }
-    } catch {
-      // best effort
-    }
+    const [appNames, databaseById, stackAndContainerData] = await Promise.all([
+      fetchAppNames(apiClient, uniqueAppIds, warnings),
+      fetchDatabaseLookup(apiClient, projectId, warnings),
+      fetchStacksAndContainers(apiClient, projectId, warnings),
+    ]);
 
     const apps: AppSummary[] = appInstallations.map((installation) => {
       const linkedDatabases: LinkedDatabaseSummary[] =
@@ -198,46 +266,21 @@ export async function fetchProjectOverview(
       };
     });
 
-    let stacks: StackSummary[] = [];
-    let containers: ContainerSummary[] = [];
-
-    try {
-      const stackResponse = await apiClient.container.listStacks({
-        projectId,
-      });
-      assertStatus(stackResponse, 200);
-
-      stacks = stackResponse.data.map((stack) => ({
-        id: stack.id,
-        shortId: (stack as { shortId?: string }).shortId,
-        description: stack.description,
-        services: stack.services?.length ?? 0,
-        volumes: stack.volumes?.length ?? 0,
-      }));
-
-      containers = stackResponse.data.flatMap((stack) =>
-        (stack.services ?? []).map((service) => ({
-          id: service.id,
-          shortId: service.shortId,
-          name: service.serviceName,
-          status: service.status,
-          stackId: service.stackId,
-        })),
-      );
-    } catch {
-      // best effort
-    }
-
     return {
       projectId,
       projectShortId: (projectResponse.data as { shortId?: string }).shortId,
       projectName: projectResponse.data.description,
       resolvedFrom,
       apps,
-      stacks,
-      containers,
+      stacks: stackAndContainerData.stacks,
+      containers: stackAndContainerData.containers,
+      warnings,
     };
   } catch {
+    warnings.push(
+      "Could not fetch project-level context data with current access/context.",
+    );
+
     return {
       projectId,
       resolvedFrom,
@@ -246,6 +289,7 @@ export async function fetchProjectOverview(
       containers: [],
       unavailableReason:
         "project-level data could not be fetched with current access/context",
+      warnings,
     };
   }
 }
