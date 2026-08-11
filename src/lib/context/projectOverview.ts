@@ -202,12 +202,10 @@ export async function fetchProjectOverview(
     let containers: ContainerSummary[] = [];
 
     try {
-      const [stackResponse, serviceResponse] = await Promise.all([
-        apiClient.container.listStacks({ projectId }),
-        apiClient.container.listServices({ projectId }),
-      ]);
+      const stackResponse = await apiClient.container.listStacks({
+        projectId,
+      });
       assertStatus(stackResponse, 200);
-      assertStatus(serviceResponse, 200);
 
       stacks = stackResponse.data.map((stack) => ({
         id: stack.id,
@@ -217,13 +215,15 @@ export async function fetchProjectOverview(
         volumes: stack.volumes?.length ?? 0,
       }));
 
-      containers = serviceResponse.data.map((service) => ({
-        id: service.id,
-        shortId: (service as { shortId?: string }).shortId,
-        name: service.serviceName,
-        status: service.status,
-        stackId: service.stackId,
-      }));
+      containers = stackResponse.data.flatMap((stack) =>
+        (stack.services ?? []).map((service) => ({
+          id: service.id,
+          shortId: service.shortId,
+          name: service.serviceName,
+          status: service.status,
+          stackId: service.stackId,
+        })),
+      );
     } catch {
       // best effort
     }
