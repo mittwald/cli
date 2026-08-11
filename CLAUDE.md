@@ -82,6 +82,19 @@ providers:
 - Uses `@mittwald/api-client` for API communication
 - Automatic retry logic and consistency handling
 - Authentication via API tokens (file, environment, or flag)
+- **Only ever call the API through the methods that `@mittwald/api-client`
+  generates.** Never hand-roll API calls (for example via `apiClient.axios`,
+  `fetch` or a hand-written operation descriptor), and never re-implement an
+  operation the client no longer exposes.
+- When a client method disappears after an `@mittwald/api-client` bump, the
+  underlying operation was deprecated in the OpenAPI spec and dropped from code
+  generation. Do not work around this — find the successor operation the spec
+  points to and use it. The replacement is frequently a property on a regular
+  resource endpoint rather than a like-for-like operation. For instance,
+  `app-link-database` and `app-replace-database` were superseded by the
+  `databases` property of `app.patchAppinstallation`. Searching the spec for
+  paths containing the resource name will miss such successors; check the
+  resource's own `PATCH` endpoint too.
 
 ## Coding hints
 

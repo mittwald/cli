@@ -87,13 +87,16 @@ export default class Replace extends ExecRenderBaseCommand<
     );
 
     await process.runStep("replacing database", async () => {
-      const response = await this.apiClient.app.replaceDatabase({
+      const response = await this.apiClient.app.patchAppinstallation({
         appInstallationId,
         data: {
-          oldDatabaseId,
-          newDatabaseId,
-          databaseUserIds: {
-            admin: adminUserId,
+          databases: {
+            [newDatabaseId]: {
+              replacesDatabaseId: oldDatabaseId,
+              databaseUserIds: {
+                admin: adminUserId,
+              },
+            },
           },
         },
       });

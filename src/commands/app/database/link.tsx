@@ -71,13 +71,16 @@ export default class Link extends ExecRenderBaseCommand<typeof Link, void> {
     });
 
     await process.runStep("linking database", async () => {
-      const response = await this.apiClient.app.linkDatabase({
+      const response = await this.apiClient.app.patchAppinstallation({
         appInstallationId,
         data: {
-          databaseId,
-          purpose: purpose as "primary" | "cache" | "custom",
-          databaseUserIds: {
-            admin: adminUserId,
+          databases: {
+            [databaseId]: {
+              purpose: purpose as "primary" | "cache" | "custom",
+              databaseUserIds: {
+                admin: adminUserId,
+              },
+            },
           },
         },
       });
