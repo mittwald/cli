@@ -14,7 +14,6 @@ import {
   databasePurposeFlag,
 } from "../../../lib/resources/app/database/flags.js";
 import { resolveDatabaseId } from "../../../lib/resources/app/database/lookup.js";
-import { linkDatabase } from "../../../lib/resources/app/database/deprecated_operations.js";
 
 export default class Link extends ExecRenderBaseCommand<typeof Link, void> {
   static summary = "Link a database to an app installation.";
@@ -72,11 +71,17 @@ export default class Link extends ExecRenderBaseCommand<typeof Link, void> {
     });
 
     await process.runStep("linking database", async () => {
-      const response = await linkDatabase(this.apiClient, appInstallationId, {
-        databaseId,
-        purpose: purpose as "primary" | "cache" | "custom",
-        databaseUserIds: {
-          admin: adminUserId,
+      const response = await this.apiClient.app.patchAppinstallation({
+        appInstallationId,
+        data: {
+          databases: {
+            [databaseId]: {
+              purpose: purpose as "primary" | "cache" | "custom",
+              databaseUserIds: {
+                admin: adminUserId,
+              },
+            },
+          },
         },
       });
       assertSuccess(response);

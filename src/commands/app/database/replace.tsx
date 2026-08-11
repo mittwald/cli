@@ -17,7 +17,6 @@ import {
   resolveDatabaseId,
   selectLinkedDatabase,
 } from "../../../lib/resources/app/database/lookup.js";
-import { replaceDatabase } from "../../../lib/resources/app/database/deprecated_operations.js";
 
 export default class Replace extends ExecRenderBaseCommand<
   typeof Replace,
@@ -88,17 +87,19 @@ export default class Replace extends ExecRenderBaseCommand<
     );
 
     await process.runStep("replacing database", async () => {
-      const response = await replaceDatabase(
-        this.apiClient,
+      const response = await this.apiClient.app.patchAppinstallation({
         appInstallationId,
-        {
-          oldDatabaseId,
-          newDatabaseId,
-          databaseUserIds: {
-            admin: adminUserId,
+        data: {
+          databases: {
+            [newDatabaseId]: {
+              replacesDatabaseId: oldDatabaseId,
+              databaseUserIds: {
+                admin: adminUserId,
+              },
+            },
           },
         },
-      );
+      });
       assertSuccess(response);
     });
 
