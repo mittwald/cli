@@ -16,6 +16,16 @@ import {
   getPortMappings,
   getImageMeta,
 } from "../../lib/resources/container/containerconfig.js";
+import {
+  containerDescriptionFlag,
+  containerEntrypointFlag,
+  containerEnvFileFlag,
+  containerEnvFlag,
+  containerPublishFlag,
+  containerPublishAllFlag,
+  containerVolumeFlag,
+  containerVolumeFormatDescription,
+} from "../../lib/resources/container/common-flags.js";
 
 type ContainerServiceRequest =
   MittwaldAPIV2.Components.Schemas.ContainerServiceRequest;
@@ -36,67 +46,27 @@ export class Update extends ExecRenderBaseCommand<typeof Update, Result> {
       description: "Specify a new image to use for the container.",
       required: false,
     }),
-    env: Flags.string({
-      summary: "set environment variables in the container",
-      description:
-        "Format: KEY=VALUE. Multiple environment variables can be specified with multiple --env flags.",
-      required: false,
-      multiple: true,
-      char: "e",
-    }),
-    "env-file": Flags.string({
-      summary: "read environment variables from a file",
-      description:
-        "The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file flags.",
-      multiple: true,
-      required: false,
-    }),
-    description: Flags.string({
+    env: containerEnvFlag(),
+    "env-file": containerEnvFileFlag(),
+    description: containerDescriptionFlag({
       summary: "update the descriptive label of the container",
-      description: "This helps identify the container's purpose or contents.",
-      required: false,
     }),
-    entrypoint: Flags.string({
-      summary: "override the entrypoint of the container",
-      description:
-        "The entrypoint is the command that will be executed when the container starts.",
-      required: false,
-    }),
+    entrypoint: containerEntrypointFlag(),
     command: Flags.string({
       summary: "update the command to run in the container",
       description:
         "This overrides the default command specified in the container image.",
       required: false,
     }),
-    publish: Flags.string({
-      summary: "update the container's port mappings",
-      description:
-        "Expose a container's port within the cluster. " +
-        "Format: <cluster-port>:<container-port> or just <port> (in which case the same port is used for both cluster and container). " +
-        "Use multiple -p flags to publish multiple ports.",
-      required: false,
-      multiple: true,
+    publish: containerPublishFlag({
       char: "p",
     }),
-    "publish-all": Flags.boolean({
-      summary: "publish all ports that are defined in the image",
-      description:
-        "Automatically publish all ports that are exposed by the container image to random ports on the host.",
-      required: false,
-      char: "P",
-    }),
-    volume: Flags.string({
+    "publish-all": containerPublishAllFlag,
+    volume: containerVolumeFlag({
       summary: "update volume mounts for the container",
       description:
         "This flag can be used to replace volume mounts of the container. It can be used multiple times to mount multiple volumes." +
-        "" +
-        "Needs to be in the format <host-path>:<container-path>. " +
-        "" +
-        "If you specify a file path as volume, this will mount a path from your hosting environment's file system (NOT your local file system) into the container. " +
-        "You can also specify a named volume, which needs to be created beforehand.",
-      required: false,
-      char: "v",
-      multiple: true,
+        containerVolumeFormatDescription,
     }),
     recreate: Flags.boolean({
       summary: "recreate the container after updating",
