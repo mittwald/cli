@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/mittwald/cli/compare/v1.22.0...v1.23.0) (2026-08-11)
+
+
+### Features
+
+* **container:** support env var expansion in consuming commands ([#2023](https://github.com/mittwald/cli/issues/2023)) ([b42b3b0](https://github.com/mittwald/cli/commit/b42b3b041c2f6bf819cf794b41607014a792e98e)), closes [#1572](https://github.com/mittwald/cli/issues/1572)
+
 # [1.22.0](https://github.com/mittwald/cli/compare/v1.21.1...v1.22.0) (2026-08-06)
 
 
