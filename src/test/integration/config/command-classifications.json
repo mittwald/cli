@@ -1,21 +1,16 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T11:37:41.994Z",
+  "generatedAt": "2026-08-12T14:12:09.894Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 157,
+    "successful": 158,
     "failed": 0,
-    "waivedSkipped": 31,
+    "waivedSkipped": 30,
     "total": 188
   },
   "entries": [
-    {
-      "commandId": "app dependency versions",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
     {
       "commandId": "app download",
       "category": "INTERACTIVE_REQUIRED",
@@ -48,7 +43,7 @@
     },
     {
       "commandId": "app upload",
-      "category": "RESOURCE_PRECONDITION",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {

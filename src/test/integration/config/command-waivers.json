@@ -133,25 +133,18 @@
     "issue": "need-interactive-mocking-for-open"
   },
   {
+    "id": "resource-precondition-app-upload-source-placeholder-not-available",
+    "commandId": "app upload",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Command interactively uploads stuff and needs source folder in filesystem.",
+    "issue": "need-interactive-filesystem-mocking"
+  },
+  {
     "id": "resource-precondition-database-mysql-user-delete-main-user-protected",
     "commandId": "database mysql user delete",
     "category": "RESOURCE_PRECONDITION",
     "reason": "Integration currently targets the main MySQL user, which is protected by API rules and cannot be deleted manually in this flow.",
     "issue": "seed-mysql-non-main-user-fixture"
-  },
-  {
-    "id": "resource-precondition-app-dependency-versions-systemsoftware-not-found",
-    "commandId": "app dependency versions",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The integration fixture set does not provide a resolvable system software entry for the placeholder value used in this command run. The command fails with 'system software ... not found'.",
-    "issue": "seed-known-resource-fixtures"
-  },
-  {
-    "id": "resource-precondition-app-upload-source-placeholder-not-available",
-    "commandId": "app upload",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The integration invocation for this command does not provide a usable source path in the run-all environment. The command fails while parsing the source input.",
-    "issue": "fix-integration-invocation-profiles"
   },
   {
     "id": "resource-precondition-app-version-info-app-not-found",
