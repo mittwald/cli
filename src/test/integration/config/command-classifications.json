@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T09:19:04.408Z",
+  "generatedAt": "2026-08-12T10:45:57.580Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 154,
+    "successful": 155,
     "failed": 0,
-    "waivedSkipped": 34,
+    "waivedSkipped": 33,
     "total": 188
   },
   "entries": [
@@ -33,7 +33,7 @@
     },
     {
       "commandId": "app open",
-      "category": "COMMAND_BUG",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
@@ -54,11 +54,6 @@
     {
       "commandId": "app version-info",
       "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app versions",
-      "category": "COMMAND_BUG",
       "source": "waiver"
     },
     {
