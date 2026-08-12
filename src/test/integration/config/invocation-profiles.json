@@ -232,5 +232,12 @@
     "requiredFlagDefaults": {
       "set": "node=~18"
     }
+  },
+  {
+    "id": "app-dependency-versions",
+    "match": { "exact": "app dependency versions" },
+    "requiredArgDefaults": {
+      "systemsoftware": "node"
+    }
   }
 ]
