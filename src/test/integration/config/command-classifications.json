@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T10:45:57.580Z",
+  "generatedAt": "2026-08-12T11:10:29.896Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 155,
+    "successful": 156,
     "failed": 0,
-    "waivedSkipped": 33,
+    "waivedSkipped": 32,
     "total": 188
   },
   "entries": [
@@ -153,11 +153,6 @@
     },
     {
       "commandId": "org delete",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "ssh-user create",
       "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
     },
