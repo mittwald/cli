@@ -182,13 +182,6 @@
     "issue": "seed-known-domain-fixture"
   },
   {
-    "id": "resource-precondition-domain-dnszone-update-zone-not-found",
-    "commandId": "domain dnszone update",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The integration fixture dataset does not include the requested DNS zone domain in this run context, causing a deterministic 'DNS zone ... not found' failure.",
-    "issue": "seed-known-domain-fixture"
-  },
-  {
     "id": "resource-precondition-domain-get-zone-not-found",
     "commandId": "domain get",
     "category": "RESOURCE_PRECONDITION",

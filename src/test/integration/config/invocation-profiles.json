@@ -141,7 +141,8 @@
     "id": "domain-dnszone-update",
     "match": { "exact": "domain dnszone update" },
     "requiredArgDefaults": {
-      "record-set": "a"
+      "record-set": "a",
+      "dnszone-id": "00000000-0000-4000-8000-000000000000"
     },
     "requiredFlagDefaults": {
       "record": "203.0.113.10"
