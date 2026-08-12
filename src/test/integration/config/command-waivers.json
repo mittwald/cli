@@ -147,13 +147,6 @@
     "issue": "seed-mysql-non-main-user-fixture"
   },
   {
-    "id": "resource-precondition-container-run-service-id-not-found",
-    "commandId": "container run",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The created stack in integration fixtures does not expose the expected service mapping for this flow. The command fails with 'Service ID not found in the created stack'.",
-    "issue": "seed-stack-service-fixture"
-  },
-  {
     "id": "resource-precondition-database-mysql-dump-main-user-missing",
     "commandId": "database mysql dump",
     "category": "RESOURCE_PRECONDITION",
