@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T11:10:29.896Z",
+  "generatedAt": "2026-08-12T11:37:41.994Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 156,
+    "successful": 157,
     "failed": 0,
-    "waivedSkipped": 32,
+    "waivedSkipped": 31,
     "total": 188
   },
   "entries": [
@@ -123,11 +123,6 @@
     },
     {
       "commandId": "domain dnszone get",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "domain dnszone update",
       "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
     },
