@@ -122,7 +122,11 @@ const ProjectOverviewSection: FC<{
           const isDirectContext = app.installationId === installationIdContext;
           const textColor = isDirectContext ? "green" : "gray";
           return (
-            <Box key={app.installationId} flexDirection="column" marginBottom={1}>
+            <Box
+              key={app.installationId}
+              flexDirection="column"
+              marginBottom={1}
+            >
               <Text color={textColor}>
                 {formatOverviewEntry({
                   shortId: app.installationShortId,
@@ -137,7 +141,8 @@ const ProjectOverviewSection: FC<{
                     key={`${app.installationId}-${db.databaseId}-${db.purpose}`}
                     color="gray"
                   >
-                    database {db.purpose}: {db.name ?? db.databaseId} ({db.kind})
+                    database {db.purpose}: {db.name ?? db.databaseId} ({db.kind}
+                    )
                   </Text>
                 ))
               ) : (
@@ -186,7 +191,9 @@ const ProjectOverviewSection: FC<{
           const stackShortId = container.stackId
             ? (stackDisplayById.get(container.stackId) ?? "")
             : "";
-          const stackSuffix = container.stackId ? ` | stack ${stackShortId}` : "";
+          const stackSuffix = container.stackId
+            ? ` | stack ${stackShortId}`
+            : "";
           const isDirectContext = container.stackId === stackIdContext;
           const textColor = isDirectContext ? "green" : "gray";
 

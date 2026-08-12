@@ -62,7 +62,10 @@ async function fetchDatabaseLookup(
   projectId: string,
   warnings: string[],
 ): Promise<Map<string, { name: string; kind: "mysql" | "redis" }>> {
-  const databaseById = new Map<string, { name: string; kind: "mysql" | "redis" }>();
+  const databaseById = new Map<
+    string,
+    { name: string; kind: "mysql" | "redis" }
+  >();
 
   try {
     const mysqlResponse = await apiClient.database.listMysqlDatabases({
