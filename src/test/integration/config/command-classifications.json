@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T07:53:02.230Z",
+  "generatedAt": "2026-08-12T09:19:04.408Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 153,
+    "successful": 154,
     "failed": 0,
-    "waivedSkipped": 35,
+    "waivedSkipped": 34,
     "total": 188
   },
   "entries": [
@@ -29,11 +29,6 @@
     {
       "commandId": "app get",
       "category": "INTERACTIVE_REQUIRED",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app list-upgrade-candidates",
-      "category": "COMMAND_BUG",
       "source": "waiver"
     },
     {
