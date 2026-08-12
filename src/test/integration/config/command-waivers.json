@@ -126,6 +126,13 @@
     "issue": "seed-appinstall-web-directory-fixture"
   },
   {
+    "id": "command-bug-app-open-missing-virtualhost-link",
+    "commandId": "app open",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Command wants to open URL derived from app installation.",
+    "issue": "need-interactive-mocking-for-open"
+  },
+  {
     "id": "resource-precondition-database-mysql-user-delete-main-user-protected",
     "commandId": "database mysql user delete",
     "category": "RESOURCE_PRECONDITION",
@@ -137,13 +144,6 @@
     "commandId": "app dependency versions",
     "category": "RESOURCE_PRECONDITION",
     "reason": "The integration fixture set does not provide a resolvable system software entry for the placeholder value used in this command run. The command fails with 'system software ... not found'.",
-    "issue": "seed-known-resource-fixtures"
-  },
-  {
-    "id": "command-bug-app-open-missing-virtualhost-link",
-    "commandId": "app open",
-    "category": "COMMAND_BUG",
-    "reason": "The test fixture app installation used in integration is not linked to a virtual host, and this command currently fails along that path in run-all execution.",
     "issue": "seed-known-resource-fixtures"
   },
   {
@@ -159,13 +159,6 @@
     "category": "RESOURCE_PRECONDITION",
     "reason": "The fixture app identifier used in integration cannot be resolved in the mocked dataset, and the command fails with 'app ... not found'.",
     "issue": "seed-known-resource-fixtures"
-  },
-  {
-    "id": "command-bug-app-versions-access-denied",
-    "commandId": "app versions",
-    "category": "COMMAND_BUG",
-    "reason": "The command path fails with an access denied error in the current integration authorization/fixture setup.",
-    "issue": "seed-permissions-fixtures"
   },
   {
     "id": "resource-precondition-container-run-service-id-not-found",

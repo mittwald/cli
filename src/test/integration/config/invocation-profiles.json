@@ -216,6 +216,13 @@
     "disableExampleSource": true
   },
   {
+    "id": "app-versions",
+    "match": { "exact": "app versions" },
+    "requiredArgDefaults": {
+      "app": "node"
+    }
+  },
+  {
     "id": "app-dependency-update",
     "match": { "exact": "app dependency update" },
     "requiredArgDefaults": {
