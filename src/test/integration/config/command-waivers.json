@@ -147,13 +147,6 @@
     "issue": "seed-mysql-non-main-user-fixture"
   },
   {
-    "id": "resource-precondition-app-version-info-app-not-found",
-    "commandId": "app version-info",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The fixture app identifier used in integration cannot be resolved in the mocked dataset, and the command fails with 'app ... not found'.",
-    "issue": "seed-known-resource-fixtures"
-  },
-  {
     "id": "resource-precondition-container-run-service-id-not-found",
     "commandId": "container run",
     "category": "RESOURCE_PRECONDITION",
