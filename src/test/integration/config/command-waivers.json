@@ -217,13 +217,6 @@
     "issue": "seed-known-resource-fixtures"
   },
   {
-    "id": "resource-precondition-ssh-user-create-readback-404",
-    "commandId": "ssh-user create",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Creation step succeeds, but follow-up readback in integration fixtures returns 404, indicating inconsistent fixture state for immediate lookup.",
-    "issue": "align-user-create-fixture-readback"
-  },
-  {
     "id": "resource-precondition-volume-delete-volume-not-found",
     "commandId": "volume delete",
     "category": "RESOURCE_PRECONDITION",
