@@ -140,13 +140,6 @@
     "issue": "seed-known-resource-fixtures"
   },
   {
-    "id": "command-bug-app-list-upgrade-candidates-versions-not-array",
-    "commandId": "app list-upgrade-candidates",
-    "category": "COMMAND_BUG",
-    "reason": "The command expects a sortable versions array, but the current integration response shape provides a non-array value and execution fails with 'versions.sort is not a function'.",
-    "issue": "harden-response-shape-handling"
-  },
-  {
     "id": "command-bug-app-open-missing-virtualhost-link",
     "commandId": "app open",
     "category": "COMMAND_BUG",
