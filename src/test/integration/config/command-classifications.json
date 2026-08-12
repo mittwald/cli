@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T15:34:40.264Z",
+  "generatedAt": "2026-08-12T15:52:56.927Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 160,
+    "successful": 161,
     "failed": 0,
-    "waivedSkipped": 28,
+    "waivedSkipped": 27,
     "total": 188
   },
   "entries": [
@@ -144,11 +144,6 @@
     {
       "commandId": "user ssh-key create",
       "category": "INTERACTIVE_REQUIRED",
-      "source": "waiver"
-    },
-    {
-      "commandId": "volume delete",
-      "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
     }
   ]
