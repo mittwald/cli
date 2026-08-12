@@ -239,5 +239,13 @@
     "requiredArgDefaults": {
       "systemsoftware": "node"
     }
+  },
+  {
+    "id": "app-version-info",
+    "match": { "exact": "app version-info" },
+    "requiredArgDefaults": {
+      "app": "node",
+      "version": "1.0.0"
+    }
   }
 ]

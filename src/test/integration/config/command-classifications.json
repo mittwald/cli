@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T14:12:09.894Z",
+  "generatedAt": "2026-08-12T14:32:16.221Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 158,
+    "successful": 159,
     "failed": 0,
-    "waivedSkipped": 30,
+    "waivedSkipped": 29,
     "total": 188
   },
   "entries": [
@@ -44,11 +44,6 @@
     {
       "commandId": "app upload",
       "category": "INTERACTIVE_REQUIRED",
-      "source": "waiver"
-    },
-    {
-      "commandId": "app version-info",
-      "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
     },
     {
