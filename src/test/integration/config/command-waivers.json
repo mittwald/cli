@@ -161,13 +161,6 @@
     "issue": "deeper-mocking-needed"
   },
   {
-    "id": "resource-precondition-mail-address-update-mail-address-not-found",
-    "commandId": "mail address update",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The mail address used by integration placeholders is not present in the mocked dataset during this run, causing a deterministic not-found failure.",
-    "issue": "seed-known-resource-fixtures"
-  },
-  {
     "id": "resource-precondition-org-delete-org-not-found",
     "commandId": "org delete",
     "category": "RESOURCE_PRECONDITION",
