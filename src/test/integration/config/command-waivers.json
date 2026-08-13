@@ -159,12 +159,5 @@
     "category": "INTERACTIVE_REQUIRED",
     "reason": "Calls further tooling down the line, e.g. railpack and/or docker",
     "issue": "deeper-mocking-needed"
-  },
-  {
-    "id": "resource-precondition-org-delete-org-not-found",
-    "commandId": "org delete",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The organization targeted by integration placeholders does not exist in the fixture state at deletion time, resulting in a 404 failure.",
-    "issue": "seed-known-resource-fixtures"
   }
 ]
