@@ -91,6 +91,13 @@
     }
   },
   {
+    "id": "database-mysql-upgrade",
+    "match": { "exact": "database mysql upgrade" },
+    "requiredFlagDefaults": {
+      "version": "latest"
+    }
+  },
+  {
     "id": "database-mysql-shell",
     "match": { "exact": "database mysql shell" },
     "interactivePolicy": "classify"

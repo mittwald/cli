@@ -49,13 +49,6 @@
     "issue": "defer-interactive-support"
   },
   {
-    "id": "interactive-database-mysql-upgrade",
-    "commandId": "database mysql upgrade",
-    "category": "INTERACTIVE_REQUIRED",
-    "reason": "Upgrade confirmation and version choice currently requires interactive input.",
-    "issue": "defer-interactive-support"
-  },
-  {
     "id": "interactive-ddev-init",
     "commandId": "ddev init",
     "category": "INTERACTIVE_REQUIRED",
@@ -144,7 +137,7 @@
     "commandId": "database mysql dump",
     "category": "INTERACTIVE_REQUIRED",
     "reason": "The MySQL dump flow fetches dump via ssh which is not possible in test env.",
-    "issue": "need-ssh-mocking-for-database-mysql-dump"
+    "issue": "need-ssh-mocking"
   },
   {
     "id": "resource-precondition-experimental-deploy-registry-service-missing",
@@ -152,6 +145,13 @@
     "category": "INTERACTIVE_REQUIRED",
     "reason": "Calls further tooling down the line, e.g. railpack and/or docker",
     "issue": "deeper-mocking-needed"
+  },
+  {
+    "id": "container-port-forwarding-ssh-missing",
+    "commandId": "container port-forward",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "port forwarding via ssh is not available in test env",
+    "issue": "need-ssh-mocking"
   },
   {
     "id": "resource-precondition-database-mysql-user-delete-main-user-protected",

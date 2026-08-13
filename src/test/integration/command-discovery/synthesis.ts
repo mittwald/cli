@@ -541,6 +541,12 @@ function resolveInteractiveSignals(
     }
 
     if (signal === "addSelect") {
+      // Commands like database mysql upgrade only require selection when no
+      // explicit target version was provided.
+      if (hasFlag("version") && selectedFlags.has("version")) {
+        continue;
+      }
+
       if (hasFlag("override-type")) {
         setFlagValue(selectedFlags, "override-type", ["auto"], "heuristic");
         continue;
