@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T08:35:57.943Z",
+  "generatedAt": "2026-08-13T09:16:57.004Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 164,
+    "successful": 165,
     "failed": 0,
-    "waivedSkipped": 24,
+    "waivedSkipped": 23,
     "total": 188
   },
   "entries": [
@@ -114,11 +114,6 @@
     {
       "commandId": "login token",
       "category": "INTERACTIVE_REQUIRED",
-      "source": "waiver"
-    },
-    {
-      "commandId": "org delete",
-      "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
     },
     {
