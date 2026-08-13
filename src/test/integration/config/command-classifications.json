@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T08:14:24.947Z",
+  "generatedAt": "2026-08-13T08:35:57.943Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 163,
+    "successful": 164,
     "failed": 0,
-    "waivedSkipped": 25,
+    "waivedSkipped": 24,
     "total": 188
   },
   "entries": [
@@ -114,11 +114,6 @@
     {
       "commandId": "login token",
       "category": "INTERACTIVE_REQUIRED",
-      "source": "waiver"
-    },
-    {
-      "commandId": "mail address update",
-      "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
     },
     {
