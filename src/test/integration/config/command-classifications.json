@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-13T09:16:57.004Z",
+  "generatedAt": "2026-08-13T13:56:06.092Z",
   "source": {
     "kind": "run-all-summary"
   },
@@ -62,6 +62,11 @@
       "source": "waiver"
     },
     {
+      "commandId": "container port-forward",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
       "commandId": "conversation create",
       "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
@@ -78,7 +83,7 @@
     },
     {
       "commandId": "database mysql dump",
-      "category": "RESOURCE_PRECONDITION",
+      "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
     {
@@ -88,11 +93,6 @@
     },
     {
       "commandId": "database mysql shell",
-      "category": "INTERACTIVE_REQUIRED",
-      "source": "waiver"
-    },
-    {
-      "commandId": "database mysql upgrade",
       "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     },
