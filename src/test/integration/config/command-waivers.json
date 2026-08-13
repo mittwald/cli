@@ -140,18 +140,11 @@
     "issue": "need-interactive-filesystem-mocking"
   },
   {
-    "id": "resource-precondition-database-mysql-user-delete-main-user-protected",
-    "commandId": "database mysql user delete",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Integration currently targets the main MySQL user, which is protected by API rules and cannot be deleted manually in this flow.",
-    "issue": "seed-mysql-non-main-user-fixture"
-  },
-  {
     "id": "resource-precondition-database-mysql-dump-main-user-missing",
     "commandId": "database mysql dump",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The MySQL dump flow requires a resolvable main user in fixtures. In this run the command fails with 'No main user found'.",
-    "issue": "seed-mysql-main-user-fixture"
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "The MySQL dump flow fetches dump via ssh which is not possible in test env.",
+    "issue": "need-ssh-mocking-for-database-mysql-dump"
   },
   {
     "id": "resource-precondition-experimental-deploy-registry-service-missing",
@@ -159,5 +152,12 @@
     "category": "INTERACTIVE_REQUIRED",
     "reason": "Calls further tooling down the line, e.g. railpack and/or docker",
     "issue": "deeper-mocking-needed"
+  },
+  {
+    "id": "resource-precondition-database-mysql-user-delete-main-user-protected",
+    "commandId": "database mysql user delete",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Integration currently targets the main MySQL user, which is protected by API rules and cannot be deleted manually in this flow.",
+    "issue": "seed-mysql-non-main-user-fixture"
   }
 ]
