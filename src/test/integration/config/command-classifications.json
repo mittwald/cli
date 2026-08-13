@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-12T15:52:56.927Z",
+  "generatedAt": "2026-08-13T08:14:24.947Z",
   "source": {
     "kind": "run-all-summary"
   },
   "statistics": {
-    "successful": 161,
+    "successful": 163,
     "failed": 0,
-    "waivedSkipped": 27,
+    "waivedSkipped": 25,
     "total": 188
   },
   "entries": [
@@ -104,16 +104,6 @@
     {
       "commandId": "ddev init",
       "category": "INTERACTIVE_REQUIRED",
-      "source": "waiver"
-    },
-    {
-      "commandId": "domain dnszone get",
-      "category": "RESOURCE_PRECONDITION",
-      "source": "waiver"
-    },
-    {
-      "commandId": "domain get",
-      "category": "RESOURCE_PRECONDITION",
       "source": "waiver"
     },
     {

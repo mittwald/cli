@@ -154,20 +154,6 @@
     "issue": "seed-mysql-main-user-fixture"
   },
   {
-    "id": "resource-precondition-domain-dnszone-get-zone-not-found",
-    "commandId": "domain dnszone get",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "The integration fixture dataset does not include the requested DNS zone domain in this run context, causing a deterministic 'DNS zone ... not found' failure.",
-    "issue": "seed-known-domain-fixture"
-  },
-  {
-    "id": "resource-precondition-domain-get-zone-not-found",
-    "commandId": "domain get",
-    "category": "RESOURCE_PRECONDITION",
-    "reason": "Domain lookup in this integration path depends on a DNS zone fixture that is not present for the placeholder value, producing 'DNS zone ... not found'.",
-    "issue": "seed-known-domain-fixture"
-  },
-  {
     "id": "resource-precondition-experimental-deploy-registry-service-missing",
     "commandId": "experimental deploy",
     "category": "INTERACTIVE_REQUIRED",
