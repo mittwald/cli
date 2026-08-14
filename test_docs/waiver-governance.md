@@ -1,134 +1,162 @@
-# Waiver Governance for Integration Command Matrix (Draft)
+# Waiver Governance for Integration Command Matrix
 
 ## Purpose
-Waivers are a governance tool, not a suppression shortcut. They document known failing commands with category, reason, and follow-up intent while keeping failures auditable.
+Waivers are an explicit governance record for known failing integration commands.
+They are not a suppression shortcut.
 
-## Core Principle: Unwaived Commands Must Not Fail
+Goal:
 
-**All discovered commands must either pass or have an explicit waiver.** This is a hard invariant enforced by:
-- **CI gate**: Integration test fails if any command is unwaived and fails
-- **Peer review**: Waiver reasons must be understood and justified by reviewers
-
-This principle prevents silent rot and forces intentional decision-making: if a command fails and you can't fix it in the current scope, you *must* write a waiver in the same PR with a concrete reason. The friction is intentional.
-
-## Lazy Enforcement Philosophy
-
-Waivers work best when enforcement is simple and visible:
-
-- **No speculative waivers** — Waivers can only be added when a command fails. Pre-emptive waivers hide problems that should be surfaced now.
-
-- **Reasons are contemporary** — The waiver reason appears in the PR diff next to the code change. Reviewers see intent immediately. This scales better than historical archaeology through git blame.
-
-- **Emergent categorization** — Don't invent category hierarchy upfront. Patterns emerge naturally as waivers accumulate. After 20-30 waivers, category trends become visible and inform the next governance decision.
-
-- **Human review is the gate** — Reviewers must understand why each waiver exists. A weak reason ("known issue", "API doesn't work") gets pushed back. A concrete reason ("API response schema missing `examples` field, blocking invocation synthesis; filed as API-1234") survives review. This quality pressure is self-reinforcing.
+- keep matrix failures auditable
+- keep failure ownership visible in PRs
+- prevent silent drift of integration quality
 
 ## Source of Truth
-- Waivers file: src/test/integration/config/command-waivers.json
-- Waiver loader validation: src/test/integration/config/loader.ts
-- Enforcement during run: src/test/integration/run-all-commands.test.ts
+
+- Waiver data: `src/test/integration/config/command-waivers.json`
+- Validation: `src/test/integration/config/loader.ts`
+- Runtime enforcement: `src/test/integration/run-all-commands.test.ts`
+
+## Core Rule
+
+All discovered commands must either:
+
+1. pass, or
+2. have an explicit waiver that is accepted by policy.
+
+If a command fails without waiver coverage, the integration run fails.
 
 ## Waiver Schema
-Each waiver entry must include:
-- id
-- commandId
-- category
-- reason
 
-Optional:
-- issue
-- expiresOn
+Required fields per entry:
+
+- `id`
+- `commandId`
+- `category`
+- `reason`
+
+Optional fields:
+
+- `issue`
+- `expiresOn`
 
 Allowed categories:
-- ARG_MISUSE
-- INTERACTIVE_REQUIRED
-- RESOURCE_PRECONDITION
-- CONTRACT_SHAPE
-- COMMAND_BUG
-- DEPRECATED_ENDPOINT
 
-## Hard Invariants
-Always (loader validation):
-1. Duplicate waiver IDs are invalid.
-2. Duplicate waiver commandId entries are invalid.
+- `ARG_MISUSE`
+- `INTERACTIVE_REQUIRED`
+- `RESOURCE_PRECONDITION`
+- `CONTRACT_SHAPE`
+- `COMMAND_BUG`
+- `DEPRECATED_ENDPOINT`
 
-In full-matrix mode (no category filter and no command override):
-3. Waiver commandId must map to a currently discovered command.
-4. Commands classified INTERACTIVE_REQUIRED without waivers fail as governance drift.
+## Enforced Invariants
 
-## Relaxed Invariants by Design
-In targeted modes, the global waiver consistency check is skipped:
-- category-filter mode
-- single-command override mode (MW_TEST_COMMAND_ID)
+Always enforced (all run modes):
+
+1. duplicate waiver `id` is invalid
+2. duplicate waiver `commandId` is invalid
+
+Enforced in full matrix mode only (no category filter, no command override):
+
+1. waiver `commandId` must exist in current discovery output
+
+Additional governance enforcement:
+
+- if a command is classified `INTERACTIVE_REQUIRED` and has no waiver (and no
+   bypass mode is active), this is a failure and governance violation.
+
+## Intentional Relaxations
+
+In partial investigation modes, strict global waiver integrity checks are
+skipped by design:
+
+- category mode (`MW_TEST_CATEGORY`)
+- single-command mode (`MW_TEST_COMMAND_ID`)
 
 Reason:
-- these modes are intentionally partial and used for investigation loops.
+
+- these modes are for focused diagnosis, not full governance assertions.
 
 Important:
-- loader-level duplicate checks still apply in all modes.
 
-## Operational Enforcement: CI Gate + Peer Review
-This governance model requires both:
+- loader-level duplicate validation still applies in all modes.
 
-**CI Gate (Mechanical):**
-- Integration test suite runs all discovered commands
-- Test fails if any command is unwaived and fails
-- Test fails if waiver references a non-existent command
-- Test fails if duplicate waivers exist
+## Decision Gate: Fix vs Waive
 
-**Peer Review (Human):**
-- Reviewers must understand waiver semantics
-- Waiver PRs are not auto-approved based on metrics
-- Weak reasons trigger discussion, not merges
-- Category assignment is debated if unclear
+Add or keep a waiver only when all conditions are true:
 
-Together, these prevent silent drift. You can't sneak in a waiver without explaining it; you can't add unmaintainable waivers because reviewers catch them.
+1. failure is reproducible
+2. failure category is stable
+3. fix is out of current scope or blocked by external dependency
+4. reason explains mechanism and next action clearly
 
-## Waiver Hunting Workflow
-1. Run one command with MW_TEST_COMMAND_ID.
-2. Reproduce and inspect failure details.
-3. Decide one branch:
-   - fix command
-   - fix test fixture/precondition
-   - keep/add waiver with explicit reason and issue link
-4. Re-run same command until category and behavior are stable.
-5. If command becomes callable, remove waiver.
+Do not waive when:
 
-## When to Add a Waiver
-Add a waiver only when all are true:
-1. Failure is understood and reproducible.
-2. Category assignment is stable.
-3. A near-term fix cannot be delivered in current change scope.
+- root cause is unknown
+- behavior is flaky and not diagnosed
+- failure is due to invocation synthesis gap that should be fixed in profiles
 
-## When Not to Add a Waiver
-Do not add waivers for:
-- unknown failures
-- flaky behavior without root cause
-- argument synthesis defects that should be fixed in invocation profiles
+## Reason Quality Standard
 
-## Quality Bar for Waiver Reasons
-A good reason includes:
-- failure mechanism (what broke and why)
-- where it fails (component/path/layer)
-- what condition is missing (fixture, API contract, design decision)
-- intended fix direction (or why it's a permanent trade-off)
+A strong waiver reason states:
 
-A weak reason includes only:
-- "fails in CI"
-- "does not work"
-- "known issue"
-- "API thing"
+1. what fails
+2. where it fails
+3. why it fails
+4. what will resolve it (or why it is accepted long-term)
 
-Weak reasons get rejected in review. The author must explain themselves to the reviewer. This quality pressure is a feature, not friction.
+Examples:
 
-## Review Checklist: Reviewer Responsibility
-Reviewers must actively evaluate *every* waiver addition. Your job is to:
+- weak: `known issue`
+- strong: `command requires interactive select branch in oclif prompt path; integration runner is non-interactive, no profile-based non-interactive fallback exists yet; tracked in MWCLI-742`
 
-1. **Understand the failure** — Did the author explain what broke? Can you reproduce it from the reason alone?
-2. **Validate category** — Is the waiver category accurate? Does it match the actual failure root cause?
-3. **Evaluate reason quality** — Is the reason concrete and specific? Would a future reader (or you in 6 months) understand this waiver?
-4. **Require issue tracking** — For anything that's not a permanent design decision, is there an issue link? Does it have a target fix date?
-5. **Question necessity** — Could this waiver have been avoided by fixing the command, fixture, or invocation profile in the same PR?
-6. **Check for rot** — Are there existing waivers that should be removed because behavior is now fixed?
+## Operational Workflow
 
-Reject vague waivers. The 5 minutes you spend pushing back on reason quality prevents 10 hours of future confusion when someone tries to understand why the waiver exists.
+### Add a Waiver
+
+1. reproduce command in single-command mode with `MW_TEST_COMMAND_ID`
+2. capture observed failure category and evidence
+3. if fix is not in scope, add waiver entry with concrete reason
+4. rerun the same command to confirm expected waived behavior in full mode
+
+### Remove a Waiver
+
+1. reproduce command with waiver bypass mode (`MW_TEST_COMMAND_ID`)
+2. verify command now passes with normal synthesized invocation
+3. remove waiver entry
+4. rerun full matrix or at least category campaign to confirm no regressions
+
+### Reclassify a Waiver
+
+1. reproduce command with waiver bypass
+2. confirm current failure category
+3. update category and reason together in one change
+4. rerun category campaign for both old and new categories when practical
+
+## Review Checklist
+
+Reviewer must check every waiver change:
+
+1. command failure is understandable from evidence and reason
+2. selected category matches actual failure mechanism
+3. reason quality meets the standard above
+4. issue link exists for non-permanent waivers
+5. waiver is necessary (not a fixable in-scope defect)
+6. stale waivers are removed when behavior is now fixed
+
+Reject vague waivers. Governance quality is a correctness requirement.
+
+## CI and Team Policy
+
+Mechanical gate (CI):
+
+- rejects unwaived failures
+- rejects invalid waiver schema
+- rejects duplicate waiver IDs/command IDs
+- in full mode, rejects stale waiver command references
+
+Human gate (review):
+
+- validates reason quality and category correctness
+- validates whether a waiver is the right choice for this change
+
+Both gates are required. CI enforces structure; review enforces intent.
