@@ -172,7 +172,11 @@ export function formatOverviewEntry({
   status,
   id,
 }: OverviewEntryData): string {
-  return `${shortId ?? ""} ( ${name} ): ${status} ( ${id} )`;
+  if (shortId) {
+    return `${name} (${shortId}): ${status} (${id})`;
+  } else {
+    return `${name}: ${status} (${id})`;
+  }
 }
 
 export async function resolveProjectContext(
