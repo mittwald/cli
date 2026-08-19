@@ -1,0 +1,272 @@
+[
+  {
+    "id": "backup-create",
+    "match": { "exact": "backup create" },
+    "requiredFlagDefaults": {
+      "expires": "30d"
+    },
+    "notes": "Backup expiration must be set explicitly for deterministic runs."
+  },
+  {
+    "id": "backup-schedule-create",
+    "match": { "exact": "backup schedule create" },
+    "requiredFlagDefaults": {
+      "schedule": "0 * * * *",
+      "ttl": "7d"
+    }
+  },
+  {
+    "id": "cronjob-create",
+    "match": { "exact": "cronjob create" },
+    "requiredFlagDefaults": {
+      "description": "integration-cronjob",
+      "interval": "0 * * * *",
+      "url": "https://example.com/cronjob"
+    },
+    "exactlyOneChoice": {
+      "command|url": "url"
+    }
+  },
+  {
+    "id": "extension-install",
+    "match": { "exact": "extension install" },
+    "requiredArgDefaults": {
+      "extension-id": "example-extension-id"
+    },
+    "requiredFlagDefaults": {
+      "consent": true,
+      "project-id": "00000000-0000-4000-8000-000000000000"
+    },
+    "exactlyOneChoice": {
+      "org-id|project-id": "project-id"
+    }
+  },
+  {
+    "id": "extension-list-installed",
+    "match": { "exact": "extension list-installed" },
+    "requiredFlagDefaults": {
+      "project-id": "00000000-0000-4000-8000-000000000000"
+    },
+    "exactlyOneChoice": {
+      "org-id|project-id": "project-id"
+    }
+  },
+  {
+    "id": "sftp-user-create",
+    "match": { "exact": "sftp-user create" },
+    "requiredFlagDefaults": {
+      "description": "integration-sftp-user",
+      "directories": "/",
+      "password": "integration-password"
+    },
+    "exactlyOneChoice": {
+      "password|public-key": "password"
+    }
+  },
+  {
+    "id": "ssh-user-create",
+    "match": { "exact": "ssh-user create" },
+    "requiredFlagDefaults": {
+      "description": "integration-ssh-user",
+      "password": "integration-password"
+    }
+  },
+  {
+    "id": "database-mysql-create",
+    "match": { "exact": "database mysql create" },
+    "requiredFlagDefaults": {
+      "description": "integration-mysql-db",
+      "version": "8.0",
+      "user-password": "integration-password"
+    }
+  },
+  {
+    "id": "database-mysql-user-create",
+    "match": { "exact": "database mysql user create" },
+    "requiredFlagDefaults": {
+      "database-id": "00000000-0000-4000-8000-000000000000",
+      "access-level": "full",
+      "description": "integration-mysql-user",
+      "password": "integration-password"
+    }
+  },
+  {
+    "id": "database-mysql-upgrade",
+    "match": { "exact": "database mysql upgrade" },
+    "requiredFlagDefaults": {
+      "version": "latest"
+    }
+  },
+  {
+    "id": "database-mysql-shell",
+    "match": { "exact": "database mysql shell" },
+    "interactivePolicy": "classify"
+  },
+  {
+    "id": "app-database-link",
+    "match": { "exact": "app database link" },
+    "requiredFlagDefaults": {
+      "database-id": "00000000-0000-4000-8000-000000000000",
+      "admin-user-id": "00000000-0000-4000-8000-000000000000",
+      "purpose": "primary"
+    }
+  },
+  {
+    "id": "app-database-replace",
+    "match": { "exact": "app database replace" },
+    "requiredFlagDefaults": {
+      "new-database-id": "00000000-0000-4000-8000-000000000000",
+      "admin-user-id": "00000000-0000-4000-8000-000000000000"
+    }
+  },
+  {
+    "id": "org-invite",
+    "match": { "exact": "org invite" },
+    "requiredFlagDefaults": {
+      "email": "integration@example.com"
+    }
+  },
+  {
+    "id": "user-api-token-create",
+    "match": { "exact": "user api-token create" },
+    "requiredFlagDefaults": {
+      "description": "integration-api-token",
+      "roles": "api_read"
+    }
+  },
+  {
+    "id": "ssh-user-update",
+    "match": { "exact": "ssh-user update" },
+    "requiredFlagDefaults": {
+      "password": "integration-password"
+    },
+    "exactlyOneChoice": {
+      "password|public-key": "password"
+    }
+  },
+  {
+    "id": "domain-dnszone-update",
+    "match": { "exact": "domain dnszone update" },
+    "requiredArgDefaults": {
+      "record-set": "a",
+      "dnszone-id": "00000000-0000-4000-8000-000000000000"
+    },
+    "requiredFlagDefaults": {
+      "record": "203.0.113.10"
+    }
+  },
+  {
+    "id": "domain-get",
+    "match": { "exact": "domain get" },
+    "requiredArgDefaults": {
+      "domain-id": "example.com"
+    }
+  },
+  {
+    "id": "domain-dnszone-get",
+    "match": { "exact": "domain dnszone get" },
+    "requiredArgDefaults": {
+      "dnszone-id": "example.com"
+    }
+  },
+  {
+    "id": "domain-virtualhost-update",
+    "match": { "exact": "domain virtualhost update" },
+    "requiredFlagDefaults": {
+      "path-to-url": "/:https://example.com"
+    }
+  },
+  {
+    "id": "mail-address-update",
+    "match": { "exact": "mail address update" },
+    "requiredArgDefaults": {
+      "mailaddress-id": "integration@example.com"
+    }
+  },
+  {
+    "id": "mail-deliverybox-update",
+    "match": { "exact": "mail deliverybox update" },
+    "requiredArgDefaults": {
+      "maildeliverybox-id": "00000000-0000-4000-8000-000000000000"
+    }
+  },
+  {
+    "id": "ddev-init",
+    "match": { "exact": "ddev init" },
+    "requiredFlagDefaults": {
+      "override-type": "auto",
+      "project-name": "integration-ddev"
+    }
+  },
+  {
+    "id": "ddev-render-config",
+    "match": { "exact": "ddev render-config" },
+    "requiredFlagDefaults": {
+      "override-type": "php"
+    }
+  },
+  {
+    "id": "login-token",
+    "match": { "exact": "login token" },
+    "interactivePolicy": "classify",
+    "disableExampleSource": true
+  },
+  {
+    "id": "conversation-create",
+    "match": { "exact": "conversation create" },
+    "interactivePolicy": "classify",
+    "disableExampleSource": true
+  },
+  {
+    "id": "conversation-reply",
+    "match": { "exact": "conversation reply" },
+    "interactivePolicy": "classify",
+    "disableExampleSource": true
+  },
+  {
+    "id": "app-versions",
+    "match": { "exact": "app versions" },
+    "requiredArgDefaults": {
+      "app": "node"
+    }
+  },
+  {
+    "id": "app-dependency-update",
+    "match": { "exact": "app dependency update" },
+    "requiredArgDefaults": {
+      "installation-id": "f7b47c12-7d11-4f3a-b9bc-1b3c706e1d55"
+    },
+    "requiredFlagDefaults": {
+      "set": "node=~18"
+    }
+  },
+  {
+    "id": "app-dependency-versions",
+    "match": { "exact": "app dependency versions" },
+    "requiredArgDefaults": {
+      "systemsoftware": "node"
+    }
+  },
+  {
+    "id": "app-version-info",
+    "match": { "exact": "app version-info" },
+    "requiredArgDefaults": {
+      "app": "node",
+      "version": "1.0.0"
+    }
+  },
+  {
+    "id": "container-run",
+    "match": { "exact": "container run" },
+    "requiredFlagDefaults": {
+      "name": "00000000-0000-4000-8000-000000000000"
+    }
+  },
+  {
+    "id": "volume-delete",
+    "match": { "exact": "volume delete" },
+    "requiredArgDefaults": {
+      "name": "node"
+    }
+  }
+]
