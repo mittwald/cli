@@ -2272,7 +2272,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.11.11, @oclif/core@npm:^4.11.4":
+"@oclif/core@npm:^4, @oclif/core@npm:^4.0.18, @oclif/core@npm:^4.11.11":
   version: 4.13.5
   resolution: "@oclif/core@npm:4.13.5"
   dependencies:
@@ -2298,6 +2298,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/core@npm:^4.13.3":
+  version: 4.14.0
+  resolution: "@oclif/core@npm:4.14.0"
+  dependencies:
+    ansi-escapes: ^4.3.2
+    ansis: ^3.17.0
+    clean-stack: ^3.0.1
+    cli-spinners: ^2.9.2
+    debug: ^4.4.3
+    ejs: ^6
+    get-package-type: ^0.1.0
+    indent-string: ^4.0.0
+    lilconfig: ^3.1.3
+    minimatch: ^10.2.5
+    semver: ^7.8.1
+    string-width: ^4.2.3
+    supports-color: ^8
+    tinyglobby: ^0.2.17
+    widest-line: ^3.1.0
+    wordwrap: ^1.0.0
+    wrap-ansi: ^7.0.0
+    wsl-utils: ^0.4.0
+  checksum: a8d8dbf8059a8a0b78c6188851a5e7bc19ad575d9044ed7498ee305a484b5bc49132daa9e486ffc27966efc47a19d4d09ecd24672c54ce594bfd8c1360a9f7e3
+  languageName: node
+  linkType: hard
+
 "@oclif/plugin-autocomplete@npm:^3.0.3":
   version: 3.2.55
   resolution: "@oclif/plugin-autocomplete@npm:3.2.55"
@@ -2319,15 +2345,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-not-found@npm:^3.2.87":
-  version: 3.2.87
-  resolution: "@oclif/plugin-not-found@npm:3.2.87"
+"@oclif/plugin-not-found@npm:^3.2.93":
+  version: 3.3.0
+  resolution: "@oclif/plugin-not-found@npm:3.3.0"
   dependencies:
     "@inquirer/prompts": ^7.10.1
-    "@oclif/core": ^4.11.4
+    "@oclif/core": ^4.13.3
     ansis: ^3.17.0
     fast-levenshtein: ^3.0.0
-  checksum: 19d61ae8a0099313f5eb18307b8df0ca3c661e6c22671c1bda29a03eeeaee8c44c642e0af375463d7e3877713ad58301d64d79f1a34b0dcb6df4c6e55193f386
+  checksum: 6ba4a15c7ef685f8d7f07728545262ec00007387bfd54fb36ec15aad09dfe2bd982af6a2262b9de611d10cf3bc42f3434779b0f2481839fe4dfe5d877e766713
   languageName: node
   linkType: hard
 
@@ -2349,7 +2375,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.67":
+"@oclif/plugin-warn-if-update-available@npm:^3.0.2":
   version: 3.1.71
   resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.71"
   dependencies:
@@ -2360,6 +2386,20 @@ __metadata:
     lodash: ^4.18.1
     registry-auth-token: ^5.1.1
   checksum: cb1e305e369fc214be461b3336cafd9882489347ba776a1cd2dc935d35bd4e39e1de800aa40fd858486f7ffdfb4e3e74b2b85bd769e466807950df7329ad739b
+  languageName: node
+  linkType: hard
+
+"@oclif/plugin-warn-if-update-available@npm:^3.1.73":
+  version: 3.2.0
+  resolution: "@oclif/plugin-warn-if-update-available@npm:3.2.0"
+  dependencies:
+    "@oclif/core": ^4
+    ansis: ^3.17.0
+    debug: ^4.4.3
+    http-call: ^5.2.2
+    lodash: ^4.18.1
+    registry-auth-token: ^5.1.1
+  checksum: 453549ae9a1d36d5a441f41849446eaafce0888d619d506b251269db4fa9a6f5510fcc43dfd652e2f5b747c472a2ca4c73751deca7bcd12b521a0cb418c71dc8
   languageName: node
   linkType: hard
 
@@ -8242,8 +8282,8 @@ __metadata:
   linkType: hard
 
 "oclif@npm:^4.14.31":
-  version: 4.23.30
-  resolution: "oclif@npm:4.23.30"
+  version: 4.24.0
+  resolution: "oclif@npm:4.24.0"
   dependencies:
     "@aws-sdk/client-cloudfront": ^3.1079.0
     "@aws-sdk/client-s3": ^3.1079.0
@@ -8252,8 +8292,8 @@ __metadata:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4.11.11
     "@oclif/plugin-help": ^6.2.53
-    "@oclif/plugin-not-found": ^3.2.87
-    "@oclif/plugin-warn-if-update-available": ^3.1.67
+    "@oclif/plugin-not-found": ^3.2.93
+    "@oclif/plugin-warn-if-update-available": ^3.1.73
     ansis: ^3.16.0
     async-retry: ^1.3.3
     change-case: ^4
@@ -8270,7 +8310,7 @@ __metadata:
     validate-npm-package-name: ^5.0.1
   bin:
     oclif: bin/run.js
-  checksum: 81709158b23b66c1bcb2afaaa32c17ba688a8c21cbbc0a9e4d55ef912759ef024aa12bae05a1397d627557c0f6b9e56f4fa37e3b4e9e872f85f469b572509b1e
+  checksum: c9c1148fc136a024957015698a68b5be7cf16776572d222e7d2653aa1d9ed4575d9724750eb9d511d589a7638a165a807d7d7adae1dd1b1647c12090e953551a
   languageName: node
   linkType: hard
 
