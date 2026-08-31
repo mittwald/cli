@@ -8916,9 +8916,9 @@ __metadata:
   linkType: hard
 
 "pretty-bytes@npm:^7.0.0":
-  version: 7.1.1
-  resolution: "pretty-bytes@npm:7.1.1"
-  checksum: d4c3443d03d283e68b25096a0cfd20f5f7f939fece989cf8ff37db797d4044bfa0188e274687dc68598767cbbcbb182980c51e1936e09155131b4b5022d73b96
+  version: 7.1.2
+  resolution: "pretty-bytes@npm:7.1.2"
+  checksum: 679b62fe4f537eefd72b30517b500f4abafee1a2bdc478a1345c3ccbfd10f6371be658b3faae7ccdf6212ae57ac5c8a701944af4b20bc476e257cc9c508034fc
   languageName: node
   linkType: hard
 
