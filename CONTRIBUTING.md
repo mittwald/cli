@@ -40,6 +40,43 @@ When you are using an IDE that supports [devcontainers](https://containers.dev),
 you can use the provided devcontainer configuration to get a development
 environment with all required tools.
 
+### Dependency Management
+
+This project uses [Yarn](https://yarnpkg.com/) for dependency management. The
+lockfile (`yarn.lock`) is automatically managed by
+[Dependabot](https://docs.github.com/en/code-security/dependabot) and should not
+be modified manually. See [`.github/dependabot.yml`](.github/dependabot.yml) for
+the configuration that drives automated dependency updates.
+
+When you modify `package.json` (e.g., adding or updating a dependency), you must
+regenerate the lockfile:
+
+```bash
+yarn install
+```
+
+If you see CI failures with "lockfile would have been modified", your branch's
+lockfile is out of sync with master. This happens when Dependabot has merged
+updates to the lockfile after your branch was created. Solution: rebase your
+branch onto master:
+
+```bash
+git fetch origin master
+git rebase origin/master
+yarn install
+git push -f
+```
+
+**Edge case:** If master's lockfile is actually broken (rare), you have two
+options:
+
+1. **Wait it out** (preferred): The next Dependabot run will regenerate the
+   lockfile correctly. This typically resolves within 24 hours.
+2. **Manually fix** (risky): Only if you're certain about dependency resolution.
+   Regenerate `yarn.lock` locally, review changes carefully, and push. Only take
+   this approach if you fully understand the dependency tree and can verify the
+   changes are correct.
+
 ### Implementation notes for typical commands
 
 #### Documentation & examples
