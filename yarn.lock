@@ -4775,13 +4775,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"default-browser@npm:^5.4.0":
-  version: 5.4.0
-  resolution: "default-browser@npm:5.4.0"
+"default-browser@npm:^5.5.1":
+  version: 5.5.1
+  resolution: "default-browser@npm:5.5.1"
   dependencies:
     bundle-name: ^4.1.0
     default-browser-id: ^5.0.0
-  checksum: cac0222ca5c9a3387d25337228689652ab33679a6566995c7194a75af7e554e91ec9ac92a70bfaa8e8089eae9f466ae99267bb38601282aade89b200f50a765c
+  checksum: e2a74668f0dffff543a2e207ff400a2a99a13f50e99db3c23ad288c6fbc26d6133145e13762c842350ea1d854d876ca6328abc0031e56fd9d33b8f5080ead028
   languageName: node
   linkType: hard
 
@@ -8452,16 +8452,16 @@ __metadata:
   linkType: hard
 
 "open@npm:^11.0.0":
-  version: 11.0.1
-  resolution: "open@npm:11.0.1"
+  version: 11.0.2
+  resolution: "open@npm:11.0.2"
   dependencies:
-    default-browser: ^5.4.0
+    default-browser: ^5.5.1
     define-lazy-prop: ^3.0.0
     is-in-ssh: ^1.0.0
     is-inside-container: ^1.0.0
-    powershell-utils: ^0.2.0
+    powershell-utils: ^0.2.1
     wsl-utils: ^1.0.0
-  checksum: b6ea020617dffadb18190d87ed9cccf585a2c63ec85cbb6215d9636eddee6dfc79c23f13339f19ef2c11ddaaff0827009e339c68b59d9fe9780a0debc98d813d
+  checksum: 74730586cf92be83cb087ae607b78af980e0b822fb71761da27cb6df4cbf80ce871a8d359897621953609a7811617da34439b6b0b9c0213e47bdef18178758ff
   languageName: node
   linkType: hard
 
@@ -8852,10 +8852,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"powershell-utils@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "powershell-utils@npm:0.2.0"
-  checksum: 49aa144effed21a03c095d0825455e44051110006fd05cd0e41431e1f09d0e111a62fd14d6d017113cca7ac3a69d37cd5b2ae8f1c4ba2685d5562158ff66836f
+"powershell-utils@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "powershell-utils@npm:0.2.1"
+  checksum: e718a32f904190d15917a0157b18fec567ef6a3de7dc797845aa19a68da95b14402684bc216c4aa8e4ba483754b6eeb30feec30859efb2b3a5716958f5e6dfa1
   languageName: node
   linkType: hard
 
