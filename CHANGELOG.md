@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/mittwald/cli/compare/v1.23.0...v1.24.0) (2026-09-01)
+
+
+### Features
+
+* **context:** enrich context getter to provide project details ([#2033](https://github.com/mittwald/cli/issues/2033)) ([8ba3323](https://github.com/mittwald/cli/commit/8ba332379cf3f6cd94ad2f8caa24ace0171d2fca)), closes [#929](https://github.com/mittwald/cli/issues/929)
+
 # [1.23.0](https://github.com/mittwald/cli/compare/v1.22.0...v1.23.0) (2026-08-11)
 
 
