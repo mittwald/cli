@@ -5478,18 +5478,18 @@ __metadata:
   linkType: hard
 
 "fast-xml-parser@npm:^5.2.5":
-  version: 5.10.1
-  resolution: "fast-xml-parser@npm:5.10.1"
+  version: 5.11.1
+  resolution: "fast-xml-parser@npm:5.11.1"
   dependencies:
     "@nodable/entities": ^3.0.0
     fast-xml-builder: ^1.2.0
     is-unsafe: ^2.0.0
     path-expression-matcher: ^1.6.2
-    strnum: ^2.4.1
+    strnum: ^2.4.2
     xml-naming: ^0.3.0
   bin:
     fxparser: src/cli/cli.js
-  checksum: 9bbcf724856b63913bdc5b9f067fa695db2e11fe8295c664bbc2eef1852e217670bc485f62805d6ec406f8223e3a0b8251d899b39825fa8d2ed69040be48c32f
+  checksum: 65b7aeeb6d8fb7a59a9435bdba8ad4503c42e950d1523d3751cdb4e24c606263605e6a53a61a249156f8f360a79b20da70a003c189cfd613eddbdf07bb511f3a
   languageName: node
   linkType: hard
 
@@ -9700,12 +9700,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strnum@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "strnum@npm:2.4.1"
+"strnum@npm:^2.4.2":
+  version: 2.4.2
+  resolution: "strnum@npm:2.4.2"
   dependencies:
     anynum: ^1.0.1
-  checksum: 4e9bd8058200e793b6db7077817b11a8d9261807056629ffa1ce67a51e7240404e9411575492c1e2bafa2537fba703f287505b93e6f8648ced84f9fd87ccf1d1
+  checksum: aec8958f66eee511e4bfc2d3e607a9e6821b7ed760da2df3cf6ac3e80b73f9e0a98d809766d10b12d39608d551fdbe2c6ee9a5512e95043c41ff3bc2aa51e715
   languageName: node
   linkType: hard
 
