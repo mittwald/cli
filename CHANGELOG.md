@@ -1,3 +1,11 @@
+## [1.24.1](https://github.com/mittwald/cli/compare/v1.24.0...v1.24.1) (2026-09-03)
+
+
+### Bug Fixes
+
+* **release:** switch to qwen3.8 for relase announcement ([#2100](https://github.com/mittwald/cli/issues/2100)) ([62c6f95](https://github.com/mittwald/cli/commit/62c6f955dee6cfdbbc0239f5a464a7a29d0dee55))
+* unbreak yarn test:unit (jest 30.5.1 + cross-platform native bindings) ([#2102](https://github.com/mittwald/cli/issues/2102)) ([54fc821](https://github.com/mittwald/cli/commit/54fc8219b086c372a940af3feb9915d2975e5b04)), closes [#2094](https://github.com/mittwald/cli/issues/2094)
+
 # [1.24.0](https://github.com/mittwald/cli/compare/v1.23.0...v1.24.0) (2026-09-01)
 
 
