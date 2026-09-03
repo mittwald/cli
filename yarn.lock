@@ -2325,23 +2325,23 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-autocomplete@npm:^3.0.3":
-  version: 3.2.55
-  resolution: "@oclif/plugin-autocomplete@npm:3.2.55"
+  version: 3.3.0
+  resolution: "@oclif/plugin-autocomplete@npm:3.3.0"
   dependencies:
     "@oclif/core": ^4
     ansis: ^3.16.0
     debug: ^4.4.1
     ejs: ^3.1.10
-  checksum: 49125f84fdf2cec3ecc2a7543d2dc6bd99fb3bad00f08c09bcc3bc6699cfee1e3c0ce22d43abea0cdd88c062043f1e7b6547a20f2cead4270ff4c8907d59ccff
+  checksum: 4780089f45d02ac0d0a1fa59c7de8372d7a55acfc8815effb97b388fdb19351e742074fb37b7342fcd553ee3fe88c7c5d0d7b8e9954d076bf1d713fcbdb45a4d
   languageName: node
   linkType: hard
 
 "@oclif/plugin-help@npm:^6.0.5, @oclif/plugin-help@npm:^6.2.53":
-  version: 6.2.56
-  resolution: "@oclif/plugin-help@npm:6.2.56"
+  version: 6.3.0
+  resolution: "@oclif/plugin-help@npm:6.3.0"
   dependencies:
     "@oclif/core": ^4
-  checksum: bfcff2b89d3c11bf49ee2d334c51cf10c46ae6b7e713787540570ae792db873e3f9de52e65ad1122bd3f567ad0f00d525854a2f0c1c6420959a711049ea1ade6
+  checksum: 95af2481290c626f786164bf7aff068b7405202b4a44f04de8eadec2572d18d0a3b94158c49014e46ad95285f559517999dfc4a672e5a610d738c1ee01e5ceb4
   languageName: node
   linkType: hard
 
@@ -2358,8 +2358,8 @@ __metadata:
   linkType: hard
 
 "@oclif/plugin-update@npm:^4.1.3":
-  version: 4.7.57
-  resolution: "@oclif/plugin-update@npm:4.7.57"
+  version: 4.8.0
+  resolution: "@oclif/plugin-update@npm:4.8.0"
   dependencies:
     "@inquirer/select": ^2.5.0
     "@oclif/core": ^4
@@ -2371,25 +2371,11 @@ __metadata:
     proxy-agent: ^6.5.0
     semver: ^7.8.5
     tar-fs: ^2.1.5
-  checksum: c0bec3fa92111488cc1bb2044123b64de84ed2c5888fa9422dd1ec6c9e35a359d8a78c686dee894b00b18754c4698b858bd5100fbc1881aef6c43017978593e1
+  checksum: 5511e1b5e635c2d5ad1eff1da3e4dde975e542803b8b276cac2104fa00e2eb22d31641b0e9d6f666f652864871883c38e311a7f22773f40e48fb4f0dbf96376c
   languageName: node
   linkType: hard
 
-"@oclif/plugin-warn-if-update-available@npm:^3.0.2":
-  version: 3.1.71
-  resolution: "@oclif/plugin-warn-if-update-available@npm:3.1.71"
-  dependencies:
-    "@oclif/core": ^4
-    ansis: ^3.17.0
-    debug: ^4.4.3
-    http-call: ^5.2.2
-    lodash: ^4.18.1
-    registry-auth-token: ^5.1.1
-  checksum: cb1e305e369fc214be461b3336cafd9882489347ba776a1cd2dc935d35bd4e39e1de800aa40fd858486f7ffdfb4e3e74b2b85bd769e466807950df7329ad739b
-  languageName: node
-  linkType: hard
-
-"@oclif/plugin-warn-if-update-available@npm:^3.1.73":
+"@oclif/plugin-warn-if-update-available@npm:^3.0.2, @oclif/plugin-warn-if-update-available@npm:^3.1.73":
   version: 3.2.0
   resolution: "@oclif/plugin-warn-if-update-available@npm:3.2.0"
   dependencies:
