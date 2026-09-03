@@ -68,8 +68,8 @@ jobs:
                   "apiKey": "{env:MITTWALD_AI_API_KEY}"
                 },
                 "models": {
-                  "Mistral-Medium-3.5-128B": {
-                    "name": "mistral-medium-3.5"
+                  "Qwen3.8-27B-NVFP4": {
+                    "name": "qwen3.8-27B-NVFP4"
                   }
                 }
               }
