@@ -79,7 +79,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@jest/globals": "^30.0.4",
+    "@jest/globals": "^30.5.1",
     "@oclif/test": "^4.0.4",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^26.0.0",
@@ -94,7 +94,7 @@
     "eslint-plugin-json": "^5.0.0",
     "eslint-plugin-prettier": "^5.5.1",
     "globals": "^17.0.0",
-    "jest": "^30.0.4",
+    "jest": "^30.5.1",
     "license-checker-rseidelsohn": "^5.0.1",
     "nock": "^14.0.0",
     "oclif": "^4.14.31",
