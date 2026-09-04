@@ -93,7 +93,7 @@ export class DDEVConfigBuilder {
   private async determineDocumentRoot(inst: AppInstallation): Promise<string> {
     const appVersion = await this.getAppVersion(
       inst.appId,
-      inst.appVersion.desired,
+      inst.appVersion.desired,  // XXX: Attention this might be undefined. API client call list route then, returning with an array!
     );
 
     if (appVersion.docRootUserEditable && hasCustomDocumentRoot(inst)) {
