@@ -1,15 +1,25 @@
 import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseCommand.js";
 import { Args, Flags } from "@oclif/core";
 import { ReactNode } from "react";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
+import { assertStatus } from "@mittwald/api-client-commons";
 import {
   makeProcessRenderer,
   processFlags,
 } from "../../rendering/process/process_flags.js";
+import { ProcessRenderer } from "../../rendering/process/process.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import assertSuccess from "../../lib/apiutil/assert_success.js";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
-import { buildCronjobDestination } from "../../lib/resources/cronjob/destination.js";
+import {
+  buildCronjobTarget,
+  CronjobTarget,
+  getCronjobServiceTarget,
+} from "../../lib/resources/cronjob/target.js";
+import { resolveContainerTarget } from "../../lib/resources/cronjob/resolve.js";
 import Duration from "../../lib/units/Duration.js";
+
+type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
 
 type UpdateResult = void;
 
@@ -18,6 +28,11 @@ export default class Update extends ExecRenderBaseCommand<
   UpdateResult
 > {
   static description = "Update an existing cron job";
+  static examples = [
+    "# Change the schedule of a cron job\n<%= config.bin %> <%= command.id %> cron-XXXXXX --interval '0 * * * *'",
+    "# Change the command of a container cron job\n<%= config.bin %> <%= command.id %> cron-XXXXXX --command 'php artisan schedule:run'",
+    "# Move a container cron job to another container\n<%= config.bin %> <%= command.id %> cron-XXXXXX --container-id othercontainer",
+  ];
   static args = {
     "cronjob-id": Args.string({
       description: "ID of the cron job to be updated.",
@@ -26,6 +41,7 @@ export default class Update extends ExecRenderBaseCommand<
   };
   static flags = {
     ...processFlags,
+    "container-id": cronjobFlagDefinitions.containerId(),
     description: cronjobFlagDefinitions.description(),
     interval: cronjobFlagDefinitions.interval(),
     email: cronjobFlagDefinitions.email(),
@@ -34,7 +50,6 @@ export default class Update extends ExecRenderBaseCommand<
     }),
     command: cronjobFlagDefinitions.command({
       exclusive: ["url"],
-      dependsOn: ["interpreter"],
     }),
     interpreter: cronjobFlagDefinitions.interpreter({
       dependsOn: ["command"],
@@ -68,20 +83,10 @@ export default class Update extends ExecRenderBaseCommand<
     const currentCronjob = await this.apiClient.cronjob.getCronjob({
       cronjobId,
     });
-    assertSuccess(currentCronjob);
+    assertStatus(currentCronjob, 200);
 
-    const {
-      description,
-      interval,
-      email,
-      timeout,
-      url,
-      interpreter,
-      command,
-      enable,
-      disable,
-      timezone,
-    } = this.flags;
+    const { description, interval, email, timeout, enable, disable, timezone } =
+      this.flags;
 
     if (Object.keys(this.flags).length == 0) {
       await process.complete(
@@ -90,14 +95,16 @@ export default class Update extends ExecRenderBaseCommand<
       return;
     }
 
+    const target = await this.resolveUpdatedTarget(
+      process,
+      currentCronjob.data,
+    );
+
     await process.runStep("Updating cron job", async () => {
       const response = await this.apiClient.cronjob.updateCronjob({
         cronjobId,
         data: {
-          destination:
-            url || command
-              ? buildCronjobDestination(url, command, interpreter)
-              : undefined,
+          target,
           active: enable ? true : disable ? false : undefined,
           description,
           timeout: timeout?.seconds,
@@ -112,6 +119,69 @@ export default class Update extends ExecRenderBaseCommand<
     await process.complete(
       <Success>Your cron job has successfully been updated.</Success>,
     );
+  }
+
+  /**
+   * Builds the new execution target, or undefined if none of the target related
+   * flags were given. A container cron job keeps its container when only the
+   * command changes; an app cron job keeps its app installation.
+   */
+  private async resolveUpdatedTarget(
+    process: ProcessRenderer,
+    cronjob: CronjobCronjob,
+  ): Promise<CronjobTarget | undefined> {
+    const { "container-id": containerIdFlag, url, command } = this.flags;
+
+    if (!containerIdFlag && !url && !command) {
+      return undefined;
+    }
+
+    const currentServiceTarget = getCronjobServiceTarget(cronjob);
+    const containerId = containerIdFlag ?? currentServiceTarget?.serviceShortId;
+
+    if (containerId) {
+      return this.resolveContainerTarget(
+        process,
+        cronjob,
+        containerId,
+        currentServiceTarget?.command,
+      );
+    }
+
+    return this.resolveAppTarget(cronjob);
+  }
+
+  private async resolveContainerTarget(
+    process: ProcessRenderer,
+    cronjob: CronjobCronjob,
+    containerId: string,
+    currentCommand: string | undefined,
+  ): Promise<CronjobTarget> {
+    const { url, command, interpreter } = this.flags;
+    const { projectId } = cronjob;
+
+    if (!projectId) {
+      throw new Error("no project found for cron job");
+    }
+
+    return resolveContainerTarget(
+      this.apiClient,
+      process,
+      projectId,
+      containerId,
+      { url, command: command ?? currentCommand, interpreter },
+    );
+  }
+
+  private resolveAppTarget(cronjob: CronjobCronjob): CronjobTarget {
+    const { url, command, interpreter } = this.flags;
+
+    return buildCronjobTarget({
+      appInstallationId: cronjob.appInstallationId ?? cronjob.appId,
+      url,
+      command,
+      interpreter,
+    });
   }
 
   protected render(): ReactNode {

@@ -41,6 +41,18 @@ export async function withContainerAndStackId(
     throw new Error("container ID, short ID or name must be specified");
   }
 
+  return findContainerInProject(apiClient, projectId, containerId);
+}
+
+/**
+ * Resolves a container given by ID, short ID or service name within a project
+ * to its full service ID and the ID of the stack it belongs to.
+ */
+export async function findContainerInProject(
+  apiClient: MittwaldAPIV2Client,
+  projectId: string,
+  containerId: string,
+): Promise<[string, string]> {
   const containerResp = await apiClient.container.listServices({
     projectId,
   });

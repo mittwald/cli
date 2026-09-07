@@ -8,20 +8,43 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { appInstallationFlags } from "../../lib/resources/app/flags.js";
+import { projectFlags } from "../../lib/resources/project/flags.js";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
-import { buildCronjobDestination } from "../../lib/resources/cronjob/destination.js";
+import {
+  buildCronjobTarget,
+  CronjobTarget,
+} from "../../lib/resources/cronjob/target.js";
+import { resolveContainerTarget } from "../../lib/resources/cronjob/resolve.js";
 import Duration from "../../lib/units/Duration.js";
 import { Flags } from "@oclif/core";
+import { ProcessRenderer } from "../../rendering/process/process.js";
 
 type Result = {
   cronjobId: string;
 };
 
+type ResolvedTarget = {
+  projectId: string;
+  target: CronjobTarget;
+};
+
 export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
   static summary = "Create a new cron job";
+  static description =
+    "A cron job either belongs to an app installation (see --installation-id) and requests a URL or runs a script, " +
+    "or it belongs to a container (see --container-id) and runs a command inside that container.";
+  static examples = [
+    "# Run a PHP script in an app installation every night\n<%= config.bin %> <%= command.id %> -i a-XXXXXX --description 'nightly cleanup' --interval '0 2 * * *' --interpreter php --command 'cleanup.php --force'",
+    "# Request a URL in an app installation every five minutes\n<%= config.bin %> <%= command.id %> -i a-XXXXXX --description 'heartbeat' --interval '*/5 * * * *' --url https://example.com/cron",
+    "# Run a command in a container every minute\n<%= config.bin %> <%= command.id %> -c mycontainer --description 'scheduler' --interval '* * * * *' --command 'php artisan schedule:run'",
+  ];
   static flags = {
     ...appInstallationFlags,
+    ...projectFlags,
     ...processFlags,
+    "container-id": cronjobFlagDefinitions.containerId({
+      exclusive: ["installation-id"],
+    }),
     description: cronjobFlagDefinitions.description({ required: true }),
     interval: cronjobFlagDefinitions.interval({ required: true }),
     email: cronjobFlagDefinitions.email(),
@@ -30,7 +53,6 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     }),
     command: cronjobFlagDefinitions.command({
       exactlyOne: ["url", "command"],
-      dependsOn: ["interpreter"],
     }),
     interpreter: cronjobFlagDefinitions.interpreter({
       dependsOn: ["command"],
@@ -56,41 +78,29 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
 
   protected async exec(): Promise<Result> {
     const p = makeProcessRenderer(this.flags, "Creating a new cron job");
-    const appInstallationId = await this.withAppInstallationId(Create);
     const {
+      "container-id": containerId,
       description,
       interval,
       disable,
       email,
-      url,
-      interpreter,
-      command,
       timeout,
       timezone,
     } = this.flags;
 
-    const { projectId } = await p.runStep("fetching project", async () => {
-      const r = await this.apiClient.app.getAppinstallation({
-        appInstallationId,
-      });
-      assertStatus(r, 200);
-      return r.data;
-    });
-
-    if (!projectId) {
-      throw new Error("no project found for app installation");
-    }
+    const { projectId, target } = containerId
+      ? await this.resolveContainerTarget(p, containerId)
+      : await this.resolveAppTarget(p);
 
     const { id: cronjobId } = await p.runStep("creating cron job", async () => {
       const r = await this.apiClient.cronjob.createCronjob({
         projectId,
         data: {
-          appId: appInstallationId,
           active: !disable,
           description,
           interval,
           email,
-          destination: buildCronjobDestination(url, command, interpreter),
+          target,
           timeout: timeout.seconds,
           timeZone: timezone,
         },
@@ -113,6 +123,52 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     );
 
     return { cronjobId };
+  }
+
+  private async resolveContainerTarget(
+    p: ProcessRenderer,
+    containerId: string,
+  ): Promise<ResolvedTarget> {
+    const { url, command, interpreter } = this.flags;
+    const projectId = await this.withProjectId(Create);
+
+    return {
+      projectId,
+      target: await resolveContainerTarget(
+        this.apiClient,
+        p,
+        projectId,
+        containerId,
+        { url, command, interpreter },
+      ),
+    };
+  }
+
+  private async resolveAppTarget(p: ProcessRenderer): Promise<ResolvedTarget> {
+    const { url, command, interpreter } = this.flags;
+    const appInstallationId = await this.withAppInstallationId(Create);
+
+    const { projectId } = await p.runStep("fetching project", async () => {
+      const r = await this.apiClient.app.getAppinstallation({
+        appInstallationId,
+      });
+      assertStatus(r, 200);
+      return r.data;
+    });
+
+    if (!projectId) {
+      throw new Error("no project found for app installation");
+    }
+
+    return {
+      projectId,
+      target: buildCronjobTarget({
+        appInstallationId,
+        url,
+        command,
+        interpreter,
+      }),
+    };
   }
 
   protected render({ cronjobId }: Result): ReactNode {

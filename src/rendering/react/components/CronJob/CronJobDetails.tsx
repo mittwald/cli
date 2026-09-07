@@ -8,21 +8,12 @@ import { CreatedAt } from "../CreatedAt.js";
 import { useProject } from "../../../../lib/resources/project/hooks.js";
 import { useAppInstallation } from "../../../../lib/resources/app/hooks.js";
 import { FormattedDate } from "../FormattedDate.js";
+import { getCronjobServiceTarget } from "../../../../lib/resources/cronjob/target.js";
 type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
 type CronjobServiceTargetResponse =
   MittwaldAPIV2.Components.Schemas.CronjobServiceTargetResponse;
 
 type CronJobComponent = FC<{ cronjob: CronjobCronjob }>;
-
-// A cron job either targets an app installation or a container (a service
-// running in a stack). Container cron jobs carry a service target instead of
-// an app id, so we must not try to resolve them as app installations.
-const getServiceTarget = (
-  cronjob: CronjobCronjob,
-): CronjobServiceTargetResponse | undefined => {
-  const { target } = cronjob;
-  return target && "stackId" in target ? target : undefined;
-};
 
 const CronJobNextExecution: CronJobComponent = ({ cronjob }) => {
   if (!cronjob.nextExecutionTime) {
@@ -89,7 +80,7 @@ const buildExecutionTargetRows = (
 
 export const CronJobDetails: CronJobComponent = ({ cronjob }) => {
   const project = cronjob.projectId ? useProject(cronjob.projectId) : null;
-  const serviceTarget = getServiceTarget(cronjob);
+  const serviceTarget = getCronjobServiceTarget(cronjob);
 
   const rows: Record<string, ReactNode> = {
     "Cron Job ID": <IDAndShortID object={cronjob} />,

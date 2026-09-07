@@ -19,12 +19,16 @@ Create a new cron job
 
 ```
 USAGE
-  $ mw cronjob create --description <value> --interval <value> [--token <value>] [-i <value>] [-q] [--email <value>]
-    [--url <value>] [--command <value> --interpreter bash|php] [--disable] [--timeout <value>] [--timezone <value>]
+  $ mw cronjob create --description <value> --interval <value> [--token <value>] [-p <value>] [-q] [-c <value> | -i
+    <value>] [--email <value>] [--url <value>] [--interpreter bash|php --command <value>] [--disable] [--timeout
+    <value>] [--timezone <value>]
 
 FLAGS
+  -c, --container-id=<value>     ID, short ID or name of the container in which the cron job is executed.
   -i, --installation-id=<value>  ID or short ID of an app installation; this flag is optional if a default app
                                  installation is set in the context
+  -p, --project-id=<value>       ID or short ID of a project; this flag is optional if a default project is set in the
+                                 context
   -q, --quiet                    suppress process output and only display a machine-readable summary
       --command=<value>          Specify the file and arguments to be executed when the cron job is run.
       --description=<value>      (required) Set cron job description.
@@ -41,7 +45,34 @@ AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
                    tokens passed via this flag might be logged in your shell history.
 
+DESCRIPTION
+  Create a new cron job
+
+  A cron job either belongs to an app installation (see --installation-id) and requests a URL or runs a script, or it
+  belongs to a container (see --container-id) and runs a command inside that container.
+
+EXAMPLES
+  # Run a PHP script in an app installation every night
+
+    $ mw cronjob create -i a-XXXXXX --description 'nightly cleanup' --interval '0 2 * * *' --interpreter php \
+      --command 'cleanup.php --force'
+
+  # Request a URL in an app installation every five minutes
+
+    $ mw cronjob create -i a-XXXXXX --description 'heartbeat' --interval '*/5 * * * *' --url \
+      https://example.com/cron
+
+  # Run a command in a container every minute
+
+    $ mw cronjob create -c mycontainer --description 'scheduler' --interval '* * * * *' --command 'php artisan \
+      schedule:run'
+
 FLAG DESCRIPTIONS
+  -c, --container-id=<value>  ID, short ID or name of the container in which the cron job is executed.
+
+    Makes this a container cron job: the given --command is executed inside this container (a service of a container
+    stack) instead of an app installation. Cannot be combined with --url or --interpreter.
+
   -i, --installation-id=<value>
 
     ID or short ID of an app installation; this flag is optional if a default app installation is set in the context
@@ -50,6 +81,11 @@ FLAG DESCRIPTIONS
     --installation-id=<VALUE>" command to persistently set a default app installation for all commands that accept this
     flag.
 
+  -p, --project-id=<value>  ID or short ID of a project; this flag is optional if a default project is set in the context
+
+    May contain a short ID or a full ID of a project; you can also use the "mw context set --project-id=<VALUE>" command
+    to persistently set a default project for all commands that accept this flag.
+
   -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
@@ -57,8 +93,9 @@ FLAG DESCRIPTIONS
 
   --command=<value>  Specify the file and arguments to be executed when the cron job is run.
 
-    Specifies a file to be executed with the specified interpreter. Additional arguments can be appended to the command
-    to be passed to the script. Not required if a URL is given.
+    For app cron jobs, this specifies a file to be executed with the specified interpreter. Additional arguments can be
+    appended to the command to be passed to the script. Not required if a URL is given. For container cron jobs (see
+    --container-id), this is the complete command line that is executed inside the container; no interpreter is needed.
 
   --description=<value>  Set cron job description.
 
@@ -315,14 +352,15 @@ Update an existing cron job
 
 ```
 USAGE
-  $ mw cronjob update CRONJOB-ID [--token <value>] [-q] [--description <value>] [--interval <value>] [--email
-    <value>] [--url <value> | --command <value>] [--interpreter bash|php ] [--enable | --disable] [--timeout <value>]
-    [--timezone <value>]
+  $ mw cronjob update CRONJOB-ID [--token <value>] [-q] [-c <value>] [--description <value>] [--interval <value>]
+    [--email <value>] [--url <value> | --command <value>] [--interpreter bash|php ] [--enable | --disable] [--timeout
+    <value>] [--timezone <value>]
 
 ARGUMENTS
   CRONJOB-ID  ID of the cron job to be updated.
 
 FLAGS
+  -c, --container-id=<value>  ID, short ID or name of the container in which the cron job is executed.
   -q, --quiet                 suppress process output and only display a machine-readable summary
       --command=<value>       Specify the file and arguments to be executed when the cron job is run.
       --description=<value>   Set cron job description.
@@ -343,7 +381,25 @@ AUTHENTICATION FLAGS
 DESCRIPTION
   Update an existing cron job
 
+EXAMPLES
+  # Change the schedule of a cron job
+
+    $ mw cronjob update cron-XXXXXX --interval '0 * * * *'
+
+  # Change the command of a container cron job
+
+    $ mw cronjob update cron-XXXXXX --command 'php artisan schedule:run'
+
+  # Move a container cron job to another container
+
+    $ mw cronjob update cron-XXXXXX --container-id othercontainer
+
 FLAG DESCRIPTIONS
+  -c, --container-id=<value>  ID, short ID or name of the container in which the cron job is executed.
+
+    Makes this a container cron job: the given --command is executed inside this container (a service of a container
+    stack) instead of an app installation. Cannot be combined with --url or --interpreter.
+
   -q, --quiet  suppress process output and only display a machine-readable summary
 
     This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
@@ -351,8 +407,9 @@ FLAG DESCRIPTIONS
 
   --command=<value>  Specify the file and arguments to be executed when the cron job is run.
 
-    Specifies a file to be executed with the specified interpreter. Additional arguments can be appended to the command
-    to be passed to the script. Not required if a URL is given.
+    For app cron jobs, this specifies a file to be executed with the specified interpreter. Additional arguments can be
+    appended to the command to be passed to the script. Not required if a URL is given. For container cron jobs (see
+    --container-id), this is the complete command line that is executed inside the container; no interpreter is needed.
 
   --description=<value>  Set cron job description.
 

@@ -25,7 +25,15 @@ export const cronjobFlagDefinitions = {
     summary:
       "Specify the file and arguments to be executed when the cron job is run.",
     description:
-      " Specifies a file to be executed with the specified interpreter. Additional arguments can be appended to the command to be passed to the script. Not required if a URL is given.",
+      "For app cron jobs, this specifies a file to be executed with the specified interpreter. Additional arguments can be appended to the command to be passed to the script. Not required if a URL is given. " +
+      "For container cron jobs (see --container-id), this is the complete command line that is executed inside the container; no interpreter is needed.",
+  }),
+  containerId: Flags.custom<string>({
+    char: "c",
+    summary:
+      "ID, short ID or name of the container in which the cron job is executed.",
+    description:
+      "Makes this a container cron job: the given --command is executed inside this container (a service of a container stack) instead of an app installation. Cannot be combined with --url or --interpreter.",
   }),
   interpreter: Flags.custom<string>({
     options: ["bash", "php"],
