@@ -1,14 +1,14 @@
-import type { MittwaldAPIV2Client } from "@mittwald/api-client";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 
-type CronjobCreationData = Parameters<
-  MittwaldAPIV2Client["cronjob"]["createCronjob"]
->[0]["data"];
+type CronjobDestination =
+  | MittwaldAPIV2.Components.Schemas.CronjobCronjobUrl
+  | MittwaldAPIV2.Components.Schemas.CronjobCronjobCommand;
 
 export function buildCronjobDestination(
   url: string | undefined,
   command: string | undefined,
   interpreter: string | undefined,
-): CronjobCreationData["destination"] {
+): CronjobDestination {
   if (url) {
     return { url };
   }
@@ -16,7 +16,7 @@ export function buildCronjobDestination(
   if (command && interpreter) {
     return {
       interpreter: mapInterpreterToFullPath(interpreter),
-      path: command as string,
+      path: command,
     };
   }
 
