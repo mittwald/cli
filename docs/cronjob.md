@@ -384,15 +384,15 @@ DESCRIPTION
 EXAMPLES
   # Change the schedule of a cron job
 
-    $ mw cronjob update c-XXXXXX --interval '0 * * * *'
+    $ mw cronjob update cron-XXXXXX --interval '0 * * * *'
 
   # Change the command of a container cron job
 
-    $ mw cronjob update c-XXXXXX --command 'php artisan schedule:run'
+    $ mw cronjob update cron-XXXXXX --command 'php artisan schedule:run'
 
   # Move a container cron job to another container
 
-    $ mw cronjob update c-XXXXXX --container-id othercontainer
+    $ mw cronjob update cron-XXXXXX --container-id othercontainer
 
 FLAG DESCRIPTIONS
   -c, --container-id=<value>  ID, short ID or name of the container in which the cron job is executed.
