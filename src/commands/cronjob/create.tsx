@@ -9,12 +9,12 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { appInstallationFlags } from "../../lib/resources/app/flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
-import { findContainerInProject } from "../../lib/resources/container/flags.js";
 import { cronjobFlagDefinitions } from "../../lib/resources/cronjob/flags.js";
 import {
   buildCronjobTarget,
   CronjobTarget,
 } from "../../lib/resources/cronjob/target.js";
+import { resolveContainerTarget } from "../../lib/resources/cronjob/resolve.js";
 import Duration from "../../lib/units/Duration.js";
 import { Flags } from "@oclif/core";
 import { ProcessRenderer } from "../../rendering/process/process.js";
@@ -132,18 +132,15 @@ export class Create extends ExecRenderBaseCommand<typeof Create, Result> {
     const { url, command, interpreter } = this.flags;
     const projectId = await this.withProjectId(Create);
 
-    const [serviceId, stackId] = await p.runStep("fetching container", () =>
-      findContainerInProject(this.apiClient, projectId, containerId),
-    );
-
     return {
       projectId,
-      target: buildCronjobTarget({
-        container: { stackId, serviceId },
-        url,
-        command,
-        interpreter,
-      }),
+      target: await resolveContainerTarget(
+        this.apiClient,
+        p,
+        projectId,
+        containerId,
+        { url, command, interpreter },
+      ),
     };
   }
 

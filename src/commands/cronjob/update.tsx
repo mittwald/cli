@@ -16,7 +16,7 @@ import {
   CronjobTarget,
   getCronjobServiceTarget,
 } from "../../lib/resources/cronjob/target.js";
-import { findContainerInProject } from "../../lib/resources/container/flags.js";
+import { resolveContainerTarget } from "../../lib/resources/cronjob/resolve.js";
 import Duration from "../../lib/units/Duration.js";
 
 type CronjobCronjob = MittwaldAPIV2.Components.Schemas.CronjobCronjob;
@@ -29,9 +29,9 @@ export default class Update extends ExecRenderBaseCommand<
 > {
   static description = "Update an existing cron job";
   static examples = [
-    "# Change the schedule of a cron job\n<%= config.bin %> <%= command.id %> c-XXXXXX --interval '0 * * * *'",
-    "# Change the command of a container cron job\n<%= config.bin %> <%= command.id %> c-XXXXXX --command 'php artisan schedule:run'",
-    "# Move a container cron job to another container\n<%= config.bin %> <%= command.id %> c-XXXXXX --container-id othercontainer",
+    "# Change the schedule of a cron job\n<%= config.bin %> <%= command.id %> cron-XXXXXX --interval '0 * * * *'",
+    "# Change the command of a container cron job\n<%= config.bin %> <%= command.id %> cron-XXXXXX --command 'php artisan schedule:run'",
+    "# Move a container cron job to another container\n<%= config.bin %> <%= command.id %> cron-XXXXXX --container-id othercontainer",
   ];
   static args = {
     "cronjob-id": Args.string({
@@ -130,59 +130,51 @@ export default class Update extends ExecRenderBaseCommand<
     process: ProcessRenderer,
     cronjob: CronjobCronjob,
   ): Promise<CronjobTarget | undefined> {
-    const {
-      "container-id": containerId,
-      url,
-      command,
-      interpreter,
-    } = this.flags;
+    const { "container-id": containerIdFlag, url, command } = this.flags;
 
-    if (!containerId && !url && !command) {
+    if (!containerIdFlag && !url && !command) {
       return undefined;
     }
 
     const currentServiceTarget = getCronjobServiceTarget(cronjob);
+    const containerId = containerIdFlag ?? currentServiceTarget?.serviceShortId;
 
     if (containerId) {
-      const { projectId } = cronjob;
-      if (!projectId) {
-        throw new Error("no project found for cron job");
-      }
-
-      const [serviceId, stackId] = await process.runStep(
-        "fetching container",
-        () => findContainerInProject(this.apiClient, projectId, containerId),
+      return this.resolveContainerTarget(
+        process,
+        cronjob,
+        containerId,
+        currentServiceTarget?.command,
       );
-
-      return buildCronjobTarget({
-        container: { stackId, serviceId },
-        url,
-        command: command ?? currentServiceTarget?.command,
-        interpreter,
-      });
     }
 
-    if (currentServiceTarget) {
-      const { stackId, serviceShortId } = currentServiceTarget;
-      const serviceId = await process.runStep(
-        "fetching container",
-        async () => {
-          const r = await this.apiClient.container.getService({
-            stackId,
-            serviceId: serviceShortId,
-          });
-          assertStatus(r, 200);
-          return r.data.id;
-        },
-      );
+    return this.resolveAppTarget(cronjob);
+  }
 
-      return buildCronjobTarget({
-        container: { stackId, serviceId },
-        url,
-        command,
-        interpreter,
-      });
+  private async resolveContainerTarget(
+    process: ProcessRenderer,
+    cronjob: CronjobCronjob,
+    containerId: string,
+    currentCommand: string | undefined,
+  ): Promise<CronjobTarget> {
+    const { url, command, interpreter } = this.flags;
+    const { projectId } = cronjob;
+
+    if (!projectId) {
+      throw new Error("no project found for cron job");
     }
+
+    return resolveContainerTarget(
+      this.apiClient,
+      process,
+      projectId,
+      containerId,
+      { url, command: command ?? currentCommand, interpreter },
+    );
+  }
+
+  private resolveAppTarget(cronjob: CronjobCronjob): CronjobTarget {
+    const { url, command, interpreter } = this.flags;
 
     return buildCronjobTarget({
       appInstallationId: cronjob.appInstallationId ?? cronjob.appId,
