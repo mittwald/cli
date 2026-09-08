@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/mittwald/cli/compare/v1.24.1...v1.25.0) (2026-09-08)
+
+
+### Features
+
+* **cronjob:** support container cron jobs in create and update ([#2111](https://github.com/mittwald/cli/issues/2111)) ([0162c64](https://github.com/mittwald/cli/commit/0162c6433fde2ddf01110ac8695376e77783437e)), closes [#1981](https://github.com/mittwald/cli/issues/1981) [#1982](https://github.com/mittwald/cli/issues/1982)
+
 ## [1.24.1](https://github.com/mittwald/cli/compare/v1.24.0...v1.24.1) (2026-09-03)
 
 
