@@ -8525,8 +8525,8 @@ __metadata:
   linkType: hard
 
 "open@npm:^11.0.0":
-  version: 11.0.2
-  resolution: "open@npm:11.0.2"
+  version: 11.0.3
+  resolution: "open@npm:11.0.3"
   dependencies:
     default-browser: ^5.5.1
     define-lazy-prop: ^3.0.0
@@ -8534,7 +8534,7 @@ __metadata:
     is-inside-container: ^1.0.0
     powershell-utils: ^0.2.1
     wsl-utils: ^1.0.0
-  checksum: 74730586cf92be83cb087ae607b78af980e0b822fb71761da27cb6df4cbf80ce871a8d359897621953609a7811617da34439b6b0b9c0213e47bdef18178758ff
+  checksum: 7f86023cd10b38d2ca745f4012d2bd8e32f37b5fce1b6c8e568c735cec243e6f12463c4d55ce05752d9856faf7c19c2d322d25797fd545289890ca6b70ec345a
   languageName: node
   linkType: hard
 
