@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-13T13:56:06.092Z",
+  "source": {
+    "kind": "run-all-summary"
+  },
+  "statistics": {
+    "successful": 165,
+    "failed": 0,
+    "waivedSkipped": 23,
+    "total": 188
+  },
+  "entries": [
+    {
+      "commandId": "app download",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app exec",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app get",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app open",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app ssh",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app upgrade",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "app upload",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container cp",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container exec",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container logs",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "container port-forward",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "conversation create",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "conversation reply",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "cronjob execution logs",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql dump",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql import",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql shell",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "database mysql user delete",
+      "category": "RESOURCE_PRECONDITION",
+      "source": "waiver"
+    },
+    {
+      "commandId": "ddev init",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "experimental deploy",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "login token",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "stack deploy",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    },
+    {
+      "commandId": "user ssh-key create",
+      "category": "INTERACTIVE_REQUIRED",
+      "source": "waiver"
+    }
+  ]
+}

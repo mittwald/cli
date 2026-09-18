@@ -1,0 +1,163 @@
+[
+  {
+    "id": "interactive-app-upgrade",
+    "commandId": "app upgrade",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Upgrade target selection is interactive and has no stable non-interactive override yet.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-container-logs",
+    "commandId": "container logs",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Log follow behavior depends on interactive terminal controls in current implementation.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-container-cp-filesystem-io",
+    "commandId": "container cp",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "It requires more I/O with filesystem under the hood.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-container-exec-unmockable-remote-call",
+    "commandId": "container exec",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Execution path depends on an interactive remote call chain that cannot be reliably mocked in the current integration harness.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-cronjob-execution-logs",
+    "commandId": "cronjob execution logs",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Execution log access path prompts or expects interactive I/O in this test setup.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-database-mysql-import",
+    "commandId": "database mysql import",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Import flow expects interactive input or file prompt handling not available in the simple renderer.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-database-mysql-shell",
+    "commandId": "database mysql shell",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "MySQL shell requires password prompt interaction and cannot run headless yet.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-ddev-init",
+    "commandId": "ddev init",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Project type and configuration selection still enters interactive decision branches.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-login-token",
+    "commandId": "login token",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Token acquisition flow is intentionally interactive for secure input handling.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-stack-deploy",
+    "commandId": "stack deploy",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Deploy flow requires interactive input in current command implementation.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "interactive-user-ssh-key-create",
+    "commandId": "user ssh-key create",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "SSH key creation relies on interactive prompts for key source and confirmation.",
+    "issue": "defer-interactive-support"
+  },
+  {
+    "id": "command-bug-conversation-create-tempfile-unlink-enoent",
+    "commandId": "conversation create",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Conversation files are handled in filesystem temp paths. Additional work needed to mock.",
+    "issue": "conversation-file-handling"
+  },
+  {
+    "id": "command-bug-conversation-reply-tempfile-unlink-enoent",
+    "commandId": "conversation reply",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Conversation files are handled in filesystem temp paths. Additional work needed to mock.",
+    "issue": "conversation-file-handling"
+  },
+  {
+    "id": "contract-shape-app-download-missing-web-directory",
+    "commandId": "app download",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Beyond overlapping path-shape issues, this command enters SSH/rsync execution paths that are interactive/system-dependent and not intended to run in headless integration matrix mode.",
+    "issue": "seed-appinstall-web-directory-fixture"
+  },
+  {
+    "id": "contract-shape-app-exec-missing-web-directory",
+    "commandId": "app exec",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Beyond overlapping path-shape issues, this command enters SSH/rsync execution paths that are interactive/system-dependent and not intended to run in headless integration matrix mode.",
+    "issue": "seed-appinstall-web-directory-fixture"
+  },
+  {
+    "id": "contract-shape-app-ssh-missing-web-directory",
+    "commandId": "app ssh",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Beyond overlapping path-shape issues, this command enters SSH/rsync execution paths that are interactive/system-dependent and not intended to run in headless integration matrix mode.",
+    "issue": "seed-appinstall-web-directory-fixture"
+  },
+  {
+    "id": "contract-shape-app-get-missing-web-directory",
+    "commandId": "app get",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Beyond overlapping path-shape issues, this command enters SSH/rsync execution paths that are interactive/system-dependent and not intended to run in headless integration matrix mode.",
+    "issue": "seed-appinstall-web-directory-fixture"
+  },
+  {
+    "id": "command-bug-app-open-missing-virtualhost-link",
+    "commandId": "app open",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Command wants to open URL derived from app installation.",
+    "issue": "need-interactive-mocking-for-open"
+  },
+  {
+    "id": "resource-precondition-app-upload-source-placeholder-not-available",
+    "commandId": "app upload",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Command interactively uploads stuff and needs source folder in filesystem.",
+    "issue": "need-interactive-filesystem-mocking"
+  },
+  {
+    "id": "resource-precondition-database-mysql-dump-main-user-missing",
+    "commandId": "database mysql dump",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "The MySQL dump flow fetches dump via ssh which is not possible in test env.",
+    "issue": "need-ssh-mocking"
+  },
+  {
+    "id": "resource-precondition-experimental-deploy-registry-service-missing",
+    "commandId": "experimental deploy",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "Calls further tooling down the line, e.g. railpack and/or docker",
+    "issue": "deeper-mocking-needed"
+  },
+  {
+    "id": "container-port-forwarding-ssh-missing",
+    "commandId": "container port-forward",
+    "category": "INTERACTIVE_REQUIRED",
+    "reason": "port forwarding via ssh is not available in test env",
+    "issue": "need-ssh-mocking"
+  },
+  {
+    "id": "resource-precondition-database-mysql-user-delete-main-user-protected",
+    "commandId": "database mysql user delete",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "Integration currently targets the main MySQL user, which is protected by API rules and cannot be deleted manually in this flow.",
+    "issue": "seed-mysql-non-main-user-fixture"
+  }
+]
