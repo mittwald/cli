@@ -6,10 +6,7 @@ import {
   processFlags,
 } from "../../rendering/process/process_flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
-import {
-  optionalStackFlags,
-  withStackIdOrDefault,
-} from "../../lib/resources/stack/flags.js";
+import { stackFlags } from "../../lib/resources/stack/flags.js";
 import dockerNames from "docker-names";
 import { assertStatus, MittwaldAPIV2 } from "@mittwald/api-client";
 import {
@@ -57,7 +54,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
   static flags = {
     ...processFlags,
     ...projectFlags,
-    ...optionalStackFlags,
+    ...stackFlags,
     env: containerEnvFlag(),
     "env-file": containerEnvFileFlag(),
     description: containerDescriptionFlag({
@@ -126,12 +123,7 @@ export class Run extends ExecRenderBaseCommand<typeof Run, Result> {
     const p = makeProcessRenderer(this.flags, "Creating a container");
 
     const projectId = await this.withProjectId(Run);
-    const stackId = await withStackIdOrDefault(
-      this.apiClient,
-      this.flags,
-      projectId,
-      this.config,
-    );
+    const stackId = await this.withStackId(Run);
     const serviceName = this.getServiceName();
 
     const { image, meta: imageMeta } = await p.runStep(
