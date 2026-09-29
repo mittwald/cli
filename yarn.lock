@@ -3076,11 +3076,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^26.0.0":
-  version: 26.6.2
-  resolution: "@types/node@npm:26.6.2"
+  version: 26.6.3
+  resolution: "@types/node@npm:26.6.3"
   dependencies:
     undici-types: ~8.9.0
-  checksum: 48b47e3fe659c63390e559ab5c6abc0484ef0d0940c9600ff0add3654617f0a75c9cc0ff91157d0e4dd360b20f8dfdf8a5abd38661b85f42d5543e70f20d7105
+  checksum: 1a1c7a5156c7bfac32282ed331965b4f56719e01b2ca5e882f248ed571972271b6486ee9e28957c7fba50332a7f9e2c4c1cb9a870bbeddb36fde71a9485093f2
   languageName: node
   linkType: hard
 
