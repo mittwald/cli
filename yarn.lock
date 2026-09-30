@@ -4348,9 +4348,9 @@ __metadata:
   linkType: hard
 
 "chalk@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "chalk@npm:6.0.0"
-  checksum: d7f2d436a04357b3905ef253befc175e3cab68c4731bbbef40eb412d1dea2d5e853995364cdaf8c67fd0e84d051e767c089898788866136119c8664aae1a06bb
+  version: 6.0.1
+  resolution: "chalk@npm:6.0.1"
+  checksum: 285b106e7cb6251af1f948f277c4836ce04ab4d945949dea1473e838041cae6029ff01fb218596505707a310811204f10cb2b75f992e76475275dc5fa0ca4a7f
   languageName: node
   linkType: hard
 
