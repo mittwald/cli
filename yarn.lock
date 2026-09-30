@@ -8990,9 +8990,9 @@ __metadata:
   linkType: hard
 
 "pretty-bytes@npm:^7.0.0":
-  version: 7.1.3
-  resolution: "pretty-bytes@npm:7.1.3"
-  checksum: 58f5b783c7e07c27595a7d9c04934cfa48f7b0bf1afcf8bb00641f11e9036808ee7d1efed41c18150e628465e93dbe11f8168e81f3f3b16abff2111678f5b979
+  version: 7.2.0
+  resolution: "pretty-bytes@npm:7.2.0"
+  checksum: 7d3552965d2a47eb071dc7139c6f03af49d4f9e43399be52baa4e7290070a4f6ff59df46753cb672122f68a49b1733feec267edb26a3faa18c3123950c52e0cb
   languageName: node
   linkType: hard
 
