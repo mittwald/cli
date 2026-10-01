@@ -3,7 +3,9 @@ import path from "node:path";
 
 export type MachineLogEntry = Record<string, unknown>;
 
-export async function initializeMachineLogFile(filePath: string): Promise<void> {
+export async function initializeMachineLogFile(
+  filePath: string,
+): Promise<void> {
   await mkdir(path.dirname(filePath), { recursive: true });
   await writeFile(filePath, "", "utf-8");
 }

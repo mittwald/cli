@@ -1,8 +1,9 @@
 # Waiver Governance for Integration Command Matrix
 
 ## Purpose
-Waivers are an explicit governance record for known failing integration commands.
-They are not a suppression shortcut.
+
+Waivers are an explicit governance record for known failing integration
+commands. They are not a suppression shortcut.
 
 Goal:
 
@@ -62,7 +63,7 @@ Enforced in full matrix mode only (no category filter, no command override):
 Additional governance enforcement:
 
 - if a command is classified `INTERACTIVE_REQUIRED` and has no waiver (and no
-   bypass mode is active), this is a failure and governance violation.
+  bypass mode is active), this is a failure and governance violation.
 
 ## Intentional Relaxations
 
@@ -107,7 +108,8 @@ A strong waiver reason states:
 Examples:
 
 - weak: `known issue`
-- strong: `command requires interactive select branch in oclif prompt path; integration runner is non-interactive, no profile-based non-interactive fallback exists yet; tracked in MWCLI-742`
+- strong:
+  `command requires interactive select branch in oclif prompt path; integration runner is non-interactive, no profile-based non-interactive fallback exists yet; tracked in MWCLI-742`
 
 ## Operational Workflow
 

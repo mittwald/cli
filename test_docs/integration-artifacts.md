@@ -1,6 +1,7 @@
 # Integration Artifacts and Contracts
 
 ## Purpose
+
 This document defines the machine contracts for the run-all integration test and
 the downstream analyzer tooling.
 
