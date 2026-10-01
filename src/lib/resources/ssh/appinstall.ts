@@ -33,7 +33,7 @@ export async function getSSHConnectionForAppInstallation(
   const host = `ssh.${projectResponse.data.clusterID}.${projectResponse.data.clusterDomain}`;
   const user = `${sshUser}@${appInstallationResponse.data.shortId}`;
   const directory = path.join(
-    projectResponse.data.directories["Web"],
+    projectResponse.data.directories["Web"], // XXX: Attention this might be undefined
     appInstallationResponse.data.installationPath,
   );
 
