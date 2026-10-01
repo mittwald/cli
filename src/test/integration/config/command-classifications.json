@@ -1,15 +1,4 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-10-01T12:30:59.480Z",
-  "source": {
-    "kind": "run-all-summary"
-  },
-  "statistics": {
-    "successful": 165,
-    "failed": 0,
-    "waivedSkipped": 23,
-    "total": 188
-  },
   "entries": [
     {
       "commandId": "app download",
@@ -126,5 +115,16 @@
       "category": "INTERACTIVE_REQUIRED",
       "source": "waiver"
     }
-  ]
+  ],
+  "generatedAt": "2026-10-01T12:30:59.480Z",
+  "schemaVersion": 1,
+  "source": {
+    "kind": "run-all-summary"
+  },
+  "statistics": {
+    "successful": 165,
+    "failed": 0,
+    "waivedSkipped": 23,
+    "total": 188
+  }
 }

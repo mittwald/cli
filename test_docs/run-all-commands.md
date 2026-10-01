@@ -1,6 +1,7 @@
 # Run-All Commands Integration Runner
 
 ## Purpose
+
 Run all discovered CLI commands in integration context, emit deterministic
 machine logs, and fail on all non-waived command failures.
 
@@ -96,8 +97,7 @@ Behavior:
 
 - Select exactly one discovered command
 - Bypass waiver for that command
-- Optionally override invocation args with
-  `MW_TEST_COMMAND_INVOCATION_ARGS`
+- Optionally override invocation args with `MW_TEST_COMMAND_INVOCATION_ARGS`
 - Skip strict global waiver integrity checks
 - Skip classification catalog write
 
@@ -175,8 +175,8 @@ yarn test --runTestsByPath src/test/integration/run-all-commands.test.ts
 
 - Command IDs derive from file paths under `src/commands`.
 - Invocation synthesis combines parsed args/flags, profiles, and examples.
-- A command can be preflight-failed as `ARG_MISUSE` before execution if
-  required args/flags are unresolved.
+- A command can be preflight-failed as `ARG_MISUSE` before execution if required
+  args/flags are unresolved.
 
 ### Waiver and Integrity Logic
 

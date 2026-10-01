@@ -368,7 +368,12 @@ describeRunAllCommands("integration: run all commands", () => {
           details: "timed out after 30000ms",
         });
         logProgress(`[${position}] timeout ${command.commandId}`);
-        logCommandFailureOutput(position, command.commandId, result, logProgress);
+        logCommandFailureOutput(
+          position,
+          command.commandId,
+          result,
+          logProgress,
+        );
         await appendMachineLogEntry(machineLogPath, {
           event: "command-result",
           index: index + 1,
@@ -399,7 +404,12 @@ describeRunAllCommands("integration: run all commands", () => {
         logProgress(
           `[${position}] spawn-error ${command.commandId}: ${errorMessage}`,
         );
-        logCommandFailureOutput(position, command.commandId, result, logProgress);
+        logCommandFailureOutput(
+          position,
+          command.commandId,
+          result,
+          logProgress,
+        );
         await appendMachineLogEntry(machineLogPath, {
           event: "command-result",
           index: index + 1,
@@ -428,7 +438,12 @@ describeRunAllCommands("integration: run all commands", () => {
         logProgress(
           `[${position}] classified ${command.commandId} as ${category}`,
         );
-        logCommandFailureOutput(position, command.commandId, result, logProgress);
+        logCommandFailureOutput(
+          position,
+          command.commandId,
+          result,
+          logProgress,
+        );
 
         await appendMachineLogEntry(machineLogPath, {
           event: "command-result",
