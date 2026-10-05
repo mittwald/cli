@@ -77,6 +77,13 @@
     "issue": "defer-interactive-support"
   },
   {
+    "id": "resource-precondition-user-ssh-key-import-public-key-missing",
+    "commandId": "user ssh-key import",
+    "category": "RESOURCE_PRECONDITION",
+    "reason": "The command reads ~/.ssh/id_rsa.pub by default; a public key may exist in the current environment but cannot be assumed on every environment where integration tests run. A deterministic test key fixture is needed.",
+    "issue": "provide-test-ssh-public-key-fixture"
+  },
+  {
     "id": "command-bug-conversation-create-tempfile-unlink-enoent",
     "commandId": "conversation create",
     "category": "INTERACTIVE_REQUIRED",
