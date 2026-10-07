@@ -9,10 +9,7 @@ import { assertStatus } from "@mittwald/api-client-commons";
 import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
-import {
-  optionalStackFlags,
-  withStackIdOrDefault,
-} from "../../lib/resources/stack/flags.js";
+import { stackFlags } from "../../lib/resources/stack/flags.js";
 
 type Result = {
   volumeName: string;
@@ -27,7 +24,7 @@ export class Delete extends ExecRenderBaseCommand<typeof Delete, Result> {
 
   static flags = {
     ...projectFlags,
-    ...optionalStackFlags,
+    ...stackFlags,
     ...processFlags,
     force: Flags.boolean({
       summary: "force removal without confirmation",
@@ -46,12 +43,7 @@ export class Delete extends ExecRenderBaseCommand<typeof Delete, Result> {
   protected async exec(): Promise<Result> {
     const process = makeProcessRenderer(this.flags, "Removing volume");
     const projectId = await this.withProjectId(Delete);
-    const stackId = await withStackIdOrDefault(
-      this.apiClient,
-      this.flags,
-      projectId,
-      this.config,
-    );
+    const stackId = await this.withStackId(Delete);
     const { name: volumeName } = this.args;
 
     // Get current stack state
