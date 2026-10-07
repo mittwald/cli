@@ -300,5 +300,8 @@
       "prerun": "./dist/hooks/prerun/update-brew-check"
     }
   },
+  "overrides": {
+    "@yarnpkg/core": "4.9.1"
+  },
   "packageManager": "yarn@3.6.1"
 }
