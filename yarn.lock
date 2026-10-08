@@ -15,13 +15,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alcalzone/ansi-tokenize@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "@alcalzone/ansi-tokenize@npm:0.3.0"
+"@alcalzone/ansi-tokenize@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@alcalzone/ansi-tokenize@npm:0.3.1"
   dependencies:
     ansi-styles: ^6.2.1
     is-fullwidth-code-point: ^5.0.0
-  checksum: d410708ff91d9aadacdcfec42a92df9e94b997853a31e8503da2d0e50b244937a3f55ada0a8e92bfa98d37c19c7940f451faaf5b2ed5275134d8fa1c7e3ab2af
+  checksum: 47481a4b57994273d2dfbb65abae61c1526dd50164db646e31692b37a3bf5df5012f798de71884d0be60ba9c5a11d881782b4cf87428bd809a6c43d60c96130e
   languageName: node
   linkType: hard
 
@@ -2004,7 +2004,7 @@ __metadata:
     eslint-plugin-prettier: ^5.5.1
     fast-xml-parser: ^5.2.5
     globals: ^17.0.0
-    ink: ^7.0.2
+    ink: ^8.0.0
     ink-link: ^5.0.0
     ink-text-input: ^6.0.0
     jest: ^30.5.1
@@ -3806,6 +3806,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ansi-styles@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "ansi-styles@npm:7.0.0"
+  checksum: 94754b81c531cede91c0d49146f8adac80314c1d6503e3b1609bf4a61eeacd95b9ff732978bcef1ed23120968c5e75841f087536a112e0d38283b8b1dd8d18a8
+  languageName: node
+  linkType: hard
+
 "ansis@npm:^3.16.0, ansis@npm:^3.17.0":
   version: 3.17.0
   resolution: "ansis@npm:3.17.0"
@@ -4340,14 +4347,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^5.3.0, chalk@npm:^5.4.1, chalk@npm:^5.6.2":
+"chalk@npm:^5.3.0, chalk@npm:^5.4.1":
   version: 5.6.2
   resolution: "chalk@npm:5.6.2"
   checksum: 4ee2d47a626d79ca27cb5299ecdcce840ef5755e287412536522344db0fc51ca0f6d6433202332c29e2288c6a90a2b31f3bd626bc8c14743b6b6ee28abd3b796
   languageName: node
   linkType: hard
 
-"chalk@npm:^6.0.0":
+"chalk@npm:^6.0.0, chalk@npm:^6.0.1":
   version: 6.0.1
   resolution: "chalk@npm:6.0.1"
   checksum: 285b106e7cb6251af1f948f277c4836ce04ab4d945949dea1473e838041cae6029ff01fb218596505707a310811204f10cb2b75f992e76475275dc5fa0ca4a7f
@@ -5107,15 +5114,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-toolkit@npm:^1.45.1":
-  version: 1.46.1
-  resolution: "es-toolkit@npm:1.46.1"
+"es-toolkit@npm:^1.52.0":
+  version: 1.52.0
+  resolution: "es-toolkit@npm:1.52.0"
   dependenciesMeta:
     "@trivago/prettier-plugin-sort-imports@4.3.0":
       unplugged: true
     prettier-plugin-sort-re-exports@0.0.1:
       unplugged: true
-  checksum: 24b0a6b84a19f30bb97b65b1fe4c6d9a87258418f84edfa8f49bbe346edae31ff156c5d8af42fd27a4106916a03500722986633aaa0c286155892e5867bb5483
+    vitepress-plugin-sandpack@1.1.4:
+      unplugged: true
+  checksum: 53c25579941028646409ba24f6794aff8103d49124ffc0389733200e9d9bc16b7f813f531ad0bf403159d4f7a3389c95125596a505953f8937d350958095293b
   languageName: node
   linkType: hard
 
@@ -6385,45 +6394,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink@npm:^7.0.2":
-  version: 7.1.1
-  resolution: "ink@npm:7.1.1"
+"ink@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "ink@npm:8.0.0"
   dependencies:
-    "@alcalzone/ansi-tokenize": ^0.3.0
+    "@alcalzone/ansi-tokenize": ^0.3.1
     ansi-escapes: ^7.3.0
-    ansi-styles: ^6.2.3
+    ansi-styles: ^7.0.0
     auto-bind: ^5.0.1
-    chalk: ^5.6.2
+    chalk: ^6.0.1
     cli-boxes: ^4.0.1
     cli-cursor: ^4.0.0
     cli-truncate: ^6.0.0
     code-excerpt: ^4.0.0
-    es-toolkit: ^1.45.1
+    es-toolkit: ^1.52.0
     indent-string: ^5.0.0
     is-in-ci: ^2.0.0
     patch-console: ^2.0.0
-    react-reconciler: ^0.33.0
-    scheduler: ^0.27.0
+    quick-lru: ^7.3.0
+    react-reconciler: ^0.34.0
     signal-exit: ^3.0.7
-    slice-ansi: ^9.0.0
     stack-utils: ^2.0.6
-    string-width: ^8.2.0
+    string-width: ^8.3.0
     terminal-size: ^4.0.1
-    type-fest: ^5.5.0
+    type-fest: ^5.10.0
     widest-line: ^6.0.0
-    wrap-ansi: ^10.0.0
-    ws: ^8.20.0
+    wrap-ansi: ^10.0.2
     yoga-layout: ~3.2.1
   peerDependencies:
-    "@types/react": ">=19.2.0"
-    react: ">=19.2.0"
+    "@types/react": ">=19.3.0"
+    react: ">=19.3.0"
     react-devtools-core: ">=6.1.2"
   peerDependenciesMeta:
     "@types/react":
       optional: true
     react-devtools-core:
       optional: true
-  checksum: ecad9dae80fca079e83dfe4b725f7769a15810f2615fac0e3634fc7e58eb6ffef25e684b744f2cced2e48a62df172c3543bb57204d8663ad3d5e9a1697e05db1
+  checksum: 4d718e04ded1574ad4d0b00de825f9e5ad0b57068d5714df8ac3f9316a20e72622f258567b32c2d02dda630cf57771b797d837a9eb27d1f02f0a623dc92dc05e
   languageName: node
   linkType: hard
 
@@ -9151,6 +9158,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"quick-lru@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "quick-lru@npm:7.3.0"
+  checksum: 476a9763e347ff29ab69b6156d5d8a492abfdcf9e565738f32918a34f3bc1451a8359f185d02f372f0fd918a6b0a28bbef54031c66bf77119678bfa396b564a6
+  languageName: node
+  linkType: hard
+
 "react-error-boundary@npm:^5.0.0":
   version: 5.0.0
   resolution: "react-error-boundary@npm:5.0.0"
@@ -9174,14 +9188,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-reconciler@npm:^0.33.0":
-  version: 0.33.0
-  resolution: "react-reconciler@npm:0.33.0"
+"react-reconciler@npm:^0.34.0":
+  version: 0.34.0
+  resolution: "react-reconciler@npm:0.34.0"
   dependencies:
-    scheduler: ^0.27.0
+    scheduler: ^0.28.0
   peerDependencies:
-    react: ^19.2.0
-  checksum: 88181988a66e092c393ed5b9b8d1bdc96bfebbd973c39f0d44ed51e011869d9e344122c89d0971f175c4b533bb614b1eddae9eaea8d4d37bd69e609923888015
+    react: ^19.3.0
+  checksum: 25cc57ba77bf8dad110b5df51edf87d8afcd601a44beec5e3acf88004c20d7b734079c7d95be155bf65c4e19b4add83fce3bd13985fe24b3e6daafafa945854b
   languageName: node
   linkType: hard
 
@@ -9358,10 +9372,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.27.0":
-  version: 0.27.0
-  resolution: "scheduler@npm:0.27.0"
-  checksum: 92644ead0a9443e20f9d24132fe93675b156209b9eeb35ea245f8a86768d0cc0fcca56f341eeef21d9b6dd8e72d6d5e260eb5a41d34b05cd605dd45a29f572ef
+"scheduler@npm:^0.28.0":
+  version: 0.28.0
+  resolution: "scheduler@npm:0.28.0"
+  checksum: 2ec673f773d3b8992ca047a7e94e21b0f6dfea8414935a0d92b070ce1ea6b1b5ee97976f3efc9f3eb49982957b1cd8e38a20b63fb14ed6a848ae063aeb87e751
   languageName: node
   linkType: hard
 
@@ -9714,6 +9728,16 @@ __metadata:
     get-east-asian-width: ^1.5.0
     strip-ansi: ^7.1.2
   checksum: 37fc1e2bdb488404118b1a07747cf9bb1f5fddfe6f850ba4b1451d118d09fb03ca5948cc69740fec5c54bce384232bcc74e181e8bedf39b5d385e9565df1270e
+  languageName: node
+  linkType: hard
+
+"string-width@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "string-width@npm:8.3.0"
+  dependencies:
+    get-east-asian-width: ^1.5.0
+    strip-ansi: ^7.1.2
+  checksum: cfe6b3c8387ca79048436a85a37b8df1917f7f0c3dd708db4cec097ee3b61a8c92e22538702b3af100d154b85113cae53c10f5c2efddbbcd7763df11c2e76970
   languageName: node
   linkType: hard
 
@@ -10223,12 +10247,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^5.5.0":
-  version: 5.6.0
-  resolution: "type-fest@npm:5.6.0"
+"type-fest@npm:^5.10.0":
+  version: 5.10.0
+  resolution: "type-fest@npm:5.10.0"
   dependencies:
     tagged-tag: ^1.0.0
-  checksum: af2a7c85698cdca84a9e29a8c16c8b6a82beaea6d5655dbe8553a11f9ba4f86352db0647c20b9c7dbdc3bc61330026fb043d3883a16249be8203fcfdb12e2c51
+  checksum: 5297267d89df5066dd219820ebc0a01e648db99fb33c0d4b19400464e8238fe3e7b556feea8cf6494e14c3f0388487bac29bbbf263ffde8372e365718bca3c4a
   languageName: node
   linkType: hard
 
@@ -10638,14 +10662,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrap-ansi@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "wrap-ansi@npm:10.0.0"
+"wrap-ansi@npm:^10.0.2":
+  version: 10.0.2
+  resolution: "wrap-ansi@npm:10.0.2"
   dependencies:
     ansi-styles: ^6.2.3
     string-width: ^8.2.0
-    strip-ansi: ^7.1.2
-  checksum: 1ad55bbb6db345519834de53b93732a19abee0a3fc8315c7e037d7ae61420932335159f53f82259c2941dab91bda66b1b4886037216e1dfaae3f3b3fc6aa0a41
+  checksum: d7c89ff37ee6e90ef9983953cf3c23bd9f80dc444364a24c2ba00cd3519e0708355a572247e4c55c1638571cd1df4bd34c6dc29be5ca641faa9ef9daf1c06592
   languageName: node
   linkType: hard
 
@@ -10731,21 +10754,6 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: e38beae19ba4d68577ec24eb34fbfab376333fedd10f99b07511a8e842e22dbc102de39adac333a18e4c58868d0703cd5f239b04b345e22402d0ed8c34ea0aa0
-  languageName: node
-  linkType: hard
-
-"ws@npm:^8.20.0":
-  version: 8.20.0
-  resolution: "ws@npm:8.20.0"
-  peerDependencies:
-    bufferutil: ^4.0.1
-    utf-8-validate: ">=5.0.2"
-  peerDependenciesMeta:
-    bufferutil:
-      optional: true
-    utf-8-validate:
-      optional: true
-  checksum: 2b31d24a53690770564a033c21ea48390f84d23fbc5abc14b2bbec4e112846f2f3ca66caee769a73fb8bc89ba16b452a6911a553e9742bbc75bccb79e203953e
   languageName: node
   linkType: hard
 
