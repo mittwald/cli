@@ -1,5 +1,6 @@
 name: Compilation & Unit Tests
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -15,6 +16,18 @@ jobs:
           node-version: "20"
       - run: yarn
       - run: yarn compile
+
+  # Move this action to mw namespace once it is stable and we can rely on it.
+  build-mockoon:
+    uses: gandie/mw-api-mockoon-gen/.github/workflows/build-mockoon-env-reusable.yml@master
+    with:
+      openapi_url: https://api.mittwald.de/v2/openapi.json
+      openapi_dir: openapi_prepared
+      overlays_dir: overlays
+      mockoon_dir: mockoon_envs
+      node_version: "24"
+      upload_artifact: true
+      artifact_name: mockoon-env-patched
 
   # This is necessary because we also advertise "npm install -g" as an installation
   # method. Even though we're using yarn ourselves, npm must be able to resolve
@@ -92,3 +105,83 @@ jobs:
       - run: npx oclif pack tarballs --targets=linux-x64
       - run: docker build --build-arg PKG_SOURCE=dist -t mittwald/cli:testing .
       - run: docker run --rm mittwald/cli:testing --help
+
+  integration-tests:
+    name: Run integration tests
+    needs: build-mockoon
+    runs-on: ubuntu-latest
+    env:
+      MITTWALD_API_BASE_URL: "http://localhost:3000/"
+      MW_TEST_PROJECT_ID: "p-fo0b4r"
+      MITTWALD_API_TOKEN: "Where we're going we don't need tokens"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: yarn
+      - run: yarn compile
+
+      - name: Download patched Mockoon artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: mockoon-env-patched
+          path: mockoon_envs
+
+      - name: Start Mockoon and run curl test
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ENV_FILE=$(find mockoon_envs -type f -name 'mockoon-env-patched.json' | head -n 1)
+          test -n "$ENV_FILE"
+
+          MOCKOON_PID=""
+          cleanup() {
+            if [ -n "$MOCKOON_PID" ]; then
+              kill "$MOCKOON_PID" || true
+            fi
+          }
+          trap cleanup EXIT
+
+          npx --yes @mockoon/cli start -d "$ENV_FILE" -p 3000 > mockoon.log 2>&1 &
+          MOCKOON_PID=$!
+
+          for i in {1..30}; do
+            if curl -sS -o /dev/null http://127.0.0.1:3000/; then
+              break
+            fi
+            sleep 1
+          done
+
+          API_URL="http://127.0.0.1:3000/v2/project-memberships?hasExpiry=true&isInherited=true&role=notset&limit=50&page=1"
+
+          status_code=$(curl -sS -D response.headers -o response.json -w "%{http_code}" "$API_URL")
+          echo "Received status: ${status_code}"
+          test "$status_code" = "200"
+
+          grep -qi '^content-type: application/json' response.headers
+
+          node -e '
+            const fs = require("node:fs");
+            const data = JSON.parse(fs.readFileSync("response.json", "utf8"));
+            if (!Array.isArray(data)) {
+              console.error("Response is not a JSON array");
+              process.exit(1);
+            }
+
+            if (data.length > 0) {
+              const required = ["id", "userId", "projectId", "role", "mfa", "inherited", "firstName", "lastName", "email"];
+              for (const key of required) {
+                if (!(key in data[0])) {
+                  console.error(`Missing required key in first item: ${key}`);
+                  process.exit(1);
+                }
+              }
+            }
+          '
+
+      - name: Run integration tests
+        run:
+          yarn test:unit --runTestsByPath
+          src/test/integration/run-all-commands.test.ts
