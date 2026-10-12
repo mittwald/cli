@@ -16,6 +16,7 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { waitFlags } from "../../lib/wait.js";
 import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.js";
+import { stackFlags } from "../../lib/resources/stack/flags.js";
 
 import {
   checkRequiredTools,
@@ -40,6 +41,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
   static flags = {
     ...processFlags,
     ...projectFlags,
+    ...stackFlags,
     ...waitFlags,
     env: containerEnvFlag(),
     "env-file": containerEnvFileFlag(),
@@ -110,6 +112,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       this.apiClient,
       projectId,
     );
+    const stackId = await this.withStackId(Deploy);
 
     await p.runStep("Checking dev tools ...", async () => {
       checkRequiredTools();
@@ -126,6 +129,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         const registry = await setupProjectRegistry(
           this.apiClient,
           projectId,
+          stackId,
           projectShortId,
           this.flags["wait-timeout"],
         );
@@ -183,6 +187,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       const result = await deployService(
         this.apiClient,
         projectId,
+        stackId,
         repositoryData,
         this.flags["wait-timeout"],
         environment,
