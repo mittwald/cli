@@ -1,3 +1,27 @@
+# Unreleased
+
+### Integration Tests
+
+- Move Mockoon generation and the full integration matrix out of PR checks into
+    a daily master workflow at 02:17 UTC; keep Mockoon alive until tests finish.
+    Workflow assertions with yq and Bash syntax validation pass. Repository gates
+    stop at formatting issues; compilation, tests, and remote matrix execution
+    remain unverified.
+- Waive the current `volume create` COMMAND_BUG integration failure while
+    tracking validation that a selected stack belongs to the supplied project;
+    no command behavior change is included. The waiver JSON passes Prettier
+    validation; the integration matrix was not rerun.
+- Supply explicit stack IDs for container run, volume create/delete, stack ps,
+  and stack template install; recognize stackFlags during invocation discovery.
+  All five focused regression checks pass. Broader validation is blocked by a
+  missing project-local ESLint binary; API matrix validation remains pending.
+
+### Maintenance
+
+- Capture the stack-awareness follow-up backlog, ownership-validation gaps,
+  and unsuccessful volume-create project-ID workaround. Documentation only;
+  no runtime fix or API validation is claimed.
+
 # [2.0.0](https://github.com/mittwald/cli/compare/v1.25.0...v2.0.0) (2026-10-08)
 
 

@@ -1,5 +1,6 @@
 name: Compilation & Unit Tests
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
