@@ -36,6 +36,26 @@ type Result = {
   buildOnly: boolean;
 };
 
+export function resolveDeployStackIds(
+  sharedStackId: string | undefined,
+  registryStackId: string | undefined,
+  applicationStackId: string | undefined,
+): { registryStackId: string; applicationStackId: string } {
+  const resolvedRegistryStackId = registryStackId ?? sharedStackId;
+  const resolvedApplicationStackId = applicationStackId ?? sharedStackId;
+
+  if (!resolvedRegistryStackId || !resolvedApplicationStackId) {
+    throw new Error(
+      "Provide --stack-id or both --registry-stack-id and --application-stack-id.",
+    );
+  }
+
+  return {
+    registryStackId: resolvedRegistryStackId,
+    applicationStackId: resolvedApplicationStackId,
+  };
+}
+
 export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
   static summary = "Deploys a new container.";
   static flags = {
@@ -43,6 +63,18 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     ...projectFlags,
     ...stackFlags,
     ...waitFlags,
+    "registry-stack-id": Flags.string({
+      summary: "stack ID for the project registry service",
+      description:
+        "Overrides --stack-id for the registry. If omitted, --stack-id or the stack from context is used.",
+      required: false,
+    }),
+    "application-stack-id": Flags.string({
+      summary: "stack ID for the application service",
+      description:
+        "Overrides --stack-id for the application. If omitted, --stack-id or the stack from context is used.",
+      required: false,
+    }),
     env: containerEnvFlag(),
     "env-file": containerEnvFileFlag(),
     "uri-prefix": Flags.string({
@@ -87,6 +119,11 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       command: "<%= config.bin %> <%= command.id %> --project-id p-abc123",
     },
     {
+      description: "Deploy the registry and application into separate stacks",
+      command:
+        "<%= config.bin %> <%= command.id %> --registry-stack-id registry-stack-id --application-stack-id application-stack-id",
+    },
+    {
       description: "Deploy with custom default domain prefix",
       command: "<%= config.bin %> <%= command.id %> --uri-prefix myapp",
     },
@@ -112,7 +149,17 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       this.apiClient,
       projectId,
     );
-    const stackId = await this.withStackId(Deploy);
+    const registryStackIdFlag = this.flags["registry-stack-id"];
+    const applicationStackIdFlag = this.flags["application-stack-id"];
+    const sharedStackId =
+      registryStackIdFlag === undefined || applicationStackIdFlag === undefined
+        ? await this.withStackId(Deploy)
+        : undefined;
+    const { registryStackId, applicationStackId } = resolveDeployStackIds(
+      sharedStackId,
+      registryStackIdFlag,
+      applicationStackIdFlag,
+    );
 
     await p.runStep("Checking dev tools ...", async () => {
       checkRequiredTools();
@@ -129,7 +176,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         const registry = await setupProjectRegistry(
           this.apiClient,
           projectId,
-          stackId,
+          registryStackId,
           projectShortId,
           this.flags["wait-timeout"],
         );
@@ -187,7 +234,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       const result = await deployService(
         this.apiClient,
         projectId,
-        stackId,
+        applicationStackId,
         repositoryData,
         this.flags["wait-timeout"],
         environment,
