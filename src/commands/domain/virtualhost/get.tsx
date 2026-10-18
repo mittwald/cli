@@ -11,6 +11,8 @@ import { Value } from "../../../rendering/react/components/Value.js";
 import { Box, Text } from "ink";
 import { Header } from "../../../rendering/react/components/Header.js";
 import { DnsValidationErrors } from "../../../rendering/react/components/Ingress/DnsValidationErrors.js";
+import { OwnershipVerification } from "../../../rendering/react/components/Ingress/OwnershipVerification.js";
+import { needsOwnershipVerification } from "../../../lib/resources/domain/virtualhost/ownership.js";
 
 type IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
 type IngressPath = MittwaldAPIV2.Components.Schemas.IngressPath;
@@ -72,6 +74,15 @@ const GetIngress: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
     "Virtual Host ID": <Value>{ingress.id}</Value>,
     Hostname: <Value>{ingress.hostname}</Value>,
     "IP addresses": <Value>{ingress.ips.v4.join("\n")}</Value>,
+    ...(ingress.ownership.txtRecord
+      ? {
+          "Domain ownership": (
+            <Value>
+              {ingress.ownership.verified ? "verified" : "not verified"}
+            </Value>
+          ),
+        }
+      : {}),
   };
   const sections = [
     <SingleResult
@@ -85,6 +96,14 @@ const GetIngress: FC<{ ingress: IngressIngress }> = ({ ingress }) => {
     />,
     <IngressPaths key="paths" ingress={ingress} />,
   ];
+
+  if (needsOwnershipVerification(ingress)) {
+    sections.push(
+      <Box key="ownership" marginY={1}>
+        <OwnershipVerification ingress={ingress} />
+      </Box>,
+    );
+  }
 
   if (ingress.dnsValidationErrors.length > 0) {
     sections.push(
