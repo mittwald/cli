@@ -13,6 +13,7 @@ Manage domains, virtual hosts and DNS settings in your projects
 * [`mw domain virtualhost get INGRESS-ID`](#mw-domain-virtualhost-get-ingress-id)
 * [`mw domain virtualhost list`](#mw-domain-virtualhost-list)
 * [`mw domain virtualhost update VIRTUAL-HOST-ID`](#mw-domain-virtualhost-update-virtual-host-id)
+* [`mw domain virtualhost verify VIRTUAL-HOST-ID`](#mw-domain-virtualhost-verify-virtual-host-id)
 
 ## `mw domain dnszone get DNSZONE-ID`
 
@@ -418,5 +419,42 @@ FLAG DESCRIPTIONS
     This flag can be used to map a specific URL path to an external URL; the value for this flag should be the URL path
     and the external URL, separated by a colon, e.g. /:https://redirect.example. You can specify this flag multiple
     times to map multiple paths to different external URLs, and also combine it with the other --path-to-* flags.
+```
+
+
+## `mw domain virtualhost verify VIRTUAL-HOST-ID`
+
+Verify the ownership of a virtual host's domain
+
+```
+USAGE
+  $ mw domain virtualhost verify VIRTUAL-HOST-ID [--token <value>] [-q]
+
+ARGUMENTS
+  VIRTUAL-HOST-ID  ID of the virtual host to verify
+
+FLAGS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Verify the ownership of a virtual host's domain
+
+  Asks mStudio to check the TXT record that proves the ownership of the virtual host's domain. The virtual host gets its
+  IP addresses once its domain is verified.
+
+EXAMPLES
+  Verify a virtual host's domain once its TXT record is set
+
+    $ mw domain virtualhost verify <virtual-host-id>
+
+FLAG DESCRIPTIONS
+  -q, --quiet  suppress process output and only display a machine-readable summary
+
+    This flag controls if you want to see the process output or only a summary. When using mw non-interactively (e.g. in
+    scripts), you can use this flag to easily get the IDs of created resources for further processing.
 ```
 
