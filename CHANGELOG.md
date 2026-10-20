@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/mittwald/cli/compare/v2.0.0...v2.1.0) (2026-10-20)
+
+
+### Features
+
+* **domain:** add virtualhost verify for a domain's TXT record ([#2164](https://github.com/mittwald/cli/issues/2164)) ([683edf6](https://github.com/mittwald/cli/commit/683edf619a6d6886dde7aae47e82ffae1ffa4cb0))
+
 # [2.0.0](https://github.com/mittwald/cli/compare/v1.25.0...v2.0.0) (2026-10-08)
 
 
