@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { Args } from "@oclif/core";
-import { assertStatus, isAxiosError } from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { Text } from "ink";
 import { ExecRenderBaseCommand } from "../../../lib/basecommands/ExecRenderBaseCommand.js";
@@ -8,8 +7,11 @@ import {
   makeProcessRenderer,
   processFlags,
 } from "../../../rendering/process/process_flags.js";
-import assertSuccess from "../../../lib/apiutil/assert_success.js";
-import { needsOwnershipVerification } from "../../../lib/resources/domain/virtualhost/ownership.js";
+import { getVirtualHost } from "../../../lib/resources/domain/virtualhost/ingress.js";
+import {
+  needsOwnershipVerification,
+  verifyOwnership,
+} from "../../../lib/resources/domain/virtualhost/ownership.js";
 import { Success } from "../../../rendering/react/components/Success.js";
 import { Value } from "../../../rendering/react/components/Value.js";
 import { OwnershipVerification } from "../../../rendering/react/components/Ingress/OwnershipVerification.js";
@@ -58,15 +60,9 @@ export default class Verify extends ExecRenderBaseCommand<
     const p = makeProcessRenderer(this.flags, "Verifying domain ownership");
     const ingressId = this.args["virtual-host-id"];
 
-    const getIngress = async (): Promise<IngressIngress> => {
-      const response = await this.apiClient.domain.ingressGetIngress({
-        ingressId,
-      });
-      assertStatus(response, 200);
-      return response.data;
-    };
-
-    const ingress = await p.runStep("fetching virtual host", getIngress);
+    const ingress = await p.runStep("fetching virtual host", () =>
+      getVirtualHost(this.apiClient, ingressId),
+    );
 
     if (!needsOwnershipVerification(ingress)) {
       await p.complete(
@@ -78,24 +74,9 @@ export default class Verify extends ExecRenderBaseCommand<
       return { ingress };
     }
 
-    // The check is synchronous: mStudio answers 412 when it finds no TXT
-    // record with the expected value. The API client throws on non-2xx
-    // responses (see api_retry.ts).
-    const verified = await p.runStep("checking TXT record", async () => {
-      try {
-        const response =
-          await this.apiClient.domain.ingressIngressVerifyOwnership({
-            ingressId,
-          });
-        assertSuccess(response);
-        return true;
-      } catch (e) {
-        if (isAxiosError(e) && e.response?.status === 412) {
-          return false;
-        }
-        throw e;
-      }
-    });
+    const verified = await p.runStep("checking TXT record", () =>
+      verifyOwnership(this.apiClient, ingressId),
+    );
 
     if (!verified) {
       await p.complete(
@@ -107,9 +88,8 @@ export default class Verify extends ExecRenderBaseCommand<
       return { ingress };
     }
 
-    const verifiedIngress = await p.runStep(
-      "fetching virtual host",
-      getIngress,
+    const verifiedIngress = await p.runStep("fetching virtual host", () =>
+      getVirtualHost(this.apiClient, ingressId),
     );
 
     await p.complete(

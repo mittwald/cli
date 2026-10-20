@@ -7,6 +7,7 @@ import {
   buildIngressPaths,
   pathMappingFlags,
 } from "../../../lib/resources/domain/virtualhost/flags.js";
+import { getVirtualHost } from "../../../lib/resources/domain/virtualhost/ingress.js";
 import { ReactNode } from "react";
 import { assertStatus } from "@mittwald/api-client-commons";
 import { Args, ux } from "@oclif/core";
@@ -73,17 +74,8 @@ export default class Update extends ExecRenderBaseCommand<
       assertStatus(response, 204);
     });
 
-    const ingress = await process.runStep(
-      "fetching updated virtual host",
-      async (): Promise<IngressIngress> => {
-        const response = await this.apiClient.domain.ingressGetIngress({
-          ingressId,
-        });
-
-        assertStatus(response, 200);
-
-        return response.data;
-      },
+    const ingress = await process.runStep("fetching updated virtual host", () =>
+      getVirtualHost(this.apiClient, ingressId),
     );
 
     await process.complete(
