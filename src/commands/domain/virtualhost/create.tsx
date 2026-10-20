@@ -17,6 +17,8 @@ import { Value } from "../../../rendering/react/components/Value.js";
 import { waitUntil } from "../../../lib/wait.js";
 import { Box } from "ink";
 import { DnsValidationErrors } from "../../../rendering/react/components/Ingress/DnsValidationErrors.js";
+import { OwnershipVerification } from "../../../rendering/react/components/Ingress/OwnershipVerification.js";
+import { needsOwnershipVerification } from "../../../lib/resources/domain/virtualhost/ownership.js";
 
 type IngressIngress = MittwaldAPIV2.Components.Schemas.IngressIngress;
 
@@ -88,7 +90,15 @@ export default class Create extends ExecRenderBaseCommand<
             ingressId,
           });
 
-          if (response.status !== 200 || response.data.ips.v4.length === 0) {
+          if (response.status !== 200) {
+            return null;
+          }
+
+          // A domain that is not verified gets no IP addresses until it is.
+          if (
+            response.data.ips.v4.length === 0 &&
+            !needsOwnershipVerification(response.data)
+          ) {
             return null;
           }
 
@@ -117,6 +127,14 @@ export default class Create extends ExecRenderBaseCommand<
     }
 
     const output: ReactNode[] = [];
+
+    if (!this.flags.quiet && needsOwnershipVerification(ingress)) {
+      output.push(
+        <Box key="ownership" marginLeft={2}>
+          <OwnershipVerification ingress={ingress} />
+        </Box>,
+      );
+    }
 
     if (ingress.dnsValidationErrors.length > 0) {
       output.push(

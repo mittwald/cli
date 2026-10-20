@@ -76,6 +76,12 @@ providers:
 - Commands are organized by resource type (app, database, domain, etc.)
 - Each resource has associated flags, hooks, and utility functions
 - Resources support short IDs where available for user convenience
+- Fetch a resource through a shared function in `src/lib/resources/<resource>/`
+  (async, taking the `apiClient`) and a hook in its `hooks.ts` that delegates to
+  it, instead of repeating the API call and status assertion in each command.
+  Keep command-specific behaviour, such as a polling condition, in the command.
+- Name render components after what they show (`VirtualHostDetails`), not after
+  the command that uses them (`GetIngress`)
 
 **API Integration:**
 
