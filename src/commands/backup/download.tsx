@@ -17,7 +17,10 @@ import {
 import { waitUntil } from "../../lib/wait.js";
 import axios from "axios";
 import * as fs from "fs";
-import { writeStreamToFile } from "../../lib/resources/backup/download.js";
+import {
+  verifyFileChecksum,
+  writeStreamToFile,
+} from "../../lib/resources/backup/download.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import ByteQuantity, {
   ByteQuantityFormattingOptions,
@@ -188,6 +191,17 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
     } catch (err) {
       downloadStep.error(err);
       throw err;
+    }
+
+    const expectedChecksum = backupExport.sha256Checksum;
+    if (expectedChecksum) {
+      await p.runStep("verifying checksum", () =>
+        verifyFileChecksum(outputFilename, expectedChecksum),
+      );
+    } else {
+      p.addInfo(
+        "Warning: the API provided no checksum for this backup; the downloaded file could not be verified",
+      );
     }
 
     p.complete(

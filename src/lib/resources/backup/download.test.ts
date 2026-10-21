@@ -1,9 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it } from "@jest/globals";
+import { createHash } from "crypto";
 import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 import { Readable } from "stream";
-import { writeStreamToFile } from "./download.js";
+import { verifyFileChecksum, writeStreamToFile } from "./download.js";
 
 function makePayload(size: number): Buffer {
   const buf = Buffer.alloc(size);
@@ -75,5 +76,52 @@ describe("writeStreamToFile", () => {
     await expect(writeStreamToFile(source, target, false)).rejects.toThrow(
       "connection reset",
     );
+  });
+});
+
+describe("verifyFileChecksum", () => {
+  let tempDir: string;
+  let target: string;
+  const payload = makePayload(64 * 1024 + 123);
+  const payloadSha256 = createHash("sha256").update(payload).digest("hex");
+
+  beforeEach(() => {
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "backup-checksum-test-"));
+    target = path.join(tempDir, "backup.tar.gz");
+  });
+
+  afterEach(() => {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  });
+
+  it("accepts a file matching the checksum", async () => {
+    fs.writeFileSync(target, payload);
+
+    await expect(
+      verifyFileChecksum(target, payloadSha256),
+    ).resolves.toBeUndefined();
+  });
+
+  it("accepts an upper-case checksum", async () => {
+    fs.writeFileSync(target, payload);
+
+    await expect(
+      verifyFileChecksum(target, payloadSha256.toUpperCase()),
+    ).resolves.toBeUndefined();
+  });
+
+  // The original bug: a truncated archive must not pass as a valid download.
+  it("rejects a truncated file, reports both hashes and keeps the file", async () => {
+    const truncated = payload.subarray(0, 64 * 1024);
+    fs.writeFileSync(target, truncated);
+    const truncatedSha256 = createHash("sha256")
+      .update(truncated)
+      .digest("hex");
+
+    const result = verifyFileChecksum(target, payloadSha256);
+
+    await expect(result).rejects.toThrow(payloadSha256);
+    await expect(result).rejects.toThrow(truncatedSha256);
+    expect(fs.existsSync(target)).toBe(true);
   });
 });
