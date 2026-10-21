@@ -6,16 +6,12 @@ import { getSSHConnectionForProject } from "./project.js";
 import { Readable, Writable } from "stream";
 import { buildSSHClientFlags } from "./connection.js";
 import { SSHConnectionFlags } from "./flags.js";
+import { RunIO, waitForProcessIO } from "./process.js";
 
 export type RunTarget = { appInstallationId: string } | { projectId: string };
 
 export type RunCommand =
   { command: string; args: string[] } | { shell: string };
-
-export interface RunIO {
-  input: NodeJS.ReadableStream | null;
-  output: NodeJS.WritableStream | null;
-}
 
 export async function executeViaSSH(
   client: MittwaldAPIV2Client,
@@ -44,37 +40,7 @@ export async function executeViaSSH(
     stdio: [input ? "pipe" : "ignore", output ? "pipe" : "ignore", "pipe"],
   }) as ChildProcessByStdio<Writable | null, Readable | null, Readable>;
 
-  let err = "";
-
-  if (input && ssh.stdin) {
-    input.pipe(ssh.stdin);
-  }
-
-  if (output && ssh.stdout) {
-    ssh.stdout.pipe(output);
-  }
-
-  ssh.stderr.on("data", (data) => {
-    err += data.toString();
-  });
-
-  await new Promise((res, rej) => {
-    ssh.on("exit", (code) => {
-      const resolve = () => {
-        if (code === 0) {
-          res(undefined);
-        } else {
-          rej(new Error(`command exited with code ${code}\n${err}`));
-        }
-      };
-
-      if (output === process.stdout || output === null) {
-        resolve();
-      } else {
-        output.end(resolve);
-      }
-    });
-  });
+  await waitForProcessIO(ssh, { input, output });
 }
 
 async function connectionDataForTarget(
