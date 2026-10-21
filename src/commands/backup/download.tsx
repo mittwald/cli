@@ -17,7 +17,7 @@ import {
 import { waitUntil } from "../../lib/wait.js";
 import axios from "axios";
 import * as fs from "fs";
-import { pipeline } from "stream/promises";
+import { writeStreamToFile } from "../../lib/resources/backup/download.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import ByteQuantity, {
   ByteQuantityFormattingOptions,
@@ -167,9 +167,6 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
     let downloaded = ByteQuantity.fromBytes(0);
 
     const outputFilename = this.getFilename(resp.headers);
-    const outputStream = fs.createWriteStream(outputFilename, {
-      flags: this.flags.resume ? "a" : undefined,
-    });
 
     const byteFormattingOpts: ByteQuantityFormattingOptions = {
       maximumFractionDigits: 2,
@@ -186,7 +183,7 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
     });
 
     try {
-      await pipeline(resp.data, outputStream);
+      await writeStreamToFile(resp.data, outputFilename, this.flags.resume);
       downloadStep.complete();
     } catch (err) {
       downloadStep.error(err);
