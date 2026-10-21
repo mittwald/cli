@@ -17,6 +17,7 @@ import {
 import { waitUntil } from "../../lib/wait.js";
 import axios from "axios";
 import * as fs from "fs";
+import { pipeline } from "stream/promises";
 import { Success } from "../../rendering/react/components/Success.js";
 import ByteQuantity, {
   ByteQuantityFormattingOptions,
@@ -182,19 +183,15 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
           " of " +
           size.format(byteFormattingOpts),
       );
-      outputStream.write(chunk);
     });
 
-    await new Promise<void>((res) => {
-      resp.data.on("end", () => {
-        downloadStep.complete();
-        res();
-      });
-      resp.data.on("error", (err: unknown) => {
-        downloadStep.error(err);
-        res();
-      });
-    });
+    try {
+      await pipeline(resp.data, outputStream);
+      downloadStep.complete();
+    } catch (err) {
+      downloadStep.error(err);
+      throw err;
+    }
 
     p.complete(
       <Success>
