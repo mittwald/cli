@@ -1,3 +1,10 @@
+## [1.27.1](https://github.com/mittwald/cli/compare/v1.27.0...v1.27.1) (2026-10-22)
+
+
+### Bug Fixes
+
+* **backups:** finish backup downloads via pipeline ([#2167](https://github.com/mittwald/cli/issues/2167)) ([0115085](https://github.com/mittwald/cli/commit/0115085993e58e77180172ec4796a52127c57d15))
+
 # [1.27.0](https://github.com/mittwald/cli/compare/v1.26.0...v1.27.0) (2026-10-20)
 
 
