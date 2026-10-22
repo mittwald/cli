@@ -17,6 +17,10 @@ import {
 import { waitUntil } from "../../lib/wait.js";
 import axios from "axios";
 import * as fs from "fs";
+import {
+  verifyFileChecksum,
+  writeStreamToFile,
+} from "../../lib/resources/backup/download.js";
 import { Success } from "../../rendering/react/components/Success.js";
 import ByteQuantity, {
   ByteQuantityFormattingOptions,
@@ -166,9 +170,6 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
     let downloaded = ByteQuantity.fromBytes(0);
 
     const outputFilename = this.getFilename(resp.headers);
-    const outputStream = fs.createWriteStream(outputFilename, {
-      flags: this.flags.resume ? "a" : undefined,
-    });
 
     const byteFormattingOpts: ByteQuantityFormattingOptions = {
       maximumFractionDigits: 2,
@@ -182,19 +183,26 @@ export class Download extends ExecRenderBaseCommand<typeof Download, Result> {
           " of " +
           size.format(byteFormattingOpts),
       );
-      outputStream.write(chunk);
     });
 
-    await new Promise<void>((res) => {
-      resp.data.on("end", () => {
-        downloadStep.complete();
-        res();
-      });
-      resp.data.on("error", (err: unknown) => {
-        downloadStep.error(err);
-        res();
-      });
-    });
+    try {
+      await writeStreamToFile(resp.data, outputFilename, this.flags.resume);
+      downloadStep.complete();
+    } catch (err) {
+      downloadStep.error(err);
+      throw err;
+    }
+
+    const expectedChecksum = backupExport.sha256Checksum;
+    if (expectedChecksum) {
+      await p.runStep("verifying checksum", () =>
+        verifyFileChecksum(outputFilename, expectedChecksum),
+      );
+    } else {
+      p.addInfo(
+        "Warning: the API provided no checksum for this backup; the downloaded file could not be verified",
+      );
+    }
 
     p.complete(
       <Success>
