@@ -34,6 +34,13 @@ AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
                    tokens passed via this flag might be logged in your shell history.
 
+DESCRIPTION
+  Deploys a new container.
+
+  Each project has one private registry, which is deployed into a dedicated stack. Each application is deployed into its
+  own stack, which is named after the service (see --service-name). Existing registry and application services are
+  updated in the stack they are already in.
+
 EXAMPLES
   Deploy from current directory (auto-detects or creates Dockerfile)
 
