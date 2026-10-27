@@ -16,7 +16,7 @@ import { Success } from "../../rendering/react/components/Success.js";
 import { Value } from "../../rendering/react/components/Value.js";
 import { waitFlags } from "../../lib/wait.js";
 import { getProjectShortIdFromUuid } from "../../lib/resources/project/shortId.js";
-import { stackFlags } from "../../lib/resources/stack/flags.js";
+import { ensureStackForService } from "../../lib/resources/stack/ensure.js";
 
 import {
   checkRequiredTools,
@@ -36,45 +36,18 @@ type Result = {
   buildOnly: boolean;
 };
 
-export function resolveDeployStackIds(
-  sharedStackId: string | undefined,
-  registryStackId: string | undefined,
-  applicationStackId: string | undefined,
-): { registryStackId: string; applicationStackId: string } {
-  const resolvedRegistryStackId = registryStackId ?? sharedStackId;
-  const resolvedApplicationStackId = applicationStackId ?? sharedStackId;
-
-  if (!resolvedRegistryStackId || !resolvedApplicationStackId) {
-    throw new Error(
-      "Provide --stack-id or both --registry-stack-id and --application-stack-id.",
-    );
-  }
-
-  return {
-    registryStackId: resolvedRegistryStackId,
-    applicationStackId: resolvedApplicationStackId,
-  };
-}
+// Service name used by @mittwald/container-deploy for the project registry
+const registryServiceName = "project-registry";
+const registryStackDescription = "project registry";
 
 export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
   static summary = "Deploys a new container.";
+  static description =
+    "Each project has one private registry, which is deployed into a dedicated stack. Each application is deployed into its own stack, which is named after the service (see --service-name). Existing registry and application services are updated in the stack they are already in.";
   static flags = {
     ...processFlags,
     ...projectFlags,
-    ...stackFlags,
     ...waitFlags,
-    "registry-stack-id": Flags.string({
-      summary: "stack ID for the project registry service",
-      description:
-        "Overrides --stack-id for the registry. If omitted, --stack-id or the stack from context is used.",
-      required: false,
-    }),
-    "application-stack-id": Flags.string({
-      summary: "stack ID for the application service",
-      description:
-        "Overrides --stack-id for the application. If omitted, --stack-id or the stack from context is used.",
-      required: false,
-    }),
     env: containerEnvFlag(),
     "env-file": containerEnvFileFlag(),
     "uri-prefix": Flags.string({
@@ -119,11 +92,6 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       command: "<%= config.bin %> <%= command.id %> --project-id p-abc123",
     },
     {
-      description: "Deploy the registry and application into separate stacks",
-      command:
-        "<%= config.bin %> <%= command.id %> --registry-stack-id registry-stack-id --application-stack-id application-stack-id",
-    },
-    {
       description: "Deploy with custom default domain prefix",
       command: "<%= config.bin %> <%= command.id %> --uri-prefix myapp",
     },
@@ -149,17 +117,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
       this.apiClient,
       projectId,
     );
-    const registryStackIdFlag = this.flags["registry-stack-id"];
-    const applicationStackIdFlag = this.flags["application-stack-id"];
-    const sharedStackId =
-      registryStackIdFlag === undefined || applicationStackIdFlag === undefined
-        ? await this.withStackId(Deploy)
-        : undefined;
-    const { registryStackId, applicationStackId } = resolveDeployStackIds(
-      sharedStackId,
-      registryStackIdFlag,
-      applicationStackIdFlag,
-    );
+    const serviceName = this.flags["service-name"] ?? `app-${projectId}`;
 
     await p.runStep("Checking dev tools ...", async () => {
       checkRequiredTools();
@@ -173,6 +131,17 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     const registryData = await p.runStep(
       "Setting up registry ...",
       async () => {
+        const { stackId: registryStackId, created } =
+          await ensureStackForService(
+            this.apiClient,
+            projectId,
+            registryServiceName,
+            registryStackDescription,
+          );
+        if (created) {
+          p.addInfo(`Created registry stack ${registryStackId}.`);
+        }
+
         const registry = await setupProjectRegistry(
           this.apiClient,
           projectId,
@@ -231,6 +200,17 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
     }
 
     const deployResult = await p.runStep("Deploying ...", async () => {
+      const { stackId: applicationStackId, created } =
+        await ensureStackForService(
+          this.apiClient,
+          projectId,
+          serviceName,
+          serviceName,
+        );
+      if (created) {
+        p.addInfo(`Created application stack ${applicationStackId}.`);
+      }
+
       const result = await deployService(
         this.apiClient,
         projectId,
@@ -238,7 +218,7 @@ export class Deploy extends ExecRenderBaseCommand<typeof Deploy, Result> {
         repositoryData,
         this.flags["wait-timeout"],
         environment,
-        this.flags["service-name"],
+        serviceName,
       );
       deployedServiceId = result.deployedServiceId;
       p.addInfo(`Service ${result.serviceName} is now running`);
