@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/mittwald/cli/compare/v1.27.1...v1.28.0) (2026-10-27)
+
+
+### Features
+
+* **database:** add database redis delete command ([#2171](https://github.com/mittwald/cli/issues/2171)) ([6895f4a](https://github.com/mittwald/cli/commit/6895f4a44923826c0b77ea26c33900a6476c876a)), closes [#2170](https://github.com/mittwald/cli/issues/2170)
+
 ## [1.27.1](https://github.com/mittwald/cli/compare/v1.27.0...v1.27.1) (2026-10-22)
 
 
