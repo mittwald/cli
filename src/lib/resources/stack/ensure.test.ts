@@ -14,10 +14,10 @@ function stack(id: string, description: string, serviceNames: string[]) {
 }
 
 describe("selectStackForService", () => {
-  it("selects the stack that already contains the service", () => {
+  it("prefers the stack that already contains the service over a description match", () => {
     const stacks = [
-      stack("default", "default", ["project-registry", "app"]),
       stack("registry", "project registry", []),
+      stack("default", "default", ["project-registry", "app"]),
     ];
 
     expect(
