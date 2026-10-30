@@ -7,7 +7,7 @@ Experimental features, which are not considered stable yet and might change with
 
 ## `mw experimental deploy`
 
-Deploys a new container.
+Build the application in the current directory and deploy it as a container.
 
 ```
 USAGE
@@ -26,13 +26,39 @@ FLAGS
       --image-name=<value>    name of the Docker image to build and push
       --image-tag=<value>     tag of the Docker image to build and push
       --service-name=<value>  name of the container service to deploy
-      --uri-prefix=<value>    [default: webapp] prefix for the generated default domain
+      --uri-prefix=<value>    prefix for the generated default domain
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
                               's', 'm' are accepted).
 
 AUTHENTICATION FLAGS
   --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
                    tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Build the application in the current directory and deploy it as a container.
+
+  The command runs the following steps:
+
+  1. Checks that Docker and Railpack are installed locally.
+  2. Makes sure that the project has a working private container registry. The registry runs as the "project-registry"
+  container in a dedicated stack, is reachable at the "registry" subdomain of the project's default domain and is
+  configured as a registry of the project. Missing or misconfigured parts are created or repaired; existing parts
+  (including the stored images and the credentials) are reused. There is one such registry per project, shared by all
+  deployments.
+  3. Builds a container image from the current directory, using the Dockerfile in it if there is one, and Railpack
+  otherwise. The container ports are taken from the EXPOSE instructions of the Dockerfile; a PORT variable passed with
+  --env takes precedence. Without either, port 80 is used.
+  4. Pushes the image to the project registry.
+  5. Deploys the image as a container service. Each service runs in a stack of its own, named after the service; a
+  service that already exists is updated in the stack it is in.
+  6. Makes the service available at <uri-prefix>.<project-short-id>.project.space.
+
+  With --build-only, the command stops after pushing the image.
+
+  The service name defaults to the name of the current directory (lowercased, with every run of characters other than
+  letters and digits replaced by a dash), and the image name and domain prefix default to the service name. Deploying
+  from different directories therefore creates independent deployments, while deploying again from the same directory
+  updates the existing one.
 
 EXAMPLES
   Deploy from current directory (auto-detects or creates Dockerfile)
@@ -47,9 +73,9 @@ EXAMPLES
 
     $ mw experimental deploy --uri-prefix myapp
 
-  Deploy a second, parallel service with a custom image and service name
+  Deploy the current directory as a second, independent service, e.g. for a feature branch
 
-    $ mw experimental deploy --service-name my-feature --image-name my-app --image-tag feature
+    $ mw experimental deploy --service-name my-app-feature --image-tag feature
 
   Build and push image only, without deploying a service
 
@@ -82,7 +108,7 @@ FLAG DESCRIPTIONS
 
   --image-name=<value>  name of the Docker image to build and push
 
-    Defaults to 'app-image'.
+    Defaults to the service name.
 
   --image-tag=<value>  tag of the Docker image to build and push
 
@@ -90,10 +116,10 @@ FLAG DESCRIPTIONS
 
   --service-name=<value>  name of the container service to deploy
 
-    Set this to run multiple parallel deployments in the same project. Defaults to 'app-<project-id>'.
+    Also names the stack the service is deployed into. Defaults to the name of the current directory.
 
   --uri-prefix=<value>  prefix for the generated default domain
 
-    Defaults to 'webapp'.
+    Defaults to the service name.
 ```
 
