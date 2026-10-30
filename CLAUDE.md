@@ -109,6 +109,10 @@ providers:
 - Provide examples using the `static examples` property when useful
 - Keep the command summary short; do not repeat the summary at the beginning of
   the description
+- Commands under `src/commands/experimental/` may change incompatibly (renamed
+  or removed flags, changed defaults or behaviour) without being treated as
+  breaking changes; do not mark such commits or PR titles as breaking (no `!`
+  and no `BREAKING CHANGE` footer)
 - Do not assume `ExecRenderBaseCommand` provides progress handling by itself; it
   executes first and then renders, so use dedicated process/progress rendering
   patterns when real-time progress output is required
