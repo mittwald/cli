@@ -1,3 +1,10 @@
+## [1.28.1](https://github.com/mittwald/cli/compare/v1.28.0...v1.28.1) (2026-10-31)
+
+
+### Bug Fixes
+
+* **experimental-deploy:** make experimental deploy stack-aware ([#2162](https://github.com/mittwald/cli/issues/2162)) ([deee5cb](https://github.com/mittwald/cli/commit/deee5cb114e531c7e1038b74c65f7b579a9b813b)), closes [mittwald/container-deploy#22](https://github.com/mittwald/container-deploy/issues/22) [mittwald/container-deploy#26](https://github.com/mittwald/container-deploy/issues/26) [#2173](https://github.com/mittwald/cli/issues/2173)
+
 # [1.28.0](https://github.com/mittwald/cli/compare/v1.27.1...v1.28.0) (2026-10-27)
 
 
