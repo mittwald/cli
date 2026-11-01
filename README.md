@@ -72,6 +72,19 @@ $ docker run --rm -it -e MITTWALD_API_TOKEN \
     mittwald/cli app download <app-id> --target ./app
 ```
 
+To use the image like a local `mw` install, add a small function to your
+`~/.bashrc` or `~/.zshrc`:
+
+```shell
+mw() {
+  docker run --rm -it -e MITTWALD_API_TOKEN \
+    -v ~/.ssh/id_ed25519:/root/.ssh/id_ed25519:ro \
+    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/id_ed25519 \
+    -v "$PWD:/work" -w /work \
+    mittwald/cli "$@"
+}
+```
+
 For `mw container port-forward`, also publish the local port of the forwarding
 to your host:
 
