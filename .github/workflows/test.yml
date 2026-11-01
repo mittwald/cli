@@ -109,3 +109,9 @@ jobs:
           done
           echo "mw runs as $owner"
           [ "$owner" = "1234:2345" ]
+      - name: Check that the user switch keeps stdout clean
+        run: |
+          mw_uid=$(docker run --rm --entrypoint id mittwald/cli:testing -u mw)
+          output=$(docker run --rm -e MW_UID="$mw_uid" -e MW_GID="$mw_uid" mittwald/cli:testing --version)
+          echo "$output"
+          [ "$(echo "$output" | wc -l)" -eq 1 ]
