@@ -59,6 +59,30 @@ $ export MITTWALD_API_TOKEN=<enter token here>
 $ docker run --rm -it -e MITTWALD_API_TOKEN mittwald/cli help
 ```
 
+Commands that connect via SSH (like `mw container exec`, `mw app ssh` or
+`mw app download`) need your SSH private key inside the container. Mount it
+read-only and point `MITTWALD_SSH_IDENTITY_FILE` to it. Mount your working
+directory if a command reads or writes local files:
+
+```shell
+$ docker run --rm -it -e MITTWALD_API_TOKEN \
+    -v ~/.ssh/id_ed25519:/root/.ssh/id_ed25519:ro \
+    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/id_ed25519 \
+    -v "$PWD:/work" -w /work \
+    mittwald/cli app download <app-id> --target ./app
+```
+
+For `mw container port-forward`, also publish the local port of the forwarding
+to your host:
+
+```shell
+$ docker run --rm -it -e MITTWALD_API_TOKEN \
+    -v ~/.ssh/id_ed25519:/root/.ssh/id_ed25519:ro \
+    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/id_ed25519 \
+    -p 127.0.0.1:3306:3306 \
+    mittwald/cli container port-forward <container-id> 3306
+```
+
 ### Authentication
 
 To use the CLI, you will need an
