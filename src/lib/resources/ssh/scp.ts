@@ -1,8 +1,9 @@
-export interface ScpArgsOptions {
+import { SSHConnectionFlags } from "./flags.js";
+
+export type ScpArgsOptions = Pick<SSHConnectionFlags, "ssh-identity-file"> & {
   archive?: boolean;
   recursive?: boolean;
-  "ssh-identity-file"?: string;
-}
+};
 
 export function buildScpArgs(
   knownHostsFlags: string[],

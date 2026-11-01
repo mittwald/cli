@@ -35,7 +35,9 @@ describe("buildScpArgs", () => {
   });
 
   it("omits the identity file option when none is configured", () => {
-    const args = buildScpArgs(knownHostsFlags, remote, local, {});
+    const args = buildScpArgs(knownHostsFlags, remote, local, {
+      "ssh-identity-file": undefined,
+    });
 
     expect(args).toEqual([...connectionArgs, remote, local]);
     expect(args).not.toContain("-i");
@@ -45,6 +47,7 @@ describe("buildScpArgs", () => {
     const args = buildScpArgs(knownHostsFlags, remote, local, {
       archive: true,
       recursive: true,
+      "ssh-identity-file": undefined,
     });
 
     expect(args).toEqual([...connectionArgs, "-p", "-r", remote, local]);
