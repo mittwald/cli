@@ -88,3 +88,9 @@ cli_process_owner() {
   docker stop --time 10 "$container" > /dev/null
   [ "$(docker inspect --format '{{.State.ExitCode}}' "$container")" -eq 143 ]
 }
+
+@test "stays quiet when started with docker run --init" {
+  run --separate-stderr docker run --rm --init "$IMAGE" --version
+  [ "$status" -eq 0 ]
+  [ -z "$stderr" ]
+}

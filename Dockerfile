@@ -34,4 +34,4 @@ COPY docker/entrypoint.sh /usr/local/bin/mw-entrypoint
 # The oclif launcher runs node as a child of bash, and PID 1 ignores signals it
 # has no handler for, so tini forwards SIGTERM to the whole process group. -s
 # keeps tini working without warnings when started with "docker run --init".
-ENTRYPOINT ["tini", "-s", "-g", "--", "/usr/local/bin/mw-entrypoint"]
+ENTRYPOINT ["/usr/bin/tini", "-s", "-g", "--", "/usr/local/bin/mw-entrypoint"]
