@@ -82,17 +82,19 @@ To use the image like a local `mw` install, add a small function to your
 `~/.bashrc` or `~/.zshrc`. It only allocates a TTY when you run it
 interactively, so piping (e.g. `mw project list -o json | jq`) keeps working.
 Set `MW_SSH_KEY` if your key is not `~/.ssh/id_ed25519`; only that one key is
-mounted into the container:
+mounted into the container, and only if it exists, so commands without SSH work
+without a key:
 
 ```shell
 mw() {
-  local key="${MW_SSH_KEY:-$HOME/.ssh/id_ed25519}" tty=""
-  [ -t 0 ] && [ -t 1 ] && tty="-t"
-  docker run --rm -i $tty -e MITTWALD_API_TOKEN \
-    --mount type=bind,source="$key",target=/root/.ssh/mw_key,readonly \
-    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/mw_key \
-    -v "$PWD:/work" -w /work \
-    mittwald/cli "$@"
+  local key="${MW_SSH_KEY:-$HOME/.ssh/id_ed25519}"
+  local args=(--rm -i -e MITTWALD_API_TOKEN -v "$PWD:/work" -w /work)
+  [ -t 0 ] && [ -t 1 ] && args+=(-t)
+  [ -f "$key" ] && args+=(
+    --mount "type=bind,source=$key,target=/root/.ssh/mw_key,readonly"
+    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/mw_key
+  )
+  docker run "${args[@]}" mittwald/cli "$@"
 }
 ```
 
