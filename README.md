@@ -71,15 +71,16 @@ starts a fresh container, so `mw context set` does not persist; pass IDs like
 
 ```shell
 $ docker run --rm -it -e MITTWALD_API_TOKEN \
-    --mount type=bind,source="$HOME/.ssh/id_ed25519",target=/root/.ssh/id_ed25519,readonly \
-    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/id_ed25519 \
+    --mount type=bind,source="$HOME/.ssh/id_ed25519",target=/ssh/id_ed25519,readonly \
+    -e MITTWALD_SSH_IDENTITY_FILE=/ssh/id_ed25519 \
+    -e MW_UID="$(id -u)" -e MW_GID="$(id -g)" \
     -v "$PWD:/work" -w /work \
     mittwald/cli app download <app-id> --target ./app
 ```
 
-On Linux, the downloaded files do not belong to you: the container runs as root,
-and rsync keeps the numeric owner of the remote files. Take them over with
-`sudo chown -R "$(id -u):$(id -g)" ./app`.
+The container runs as root unless you set `MW_UID` (and optionally `MW_GID`,
+which defaults to `MW_UID`). With them, the CLI runs as a user with your IDs, so
+on Linux the downloaded files belong to you instead of root.
 
 To use the image like a local `mw` install, add a small function to your
 `~/.bashrc` or `~/.zshrc`. It only allocates a TTY when you run it
@@ -91,11 +92,12 @@ without a key:
 ```shell
 mw() {
   local key="${MW_SSH_KEY:-$HOME/.ssh/id_ed25519}"
-  local args=(--rm -i -e MITTWALD_API_TOKEN -v "$PWD:/work" -w /work)
+  local args=(--rm -i -e MITTWALD_API_TOKEN -e MW_UID="$(id -u)" -e MW_GID="$(id -g)"
+    -v "$PWD:/work" -w /work)
   [ -t 0 ] && [ -t 1 ] && args+=(-t)
   [ -f "$key" ] && args+=(
-    --mount "type=bind,source=$key,target=/root/.ssh/mw_key,readonly"
-    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/mw_key
+    --mount "type=bind,source=$key,target=/ssh/key,readonly"
+    -e MITTWALD_SSH_IDENTITY_FILE=/ssh/key
   )
   docker run "${args[@]}" mittwald/cli "$@"
 }
@@ -106,8 +108,8 @@ to your host:
 
 ```shell
 $ docker run --rm -it -e MITTWALD_API_TOKEN \
-    --mount type=bind,source="$HOME/.ssh/id_ed25519",target=/root/.ssh/id_ed25519,readonly \
-    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/id_ed25519 \
+    --mount type=bind,source="$HOME/.ssh/id_ed25519",target=/ssh/id_ed25519,readonly \
+    -e MITTWALD_SSH_IDENTITY_FILE=/ssh/id_ed25519 \
     -p 127.0.0.1:3306:3306 \
     mittwald/cli container port-forward <container-id> 3306 --project-id <project-id>
 ```

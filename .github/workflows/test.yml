@@ -98,3 +98,14 @@ jobs:
             for binary in ssh scp ssh-keygen rsync; do command -v "$binary"; done
             ssh -G example.invalid | grep -qx "gatewayports yes"
           '
+      - name: Check that MW_UID/MW_GID switch the user
+        run: |
+          container=$(docker run -d -it -e MW_UID=1234 -e MW_GID=2345 mittwald/cli:testing login token)
+          for attempt in $(seq 1 20); do
+            owner=$(docker exec "$container" stat -c %u:%g /proc/1)
+            [ "$owner" = "1234:2345" ] && break
+            sleep 0.5
+          done
+          docker rm -f "$container" > /dev/null
+          echo "mw runs as $owner"
+          [ "$owner" = "1234:2345" ]
