@@ -65,7 +65,9 @@ read-only and point `MITTWALD_SSH_IDENTITY_FILE` to it; adjust the file name if
 your key is not `id_ed25519`. With `--mount`, docker fails if the key does not
 exist instead of creating an empty directory in its place. Mount your working
 directory if a command reads or writes local files, and use paths relative to
-it; everything written elsewhere is lost when the container exits:
+it; everything written elsewhere is lost when the container exits. Every run
+starts a fresh container, so `mw context set` does not persist; pass IDs like
+`--project-id` explicitly:
 
 ```shell
 $ docker run --rm -it -e MITTWALD_API_TOKEN \
@@ -75,8 +77,9 @@ $ docker run --rm -it -e MITTWALD_API_TOKEN \
     mittwald/cli app download <app-id> --target ./app
 ```
 
-The container runs as root, so on Linux the downloaded files belong to root.
-Take them over with `sudo chown -R "$(id -u):$(id -g)" ./app`.
+On Linux, the downloaded files do not belong to you: the container runs as root,
+and rsync keeps the numeric owner of the remote files. Take them over with
+`sudo chown -R "$(id -u):$(id -g)" ./app`.
 
 To use the image like a local `mw` install, add a small function to your
 `~/.bashrc` or `~/.zshrc`. It only allocates a TTY when you run it
@@ -106,7 +109,7 @@ $ docker run --rm -it -e MITTWALD_API_TOKEN \
     --mount type=bind,source="$HOME/.ssh/id_ed25519",target=/root/.ssh/id_ed25519,readonly \
     -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/id_ed25519 \
     -p 127.0.0.1:3306:3306 \
-    mittwald/cli container port-forward <container-id> 3306
+    mittwald/cli container port-forward <container-id> 3306 --project-id <project-id>
 ```
 
 Inside the container, forwardings listen on all interfaces so that docker can
