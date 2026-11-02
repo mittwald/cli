@@ -1,3 +1,16 @@
+# [1.29.0](https://github.com/mittwald/cli/compare/v1.28.1...v1.29.0) (2026-11-02)
+
+
+### Bug Fixes
+
+* **container:** pass --ssh-identity-file to scp in container cp ([#2187](https://github.com/mittwald/cli/issues/2187)) ([e1f5ce9](https://github.com/mittwald/cli/commit/e1f5ce9841c33935f7e4f1627959abb3b87a5db8)), closes [#2186](https://github.com/mittwald/cli/issues/2186) [#2183](https://github.com/mittwald/cli/issues/2183)
+
+
+### Features
+
+* **docker:** run as the host user via MW_UID/MW_GID ([#2189](https://github.com/mittwald/cli/issues/2189)) ([4e2fcb7](https://github.com/mittwald/cli/commit/4e2fcb7066d16e29c97ca5792f5187104145eb67)), closes [#2188](https://github.com/mittwald/cli/issues/2188)
+* **docker:** support ssh-based commands in the docker image ([#2183](https://github.com/mittwald/cli/issues/2183)) ([59059fa](https://github.com/mittwald/cli/commit/59059fa8210c75352b2d843f00a76c5f9c25be09)), closes [#2182](https://github.com/mittwald/cli/issues/2182) [#2187](https://github.com/mittwald/cli/issues/2187)
+
 ## [1.28.1](https://github.com/mittwald/cli/compare/v1.28.0...v1.28.1) (2026-10-31)
 
 
