@@ -10,7 +10,7 @@ import { BoxProps, useStdout } from "ink";
  *   returns an empty object.
  */
 export default function useDefaultBoxStyles(): Partial<BoxProps> {
-  const { stdout } = useStdout();
+  const stdout = useStdout().stdout as NodeJS.WriteStream;
 
   if (stdout.isTTY) {
     return {
