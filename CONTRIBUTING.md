@@ -34,7 +34,8 @@ For a development environment for this CLI, you need:
 - Node.JS (>=22.0.0)
 - Yarn
 - 7zip + NSIS (for Windows builds)
-- Docker (for building the Docker image)
+- Docker (for building the Docker image) and
+  [bats](https://bats-core.readthedocs.io) (for testing it)
 
 When you are using an IDE that supports [devcontainers](https://containers.dev),
 you can use the provided devcontainer configuration to get a development
@@ -254,6 +255,8 @@ To run the CLI with your changes, you have multiple options:
 
 - If feasible, create unit tests for your changes. Run them with
   `yarn test:unit`.
+- If you change the Docker image, build it as `mittwald/cli:testing` and run
+  `bats docker/test` (set `MW_IMAGE` to test another tag).
 - Make sure the code is formatted and fulfills linter rules. Run `yarn format`
   to autoformat code and `yarn lint` to run linter.
 - Generate docs and readme changes using `yarn generate:readme`.

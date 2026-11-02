@@ -91,27 +91,5 @@ jobs:
       - run: yarn compile
       - run: npx oclif pack tarballs --targets=linux-x64
       - run: docker build --build-arg PKG_SOURCE=dist -t mittwald/cli:testing .
-      - run: docker run --rm mittwald/cli:testing --help
-      - name: Check ssh tooling in docker image
-        run: |
-          docker run --rm --entrypoint sh mittwald/cli:testing -ec '
-            for binary in ssh scp ssh-keygen rsync; do command -v "$binary"; done
-            ssh -G example.invalid | grep -qx "gatewayports yes"
-          '
-      - name: Check that MW_UID/MW_GID switch the user
-        run: |
-          container=$(docker run -d -it -e MW_UID=1234 -e MW_GID=2345 mittwald/cli:testing login token)
-          trap 'docker logs "$container"; docker rm -f "$container" > /dev/null' EXIT
-          for attempt in $(seq 1 20); do
-            owner=$(docker exec "$container" stat -c %u:%g /proc/1)
-            [ "$owner" = "1234:2345" ] && break
-            sleep 0.5
-          done
-          echo "mw runs as $owner"
-          [ "$owner" = "1234:2345" ]
-      - name: Check that the user switch keeps stdout clean
-        run: |
-          mw_uid=$(docker run --rm --entrypoint id mittwald/cli:testing -u mw)
-          output=$(docker run --rm -e MW_UID="$mw_uid" -e MW_GID="$mw_uid" mittwald/cli:testing --version)
-          echo "$output"
-          [ "$(echo "$output" | wc -l)" -eq 1 ]
+      - run: sudo apt-get update && sudo apt-get install -y bats
+      - run: bats docker/test
