@@ -91,10 +91,5 @@ jobs:
       - run: yarn compile
       - run: npx oclif pack tarballs --targets=linux-x64
       - run: docker build --build-arg PKG_SOURCE=dist -t mittwald/cli:testing .
-      - run: docker run --rm mittwald/cli:testing --help
-      - name: Check ssh tooling in docker image
-        run: |
-          docker run --rm --entrypoint sh mittwald/cli:testing -ec '
-            for binary in ssh scp ssh-keygen rsync; do command -v "$binary"; done
-            ssh -G example.invalid | grep -qx "gatewayports yes"
-          '
+      - run: sudo apt-get update && sudo apt-get install -y bats
+      - run: bats docker/test

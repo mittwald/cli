@@ -49,74 +49,18 @@ installed, as package definition is ignored for global installations!
 
 There is also the
 [`mittwald/cli` Docker image](https://hub.docker.com/r/mittwald/cli) that you
-can use instead of installing the CLI on your system. In case of the Docker
-container, authentication works a bit differently than described below: Make
-sure that there is an environment variable `MITTWALD_API_TOKEN` present on your
-system; you can then pass that environment variable into your container:
+can use instead of installing the CLI on your system. Pass your mStudio API
+token as the `MITTWALD_API_TOKEN` environment variable instead of logging in as
+described below:
 
 ```shell
 $ export MITTWALD_API_TOKEN=<enter token here>
 $ docker run --rm -it -e MITTWALD_API_TOKEN mittwald/cli help
 ```
 
-Commands that connect via SSH (like `mw container exec`, `mw app ssh` or
-`mw app download`) need your SSH private key inside the container. Mount it
-read-only and point `MITTWALD_SSH_IDENTITY_FILE` to it; adjust the file name if
-your key is not `id_ed25519`. With `--mount`, docker fails if the key does not
-exist instead of creating an empty directory in its place. Mount your working
-directory if a command reads or writes local files, and use paths relative to
-it; everything written elsewhere is lost when the container exits. Every run
-starts a fresh container, so `mw context set` does not persist; pass IDs like
-`--project-id` explicitly:
-
-```shell
-$ docker run --rm -it -e MITTWALD_API_TOKEN \
-    --mount type=bind,source="$HOME/.ssh/id_ed25519",target=/root/.ssh/id_ed25519,readonly \
-    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/id_ed25519 \
-    -v "$PWD:/work" -w /work \
-    mittwald/cli app download <app-id> --target ./app
-```
-
-On Linux, the downloaded files do not belong to you: the container runs as root,
-and rsync keeps the numeric owner of the remote files. Take them over with
-`sudo chown -R "$(id -u):$(id -g)" ./app`.
-
-To use the image like a local `mw` install, add a small function to your
-`~/.bashrc` or `~/.zshrc`. It only allocates a TTY when you run it
-interactively, so piping (e.g. `mw project list -o json | jq`) keeps working.
-Set `MW_SSH_KEY` if your key is not `~/.ssh/id_ed25519`; only that one key is
-mounted into the container, and only if it exists, so commands without SSH work
-without a key:
-
-```shell
-mw() {
-  local key="${MW_SSH_KEY:-$HOME/.ssh/id_ed25519}"
-  local args=(--rm -i -e MITTWALD_API_TOKEN -v "$PWD:/work" -w /work)
-  [ -t 0 ] && [ -t 1 ] && args+=(-t)
-  [ -f "$key" ] && args+=(
-    --mount "type=bind,source=$key,target=/root/.ssh/mw_key,readonly"
-    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/mw_key
-  )
-  docker run "${args[@]}" mittwald/cli "$@"
-}
-```
-
-For `mw container port-forward`, also publish the local port of the forwarding
-to your host:
-
-```shell
-$ docker run --rm -it -e MITTWALD_API_TOKEN \
-    --mount type=bind,source="$HOME/.ssh/id_ed25519",target=/root/.ssh/id_ed25519,readonly \
-    -e MITTWALD_SSH_IDENTITY_FILE=/root/.ssh/id_ed25519 \
-    -p 127.0.0.1:3306:3306 \
-    mittwald/cli container port-forward <container-id> 3306 --project-id <project-id>
-```
-
-Inside the container, forwardings listen on all interfaces so that docker can
-publish them. Keep the `127.0.0.1:` prefix in `-p`, and do not combine port
-forwarding with `--network host` or a docker network shared with other
-containers: the forwarded port would be reachable from your local network or
-from those containers.
+See [Using the Docker image](#using-the-docker-image) for SSH-based commands,
+local files, port forwarding and a shell function that lets you use the image
+like a local `mw` install.
 
 ### Authentication
 
@@ -142,6 +86,82 @@ $ mw autocomplete
 
 After that, follow the instructions printed by that command (those are specific
 to your shell -- Bash, ZSH and Powershell are supported).
+
+## Using the Docker image
+
+Every run of the
+[`mittwald/cli` Docker image](https://hub.docker.com/r/mittwald/cli) starts a
+fresh container, so `mw context set` does not persist; pass IDs like
+`--project-id` explicitly.
+
+### SSH-based commands
+
+Commands that connect via SSH (like `mw container exec`, `mw app ssh` or
+`mw app download`) need your SSH private key inside the container. Mount it
+read-only and point `MITTWALD_SSH_IDENTITY_FILE` to it; adjust the file name if
+your key is not `id_ed25519`. With `--mount`, docker fails if the key does not
+exist instead of creating an empty directory in its place. The examples below
+show the mount.
+
+### Local files and file ownership
+
+Mount your working directory if a command reads or writes local files, and use
+paths relative to it; everything written elsewhere is lost when the container
+exits.
+
+The container runs as root unless you set `MW_UID` (and optionally `MW_GID`,
+which defaults to `MW_UID`). With them, the CLI runs as a user with your IDs, so
+on Linux the downloaded files belong to you instead of root:
+
+```shell
+$ docker run --rm -it -e MITTWALD_API_TOKEN \
+    --mount type=bind,source="$HOME/.ssh/id_ed25519",target=/ssh/id_ed25519,readonly \
+    -e MITTWALD_SSH_IDENTITY_FILE=/ssh/id_ed25519 \
+    -e MW_UID="$(id -u)" -e MW_GID="$(id -g)" \
+    -v "$PWD:/work" -w /work \
+    mittwald/cli app download <app-id> --target ./app
+```
+
+### Using the image like a local `mw` install
+
+Add a small function to your `~/.bashrc` or `~/.zshrc`. It only allocates a TTY
+when you run it interactively, so piping (e.g. `mw project list -o json | jq`)
+keeps working. Set `MW_SSH_KEY` if your key is not `~/.ssh/id_ed25519`; only
+that one key is mounted into the container, and only if it exists, so commands
+without SSH work without a key:
+
+```shell
+mw() {
+  local key="${MW_SSH_KEY:-$HOME/.ssh/id_ed25519}"
+  local args=(--rm -i -e MITTWALD_API_TOKEN -e MW_UID="$(id -u)" -e MW_GID="$(id -g)"
+    -v "$PWD:/work" -w /work)
+  [ -t 0 ] && [ -t 1 ] && args+=(-t)
+  [ -f "$key" ] && args+=(
+    --mount "type=bind,source=$key,target=/ssh/key,readonly"
+    -e MITTWALD_SSH_IDENTITY_FILE=/ssh/key
+  )
+  docker run "${args[@]}" mittwald/cli "$@"
+}
+```
+
+### Port forwarding
+
+For `mw container port-forward`, also publish the local port of the forwarding
+to your host:
+
+```shell
+$ docker run --rm -it -e MITTWALD_API_TOKEN \
+    --mount type=bind,source="$HOME/.ssh/id_ed25519",target=/ssh/id_ed25519,readonly \
+    -e MITTWALD_SSH_IDENTITY_FILE=/ssh/id_ed25519 \
+    -p 127.0.0.1:3306:3306 \
+    mittwald/cli container port-forward <container-id> 3306 --project-id <project-id>
+```
+
+Inside the container, forwardings listen on all interfaces so that docker can
+publish them. Keep the `127.0.0.1:` prefix in `-p`, and do not combine port
+forwarding with `--network host` or a docker network shared with other
+containers: the forwarded port would be reachable from your local network or
+from those containers.
 
 ## Contributing
 

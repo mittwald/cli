@@ -22,6 +22,13 @@ RUN apt-get update \
 # they cannot be published to the host with "docker run -p".
 RUN echo "GatewayPorts yes" > /etc/ssh/ssh_config.d/mw-port-forward.conf
 
-COPY --from=builder /app /app/
+# Ubuntu 24.04+ ships an "ubuntu" user with UID 1000, the most common host UID.
+# If mw shared that UID, ssh would look up the home directory by UID, get
+# /home/ubuntu and miss its config and known_hosts in /home/mw.
+RUN if id ubuntu > /dev/null 2>&1; then userdel --remove ubuntu; fi \
+    && useradd --create-home --shell /usr/sbin/nologin mw
 
-ENTRYPOINT ["/app/mw/bin/mw"]
+COPY --from=builder /app /app/
+COPY docker/entrypoint.sh /usr/local/bin/mw-entrypoint
+
+ENTRYPOINT ["/usr/local/bin/mw-entrypoint"]
