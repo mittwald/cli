@@ -1,15 +1,18 @@
-ARG ARCH=""
-FROM ${ARCH}ubuntu:22.04 AS builder
+FROM --platform=$BUILDPLATFORM ubuntu:26.04 AS builder
 
 ARG PKG_SOURCE="pkg-tarballs"
+ARG TARGETARCH
 
 COPY ${PKG_SOURCE}/mw-*-linux-*.tar.gz /tmp/
 RUN mkdir /app
-RUN echo $ARCH
 
-RUN if [ "$(uname -p)" = "aarch64" ] ; then tar -C /app -xf /tmp/mw-*-linux-arm64.tar.gz ; else tar -C /app -xf /tmp/mw-*-linux-x64.tar.gz ; fi
+RUN case "$TARGETARCH" in \
+      amd64) tar -C /app -xf /tmp/mw-*-linux-x64.tar.gz ;; \
+      arm64) tar -C /app -xf /tmp/mw-*-linux-arm64.tar.gz ;; \
+      *) echo "unsupported architecture: $TARGETARCH" >&2 ; exit 1 ;; \
+    esac
 
-FROM ${ARCH}ubuntu:22.04
+FROM ubuntu:26.04
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openssh-client rsync \
