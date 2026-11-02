@@ -15,6 +15,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@alcalzone/ansi-tokenize@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@alcalzone/ansi-tokenize@npm:0.3.1"
+  dependencies:
+    ansi-styles: ^6.2.1
+    is-fullwidth-code-point: ^5.0.0
+  checksum: 47481a4b57994273d2dfbb65abae61c1526dd50164db646e31692b37a3bf5df5012f798de71884d0be60ba9c5a11d881782b4cf87428bd809a6c43d60c96130e
+  languageName: node
+  linkType: hard
+
 "@ampproject/remapping@npm:^2.2.0":
   version: 2.3.0
   resolution: "@ampproject/remapping@npm:2.3.0"
@@ -1991,7 +2001,7 @@ __metadata:
     eslint-plugin-prettier: ^5.5.1
     fast-xml-parser: ^5.2.5
     globals: ^17.0.0
-    ink: ^7.0.2
+    ink: ^8.0.0
     ink-link: ^5.0.0
     ink-text-input: ^6.0.0
     jest: ^30.5.1
@@ -3776,6 +3786,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ansi-styles@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "ansi-styles@npm:7.0.0"
+  checksum: 94754b81c531cede91c0d49146f8adac80314c1d6503e3b1609bf4a61eeacd95b9ff732978bcef1ed23120968c5e75841f087536a112e0d38283b8b1dd8d18a8
+  languageName: node
+  linkType: hard
+
 "ansis@npm:^3.16.0, ansis@npm:^3.17.0":
   version: 3.17.0
   resolution: "ansis@npm:3.17.0"
@@ -4318,7 +4335,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^6.0.0":
+"chalk@npm:^6.0.0, chalk@npm:^6.0.1":
   version: 6.0.1
   resolution: "chalk@npm:6.0.1"
   checksum: 285b106e7cb6251af1f948f277c4836ce04ab4d945949dea1473e838041cae6029ff01fb218596505707a310811204f10cb2b75f992e76475275dc5fa0ca4a7f
@@ -5073,6 +5090,20 @@ __metadata:
     prettier-plugin-sort-re-exports@0.0.1:
       unplugged: true
   checksum: 24b0a6b84a19f30bb97b65b1fe4c6d9a87258418f84edfa8f49bbe346edae31ff156c5d8af42fd27a4106916a03500722986633aaa0c286155892e5867bb5483
+  languageName: node
+  linkType: hard
+
+"es-toolkit@npm:^1.52.0":
+  version: 1.53.1
+  resolution: "es-toolkit@npm:1.53.1"
+  dependenciesMeta:
+    "@trivago/prettier-plugin-sort-imports@4.3.0":
+      unplugged: true
+    prettier-plugin-sort-re-exports@0.0.1:
+      unplugged: true
+    vitepress-plugin-sandpack@1.1.4:
+      unplugged: true
+  checksum: d8af75c1e024189383ed250b498a06b3819a97e498ba5f536fe4eb7e1ee72a6f61516087c20e59ca044ee7779a670638204bd320c0a22e33db15ca9b745b8581
   languageName: node
   linkType: hard
 
@@ -6306,7 +6337,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink@npm:^7.0.2, ink@npm:^7.1.1":
+"ink@npm:^7.1.1":
   version: 7.1.1
   resolution: "ink@npm:7.1.1"
   dependencies:
@@ -6345,6 +6376,46 @@ __metadata:
     react-devtools-core:
       optional: true
   checksum: ecad9dae80fca079e83dfe4b725f7769a15810f2615fac0e3634fc7e58eb6ffef25e684b744f2cced2e48a62df172c3543bb57204d8663ad3d5e9a1697e05db1
+  languageName: node
+  linkType: hard
+
+"ink@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "ink@npm:8.0.0"
+  dependencies:
+    "@alcalzone/ansi-tokenize": ^0.3.1
+    ansi-escapes: ^7.3.0
+    ansi-styles: ^7.0.0
+    auto-bind: ^5.0.1
+    chalk: ^6.0.1
+    cli-boxes: ^4.0.1
+    cli-cursor: ^4.0.0
+    cli-truncate: ^6.0.0
+    code-excerpt: ^4.0.0
+    es-toolkit: ^1.52.0
+    indent-string: ^5.0.0
+    is-in-ci: ^2.0.0
+    patch-console: ^2.0.0
+    quick-lru: ^7.3.0
+    react-reconciler: ^0.34.0
+    signal-exit: ^3.0.7
+    stack-utils: ^2.0.6
+    string-width: ^8.3.0
+    terminal-size: ^4.0.1
+    type-fest: ^5.10.0
+    widest-line: ^6.0.0
+    wrap-ansi: ^10.0.2
+    yoga-layout: ~3.2.1
+  peerDependencies:
+    "@types/react": ">=19.3.0"
+    react: ">=19.3.0"
+    react-devtools-core: ">=6.1.2"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react-devtools-core:
+      optional: true
+  checksum: 4d718e04ded1574ad4d0b00de825f9e5ad0b57068d5714df8ac3f9316a20e72622f258567b32c2d02dda630cf57771b797d837a9eb27d1f02f0a623dc92dc05e
   languageName: node
   linkType: hard
 
@@ -9005,6 +9076,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"quick-lru@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "quick-lru@npm:7.3.0"
+  checksum: 476a9763e347ff29ab69b6156d5d8a492abfdcf9e565738f32918a34f3bc1451a8359f185d02f372f0fd918a6b0a28bbef54031c66bf77119678bfa396b564a6
+  languageName: node
+  linkType: hard
+
 "react-error-boundary@npm:^5.0.0":
   version: 5.0.0
   resolution: "react-error-boundary@npm:5.0.0"
@@ -9024,6 +9102,17 @@ __metadata:
   peerDependencies:
     react: ^19.2.0
   checksum: 88181988a66e092c393ed5b9b8d1bdc96bfebbd973c39f0d44ed51e011869d9e344122c89d0971f175c4b533bb614b1eddae9eaea8d4d37bd69e609923888015
+  languageName: node
+  linkType: hard
+
+"react-reconciler@npm:^0.34.0":
+  version: 0.34.0
+  resolution: "react-reconciler@npm:0.34.0"
+  dependencies:
+    scheduler: ^0.28.0
+  peerDependencies:
+    react: ^19.3.0
+  checksum: 25cc57ba77bf8dad110b5df51edf87d8afcd601a44beec5e3acf88004c20d7b734079c7d95be155bf65c4e19b4add83fce3bd13985fe24b3e6daafafa945854b
   languageName: node
   linkType: hard
 
@@ -9186,6 +9275,13 @@ __metadata:
   version: 0.27.0
   resolution: "scheduler@npm:0.27.0"
   checksum: 92644ead0a9443e20f9d24132fe93675b156209b9eeb35ea245f8a86768d0cc0fcca56f341eeef21d9b6dd8e72d6d5e260eb5a41d34b05cd605dd45a29f572ef
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.28.0":
+  version: 0.28.0
+  resolution: "scheduler@npm:0.28.0"
+  checksum: 2ec673f773d3b8992ca047a7e94e21b0f6dfea8414935a0d92b070ce1ea6b1b5ee97976f3efc9f3eb49982957b1cd8e38a20b63fb14ed6a848ae063aeb87e751
   languageName: node
   linkType: hard
 
@@ -10028,6 +10124,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-fest@npm:^5.10.0":
+  version: 5.10.0
+  resolution: "type-fest@npm:5.10.0"
+  dependencies:
+    tagged-tag: ^1.0.0
+  checksum: 5297267d89df5066dd219820ebc0a01e648db99fb33c0d4b19400464e8238fe3e7b556feea8cf6494e14c3f0388487bac29bbbf263ffde8372e365718bca3c4a
+  languageName: node
+  linkType: hard
+
 "type-fest@npm:^5.5.0":
   version: 5.6.0
   resolution: "type-fest@npm:5.6.0"
@@ -10449,6 +10554,16 @@ __metadata:
     string-width: ^8.2.0
     strip-ansi: ^7.1.2
   checksum: 1ad55bbb6db345519834de53b93732a19abee0a3fc8315c7e037d7ae61420932335159f53f82259c2941dab91bda66b1b4886037216e1dfaae3f3b3fc6aa0a41
+  languageName: node
+  linkType: hard
+
+"wrap-ansi@npm:^10.0.2":
+  version: 10.0.2
+  resolution: "wrap-ansi@npm:10.0.2"
+  dependencies:
+    ansi-styles: ^6.2.3
+    string-width: ^8.2.0
+  checksum: d7c89ff37ee6e90ef9983953cf3c23bd9f80dc444364a24c2ba00cd3519e0708355a572247e4c55c1638571cd1df4bd34c6dc29be5ca641faa9ef9daf1c06592
   languageName: node
   linkType: hard
 

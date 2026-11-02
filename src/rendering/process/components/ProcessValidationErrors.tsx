@@ -23,7 +23,7 @@ export const ProcessValidationErrors: React.FC<{
     return (
       <Box flexDirection="row" key={idx}>
         {e.path && (
-          <Box minWidth={e.path + 2}>
+          <Box minWidth={e.path.length + 2}>
             <Text color={color} bold>
               {e.path}:{" "}
             </Text>
