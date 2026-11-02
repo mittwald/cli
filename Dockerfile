@@ -22,12 +22,11 @@ RUN apt-get update \
 # they cannot be published to the host with "docker run -p".
 RUN echo "GatewayPorts yes" > /etc/ssh/ssh_config.d/mw-port-forward.conf
 
-# Ubuntu 24.04+ ships a "ubuntu" user with UID 1000, the most common host UID.
-# Without lastlog/faillog, usermod does not grow them into huge sparse files for
-# large UIDs (common with LDAP/AD accounts).
+# Ubuntu 24.04+ ships an "ubuntu" user with UID 1000, the most common host UID.
+# If mw shared that UID, ssh would look up the home directory by UID, get
+# /home/ubuntu and miss its config and known_hosts in /home/mw.
 RUN if id ubuntu > /dev/null 2>&1; then userdel --remove ubuntu; fi \
-    && useradd --create-home --no-log-init --shell /usr/sbin/nologin mw \
-    && rm -f /var/log/lastlog /var/log/faillog
+    && useradd --create-home --shell /usr/sbin/nologin mw
 
 COPY --from=builder /app /app/
 COPY docker/entrypoint.sh /usr/local/bin/mw-entrypoint
