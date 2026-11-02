@@ -21,7 +21,7 @@ jobs:
           fetch-tags: "true"
       - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
       - run: gh pr checkout ${{ github.event.pull_request.number }}
         env:
           GH_TOKEN: ${{ github.token }}
