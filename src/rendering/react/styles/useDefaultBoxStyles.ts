@@ -10,9 +10,9 @@ import { BoxProps, useStdout } from "ink";
  *   returns an empty object.
  */
 export default function useDefaultBoxStyles(): Partial<BoxProps> {
-  const stdout = useStdout().stdout as NodeJS.WriteStream;
+  const { stdout } = useStdout();
 
-  if (stdout.isTTY) {
+  if ("isTTY" in stdout && stdout.isTTY) {
     return {
       borderStyle: "single",
       paddingX: 2,

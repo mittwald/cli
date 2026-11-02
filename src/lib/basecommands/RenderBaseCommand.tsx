@@ -8,7 +8,6 @@ import { Flags, Interfaces } from "@oclif/core";
 import { FlagInput } from "@oclif/core/interfaces";
 import { Render } from "../../rendering/react/components/Render.js";
 import { CommandArgs, CommandFlags } from "./CommandFlags.js";
-import { useIncreaseInkStdoutColumns } from "../../rendering/react/hooks/useIncreaseInkStdoutColumns.js";
 import { usePromise } from "@mittwald/react-use-promise";
 import { CommandType } from "../context/FlagSetBuilder.js";
 import ErrorBoundary from "../../rendering/react/components/ErrorBoundary.js";
@@ -60,6 +59,12 @@ export abstract class RenderBaseCommand<
       });
     };
 
+    // Increase Ink's default column width of 80 for non-TTY output. Not using
+    // Number.MAX_SAFE_INTEGER here because Ink will fail otherwise.
+    if (!process.stdout.isTTY) {
+      process.stdout.columns = 100_000;
+    }
+
     const handle = render(
       <RenderContextProvider
         value={{
@@ -70,12 +75,7 @@ export abstract class RenderBaseCommand<
         <JsonCollectionProvider>
           <Suspense>
             <ErrorBoundary onError={onError}>
-              <Render
-                render={() => {
-                  useIncreaseInkStdoutColumns();
-                  return this.render();
-                }}
-              />
+              <Render render={() => this.render()} />
             </ErrorBoundary>
           </Suspense>
         </JsonCollectionProvider>
