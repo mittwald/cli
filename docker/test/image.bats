@@ -11,8 +11,7 @@ teardown() {
   fi
 }
 
-# "login token" keeps the CLI running while it waits for input. The entrypoint
-# execs into the CLI's start script, so PID 1 has the IDs the CLI runs with.
+# "login token" keeps the CLI running while it waits for input.
 start_waiting_cli() {
   container=$(docker run -d -it "$@" "$IMAGE" login token)
   for _ in $(seq 1 40); do
@@ -24,7 +23,7 @@ start_waiting_cli() {
 }
 
 cli_process_owner() {
-  docker exec "$container" stat -c %u:%g /proc/1
+  docker top "$container" -o pid,uid,gid,comm | awk '$4 == "node" { print $2 ":" $3; exit }'
 }
 
 @test "prints the help" {
@@ -76,4 +75,22 @@ cli_process_owner() {
   run docker run --rm -e MW_UID=nobody "$IMAGE" --version
   [ "$status" -eq 1 ]
   [ "$output" = "mw-entrypoint: MW_UID must be a numeric ID, got 'nobody'" ]
+}
+
+@test "terminates on docker stop as root" {
+  start_waiting_cli
+  docker stop --time 10 "$container" > /dev/null
+  [ "$(docker inspect --format '{{.State.ExitCode}}' "$container")" -eq 143 ]
+}
+
+@test "terminates on docker stop with MW_UID" {
+  start_waiting_cli -e MW_UID=1234
+  docker stop --time 10 "$container" > /dev/null
+  [ "$(docker inspect --format '{{.State.ExitCode}}' "$container")" -eq 143 ]
+}
+
+@test "stays quiet when started with docker run --init" {
+  run --separate-stderr docker run --rm --init "$IMAGE" --version
+  [ "$status" -eq 0 ]
+  [ -z "$stderr" ]
 }
