@@ -4,6 +4,7 @@ import { ExecRenderBaseCommand } from "../../lib/basecommands/ExecRenderBaseComm
 import { getSSHConnectionForContainer } from "../../lib/resources/ssh/container.js";
 import { sshConnectionFlags } from "../../lib/resources/ssh/flags.js";
 import { getSSHKnownHostsFlags } from "../../lib/resources/ssh/knownhosts.js";
+import { buildScpArgs } from "../../lib/resources/ssh/scp.js";
 import { withContainerAndStackId } from "../../lib/resources/container/flags.js";
 import { projectFlags } from "../../lib/resources/project/flags.js";
 import {
@@ -74,29 +75,6 @@ Where CONTAINER can be a container ID, short ID, or service name.`;
       : `/${containerPath}`;
 
     return { container, path: normalizedPath };
-  }
-
-  private buildScpCommand(
-    source: string,
-    dest: string,
-    flags: { archive?: boolean; recursive?: boolean },
-  ): string[] {
-    const scpArgs = [
-      ...getSSHKnownHostsFlags(this.config.configDir),
-      "-o",
-      "PasswordAuthentication=no",
-    ];
-
-    if (flags.archive) {
-      scpArgs.push("-p");
-    }
-
-    if (flags.recursive) {
-      scpArgs.push("-r");
-    }
-
-    scpArgs.push(source, dest);
-    return scpArgs;
   }
 
   protected async exec(): Promise<void> {
@@ -178,7 +156,12 @@ Where CONTAINER can be a container ID, short ID, or service name.`;
       }
     }
 
-    const scpCommand = this.buildScpCommand(scpSource, scpDest, effectiveFlags);
+    const scpCommand = buildScpArgs(
+      getSSHKnownHostsFlags(this.config.configDir),
+      scpSource,
+      scpDest,
+      effectiveFlags,
+    );
 
     await spawnInProcess(
       p,
