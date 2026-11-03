@@ -36,8 +36,7 @@ const ProjectSpecs: FC<{
     const used = usage.usedBytes ? (
       <Text>
         {" "}
-        (<Value>{ByteQuantity.fromBytes(usage.usedBytes).format()}</Value>{" "}
-        used)
+        (<Value>{ByteQuantity.fromBytes(usage.usedBytes).format()}</Value> used)
       </Text>
     ) : undefined;
 

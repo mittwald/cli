@@ -105,8 +105,8 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
             </ListItem>
             <ListItem>
               <Text color={noteColor}>
-                The "hard limit" is the size of the project's storage volume.
-                It may be slightly lower than the provisioned storage due to
+                The "hard limit" is the size of the project's storage volume. It
+                may be slightly lower than the provisioned storage due to
                 filesystem overhead.
               </Text>
             </ListItem>

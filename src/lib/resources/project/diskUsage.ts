@@ -7,9 +7,9 @@ type ProjectFilesystemUsagesDisk =
 /**
  * Directory whose filesystem usage represents the project's storage.
  *
- * Without a directory, the API reports the usage of the root filesystem of
- * the project's runtime environment, which is unrelated to the project's
- * storage volume (see #2195). The path is resolved relative to the project.
+ * Without a directory, the API reports the usage of the root filesystem of the
+ * project's runtime environment, which is unrelated to the project's storage
+ * volume (see #2195). The path is resolved relative to the project.
  */
 const projectStorageDirectory = "/html";
 
