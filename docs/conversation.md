@@ -8,6 +8,7 @@ Manage your support cases
 * [`mw conversation create`](#mw-conversation-create)
 * [`mw conversation list`](#mw-conversation-list)
 * [`mw conversation reply [CONVERSATION-ID]`](#mw-conversation-reply-conversation-id)
+* [`mw conversation show [CONVERSATION-ID]`](#mw-conversation-show-conversation-id)
 
 ## `mw conversation categories`
 
@@ -140,5 +141,25 @@ AUTHENTICATION FLAGS
 
 DESCRIPTION
   Reply to a conversation
+```
+
+
+## `mw conversation show [CONVERSATION-ID]`
+
+Show a conversation and message history
+
+```
+USAGE
+  $ mw conversation show [CONVERSATION-ID] [--token <value>]
+
+ARGUMENTS
+  [CONVERSATION-ID]  ID of a conversation; this argument is optional if a default conversation is set in the context.
+
+AUTHENTICATION FLAGS
+  --token=<value>  API token to use for authentication (overrides environment and config file). NOTE: watch out that
+                   tokens passed via this flag might be logged in your shell history.
+
+DESCRIPTION
+  Show a conversation and message history
 ```
 
