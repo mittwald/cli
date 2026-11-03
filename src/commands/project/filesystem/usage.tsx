@@ -12,6 +12,7 @@ import { Note, noteColor } from "../../../rendering/react/components/Note.js";
 import { ListItem } from "../../../rendering/react/components/ListItem.js";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
 import maybe from "../../../lib/util/maybe.js";
+import { useProjectDiskUsage } from "../../../lib/resources/project/hooks.js";
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2ProjectsProjectIdFilesystemDiskUsage.Get.Parameters.Path;
@@ -33,16 +34,9 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
       (projectId: string) => this.apiClient.project.getProject({ projectId }),
       [projectId],
     );
-    const projectDiskUsage = usePromise(
-      (id: string) =>
-        this.apiClient.projectFileSystem.getDiskUsage({
-          projectId: id,
-        }),
-      [projectId],
-    );
+    const projectDiskUsage = useProjectDiskUsage(projectId);
 
     assertStatus(project, 200);
-    assertStatus(projectDiskUsage, 200);
 
     const planLimitStr = project.data.spec?.storage ?? undefined;
     const planLimit = planLimitStr
@@ -56,8 +50,8 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
       <Text>{bytes ? formatSize(bytes) : <Value notSet />}</Text>
     );
     const usageRelative =
-      planLimit && projectDiskUsage.data.usedBytes
-        ? projectDiskUsage.data.usedBytes / planLimit.bytes
+      planLimit && projectDiskUsage.usedBytes
+        ? projectDiskUsage.usedBytes / planLimit.bytes
         : undefined;
 
     const UsageRelative = () => {
@@ -75,8 +69,8 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
 
     const maybeQuantity = maybe(ByteQuantity.fromBytes);
 
-    const total = maybeQuantity(projectDiskUsage.data.totalBytes);
-    const used = maybeQuantity(projectDiskUsage.data.usedBytes);
+    const total = maybeQuantity(projectDiskUsage.totalBytes);
+    const used = maybeQuantity(projectDiskUsage.usedBytes);
 
     return (
       <Box flexDirection="column">
@@ -111,8 +105,9 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
             </ListItem>
             <ListItem>
               <Text color={noteColor}>
-                The "hard limit" is a technical limitation that is not related
-                to your hosting plan.
+                The "hard limit" is the size of the project's storage volume.
+                It may be slightly lower than the provisioned storage due to
+                filesystem overhead.
               </Text>
             </ListItem>
           </Box>
