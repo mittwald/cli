@@ -205,14 +205,18 @@ never into the repository:
   own header and decision line. Do not add a header or decision line yourself,
   and do not mention people or teams; the workflow does that when it escalates.
 
-Remember that GitHub-flavored Markdown renders single line breaks, so do not
-hard-wrap paragraphs in `comment.md`. Structure:
+GitHub-flavored Markdown renders every single line break, so **write each
+paragraph and each list item on one single line, however long it gets**. Do not
+wrap lines at 80 characters or any other width. This differs from the Markdown
+files in this repository (including this one), which Prettier wraps at 80
+characters; do not copy their line wrapping. Structure (each placeholder below
+is one line):
 
+<!-- prettier-ignore -->
 ```markdown
 ### What changed upstream
 
-Per package: old → new version, the relevant changes, links to release notes or
-migration guides you used.
+Per package: old → new version, the relevant changes, links to release notes or migration guides you used.
 
 ### Impact on this repository
 
@@ -224,8 +228,7 @@ Commits you made (subject line each) and why, or "None".
 
 ### Verification
 
-Which checks you ran locally and their results, and what CI reported before your
-changes.
+Which checks you ran locally and their results, and what CI reported before your changes.
 
 ### Why this needs a human (only when your decision is `escalate`)
 

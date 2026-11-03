@@ -267,6 +267,21 @@ jobs:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{
             github.run_id }}
         run: |
+          review="$RUNNER_TEMP/review-comment.md"
+          if [[ -s "$RESULT_DIR/comment.md" ]]; then
+            head -c 60000 "$RESULT_DIR/comment.md" > "$review"
+            # GitHub renders single line breaks, but models tend to hard-wrap
+            # Markdown anyway. Join wrapped lines of paragraphs and list items.
+            # Runs outside the checkout without config, so that no repository
+            # config or plugin is loaded.
+            if (cd "$RUNNER_TEMP" && npx --yes prettier@3.9.10 --no-config --no-editorconfig \
+              --parser markdown --prose-wrap never < "$review" > "$review.unwrapped"); then
+              mv "$review.unwrapped" "$review"
+            else
+              echo "::warning::Could not unwrap the review comment; posting it as is."
+            fi
+          fi
+
           body="$RUNNER_TEMP/comment.md"
           {
             echo "<!-- review-dependabot-pr -->"
@@ -284,8 +299,8 @@ jobs:
               cat "$NOTES"
             fi
             echo
-            if [[ -s "$RESULT_DIR/comment.md" ]]; then
-              head -c 60000 "$RESULT_DIR/comment.md"
+            if [[ -s "$review" ]]; then
+              cat "$review"
             else
               echo "The review did not produce a summary. See the workflow run for details."
             fi
