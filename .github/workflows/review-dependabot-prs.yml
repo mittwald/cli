@@ -1,0 +1,78 @@
+name: Review Dependabot pull requests
+
+# Periodically picks up open Dependabot PRs for minor and major bumps that are
+# not auto-merged by automerge.yml, and reviews each of them with
+# review-dependabot-pr.yml. To review a single PR, dispatch that workflow
+# directly.
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekdays at 06:00 UTC.
+    - cron: "0 6 * * 1-5"
+
+# Upper bound for the GITHUB_TOKEN of the called workflow; it never needs write
+# access (writes go through MACHINE_USER_TOKEN in a job that runs no PR code).
+permissions:
+  contents: read
+  pull-requests: read
+  checks: read
+  statuses: read
+  actions: read
+
+concurrency:
+  group: review-dependabot-prs
+  cancel-in-progress: false
+
+jobs:
+  select:
+    name: Select pull requests
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'mittwald/cli' }}
+    outputs:
+      prs: ${{ steps.select.outputs.prs }}
+    steps:
+      - name: Select pull requests
+        id: select
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ESCALATION_LABEL: needs-human-review
+        run: |
+          # Give automerge.yml time to enable auto-merge on fresh PRs.
+          cutoff=$(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%SZ)
+
+          candidates=$(gh pr list --repo "$GITHUB_REPOSITORY" --author app/dependabot \
+            --state open --limit 100 --json number,createdAt,autoMergeRequest,labels \
+            --jq "[.[]
+              | select(.autoMergeRequest == null)
+              | select(.createdAt < \"$cutoff\")
+              | select(all(.labels[]; .name != \"$ESCALATION_LABEL\"))
+              | .number] | .[]")
+
+          selected=()
+          for pr in $candidates; do
+            # Dependabot's first commit carries the update metadata (the same
+            # data dependabot/fetch-metadata reads).
+            meta=$(gh pr view "$pr" --repo "$GITHUB_REPOSITORY" --json commits --jq '.commits[0].messageBody')
+            if grep -Eq 'update-type: version-update:semver-(major|minor)' <<<"$meta"; then
+              selected+=("$pr")
+            fi
+          done
+
+          prs=$(printf '%s\n' "${selected[@]}" | jq -cRn '[inputs | select(length > 0) | tonumber]')
+          echo "Selected PRs: $prs"
+          echo "prs=$prs" >> "$GITHUB_OUTPUT"
+
+  review:
+    name: PR #${{ matrix.pr }}
+    needs: select
+    if: ${{ needs.select.outputs.prs != '[]' }}
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        pr: ${{ fromJSON(needs.select.outputs.prs) }}
+    uses: ./.github/workflows/review-dependabot-pr.yml
+    with:
+      pr: ${{ matrix.pr }}
+    secrets: inherit

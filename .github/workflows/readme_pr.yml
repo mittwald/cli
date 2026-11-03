@@ -1,4 +1,15 @@
 name: Update README for pull requests
+
+# Runs on pull_request_target so that it can push to PR branches (including
+# Dependabot and fork PRs). That means it runs with access to secrets, while the
+# PR code is untrusted. To keep both apart:
+#
+# - "generate" builds the PR and regenerates the docs. It runs the PR's code,
+#   so it has no secrets, a read-only token and no persisted git credentials.
+#   It hands over the docs changes as a patch.
+# - "push" runs no code from the PR. It checks that the patch only touches
+#   README.md and docs/*.md, and pushes it using MACHINE_USER_TOKEN.
+
 on:
   pull_request_target:
     branches:
@@ -8,27 +19,103 @@ on:
       - ready_for_review
       - synchronize
 
+permissions:
+  contents: read
+
+concurrency:
+  group: readme-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
-  update-readme:
+  generate:
     name: Re-generate README
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     steps:
       - uses: actions/checkout@v7
         with:
-          token: ${{ secrets.MACHINE_USER_TOKEN }}
+          ref: ${{ github.event.pull_request.head.sha }}
           fetch-tags: "true"
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-      - run: gh pr checkout ${{ github.event.pull_request.number }}
-        env:
-          GH_TOKEN: ${{ github.token }}
       - run: yarn
+        env:
+          YARN_ENABLE_SCRIPTS: "false"
       - run: yarn compile
       - run: yarn generate:readme
-      - uses: stefanzweifel/git-auto-commit-action@v7
+      - name: Export docs changes as patch
+        run: |
+          git add -A README.md docs
+          git diff --cached --binary > "$RUNNER_TEMP/readme.patch"
+          git diff --cached --stat
+      - uses: actions/upload-artifact@v7
         with:
-          commit_message: "chore: re-generate README"
-          file_pattern: README.md docs/*.md
+          name: readme-patch
+          path: ${{ runner.temp }}/readme.patch
+          retention-days: 1
+
+  push:
+    name: Push README
+    needs: generate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    # Treats the patch as untrusted input. Do not run any code from the PR
+    # (no yarn, no npm, no scripts from the checkout) in this job.
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: readme-patch
+          path: ${{ runner.temp }}/readme
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [[ -s "$RUNNER_TEMP/readme/readme.patch" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "README and docs are up to date."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.changes.outputs.changed == 'true'
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.MACHINE_USER_TOKEN }}
+
+      - name: Apply and push
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          AUTHOR:
+            ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor
+            }}@users.noreply.github.com>
+        run: |
+          if [[ "$(git rev-parse HEAD)" != "$HEAD_SHA" ]]; then
+            echo "::notice::The PR branch moved on; the run for the newer commit takes care of the README."
+            exit 0
+          fi
+
+          git apply --index "$RUNNER_TEMP/readme/readme.patch"
+
+          unexpected=$(git diff --cached --name-only | grep -vE '^(README\.md|docs/[^/]+\.md)$' || true)
+          if [[ -n "$unexpected" ]]; then
+            echo "::error::The generated patch touches files other than README.md and docs/*.md:"
+            echo "$unexpected"
+            exit 1
+          fi
+          if git diff --cached --summary | grep -E 'mode (120000|160000|100755)'; then
+            echo "::error::The generated patch contains symlinks, submodules or executable files."
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --author="$AUTHOR" -m "chore: re-generate README"
+          git push origin "HEAD:refs/heads/$HEAD_REF"

@@ -1,0 +1,297 @@
+name: Review Dependabot pull request
+
+# Reviews a single Dependabot PR with OpenCode (see opencode.json and the
+# review-dependabot-pr skill). Called for every eligible PR by
+# review-dependabot-prs.yml, or dispatched manually for one PR.
+#
+# The work is split in two jobs so that the dependency's code never runs next to
+# a write token:
+#
+# - "review" installs the bumped dependency, runs the checks and the agent. It
+#   only has a read-only GITHUB_TOKEN and no persisted git credentials. The
+#   agent commits locally and hands over a patch, a comment and a decision as an
+#   artifact.
+# - "apply" runs no code from the PR. It validates the artifact, pushes the
+#   patch, waits for CI, and then merges or escalates using MACHINE_USER_TOKEN.
+
+on:
+  workflow_call:
+    inputs:
+      pr:
+        description: Number of the Dependabot pull request to review.
+        type: number
+        required: true
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Number of the Dependabot pull request to review.
+        type: number
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    name: Review
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: read
+      pull-requests: read
+      checks: read
+      statuses: read
+      actions: read
+    outputs:
+      head_sha: ${{ steps.pr.outputs.head_sha }}
+    env:
+      PR: ${{ inputs.pr }}
+      GH_TOKEN: ${{ github.token }}
+      # Do not run install scripts of dependencies. Compilation, linting and
+      # tests still load the dependency's code, but at least nothing runs on
+      # install.
+      YARN_ENABLE_SCRIPTS: "false"
+    steps:
+      - name: Prepare output directory
+        run: |
+          mkdir -p "$RUNNER_TEMP/review"
+          echo "REVIEW_OUTPUT_DIR=$RUNNER_TEMP/review" >> "$GITHUB_ENV"
+
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Checkout PR branch
+        id: pr
+        run: |
+          gh pr checkout "$PR"
+          echo "head_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      # Same Node.js version as test.yml, so local checks match CI.
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Install opencode
+        run: npm install -g opencode-ai
+
+      - name: Configure git identity
+        run: |
+          git config user.name "mittwald-machine[bot]"
+          git config user.email "opensource@mittwald.de"
+
+      - name: Review pull request
+        env:
+          MITTWALD_AI_API_KEY: ${{ secrets.MITTWALD_AI_API_KEY }}
+        run: |
+          PROMPT=$(cat <<PROMPT_EOF
+          Run the review-dependabot-pr skill for pull request #${PR} in
+          ${GITHUB_REPOSITORY}. The PR branch is already checked out and its
+          dependencies are installed. Write your hand-over files to
+          ${REVIEW_OUTPUT_DIR}.
+
+          This is a non-interactive, unattended run: never stop to ask a
+          clarifying question. If something is ambiguous, decide to escalate
+          and explain why in your comment.
+          PROMPT_EOF
+          )
+          opencode run --print-logs --thinking --auto "$PROMPT"
+
+      - name: Export commits as patch
+        env:
+          HEAD_SHA: ${{ steps.pr.outputs.head_sha }}
+        run: |
+          if ! git merge-base --is-ancestor "$HEAD_SHA" HEAD; then
+            echo "::error::The agent rewrote the PR's existing history."
+            exit 1
+          fi
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "::warning::Discarding uncommitted changes:"
+            git status --porcelain
+          fi
+          git format-patch --binary --stdout "$HEAD_SHA..HEAD" > "$REVIEW_OUTPUT_DIR/changes.patch"
+          ls -la "$REVIEW_OUTPUT_DIR"
+
+      - name: Upload review result
+        uses: actions/upload-artifact@v7
+        with:
+          name: review-result-${{ inputs.pr }}
+          path: |
+            ${{ runner.temp }}/review/changes.patch
+            ${{ runner.temp }}/review/comment.md
+            ${{ runner.temp }}/review/decision
+          if-no-files-found: warn
+          retention-days: 7
+
+  apply:
+    name: Apply
+    needs: review
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      PR: ${{ inputs.pr }}
+      HEAD_SHA: ${{ needs.review.outputs.head_sha }}
+      GH_TOKEN: ${{ secrets.MACHINE_USER_TOKEN }}
+      ESCALATION_LABEL: needs-human-review
+      ESCALATION_TEAM: mittwald/developer-relations
+    # Everything below treats the review result as untrusted input. Do not run
+    # any code from the PR (no yarn, no npm, no scripts from the checkout) in
+    # this job.
+    steps:
+      - name: Prepare paths
+        run: |
+          echo "RESULT_DIR=$RUNNER_TEMP/review" >> "$GITHUB_ENV"
+          echo "NOTES=$RUNNER_TEMP/notes.md" >> "$GITHUB_ENV"
+
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.MACHINE_USER_TOKEN }}
+
+      - name: Download review result
+        uses: actions/download-artifact@v8
+        with:
+          name: review-result-${{ inputs.pr }}
+          path: ${{ runner.temp }}/review
+
+      - name: Configure git identity
+        run: |
+          git config user.name "mittwald-machine[bot]"
+          git config user.email "opensource@mittwald.de"
+
+      - name: Validate decision
+        id: decision
+        run: |
+          touch "$NOTES"
+          decision=$(tr -d '[:space:]' < "$RESULT_DIR/decision" 2>/dev/null || true)
+          case "$decision" in
+            merge|escalate) ;;
+            *)
+              echo "- The review did not produce a valid decision." >> "$NOTES"
+              decision=escalate
+              ;;
+          esac
+          echo "Agent decision: $decision"
+          echo "decision=$decision" >> "$GITHUB_OUTPUT"
+
+      - name: Push changes
+        id: push
+        run: |
+          branch=$(gh pr view "$PR" --json headRefName --jq .headRefName)
+          git fetch origin "refs/heads/$branch"
+          if [[ "$(git rev-parse FETCH_HEAD)" != "$HEAD_SHA" ]]; then
+            echo "::error::PR #$PR changed while it was being reviewed. It will be picked up again on the next run."
+            exit 1
+          fi
+          git checkout --detach "$HEAD_SHA"
+
+          if [[ ! -s "$RESULT_DIR/changes.patch" ]]; then
+            echo "No changes to push."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git am --keep-cr "$RESULT_DIR/changes.patch"
+
+          # Files that can run code in CI or change the agent's own
+          # instructions. Changes to these always need a human.
+          forbidden=$(git diff --name-only "$HEAD_SHA" HEAD \
+            | grep -E '^(\.github/|\.yarn/|\.yarnrc\.yml$|\.agents/|opencode\.json$)' || true)
+          if [[ -n "$forbidden" ]]; then
+            {
+              echo "- The review produced changes to protected files, so they were **not pushed**:"
+              sed 's/^/  - `/; s/$/`/' <<<"$forbidden"
+            } >> "$NOTES"
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            echo "forbidden=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git log --oneline "$HEAD_SHA..HEAD"
+          git push origin "HEAD:refs/heads/$branch"
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for CI and merge
+        id: merge
+        if:
+          steps.decision.outputs.decision == 'merge' &&
+          steps.push.outputs.forbidden != 'true'
+        run: |
+          merged=false
+          # Give CI (and the README job, which may push another commit) time to
+          # register their checks on the new head.
+          sleep 60
+          for attempt in 1 2 3; do
+            sha=$(gh pr view "$PR" --json headRefOid --jq .headRefOid)
+            if ! gh pr checks "$PR" --required --watch --fail-fast --interval 30; then
+              echo "- Required checks failed on $sha, so the PR was not merged." >> "$NOTES"
+              break
+            fi
+            if [[ "$(gh pr view "$PR" --json headRefOid --jq .headRefOid)" != "$sha" ]]; then
+              echo "Head moved while waiting for checks, waiting again."
+              sleep 30
+              continue
+            fi
+            # The ruleset requires approval of the most recent push, which the
+            # machine user cannot give for its own commits; fall back to --admin
+            # only after all required checks passed on $sha.
+            if gh pr merge "$PR" --squash --match-head-commit "$sha" \
+              || gh pr merge "$PR" --squash --admin --match-head-commit "$sha"; then
+              merged=true
+            else
+              echo "- Merging $sha failed." >> "$NOTES"
+            fi
+            break
+          done
+          if [[ "$merged" != true && ! -s "$NOTES" ]]; then
+            echo "- The PR head kept changing while waiting for checks." >> "$NOTES"
+          fi
+          echo "merged=$merged" >> "$GITHUB_OUTPUT"
+
+      - name: Comment
+        env:
+          MERGED: ${{ steps.merge.outputs.merged == 'true' }}
+          RUN_URL:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{
+            github.run_id }}
+        run: |
+          body="$RUNNER_TEMP/comment.md"
+          {
+            echo "<!-- review-dependabot-pr -->"
+            echo "## 🤖 Automated dependency review"
+            echo
+            if [[ "$MERGED" == true ]]; then
+              echo "**Decision:** Merged"
+            else
+              echo "**Decision:** Escalated to @$ESCALATION_TEAM"
+            fi
+            if [[ -s "$NOTES" ]]; then
+              echo
+              echo "### Notes from the workflow"
+              echo
+              cat "$NOTES"
+            fi
+            echo
+            if [[ -s "$RESULT_DIR/comment.md" ]]; then
+              head -c 60000 "$RESULT_DIR/comment.md"
+            else
+              echo "The review did not produce a summary. See the workflow run for details."
+            fi
+            echo
+            echo
+            echo "<sub>[Workflow run]($RUN_URL)</sub>"
+          } > "$body"
+          gh pr comment "$PR" --body-file "$body"
+
+      - name: Escalate
+        if: steps.merge.outputs.merged != 'true'
+        run: |
+          gh label create "$ESCALATION_LABEL" --force \
+            --color d93f0b --description "Automated review escalated this PR to a human"
+          gh pr edit "$PR" --add-label "$ESCALATION_LABEL" --add-reviewer "$ESCALATION_TEAM"
