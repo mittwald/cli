@@ -27,11 +27,11 @@ type ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
 type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 
 const ProjectSpecs: FC<{
-  projectId: string;
+  project: ProjectProject;
   spec: ProjectHardwareSpec | ProjectVisitorSpec;
-}> = ({ projectId, spec }) => {
+}> = ({ project, spec }) => {
   if ("cpu" in spec) {
-    const usage = useProjectDiskUsage(projectId);
+    const usage = useProjectDiskUsage(project);
 
     const used = usage.usedBytes ? (
       <Text>
@@ -155,7 +155,7 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
 
   if (response.spec) {
     sections.push(
-      <ProjectSpecs key="specs" projectId={response.id} spec={response.spec} />,
+      <ProjectSpecs key="specs" project={response} spec={response.spec} />,
     );
   }
 

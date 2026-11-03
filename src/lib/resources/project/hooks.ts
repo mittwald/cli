@@ -20,7 +20,7 @@ export function useProject(projectId: string): ProjectProject {
   return project.data;
 }
 
-export function useProjectDiskUsage(projectId: string) {
+export function useProjectDiskUsage(project: ProjectProject) {
   const { apiClient } = useRenderContext();
-  return usePromise((id) => getProjectDiskUsage(apiClient, id), [projectId]);
+  return usePromise((p) => getProjectDiskUsage(apiClient, p), [project]);
 }
