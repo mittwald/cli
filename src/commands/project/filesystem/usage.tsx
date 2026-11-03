@@ -2,16 +2,18 @@ import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import { projectArgs } from "../../../lib/resources/project/flags.js";
 import { RenderBaseCommand } from "../../../lib/basecommands/RenderBaseCommand.js";
 import { ReactNode } from "react";
-import { usePromise } from "@mittwald/react-use-promise";
 import { SingleResult } from "../../../rendering/react/components/SingleResult.js";
 import { Box, Text } from "ink";
 import { Value } from "../../../rendering/react/components/Value.js";
-import { assertStatus } from "@mittwald/api-client-commons";
 import { Flags } from "@oclif/core";
 import { Note, noteColor } from "../../../rendering/react/components/Note.js";
 import { ListItem } from "../../../rendering/react/components/ListItem.js";
 import ByteQuantity from "../../../lib/units/ByteQuantity.js";
 import maybe from "../../../lib/util/maybe.js";
+import {
+  useProject,
+  useProjectDiskUsage,
+} from "../../../lib/resources/project/hooks.js";
 
 export type PathParams =
   MittwaldAPIV2.Paths.V2ProjectsProjectIdFilesystemDiskUsage.Get.Parameters.Path;
@@ -29,22 +31,10 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
 
   protected render(): ReactNode {
     const projectId = this.useProjectId(Usage);
-    const project = usePromise(
-      (projectId: string) => this.apiClient.project.getProject({ projectId }),
-      [projectId],
-    );
-    const projectDiskUsage = usePromise(
-      (id: string) =>
-        this.apiClient.projectFileSystem.getDiskUsage({
-          projectId: id,
-        }),
-      [projectId],
-    );
+    const project = useProject(projectId);
+    const projectDiskUsage = useProjectDiskUsage(project);
 
-    assertStatus(project, 200);
-    assertStatus(projectDiskUsage, 200);
-
-    const planLimitStr = project.data.spec?.storage ?? undefined;
+    const planLimitStr = project.spec?.storage ?? undefined;
     const planLimit = planLimitStr
       ? ByteQuantity.fromString(planLimitStr)
       : undefined;
@@ -56,8 +46,8 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
       <Text>{bytes ? formatSize(bytes) : <Value notSet />}</Text>
     );
     const usageRelative =
-      planLimit && projectDiskUsage.data.usedBytes
-        ? projectDiskUsage.data.usedBytes / planLimit.bytes
+      planLimit && projectDiskUsage.usedBytes
+        ? projectDiskUsage.usedBytes / planLimit.bytes
         : undefined;
 
     const UsageRelative = () => {
@@ -75,16 +65,15 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
 
     const maybeQuantity = maybe(ByteQuantity.fromBytes);
 
-    const total = maybeQuantity(projectDiskUsage.data.totalBytes);
-    const used = maybeQuantity(projectDiskUsage.data.usedBytes);
+    const total = maybeQuantity(projectDiskUsage.totalBytes);
+    const used = maybeQuantity(projectDiskUsage.usedBytes);
 
     return (
       <Box flexDirection="column">
         <SingleResult
           title={
             <Text>
-              PROJECT FILESYSTEM USAGE:{" "}
-              <Value>{project.data.description}</Value>
+              PROJECT FILESYSTEM USAGE: <Value>{project.description}</Value>
             </Text>
           }
           rows={{
@@ -111,8 +100,9 @@ export class Usage extends RenderBaseCommand<typeof Usage> {
             </ListItem>
             <ListItem>
               <Text color={noteColor}>
-                The "hard limit" is a technical limitation that is not related
-                to your hosting plan.
+                The "hard limit" is the size of the project's storage volume. It
+                may be slightly lower than the provisioned storage due to
+                filesystem overhead.
               </Text>
             </ListItem>
           </Box>

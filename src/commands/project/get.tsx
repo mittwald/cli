@@ -19,6 +19,7 @@ import Link from "ink-link";
 import { ProjectStatus } from "../../rendering/react/components/Project/ProjectStatus.js";
 import ByteQuantity from "../../lib/units/ByteQuantity.js";
 import { GetFormatter } from "../../rendering/formatter/GetFormatter.js";
+import { useProjectDiskUsage } from "../../lib/resources/project/hooks.js";
 
 type ProjectHardwareSpec = MittwaldAPIV2.Components.Schemas.ProjectHardwareSpec;
 type ProjectVisitorSpec = MittwaldAPIV2.Components.Schemas.ProjectVisitorSpec;
@@ -26,27 +27,16 @@ type ProjectProject = MittwaldAPIV2.Components.Schemas.ProjectProject;
 type CustomerCustomer = MittwaldAPIV2.Components.Schemas.CustomerCustomer;
 
 const ProjectSpecs: FC<{
-  projectId: string;
+  project: ProjectProject;
   spec: ProjectHardwareSpec | ProjectVisitorSpec;
-}> = ({ projectId, spec }) => {
+}> = ({ project, spec }) => {
   if ("cpu" in spec) {
-    const { apiClient } = useRenderContext();
-    const usage = usePromise(
-      (id: string) =>
-        apiClient.projectFileSystem.getDiskUsage({
-          projectId: id,
-        }),
-      [projectId],
-    );
+    const usage = useProjectDiskUsage(project);
 
-    const used = usage.data?.usedBytes ? (
+    const used = usage.usedBytes ? (
       <Text>
         {" "}
-        (
-        <Value>
-          {ByteQuantity.fromBytes(usage.data?.usedBytes as number).format()}
-        </Value>{" "}
-        used)
+        (<Value>{ByteQuantity.fromBytes(usage.usedBytes).format()}</Value> used)
       </Text>
     ) : undefined;
 
@@ -165,7 +155,7 @@ const GetProject: FC<{ response: ProjectProject }> = ({ response }) => {
 
   if (response.spec) {
     sections.push(
-      <ProjectSpecs key="specs" projectId={response.id} spec={response.spec} />,
+      <ProjectSpecs key="specs" project={response} spec={response.spec} />,
     );
   }
 
