@@ -101,7 +101,9 @@ jobs:
           and explain why in your comment.
           PROMPT_EOF
           )
-          opencode run --print-logs --thinking --auto "$PROMPT"
+          # Only print warnings and errors (e.g. provider errors) of OpenCode's
+          # own log; the agent's output and tool calls are printed regardless.
+          opencode run --print-logs --log-level WARN --thinking --auto "$PROMPT"
 
       - name: Export commits as patch
         env:
@@ -222,11 +224,15 @@ jobs:
         if:
           steps.decision.outputs.decision == 'merge' &&
           steps.push.outputs.forbidden != 'true'
+        env:
+          PUSHED: ${{ steps.push.outputs.pushed }}
         run: |
           merged=false
-          # Give CI (and the README job, which may push another commit) time to
-          # register their checks on the new head.
-          sleep 60
+          if [[ "$PUSHED" == true ]]; then
+            # Give CI (and the README job, which may push another commit) time
+            # to register their checks on the new head.
+            sleep 60
+          fi
           for attempt in 1 2 3; do
             sha=$(gh pr view "$PR" --json headRefOid --jq .headRefOid)
             if ! gh pr checks "$PR" --required --watch --fail-fast --interval 30; then
