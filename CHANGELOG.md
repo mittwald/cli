@@ -1,3 +1,10 @@
+## [1.29.1](https://github.com/mittwald/cli/compare/v1.29.0...v1.29.1) (2026-11-03)
+
+
+### Bug Fixes
+
+* **docker:** run tini as init so docker stop terminates the cli ([#2191](https://github.com/mittwald/cli/issues/2191)) ([48cb930](https://github.com/mittwald/cli/commit/48cb930bc3adc387d923884c3888dcee117d09ff)), closes [#2190](https://github.com/mittwald/cli/issues/2190)
+
 # [1.29.0](https://github.com/mittwald/cli/compare/v1.28.1...v1.29.0) (2026-11-02)
 
 
