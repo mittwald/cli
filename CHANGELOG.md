@@ -1,3 +1,10 @@
+## [1.29.2](https://github.com/mittwald/cli/compare/v1.29.1...v1.29.2) (2026-11-04)
+
+
+### Bug Fixes
+
+* **project:** report usage of the project volume in filesystem usage ([#2210](https://github.com/mittwald/cli/issues/2210)) ([f00772b](https://github.com/mittwald/cli/commit/f00772bbc45aaeaa52e3f65ff7ad3a64941b14e1)), closes [#2195](https://github.com/mittwald/cli/issues/2195)
+
 ## [1.29.1](https://github.com/mittwald/cli/compare/v1.29.0...v1.29.1) (2026-11-03)
 
 
