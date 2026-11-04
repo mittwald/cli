@@ -228,6 +228,13 @@ jobs:
           PUSHED: ${{ steps.push.outputs.pushed }}
         run: |
           merged=false
+          # Never merge over a review that requested changes, whatever the
+          # agent decided.
+          if [[ "$(gh pr view "$PR" --json reviewDecision --jq .reviewDecision)" == CHANGES_REQUESTED ]]; then
+            echo "- A review requested changes, so the PR was not merged." >> "$NOTES"
+            echo "merged=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           if [[ "$PUSHED" == true ]]; then
             # Give CI (and the README job, which may push another commit) time
             # to register their checks on the new head.
@@ -308,11 +315,36 @@ jobs:
             echo
             echo "<sub>[Workflow run]($RUN_URL)</sub>"
           } > "$body"
-          gh pr comment "$PR" --body-file "$body"
+
+          # If the latest comment or review on the PR is this workflow's own
+          # comment, update it instead of adding another one. As soon as anyone
+          # else (a human, Dependabot) has commented or reviewed since, post a
+          # new comment so the conversation stays in order. Approvals by
+          # automerge.yml (github-actions) do not count.
+          me=$(gh api user --jq .login)
+          previous=$(gh pr view "$PR" --json comments,reviews | jq -r --arg me "$me" '
+            [(.comments[] | {at: .createdAt, login: .author.login, url: .url, body: .body}),
+             (.reviews[] | select(.author.login != "github-actions")
+               | {at: .submittedAt, login: .author.login, url: "", body: .body})]
+            | sort_by(.at) | last
+            | select(. != null and .login == $me and (.body | startswith("<!-- review-dependabot-pr -->")))
+            | .url')
+          if [[ "$previous" == *"#issuecomment-"* ]]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/${previous##*#issuecomment-}" \
+              --input <(jq -n --rawfile body "$body" '{body: $body}') > /dev/null
+            echo "Updated $previous"
+          else
+            gh pr comment "$PR" --body-file "$body"
+          fi
 
       - name: Escalate
         if: steps.merge.outputs.merged != 'true'
         run: |
           gh label create "$ESCALATION_LABEL" --force \
             --color d93f0b --description "Automated review escalated this PR to a human"
-          gh pr edit "$PR" --add-label "$ESCALATION_LABEL" --add-reviewer "$ESCALATION_TEAM"
+          # The label keeps the scheduled run from reviewing the PR again, so set
+          # it on its own; the review request must not be able to prevent that.
+          gh pr edit "$PR" --add-label "$ESCALATION_LABEL"
+          if ! gh pr edit "$PR" --add-reviewer "$ESCALATION_TEAM"; then
+            echo "::warning::Could not request a review from $ESCALATION_TEAM (the token needs the read:org scope, and the team access to this repository)."
+          fi
