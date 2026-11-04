@@ -1,7 +1,7 @@
 import { assertStatus } from "@mittwald/api-client-commons";
 import { formatRelativeDate } from "../../rendering/textformat/formatDate.js";
-import { marked, Renderer } from "marked";
-import TerminalRenderer from "marked-terminal";
+import { marked } from "marked";
+import { markedTerminal } from "marked-terminal";
 import chalk from "chalk";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import {
@@ -101,9 +101,7 @@ function printConversationMetadata(
 async function printConversationMessages(responseItems: ResponseItem[]) {
   printHeader("Messages");
 
-  marked.setOptions({
-    renderer: new TerminalRenderer() as Renderer,
-  });
+  marked.use(markedTerminal());
 
   for (const responseItem of responseItems) {
     await printResponseItem(responseItem);
