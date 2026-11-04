@@ -2033,7 +2033,7 @@ __metadata:
     semver: ^7.5.4
     semver-parser: ^4.1.6
     shell-escape: ^0.2.0
-    slice-ansi: ^9.0.0
+    slice-ansi: ^10.0.0
     string-width: ^8.0.0
     tempfile: ^6.0.1
     ts-jest: ^29.2.5
@@ -9410,6 +9410,16 @@ __metadata:
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
   checksum: 94a93fff615f25a999ad4b83c9d5e257a7280c90a32a7cb8b4a87996e4babf322e469c42b7f649fd5796edd8687652f3fb452a86dc97a816f01113183393f11c
+  languageName: node
+  linkType: hard
+
+"slice-ansi@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "slice-ansi@npm:10.0.0"
+  dependencies:
+    ansi-styles: ^7.0.0
+    string-width: ^8.3.0
+  checksum: 6c39e120d0dbb0e2d7df4433346def9e792087ac64cf1155f2c3671e5fb5608fdbd65e1e39d17c66f6917c1d68cc5a058b0e1620d4419d6f39a88f06ce38316b
   languageName: node
   linkType: hard
 
