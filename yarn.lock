@@ -2047,14 +2047,14 @@ __metadata:
   linkType: soft
 
 "@mittwald/container-deploy@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@mittwald/container-deploy@npm:2.0.1"
+  version: 2.0.2
+  resolution: "@mittwald/container-deploy@npm:2.0.2"
   peerDependencies:
     "@mittwald/api-client": ^4.331.0
   peerDependenciesMeta:
     "@mittwald/api-client":
       optional: false
-  checksum: a1851b4267b59a6f22fb3cc84d40320f740a29ce896815f5c8c6ff799f177429d9fd413adb03d32daab3cec8c908bc43ba2a8ca44ca52081d2f183f4422b0166
+  checksum: f6454b3aff9a73bdae8d2b355b3a89aea431e2f14b50428d2c86bf321a715480267a123f748a4ab4a4ee700214ee5a9f4b7e5b91865000f6733a17a46e277f63
   languageName: node
   linkType: hard
 
