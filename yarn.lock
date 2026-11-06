@@ -2104,7 +2104,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nodable/entities@npm:^3.0.1":
+"@nodable/entities@npm:^3.1.0":
   version: 3.1.0
   resolution: "@nodable/entities@npm:3.1.0"
   checksum: 64d3b0b92d9a35e5073497ce421d2b689bb03b97ea9755f1dbe787d7857a61b0d6c2ffd37f565ee24bc8cbdf89da35781bff8b873af02a7d0570783858912f8d
@@ -5520,29 +5520,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-xml-builder@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "fast-xml-builder@npm:1.2.0"
+"fast-xml-builder@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "fast-xml-builder@npm:1.3.1"
   dependencies:
-    path-expression-matcher: ^1.5.0
-    xml-naming: ^0.1.0
-  checksum: 3bf38faf65dee87d213b4fc096b57141d68248d6c7e64f24879fce646f2e681f1ad2669e17eebc75abc8c6147a1c84001c1b8c4d9cb3c0fea21650b74c230c7d
+    path-expression-matcher: ^1.6.2
+    xml-naming: ^0.3.0
+  checksum: e243f8b2adeb9ffbea8318f9bed9518dfff8d607b10b66ca6dd07793a3dbc87a674518f27ad27ef1c227cb9019954eee92fed938daeb6bdf69260b85204b495b
   languageName: node
   linkType: hard
 
 "fast-xml-parser@npm:^5.2.5":
-  version: 5.11.2
-  resolution: "fast-xml-parser@npm:5.11.2"
+  version: 5.12.0
+  resolution: "fast-xml-parser@npm:5.12.0"
   dependencies:
-    "@nodable/entities": ^3.0.1
-    fast-xml-builder: ^1.2.0
-    is-unsafe: ^2.0.0
+    "@nodable/entities": ^3.1.0
+    fast-xml-builder: ^1.3.1
+    is-unsafe: ^2.0.3
     path-expression-matcher: ^1.6.2
-    strnum: ^2.4.2
+    strnum: ^2.5.1
     xml-naming: ^0.3.0
   bin:
     fxparser: src/cli/cli.js
-  checksum: c3a5f0bc91f0d56416e82c15887802605c439d4b34c6be33c2fa5df792664de227466e95b09da4349c909e1e0686cc2f83e9145349c2f58b2c4919c9aa508138
+  checksum: 64d0d99dd16db62a213bdebabd992474d903e82a9858258e0fa9c12b7bd1a4255d752147e995eac095b71e8b4df4d3179c42c707aba9877a26ac33287838f72e
   languageName: node
   linkType: hard
 
@@ -6587,10 +6587,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-unsafe@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "is-unsafe@npm:2.0.0"
-  checksum: a18c9891578569c7bd41a8296f7be5bf78fe4ddc4c0cf3c4e4aaa94487ceeddfdd2e4e33f765d578bb42ef33caa5ff15de43da25167c6f6a67351c900a42165b
+"is-unsafe@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "is-unsafe@npm:2.0.3"
+  checksum: 5a4749d8b29075bebe7d8adb77562a2638f0a0a1b892c5eaec50485e5c81afddfd6c180a77d1ac05f2b13962e8c60356443577613f3804187d6fad72aa84f125
   languageName: node
   linkType: hard
 
@@ -8764,13 +8764,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-expression-matcher@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "path-expression-matcher@npm:1.5.0"
-  checksum: 52f0491a88f728f2eefb83a5c4f84f1185a8572e34ba41a72f88e270d5796c966ec1fe78e978599c490ccac0656a4cc55d75485538393873d32a4ef096a8dda6
-  languageName: node
-  linkType: hard
-
 "path-expression-matcher@npm:^1.6.2":
   version: 1.6.2
   resolution: "path-expression-matcher@npm:1.6.2"
@@ -9721,12 +9714,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strnum@npm:^2.4.2":
-  version: 2.4.2
-  resolution: "strnum@npm:2.4.2"
+"strnum@npm:^2.5.1":
+  version: 2.5.1
+  resolution: "strnum@npm:2.5.1"
   dependencies:
     anynum: ^1.0.1
-  checksum: aec8958f66eee511e4bfc2d3e607a9e6821b7ed760da2df3cf6ac3e80b73f9e0a98d809766d10b12d39608d551fdbe2c6ee9a5512e95043c41ff3bc2aa51e715
+  checksum: f91efcc81b432e77f7a970ffd9e23f8c85a8320168ce2e960a20851b6312ac96f548a07c93fe1cf03171a0d5b33a8b21ef945caef41c66ba9f3d8f0dc298e65e
   languageName: node
   linkType: hard
 
@@ -10687,13 +10680,6 @@ __metadata:
     is-wsl: ^3.1.0
     powershell-utils: ^0.1.0
   checksum: 18d3668e7203cf19639730c63dc3c33c90193f0c1f2089d2e3584c1c809084a011ff8a5340af5249d187eb62e31d9a98babbd1f22998daae5c8d0bbb4d730d08
-  languageName: node
-  linkType: hard
-
-"xml-naming@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "xml-naming@npm:0.1.0"
-  checksum: 8d1b5b84430f688a95f02ae1e13557d481242eed6de945569c444a6ec1553a0065afe39a1536aeffee3a787cb3cf99432e61d9fbbaa6d8d64555d550e6b4b13d
   languageName: node
   linkType: hard
 
