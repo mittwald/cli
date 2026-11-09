@@ -2078,17 +2078,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mswjs/interceptors@npm:^0.44.0":
-  version: 0.44.0
-  resolution: "@mswjs/interceptors@npm:0.44.0"
+"@mswjs/interceptors@npm:^0.45.11":
+  version: 0.45.11
+  resolution: "@mswjs/interceptors@npm:0.45.11"
   dependencies:
     "@open-draft/until": ^3.0.1
     "@types/debug": ^4.1.13
     debug: ^4.4.3
     is-node-process: ^1.2.0
     outvariant: ^1.4.3
-    rettime: ^0.11.11
-  checksum: 9e7ac0828a525be8b1b88b624d6ec90ff55c296aec13c8c347c71d94badb336732d9d4355a6637afbc265ef908971c945af077363eef5f9650203ce078e9b9d4
+    rettime: ^0.11.12
+  checksum: 3c5b05eab4df3c182a43568ef4871c1995e5b5ace9fa18fe41dcfef6d7558867169dcc9d39f2d5ffd919724d90df23c61c21424d291f229f788d35951a4839e0
   languageName: node
   linkType: hard
 
@@ -8204,11 +8204,11 @@ __metadata:
   linkType: hard
 
 "nock@npm:^15.0.5":
-  version: 15.0.5
-  resolution: "nock@npm:15.0.5"
+  version: 15.0.6
+  resolution: "nock@npm:15.0.6"
   dependencies:
-    "@mswjs/interceptors": ^0.44.0
-  checksum: 69b9bf58f57885725c782420eacb1e6cab2cb2d959e68a1283c43abb4135a6659a7be5c5cc887dbc0d05abf80ee77a17a46699de82db45f8f392223f6e0f1214
+    "@mswjs/interceptors": ^0.45.11
+  checksum: d1720077866a44764084cedc3e016f36298449d9db325b025c99eb284daefe1fce733844d7e19b7e327bf0d1106315643355c81deeb61f2ea37041c24fe79610
   languageName: node
   linkType: hard
 
@@ -9240,7 +9240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rettime@npm:^0.11.11":
+"rettime@npm:^0.11.12":
   version: 0.11.12
   resolution: "rettime@npm:0.11.12"
   checksum: a0213d6d3c84955b566f29e852d7490758d31df397e4dc0ac4f61c74a93ee530c4c129546477069ac9ba92977c8a0f827c7b833032ac2530eccc675795fbe0ba
