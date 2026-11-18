@@ -12,8 +12,9 @@ description:
 
 You get a pull request number. The PR was opened by Dependabot and bumps one or
 more npm packages (or GitHub Actions) by a **minor or major** version. Patch
-bumps and the `mittwald-api` group are auto-merged by
-`.github/workflows/automerge.yml` and never reach you.
+bumps, the `mittwald-api` group and minor bumps of development dependencies are
+merged by `.github/workflows/review-dependabot-prs.yml` without a review and
+never reach you.
 
 Your job, in order:
 
@@ -66,7 +67,8 @@ Read the previous version from the PR title or from
 
 If the PR already carries commits other than Dependabot's own and the README
 job's (`chore: re-generate README`), read them first and build on that state
-instead of starting over.
+instead of starting over. The workflow only merges such commits after a
+maintainer approved them, so list them in your comment.
 
 ### Read the discussion
 

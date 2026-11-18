@@ -1,8 +1,16 @@
 name: Review Dependabot pull requests
 
-# Periodically picks up open Dependabot PRs for minor and major bumps that are
-# not auto-merged by automerge.yml, and reviews each of them with
-# review-dependabot-pr.yml. To review a single PR, dispatch that workflow
+# The only workflow that merges Dependabot PRs. Periodically picks up open
+# Dependabot PRs and hands each of them to review-dependabot-pr.yml:
+#
+# - Patch updates, the "mittwald-api" group (@mittwald/api-client) and minor
+#   updates of development dependencies are fast-tracked: they are merged as
+#   soon as the required checks pass, without an agent review.
+# - All other minor and major updates are reviewed by the agent first.
+#
+# Dependabot holds back new versions for a cooldown period (see
+# .github/dependabot.yml), so fast-tracked versions have been public for a while
+# before they get here. To handle a single PR, dispatch review-dependabot-pr.yml
 # directly.
 
 on:
@@ -12,7 +20,8 @@ on:
     - cron: "0 6 * * 1-5"
 
 # Upper bound for the GITHUB_TOKEN of the called workflow; it never needs write
-# access (writes go through MACHINE_USER_TOKEN in a job that runs no PR code).
+# access (writes go through the dependency app's token in a job that runs no PR
+# code).
 permissions:
   contents: read
   pull-requests: read
@@ -30,7 +39,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'mittwald/cli' }}
     outputs:
-      prs: ${{ steps.select.outputs.prs }}
+      merge: ${{ steps.select.outputs.merge }}
+      review: ${{ steps.select.outputs.review }}
     steps:
       - name: Select pull requests
         id: select
@@ -38,41 +48,68 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           ESCALATION_LABEL: needs-human-review
         run: |
-          # Give automerge.yml time to enable auto-merge on fresh PRs.
+          # Give CI and the README job time to finish on fresh PRs.
           cutoff=$(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%SZ)
 
           candidates=$(gh pr list --repo "$GITHUB_REPOSITORY" --author app/dependabot \
-            --state open --limit 100 --json number,createdAt,autoMergeRequest,labels \
+            --state open --limit 100 --json number,createdAt,labels \
             --jq "[.[]
-              | select(.autoMergeRequest == null)
               | select(.createdAt < \"$cutoff\")
               | select(all(.labels[]; .name != \"$ESCALATION_LABEL\"))
               | .number] | .[]")
 
-          selected=()
+          merge=()
+          review=()
           for pr in $candidates; do
-            # Dependabot's first commit carries the update metadata (the same
-            # data dependabot/fetch-metadata reads).
-            meta=$(gh pr view "$pr" --repo "$GITHUB_REPOSITORY" --json commits --jq '.commits[0].messageBody')
-            if grep -Eq 'update-type: version-update:semver-(major|minor)' <<<"$meta"; then
-              selected+=("$pr")
+            # Dependabot's first commit carries the update metadata as YAML
+            # between "---" and "..." (the same data dependabot/fetch-metadata
+            # reads). review-dependabot-pr.yml checks that the commits really
+            # come from Dependabot before it merges anything.
+            deps=$(gh pr view "$pr" --repo "$GITHUB_REPOSITORY" --json commits --jq '.commits[0].messageBody' \
+              | sed -n '/^---$/,/^\.\.\.$/p' | sed '1d;$d' \
+              | yq -o=json '.["updated-dependencies"] // []') || deps='[]'
+            if jq -e 'length > 0 and all(.[];
+                .["update-type"] == "version-update:semver-patch"
+                or .["dependency-group"] == "mittwald-api"
+                or (.["dependency-type"] == "direct:development"
+                    and .["update-type"] == "version-update:semver-minor"))' <<<"$deps" > /dev/null; then
+              merge+=("$pr")
+            elif jq -e 'any(.[]; (.["update-type"] // "") | test("semver-(major|minor)$"))' <<<"$deps" > /dev/null; then
+              review+=("$pr")
             fi
           done
 
-          prs=$(printf '%s\n' "${selected[@]}" | jq -cRn '[inputs | select(length > 0) | tonumber]')
-          echo "Selected PRs: $prs"
-          echo "prs=$prs" >> "$GITHUB_OUTPUT"
+          to_json() { printf '%s\n' "$@" | jq -cRn '[inputs | select(length > 0) | tonumber]'; }
+          echo "Fast-tracked PRs: $(to_json "${merge[@]}")"
+          echo "PRs to review: $(to_json "${review[@]}")"
+          echo "merge=$(to_json "${merge[@]}")" >> "$GITHUB_OUTPUT"
+          echo "review=$(to_json "${review[@]}")" >> "$GITHUB_OUTPUT"
+
+  merge:
+    name: Merge PR #${{ matrix.pr }}
+    needs: select
+    if: ${{ needs.select.outputs.merge != '[]' }}
+    strategy:
+      fail-fast: false
+      # One at a time: every merge changes master, and Dependabot rebases the
+      # remaining PRs.
+      max-parallel: 1
+      matrix:
+        pr: ${{ fromJSON(needs.select.outputs.merge) }}
+    uses: ./.github/workflows/review-dependabot-pr.yml
+    with:
+      pr: ${{ matrix.pr }}
+      fast-track: true
 
   review:
-    name: PR #${{ matrix.pr }}
+    name: Review PR #${{ matrix.pr }}
     needs: select
-    if: ${{ needs.select.outputs.prs != '[]' }}
+    if: ${{ needs.select.outputs.review != '[]' }}
     strategy:
       fail-fast: false
       max-parallel: 2
       matrix:
-        pr: ${{ fromJSON(needs.select.outputs.prs) }}
+        pr: ${{ fromJSON(needs.select.outputs.review) }}
     uses: ./.github/workflows/review-dependabot-pr.yml
     with:
       pr: ${{ matrix.pr }}
-    secrets: inherit
