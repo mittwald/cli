@@ -4,3 +4,4 @@ dist-cjs/
 packages/mittwald/src/generated/**/*
 docs/
 CHANGELOG.md
+.github/tools/*/package-lock.json

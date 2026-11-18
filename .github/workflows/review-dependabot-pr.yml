@@ -99,23 +99,33 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Checkout PR branch
-        id: pr
-        run: |
-          gh pr checkout "$PR"
-          echo "head_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-
       # Same Node.js version as test.yml, so local checks match CI.
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
           node-version: "22"
 
+      # The version is pinned in .github/tools/opencode. Installed before the
+      # PR branch is checked out, so a PR that bumps opencode is reviewed by
+      # the version on the base branch. --ignore-scripts skips all install
+      # scripts; opencode-ai's own postinstall is then run explicitly, because
+      # it links the binary of the platform package (an optional dependency)
+      # into place. Without it, "opencode" is a stub that only prints an error.
+      - name: Install opencode
+        working-directory: .github/tools/opencode
+        run: |
+          npm ci --ignore-scripts
+          node node_modules/opencode-ai/postinstall.mjs
+          echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Checkout PR branch
+        id: pr
+        run: |
+          gh pr checkout "$PR"
+          echo "head_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
       - name: Install dependencies
         run: yarn
-
-      - name: Install opencode
-        run: npm install -g opencode-ai
 
       - name: Configure git identity
         run: |

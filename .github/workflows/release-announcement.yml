@@ -46,9 +46,15 @@ jobs:
         with:
           node-version: "24"
 
+      # The version is pinned in .github/tools/opencode. See
+      # review-dependabot-pr.yml for why the postinstall is run explicitly.
       - name: Install OpenCode CLI
         if: steps.check.outputs.should_run == 'true'
-        run: npm install -g opencode-ai
+        working-directory: .github/tools/opencode
+        run: |
+          npm ci --ignore-scripts
+          node node_modules/opencode-ai/postinstall.mjs
+          echo "$PWD/node_modules/.bin" >> "$GITHUB_PATH"
 
       - name: Configure OpenCode for mittwald-hosted models
         if: steps.check.outputs.should_run == 'true'
