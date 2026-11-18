@@ -4,14 +4,31 @@ on:
   schedule:
     - cron: "0 13 * * *"
 
+# semantic-release pushes the release commit and tag with the release app's
+# token; the GITHUB_TOKEN is not used.
+permissions:
+  contents: read
+
 jobs:
   tag-release:
     runs-on: ubuntu-latest
+    # Holds RELEASE_APP_CLIENT_ID and RELEASE_APP_PRIVATE_KEY.
+    environment: release
     steps:
+      # The app may push to master (release commit) and is the only actor
+      # allowed to create v* tags, which start release.yml.
+      - name: Create app token
+        id: app
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          token: ${{ secrets.MACHINE_USER_TOKEN }}
+          token: ${{ steps.app.outputs.token }}
 
       - name: Setup Node
         uses: actions/setup-node@v7
@@ -22,6 +39,6 @@ jobs:
         run: |
           npx --package @semantic-release/changelog --package @semantic-release/git semantic-release --debug
         env:
-          GH_TOKEN: ${{ secrets.MACHINE_USER_TOKEN }}
+          GH_TOKEN: ${{ steps.app.outputs.token }}
           GIT_AUTHOR_NAME: mittwald-machine[bot]
           GIT_AUTHOR_EMAIL: opensource@mittwald.de
