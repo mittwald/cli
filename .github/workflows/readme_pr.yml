@@ -10,8 +10,9 @@ name: Update README for pull requests
 # ruleset bypass, no workflows permission. Unlike pushes with the GITHUB_TOKEN,
 # its pushes start CI for the new commit.
 #
-# Runs triggered by Dependabot itself get no repository secrets and are skipped;
-# pushes of the dependency app to Dependabot PRs are handled.
+# Runs triggered by Dependabot itself only get Dependabot secrets, so README_APP_*
+# are stored there as well. Only the push job references them; the generate job,
+# which runs the bumped dependency's code, gets no secrets.
 #
 # - "generate" builds the PR and regenerates the docs. It runs the PR's code,
 #   so it has no secrets, a read-only token and no persisted git credentials.
@@ -38,9 +39,7 @@ concurrency:
 jobs:
   generate:
     name: Re-generate README
-    if:
-      github.event.pull_request.head.repo.full_name == github.repository &&
-      github.actor != 'dependabot[bot]'
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
       contents: read
