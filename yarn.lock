@@ -9444,12 +9444,12 @@ __metadata:
   linkType: hard
 
 "slice-ansi@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "slice-ansi@npm:10.0.0"
+  version: 10.0.1
+  resolution: "slice-ansi@npm:10.0.1"
   dependencies:
     ansi-styles: ^7.0.0
     string-width: ^8.3.0
-  checksum: 6c39e120d0dbb0e2d7df4433346def9e792087ac64cf1155f2c3671e5fb5608fdbd65e1e39d17c66f6917c1d68cc5a058b0e1620d4419d6f39a88f06ce38316b
+  checksum: 07e8d321bfd6fe9a04b6e36d184bc940c51dad09904b3e817d79939727d1c76116dcb0f40e7fa0bcf63f364f907bf02482f048693323570b0c06998708db5a73
   languageName: node
   linkType: hard
 
