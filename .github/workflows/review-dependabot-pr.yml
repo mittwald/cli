@@ -1,8 +1,9 @@
 name: Review Dependabot pull request
 
 # Reviews a single Dependabot PR with OpenCode (see opencode.json and the
-# review-dependabot-pr skill). Called for every eligible PR by
-# review-dependabot-prs.yml, or dispatched manually for one PR.
+# review-dependabot-pr skill), then merges or escalates it. Called for every
+# eligible PR by review-dependabot-prs.yml, or dispatched manually for one PR.
+# This is the only workflow that merges Dependabot PRs.
 #
 # The work is split in two jobs so that the dependency's code never runs next to
 # a write token:
@@ -10,9 +11,16 @@ name: Review Dependabot pull request
 # - "review" installs the bumped dependency, runs the checks and the agent. It
 #   only has a read-only GITHUB_TOKEN and no persisted git credentials. The
 #   agent commits locally and hands over a patch, a comment and a decision as an
-#   artifact.
+#   artifact. Fast-tracked PRs skip this job.
 # - "apply" runs no code from the PR. It validates the artifact, pushes the
-#   patch, waits for CI, and then merges or escalates using MACHINE_USER_TOKEN.
+#   patch, waits for CI, and then merges or escalates using a token of the
+#   dependency GitHub App.
+#
+# The app may bypass the "master" ruleset for pull requests. That skips the
+# required review *and* the required status checks, so "apply" waits for the
+# checks itself, and only bypasses the review for commits from Dependabot
+# (signed by GitHub), commits it pushed itself, and commits that only touch the
+# generated docs. Anything else needs a maintainer's approval.
 
 on:
   workflow_call:
@@ -21,12 +29,25 @@ on:
         description: Number of the Dependabot pull request to review.
         type: number
         required: true
+      fast-track:
+        description:
+          Skip the agent review and merge as soon as the required checks pass.
+        type: boolean
+        default: false
+    # No secrets are passed in: MITTWALD_AI_API_KEY is a secret of the
+    # "ai-agents" environment (review job), the dependency app's credentials
+    # are secrets of the "dependency-updates" environment (apply job).
   workflow_dispatch:
     inputs:
       pr:
         description: Number of the Dependabot pull request to review.
         type: number
         required: true
+      fast-track:
+        description:
+          Skip the agent review and merge as soon as the required checks pass.
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -34,8 +55,12 @@ permissions:
 jobs:
   review:
     name: Review
+    if: ${{ !inputs.fast-track }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    # Holds MITTWALD_AI_API_KEY. Deliberately not "dependency-updates": this
+    # job runs the dependency's code and must never see the app's key.
+    environment: ai-agents
     permissions:
       contents: read
       pull-requests: read
@@ -52,6 +77,17 @@ jobs:
       # install.
       YARN_ENABLE_SCRIPTS: "false"
     steps:
+      # The agent reads opencode.json and its skills from the PR checkout and
+      # runs with MITTWALD_AI_API_KEY, so only ever check out Dependabot's PRs.
+      - name: Check pull request
+        run: |
+          read -r author cross <<<"$(gh pr view "$PR" --repo "$GITHUB_REPOSITORY" \
+            --json author,isCrossRepository --jq '"\(.author.login) \(.isCrossRepository)"')"
+          if [[ "$author" != "app/dependabot" || "$cross" != "false" ]]; then
+            echo "::error::#$PR is not a Dependabot pull request from this repository."
+            exit 1
+          fi
+
       - name: Prepare output directory
         run: |
           mkdir -p "$RUNNER_TEMP/review"
@@ -134,29 +170,64 @@ jobs:
   apply:
     name: Apply
     needs: review
+    if:
+      ${{ !cancelled() && (needs.review.result == 'success' ||
+      (inputs.fast-track && needs.review.result == 'skipped')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    # Holds DEPENDENCY_APP_CLIENT_ID and DEPENDENCY_APP_PRIVATE_KEY. Restrict
+    # its deployment branches to master, so that workflows on other branches
+    # cannot read the app's key.
+    environment: dependency-updates
     env:
       PR: ${{ inputs.pr }}
-      HEAD_SHA: ${{ needs.review.outputs.head_sha }}
-      GH_TOKEN: ${{ secrets.MACHINE_USER_TOKEN }}
+      FAST_TRACK: ${{ inputs.fast-track }}
+      REVIEWED_SHA: ${{ needs.review.outputs.head_sha }}
       ESCALATION_LABEL: needs-human-review
       ESCALATION_TEAM: mittwald/developer-relations
     # Everything below treats the review result as untrusted input. Do not run
     # any code from the PR (no yarn, no npm, no scripts from the checkout) in
-    # this job.
+    # this job. The app token is only passed to the steps that need it.
     steps:
-      - name: Prepare paths
-        run: |
-          echo "RESULT_DIR=$RUNNER_TEMP/review" >> "$GITHUB_ENV"
-          echo "NOTES=$RUNNER_TEMP/notes.md" >> "$GITHUB_ENV"
+      - name: Create app token
+        id: app
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.DEPENDENCY_APP_CLIENT_ID }}
+          private-key: ${{ secrets.DEPENDENCY_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+          permission-checks: read
+          permission-statuses: read
+          permission-members: read
 
       - name: Checkout
         uses: actions/checkout@v7
         with:
-          token: ${{ secrets.MACHINE_USER_TOKEN }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Prepare
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+        run: |
+          echo "RESULT_DIR=$RUNNER_TEMP/review" >> "$GITHUB_ENV"
+          echo "NOTES=$RUNNER_TEMP/notes.md" >> "$GITHUB_ENV"
+          echo "OWN_COMMITS=$RUNNER_TEMP/own-commits" >> "$GITHUB_ENV"
+          touch "$RUNNER_TEMP/notes.md" "$RUNNER_TEMP/own-commits"
+
+          read -r author cross head <<<"$(gh pr view "$PR" \
+            --json author,isCrossRepository,headRefOid \
+            --jq '"\(.author.login) \(.isCrossRepository) \(.headRefOid)"')"
+          if [[ "$author" != "app/dependabot" || "$cross" != "false" ]]; then
+            echo "::error::#$PR is not a Dependabot pull request from this repository."
+            exit 1
+          fi
+          echo "HEAD_SHA=${REVIEWED_SHA:-$head}" >> "$GITHUB_ENV"
 
       - name: Download review result
+        if: ${{ !inputs.fast-track }}
         uses: actions/download-artifact@v8
         with:
           name: review-result-${{ inputs.pr }}
@@ -170,20 +241,26 @@ jobs:
       - name: Validate decision
         id: decision
         run: |
-          touch "$NOTES"
-          decision=$(tr -d '[:space:]' < "$RESULT_DIR/decision" 2>/dev/null || true)
-          case "$decision" in
-            merge|escalate) ;;
-            *)
-              echo "- The review did not produce a valid decision." >> "$NOTES"
-              decision=escalate
-              ;;
-          esac
-          echo "Agent decision: $decision"
+          if [[ "$FAST_TRACK" == true ]]; then
+            decision=merge
+          else
+            decision=$(tr -d '[:space:]' < "$RESULT_DIR/decision" 2>/dev/null || true)
+            case "$decision" in
+              merge|escalate) ;;
+              *)
+                echo "- The review did not produce a valid decision." >> "$NOTES"
+                decision=escalate
+                ;;
+            esac
+          fi
+          echo "Decision: $decision"
           echo "decision=$decision" >> "$GITHUB_OUTPUT"
 
       - name: Push changes
         id: push
+        if: ${{ !inputs.fast-track }}
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
         run: |
           branch=$(gh pr view "$PR" --json headRefName --jq .headRefName)
           git fetch origin "refs/heads/$branch"
@@ -215,8 +292,11 @@ jobs:
             exit 0
           fi
 
+          # The merge step accepts these commits without a human review.
+          git rev-list "$HEAD_SHA..HEAD" > "$OWN_COMMITS"
           git log --oneline "$HEAD_SHA..HEAD"
-          git push origin "HEAD:refs/heads/$branch"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            "HEAD:refs/heads/$branch"
           echo "pushed=true" >> "$GITHUB_OUTPUT"
 
       - name: Wait for CI and merge
@@ -225,9 +305,44 @@ jobs:
           steps.decision.outputs.decision == 'merge' &&
           steps.push.outputs.forbidden != 'true'
         env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
           PUSHED: ${{ steps.push.outputs.pushed }}
         run: |
+          # Bypassing the required review is only fine for commits that need
+          # no review: Dependabot's own (signed by GitHub), the ones this job
+          # pushed, and commits that only touch README.md and docs/*.md (the
+          # README job). Anything else, e.g. a commit someone pushed onto the
+          # Dependabot branch, needs a maintainer's approval.
+          provenance_ok() {
+            local sha=$1 base commit files
+            # Called as a condition, so "set -e" does not apply in here.
+            git fetch --quiet origin "$sha" "+refs/heads/master:refs/remotes/origin/master" || return 1
+            base=$(git merge-base origin/master "$sha") || return 1
+            if [[ -n "$(git rev-list --merges "$base..$sha")" ]]; then
+              echo "- The PR contains merge commits and needs a maintainer's approval, so it was not merged." >> "$NOTES"
+              return 1
+            fi
+            for commit in $(git rev-list "$base..$sha"); do
+              if grep -qxF "$commit" "$OWN_COMMITS"; then
+                continue
+              fi
+              files=$(git diff-tree --no-commit-id --name-only -r "$commit")
+              if [[ -n "$files" ]] \
+                && ! grep -qvE '^(README\.md|docs/[^/]+\.md)$' <<<"$files" \
+                && ! git diff-tree -r --summary "$commit" | grep -qE '(120000|160000|100755)'; then
+                continue
+              fi
+              if [[ "$(gh api "repos/$GITHUB_REPOSITORY/commits/$commit" \
+                --jq '"\(.author.login) \(.commit.verification.verified)"')" == "dependabot[bot] true" ]]; then
+                continue
+              fi
+              echo "- Commit $commit does not come from Dependabot or this workflow and needs a maintainer's approval, so the PR was not merged." >> "$NOTES"
+              return 1
+            done
+          }
+
           merged=false
+          retry=false
           # Never merge over a review that requested changes, whatever the
           # agent decided.
           if [[ "$(gh pr view "$PR" --json reviewDecision --jq .reviewDecision)" == CHANGES_REQUESTED ]]; then
@@ -242,6 +357,17 @@ jobs:
           fi
           for attempt in 1 2 3; do
             sha=$(gh pr view "$PR" --json headRefOid --jq .headRefOid)
+            if [[ "$(gh pr view "$PR" --json reviewDecision --jq .reviewDecision)" == APPROVED ]]; then
+              # A maintainer approved; the ruleset is satisfied without the
+              # bypass, and GitHub checks that the approval is still valid.
+              admin=()
+            elif provenance_ok "$sha"; then
+              admin=(--admin)
+            else
+              break
+            fi
+            # The bypass also skips the required status checks, so wait for
+            # them here.
             if ! gh pr checks "$PR" --required --watch --fail-fast --interval 30; then
               echo "- Required checks failed on $sha, so the PR was not merged." >> "$NOTES"
               break
@@ -251,23 +377,29 @@ jobs:
               sleep 30
               continue
             fi
-            # The ruleset requires approval of the most recent push, which the
-            # machine user cannot give for its own commits; fall back to --admin
-            # only after all required checks passed on $sha.
-            if gh pr merge "$PR" --squash --match-head-commit "$sha" \
-              || gh pr merge "$PR" --squash --admin --match-head-commit "$sha"; then
+            if gh pr merge "$PR" --squash "${admin[@]}" --match-head-commit "$sha"; then
               merged=true
             else
               echo "- Merging $sha failed." >> "$NOTES"
+              retry=true
             fi
             break
           done
           if [[ "$merged" != true && ! -s "$NOTES" ]]; then
             echo "- The PR head kept changing while waiting for checks." >> "$NOTES"
+            retry=true
           fi
           echo "merged=$merged" >> "$GITHUB_OUTPUT"
+          # Fast-tracked PRs that merely could not be merged yet (conflicts
+          # while Dependabot rebases, a moving head) are retried on the next
+          # run instead of being escalated.
+          echo "retry=$retry" >> "$GITHUB_OUTPUT"
 
-      - name: Comment
+      # Fast-tracked PRs only get a comment when they are escalated.
+      - name: Prepare comment
+        if:
+          ${{ !(inputs.fast-track && (steps.merge.outputs.merged == 'true' ||
+          steps.merge.outputs.retry == 'true')) }}
         env:
           MERGED: ${{ steps.merge.outputs.merged == 'true' }}
           RUN_URL:
@@ -275,7 +407,9 @@ jobs:
             github.run_id }}
         run: |
           review="$RUNNER_TEMP/review-comment.md"
-          if [[ -s "$RESULT_DIR/comment.md" ]]; then
+          if [[ "$FAST_TRACK" == true ]]; then
+            echo "This update was fast-tracked (patch update, \`@mittwald/api-client\` or minor update of a development dependency), so no automated review ran." > "$review"
+          elif [[ -s "$RESULT_DIR/comment.md" ]]; then
             head -c 60000 "$RESULT_DIR/comment.md" > "$review"
             # GitHub renders single line breaks, but models tend to hard-wrap
             # Markdown anyway. Join wrapped lines of paragraphs and list items.
@@ -316,16 +450,23 @@ jobs:
             echo "<sub>[Workflow run]($RUN_URL)</sub>"
           } > "$body"
 
+      - name: Comment
+        if:
+          ${{ !(inputs.fast-track && (steps.merge.outputs.merged == 'true' ||
+          steps.merge.outputs.retry == 'true')) }}
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          # GraphQL reports bot logins without the "[bot]" suffix.
+          ME: ${{ steps.app.outputs.app-slug }}
+        run: |
+          body="$RUNNER_TEMP/comment.md"
           # If the latest comment or review on the PR is this workflow's own
           # comment, update it instead of adding another one. As soon as anyone
           # else (a human, Dependabot) has commented or reviewed since, post a
-          # new comment so the conversation stays in order. Approvals by
-          # automerge.yml (github-actions) do not count.
-          me=$(gh api user --jq .login)
-          previous=$(gh pr view "$PR" --json comments,reviews | jq -r --arg me "$me" '
+          # new comment so the conversation stays in order.
+          previous=$(gh pr view "$PR" --json comments,reviews | jq -r --arg me "$ME" '
             [(.comments[] | {at: .createdAt, login: .author.login, url: .url, body: .body}),
-             (.reviews[] | select(.author.login != "github-actions")
-               | {at: .submittedAt, login: .author.login, url: "", body: .body})]
+             (.reviews[] | {at: .submittedAt, login: .author.login, url: "", body: .body})]
             | sort_by(.at) | last
             | select(. != null and .login == $me and (.body | startswith("<!-- review-dependabot-pr -->")))
             | .url')
@@ -338,7 +479,11 @@ jobs:
           fi
 
       - name: Escalate
-        if: steps.merge.outputs.merged != 'true'
+        if:
+          ${{ steps.merge.outputs.merged != 'true' && !(inputs.fast-track &&
+          steps.merge.outputs.retry == 'true') }}
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
         run: |
           gh label create "$ESCALATION_LABEL" --force \
             --color d93f0b --description "Automated review escalated this PR to a human"
@@ -346,5 +491,5 @@ jobs:
           # it on its own; the review request must not be able to prevent that.
           gh pr edit "$PR" --add-label "$ESCALATION_LABEL"
           if ! gh pr edit "$PR" --add-reviewer "$ESCALATION_TEAM"; then
-            echo "::warning::Could not request a review from $ESCALATION_TEAM (the token needs the read:org scope, and the team access to this repository)."
+            echo "::warning::Could not request a review from $ESCALATION_TEAM (the team needs access to this repository)."
           fi

@@ -10,6 +10,17 @@ updates:
     open-pull-requests-limit: 10
     schedule:
       interval: "daily"
+    # Only propose versions that have been public for a while. Compromised
+    # releases (stolen maintainer tokens, npm worms) usually ship as patch
+    # versions and get yanked within hours or days; patch bumps are merged
+    # and released automatically, so they must not arrive the same day.
+    # Security updates are not affected by the cooldown.
+    cooldown:
+      default-days: 7
+      exclude:
+        # Our own package, released almost daily; new CLI features often
+        # depend on the latest version.
+        - "@mittwald/api-client"
     groups:
       mittwald-api:
         patterns:
@@ -43,3 +54,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # See the npm entry. GitHub Actions does not support the semver-*-days
+    # options, only default-days.
+    cooldown:
+      default-days: 7

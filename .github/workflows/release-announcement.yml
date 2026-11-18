@@ -5,11 +5,9 @@ name: Announce release on Discord
 # release note to a Discord webhook. Called from release.yml.
 on:
   workflow_call:
+    # MITTWALD_AI_API_KEY is a secret of the "ai-agents" environment, which
+    # cannot be passed in by the caller.
     secrets:
-      MITTWALD_AI_API_KEY:
-        description:
-          API key for the mittwald AI hosting (OpenAI-compatible) endpoint.
-        required: true
       DISCORD_WEBHOOK_URL:
         description: Discord webhook URL the release note is posted to.
         required: true
@@ -20,6 +18,8 @@ permissions:
 jobs:
   announce:
     runs-on: ubuntu-latest
+    # Holds MITTWALD_AI_API_KEY; allows master and v* tags.
+    environment: ai-agents
     steps:
       - name: Determine release type
         id: check
