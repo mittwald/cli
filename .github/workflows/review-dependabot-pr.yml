@@ -179,6 +179,13 @@ jobs:
     # its deployment branches to master, so that workflows on other branches
     # cannot read the app's key.
     environment: dependency-updates
+    # Read-only GITHUB_TOKEN for reading check results; the app's token only
+    # gets the permissions it needs for writing.
+    permissions:
+      contents: read
+      pull-requests: read
+      checks: read
+      statuses: read
     env:
       PR: ${{ inputs.pr }}
       FAST_TRACK: ${{ inputs.fast-track }}
@@ -195,11 +202,11 @@ jobs:
         with:
           client-id: ${{ secrets.DEPENDENCY_APP_CLIENT_ID }}
           private-key: ${{ secrets.DEPENDENCY_APP_PRIVATE_KEY }}
+          # Must not exceed what the app's installation grants, or creating the
+          # token fails. Labels and comments on PRs work with pull-requests;
+          # members is needed to request a review from a team.
           permission-contents: write
           permission-pull-requests: write
-          permission-issues: write
-          permission-checks: read
-          permission-statuses: read
           permission-members: read
 
       - name: Checkout
@@ -306,6 +313,8 @@ jobs:
           steps.push.outputs.forbidden != 'true'
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
+          # The app has no access to checks and statuses.
+          READ_TOKEN: ${{ github.token }}
           PUSHED: ${{ steps.push.outputs.pushed }}
         run: |
           # Bypassing the required review is only fine for commits that need
@@ -368,7 +377,7 @@ jobs:
             fi
             # The bypass also skips the required status checks, so wait for
             # them here.
-            if ! gh pr checks "$PR" --required --watch --fail-fast --interval 30; then
+            if ! GH_TOKEN="$READ_TOKEN" gh pr checks "$PR" --required --watch --fail-fast --interval 30; then
               echo "- Required checks failed on $sha, so the PR was not merged." >> "$NOTES"
               break
             fi
