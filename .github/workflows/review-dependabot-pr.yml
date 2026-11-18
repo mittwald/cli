@@ -278,13 +278,27 @@ jobs:
 
           git am --keep-cr "$RESULT_DIR/changes.patch"
 
-          # Files that can run code in CI or change the agent's own
-          # instructions. Changes to these always need a human.
-          forbidden=$(git diff --name-only "$HEAD_SHA" HEAD \
-            | grep -E '^(\.github/|\.yarn/|\.yarnrc\.yml$|\.agents/|opencode\.json$)' || true)
+          # The agent reads untrusted input (release notes, changelogs), so its
+          # commits may only touch the CLI's source and tests and the config of
+          # the tools that check them. Those configs only run in the CI jobs
+          # that run the tests under src/ anyway. Everything else needs a
+          # human: package.json (scripts, bin, oclif hooks, dependency
+          # sources), yarn.lock and .yarn/ (zero-install cache, Yarn itself),
+          # workflows, the agent's own instructions, release and Docker files,
+          # bin/ and so on can run code in release jobs or on users' machines.
+          # This is an allowlist so that new files in the repository are
+          # protected by default.
+          # --no-renames lists both sides of a rename, so that moving a file
+          # out of a protected path is caught. Unusual file names are quoted
+          # by git and fail the check. Symlinks, submodules and executable
+          # files are rejected everywhere.
+          forbidden=$(git diff --no-renames --raw "$HEAD_SHA" HEAD | awk -F '\t' '
+            { split($1, meta, " ") }
+            $2 !~ /^(src\/.+|eslint\.config\.js|jest\.config\.js|tsconfig\.json|\.prettierrc\.yaml)$/ ||
+              meta[2] ~ /^(120000|160000|100755)$/ { print $2 }')
           if [[ -n "$forbidden" ]]; then
             {
-              echo "- The review produced changes to protected files, so they were **not pushed**:"
+              echo "- The review produced changes outside the files it may change (\`src/\`, \`eslint.config.js\`, \`jest.config.js\`, \`tsconfig.json\`, \`.prettierrc.yaml\`; no symlinks or executables), so they were **not pushed**:"
               sed 's/^/  - `/; s/$/`/' <<<"$forbidden"
             } >> "$NOTES"
             echo "pushed=false" >> "$GITHUB_OUTPUT"

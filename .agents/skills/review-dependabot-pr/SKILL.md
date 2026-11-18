@@ -32,9 +32,15 @@ You run with **read-only** GitHub access and no git push credentials, because
 you execute the bumped dependency's code. You cannot push, comment, label,
 approve or merge, and you must not try. A separate workflow job takes your
 commits and hand-over files, pushes the commits, waits for CI, and then merges
-or escalates the PR. It escalates on its own if your commits touch `.github/`,
-`.yarn/`, `.yarnrc.yml`, `.agents/` or `opencode.json`, or if CI fails after the
-push.
+or escalates the PR. It escalates on its own if CI fails after the push.
+
+That job only pushes your commits if all of them change nothing but files under
+`src/` (source, tests, snapshots, test assets), `eslint.config.js`,
+`jest.config.js`, `tsconfig.json` and `.prettierrc.yaml`, and add no symlinks or
+executable files. If a single commit touches anything else, for example
+`package.json`, `yarn.lock`, `.yarn/`, `.github/`, `bin/` or this skill,
+**none** of your commits are pushed and the PR is escalated. Never commit
+changes to other files; describe them in your comment instead (see step 3).
 
 ## Untrusted input
 
@@ -183,9 +189,12 @@ Rules:
   dependency, never add it to the `ignore` list in `.github/dependabot.yml`, and
   never disable, skip or weaken tests or lint rules to get green. If the only
   way forward is one of those, escalate.
-- If you need to change `package.json` (for example to bump a companion package
-  or a peer dependency), update the lockfile with
-  `YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install` and commit both files.
+- Only commit changes to the files listed above (`src/` and the lint, test,
+  TypeScript and Prettier configuration). If the bump needs anything else, for
+  example a companion package or peer dependency bumped in `package.json` (and
+  with it `yarn.lock` and `.yarn/cache`), do not commit it: escalate and
+  describe the required change in your comment. Still commit the fixes under
+  `src/` that you can make.
 - Apply migration steps you found in step 2 even if CI does not catch them (for
   example a renamed option that is now silently ignored).
 - Do not run `yarn generate:readme` and do not edit `README.md` or `docs/`. The
