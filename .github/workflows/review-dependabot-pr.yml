@@ -94,7 +94,7 @@ jobs:
           echo "REVIEW_OUTPUT_DIR=$RUNNER_TEMP/review" >> "$GITHUB_ENV"
 
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -107,7 +107,7 @@ jobs:
 
       # Same Node.js version as test.yml, so local checks match CI.
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: "22"
 
@@ -157,7 +157,7 @@ jobs:
           ls -la "$REVIEW_OUTPUT_DIR"
 
       - name: Upload review result
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: review-result-${{ inputs.pr }}
           path: |
@@ -191,7 +191,7 @@ jobs:
     steps:
       - name: Create app token
         id: app
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@v3.3.0
         with:
           client-id: ${{ secrets.DEPENDENCY_APP_CLIENT_ID }}
           private-key: ${{ secrets.DEPENDENCY_APP_PRIVATE_KEY }}
@@ -203,7 +203,7 @@ jobs:
           permission-members: read
 
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -228,7 +228,7 @@ jobs:
 
       - name: Download review result
         if: ${{ !inputs.fast-track }}
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v8.0.2
         with:
           name: review-result-${{ inputs.pr }}
           path: ${{ runner.temp }}/review

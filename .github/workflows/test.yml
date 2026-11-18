@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Compile TypeScript
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: "22"
       - run: yarn
@@ -26,8 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Test if dependencies are resolvable without errors
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{ matrix.node_version }}
       - run: npm install
@@ -36,8 +36,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Check license compatibility
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 22
       - run: yarn
@@ -47,8 +47,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Run linters
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 22
       - run: yarn
@@ -58,8 +58,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Run unit tests
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 22
       - run: yarn
@@ -69,10 +69,10 @@ jobs:
     name: Assert README.md is up-to-date
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-tags: "true"
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 22
       - run: yarn
@@ -83,8 +83,8 @@ jobs:
     name: Build and run docker image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 22
       - run: yarn
@@ -93,3 +93,20 @@ jobs:
       - run: docker build --build-arg PKG_SOURCE=dist -t mittwald/cli:testing .
       - run: sudo apt-get update && sudo apt-get install -y bats
       - run: bats docker/test
+
+  # Fails when .github/workflows/actions.lock is out of sync with the workflows
+  # or a locked commit no longer verifies upstream. Run `gh actions-lock` after
+  # changing any `uses:` reference.
+  actions-lockfile:
+    name: Verify workflow lockfile
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - run: gh extension install github/gh-actions-lock --pin v0.4.1
+      - run: gh actions-lock --verify
