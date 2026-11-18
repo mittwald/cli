@@ -22,7 +22,9 @@ code in this repository.
 - Follow the conventional commit format when writing commit messages
 - Do not re-generate the documentation (`yarn generate:readme`) yourself; the
   `Update README for pull requests` GitHub workflow re-generates `README.md` and
-  `docs/*.md` on every pull request and commits the result back to the branch
+  `docs/*.md` on every pull request from a branch of this repository and commits
+  the result back to the branch (pull requests from forks need to run it
+  themselves)
 - Before wrapping up a task, run this checklist in order:
   1. `yarn lint`
   2. `yarn compile`
