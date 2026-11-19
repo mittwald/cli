@@ -302,6 +302,9 @@ jobs:
     uses: ./.github/workflows/release-announcement.yml
     secrets:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      # Environment secret of "ai-agents"; it has to be passed by name even
+      # though this job can't read it.
+      MITTWALD_AI_API_KEY: ${{ secrets.MITTWALD_AI_API_KEY }}
 
   cleanup-artifacts:
     runs-on: ubuntu-latest

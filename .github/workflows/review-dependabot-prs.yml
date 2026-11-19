@@ -100,6 +100,11 @@ jobs:
     with:
       pr: ${{ matrix.pr }}
       fast-track: true
+    # Environment secrets of "dependency-updates"; they have to be passed by
+    # name even though the caller can't read them.
+    secrets:
+      DEPENDENCY_APP_CLIENT_ID: ${{ secrets.DEPENDENCY_APP_CLIENT_ID }}
+      DEPENDENCY_APP_PRIVATE_KEY: ${{ secrets.DEPENDENCY_APP_PRIVATE_KEY }}
 
   review:
     name: Review PR #${{ matrix.pr }}
@@ -113,3 +118,9 @@ jobs:
     uses: ./.github/workflows/review-dependabot-pr.yml
     with:
       pr: ${{ matrix.pr }}
+    # Environment secrets of "ai-agents" and "dependency-updates"; they have
+    # to be passed by name even though the caller can't read them.
+    secrets:
+      MITTWALD_AI_API_KEY: ${{ secrets.MITTWALD_AI_API_KEY }}
+      DEPENDENCY_APP_CLIENT_ID: ${{ secrets.DEPENDENCY_APP_CLIENT_ID }}
+      DEPENDENCY_APP_PRIVATE_KEY: ${{ secrets.DEPENDENCY_APP_PRIVATE_KEY }}

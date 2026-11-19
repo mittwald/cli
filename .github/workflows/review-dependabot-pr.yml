@@ -34,9 +34,17 @@ on:
           Skip the agent review and merge as soon as the required checks pass.
         type: boolean
         default: false
-    # No secrets are passed in: MITTWALD_AI_API_KEY is a secret of the
-    # "ai-agents" environment (review job), the dependency app's credentials
-    # are secrets of the "dependency-updates" environment (apply job).
+    # These are environment secrets: MITTWALD_AI_API_KEY of "ai-agents"
+    # (review job), the dependency app's credentials of "dependency-updates"
+    # (apply job). The caller still has to pass them by name, otherwise they
+    # are empty here. Each job only gets the values of its own environment.
+    secrets:
+      MITTWALD_AI_API_KEY:
+        required: false
+      DEPENDENCY_APP_CLIENT_ID:
+        required: true
+      DEPENDENCY_APP_PRIVATE_KEY:
+        required: true
   workflow_dispatch:
     inputs:
       pr:
