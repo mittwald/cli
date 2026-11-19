@@ -5,11 +5,13 @@ name: Announce release on Discord
 # release note to a Discord webhook. Called from release.yml.
 on:
   workflow_call:
-    # MITTWALD_AI_API_KEY is a secret of the "ai-agents" environment, which
-    # cannot be passed in by the caller.
     secrets:
       DISCORD_WEBHOOK_URL:
         description: Discord webhook URL the release note is posted to.
+        required: true
+      # A secret of the "ai-agents" environment (announce job). The caller
+      # still has to pass it by name, otherwise it is empty here.
+      MITTWALD_AI_API_KEY:
         required: true
 
 permissions:
