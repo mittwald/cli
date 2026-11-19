@@ -2030,7 +2030,7 @@ __metadata:
     oclif: ^6.0.15
     open: ^11.0.0
     parse-duration: ^2.0.1
-    prettier: ~3.9.4
+    prettier: ~3.10.1
     prettier-plugin-jsdoc: ^1.3.2
     prettier-plugin-package: ^2.0.0
     prettier-plugin-sort-json: ^4.1.1
@@ -8984,12 +8984,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:~3.9.4":
-  version: 3.9.10
-  resolution: "prettier@npm:3.9.10"
+"prettier@npm:~3.10.1":
+  version: 3.10.1
+  resolution: "prettier@npm:3.10.1"
   bin:
     prettier: bin/prettier.cjs
-  checksum: a031d6ce0d077d46a47424eb367708c426ef3d5a85e06eace273cb1fa9823fd3c5f8b6af7f1f4715474b5f98b7fdfa650b72d97e2742f16ff27006dc0a136d8a
+  checksum: 2695a99d0918ccea3ea643fb2788e8bd61e40e0544561c2674b91645f3f658e7402f4479a6af195de4537616982b5ae29105ec1b5021b1b43f1a3c3b9b92d805
   languageName: node
   linkType: hard
 
