@@ -5,14 +5,16 @@ on:
     tags:
       - v*
 
-permissions:
-  id-token: write
-  contents: write
-  discussions: write
+# Each job declares the permissions it needs. Several jobs run `yarn` with
+# install scripts enabled, so none of them should hold write or OIDC
+# permissions they don't use.
+permissions: {}
 
 jobs:
   build-linux:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
@@ -57,6 +59,8 @@ jobs:
 
   build-windows:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
@@ -97,6 +101,11 @@ jobs:
 
   release-npm:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # npm trusted publishing (and provenance) authenticates with an OIDC
+      # token from this workflow.
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v7.0.1
@@ -124,6 +133,11 @@ jobs:
 
   release-github:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      # gh release create --discussion-category opens an announcement
+      # discussion.
+      discussions: write
     needs:
       - build-linux
       - build-windows
@@ -145,6 +159,8 @@ jobs:
 
   release-s3:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     needs:
       - build-linux
       - build-windows
@@ -180,6 +196,8 @@ jobs:
 
   release-docker:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     needs:
       - build-linux
     steps:
@@ -221,6 +239,10 @@ jobs:
 
   release-homebrew:
     runs-on: ubuntu-latest
+    # Only for checking out this repository; pushing to mittwald/homebrew-cli
+    # uses the GitHub App token created below.
+    permissions:
+      contents: read
     needs:
       - build-linux
     # Holds RELEASE_APP_CLIENT_ID and RELEASE_APP_PRIVATE_KEY.
@@ -273,12 +295,19 @@ jobs:
   announce-discord:
     needs:
       - release-github
+    # Caps the permissions of the called workflow's jobs; its announce job
+    # needs contents: read to check out the history it summarizes.
+    permissions:
+      contents: read
     uses: ./.github/workflows/release-announcement.yml
     secrets:
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   cleanup-artifacts:
     runs-on: ubuntu-latest
+    # delete-artifact lists and deletes this run's artifacts with the Actions
+    # runtime token, not the GITHUB_TOKEN, so it needs no permissions.
+    permissions: {}
     needs:
       - release-github
       - release-docker
