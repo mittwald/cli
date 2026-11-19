@@ -35,9 +35,16 @@ jobs:
         with:
           node-version: "24"
 
+      # Versions are pinned in .github/tools/semantic-release, so a new
+      # (possibly compromised) release does not run with the app's token
+      # before it has gone through Dependabot. None of the packages need
+      # install scripts.
+      - name: Install semantic-release
+        run: npm ci --ignore-scripts --prefix .github/tools/semantic-release
+
       - name: Tag new release
         run: |
-          npx --package @semantic-release/changelog --package @semantic-release/git semantic-release --debug
+          .github/tools/semantic-release/node_modules/.bin/semantic-release --debug
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
           GIT_AUTHOR_NAME: mittwald-machine[bot]

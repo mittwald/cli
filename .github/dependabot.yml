@@ -50,6 +50,19 @@ updates:
       - dependency-name: "typescript"
         versions: ["7.x"]
 
+  # Tools that workflows install at run time (semantic-release, OpenCode). They
+  # are dependencies, not devDependencies, so that minor updates are reviewed
+  # instead of fast-tracked (see review-dependabot-prs.yml).
+  - package-ecosystem: "npm"
+    directories:
+      - "/.github/tools/opencode"
+      - "/.github/tools/semantic-release"
+    schedule:
+      interval: "weekly"
+    # See the npm entry above.
+    cooldown:
+      default-days: 7
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

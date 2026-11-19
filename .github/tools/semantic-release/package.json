@@ -1,0 +1,10 @@
+{
+  "name": "semantic-release-tools",
+  "private": true,
+  "description": "Pinned semantic-release for schedule-release.yml.",
+  "dependencies": {
+    "@semantic-release/changelog": "7.0.0",
+    "@semantic-release/git": "11.0.1",
+    "semantic-release": "25.0.9"
+  }
+}

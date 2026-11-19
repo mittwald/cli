@@ -1,0 +1,8 @@
+{
+  "name": "opencode-tools",
+  "private": true,
+  "description": "Pinned OpenCode CLI for review-dependabot-pr.yml and release-announcement.yml.",
+  "dependencies": {
+    "opencode-ai": "1.19.6"
+  }
+}
