@@ -73,7 +73,7 @@
     "semver-parser": "^4.1.6",
     "shell-escape": "^0.2.0",
     "slice-ansi": "^10.0.0",
-    "string-width": "^8.0.0",
+    "string-width": "^9.0.0",
     "tempfile": "^6.0.1",
     "uuid": "^14.0.0"
   },
