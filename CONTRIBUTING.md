@@ -45,12 +45,12 @@ for an example.
 Plugins may depend on `@mittwald/cli` and import its base commands, flags and
 rendering components from the following entry points:
 
-| Entry point               | Source                                         | Contents                                      |
-| ------------------------- | ---------------------------------------------- | --------------------------------------------- |
-| `@mittwald/cli`           | [`src/index.ts`](src/index.ts)                 | Base commands, common types, error handling   |
-| `@mittwald/cli/flags`     | [`src/api/flags.ts`](src/api/flags.ts)         | Resource ID flags, wait/SSH/container flags   |
-| `@mittwald/cli/rendering` | [`src/api/rendering.ts`](src/api/rendering.ts) | Process renderer and React (Ink) components   |
-| `@mittwald/cli/resources` | [`src/api/resources.ts`](src/api/resources.ts) | Helpers for API resources                     |
+| Entry point               | Source                                         | Contents                                    |
+| ------------------------- | ---------------------------------------------- | ------------------------------------------- |
+| `@mittwald/cli`           | [`src/index.ts`](src/index.ts)                 | Base commands, common types, error handling |
+| `@mittwald/cli/flags`     | [`src/api/flags.ts`](src/api/flags.ts)         | Resource ID flags, wait/SSH/container flags |
+| `@mittwald/cli/rendering` | [`src/api/rendering.ts`](src/api/rendering.ts) | Process renderer and React (Ink) components |
+| `@mittwald/cli/resources` | [`src/api/resources.ts`](src/api/resources.ts) | Helpers for API resources                   |
 
 ```typescript
 import { ExecRenderBaseCommand } from "@mittwald/cli";
