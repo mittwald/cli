@@ -111,9 +111,16 @@ providers:
 - Provide examples using the `static examples` property when useful
 - Keep the command summary short; do not repeat the summary at the beginning of
   the description
-- Do not add experimental commands to the CLI itself; implement them as
+- Do not add new experimental commands to the CLI itself; implement them as
   separate oclif plugins instead (published as `@mittwald/plugin-<name>`, see
   "Core CLI or plugin?" in `CONTRIBUTING.md`)
+- Commands under `src/commands/experimental/` may change incompatibly (renamed
+  or removed flags, changed defaults or behaviour) without being treated as
+  breaking changes; do not mark such commits or PR titles as breaking (no `!`
+  and no `BREAKING CHANGE` footer)
+- `mw experimental deploy` is also available as `mw zerodeploy run` from the
+  `@mittwald/plugin-zerodeploy` plugin, and will be removed once the plugin is
+  released; until then, apply changes to the command to both
 - `src/index.ts` and `src/api/*.ts` are the public API for plugins (like
   `@mittwald/plugin-zerodeploy`), and the only modules that the `exports` field
   of `package.json` exposes. Removing or incompatibly changing one of their

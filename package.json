@@ -67,6 +67,7 @@
   ],
   "dependencies": {
     "@mittwald/api-client": "^4.400.0",
+    "@mittwald/container-deploy": "^2.0.1",
     "@mittwald/react-use-promise": "^2.6.0",
     "@oclif/core": "^5.1.11",
     "@oclif/plugin-autocomplete": "^4.0.6",
@@ -295,6 +296,9 @@
       },
       "volume": {
         "description": "Manage volumes"
+      },
+      "experimental": {
+        "description": "Experimental features, which are not considered stable yet and might change without a major version bump"
       }
     },
     "scope": "mittwald",
