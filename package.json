@@ -18,6 +18,25 @@
     "mw": "bin/run.js"
   },
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./flags": {
+      "types": "./dist/api/flags.d.ts",
+      "default": "./dist/api/flags.js"
+    },
+    "./rendering": {
+      "types": "./dist/api/rendering.d.ts",
+      "default": "./dist/api/rendering.js"
+    },
+    "./resources": {
+      "types": "./dist/api/resources.d.ts",
+      "default": "./dist/api/resources.js"
+    },
+    "./package.json": "./package.json"
+  },
   "engines": {
     "node": ">=22.12.0"
   },
@@ -34,6 +53,8 @@
     "package:tarballs": "oclif pack tarballs --targets=linux-x64,linux-arm64,darwin-x64,darwin-arm64",
     "package:windows": "oclif pack win --targets=win32-x64,win32-x86",
     "post:generate": "yarn run -T compile && yarn run -T compile:cjs",
+    "prepack": "yarn compile",
+    "prepare": "tsc --build tsconfig.json",
     "test": "yarn test:format && yarn test:licenses && yarn test:unit",
     "test:format": "yarn lint && yarn format:prettier --check",
     "test:licenses": "yarn license-check --summary --unknown --failOn 'UNLICENSED;UNKNOWN'",
@@ -52,6 +73,7 @@
     "@oclif/core": "^5.1.11",
     "@oclif/plugin-autocomplete": "^4.0.6",
     "@oclif/plugin-help": "^7.0.6",
+    "@oclif/plugin-plugins": "^7.0.18",
     "@oclif/plugin-update": "^5.0.10",
     "@oclif/plugin-warn-if-update-available": "^4.0.5",
     "axios-retry": "^4.0.0",
@@ -108,6 +130,7 @@
     "tsx": "^4.7.1",
     "typescript": "^6.0.2"
   },
+  "types": "./dist/index.d.ts",
   "oclif": {
     "bin": "mw",
     "dirname": "mw",
@@ -280,11 +303,13 @@
         "description": "Experimental features, which are not considered stable yet and might change without a major version bump"
       }
     },
+    "scope": "mittwald",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-update",
       "@oclif/plugin-warn-if-update-available",
-      "@oclif/plugin-autocomplete"
+      "@oclif/plugin-autocomplete",
+      "@oclif/plugin-plugins"
     ],
     "update": {
       "node": {

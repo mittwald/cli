@@ -87,6 +87,50 @@ $ mw autocomplete
 After that, follow the instructions printed by that command (those are specific
 to your shell -- Bash, ZSH and Powershell are supported).
 
+### Extending the CLI with plugins
+
+Some features are not part of the CLI itself, but are distributed as separate
+plugins that you can install on demand. Plugins can be developed and released
+independently of the CLI, which makes them a good fit for features that are
+still evolving or that only a subset of users needs.
+
+Use the `mw plugins` commands to manage plugins:
+
+```shell
+$ mw plugins install zerodeploy  # install a plugin
+$ mw plugins                     # list installed plugins
+$ mw plugins update              # update all installed plugins
+$ mw plugins uninstall zerodeploy
+```
+
+Short plugin names like `zerodeploy` are resolved to the respective package in
+the `@mittwald` NPM scope (`@mittwald/plugin-zerodeploy`), if such a package
+exists. You can also install plugins by their full NPM package name or from a
+Git repository (`mw plugins install <github-org>/<repo>`).
+
+The following plugins are maintained by mittwald:
+
+| Plugin                                                            | Description                                                                                       |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| [`zerodeploy`](https://github.com/mittwald/cli-plugin-zerodeploy) | Build the application in the current directory and deploy it as a container (`mw zerodeploy run`) |
+
+> [!WARNING]
+>
+> Plugins run with the same permissions as the CLI itself, including access to
+> your mStudio API token. Only install plugins from sources you trust.
+
+Installing plugins does not require Node.js or NPM on your system; the CLI
+brings everything it needs, regardless of how you installed it.
+
+Installed plugins are stored in the CLI's data directory (for example
+`~/.local/share/mw` on Linux and macOS), and are kept when you update the CLI.
+`mw update` also updates your installed plugins. If you installed the CLI with
+Homebrew, `brew upgrade mw` only updates the CLI itself; run `mw plugins update`
+to update your plugins as well.
+
+Containers started from the Docker image do not keep installed plugins between
+runs.
+
 ## Using the Docker image
 
 Every run of the
@@ -203,6 +247,7 @@ USAGE
 * [`mw login`](docs/login.md) - Manage your client authentication
 * [`mw mail`](docs/mail.md) - Manage mailboxes and mail addresses in your projects
 * [`mw org`](docs/org.md) - Manage your organizations, and also any kinds of user memberships concerning these organizations.
+* [`mw plugins`](docs/plugins.md) - List installed plugins.
 * [`mw project`](docs/project.md) - Manage your projects, and also any kinds of user memberships concerning these projects.
 * [`mw registry`](docs/registry.md) - Manage container registries
 * [`mw server`](docs/server.md) - Manage your servers

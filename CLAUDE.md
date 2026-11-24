@@ -111,10 +111,28 @@ providers:
 - Provide examples using the `static examples` property when useful
 - Keep the command summary short; do not repeat the summary at the beginning of
   the description
+- Do not add new experimental commands to the CLI itself; implement them as
+  separate oclif plugins instead (published as `@mittwald/plugin-<name>`, see
+  "Core CLI or plugin?" in `CONTRIBUTING.md`)
 - Commands under `src/commands/experimental/` may change incompatibly (renamed
   or removed flags, changed defaults or behaviour) without being treated as
   breaking changes; do not mark such commits or PR titles as breaking (no `!`
   and no `BREAKING CHANGE` footer)
+- `mw experimental deploy` is also available as `mw zerodeploy run` from the
+  `@mittwald/plugin-zerodeploy` plugin, and will be removed once the plugin is
+  released; until then, apply changes to the command to both
+- `src/index.ts` and `src/api/*.ts` are the public API for plugins (like
+  `@mittwald/plugin-zerodeploy`), and the only modules that the `exports` field
+  of `package.json` exposes. Removing or incompatibly changing one of their
+  exports is a breaking change; moving modules that they re-export is fine as
+  long as the re-exports are updated accordingly
+- Keep the plugin API complete: when you add something that other commands build
+  on, such as a base command, an ID flag set (`FlagSetBuilder`), a flag shared
+  by several commands or a general-purpose render component, also export it from
+  the matching module (`src/index.ts`, `src/api/flags.ts`,
+  `src/api/rendering.ts` or `src/api/resources.ts`). Flags and helpers that only
+  serve the commands of one resource (like the create/update flags of a single
+  resource) stay internal
 - Do not assume `ExecRenderBaseCommand` provides progress handling by itself; it
   executes first and then renders, so use dedicated process/progress rendering
   patterns when real-time progress output is required

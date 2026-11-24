@@ -1,6 +1,7 @@
 import { articleForWord } from "../util/language/articleForWord.js";
 
 export default class UnexpectedShortIDPassedError extends Error {
+  override name = "UnexpectedShortIDPassedError";
   public readonly resourceName: string;
   public readonly format: string;
 
