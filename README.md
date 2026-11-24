@@ -119,8 +119,15 @@ The following plugins are maintained by mittwald:
 > Plugins run with the same permissions as the CLI itself, including access to
 > your mStudio API token. Only install plugins from sources you trust.
 
+Installing plugins does not require Node.js or NPM on your system; the CLI
+brings everything it needs, regardless of how you installed it.
+
 Installed plugins are stored in the CLI's data directory (for example
 `~/.local/share/mw` on Linux and macOS), and are kept when you update the CLI.
+`mw update` also updates your installed plugins. If you installed the CLI with
+Homebrew, `brew upgrade mw` only updates the CLI itself; run
+`mw plugins update` to update your plugins as well.
+
 Containers started from the Docker image do not keep installed plugins between
 runs.
 

@@ -1,8 +1,11 @@
 import { OclifError, PrettyPrintableError } from "@oclif/core/interfaces";
-import { ApiClientError, AxiosResponse } from "@mittwald/api-client-commons";
+import type {
+  ApiClientError,
+  AxiosResponse,
+} from "@mittwald/api-client-commons";
 import type { MittwaldAPIV2 } from "@mittwald/api-client";
-import { ExitError } from "@oclif/core/errors";
 import { renderError } from "../../rendering/react/error.js";
+import { isAxiosError, isExitError } from "./guards.js";
 
 type CommonsValidationErrors =
   MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
@@ -19,7 +22,7 @@ export default function handleError(
     process.exit(1);
   }
 
-  if (error instanceof ExitError) {
+  if (isExitError(error)) {
     process.exit(error.oclif.exit);
   }
 
@@ -37,7 +40,8 @@ export function isValidationError(
   response: AxiosResponse<CommonsValidationErrors>;
 } {
   return (
-    err instanceof ApiClientError &&
-    err.response?.data?.type === "ValidationError"
+    isAxiosError(err) &&
+    (err.response?.data as { type?: unknown } | undefined)?.type ===
+      "ValidationError"
   );
 }

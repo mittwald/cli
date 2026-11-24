@@ -3,6 +3,8 @@
  * terminal environment does not support it.
  */
 export default class InteractiveInputRequiredError extends Error {
+  override name = "InteractiveInputRequiredError";
+
   constructor() {
     super(
       "This command requires an interactive input, but the current environment " +

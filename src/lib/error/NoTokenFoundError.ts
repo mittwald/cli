@@ -7,6 +7,8 @@
  * specific type of error and present it differently to the user.
  */
 export default class NoTokenFoundError extends Error {
+  override name = "NoTokenFoundError";
+
   constructor(tokenFilename: string) {
     super(
       `Could not get token from --token flag, MITTWALD_API_TOKEN env var, or config file (${tokenFilename}). Please run "mw login token" or use --token.`,

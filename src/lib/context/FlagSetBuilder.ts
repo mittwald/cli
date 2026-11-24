@@ -33,6 +33,8 @@ export type CommandType<
     };
 
 export class MissingFlagError extends Error {
+  override name = "MissingFlagError";
+
   constructor(name: string, flagName: string) {
     super(
       `No ${name} ID given. Please specify one with --${flagName} or set a default ${name} with 'mw context set --${flagName} <${flagName}>'`,
@@ -41,6 +43,8 @@ export class MissingFlagError extends Error {
 }
 
 export class MissingArgError extends Error {
+  override name = "MissingArgError";
+
   constructor(name: string, flagName: string) {
     super(
       `No ${name} ID given. Please specify one as positional argument or set a default ${name} with 'mw context set --${flagName} <${flagName}>'`,

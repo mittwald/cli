@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { AxiosError } from "@mittwald/api-client-commons";
+import { isAxiosError, isErrorOfClass } from "../../../lib/error/guards.js";
 import InteractiveInputRequiredError from "../../../lib/error/InteractiveInputRequiredError.js";
 import UnexpectedShortIDPassedError from "../../../lib/error/UnexpectedShortIDPassedError.js";
 import GenericError from "./Error/GenericError.js";
@@ -24,12 +24,15 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
   // } else if (err instanceof RequiredArgsError) {
   //   return <InvalidArgsError err={err} />;
   // } else if (err instanceof AxiosError) {
-  if (err instanceof AxiosError) {
+  //
+  // Errors thrown by plugin commands are instances of the plugin's own copies
+  // of these classes, so do not use "instanceof" here (see guards.ts).
+  if (isAxiosError(err)) {
     return <APIError err={err} withStack withHTTPMessages="body" />;
   } else if (
-    err instanceof InteractiveInputRequiredError ||
-    err instanceof MissingArgError ||
-    err instanceof MissingFlagError
+    isErrorOfClass(err, InteractiveInputRequiredError) ||
+    isErrorOfClass(err, MissingArgError) ||
+    isErrorOfClass(err, MissingFlagError)
   ) {
     return (
       <GenericError
@@ -39,7 +42,7 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
         title="Input required"
       />
     );
-  } else if (err instanceof NoTokenFoundError) {
+  } else if (isErrorOfClass(err, NoTokenFoundError)) {
     return (
       <GenericError
         err={err}
@@ -48,7 +51,7 @@ export const ErrorBox: FC<{ err: unknown }> = ({ err }) => {
         title="Login required"
       />
     );
-  } else if (err instanceof UnexpectedShortIDPassedError) {
+  } else if (isErrorOfClass(err, UnexpectedShortIDPassedError)) {
     return <UnexpectedShortIDPassedErrorBox err={err} />;
   } else if (err instanceof Error) {
     return <GenericError err={err} withStack />;
