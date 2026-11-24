@@ -126,6 +126,13 @@ providers:
   of `package.json` exposes. Removing or incompatibly changing one of their
   exports is a breaking change; moving modules that they re-export is fine as
   long as the re-exports are updated accordingly
+- Keep the plugin API complete: when you add something that other commands build
+  on, such as a base command, an ID flag set (`FlagSetBuilder`), a flag shared
+  by several commands or a general-purpose render component, also export it from
+  the matching module (`src/index.ts`, `src/api/flags.ts`,
+  `src/api/rendering.ts` or `src/api/resources.ts`). Flags and helpers that only
+  serve the commands of one resource (like the create/update flags of a single
+  resource) stay internal
 - Do not assume `ExecRenderBaseCommand` provides progress handling by itself; it
   executes first and then renders, so use dedicated process/progress rendering
   patterns when real-time progress output is required
