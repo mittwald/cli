@@ -12,8 +12,8 @@ Build the application in the current directory and deploy it as a container.
 ```
 USAGE
   $ mw experimental deploy [--token <value>] [-q] [-p <value>] [-w] [--wait-timeout <value>] [-e <value>...] [--env-file
-    <value>...] [--uri-prefix <value>] [--service-name <value>] [--image-name <value>] [--image-tag <value>]
-    [--build-only]
+    <value>...] [--uri-prefix <value> | --domain <value> | --no-domain] [--service-name <value>] [--image-name <value>]
+    [--image-tag <value>] [--build-only]
 
 FLAGS
   -e, --env=<value>...        set environment variables in the container
@@ -22,9 +22,11 @@ FLAGS
   -q, --quiet                 suppress process output and only display a machine-readable summary
   -w, --wait                  wait for the resource to be ready.
       --build-only            build and push the image only
+      --domain=<value>        full hostname to make the service available at
       --env-file=<value>...   read environment variables from a file
       --image-name=<value>    name of the Docker image to build and push
       --image-tag=<value>     tag of the Docker image to build and push
+      --no-domain             do not create or update a domain for the service
       --service-name=<value>  name of the container service to deploy
       --uri-prefix=<value>    prefix for the generated default domain
       --wait-timeout=<value>  [default: 600s] the duration to wait for the resource to be ready (common units like 'ms',
@@ -51,9 +53,12 @@ DESCRIPTION
   4. Pushes the image to the project registry.
   5. Deploys the image as a container service. Each service runs in a stack of its own, named after the service; a
   service that already exists is updated in the stack it is in.
-  6. Makes the service available at <uri-prefix>.<project-short-id>.project.space.
+  6. Makes the service available at <uri-prefix>.<project-short-id>.project.space, or at the hostname given with
+  --domain. If a domain with that hostname already exists in the project, it is pointed to the service instead of
+  creating a new one.
 
-  With --build-only, the command stops after pushing the image.
+  With --build-only, the command stops after pushing the image. With --no-domain, the command stops after deploying the
+  service and leaves all domains of the project untouched.
 
   The service name defaults to the name of the current directory (lowercased, with every run of characters other than
   letters and digits replaced by a dash), and the image name and domain prefix default to the service name. Deploying
@@ -72,6 +77,14 @@ EXAMPLES
   Deploy with custom default domain prefix
 
     $ mw experimental deploy --uri-prefix myapp
+
+  Deploy and make the service available at a custom hostname
+
+    $ mw experimental deploy --domain app.example.com
+
+  Deploy without creating or changing any domain
+
+    $ mw experimental deploy --no-domain
 
   Deploy the current directory as a second, independent service, e.g. for a feature branch
 
@@ -101,6 +114,11 @@ FLAG DESCRIPTIONS
 
     Skips service deployment and domain creation after the image is pushed.
 
+  --domain=<value>  full hostname to make the service available at
+
+    Replaces the generated <uri-prefix>.<project-short-id>.project.space domain entirely. The hostname must be one that
+    can be used in the project, e.g. a subdomain of a domain the project owns.
+
   --env-file=<value>...  read environment variables from a file
 
     The file should contain lines in the format KEY=VALUE. Multiple files can be specified with multiple --env-file
@@ -113,6 +131,11 @@ FLAG DESCRIPTIONS
   --image-tag=<value>  tag of the Docker image to build and push
 
     Defaults to 'latest'.
+
+  --no-domain  do not create or update a domain for the service
+
+    Deploys the service without touching any domain of the project. Existing domains keep pointing to the service if
+    they did before.
 
   --service-name=<value>  name of the container service to deploy
 

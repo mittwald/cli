@@ -50,9 +50,9 @@ The command runs the following steps:
 3. Builds a container image from the current directory, using the Dockerfile in it if there is one, and Railpack otherwise. The container ports are taken from the EXPOSE instructions of the Dockerfile; a PORT variable passed with --env takes precedence. Without either, port 80 is used.
 4. Pushes the image to the project registry.
 5. Deploys the image as a container service. Each service runs in a stack of its own, named after the service; a service that already exists is updated in the stack it is in.
-6. Makes the service available at <uri-prefix>.<project-short-id>.project.space.
+6. Makes the service available at <uri-prefix>.<project-short-id>.project.space, or at the hostname given with --domain. If a domain with that hostname already exists in the project, it is pointed to the service instead of creating a new one.
 
-With --build-only, the command stops after pushing the image.
+With --build-only, the command stops after pushing the image. With --no-domain, the command stops after deploying the service and leaves all domains of the project untouched.
 
 The service name defaults to the name of the current directory (lowercased, with every run of characters other than letters and digits replaced by a dash), and the image name and domain prefix default to the service name. Deploying from different directories therefore creates independent deployments, while deploying again from the same directory updates the existing one.`;
   static flags = {
@@ -65,6 +65,22 @@ The service name defaults to the name of the current directory (lowercased, with
       summary: "prefix for the generated default domain",
       description: "Defaults to the service name.",
       required: false,
+      exclusive: ["domain", "no-domain"],
+    }),
+    domain: Flags.string({
+      summary: "full hostname to make the service available at",
+      description:
+        "Replaces the generated <uri-prefix>.<project-short-id>.project.space domain entirely. The hostname must be one that can be used in the project, e.g. a subdomain of a domain the project owns.",
+      required: false,
+      exclusive: ["uri-prefix", "no-domain"],
+    }),
+    "no-domain": Flags.boolean({
+      summary: "do not create or update a domain for the service",
+      description:
+        "Deploys the service without touching any domain of the project. Existing domains keep pointing to the service if they did before.",
+      default: false,
+      required: false,
+      exclusive: ["uri-prefix", "domain"],
     }),
     "service-name": Flags.string({
       summary: "name of the container service to deploy",
@@ -104,6 +120,14 @@ The service name defaults to the name of the current directory (lowercased, with
     {
       description: "Deploy with custom default domain prefix",
       command: "<%= config.bin %> <%= command.id %> --uri-prefix myapp",
+    },
+    {
+      description: "Deploy and make the service available at a custom hostname",
+      command: "<%= config.bin %> <%= command.id %> --domain app.example.com",
+    },
+    {
+      description: "Deploy without creating or changing any domain",
+      command: "<%= config.bin %> <%= command.id %> --no-domain",
     },
     {
       description:
@@ -235,20 +259,26 @@ The service name defaults to the name of the current directory (lowercased, with
       return result;
     });
 
-    await p.runStep("Setting up domain ...", async () => {
-      const uriPrefix = this.flags["uri-prefix"] ?? serviceName;
-      const uri = `${uriPrefix}.${projectShortId}.project.space`;
-      const appServiceId = deployResult.deployedServiceId;
-      const timeout = this.flags["wait-timeout"];
-      await createAndWaitForDomain(
-        this.apiClient,
-        projectId,
-        uri,
-        appServiceId,
-        repositoryData.ports[0],
-        timeout,
-      );
-    });
+    if (!this.flags["no-domain"]) {
+      await p.runStep("Setting up domain ...", async () => {
+        const uri = this.getDomain(serviceName, projectShortId);
+        const appServiceId = deployResult.deployedServiceId;
+        const timeout = this.flags["wait-timeout"];
+        const domain = await createAndWaitForDomain(
+          this.apiClient,
+          projectId,
+          uri,
+          appServiceId,
+          repositoryData.ports[0],
+          timeout,
+        );
+        p.addInfo(
+          domain.wasReused
+            ? `Pointed existing domain ${uri} to the service`
+            : `Created domain ${uri}`,
+        );
+      });
+    }
 
     await p.complete(
       <Success>
@@ -261,6 +291,19 @@ The service name defaults to the name of the current directory (lowercased, with
       builtImageName: builtImage.imageName,
       buildOnly: false,
     };
+  }
+
+  private getDomain(serviceName: string, projectShortId: string): string {
+    const domain = this.flags.domain?.trim().toLowerCase().replace(/\.$/, "");
+    if (domain !== undefined) {
+      if (!domain) {
+        throw new Error("The value of --domain must not be empty.");
+      }
+      return domain;
+    }
+
+    const uriPrefix = this.flags["uri-prefix"] ?? serviceName;
+    return `${uriPrefix}.${projectShortId}.project.space`;
   }
 
   private getServiceName(): string {
