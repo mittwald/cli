@@ -247,6 +247,7 @@ USAGE
 * [`mw login`](docs/login.md) - Manage your client authentication
 * [`mw mail`](docs/mail.md) - Manage mailboxes and mail addresses in your projects
 * [`mw org`](docs/org.md) - Manage your organizations, and also any kinds of user memberships concerning these organizations.
+* [`mw plugins`](docs/plugins.md) - List installed plugins.
 * [`mw project`](docs/project.md) - Manage your projects, and also any kinds of user memberships concerning these projects.
 * [`mw registry`](docs/registry.md) - Manage container registries
 * [`mw server`](docs/server.md) - Manage your servers
