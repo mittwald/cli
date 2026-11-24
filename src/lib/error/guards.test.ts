@@ -1,7 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 import { AxiosError } from "@mittwald/api-client-commons";
 import { ExitError } from "@oclif/core/errors";
-import { isAxiosError, isErrorOfClass, isExitError } from "./guards.js";
+import {
+  isAxiosError,
+  isErrorOfClass,
+  isExitError,
+  isValidationError,
+} from "./guards.js";
 import NoTokenFoundError from "./NoTokenFoundError.js";
 import InteractiveInputRequiredError from "./InteractiveInputRequiredError.js";
 import UnexpectedShortIDPassedError from "./UnexpectedShortIDPassedError.js";
@@ -24,6 +29,41 @@ describe("isAxiosError", () => {
     expect(isAxiosError(new Error("failed"))).toBe(false);
     expect(isAxiosError(undefined)).toBe(false);
     expect(isAxiosError("failed")).toBe(false);
+  });
+});
+
+describe("isValidationError", () => {
+  const apiError = (status: number, data: unknown) =>
+    Object.assign(new Error("failed"), {
+      isAxiosError: true,
+      response: { status, data },
+    });
+
+  it("matches API errors with validation errors", () => {
+    expect(
+      isValidationError(
+        apiError(400, { type: "ValidationError", message: "invalid" }),
+      ),
+    ).toBe(true);
+  });
+
+  it("does not match other API errors", () => {
+    expect(isValidationError(apiError(401, { type: "Unauthenticated" }))).toBe(
+      false,
+    );
+    expect(isValidationError(apiError(500, "Internal Server Error"))).toBe(
+      false,
+    );
+  });
+
+  it("does not match errors that are not API errors", () => {
+    expect(
+      isValidationError(
+        Object.assign(new Error("failed"), {
+          response: { status: 400, data: { type: "ValidationError" } },
+        }),
+      ),
+    ).toBe(false);
   });
 });
 

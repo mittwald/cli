@@ -1,5 +1,5 @@
 import React from "react";
-import { isValidationError } from "../../../lib/error/handleError.js";
+import { isValidationError } from "../../../lib/error/guards.js";
 import { ProcessValidationErrors } from "./ProcessValidationErrors.js";
 import { Box, Text } from "ink";
 

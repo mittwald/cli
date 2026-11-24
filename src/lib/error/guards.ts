@@ -1,5 +1,14 @@
-import type { AxiosError } from "@mittwald/api-client-commons";
+import type {
+  ApiClientError,
+  AxiosError,
+  AxiosResponse,
+} from "@mittwald/api-client-commons";
+import type { MittwaldAPIV2 } from "@mittwald/api-client";
 import type { ExitError } from "@oclif/core/errors";
+import { getAPIErrorDetails } from "./apiError.js";
+
+type CommonsValidationErrors =
+  MittwaldAPIV2.Components.Schemas.CommonsValidationErrors;
 
 /*
  * Type guards for errors that are thrown in one place and handled in another.
@@ -15,6 +24,18 @@ export function isAxiosError(err: unknown): err is AxiosError {
     typeof err === "object" &&
     err !== null &&
     (err as { isAxiosError?: unknown }).isAxiosError === true
+  );
+}
+
+/** Checks if an error is an API response with validation errors. */
+export function isValidationError(
+  err: unknown,
+): err is ApiClientError<CommonsValidationErrors> & {
+  response: AxiosResponse<CommonsValidationErrors>;
+} {
+  return (
+    isAxiosError(err) &&
+    getAPIErrorDetails(err)?.body?.type === "ValidationError"
   );
 }
 
