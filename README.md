@@ -110,9 +110,9 @@ Git repository (`mw plugins install <github-org>/<repo>`).
 
 The following plugins are maintained by mittwald:
 
-| Plugin                                                                    | Description                                                         |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [`zerodeploy`](https://github.com/mittwald/cli-plugin-zerodeploy)         | Build the application in the current directory and deploy it as a container (`mw zerodeploy run`) |
+| Plugin                                                            | Description                                                                                       |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| [`zerodeploy`](https://github.com/mittwald/cli-plugin-zerodeploy) | Build the application in the current directory and deploy it as a container (`mw zerodeploy run`) |
 
 > [!WARNING]
 >
@@ -125,8 +125,8 @@ brings everything it needs, regardless of how you installed it.
 Installed plugins are stored in the CLI's data directory (for example
 `~/.local/share/mw` on Linux and macOS), and are kept when you update the CLI.
 `mw update` also updates your installed plugins. If you installed the CLI with
-Homebrew, `brew upgrade mw` only updates the CLI itself; run
-`mw plugins update` to update your plugins as well.
+Homebrew, `brew upgrade mw` only updates the CLI itself; run `mw plugins update`
+to update your plugins as well.
 
 Containers started from the Docker image do not keep installed plugins between
 runs.

@@ -47,7 +47,9 @@ describe("isExitError", () => {
 
 describe("isErrorOfClass", () => {
   it("matches instances of the class", () => {
-    expect(isErrorOfClass(new NoTokenFoundError("token"), NoTokenFoundError)).toBe(true);
+    expect(
+      isErrorOfClass(new NoTokenFoundError("token"), NoTokenFoundError),
+    ).toBe(true);
   });
 
   it("matches instances of another copy of the class", () => {
@@ -61,14 +63,20 @@ describe("isErrorOfClass", () => {
   it("does not match instances of other classes", () => {
     expect(isErrorOfClass(new Error("failed"), NoTokenFoundError)).toBe(false);
     expect(
-      isErrorOfClass(new MissingArgError("project", "project-id"), MissingFlagError),
+      isErrorOfClass(
+        new MissingArgError("project", "project-id"),
+        MissingFlagError,
+      ),
     ).toBe(false);
   });
 
   it.each([
     [NoTokenFoundError, new NoTokenFoundError("token")],
     [InteractiveInputRequiredError, new InteractiveInputRequiredError()],
-    [UnexpectedShortIDPassedError, new UnexpectedShortIDPassedError("project", "p-XXXXXX")],
+    [
+      UnexpectedShortIDPassedError,
+      new UnexpectedShortIDPassedError("project", "p-XXXXXX"),
+    ],
     [MissingArgError, new MissingArgError("project", "project-id")],
     [MissingFlagError, new MissingFlagError("project", "project-id")],
   ])("is supported by %p, which sets its name", (cls, err) => {
