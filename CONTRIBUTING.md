@@ -78,7 +78,7 @@ $ ./bin/run.js plugins link ../path/to/plugin
 
 For a development environment for this CLI, you need:
 
-- Node.JS (>=22.0.0)
+- Node.JS (>=22.12.0)
 - Yarn
 - 7zip + NSIS (for Windows builds)
 - Docker (for building the Docker image) and

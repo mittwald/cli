@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/mittwald/cli/compare/v1.29.2...v1.30.0) (2026-11-24)
+
+
+### Features
+
+* **experimental-deploy:** allow skipping or fully overriding the domain ([#2247](https://github.com/mittwald/cli/issues/2247)) ([920233a](https://github.com/mittwald/cli/commit/920233ae43c336dd3c86b9853bbeaff990eca3a9))
+
 ## [1.29.2](https://github.com/mittwald/cli/compare/v1.29.1...v1.29.2) (2026-11-04)
 
 

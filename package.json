@@ -39,7 +39,7 @@
   },
   "types": "./dist/index.d.ts",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "clean": "(rimraf --glob dist tsconfig.*.tsbuildinfo) | true",
@@ -87,7 +87,7 @@
     "ink-text-input": "^6.0.0",
     "js-yaml": "^5.2.0",
     "marked": "^17.0.6",
-    "marked-terminal": "^7.3.1",
+    "marked-terminal": "^8.0.0",
     "open": "^11.0.0",
     "parse-duration": "^2.0.1",
     "pretty-bytes": "^7.0.0",
@@ -96,7 +96,7 @@
     "semver-parser": "^4.1.6",
     "shell-escape": "^0.2.0",
     "slice-ansi": "^10.0.0",
-    "string-width": "^8.0.0",
+    "string-width": "^9.0.0",
     "tempfile": "^6.0.1",
     "uuid": "^14.0.0"
   },
