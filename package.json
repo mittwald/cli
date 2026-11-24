@@ -18,6 +18,26 @@
     "mw": "bin/run.js"
   },
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./flags": {
+      "types": "./dist/api/flags.d.ts",
+      "default": "./dist/api/flags.js"
+    },
+    "./rendering": {
+      "types": "./dist/api/rendering.d.ts",
+      "default": "./dist/api/rendering.js"
+    },
+    "./resources": {
+      "types": "./dist/api/resources.d.ts",
+      "default": "./dist/api/resources.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=22.0.0"
   },
@@ -47,11 +67,11 @@
   ],
   "dependencies": {
     "@mittwald/api-client": "^4.400.0",
-    "@mittwald/container-deploy": "^2.0.1",
     "@mittwald/react-use-promise": "^2.6.0",
     "@oclif/core": "^5.1.11",
     "@oclif/plugin-autocomplete": "^4.0.6",
     "@oclif/plugin-help": "^7.0.6",
+    "@oclif/plugin-plugins": "^7.0.18",
     "@oclif/plugin-update": "^5.0.10",
     "@oclif/plugin-warn-if-update-available": "^4.0.5",
     "axios-retry": "^4.0.0",
@@ -275,16 +295,15 @@
       },
       "volume": {
         "description": "Manage volumes"
-      },
-      "experimental": {
-        "description": "Experimental features, which are not considered stable yet and might change without a major version bump"
       }
     },
+    "scope": "mittwald",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-update",
       "@oclif/plugin-warn-if-update-available",
-      "@oclif/plugin-autocomplete"
+      "@oclif/plugin-autocomplete",
+      "@oclif/plugin-plugins"
     ],
     "update": {
       "node": {

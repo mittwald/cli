@@ -25,6 +25,53 @@ Features that would (usually) not be added to the CLI:
 - Features that are obviously easier to use through the web interface (e.g.
   conversation or contract handling)
 
+### Core CLI or plugin?
+
+The CLI supports [oclif plugins](https://oclif.io/docs/plugins), which users
+install with `mw plugins install <name>`. Consider implementing a feature as a
+plugin instead of adding it to the CLI itself if it:
+
+- is still experimental, and its flags or behaviour are likely to change
+  incompatibly,
+- depends on additional local tooling (like Docker or a specific build tool), or
+- is only relevant for a small subset of users.
+
+Plugins maintained by mittwald are published in the `@mittwald` NPM scope as
+`@mittwald/plugin-<name>`; this naming scheme allows users to install them with
+the short name (`mw plugins install <name>`). See
+[mittwald/cli-plugin-zerodeploy](https://github.com/mittwald/cli-plugin-zerodeploy)
+for an example.
+
+Plugins may depend on `@mittwald/cli` and import its base commands, flags and
+rendering components from the following entry points:
+
+| Entry point               | Source                                         | Contents                                      |
+| ------------------------- | ---------------------------------------------- | --------------------------------------------- |
+| `@mittwald/cli`           | [`src/index.ts`](src/index.ts)                 | Base commands, common types, error handling   |
+| `@mittwald/cli/flags`     | [`src/api/flags.ts`](src/api/flags.ts)         | Project/org/server ID flags, wait flags, etc. |
+| `@mittwald/cli/rendering` | [`src/api/rendering.ts`](src/api/rendering.ts) | Process renderer and React (Ink) components   |
+| `@mittwald/cli/resources` | [`src/api/resources.ts`](src/api/resources.ts) | Helpers for API resources                     |
+
+```typescript
+import { ExecRenderBaseCommand } from "@mittwald/cli";
+import { projectFlags } from "@mittwald/cli/flags";
+import { Success } from "@mittwald/cli/rendering";
+```
+
+These entry points are the public API of the CLI for plugins; the `exports`
+field in `package.json` prevents imports of any other module. Their exports are
+covered by semantic versioning, so removing or incompatibly changing one is a
+breaking change. If a plugin needs something that is not exported yet, add it to
+the matching entry point.
+
+To develop a plugin against a local checkout of the CLI, link it into your
+development build:
+
+```shell
+$ yarn compile
+$ ./bin/run.js plugins link ../path/to/plugin
+```
+
 ## Developer's handbook
 
 ### Development environment

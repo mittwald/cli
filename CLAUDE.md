@@ -111,10 +111,14 @@ providers:
 - Provide examples using the `static examples` property when useful
 - Keep the command summary short; do not repeat the summary at the beginning of
   the description
-- Commands under `src/commands/experimental/` may change incompatibly (renamed
-  or removed flags, changed defaults or behaviour) without being treated as
-  breaking changes; do not mark such commits or PR titles as breaking (no `!`
-  and no `BREAKING CHANGE` footer)
+- Do not add experimental commands to the CLI itself; implement them as
+  separate oclif plugins instead (published as `@mittwald/plugin-<name>`, see
+  "Core CLI or plugin?" in `CONTRIBUTING.md`)
+- `src/index.ts` and `src/api/*.ts` are the public API for plugins (like
+  `@mittwald/plugin-zerodeploy`), and the only modules that the `exports` field
+  of `package.json` exposes. Removing or incompatibly changing one of their
+  exports is a breaking change; moving modules that they re-export is fine as
+  long as the re-exports are updated accordingly
 - Do not assume `ExecRenderBaseCommand` provides progress handling by itself; it
   executes first and then renders, so use dedicated process/progress rendering
   patterns when real-time progress output is required
