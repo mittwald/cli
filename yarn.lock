@@ -2041,7 +2041,7 @@ __metadata:
     semver-parser: ^4.1.6
     shell-escape: ^0.2.0
     slice-ansi: ^10.0.0
-    string-width: ^8.0.0
+    string-width: ^9.0.0
     tempfile: ^6.0.1
     ts-jest: ^29.2.5
     ts-node: ^10.9.2
@@ -5803,6 +5803,13 @@ __metadata:
   version: 1.5.0
   resolution: "get-east-asian-width@npm:1.5.0"
   checksum: 60bc34cd1e975055ab99f0f177e31bed3e516ff7cee9c536474383954a976abaa6b94a51d99ad158ef1e372790fa096cab7d07f166bb0778f6587954c0fbe946
+  languageName: node
+  linkType: hard
+
+"get-east-asian-width@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "get-east-asian-width@npm:1.7.0"
+  checksum: 9fb8cfb036c220a8cb974975a8bd6b728ae985cd49c4cc27504e46f9cdbf4e8d0f3dd3f8cda8ce62bc59f77eaf6f296ff39c1f9254f3dd665f8aa65f85d92840
   languageName: node
   linkType: hard
 
@@ -9623,13 +9630,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"string-width@npm:^8.0.0, string-width@npm:^8.1.0, string-width@npm:^8.2.0, string-width@npm:^8.3.0":
+"string-width@npm:^8.1.0, string-width@npm:^8.2.0, string-width@npm:^8.3.0":
   version: 8.3.0
   resolution: "string-width@npm:8.3.0"
   dependencies:
     get-east-asian-width: ^1.5.0
     strip-ansi: ^7.1.2
   checksum: cfe6b3c8387ca79048436a85a37b8df1917f7f0c3dd708db4cec097ee3b61a8c92e22538702b3af100d154b85113cae53c10f5c2efddbbcd7763df11c2e76970
+  languageName: node
+  linkType: hard
+
+"string-width@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "string-width@npm:9.0.0"
+  dependencies:
+    get-east-asian-width: ^1.7.0
+    strip-ansi: ^7.2.0
+  checksum: 08dbda2270e8f856ef6de9cc5a0b0ce686733594644f8cbf9e9092a4195e9c4e801a1411624d543cd1ba55a1dd104d0ca12f78d31db3b8836fed923e42536eba
   languageName: node
   linkType: hard
 
