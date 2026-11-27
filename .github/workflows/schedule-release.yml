@@ -19,7 +19,7 @@ jobs:
       # allowed to create v* tags, which start release.yml.
       - name: Create app token
         id: app
-        uses: actions/create-github-app-token@v3.3.0
+        uses: actions/create-github-app-token@v3.4.0
         with:
           client-id: ${{ secrets.RELEASE_APP_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
