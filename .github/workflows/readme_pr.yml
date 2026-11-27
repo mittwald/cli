@@ -95,7 +95,7 @@ jobs:
       - name: Create app token
         id: app
         if: steps.changes.outputs.changed == 'true'
-        uses: actions/create-github-app-token@v3.3.0
+        uses: actions/create-github-app-token@v3.4.0
         with:
           client-id: ${{ secrets.README_APP_CLIENT_ID }}
           private-key: ${{ secrets.README_APP_PRIVATE_KEY }}
